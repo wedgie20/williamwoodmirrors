@@ -1,0 +1,82 @@
+{% assign start = block.settings.start_time | date: "%s" %}
+{% assign end = block.settings.end_time | date: "%s" %}
+{% assign now = 'now' | date: "%s" %}
+
+{% if now >= start and now < end %}
+  <div class="countdown-banner">
+    <p class="countdown-label">{{ block.settings.label }}</p>
+    <div id="countdown-timer-{{ block.id }}" class="countdown-timer" data-end="{{ block.settings.end_time }}">
+      <span class="hours">00</span> :
+      <span class="minutes">00</span> :
+      <span class="seconds">00</span>
+    </div>
+  </div>
+{% endif %}
+
+<style>
+    .countdown-banner {
+      background-color: #efefef;
+    border-radius: 35px;
+  color: #000;
+  padding: 10px 10px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin-bottom: 0px;
+  margin-top: 5px;
+}
+
+.countdown-label {
+font-size: calc(var(--base-font-size) - 2px);
+    text-transform: capitalize;
+        font-family: var(--text-font-family);
+    letter-spacing: 0.5px;
+    margin-bottom: unset;
+}
+
+.countdown-timer {
+ font-size: calc(var(--base-font-size) - 2px);
+        font-family: var(--text-font-family);
+    font-weight: var(--text-font-bold-weight);
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+.countdown-label {
+    font-size: 11px;
+}
+.countdown-timer {
+    font-size: 11px;
+}
+
+}
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.countdown-timer').forEach(function (timer) {
+    const endTimeStr = timer.getAttribute('data-end');
+    const endTime = new Date(endTimeStr.replace(' ', 'T'));
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = endTime - now;
+
+      if (diff <= 0) {
+        timer.innerHTML = '00 : 00 : 00';
+        return;
+      }
+
+      const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
+      const minutes = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, '0');
+      const seconds = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
+
+      timer.querySelector('.hours').textContent = hours;
+      timer.querySelector('.minutes').textContent = minutes;
+      timer.querySelector('.seconds').textContent = seconds;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  });
+});
+</script>

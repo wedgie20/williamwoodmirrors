@@ -1,0 +1,74 @@
+ <div class="foursixty-section">
+
+  {% if section.settings.title != blank %}
+  <header class="section__header text-container">
+      <h2 class="heading heading--small">{{ section.settings.title | escape }}<br/>{{ section.settings.title2 | escape }}</h2>
+  </header>
+{% endif %}  
+  
+<div id="foursixty_gallery"
+        src="//foursixty.com/media/scripts/fs.slider.v2.5.js" 
+        data-feed-id="william-wood-designs_1" 
+        data-cell-size="25%"
+        data-theme="slider_v2_5" 
+        data-money-format="£<%= amount %>"
+        ></div>
+<script src="//foursixty.com/media/scripts/fs.combined.v2.6.js"></script>
+<script>window.Foursixty.Slider.create({targetSelector: "#foursixty_gallery"}).init()</script>
+   
+<style>
+.fs-has-links::after { padding: 15px 22.5px; background-color: #fff; color: rgba(0,0,0,0.8); content: "SHOP NOW"; }.fs-wrapper div.fs-text-container .fs-entry-title, div.fs-detail-title{font-family:Lato,sans-serif;font-style:italic;font-weight:normal;font-size:12px;}div.fs-text-container .fs-entry-date, div.fs-detail-container .fs-post-info, div.fs-wrapper div.fs-has-links::after, .fs-text-product, .fs-overlink-text{font-family:Lato,sans-serif;font-style:normal;font-weight:normal;font-size:14px;}.fs-wrapper div.fs-text-container * {color:#fff}.fs-wrapper div.fs-text-container {background-color:rgba(0,0,0,0.8); margin: 0px}div.fs-entry-date{display:none}div.fs-entry-title{display:none}.fs-wrapper div.fs-timeline-entry{ margin: 10px }
+ 
+.foursixty-section { padding-top: 30px; padding-bottom: 10px; text-align: center; } 
+.fs-post-info { font-size: 10px !important; }
+.fs-slider-next-button, .fs-slider-prev-button { opacity: 1 } .fs-wrapper { margin:auto; width: calc(100% - 120px) }  
+.fs-add-to-cart-enabled .fs-view a, .fs-add-to-cart-enabled .fs-view a:link { font-family:Lato,sans-serif;font-size: 12px;  font-weight: bold;}
+.fs-shopify-add-cart.fs-shopify-add-cart-container {  font-family:Lato,sans-serif;max-width: 110px; font-size: 11px; padding: 12px 15px; color: #fff }
+.fs-button-bar .fs-buy-button, .fs-option-label {font-family:Lato,sans-serif; font-size: 13px; color: #fff }
+
+.fs-wrapper div.fs-entry-container {
+      height: 0;
+      width: 33.3334%;
+      padding-top: 33.3334%;
+    }
+    .fs-slider-next-button {
+      z-index: 1 !important;
+    }
+@media only screen and (max-width: 768px) {
+        .fs-wrapper { width: auto;
+        }
+        .fs-timeline {
+          max-width: calc(100% - 60px);
+          margin: auto;
+        }
+        .fs-slider-next-button, .fs-slider-prev-button {
+          opacity: 1 !important;
+          min-width: 30px;
+          display: flex !important;
+        }
+        .fs-slider-next-button .fs-arrow, .fs-slider-prev-button .fs-arrow {
+          stroke: #000;
+          stroke-width: 2px;
+        }
+        .fs-wrapper div.fs-entry-container {
+          height: 0;
+          width: 50% !important;
+          padding-top: 50% !important;
+        }
+      }
+</style>
+  </div>                                                                                                          
+
+{% schema %}
+{
+  "name": "Foursixty",
+  "settings": [{ "type": "text", "id": "title", "default": "FOLLOW @WILLIAMWOOD VIA INSTAGRAM AND JOIN OUR", "label": "Title" },
+               { "type": "text", "id": "title2", "default": "COMMUNITY OF OVER 550,000", "label": "Title Line 2" }],
+  "presets": [
+    {
+      "name": "Foursixty Front Page Gallery",
+      "category": "Foursixty"
+    }
+  ]
+}
+{% endschema %}

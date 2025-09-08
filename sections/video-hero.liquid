@@ -1,0 +1,815 @@
+{% comment %}
+  Video Hero Section
+  Add this as a new section file in your theme: sections/video-hero.liquid
+{% endcomment %}
+
+<style>
+  .h1, .rte h1 {
+        margin: 48px 0 32px;
+    }
+
+   .heading--small, .rte .heading--small {
+    /* margin: 16px 0; */
+}
+
+  .video-controls {
+    display: none !important;
+  }
+
+  @media (max-width: 748px){
+    .shop-now-summer {
+      display: grid
+    }
+  }
+
+  .shop-now-summer button {
+    background: white;
+    color: black;
+    transition: background-color 0.3s ease, color 0.3s ease;
+        margin: 0px 18px;
+  }
+
+  .shop-now-summer button:hover {
+    background-color: #efefef !important;
+  }
+  </style
+
+
+{{ 'video-hero.css' | asset_url | stylesheet_tag }}
+
+<div class="video-hero-section" id="video-hero-{{ section.id }}">
+  <div class="video-hero-container">
+    {% if section.settings.desktop_video != blank or section.settings.mobile_video != blank %}
+      <div class="video-wrapper">
+        <!-- Desktop Video -->
+        {% if section.settings.desktop_video != blank %}
+          <video 
+            class="hero-video hero-video--desktop"
+            {% if section.settings.autoplay %}autoplay{% endif %}
+            {% if section.settings.loop %}loop{% endif %}
+            muted
+            playsinline
+            preload="auto"
+            poster="{% if section.settings.desktop_poster %}{{ settings.speedsize_url_pfx_https -}}{{ section.settings.desktop_poster | image_url }}{% endif %}"
+            data-video-id="desktop-{{ section.id }}"
+          >
+            <source src="{{ section.settings.desktop_video.sources[1].url | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        {% endif %}
+
+        <!-- Mobile Video -->
+        {% if section.settings.mobile_video != blank %}
+          <video 
+            class="hero-video hero-video--mobile"
+            {% if section.settings.autoplay %}autoplay{% endif %}
+            {% if section.settings.loop %}loop{% endif %}
+            muted
+            playsinline
+            preload="auto"
+            poster="{% if section.settings.mobile_poster %}{{ settings.speedsize_url_pfx_https -}}{{ section.settings.mobile_poster | image_url }}{% endif %}"
+            data-video-id="mobile-{{ section.id }}"
+          >
+            <source src="{{ section.settings.mobile_video.sources[1].url | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        {% elsif section.settings.desktop_video != blank %}
+          <!-- Fallback: Use desktop video on mobile if no mobile video is set -->
+          <video 
+            class="hero-video hero-video--mobile"
+            {% if section.settings.autoplay %}autoplay{% endif %}
+            {% if section.settings.loop %}loop{% endif %}
+            muted
+            playsinline
+            preload="auto"
+            poster="{% if section.settings.desktop_poster %}{{ settings.speedsize_url_pfx_https -}}{{ section.settings.desktop_poster | image_url }}{% endif %}"
+            data-video-id="mobile-fallback-{{ section.id }}"
+          >
+            <source src="{{ section.settings.desktop_video.sources[1].url | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        {% endif %}
+
+        <!-- Video Controls -->
+  {% comment %}
+        {% unless section.settings.hide_controls %}
+          <div class="video-controls">
+            <button class="video-play-pause" aria-label="Play/Pause video">
+              <svg class="play-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M8 5v14l11-7z" fill="currentColor"/>
+              </svg>
+              <svg class="pause-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="currentColor"/>
+              </svg>
+            </button>
+            <div class="volume-control">
+              <button class="volume-toggle" aria-label="Toggle mute">
+              <svg class="volume-on-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1 3.29-2.5 4.03V8.97c1.5.74 2.5 2.26 2.5 4.03zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77 0-4.28-2.99-7.86-7-8.77z" fill="currentColor"/>
+              </svg>
+              <svg class="volume-off-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+                <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" fill="currentColor"/>
+              </svg>
+              </button>
+              <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="0.5">
+            </div>
+          </div>
+        {% endunless %}
+      {% endcomment %}
+      </div>
+    {% endif %}
+
+    <!-- Content Overlay -->
+    {% if section.blocks.size > 0 and section.settings.show_content %}
+      <div class="video-hero-content">
+        <div class="video-hero-content-inner">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'heading' %}
+                {% if section.settings.show_heading %}
+                  <{{ block.settings.heading_size }} class="video-hero-heading" {{ block.shopify_attributes }}>
+                    {{ block.settings.heading | escape }}
+                  </{{ block.settings.heading_size }}>
+                {% endif %}
+              
+              {% when 'text' %}
+                {% if section.settings.show_text %}
+                  <div class="video-hero-text" {{ block.shopify_attributes }}>
+                    {{ block.settings.text | escape }}
+                  </div>
+                {% endif %}
+
+
+          
+
+                    
+            <div class="MobileDown">
+                    <div class="heading heading--small"></div>
+  <div class="heading heading--small"></div>
+    <style>
+      </style>
+
+
+
+<div class="tp-desktop heading--small" style="text-align: center; margin-bottom: 0.5rem; margin-top: 1rem;">
+                    <img style="display: inline-block; vertical-align: middle; width: 60px; margin-right: 8px; margin-bottom: 0px !important; margin-top: 0px;" src="https://cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.avif?v=1749215562" alt="Trustpilot rating">
+                    <span style="display: inline-block; vertical-align: middle; color: white; text-transform: capitalize; font-weight: 400; font-size: 13px !important;">4.7 / 5 Excellent | 9,500+ reviews</span>
+                  </div>
+
+<span class="heading h1 slideshow_txt" style="margin-top: 0; font-size: 25px; color: white;"><b>Summer Event <span style="font-family: altesse-std-24pt; text-transform: lowercase; font-size: 34px; font-weight: 300;"><br>Up To 50% Off</span>{% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %}<br></b>{% endunless %}</span>
+
+                    {% comment %}
+<span class="heading h1 slideshow_txt tp-desktop" style="margin-top: 0; margin-bottom: 5px; font-size: 25px;">24% Off</span>
+                    <span class="heading heading--small slideshow_txt tp-desktop" style="margin-top: 0; margin-bottom: 0;">CODE</span>
+                    <span class="heading h1 slideshow_txt tp-desktop" style="margin-top: 5px; font-size: 30px;">ES24</span>
+                    {% endcomment %}
+                  
+                                                        <span class="tp-desktop" style="color: white; margin-bottom: 2rem; font-size: 13px">We help you create a space you’re proud to come home to, <br>every single day. {% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %} {% endunless %}</span>
+
+              
+                  
+  <span class="heading heading--small tp-mobile" style="display: block; vertical-align: middle; color: white; font-weight: initial; text-transform: capitalize; margin-bottom:25px; font-size: 13px;">Join Over 700,000+ Satisfied Customers</span>
+
+
+<div class="button-row-mobile" style="text-align: center; white-space: nowrap;">
+  <!-- <a href="https://www.williamwoodmirrors.co.uk/collections/best-sellers?utm_source=hp" style="margin-right: 12px;">
+    <button class="button button--primary slideshow_txt" style="display: inline-flex; align-items: center; justify-content: center; transform: translateY(10px); gap: 6px;">
+      <span style="white-space: nowrap;">MOST LOVED</span>
+    </button>
+  </a> -->
+  <a href="https://www.williamwoodmirrors.co.uk/collections/spring-sale?utm_source=hp" class="shop-now-summer">
+    <button class="button button--primary slideshow_txt clearance-text" style="display: inline-flex; align-items: center; justify-content: center; transform: translateY(10px); gap: 6px;">
+      <span style="white-space: nowrap; width: 100%;">SHOP UP TO 50% OFF</span>
+    </button>
+  </a>
+        <div style="margin-top: 2rem;">
+                    {% render 'rotating-reviews' %}
+        </div>
+
+</div>
+                   
+</div>
+
+                    
+              {% when 'button' %}
+                {% if block.settings.button_label != blank and section.settings.show_button %}
+                  <div class="video-hero-button" {{ block.shopify_attributes }}>
+                    <a href="{{ block.settings.button_link }}" class="btn btn--{{ block.settings.button_style }} ">
+                      {{ block.settings.button_label | escape }}
+                    </a>
+                  </div>
+                {% endif %}
+            {% endcase %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+/* Hero Video CSS */
+
+
+.video-hero-section {
+    position: relative;
+    width: 100%;
+    height: {{ section.settings.section_height }}vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .video-hero-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .video-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero-video--mobile {
+    display: none;
+  }
+
+  .video-controls {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2;
+    display: none;
+  }
+
+  .video-play-pause {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .video-play-pause:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .video-hero-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    
+  }
+
+  .video-hero-content-inner {
+    text-align: center;
+    color: {{ section.settings.text_color }};
+    max-width: 800px;
+    padding: 0 20px;
+  }
+
+  .video-hero-heading {
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  .video-hero-text {
+    margin-bottom: 30px;
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+
+  .btn--primary {
+    background-color: {{ section.settings.button_color }};
+    color: white;
+  }
+
+  .btn--secondary {
+    background-color: transparent;
+    color: {{ section.settings.button_color }};
+    border: 2px solid {{ section.settings.button_color }};
+  }
+
+  .btn:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+  }
+
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .hero-video--desktop {
+      display: none;
+    }
+    
+    .hero-video--mobile {
+      display: block;
+    }
+    
+    .video-hero-section {
+      height: {{ section.settings.mobile_section_height }}vh;
+    }
+    
+    .video-hero-heading {
+      font-size: 1.8rem;
+    }
+    
+    .video-hero-text {
+      font-size: 1rem;
+    }
+  }
+
+  .volume-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 15px;
+}
+
+.volume-toggle {
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.volume-toggle:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.volume-slider {
+  width: 80px;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.7);
+  outline: none;
+  border-radius: 2px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.volume-slider::-webkit-slider-track {
+  background: rgba(0, 0, 0, 0.7);
+  height: 4px;
+  border-radius: 2px;
+}
+
+.volume-slider::-moz-range-track {
+  background: rgba(0, 0, 0, 0.7);
+  height: 4px;
+  border-radius: 2px;
+  border: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+  
+</style>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const section = document.getElementById('video-hero-{{ section.id }}');
+  const videos = section.querySelectorAll('.hero-video');
+  const playPauseBtn = section.querySelector('.video-play-pause');
+  const playIcon = section.querySelector('.play-icon');
+  const pauseIcon = section.querySelector('.pause-icon');
+  const volumeToggle = section.querySelector('.volume-toggle');
+  const volumeOnIcon = section.querySelector('.volume-on-icon');
+  const volumeOffIcon = section.querySelector('.volume-off-icon');
+  const volumeSlider = section.querySelector('.volume-slider');
+  
+  let currentVideo = null;
+  let hasUserInteracted = false;
+  
+  // Determine which video to use based on screen size
+  function getCurrentVideo() {
+    const desktopVideo = section.querySelector('.hero-video--desktop');
+    const mobileVideo = section.querySelector('.hero-video--mobile');
+    
+    if (window.innerWidth <= 768) {
+      return mobileVideo || desktopVideo;
+    } else {
+      return desktopVideo || mobileVideo;
+    }
+  }
+  
+  // Update current video reference
+  function updateCurrentVideo() {
+    const previousVideo = currentVideo;
+    currentVideo = getCurrentVideo();
+    
+    if (currentVideo && volumeSlider) {
+      currentVideo.volume = volumeSlider.value;
+      
+      // Apply user interaction state to new video
+      if (hasUserInteracted && !{{ section.settings.start_muted | json }}) {
+        currentVideo.muted = false;
+      }
+      
+      updateVolumeButton();
+    }
+  }
+  
+  // Update play/pause button state
+  function updatePlayPauseButton() {
+    if (!currentVideo || !playPauseBtn) return;
+    
+    if (currentVideo.paused) {
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+    } else {
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = 'block';
+    }
+  }
+  
+  // Update volume button state
+  function updateVolumeButton() {
+    if (!currentVideo || !volumeToggle) return;
+    
+    if (currentVideo.muted || currentVideo.volume === 0) {
+      volumeOnIcon.style.display = 'none';
+      volumeOffIcon.style.display = 'block';
+    } else {
+      volumeOnIcon.style.display = 'block';
+      volumeOffIcon.style.display = 'none';
+    }
+  }
+  
+  // Enable audio on first user interaction
+  function enableAudioOnFirstInteraction() {
+    if (!{{ section.settings.start_muted | json }}) {
+      hasUserInteracted = true;
+      if (currentVideo) {
+        currentVideo.muted = false;
+        updateVolumeButton();
+      }
+    }
+  }
+  
+  // Initialize
+  updateCurrentVideo();
+  updatePlayPauseButton();
+  
+  // Play/Pause button functionality
+  if (playPauseBtn) {
+    playPauseBtn.addEventListener('click', function() {
+      enableAudioOnFirstInteraction();
+      
+      if (currentVideo && currentVideo.paused) {
+        currentVideo.play();
+      } else if (currentVideo) {
+        currentVideo.pause();
+      }
+      updatePlayPauseButton();
+    });
+  }
+  
+  // Volume toggle functionality
+  if (volumeToggle) {
+    volumeToggle.addEventListener('click', function() {
+      hasUserInteracted = true;
+      if (currentVideo) {
+        currentVideo.muted = !currentVideo.muted;
+        updateVolumeButton();
+      }
+    });
+  }
+  
+  // Volume slider functionality
+  if (volumeSlider) {
+    volumeSlider.addEventListener('input', function() {
+      hasUserInteracted = true;
+      if (currentVideo) {
+        currentVideo.volume = this.value;
+        currentVideo.muted = false;
+        updateVolumeButton();
+      }
+    });
+  }
+
+  // Click anywhere on video to play/pause
+  videos.forEach(video => {
+    video.addEventListener('click', function() {
+      enableAudioOnFirstInteraction();
+      
+      if (this.paused) {
+        this.play();
+      } else {
+        this.pause();
+      }
+      updatePlayPauseButton();
+    });
+    
+    // Add cursor pointer to indicate clickable
+    video.style.cursor = 'pointer';
+  });
+  
+  // Intersection Observer for auto-pause on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (currentVideo) {
+        if (entry.isIntersecting) {
+          // Video is visible - play if it was playing before
+          if (currentVideo.hasAttribute('data-was-playing')) {
+            currentVideo.play();
+            currentVideo.removeAttribute('data-was-playing');
+          }
+        } else {
+          // Video is not visible - pause and remember state
+          if (!currentVideo.paused) {
+            currentVideo.setAttribute('data-was-playing', 'true');
+            currentVideo.pause();
+          }
+        }
+        updatePlayPauseButton();
+      }
+    });
+  }, {
+    threshold: 0.5 // Trigger when 50% of the video is visible
+  });
+
+  // Start observing the video section
+  observer.observe(section);
+  
+  // Update video on resize
+  window.addEventListener('resize', function() {
+    updateCurrentVideo();
+    updatePlayPauseButton();
+  });
+  
+  // Update button states when video plays/pauses
+  videos.forEach(video => {
+    video.addEventListener('play', updatePlayPauseButton);
+    video.addEventListener('pause', updatePlayPauseButton);
+    video.addEventListener('volumechange', updateVolumeButton);
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Video Hero",
+  "tag": "section",
+  "class": "video-hero-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Video Settings"
+    },
+    {
+      "type": "video",
+      "id": "desktop_video",
+      "label": "Desktop Video",
+      "info": "Upload a video file for desktop display"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_poster",
+      "label": "Desktop Video Poster Image"
+    },
+    {
+      "type": "video",
+      "id": "mobile_video",
+      "label": "Mobile Video (Optional)",
+      "info": "Upload a video file for mobile display. If empty, desktop video will be used."
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_poster",
+      "label": "Mobile Video Poster Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay video",
+      "default": true,
+      "info": "Videos must be muted to autoplay in most browsers"
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Loop video",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_controls",
+      "label": "Hide video controls",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Content Display Options"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_content",
+      "label": "Show content overlay",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show heading",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_text",
+      "label": "Show text",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show button",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "label": "Desktop section height",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "mobile_section_height",
+      "min": 40,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "label": "Mobile section height",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Content Overlay"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "#000000"
+    },
+    {
+      "type": "checkbox",
+      "id": "start_muted",
+      "label": "Keep video muted",
+      "default": false,
+      "info": "If autoplay is enabled, video will start muted regardless of this setting"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "Heading",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Your Video Title"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading size",
+          "options": [
+            {"value": "h1", "label": "Large"},
+            {"value": "h2", "label": "Medium"},
+            {"value": "h3", "label": "Small"}
+          ],
+          "default": "h1"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Add your description here"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "options": [
+            {"value": "primary", "label": "Primary"},
+            {"value": "secondary", "label": "Secondary"}
+          ],
+          "default": "primary"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Hero",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "button"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

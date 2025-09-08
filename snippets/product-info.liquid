@@ -1,0 +1,941 @@
+{%- capture product_form_id -%}product-form-{{ section.id }}-{{ product.id }}{%- endcapture -%}
+
+<div class="product__info">
+  <!-- PRODUCT META -->
+  <product-meta form-id="{{ product_form_id }}" price-class="price--large" class="product-meta">
+    {%- if section.settings.show_vendor -%}
+      <h2 class="product-meta__vendor heading heading--small">
+        {%- assign vendor_handle = product.vendor | handle -%}
+        {%- assign vendor_collection = collections[vendor_handle] -%}
+
+        {%- if vendor_collection != blank -%}
+          <a href="{{ vendor_collection.url  }}">{{ product.vendor }}</a>
+        {%- else -%}
+          <a href="{{ product.vendor | url_for_vendor  }}">{{ product.vendor }}</a>
+        {%- endif -%}
+      </h2>
+    {%- endif -%}
+    <div class="OTTP" style="display: flex; align-items: center; gap: 8px; white-space: nowrap;">
+    <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.png?v=1741099146" style="height: 12px;">
+    <span style="white-space: nowrap;">4.7 / 5 Excellent • Based on 10,000+ Reviews</span>
+    <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_Logo__2022__svg.webp?v=1741089163" style="height: 12px;">
+</div>
+<style>
+@media screen and (min-width: 741px) {
+  .OTTP {
+  margin-top: 25px;
+}
+}
+  </style>
+
+    {% assign currency_code = localization.country.currency.iso_code %}
+{% assign country_code = localization.country.iso_code %}
+<div class="swipe-container-wrapper">
+    <button class="nav-arrow left-arrow">&#10094;</button>
+    <div class="swipe-container" id="swipeContainer">
+        <div class="swipe-content">
+
+        {% if product.tags contains "__label:20000+ SOLD" %}
+        <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/20_000.png?v=1752567987" alt="Over 19,000 Sold">
+        {% elsif product.tags contains "__label:15000+ SOLD" %}
+        <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/15_000_42a56474-d149-42da-971d-252b4c188e75.png?v=1746626053" alt="Over 15,000 Sold">
+        {% elsif product.tags contains "__label:12000+ SOLD" %}
+        <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/12_000_cc0bcfb3-591f-4b07-96c5-f53d60bffbe3.png?v=1746626053" alt="Over 12,000 Sold">        
+        {% elsif product.tags contains "__label:10000+ SOLD" %}
+        <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/10_000_1_cc29486a-1514-417f-ac43-fb0d9f6898c3.png?v=1746626053" alt="Over 10,000 Sold">       
+        {% elsif product.tags contains "__label:7000+ SOLD" %}
+        <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/7000_1_c6835b1f-646a-4145-96c6-a1ddf8e32f9b.png?v=1746626053" alt="Over 7,000 Sold">
+        {% elsif product.tags contains "__label:5000+ SOLD" %}
+        <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/5000_c883a634-0d2a-4ce2-9547-1e7e42db2da0.png?v=1746626053" alt="Over 5,000 Sold">
+        {% elsif product.tags contains "__label:4000+ SOLD" %}
+        <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/4000_932f58d4-4576-4227-9a96-5189fcad4229.png?v=1746626053" alt="Over 4,000 Sold">
+        {% elsif product.tags contains "__label:3000+ SOLD" %}
+        <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/3000.png?v=1746626053" alt="Over 3,000 Sold">
+        {% elsif product.tags contains "__label:2500+ SOLD" %}
+        <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/2500.png?v=1746626053" alt="Over 2,500 Sold">
+        {% elsif product.tags contains "__label:2000+ SOLD" %}
+        <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/2000_21b7f975-fe31-4263-b32f-1a7e668e3144.png?v=1747735162" alt="Over 2,000 Sold">
+        {% elsif product.tags contains "__label:2000+ SOLD" %}
+        <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/1000_3c8cb35b-04e2-419c-a6bd-0d17cd54f250.png?v=1747735206" alt="Over 1,000 Sold">
+          
+        {% endif %}
+        
+            <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Free_Returns.png?v=1741268037" alt="Free Returns">
+            <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Premium.png?v=1741268038" alt="Premium Quality">
+            <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Satisfied_Customers_V2.png?v=1749719432" alt="Satisfied Customers">
+            {% if product.type == 'Mirror' %}<img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Crystal_Clear.png?v=1744637324" alt="Crystal Clear, Warp-Free Reflection">{% endif %}
+            
+          
+
+{% if currency_code == 'EUR' and country_code == 'BE' %}
+  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Insured_Delivery_Belgium.png?v=1754980228" alt="Free Delivery Belgium">
+{% elsif currency_code == 'EUR' and country_code == 'FR' %}
+  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Insured_Delivery_France.png?v=1754980227" alt="Livraison Gratuite France">
+{% elsif currency_code == 'EUR' and country_code == 'DE' %}
+  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Insured_Delivery_Germany.png?v=1754980227" alt="Kostenlose Lieferung Deutschland">
+{% elsif currency_code == 'EUR' and country_code == 'NL' %}
+  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Insured_Delivery_netherlands.png?v=1754980227" alt="Free Delivery Netherlands">
+{% else %}
+  <!-- Default image for other currencies or countries -->
+  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Free_Delivery_91d7d2fd-e98a-4d9f-9b1f-89f16f38bf97.png?v=1741268037" alt="Free Delivery">
+{% endif %}
+
+            {% comment %} <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Reviews_1.png?v=1744615763" alt="Reviews"> {% endcomment %}
+
+            <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Reviews_07d60898-19df-4cd6-8bf9-0ecfffa03674.png?v=1756817902" alt="Reviews">
+
+
+            
+          <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Warranty_-_5_yrs.png?v=1749719431" alt="Warranty">
+        
+        </div>
+    </div>
+    <button class="nav-arrow right-arrow">&#10095;</button>
+</div>
+
+<div class="dots-container" id="dotsContainer"></div>
+
+<style>
+.swipe-container-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transform: translateY(10px);
+}
+
+
+.swipe-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    display: flex;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    scroll-behavior: smooth;
+    width: 100%;
+}
+
+.swipe-container::-webkit-scrollbar {
+    display: none;
+}
+
+.swipe-content {
+    display: flex;
+    gap: 10px;
+}
+
+.swipe-content img {
+    height: 26px;
+    width: auto;
+    flex-shrink: 0;
+}
+
+.dots-container {
+    display: flex;
+    gap: 5px;
+    margin-top: 20px;
+    justify-content: center; 
+    width: 100%;
+}
+
+.dot {
+    width: 4px;
+    height: 4px;
+    background-color: lightgray;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.dot.active {
+    background-color: black;
+}
+
+
+@media screen and (min-width: 741px) {
+    .swipe-container {
+        max-width: 50vw;
+        overflow: hidden;
+    }
+
+    .dot {
+        display: none;
+    }
+
+    .nav-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 30px;
+        color: black;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background 0.3s;
+    }
+
+    .nav-arrow:hover {
+    }
+
+    .left-arrow {
+        left: -35px;
+    }
+
+    .right-arrow {
+        right: -35px;
+    }
+}
+
+@media screen and (max-width: 740px) {
+    .nav-arrow {
+        display: none !important;
+    }
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const swipeContainer = document.getElementById("swipeContainer");
+    const dotsContainer = document.getElementById("dotsContainer");
+    const images = document.querySelectorAll(".swipe-content img");
+    const leftArrow = document.querySelector(".left-arrow");
+    const rightArrow = document.querySelector(".right-arrow");
+
+    images.forEach((_, index) => {
+        const dot = document.createElement("div");
+        dot.classList.add("dot");
+        if (index === 0) dot.classList.add("active");
+        dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll(".dot");
+
+    function updateDots() {
+        let scrollLeft = swipeContainer.scrollLeft;
+        let containerWidth = swipeContainer.offsetWidth;
+        let totalWidth = swipeContainer.scrollWidth;
+        let imageWidth = images[0].offsetWidth + 10;
+        
+        let index = Math.round(scrollLeft / imageWidth);
+        const maxIndex = dots.length - 1;
+
+        if (scrollLeft + containerWidth >= totalWidth) {
+            index = maxIndex;
+        } else {
+            index = Math.min(index, maxIndex);
+        }
+
+        dots.forEach(dot => dot.classList.remove("active"));
+        dots[index].classList.add("active");
+
+        if (window.innerWidth >= 741) {
+            leftArrow.style.display = scrollLeft > 0 ? "flex" : "none";
+            rightArrow.style.display = (scrollLeft + containerWidth) < totalWidth ? "flex" : "none";
+        }
+    }
+
+    swipeContainer.addEventListener("scroll", updateDots);
+
+    function scrollLeft() {
+        swipeContainer.scrollBy({ left: -105, behavior: 'smooth' });
+    }
+
+    function scrollRight() {
+        swipeContainer.scrollBy({ left: 105, behavior: 'smooth' });
+    }
+
+    leftArrow.addEventListener("click", scrollLeft);
+    rightArrow.addEventListener("click", scrollRight);
+
+    updateDots();
+});
+</script>
+
+  {% unless featured %}
+
+  
+  
+  {% unless product.title contains "Ella Grande" or product.title contains "Corylus Branch" or product.title contains "Arcurva Noir" or product.title contains "Wabi-Sabi" %}
+  {% assign title_words = product.title | split: ' ' %}
+  {% assign first_word = title_words[0] | replace: '-', '' %}
+  {% assign remove_first_word = first_word %}
+  {% elsif product.title contains "Ella Grande" %}
+  {% assign title_words = product.title | split: ' ' %}
+  {% assign first_word = title_words[0] | append: '&nbsp' | append: title_words[1] | replace: '-', '' %}
+  {% assign remove_first_word = 'Ella Grande' %}
+  {% elsif product.title contains "Corylus Branch" %}
+  {% assign title_words = product.title | split: ' ' %}
+  {% assign first_word = title_words[0] | append: '&nbsp' | append: title_words[1] | replace: '-', '' %}
+  {% assign remove_first_word = 'Corylus Branch' %}
+  {% elsif product.title contains "Arcurva Noir" %}
+  {% assign title_words = product.title | split: ' ' %}
+  {% assign first_word = title_words[0] | append: '&nbsp' | append: title_words[1] | replace: '-', '' %}
+  {% assign remove_first_word = 'Arcurva Noir' %}
+  {% elsif product.title contains "Wabi-Sabi" %}
+  {% assign title_words = product.title | split: ' ' %}
+  {% assign first_word = title_words[0] | append: '&nbsp' | append: title_words[1] | replace: '&nbsp-', '' %}
+  {% assign remove_first_word = 'WabiSabi' %}
+  {% endunless %}
+
+    {% unless product.title contains "E-Gift Card" %}
+      
+<div style="" class="product-title-price">
+  <h1 class="product-meta__title heading h3" style="margin-top: none !important; padding-top: none !important; transform: translateY(-5px);">
+    <b>
+      <p class="cardo_title" style="text-transform: capitalize !important; font-size: 30px;">{{ first_word }}</p>
+    </b>
+    <p style="font-size: 13px; margin-top: 4px !important; text-transform: capitalize !important; font-family: zurich; font-weight: bold !important;">{{ title_words | join: ' ' | remove: '-' | remove: remove_first_word }}</p>
+  </h1>
+  
+  <div class="product-meta__price-list-container" role="region" aria-live="polite">
+    {%- if product.tags contains 'sale' -%}
+        <p style="color: #780606; margin-top: 12px !important; margin-bottom: 0px !important; font-weight: 700;">End of Season Sale Exclusive </p>
+        {%- endif -%}
+      <div class="price-list price-list-update" data-product-price-list>
+        {%- if product.selected_or_first_available_variant.compare_at_price
+            > product.selected_or_first_available_variant.price
+        -%}
+          <span class="price price--highlight price--large">
+            <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+
+            {%- if settings.currency_code_enabled -%}
+              {{- product.selected_or_first_available_variant.price | money_with_currency -}}
+            {%- else -%}
+              {{- product.selected_or_first_available_variant.price | money -}}
+            {%- endif -%}
+          </span>
+
+          <span class="price price--compare">
+            <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
+
+            {%- if settings.currency_code_enabled -%}
+              {{- product.selected_or_first_available_variant.compare_at_price | money_with_currency -}}
+            {%- else -%}
+              {{- product.selected_or_first_available_variant.compare_at_price | money -}}
+            {%- endif -%}
+          </span>
+        
+        {%- assign savings = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price -%}
+        {%- if savings > 0 -%}
+          <span class="label label--highlight">
+            Save {% if settings.currency_code_enabled %}{{ savings | money_with_currency }}{% else %}{{ savings | money }}{% endif %}
+          </span>
+        {%- endif -%}
+          
+        {%- else -%}
+          <span class="price price--large">
+            <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+            {%- if settings.currency_code_enabled -%}
+              {{- product.selected_or_first_available_variant.price | money_with_currency -}}
+            {%- else -%}
+              {{- product.selected_or_first_available_variant.price | money -}}
+            {%- endif -%}
+          </span>
+        {%- endif -%}
+
+        {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
+          <div class="price text--subdued">
+            <div class="unit-price-measurement">
+              <span class="unit-price-measurement__price">
+                {{- product.selected_or_first_available_variant.unit_price | money -}}
+              </span>
+              <span class="unit-price-measurement__separator">/</span>
+
+              {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value != 1 -%}
+                <span class="unit-price-measurement__reference-value">
+                  {{- product.selected_or_first_available_variant.unit_price_measurement.reference_value -}}
+                </span>
+              {%- endif -%}
+
+              <span class="unit-price-measurement__reference-unit">
+                {{- product.selected_or_first_available_variant.unit_price_measurement.reference_unit -}}
+              </span>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+
+
+      {% comment %}
+        <div class="product-meta__label-list label-list" data-product-label-list>
+          {%- unless product.selected_or_first_available_variant.available -%}
+            <span class="label label--subdued">{{ 'collection.product.sold_out' | t }}</span>
+          {%- elsif product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
+            {%- if settings.discount_mode == 'percentage' -%}
+              {%- assign savings = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price | times: 100.0 | divided_by: product.selected_or_first_available_variant.compare_at_price | round | append: '%' -%}
+            {%- else -%}
+              {%- capture savings -%}{{ product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price | money }}{%- endcapture -%}
+            {%- endif -%}
+
+            <span class="label label--highlight">{{ 'collection.product.discount_html' | t: savings: savings }}</span>
+          {%- endunless -%}
+        </div>
+      {% endcomment %}
+    </div>
+</div>
+
+<div class="in-house" style="display: flex;">
+  <p style="font-family: altesse-std-24pt; text-transform: lowercase; font-size: 20px; font-weight: 300; margin-bottom: 0px;">Designed in-house by </p>
+  <div class="" style="margin-top: 12px; margin-left: 5px;">
+    <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_LogosPackage_v1.0-07_06990ab2-9d06-4c80-846f-de0d7c989d0c.png?v=1717584248" alt="William Wood Logo" height="100px" width="100px">
+  </div>
+</div>
+
+
+  {% comment %} <h1 class="product-meta__title heading h3" style="margin-top: none !important; padding-top: none !important; transform: translateY(-5px);"><b><p class="cardo_title" style="text-transform: capitalize !important; font-size: 30px;">{{ first_word }}</p></b><p style="font-size: 13px; margin-top: 4px !important; text-transform: capitalize !important; font-family: zurich; font-weight: bold !important;">{{ title_words | join: ' ' | remove: '-' | remove: remove_first_word }}</p></h1> {% endcomment %}
+      {% else %}
+  <h1 class="product-meta__title heading h3" style="margin-top: none !important; padding-top: none !important; transform: translateY(-5px);"><b>E-Gift Card</b></h1>
+    {% endunless %}
+    {% else %}
+      <h2 class="product-meta__title heading h3">
+        <a href="{{ product.url  }}">{{ product.title }}</a>
+      </h2>
+    {% endunless %}
+     
+
+    {% comment %} <div class="product-meta__price-list-container" role="region" aria-live="polite">
+      <div class="price-list price-list-update" data-product-price-list>
+        {%- if product.selected_or_first_available_variant.compare_at_price
+            > product.selected_or_first_available_variant.price
+        -%}
+          <span class="price price--highlight price--large">
+            <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+
+            {%- if settings.currency_code_enabled -%}
+              {{- product.selected_or_first_available_variant.price | money_with_currency -}}
+            {%- else -%}
+              {{- product.selected_or_first_available_variant.price | money -}}
+            {%- endif -%}
+          </span>
+
+          <span class="price price--compare">
+            <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
+
+            {%- if settings.currency_code_enabled -%}
+              {{- product.selected_or_first_available_variant.compare_at_price | money_with_currency -}}
+            {%- else -%}
+              {{- product.selected_or_first_available_variant.compare_at_price | money -}}
+            {%- endif -%}
+          </span>
+        
+        {%- assign savings = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price -%}
+        {%- if savings > 0 -%}
+          <span class="label label--highlight">
+            Save {% if settings.currency_code_enabled %}{{ savings | money_with_currency }}{% else %}{{ savings | money }}{% endif %}
+          </span>
+        {%- endif -%}
+          
+        {%- else -%}
+          <span class="price price--large">
+            <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+            {%- if settings.currency_code_enabled -%}
+              {{- product.selected_or_first_available_variant.price | money_with_currency -}}
+            {%- else -%}
+              {{- product.selected_or_first_available_variant.price | money -}}
+            {%- endif -%}
+          </span>
+        {%- endif -%}
+
+        {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
+          <div class="price text--subdued">
+            <div class="unit-price-measurement">
+              <span class="unit-price-measurement__price">
+                {{- product.selected_or_first_available_variant.unit_price | money -}}
+              </span>
+              <span class="unit-price-measurement__separator">/</span>
+
+              {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value != 1 -%}
+                <span class="unit-price-measurement__reference-value">
+                  {{- product.selected_or_first_available_variant.unit_price_measurement.reference_value -}}
+                </span>
+              {%- endif -%}
+
+              <span class="unit-price-measurement__reference-unit">
+                {{- product.selected_or_first_available_variant.unit_price_measurement.reference_unit -}}
+              </span>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+
+
+      {% comment %}
+        <div class="product-meta__label-list label-list" data-product-label-list>
+          {%- unless product.selected_or_first_available_variant.available -%}
+            <span class="label label--subdued">{{ 'collection.product.sold_out' | t }}</span>
+          {%- elsif product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
+            {%- if settings.discount_mode == 'percentage' -%}
+              {%- assign savings = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price | times: 100.0 | divided_by: product.selected_or_first_available_variant.compare_at_price | round | append: '%' -%}
+            {%- else -%}
+              {%- capture savings -%}{{ product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price | money }}{%- endcapture -%}
+            {%- endif -%}
+
+            <span class="label label--highlight">{{ 'collection.product.discount_html' | t: savings: savings }}</span>
+          {%- endunless -%}
+        </div>
+      {% endcomment %}
+    </div> {% endcomment %}
+
+    {%- if section.settings.show_taxes_included -%}
+      {%- if cart.taxes_included or shop.shipping_policy.body != blank -%}
+        <p class="product-meta__taxes-included text--small">
+          {%- if cart.taxes_included -%}
+            {{ 'product.general.include_taxes' | t }}
+          {%- endif -%}
+
+          {%- if shop.shipping_policy.body != blank -%}
+            {{ 'product.general.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+          {%- endif -%}
+        </p>
+      {%- endif -%}
+    {%- endif -%}
+
+    <product-payment-terms form-id="{{ product_form_id }}">
+      {%- assign product_installment_form_id = 'product-installment-form-'
+        | append: section.id
+        | append: '-'
+        | append: product.id
+      -%}
+
+      {%- form 'product', product, id: product_installment_form_id -%}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        {{- form | payment_terms -}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .klarna-logo {
+            position: relative;
+            height: 35px !important;
+            right: 6px;
+            display: inline;
+            top: -7px;
+            margin: 0 auto;
+        }
+        .DB-logo {
+            position: relative;
+            top: 2.5px;
+        }
+        .logo {
+            margin: 0 auto;
+        }
+        .disclaimer {
+            color: grey;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+{% comment %} {% unless request.path contains '/en-fr/' or request.path contains '/en-de/' or request.path contains '/en-nl/' %} {% endcomment %}
+ {%- if cart.currency.iso_code == 'GBP' -%}
+<body>
+    <div id="price-divider-container">
+        <label for="installments">Or in </label>
+        <select id="installments">
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="6">6</option>
+            <option value="9">9</option>
+            <option value="12">12</option>
+        </select>
+        instalments of <span id="installment"></span>
+        <div id="disclaimer"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (window.location.pathname.startsWith('/fr-fr')) {
+                document.getElementById('price-divider-container').style.display = 'none';
+            }
+        });
+
+        const price = {{ product.price }};
+        const installmentsDropdown = document.getElementById('installments');
+        const installmentDisplay = document.getElementById('installment');
+        const disclaimerDisplay = document.getElementById('disclaimer');
+
+        function updateInstallment() {
+            const selectedValue = installmentsDropdown.value;
+            const installment = (price / selectedValue) / 100;
+            let logoUrl = '';
+            let logoClass = 'logo';
+            let disclaimerText = '';
+
+            switch (selectedValue) {
+                case '3':
+                    logoUrl = 'https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Marketing_Badge_With_Clear_Space_1.png?v=1725885242';
+                    logoClass += ' klarna-logo';
+                    disclaimerText = 'Interest free monthly instalments';
+                    break;
+                case '4':
+                    logoUrl = 'https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/CP_logo_badge_6328x2204_blackmint_png.png?v=1725884864';
+                    disclaimerText = 'Interest free fortnightly instalments';
+                    break;
+                case '6':
+                    logoUrl = 'https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/dividebuy-logo-full-colour-rgb-scaled.jpg?v=1725884791';
+                    logoClass += ' DB-logo';
+                    disclaimerText = 'Only available on orders £300 or more';
+                    break;
+                case '9':
+                    logoUrl = 'https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/dividebuy-logo-full-colour-rgb-scaled.jpg?v=1725884791';
+                    logoClass += ' DB-logo';
+                    disclaimerText = 'Only available on orders £450 or more';
+                    break;
+                case '12':
+                    logoUrl = 'https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/dividebuy-logo-full-colour-rgb-scaled.jpg?v=1725884791';
+                    logoClass += ' DB-logo';
+                    disclaimerText = 'Only available on orders £600 or more';
+                    break;
+            }
+
+            installmentDisplay.innerHTML = `<strong>£${installment.toFixed(2)} GBP</strong> with <img src="${logoUrl}" alt="${selectedValue} installments logo" class="${logoClass}" style="height: 20px;" loading="lazy">`;
+            disclaimerDisplay.innerHTML = `<span class="disclaimer">${disclaimerText}</span>`;
+        }
+
+        installmentsDropdown.addEventListener('change', updateInstallment);
+
+        updateInstallment();
+    </script>
+</body>
+  {% else %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .klarna-logo {
+            position: absolute;
+            height: 35px !important;
+            right: 6px;
+            top: -7px;
+            margin: 0 auto;
+          padding: none;
+        }
+        .DB-logo {
+            position: relative;
+            top: 2.5px;
+        }
+        .logo {
+            margin: 0 auto;
+        }
+        .disclaimer {
+            color: grey;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+  <style>
+    .Kimg {
+            display: block;
+      img {
+            position: relative;
+            height: 35px !important;
+            right: 6px;
+            display: inline;
+            top: -7px;
+      }
+    }
+  </style>
+  
+    <div id="price-divider-container" class="Kimg">
+Or in 3 instalments of <span id="installment"></span> with 
+<img src='https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Marketing_Badge_With_Clear_Space_1.png?v=1725885242'>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const price = {{ product.price }};
+            const installment = (price / 3) / 100;
+            const installmentDisplay = document.getElementById('installment');
+
+            installmentDisplay.innerHTML = `<strong>€${installment.toFixed(2)} EUR</strong>`;
+        });
+    </script>
+</body>
+{% endif %}
+</html>
+
+
+      {%- endform -%}
+    </product-payment-terms>
+
+  {%- if section.settings.show_product_rating or section.settings.show_sku -%}
+      <div class="product-meta__reference">
+        {%- if section.settings.show_product_rating -%}
+
+          
+          <a href="#judgeme_product_reviews"
+             is="review-link"
+             data-smooth-scroll
+             class="product-meta__reviews-badge hidden-lap-and-up">
+             {%- render 'product-rating', product: product -%}
+          </a>
+          <a href="#judgeme_product_reviews"
+             is="review-link"
+             data-smooth-scroll
+             class="product-meta__reviews-badge hidden-pocket">
+             {%- render 'product-rating', product: product -%}
+          </a>
+
+        {%- endif -%}
+
+        
+        {%- if section.settings.show_sku -%}
+          <span
+            class="product-meta__sku text--subdued text--xxsmall"
+            {% if product.selected_or_first_available_variant.sku == blank %}
+              style="display: none"
+            {% endif %}
+            data-product-sku-container
+          >
+            {{- 'product.general.sku' | t }}
+            <span class="product-meta__sku-number" data-product-sku-number>
+              {{- product.selected_or_first_available_variant.sku -}}
+            </span>
+          </span>
+        {%- endif -%}
+
+        <div class="swym-wishlist-button-bar"></div>
+      </div>
+    {%- endif -%}
+  </product-meta>
+  <div style="padding: 16px 0; margin: 16px 0; padding-top: 0; margin-top: 0;">
+  <p style="font-style: italic; margin-bottom: 12px; font-weight: bold">The verdict from our valued customers</p>
+  <p style="font-style: italic; margin-bottom: 12px;">"Impeccable quality, seamless delivery, and truly <b>worth the investment.</b> I was cautious about ordering online, but William Wood <b>surpassed every expectation.</b> Their products bring a real sense of elegance to the space." <br><span><b>Hannah R. United Kingdom</b></span></p>
+  <p style="font-style: italic; margin-bottom: 0; font-weight: bold">Verified Review</p>
+</div>
+  
+
+  {%- render 'product-form', product: product, update_url: update_url, section: section -%}
+
+  {%- assign help_page = section.settings.help_page -%}
+
+  {%- if section.settings.show_share_buttons or help_page != blank -%}
+    <div class="product-meta__aside">
+      {%- if section.settings.show_share_buttons -%}
+        <div class="product-meta__share text--subdued">
+          {%- assign share_url = shop.url | append: product.url -%}
+          {%- assign twitter_text = product.title | url_param_escape -%}
+          {%- assign pinterest_description = product.description | strip_html | truncatewords: 15 | url_param_escape -%}
+          {%- assign pinterest_image = product.featured_image | img_url: '800x' | prepend: 'https:' | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -%}
+
+          <button
+            is="share-toggle-button"
+            share-url="{{ share_url | escape }}"
+            share-title="{{ product.title | escape }}"
+            class="button button--small button--secondary hidden-tablet-and-up"
+            aria-controls="mobile-share-buttons-{{ section.id }}"
+            aria-expanded="false"
+          >
+            {{ 'product.general.share' | t }}
+          </button>
+          <div class="product-meta__share-label hidden-phone">{{ 'product.general.share' | t }}</div>
+
+          <popover-content id="mobile-share-buttons-{{ section.id }}" class="popover hidden-tablet-and-up">
+            <span class="popover__overlay"></span>
+
+            <header class="popover__header">
+              <span class="popover__title heading h6">{{- 'article.general.share' | t -}}</span>
+
+              <button
+                type="button"
+                class="popover__close-button tap-area tap-area--large"
+                data-action="close"
+                title="{{ 'general.accessibility.close' | t | escape }}"
+              >
+                {%- render 'icon' with 'close' -%}
+              </button>
+            </header>
+
+            <div class="mobile-share-buttons">
+              <a
+                class="mobile-share-buttons__item mobile-share-buttons__item--facebook"
+                href="https://www.facebook.com/sharer.php?u={{ share_url  }}"
+                target="_blank"
+                rel="noopener"
+                aria-label="{{ 'general.social.facebook_share' | t }}"
+              >
+                {%- render 'icon' with 'facebook-share-mobile' -%}
+                Facebook
+              </a>
+
+              <a
+                class="mobile-share-buttons__item mobile-share-buttons__item--pinterest"
+                href="https://pinterest.com/pin/create/button/?url={{ share_url  }}{% if pinterest_image != blank %}&media={{ pinterest_image   }}{% endif %}&description={{ pinterest_description  }}"
+                target="_blank"
+                rel="noopener"
+                aria-label="{{ 'general.social.pinterest_pin' | t }}"
+              >
+                {%- render 'icon' with 'pinterest-share-mobile' -%}
+                Pinterest
+              </a>
+
+              <a
+                class="mobile-share-buttons__item mobile-share-buttons__item--twitter"
+                href="https://twitter.com/share?{% if twitter_text != blank %}text={{twitter_text  }}&{% endif %}url={{ share_url  }}"
+                target="_blank"
+                rel="noopener"
+                aria-label="{{ 'general.social.twitter_tweet' | t }}"
+              >
+                {%- render 'icon' with 'twitter-share-mobile' -%}
+                Twitter
+              </a>
+
+              <a
+                class="mobile-share-buttons__item mobile-share-buttons__item--mail"
+                href="mailto:?&subject={{ article.title | escape  }}&body={{ share_url  }}"
+                aria-label="{{ 'general.social.email_share' | t }}"
+              >
+                {%- render 'icon' with 'email-share-mobile' -%}
+                {{ 'general.social.email_label' | t }}
+              </a>
+            </div>
+          </popover-content>
+
+          <div class="product-meta__share-button-list hidden-phone">
+            <a
+              class="product-meta__share-button-item product-meta__share-button-item--facebook link tap-area"
+              href="https://www.facebook.com/sharer.php?u={{ share_url  }}"
+              target="_blank"
+              rel="noopener"
+              aria-label="{{ 'general.social.facebook_share' | t }}"
+            >
+              {%- render 'icon' with 'facebook', width: 8, height: 14 -%}
+            </a>
+
+            <a
+              class="product-meta__share-button-item product-meta__share-button-item--pinterest link tap-area"
+              href="https://pinterest.com/pin/create/button/?url={{ share_url  }}{% if pinterest_image != blank %}&media={{ pinterest_image   }}{% endif %}&description={{ pinterest_description  }}"
+              target="_blank"
+              rel="noopener"
+              aria-label="{{ 'general.social.pinterest_pin' | t }}"
+            >
+              {%- render 'icon' with 'pinterest', width: 10, height: 14 -%}
+            </a>
+
+            <a
+              class="product-meta__share-button-item product-meta__share-button-item--twitter link tap-area"
+              href="https://twitter.com/share?{% if twitter_text != blank %}text={{ twitter_text  }}&{% endif %}url={{ share_url  }}"
+              target="_blank"
+              rel="noopener"
+              aria-label="{{ 'general.social.twitter_tweet' | t }}"
+            >
+              {%- render 'icon' with 'twitter', width: 17, height: 14 -%}
+            </a>
+
+            <a
+              class="product-meta__share-button-item product-meta__share-button-item--mail link tap-area"
+              href="mailto:?&subject={{ product.title | escape  }}&body={{ share_url  }}"
+              aria-label="{{ 'general.social.email_share' | t }}"
+            >
+              {%- render 'icon' with 'share', width: 13, height: 13 -%}
+            </a>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if help_page != blank -%}
+        <button
+          is="toggle-button"
+          class="product-meta__help link text--subdued hidden-tablet-and-up"
+          aria-controls="product-{{ section.id }}-help-popover"
+          aria-expanded="false"
+        >
+          {{ 'product.general.need_help' | t }}
+        </button>
+        <button
+          is="toggle-button"
+          class="product-meta__help link text--subdued hidden-phone"
+          aria-controls="product-{{ section.id }}-help-drawer"
+          aria-expanded="false"
+        >
+          {{ 'product.general.need_help' | t }}
+        </button>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- if help_page != blank -%}
+    {%- comment -%}Drawer for tablet and higher{%- endcomment -%}
+    <drawer-content id="product-{{ section.id }}-help-drawer" class="drawer drawer--large hidden-phone">
+      <span class="drawer__overlay"></span>
+
+      <header class="drawer__header">
+        <p class="drawer__title heading h6">{{ help_page.title }}</p>
+
+        <button
+          type="button"
+          class="drawer__close-button tap-area"
+          data-action="close"
+          title="{{ 'general.accessibility.close' | t | escape }}"
+        >
+          {%- render 'icon' with 'close' -%}
+        </button>
+      </header>
+
+      <div class="drawer__content drawer__content--padded-start">
+        <div class="rte">
+          {{- help_page.content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+        </div>
+      </div>
+    </drawer-content>
+
+    {%- comment -%}Popover for mobile{%- endcomment -%}
+    <popover-content hidden id="product-{{ section.id }}-help-popover" class="popover hidden-lap-and-up">
+      <span class="popover__overlay"></span>
+
+      <header class="popover__header">
+        <p class="popover__title heading h6">{{ help_page.title }}</p>
+
+        <button
+          type="button"
+          class="popover__close-button tap-area tap-area--large"
+          data-action="close"
+          title="{{ 'general.accessibility.close' | t | escape }}"
+        >
+          {%- render 'icon' with 'close' -%}
+        </button>
+      </header>
+
+      <div class="popover__content">
+        <div class="rte">
+          {{- help_page.content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+        </div>
+      </div>
+    </popover-content>
+  {%- endif -%}
+</div>
+{% render buy_buttons %}
+
+<style>
+  @media (max-width: 768px) {
+    {% comment %} .product-title-price {
+      display: flex; 
+      justify-content: space-between; 
+      align-items: flex-start; 
+      width: 100%;
+    } {% endcomment %}
+
+    .product-meta__title {
+      width: 80%;
+    }
+
+    .price-list-update {
+      margin-top: 10px;
+    }
+
+    .in-house {
+      position: relative;
+      top: -6px;
+    }
+  }
+
+  
+</style> 

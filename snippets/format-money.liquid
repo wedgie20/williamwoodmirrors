@@ -1,0 +1,27 @@
+{% comment %}
+  format-money.liquid snippet for location-sensitive currency display.
+  Usage: {% render 'format-money', amount: 1250 %}
+  Automatically uses the customer's local currency (based on Shopify Markets)
+{% endcomment %}
+
+{% assign major_unit = amount | divided_by: 100 %}
+{% assign minor_unit = amount | modulo: 100 %}
+
+{% if minor_unit < 10 %}
+  {% assign minor_unit_formatted = '0' | append: minor_unit %}
+{% else %}
+  {% assign minor_unit_formatted = minor_unit %}
+{% endif %}
+
+{%- assign currency_code = cart.currency.iso_code | default: 'GBP' -%}
+
+{% case currency_code %}
+  {% when 'EUR' %}
+    &euro;{{ major_unit }},{{ minor_unit_formatted }}
+  {% when 'GBP' %}
+    &pound;{{ major_unit }}.{{ minor_unit_formatted }}
+  {% when 'USD' %}
+    ${{ major_unit }}.{{ minor_unit_formatted }}
+  {% else %}
+    {{ currency_code }}{{ major_unit }}.{{ minor_unit_formatted }}
+{% endcase %}

@@ -1,0 +1,188 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "collection-banner": {
+      "type": "collection-banner",
+      "settings": {
+        "show_collection_image": true,
+        "show_collection_title": true,
+        "show_collection_description": true,
+        "section_height": "small",
+        "text_width": "medium",
+        "image_text_color": "#ffffff",
+        "image_overlay_color": "#000000",
+        "image_overlay_opacity": 30,
+        "quick_links": ""
+      }
+    },
+    "promotion_blocks_QDBxKC": {
+      "type": "promotion-blocks",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "section_size": "medium",
+        "stack_on_mobile": true,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".block-swatch-list {display: none !important;}"
+      ],
+      "settings": {
+        "show_sort_by": true,
+        "products_per_page": 50,
+        "mobile_products_per_row": "2",
+        "desktop_products_per_row": 3,
+        "show_filters": true,
+        "show_filter_group_name": false,
+        "show_color_swatch": false,
+        "open_first_filter_group": false,
+        "filter_position": "always_visible",
+        "promotion_position": "top",
+        "promotion_height": "large"
+      }
+    },
+    "17339126683432568b": {
+      "type": "apps",
+      "blocks": {
+        "foursixty_shoppable_social_ugc_custom_slider_kmpPyR": {
+          "type": "shopify://apps/foursixty-shoppable-social-ugc/blocks/custom_slider/e2616dfe-fbb6-4e7d-874d-d250b973556d",
+          "settings": {
+            "foreground_color": "#ffffff",
+            "background_color": "#000000",
+            "background_color_alpha": 90,
+            "post_spacing": 0,
+            "hover_margin": 0,
+            "cell_size": "16.6667%",
+            "target_blank": false,
+            "arrows_outside": false,
+            "show_icon": true,
+            "show_text": false,
+            "show_date": false,
+            "call_to_action": "SHOP NOW",
+            "shop_type": "button",
+            "body_font_size": 14,
+            "body_font": "helvetica_n4",
+            "accent_font_size": 14,
+            "accent_font": "helvetica_n4",
+            "disable_filter": false,
+            "override_feed_id": "",
+            "arbitrary_attributes": "",
+            "custom_css": "",
+            "custom_js": ""
+          }
+        }
+      },
+      "block_order": [
+        "foursixty_shoppable_social_ugc_custom_slider_kmpPyR"
+      ],
+      "settings": {
+        "include_trustpilot": false,
+        "include_horizontal_margins": true,
+        "include_vertical_margins": true
+      }
+    },
+    "multi_column_zWQVjj": {
+      "type": "multi-column",
+      "blocks": {
+        "item_W7jxJB": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/icons8-handshake.svg",
+            "image_width": 15,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "<p>Over 600,000 customers have trusted William Wood</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        },
+        "item_tkYFrn": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/icons8-magnetic-card-48.svg",
+            "image_width": 15,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "<p>Pay in 3-12 instalments at no extra cost</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        },
+        "item_aTnwGA": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/icons8-delivery-time-48.svg",
+            "image_width": 15,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "<p>Hassle-Free 90 Days Free Returns</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        },
+        "item_7rBD9x": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/icons8-in-transit-48.svg",
+            "image_width": 15,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "<p>Free Mainland UK + Northern Ireland Delivery</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        }
+      },
+      "block_order": [
+        "item_W7jxJB",
+        "item_tkYFrn",
+        "item_aTnwGA",
+        "item_7rBD9x"
+      ],
+      "settings": {
+        "reveal_on_scroll": true,
+        "stack_items": true,
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "column_alignment": "center",
+        "mobile_item_size": "small",
+        "desktop_item_size": "medium",
+        "spacing": "normal",
+        "background": "#efefef",
+        "text_color": "rgba(0,0,0,0)"
+      }
+    }
+  },
+  "order": [
+    "collection-banner",
+    "promotion_blocks_QDBxKC",
+    "main",
+    "17339126683432568b",
+    "multi_column_zWQVjj"
+  ]
+}

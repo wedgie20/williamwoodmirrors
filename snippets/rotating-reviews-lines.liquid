@@ -1,0 +1,158 @@
+<div class="rotating-reviews-container" style="
+  font-size: 13px;
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+">
+
+{% if block.settings.review_line_1 != blank %}
+    <div class="review-item"
+         style="
+           position: absolute;
+           opacity: 0;
+           transform: translateY(100%);
+           transition: opacity 0.5s ease, transform 0.5s ease;
+           width: calc(100% - 40px);
+           font-weight: 700;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           min-height: 50px;
+         ">
+      <div class="review_line" style="padding: 0 20px;">"{{ block.settings.review_line_1 | escape | newline_to_br }}"</div>
+    </div>
+{% endif %}
+
+{% if block.settings.review_line_2 != blank %}
+    <div class="review-item"
+         style="
+           position: absolute;
+           opacity: 0;
+           transform: translateY(100%);
+           transition: opacity 0.5s ease, transform 0.5s ease;
+           width: calc(100% - 40px);
+           font-weight: 700;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           min-height: 50px;
+         ">
+      <div class="review_line" style="padding: 0 20px;">"{{ block.settings.review_line_2 | escape | newline_to_br}}"</div>
+    </div>
+{% endif %}
+
+{% if block.settings.review_line_3 != blank %}
+    <div class="review-item"
+         style="
+           position: absolute;
+           opacity: 0;
+           transform: translateY(100%);
+           transition: opacity 0.5s ease, transform 0.5s ease;
+           width: calc(100% - 40px);
+           font-weight: 700;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           min-height: 50px;
+         ">
+      <div class="review_line" style="padding: 0 20px;">"{{ block.settings.review_line_3 | escape | newline_to_br}}"</div>
+    </div>
+{% endif %}
+
+{% if block.settings.review_line_4 != blank %}
+    <div class="review-item"
+         style="
+           position: absolute;
+           opacity: 0;
+           transform: translateY(100%);
+           transition: opacity 0.5s ease, transform 0.5s ease;
+           width: calc(100% - 40px);
+           font-weight: 700;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           min-height: 50px;
+         ">
+      <div class="review_line" style="padding: 0 20px;">"{{ block.settings.review_line_4 | escape | newline_to_br}}"</div>
+    </div>
+{% endif %}
+
+{% if block.settings.review_line_5 != blank %}
+    <div class="review-item"
+         style="
+           position: absolute;
+           opacity: 0;
+           transform: translateY(100%);
+           transition: opacity 0.5s ease, transform 0.5s ease;
+           width: calc(100% - 40px);
+           font-weight: 700;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           min-height: 50px;
+         ">
+      <div class="review_line" style="padding: 0 20px;">"{{ block.settings.review_line_5 | escape | newline_to_br }}"</div>
+    </div>
+{% endif %}
+
+</div>
+
+<script>
+let currentReview = 0;
+let reviewInterval;
+const totalReviews = 3; // Your 3 reviews in the array
+
+function showReview(index) {
+  const reviews = document.querySelectorAll('.review-item');
+  
+  // Hide ALL reviews immediately
+  reviews.forEach(review => {
+    review.style.opacity = '0';
+    review.style.transform = 'translateY(100%)';
+  });
+  
+  // Show new review immediately from bottom (like original)
+  const newReview = reviews[index];
+  newReview.style.opacity = '1';
+  newReview.style.transform = 'translateY(100%)';
+  
+  // Quick animate to position
+  setTimeout(() => {
+    newReview.style.transform = 'translateY(0)';
+  }, 10);
+  
+  currentReview = index;
+}
+
+function nextReview() {
+  const next = (currentReview + 1) % totalReviews;
+  showReview(next);
+}
+
+// Show first review immediately on load
+document.addEventListener("DOMContentLoaded", function () {
+  const reviews = document.querySelectorAll('.review-item');
+  reviews[0].style.opacity = '1';
+  reviews[0].style.transform = 'translateY(0)';
+  
+  // Auto-rotate reviews every 3 seconds
+  if (totalReviews > 1) {
+    reviewInterval = setInterval(nextReview, 3000);
+  }
+});
+
+// Pause on hover
+document.querySelector('.rotating-reviews-container').addEventListener('mouseenter', () => {
+  clearInterval(reviewInterval);
+});
+
+document.querySelector('.rotating-reviews-container').addEventListener('mouseleave', () => {
+  if (totalReviews > 1) {
+    reviewInterval = setInterval(nextReview, 3000);
+  }
+});
+</script>

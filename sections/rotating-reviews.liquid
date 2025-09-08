@@ -1,0 +1,407 @@
+{% comment %}
+  Rotating Reviews Section for Shopify
+  File: sections/rotating-reviews.liquid
+{% endcomment %}
+
+
+
+
+<div class="rotating-reviews-container" style="
+  --animation-smooth: all 0.5s cubic-bezier(0.2, 0.6, 0.2, 1);
+  text-align: {{ section.settings.text_alignment }};
+  padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+  background-color: none;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+">
+  {% if section.settings.show_title and section.settings.title != blank %}
+    <h2 class="reviews-title" style="
+      font-size: {{ section.settings.title_size }}px;
+      color: {{ section.settings.title_color }};
+      margin-bottom: 30px;
+      font-weight: 600;
+    ">{{ section.settings.title }}</h2>
+  {% endif %}
+
+  <div class="reviews-wrapper" style="position: relative; width: 100%; max-width: 500px;">
+    {% for block in section.blocks %}
+      <div class="review-item" 
+           data-review-index="{{ forloop.index0 }}"
+           style="
+             position: absolute;
+             top: 0;
+             left: 0;
+             width: 100%;
+             opacity: {% if forloop.first %}1{% else %}0{% endif %};
+             transform: {% if forloop.first %}translateY(0){% else %}translateY(-100%){% endif %};
+             transition: var(--animation-smooth);
+             {% unless forloop.first %}display: none;{% endunless %}
+           ">
+        <blockquote style="
+          font-size: {{ section.settings.review_font_size }}px;
+          color: {{ section.settings.review_text_color }};
+          margin: 0 0 20px 0;
+          line-height: 1.6;
+          position: relative;
+          padding: 0 40px;
+          
+        ">
+          <span style="
+            font-size: 60px;
+            color: {{ section.settings.quote_color }};
+            position: absolute;
+            left: 0;
+            top: -10px;
+            line-height: 1;
+            display: none;
+          ">&ldquo;</span>
+          {{ block.settings.review_text }}
+          <span style="
+            font-size: 60px;
+            color: {{ section.settings.quote_color }};
+            position: absolute;
+            right: 0;
+            bottom: -30px;
+            line-height: 1;
+            display: none;
+          ">&rdquo;</span>
+        </blockquote>
+        
+        {% if block.settings.reviewer_name != blank %}
+          <cite style="
+            font-size: {{ section.settings.name_font_size }}px;
+            color: {{ section.settings.name_color }};
+            font-weight: 600;
+            font-style: normal;
+            display: block;
+            margin-top: 15px;
+          ">
+            - {{ block.settings.reviewer_name }}
+            {% if block.settings.reviewer_title != blank %}
+              <span style="font-weight: 400; opacity: 0.8;">
+                , {{ block.settings.reviewer_title }}
+              </span>
+            {% endif %}
+          </cite>
+        {% endif %}
+
+        {% if block.settings.show_stars %}
+          <div class="stars" style="
+            margin-top: 10px;
+            color: {{ section.settings.star_color }};
+            font-size: 20px;
+          ">
+            {% for i in (1..5) %}
+              ★
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if section.settings.show_dots and section.blocks.size > 1 %}
+    <div class="review-dots" style="
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    ">
+      {% for block in section.blocks %}
+        <button class="dot" 
+                data-slide="{{ forloop.index0 }}"
+                style="
+                  width: 12px;
+                  height: 12px;
+                  border-radius: 50%;
+                  border: none;
+                  background-color: {% if forloop.first %}{{ section.settings.dot_active_color }}{% else %}{{ section.settings.dot_color }}{% endif %};
+                  cursor: pointer;
+                  transition: background-color 0.3s ease;
+                "
+                onclick="goToSlide({{ forloop.index0 }})">
+        </button>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
+<script>
+let currentReview = 0;
+let reviewInterval;
+const totalReviews = {{ section.blocks.size }};
+
+function showReview(index) {
+  const reviews = document.querySelectorAll('.review-item');
+  const dots = document.querySelectorAll('.dot');
+  
+  // Hide ALL reviews immediately
+  reviews.forEach(review => {
+    review.style.display = 'none';
+  });
+  
+  // Show new review instantly from bottom
+  const newReview = reviews[index];
+  newReview.style.display = 'block';
+  newReview.style.transform = 'translateY(100%)';
+  newReview.style.opacity = '1';
+  
+  // Immediately animate to position
+  setTimeout(() => {
+    newReview.style.transform = 'translateY(0)';
+  }, 10);
+  
+  // Update dots
+  dots.forEach((dot, i) => {
+    dot.style.backgroundColor = i === index ? '{{ section.settings.dot_active_color }}' : '{{ section.settings.dot_color }}';
+  });
+  
+  currentReview = index;
+}
+
+function nextReview() {
+  const next = (currentReview + 1) % totalReviews;
+  showReview(next);
+}
+
+function goToSlide(index) {
+  showReview(index);
+  // Reset interval
+  clearInterval(reviewInterval);
+  if (totalReviews > 1) {
+    reviewInterval = setInterval(nextReview, {{ section.settings.rotation_speed | times: 1000 }});
+  }
+}
+
+// Auto-rotate reviews
+if (totalReviews > 1) {
+  reviewInterval = setInterval(nextReview, {{ section.settings.rotation_speed | times: 1000 }});
+}
+
+// Pause on hover
+document.querySelector('.rotating-reviews-container').addEventListener('mouseenter', () => {
+  clearInterval(reviewInterval);
+});
+
+document.querySelector('.rotating-reviews-container').addEventListener('mouseleave', () => {
+  if (totalReviews > 1) {
+    reviewInterval = setInterval(nextReview, {{ section.settings.rotation_speed | times: 1000 }});
+  }
+});
+</script>
+
+{% schema %}
+{
+  "name": "Rotating Reviews",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Show Section Title",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "What Our Customers Say"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title Font Size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "review_font_size",
+      "label": "Review Font Size",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "review_text_color",
+      "label": "Review Text Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "quote_color",
+      "label": "Quote Marks Color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "range",
+      "id": "name_font_size",
+      "label": "Reviewer Name Font Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "name_color",
+      "label": "Reviewer Name Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star Color",
+      "default": "#ffd700"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "rotation_speed",
+      "label": "Rotation Speed (seconds)",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show Navigation Dots",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "dot_color",
+      "label": "Dot Color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "color",
+      "id": "dot_active_color",
+      "label": "Active Dot Color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 50
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review Text",
+          "default": "This product exceeded my expectations! The quality is amazing and the customer service was fantastic."
+        },
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer Name",
+          "default": "Sarah Johnson"
+        },
+        {
+          "type": "text",
+          "id": "reviewer_title",
+          "label": "Reviewer Title (Optional)",
+          "info": "e.g., Verified Customer, CEO at Company"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_stars",
+          "label": "Show Star Rating",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rotating Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "This product exceeded my expectations! The quality is amazing and the customer service was fantastic.",
+            "reviewer_name": "Sarah Johnson",
+            "reviewer_title": "Verified Customer",
+            "show_stars": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "I've been using this for months now and couldn't be happier. Highly recommend to anyone looking for quality!",
+            "reviewer_name": "Michael Chen",
+            "reviewer_title": "Repeat Customer",
+            "show_stars": true
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "review_text": "Outstanding value and incredible results. This has completely transformed my daily routine.",
+            "reviewer_name": "Emma Thompson",
+            "reviewer_title": "Satisfied Customer",
+            "show_stars": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,86 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "parent": "404.json",
+  "context": {
+    "market": "netherlands"
+  },
+  "sections": {
+    "main": {
+      "disabled": true,
+      "settings": {
+      },
+      "blocks": {
+      }
+    },
+    "slideshow_PXGrk": {
+      "type": "slideshow",
+      "disabled": false,
+      "settings": {
+        "section_height": "auto",
+        "transition_type": "fade",
+        "autoplay": true,
+        "cycle_speed": 5,
+        "background": "rgba(0,0,0,0)"
+      },
+      "blocks": {
+        "image_trnHY": {
+          "type": "image",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/efefef_Desktop.jpg",
+            "split_image": null,
+            "mobile_image": "shopify://shop_images/efefef_Mobile.jpg",
+            "header-68d7e7c0ec17000a7aec2d2831c67028": null,
+            "text_position": "middle_center",
+            "subheading": "Looks like nobody's home",
+            "title": "404",
+            "button_1_text": "Return to homepage",
+            "button_1_link": "https://williamwoodmirrors.co.uk/en-nl",
+            "button_2_text": "",
+            "button_2_link": "",
+            "header-4719d7fde4c0c665a1c497f9282d253a": null,
+            "text_color": "#000000",
+            "button_background": "#000000",
+            "button_text_color": "#ffffff",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        }
+      },
+      "block_order": [
+        "image_trnHY"
+      ]
+    },
+    "recently_viewed_products_cK79f": {
+      "type": "recently-viewed-products",
+      "disabled": false,
+      "settings": {
+        "paragraph-694bc91733e4d63156ea662d5b5b770d": null,
+        "subheading": "Your Favourites",
+        "title": "",
+        "products_count": 4,
+        "header-cfe3cfec18d3b8671a67d616293c0fe6": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {
+      },
+      "block_order": [
+
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "slideshow_PXGrk",
+    "recently_viewed_products_cK79f"
+  ]
+}

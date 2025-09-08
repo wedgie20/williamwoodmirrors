@@ -1,0 +1,82 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "custom_liquid_pYpLMY": {
+      "type": "custom-liquid",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "{% unless request.path contains 'sign' %}<div class=\"klaviyo-form-Szzi3u\"></div>\n{% endunless %}",
+        "add_vertical_spacing": true,
+        "background_type": "full_width",
+        "background": "#000000",
+        "text_color": "rgba(0,0,0,0)"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "links_aAiDdc": {
+          "type": "links",
+          "settings": {
+            "menu": "shop"
+          }
+        },
+        "links_heicFR": {
+          "type": "links",
+          "settings": {
+            "menu": "help-information"
+          }
+        },
+        "links_itiier": {
+          "type": "links",
+          "settings": {
+            "menu": "shop-with-confidence"
+          }
+        },
+        "links_7dqkHV": {
+          "type": "links",
+          "settings": {
+            "menu": "terms-conditions"
+          }
+        },
+        "social_media": {
+          "type": "social_media",
+          "settings": {
+            "title": "",
+            "content": "<p>Head Office: William Wood, 2 Wellington Cl, Parkgate Industrial Estate, Knutsford WA16 8XL</p><p>COMPANY NUMBER 7205943</p><p>VAT NUMBER 786452685</p>"
+          }
+        }
+      },
+      "block_order": [
+        "links_aAiDdc",
+        "links_heicFR",
+        "links_itiier",
+        "links_7dqkHV",
+        "social_media"
+      ],
+      "settings": {
+        "show_payment_icons": true,
+        "show_country_selector": true,
+        "show_locale_selector": true,
+        "show_cookie_bar": true,
+        "cookie_bar_title": "Cookie policy",
+        "cookie_bar_content": "<p>We use cookies to enhance your browsing expierience, serve personalised ads or content, and analyse our traffic. By clicking \"Accept\", you consent to our use of cookies. <a href=\"https://www.williamwoodmirrors.co.uk/pages/privacy\" title=\"https://www.williamwoodmirrors.co.uk/pages/privacy\">Cookie Policy</a></p>"
+      }
+    }
+  },
+  "order": [
+    "custom_liquid_pYpLMY",
+    "footer"
+  ]
+}

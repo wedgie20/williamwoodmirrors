@@ -1,0 +1,176 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "parent": "page.tuscany.json",
+  "context": {
+    "market": "gb"
+  },
+  "sections": {
+    "slideshow_P9njm": {
+      "type": "slideshow",
+      "disabled": false,
+      "custom_css": [],
+      "settings": {
+        "section_height": "auto",
+        "transition_type": "fade",
+        "autoplay": false,
+        "cycle_speed": 5,
+        "background": "rgba(0,0,0,0)"
+      },
+      "blocks": {
+        "image_tmkHL": {
+          "type": "image",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Desktop_Tuscany.jpg",
+            "split_image": null,
+            "mobile_image": "shopify://shop_images/Mobile_Tuscany_2.jpg",
+            "header-5da1a70dd4f2c26f7e3c0edf8c05e272": null,
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "COMING SOON",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "header-3a3ed060421c94527f6cc20d1a80de9d": null,
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        }
+      },
+      "block_order": [
+        "image_tmkHL"
+      ]
+    },
+    "custom_liquid_EH3Cr": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<div class=\"klaviyo-form-WhQLFf\"></div>",
+        "add_vertical_spacing": true,
+        "background_type": "full_width",
+        "header-3d233f30132ee0cbaded80aea9a49da1": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "multi_column_qReY3": {
+      "type": "multi-column",
+      "disabled": false,
+      "settings": {
+        "reveal_on_scroll": false,
+        "stack_items": true,
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "column_alignment": "center",
+        "mobile_item_size": "small",
+        "desktop_item_size": "small",
+        "spacing": "tight",
+        "header-be5a6a2b00cf5ae60145cf859e291949": null,
+        "background": "#efefef",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {
+        "item_78gUn": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/icons8-handshake_1.svg",
+            "image_width": 15,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "<p>Over 500,000 customers have trusted William Wood</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        },
+        "item_KXAHK": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/icons8-magnetic-card-48.svg",
+            "image_width": 15,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "<p>Pay in 3 instalments at no extra cost</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        },
+        "item_CcmbC": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/icons8-delivery-time-48.svg",
+            "image_width": 15,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "<p>Hassle-Free 90 Days Free Returns</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        },
+        "item_4tJag": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/icons8-in-transit-48.svg",
+            "image_width": 15,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "<p>Free Mainland UK + Northern Ireland Delivery</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        }
+      },
+      "block_order": [
+        "item_78gUn",
+        "item_KXAHK",
+        "item_CcmbC",
+        "item_4tJag"
+      ]
+    },
+    "main": {
+      "disabled": true,
+      "settings": {},
+      "blocks": {}
+    }
+  },
+  "order": [
+    "slideshow_P9njm",
+    "custom_liquid_EH3Cr",
+    "multi_column_qReY3",
+    "6cc91c8c-a57c-41dd-9ac0-a95015ad3ab6",
+    "main",
+    "9b75a0b7-27db-4dc4-ad56-e99d0feea4fa"
+  ]
+}

@@ -1,0 +1,87 @@
+<section id="search-products-results">
+  <span class="desktop-product-count" id="search-result-count">
+    {{ 'templates.search.results_products_with_count' | t: count: search.results_count }}
+  </span>
+  <ul
+    class="predictive-search__results-list"
+    role="group"
+    aria-labelledby="predictive-search-products"
+  >
+    {%- for result in search.results -%}
+      {% if result.object_type == 'product' %}
+        <li>
+          {% comment %} {% render 'product-item' with product: result %} {% endcomment %}
+           {% render 'product-item-updated' with product: result, forloop_index: forloop.index %}
+        </li>
+      {% endif %}
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% if template == 'collection' or template.name == 'collection' %}
+
+{% else %}
+  <script>
+ function setupAnimateImagesObserver() {
+  // Only run on screens smaller than 550px
+  if (!window.matchMedia('(max-width: 549px)').matches) return;
+
+  const elements = document.querySelectorAll('.this_is_animate');
+  if (!('IntersectionObserver' in window)) return; // Fallback for old browsers
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        el.classList.remove('animate_images');
+        // Force reflow to restart the animation
+        void el.offsetWidth;
+        el.classList.add('animate_images');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  elements.forEach(el => observer.observe(el));
+}
+
+document.addEventListener('DOMContentLoaded', setupAnimateImagesObserver);
+</script>
+
+<style>
+  @media screen and (min-width: 550px) {
+  .updated-product-item.product-item .mobile_images{
+  display: none !important;
+}
+  }
+  @media screen and (max-width: 549px) {
+    .updated-product-item.product-item .product-item__secondary-image, .updated-product-item.product-item .product-item__primary-image {
+      display: none !important;
+    }
+    @keyframes peekAnimation {
+     0% { transform: translateZ(0); }
+  50% { transform: translate3d(-25%, 0, 0); }
+  100% { transform: translateZ(0); }
+}
+
+.updated-product-item.product-item .product-item__aspect-ratio.animate_images .mobile_images.clc-Items_Items-animate{
+  animation: peekAnimation 1s ease-in-out;
+  animation-delay: 2s;
+}
+    .updated-product-item.product-item .product-item__aspect-ratio{
+      display: flex;
+    -ms-overflow-style: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    }
+    .updated-product-item.product-item .mobile_images{
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    width: 100%;
+    position: unset;
+    }
+  }
+</style>
+{% endif %}

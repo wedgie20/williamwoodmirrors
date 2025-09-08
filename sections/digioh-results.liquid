@@ -1,0 +1,669 @@
+{%- comment -%}
+************************************
+Digioh Product Recommendation Template
+
+This template renders a list of products from a Digioh Product Recommendation Quiz
+
+Possible places to edit tagged with "DIGIOH-OPTION"
+
+URL Parameters:
+  products : comma separated list of product handles
+  show_hero : if set to 'true' will show the hero section, defaults to 'false'
+  rowlen : the number of products to show per row, defaults to 3
+  max_products : the maximum number of products to show, default to 12
+  hide_oos : hide products that are out of stock, defaults to false
+  add_to_cart : add to cart, with option selection, default to true
+
+Required Snippets: 
+  card-product.liquid (included in default theme)
+************************************
+{%- endcomment -%}
+
+{%- comment -%} Include Required CSS {%- endcomment -%}
+
+{%- comment -%}
+************************************
+SECTION: Template Variables 
+************************************
+{%- endcomment -%}
+{% assign queryString = '' %}
+{% assign product_handles = "" | split: ',' %} {% comment %} product_handles the products to display, in order {% endcomment %}
+{% assign show_hero = false %} {% comment %} show_hero Show the first recommended product on a single line {% endcomment %}
+{% assign rowlen = 3 %} {% comment %} rowlen sets default number of products to display per row, aliased to rowlen {% endcomment %}
+{% assign max_products = 12 %} {% comment %} max_products maximum  number of products to render {% endcomment %}
+{% assign hide_oos = false %}  {% comment %} hide_oos if true will skip displaying products that are not currently available (out of stock) {% endcomment %}
+{% assign add_to_cart = true %}     {% comment %} enable quick add on product item, defaults to true {% endcomment %}
+{% assign my_custom_param = '' %}     {% comment %} debug used to display debug info. see SECTION: Set custom variables {% endcomment %}
+{% assign debug = false %}     {% comment %} debug used to display debug info {% endcomment %}
+{%- comment -%}
+************************************
+END SECTION:Template Variables 
+************************************
+{%- endcomment -%}
+
+{%- comment -%}
+************************************
+SECTION: Url Parsing 
+************************************
+{%- endcomment -%}
+
+{%- comment -%} Capture the content for header containing the tracking data {%- endcomment -%}
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+
+{% comment %} Use string splitting to pull the value from content_for_header and apply some string clean up {% endcomment %}
+{%- assign pageUrl = contentForQuerystring
+  | split: '"pageurl":"'
+  | last
+  | split: '"'
+  | first
+  | split: '.myshopify.com'
+  | last
+  | replace: '\/', '/'
+  | replace: '%20', ' '
+  | replace: '\u0026', '&'
+-%}
+{% assign debug = false %}
+{%- for i in (1..1) -%}
+  {%- comment -%} If the string doesn't contain a ? then we have no querystring. Go no further {%- endcomment -%}
+  {%- unless pageUrl contains '?' -%}{% break %}{%- endunless -%}
+
+  {%- comment -%} Split the url at the ? to get all values after it {%- endcomment -%}
+  {%- assign pageQuerystring = pageUrl | split: '?' | last -%}
+  {%- assign parts = pageQuerystring | split: '&' -%}
+  {% assign queryString = parts %}
+  {%- for part in parts -%}
+    {%- assign keyAndValue = part | split: '=' -%}
+    {%- if keyAndValue.size > 1 -%}
+
+      {% comment %} Set Template Variables {% endcomment %}
+      {%- if keyAndValue[0] == 'show_hero' and keyAndValue[1] == 'true' -%}
+        {%- assign show_hero = true  -%}
+      {%- endif -%}
+      {%- if keyAndValue[0] == 'hide_oos' and keyAndValue[1] == 'true' -%}
+        {%- assign hide_oos = true -%}
+      {%- endif -%}
+      {%- if keyAndValue[0] == 'add_to_cart' -%}
+        {%- if keyAndValue[1] == 'true' -%}
+          {%- assign add_to_cart = true -%}
+        {%- endif -%}
+        {%- if keyAndValue[1] == 'false' -%}
+          {%- assign add_to_cart = false -%}
+        {%- endif -%}
+      {%- endif -%}
+      {%- if keyAndValue[0] == 'rowlen' or keyAndValue[0] == 'rowlenN' -%}
+        {%- assign rowlen = keyAndValue[1] | plus: 0  -%}
+      {%- endif -%}
+      {%- if keyAndValue[0] == 'max_products' -%}
+        {%- assign max_products = keyAndValue[1] | plus: 0 -%}
+      {%- endif -%}
+      {% if keyAndValue[0] == 'products' %}
+        {% assign product_handles = keyAndValue[1] | url_decode | split: ',' %}
+      {%- endif -%}
+      {% if keyAndValue[0] == 'debug' %}
+        {% assign debug = true %}
+      {%- endif -%}
+
+      {%- comment -%}
+      ************************************
+      SECTION: Set custom params
+      ************************************
+      {%- endcomment -%}
+
+      {%- if keyAndValue[0] == 'my_custom_param' -%}
+        {%- assign my_custom_param = keyAndValue[1] | url_decode | strip_html -%}
+      {%- endif -%}
+
+      {%- comment -%}
+      ************************************
+      END SECTION: Set custom params
+      ************************************
+      {%- endcomment -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --section-products-per-row: {{ section.settings.mobile_products_per_row | times: 1 }};
+  }
+
+  @media screen and (min-width: 741px) {
+    #shopify-section-{{ section.id }} {
+      {%- assign remainder_for_two = section.settings.products_per_page | modulo: 2 -%}
+      {%- assign remainder_for_desktop_count = section.settings.products_per_page | modulo: section.settings.desktop_products_per_row -%}
+
+      --section-products-per-row: {% if remainder_for_two == 0 and remainder_for_desktop_count == 0 %}2{% else %}3{% endif %};
+    }
+  }
+
+  {%- if section.settings.filter_position == 'drawer' -%}
+    @media screen and (min-width: 1200px) {
+      #shopify-section-{{ section.id }} {
+        --section-products-per-row: {{ section.settings.desktop_products_per_row }};
+      }
+    }
+  {%- else -%}
+    @media screen and (min-width: 1400px) {
+      #shopify-section-{{ section.id }} {
+        --section-products-per-row: {{ section.settings.desktop_products_per_row }};
+      }
+    }
+  {%- endif -%}
+
+  {%- for block in section.blocks -%}
+    #block-{{ section.id }}-{{ block.id }} {
+      --heading-color: {{ block.settings.text_color.red }}, {{ block.settings.text_color.green }}, {{ block.settings.text_color.blue }};
+      --text-color: {{ block.settings.text_color.red }}, {{ block.settings.text_color.green }}, {{ block.settings.text_color.blue }};
+      --section-block-background: {{ block.settings.background.red }}, {{ block.settings.background.green }}, {{ block.settings.background.blue }};
+      --primary-button-background: {{ block.settings.button_background.red }}, {{ block.settings.button_background.green }}, {{ block.settings.button_background.blue }};
+      --primary-button-text-color: {{ block.settings.button_text_color.red }}, {{ block.settings.button_text_color.green }}, {{ block.settings.button_text_color.blue }};
+
+      {%- assign text_position = block.settings.text_position | split: '_' | first -%}
+
+      {%- case text_position -%}
+        {%- when 'top' -%}
+          {%- assign section_items_alignment = 'flex-start' -%}
+        {%- when 'middle' -%}
+          {%- assign section_items_alignment = 'center' -%}
+        {%- when 'bottom' -%}
+          {%- assign section_items_alignment = 'flex-end' -%}
+      {%- endcase -%}
+
+      --section-blocks-alignment: {{ section_items_alignment }};
+    }
+  {%- endfor -%}
+
+  /*
+    IMPLEMENTATION NOTE: due to design requirements, the mobile toolbar (with filters and sort by) had to be moved to the
+    layout file. However as section settings cannot be accessed outside the section itself, we simply hide them in CSS.
+   */
+
+  {%- if section.settings.show_filters and collection.filters != empty and collection.products_count > 0 -%}
+    .mobile-toolbar__item--filters {
+      display: flex !important;
+    }
+  {%- endif -%}
+
+  {%- if section.settings.show_sort_by and collection.products_count > 0 -%}
+    .mobile-toolbar__item--sort {
+      display: flex !important;
+    }
+  {%- endif -%}
+
+  {%- if section.settings.show_sort_by or section.settings.show_filters and collection.filters != empty -%}
+    @media screen and (max-width: 999px) {
+      :root {
+        --anchor-offset: 60px;
+      }
+    }
+  {%- endif -%}
+</style>
+
+<section>
+  <div class="container">
+        
+        {%- if product_handles.size > 0 -%}
+            <product-list
+              {% if settings.stagger_products_apparition %}
+                stagger-apparition
+              {% endif %}
+              class="product-facet__product-list product-list anchor"
+            >
+              {%- if section.settings.filter_position == 'always_visible'
+                and section.settings.show_filters
+                and collection.filters != empty
+              -%}
+                {%- assign sidebar_width = 305 -%}
+              {% else %}
+                {%- assign sidebar_width = 0 -%}
+              {%- endif -%}
+
+              <div class="product-list__inner">
+                {%- assign desktop_number_of_products_minus_one = section.settings.desktop_products_per_row
+                  | minus: 1
+                -%}
+                {%- assign gap_width = 24.0
+                  | divided_by: section.settings.desktop_products_per_row
+                  | times: desktop_number_of_products_minus_one
+                -%}
+                {%- capture sizes_attribute -%}(max-width: 740px) calc({{ 100.0 | divided_by: section.settings.mobile_products_per_row | ceil }}vw - 24px), calc((min(100vw - 80px, 1520px) - {{ sidebar_width }}px) / {{ section.settings.desktop_products_per_row }} - {{ gap_width | ceil }}px){%- endcapture -%}
+
+                {%- for product_handle in product_handles -%}
+                    {% assign product = all_products[product_handle] %}
+                  {% if forloop.index == 25 %}
+                    <style>
+                      .jdgm-carousel-wrapper {
+                        grid-column: 1/3;
+                        width: auto !important;
+                        max-width: 100%;
+                        padding: 2rem 0 0 !important;
+                        background: rgb(239, 239, 239);
+                        height: 385px;
+                      }
+                      .jdgm-carousel__right-arrow,
+                      .jdgm-carousel__left-arrow {
+                        border: 4px none #191919 !important;
+                        width: 13px !important;
+                        height: 13px !important;
+                      }
+                      .jdgm-carousel--card-theme .jdgm-carousel-item__inner-wrapper {
+                        background-color: #f7f7f7;
+                      }
+                      .jdgm-carousel__right-arrow {
+                        border-style: none solid solid none !important;
+                      }
+                      .jdgm-carousel__left-arrow {
+                        border-style: solid none none solid !important;
+                      }
+                      .jdgm-carousel__item-wrapper {
+                        scrollbar-width: none; /* Firefox */
+                        -ms-overflow-style: none; /* IE 10+ */
+                      }
+                      .jdgm-carousel__item-wrapper::-webkit-scrollbar {
+                        width: 0px;
+                        background: transparent; /* make scrollbar transparent */
+                      }
+                      @media (min-width: 741px) {
+                        .jdgm-carousel-wrapper {
+                          grid-column: 1/4;
+                        }
+                      }
+                    </style>
+                    <!-- Start of Judge.me code -->
+                    <div class="jdgm-carousel-wrapper">
+                      {% assign jm_metafields = shop.metafields.judgeme %}
+                      <div class="jdgm-carousel-title-and-link">
+                        <h2 class="jdgm-carousel-title">Community Feedback</h2>
+                        <span class="jdgm-all-reviews-rating-wrapper" href="javascript:void(0)">
+                          <span
+                            style="display:block"
+                            data-score="{{ jm_metafields.all_reviews_rating }}"
+                            class="jdgm-all-reviews-rating" 
+                            aria-label="{{ jm_metafields.all_reviews_rating }} stars"
+                            tabindex="0"
+                            role="img"
+                          ></span>
+                          <span
+                            style="display: block"
+                            class="jdgm-carousel-number-of-reviews"
+                            data-number-of-reviews="{{ jm_metafields.all_reviews_count }}"
+                          >
+                            from {{ shop.metafields.judgeme.all_reviews_count }} reviews
+                          </span>
+                        </span>
+                      </div>
+                      {{ jm_metafields.featured_carousel }}
+                    </div>
+                    <!-- End of Judge.me code -->
+                    {%- render 'product-item-updated',
+                      product: product,
+                      collection: collection,
+                      block: block,
+                      sizes_attribute: sizes_attribute,
+                      reveal: settings.stagger_products_apparition,
+                      forloop_index: forloop.index,
+                      show_cta: true
+                    -%}
+                  {% else %}
+                    {%- render 'product-item-updated',
+                      product: product,
+                      collection: collection,
+                      block: block,
+                      sizes_attribute: sizes_attribute,
+                      reveal: settings.stagger_products_apparition,
+                      forloop_index: forloop.index,
+                      show_cta: true
+                    -%}
+                  {% endif %}
+                {%- endfor -%}
+              </div>
+            </product-list>
+
+          {%- if section.settings.promotion_position == 'bottom' -%}
+            {{- promotion_blocks -}}
+          {%- endif -%}
+        {%- else -%}
+          <div class="empty-state">
+            {%- if collection.all_products_count == 0 -%}
+              <h3 class="heading h4">{{ 'collection.general.empty_title' | t }}</h3>
+              <p>{{ 'collection.general.empty_label' | t }}</p>
+
+              <div class="button-wrapper">
+                <a href="{{ routes.all_products_collection_url  }}" class="button button--primary">
+                  {{- 'collection.general.empty_button' | t -}}
+                </a>
+              </div>
+            {%- else -%}
+              <h3 class="heading h4">{{ 'collection.general.no_results_title' | t }}</h3>
+              <p>{{ 'collection.general.no_results_label' | t }}</p>
+
+              <div class="button-wrapper">
+                <a
+                  href="{{ collection.url  }}?sort_by={{ collection_sort_by  }}"
+                  data-action="clear-filters"
+                  class="button button--primary"
+                >
+                  {{- 'collection.general.no_results_button' | t -}}
+                </a>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+  </div>
+</section>
+
+<script>
+ function setupAnimateImagesObserver() {
+  // Only run on screens smaller than 550px
+  if (!window.matchMedia('(max-width: 549px)').matches) return;
+  const elements = document.querySelectorAll('.this_is_animate');
+  if (!('IntersectionObserver' in window)) return; // Fallback for old browsers
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        el.classList.remove('animate_images');
+        // Force reflow to restart the animation
+        void el.offsetWidth;
+        el.classList.add('animate_images');
+      }
+    });
+  }, { threshold: 0.1 });
+  elements.forEach(el => observer.observe(el));
+}
+document.addEventListener('DOMContentLoaded', setupAnimateImagesObserver);
+</script>
+
+<style>
+  @media screen and (min-width: 550px) {
+  .updated-product-item.product-item .mobile_images{
+  display: none !important;
+}
+  }
+  @media screen and (max-width: 549px) {
+     @keyframes peekAnimation {
+     0% { transform: translateZ(0); }
+  50% { transform: translate3d(-25%, 0, 0); }
+  100% { transform: translateZ(0); }
+}
+.updated-product-item.product-item .product-item__aspect-ratio.animate_images .mobile_images.clc-Items_Items-animate{
+  animation: peekAnimation 1s ease-in-out;
+  animation-delay: 2s;
+}
+    .updated-product-item.product-item .product-item__secondary-image, .updated-product-item.product-item .product-item__primary-image {
+      display: none !important;
+    }
+    .updated-product-item.product-item .product-item__aspect-ratio{
+      display: flex;
+    -ms-overflow-style: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    }
+    .updated-product-item.product-item .mobile_images{
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    width: 100%;
+    position: unset;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Digioh Results",
+  "class": "shopify-section--main-collection",
+  "max_blocks": 2,
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Promotion block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "1200 x 600px .jpg recommended (if two blocks), 2400 x 800px .jpg recommended (if one block)"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Your subheading"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Your heading"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link text"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        },
+        {
+          "type": "select",
+          "id": "link_style",
+          "label": "Link style",
+          "options": [
+            {
+              "value": "link",
+              "label": "Link"
+            },
+            {
+              "value": "button",
+              "label": "Button"
+            }
+          ],
+          "default": "link"
+        },
+        {
+          "type": "select",
+          "id": "text_position",
+          "label": "Text position",
+          "options": [
+            {
+              "value": "top_left",
+              "label": "Top left"
+            },
+            {
+              "value": "top_center",
+              "label": "Top center"
+            },
+            {
+              "value": "top_right",
+              "label": "Top right"
+            },
+            {
+              "value": "middle_left",
+              "label": "Middle left"
+            },
+            {
+              "value": "middle_center",
+              "label": "Middle center"
+            },
+            {
+              "value": "middle_right",
+              "label": "Middle right"
+            },
+            {
+              "value": "bottom_left",
+              "label": "Bottom left"
+            },
+            {
+              "value": "bottom_center",
+              "label": "Bottom center"
+            },
+            {
+              "value": "bottom_right",
+              "label": "Bottom right"
+            }
+          ],
+          "default": "middle_left"
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Background",
+          "default": "#f7f8fd",
+          "info": "Only used when no image is uploaded."
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#1e316a"
+        },
+        {
+          "type": "color",
+          "id": "button_background",
+          "label": "Button background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button text color",
+          "default": "#1e316a"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_sort_by",
+      "label": "Show sort by",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 8,
+      "max": 50,
+      "step": 1,
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "mobile_products_per_row",
+      "label": "Products per row (mobile)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "min": 3,
+      "max": 5,
+      "id": "desktop_products_per_row",
+      "label": "Products per row (desktop)",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Filters"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filters",
+      "label": "Show filters",
+      "info": "[Customize filters](/admin/menus)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filter_group_name",
+      "label": "Show group name",
+      "info": "Group name will be shown inside selected filters.",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_color_swatch",
+      "label": "Show filter color swatch",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first_filter_group",
+      "label": "Open first group by default",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "filter_position",
+      "label": "Position",
+      "options": [
+        {
+          "value": "always_visible",
+          "label": "Always visible"
+        },
+        {
+          "value": "drawer",
+          "label": "Drawer"
+        }
+      ],
+      "default": "always_visible"
+    },
+    {
+      "type": "header",
+      "content": "Promotion blocks",
+      "info": "Add extra information to push other collections or products."
+    },
+    {
+      "type": "select",
+      "id": "promotion_position",
+      "label": "Position",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "top"
+    },
+    {
+      "type": "select",
+      "id": "promotion_height",
+      "label": "Block height",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "small"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,126 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "parent": "page.newsletter.json",
+  "context": {
+    "market": "gb"
+  },
+  "sections": {
+    "custom_liquid_rewYR": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<div class=\"klaviyo-form-Szzi3u\"></div>",
+        "add_vertical_spacing": false,
+        "background_type": "full_width",
+        "header-205c04fa6bc3eb5c804572df2e19b278": null,
+        "background": "#000000",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "featured_collections_zUDiT": {
+      "type": "featured-collections",
+      "disabled": false,
+      "settings": {
+        "subheading": "Discover",
+        "title": "Best sellers",
+        "content": "",
+        "products_count": 4,
+        "products_per_row": 4,
+        "stack_products": true,
+        "show_cta": false,
+        "header-d279a1153e1045778fa98b7fc77b5071": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {
+        "collection_RbFVq": {
+          "type": "collection",
+          "disabled": false,
+          "settings": {
+            "collection": "best-sellers",
+            "label": "",
+            "button_text": "",
+            "button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_RbFVq"
+      ]
+    },
+    "main": {
+      "disabled": true,
+      "settings": {
+        "show_title": false
+      },
+      "blocks": {}
+    },
+    "1662460824ad6e755b": {
+      "disabled": true,
+      "settings": {},
+      "blocks": {}
+    },
+    "slideshow_3bmad": {
+      "type": "slideshow",
+      "disabled": false,
+      "settings": {
+        "section_height": "auto",
+        "transition_type": "sweep",
+        "autoplay": true,
+        "cycle_speed": 5,
+        "background": "rgba(0,0,0,0)"
+      },
+      "blocks": {
+        "image_Naedm": {
+          "type": "image",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Liberty_Merge_copy.jpg",
+            "split_image": null,
+            "mobile_image": "shopify://shop_images/Liberty_Black_71_x_44_1884_4fbc8814-0b2b-487c-a835-21ea15babf0e.jpg",
+            "header-efc885f583b7cc11a11b4c48e8c857df": null,
+            "text_position": "middle_center",
+            "subheading": "",
+            "title": "Newsletter",
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "header-0b93aca5e3c3a7f8338d0699e69ff256": null,
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        }
+      },
+      "block_order": [
+        "image_Naedm"
+      ]
+    }
+  },
+  "order": [
+    "1662460824ad6e755b",
+    "slideshow_3bmad",
+    "custom_liquid_rewYR",
+    "6cc91c8c-a57c-41dd-9ac0-a95015ad3ab6",
+    "main",
+    "9b75a0b7-27db-4dc4-ad56-e99d0feea4fa",
+    "featured_collections_zUDiT"
+  ]
+}

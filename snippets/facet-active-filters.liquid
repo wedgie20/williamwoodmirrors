@@ -1,0 +1,212 @@
+{%- comment -%}
+  Code that show the active filters. It currently supports the following options:
+
+  - filters: either the collection or search filters
+{%- endcomment -%}
+
+{%- assign active_filters_count = 0 -%}
+
+{%- for filter in filters -%}
+  {%- if filter.type == 'list' -%}
+    {%- assign active_filters_count = active_filters_count | plus: filter.active_values.size -%}
+  {%- elsif filter.type == 'price_range' and filter.min_value.value or filter.max_value.value -%}
+    {%- assign active_filters_count = active_filters_count | plus: 1 -%}
+  {%- elsif filter.type == 'boolean' and filter.true_value.active -%}
+    {%- assign active_filters_count = active_filters_count | plus: 1 -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if request.page_type == 'collection' -%}
+  {%- assign page_url = collection.url -%}
+  {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+{%- elsif request.page_type == 'search' -%}
+  {%- assign page_url = routes.search_url -%}
+  {%- assign sort_by = search.sort_by | default: search.default_sort_by -%}
+{%- endif -%}
+
+{% assign heightMin = -1 %}
+{% assign heightMax = -1  %}
+
+{% assign widthMin = -1 %}
+{% assign widthMax = -1 %}
+
+{%- for filter in filters -%}
+  {% assign downcase_filter_label = filter.label | downcase %}
+  {%- case filter.type -%}
+    {%- when 'list' -%}
+      {%- for filter_value in filter.active_values -%}
+        {% assign filterValue = filter_value.label | times: 1 %}
+
+        {% if forloop.index == 1 %}
+          {% if filter.label contains 'Height' %}
+            {% assign heightMin = filterValue %}
+            {% assign heightMax = filterValue%}
+          {% endif %}
+    
+          {% if filter.label contains 'Width' %}
+            {% assign widthMin = filterValue  %}
+            {% assign widthMax = filterValue  %}
+          {% endif %}
+
+
+        {% if filter.label contains 'Height' %}
+          {% assign fullFilterString = filter_value.url_to_remove |  split: "?" | last %}
+          {% assign heightCloseFull = fullFilterString |  split: "&" %}
+          {% assign heightClose = "all?" %}
+            {% for parts in heightCloseFull %}
+              {% unless parts contains 'height' %}
+                {% assign heightClose = heightClose |  append: parts | append: '&'  %}
+              {% endunless %}
+            {% endfor %}
+
+            {% unless forloop.index0 == 0 %}
+              {% if heightMax < filterValue %}
+                  {% assign heightMax = filterValue %}
+                {% endif %}
+                {% if heightMin > filterValue %}
+                  {% assign heightMin = filterValue %}
+                {% endif %}
+            {% endunless %}
+
+            {% endif %}
+    
+          {% if filter.label contains 'Width' %}
+            {% assign fullFilterString = filter_value.url_to_remove |  split: "?" | last %}
+            {% assign widthCloseFull = fullFilterString  |  split: "&" %}
+            {% assign widthClose = "all?" %}
+            {% for parts in widthCloseFull %}
+              {% unless parts contains 'width' %}
+                {% assign widthClose = widthClose |  append: parts | append: '&' %}
+              {% endunless %}
+            {% endfor %}
+
+            {% unless forloop.index0 == 0 %}
+              {% if widthMax < filterValue %}
+                {% assign widthMax = filterValue  %}
+              {% endif %}
+              {% if widthMin > filterValue %}
+                {% assign widthMin = filterValue %}
+              {% endif %}
+            {% endunless %}
+          {% endif %}
+        {% endif %}
+
+
+        {% unless filter.label contains 'Width' or filter.label contains 'Height' %}          
+        <div class="tag">
+          <a href="{{ filter_value.url_to_remove  }}" data-action="clear-filters" class="tag__icon tap-area" aria-label="{{ 'general.accessibility.delete' | t }}">{%- render 'icon' with 'close', width: 10, height: 10 -%}</a>
+
+          {%- if section.settings.show_filter_group_name or downcase_filter_label == 'height' or downcase_filter_label == 'width' -%}
+            {{- filter.label }}: {{ filter_value.label -}}
+          {%- else -%}
+            {{- filter_value.label -}}
+          {%- endif -%}
+        </div>
+      {% endunless %}
+
+      {%- endfor -%}
+
+    {%- when 'boolean' -%}
+      {%- if filter.true_value.active -%}
+        <div class="tag">
+          <a href="{{ filter.true_value.url_to_remove  }}" data-action="clear-filters" class="tag__icon tap-area" aria-label="{{ 'general.accessibility.delete' | t }}">{%- render 'icon' with 'close', width: 10, height: 10 -%}</a>
+          {{- filter.label -}}
+        </div>
+      {%- endif -%}
+
+    {%- when 'price_range' -%}
+      {%- assign min_value_formatted = filter.min_value.value | default: 0 | money_without_trailing_zeros -%}
+      {%- assign max_value_formatted = filter.max_value.value | default: filter.range_max | money_without_trailing_zeros -%}
+
+      {%- if filter.min_value.value or filter.max_value.value -%}
+        <div class="tag">
+          <a href="{{ filter.url_to_remove  }}" data-action="clear-filters" class="tag__icon tap-area" aria-label="{{ 'general.accessibility.delete' | t }}">{%- render 'icon' with 'close', width: 10, height: 10 -%}</a>
+          {% if section.settings.show_filter_group_name %}
+            {{- filter.label }}: {{ 'collection.general.price_filter' | t: min_price: min_value_formatted, max_price: max_value_formatted -}}
+          {%- else -%}
+            {{- 'collection.general.price_filter' | t: min_price: min_value_formatted, max_price: max_value_formatted -}}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+  {%- endcase -%}
+{%- endfor -%}
+
+
+{% if heightMax > 0 %}
+  <div class="tag">
+    <a href="{{ heightClose  }}" data-action="clear-filters" class="height-remove-filter tag__icon tap-area" aria-label="{{ 'general.accessibility.delete' | t }}">{%- render 'icon' with 'close', width: 10, height: 10 -%}</a>
+      Height: {% if heightMin != heightMax %}{{ heightMin }}-{% endif %}{{ heightMax }}cm
+  </div>
+{% endif %}
+
+{% if widthMax > 0 %}
+  <div class="tag">
+    <a href="{{ widthClose  }}" data-action="clear-filters" class="width-remove-filter tag__icon tap-area" aria-label="{{ 'general.accessibility.delete' | t }}">{%- render 'icon' with 'close', width: 10, height: 10 -%}</a>
+      Width: {% if widthMin != widthMax %}{{ widthMin }}-{% endif %}{{ widthMax }}cm
+  </div>
+{% endif %}
+
+
+
+
+{%- if active_filters_count > 1 -%}
+  {%- if request.page_type == 'collection' -%}
+    <a href="{{ page_url  }}?sort_by={{ sort_by  }}" data-action="clear-filters" class="tag-link link text--subdued">{{ 'collection.general.clear_filters' | t }}</a>
+  {%- else -%}
+    <a href="{{ page_url  }}?sort_by={{ sort_by  }}&q={{ search.terms | escape  }}&type=product&options[prefix]=last&options[unavailable_products]={{ settings.search_unavailable_products  }}" data-action="clear-filters" class="tag-link link text--subdued">{{ 'collection.general.clear_filters' | t }}</a>
+  {%- endif -%}
+{%- endif -%}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    updateSizeLabels()
+  })
+
+  function updateSizeLabels(){
+    console.error('UPDATING LABELS')
+    let heightCenter = parseInt(document.querySelector('#height-input').value)
+    let widthCenter = parseInt(document.querySelector('#width-input').value)
+
+    let heightDiv = document.querySelector(".height-remove-filter");
+    if(heightDiv){ heightDiv = heightDiv.parentElement}
+    const heightText = 'Height: ' + (heightCenter - 5) + "-" + (heightCenter+5)+"cm";
+    
+    let widthDiv = document.querySelector(".width-remove-filter");
+    if(widthDiv){ widthDiv = widthDiv.parentElement}
+    const widthText = 'Width: '  + (widthCenter - 5) + "-" + (widthCenter+5)+"cm";
+
+    // Update the text node that follows the <a> tag
+    if (heightDiv) {
+        const anchorTag = heightDiv.querySelector('a');
+        if (anchorTag) {
+            // Create a text node with the new text
+            const newTextNode = document.createTextNode(heightText);
+            
+            // Remove the existing text node (if any) that follows the <a> tag
+            if (anchorTag.nextSibling) {
+              heightDiv.removeChild(anchorTag.nextSibling);
+            }
+
+            // Append the new text node after the <a> tag
+              heightDiv.appendChild(newTextNode);
+        }
+    }
+
+    if (widthDiv) {
+        const anchorTag = widthDiv.querySelector('a');
+        if (anchorTag) {
+            // Create a text node with the new text
+            const newTextNode = document.createTextNode(widthText);
+            
+            // Remove the existing text node (if any) that follows the <a> tag
+            if (anchorTag.nextSibling) {
+              widthDiv.removeChild(anchorTag.nextSibling);
+            }
+
+            // Append the new text node after the <a> tag
+              widthDiv.appendChild(newTextNode);
+        }
+    }
+  }
+
+</script>

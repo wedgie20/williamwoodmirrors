@@ -1,0 +1,290 @@
+{%- assign server_now_s = 'now' | date: '%s' -%}
+{%- assign server_now_ms = server_now_s | times: 1000 -%}
+
+  <div id="py-flip-countdown" class="py-flip" data-server-now="{{ server_now_ms }}">
+    <div class="py-row" role="timer" aria-live="polite" aria-atomic="true" aria-label="24 hour countdown">
+
+      <!-- HOURS -->
+      <div class="py-unit" aria-label="hours">
+        <div class="digit" data-k="hT" data-value="2">
+          <span class="upper"><i class="inner">2</i></span>
+          <span class="lower"><i class="inner">2</i></span>
+        </div>
+        <div class="digit" data-k="hO" data-value="4">
+          <span class="upper"><i class="inner">4</i></span>
+          <span class="lower"><i class="inner">4</i></span>
+        </div>
+        <span class="label">hrs</span>
+      </div>
+
+      <span class="sep" aria-hidden="true">:</span>
+
+      <!-- MINUTES -->
+      <div class="py-unit" aria-label="minutes">
+        <div class="digit" data-k="mT" data-value="0">
+          <span class="upper"><i class="inner">0</i></span>
+          <span class="lower"><i class="inner">0</i></span>
+        </div>
+        <div class="digit" data-k="mO" data-value="0">
+          <span class="upper"><i class="inner">0</i></span>
+          <span class="lower"><i class="inner">0</i></span>
+        </div>
+        <span class="label">min</span>
+      </div>
+
+      <span class="sep" aria-hidden="true">:</span>
+
+      <!-- SECONDS -->
+      <div class="py-unit" aria-label="seconds">
+        <div class="digit" data-k="sT" data-value="0">
+          <span class="upper"><i class="inner">0</i></span>
+          <span class="lower"><i class="inner">0</i></span>
+        </div>
+        <div class="digit" data-k="sO" data-value="0">
+          <span class="upper"><i class="inner">0</i></span>
+          <span class="lower"><i class="inner">0</i></span>
+        </div>
+        <span class="label">sec</span>
+      </div>
+
+    </div>
+  </div>
+
+  <style>
+    /* Layout & typography */
+    #py-flip-countdown.py-flip{
+      --size: clamp(18px,4vw,28px);
+      --weight: 800;
+      --radius: .2em;
+      --gap: .18em;
+      --flip-speed: 320ms;
+      margin: 1rem 0; text-align:center;
+      font-family: system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,"Noto Sans","Liberation Sans",sans-serif;
+      color:#000;
+      background: #efefef;
+      padding: 10px;
+    }
+    #py-flip-countdown .py-row{
+      display:inline-flex; align-items:flex-end; gap:.35em;
+      font-size:var(--size); line-height:1; white-space:nowrap;
+      font-variant-numeric: tabular-nums lining-nums;
+      font-feature-settings: "tnum" 1, "lnum" 1;
+      font-size: 14px;
+      
+    }
+    #py-flip-countdown .py-unit{display:inline-flex; align-items:flex-end; gap:var(--gap);}
+    #py-flip-countdown .label{font-size:.52em; font-weight:600; margin-left:.15em; text-transform:lowercase;}
+    #py-flip-countdown .sep{font-weight:var(--weight); padding:0 .05em;}
+
+    /* Digit block */
+    #py-flip-countdown .digit{
+      position:relative; width:.75em; height:1em;
+      perspective: 1000px; /* enables 3D flip */
+    }
+    /* Halves: now properly cropped with anchored inner glyphs */
+    #py-flip-countdown .upper, #py-flip-countdown .lower{
+      position:relative; display:block; height:.5em; overflow:hidden;
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    #py-flip-countdown .lower{
+      border-radius: 0 0 var(--radius) var(--radius);
+    }
+    #py-flip-countdown .upper .inner, 
+    #py-flip-countdown .lower .inner{
+      position:absolute; left:0; right:0; height:1em;
+      line-height:1em; display:flex; align-items:center; justify-content:center;
+      font-weight:var(--weight);
+    }
+    #py-flip-countdown .upper .inner{ top:0; }   /* show top half */
+    #py-flip-countdown .lower .inner{ bottom:0; }/* show bottom half */
+
+    /* Flip layers (animated) */
+    #py-flip-countdown .flip, #py-flip-countdown .flip-bottom{
+      position:absolute; left:0; right:0; overflow:hidden; text-align:center;
+      backface-visibility:hidden;
+    }
+    #py-flip-countdown .flip{
+      top:0; height:.5em; border-radius: var(--radius) var(--radius) 0 0;
+      transform-origin: bottom; animation: pyFold var(--flip-speed) ease-in forwards;
+    }
+    #py-flip-countdown .flip-bottom{
+      bottom:0; height:.5em; border-radius: 0 0 var(--radius) var(--radius);
+      transform-origin: top; transform: rotateX(90deg);
+      animation: pyUnfold var(--flip-speed) ease-out forwards;
+    }
+    #py-flip-countdown .flip .inner, 
+    #py-flip-countdown .flip-bottom .inner{
+      position:absolute; left:0; right:0; height:1em; line-height:1em;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:var(--weight);
+    }
+    #py-flip-countdown .flip .inner{ top:0; }      /* top half of old digit */
+    #py-flip-countdown .flip-bottom .inner{ bottom:0; } /* bottom half of new digit */
+
+    @keyframes pyFold { to { transform: rotateX(-90deg); } }
+    @keyframes pyUnfold { to { transform: rotateX(0deg); } }
+
+    /* Slight emphasis on HOURS reels (optional) */
+    #py-flip-countdown [aria-label="hours"] .digit{ width:.7em; }
+    @media (prefers-reduced-motion: reduce){
+      #py-flip-countdown .flip, #py-flip-countdown .flip-bottom{ animation:none !important; transform:none !important; }
+    }
+
+    .py-flip {
+      border-radius: 30px;
+    }
+  </style>
+
+  <script>
+  function initializeCountdown() {
+  const root = document.getElementById('py-flip-countdown');
+  if (!root || root.__bound) return;
+  root.__bound = true;
+
+  if (document.querySelector('.mini-cart').getAttribute('data-cart-count') > 0) {
+    const STORAGE_KEY = 'py-24h-countdown-end1';
+    const CHANNEL = 'py24hCountdown';
+    let bc = null; try { bc = new BroadcastChannel(CHANNEL); } catch(e){}
+
+    const serverNow = parseInt(root.dataset.serverNow || '0', 10) || Date.now();
+
+    function ensureEnd(){
+      let end = NaN;
+      try { end = parseInt(localStorage.getItem(STORAGE_KEY) || '', 10); } catch(e){}
+      const minFuture = Date.now() + 1000;
+      if (isFinite(end) && end > minFuture) return end;
+
+      const skew = Date.now() - serverNow;
+      const fresh = serverNow + skew + 24*60*60*1000;
+      try { localStorage.setItem(STORAGE_KEY, String(fresh)); } catch(e){}
+      return fresh;
+    }
+    let endTime = ensureEnd();
+
+    if (bc) bc.onmessage = evt => {
+      if (evt && evt.data && evt.data.type === 'end-update') endTime = evt.data.endTime;
+    };
+    window.addEventListener('storage', e => {
+      if (e.key === STORAGE_KEY && e.newValue) {
+        const t = parseInt(e.newValue, 10); if (isFinite(t)) endTime = t;
+      }
+    });
+    function broadcastEnd(t){ try{ localStorage.setItem(STORAGE_KEY, String(t)); }catch(e){} if(bc){ try{ bc.postMessage({type:'end-update', endTime:t}); }catch(e){} } }
+
+    // Helpers
+    const $ = k => root.querySelector(`[data-k="${k}"]`);
+    const faces = {
+      hT: $('hT'), hO: $('hO'),
+      mT: $('mT'), mO: $('mO'),
+      sT: $('sT'), sO: $('sO')
+    };
+
+    function setFace(el, v){
+      el.dataset.value = String(v);
+      el.querySelector('.upper .inner').textContent = String(v);
+      el.querySelector('.lower .inner').textContent = String(v);
+    }
+
+    // Flip a digit to new value (0–9)
+    function flipTo(el, next){
+      const cur = parseInt(el.dataset.value || '0', 10);
+      if (next === cur) return;
+
+      // top half shows old, bottom half shows new
+      const top = document.createElement('span');
+      top.className = 'flip';
+      top.innerHTML = '<i class="inner"></i>';
+      top.querySelector('.inner').textContent = String(cur);
+
+      const bot = document.createElement('span');
+      bot.className = 'flip-bottom';
+      bot.innerHTML = '<i class="inner"></i>';
+      bot.querySelector('.inner').textContent = String(next);
+
+      let done = 0;
+      const finish = () => {
+        if (++done < 2) return;
+        setFace(el, next);
+        top.remove(); bot.remove();
+      };
+      top.addEventListener('animationend', finish, { once:true });
+      bot.addEventListener('animationend', finish, { once:true });
+
+      el.appendChild(top); el.appendChild(bot);
+    }
+
+    function values(msLeft){
+      const total = Math.max(0, Math.floor(msLeft/1000));
+      const h = Math.floor(total/3600);
+      const m = Math.floor((total%3600)/60);
+      const s = total % 60;
+      return {
+        hT: Math.floor(h/10), hO: h%10,
+        mT: Math.floor(m/10), mO: m%10,
+        sT: Math.floor(s/10), sO: s%10
+      };
+    }
+
+    // Initial paint
+    (function init(){
+      const ms = endTime - Date.now();
+      const vals = values(ms);
+      for (const k in faces) setFace(faces[k], vals[k]);
+    })();
+
+    let last = values(endTime - Date.now());
+
+    function loop(){
+      const now = Date.now();
+      let left = endTime - now;
+
+      if (left <= 0){
+        endTime = now + 24*60*60*1000;
+        broadcastEnd(endTime);
+        left = endTime - now;
+        last = {}; // force repaint
+      }
+
+      const snap = Math.floor(left/1000)*1000;
+      const next = values(snap);
+
+      // animate only changed digits
+      for (const k in next){
+        if (last[k] !== next[k]) flipTo(faces[k], next[k]);
+      }
+      last = next;
+
+      const delay = (left % 1000) || 1000;
+      setTimeout(loop, delay + 4);
+    }
+    setTimeout(loop, 50);
+
+    // Cleanup if node is removed
+    const obs = new MutationObserver(()=>{ if(!document.body.contains(root)) obs.disconnect(); });
+    obs.observe(document.documentElement,{childList:true,subtree:true});
+  }
+}
+
+// Initialize on load
+initializeCountdown();
+
+// Re-initialize when cart updates
+document.addEventListener('cart:updated', function() {
+  const root = document.getElementById('py-flip-countdown');
+  if (root) {
+    root.__bound = false;
+    initializeCountdown();
+  }
+});
+
+// Re-initialize when drawer opens
+document.addEventListener('cart:refresh', function() {
+  setTimeout(() => {
+    const root = document.getElementById('py-flip-countdown');
+    if (root) {
+      root.__bound = false;
+      initializeCountdown();
+    }
+  }, 5000);
+});
+  </script>

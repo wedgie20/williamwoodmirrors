@@ -1,0 +1,51 @@
+<script type="text/javascript">
+      (function(sc, d, t, u, k, s, p) {
+          if (sc.QUICK_AR_INIT) return; sc['QUICK_AR_INIT'] = { key: k };
+          s = d.createElement(t), p = d.getElementsByTagName('head')[0]; s.src = u; p.appendChild(s);
+      })(window, document, 'script', 'https://cdn-quick-ar.threedy.ai/latest/threedy.js', 'wTwT2FyAuB');
+</script>
+<div data-threedy-web-id="{{ product.selected_or_first_available_variant.sku }}" data-threedy-sku="default">
+  <button class="threedy-qar-btn threedy-embed-btn" style="display: none;"><span>VIEW THIS PRODUCT IN YOUR ROOM</span></button>
+</div>
+<style>
+[data-threedy-web-id] {
+  top: 20px;
+  left: 20px;
+  position: absolute;
+  z-index: 1;
+}
+[data-threedy-web-id] button {
+    color: #000000;
+    background: rgb(239, 239, 239, 0.8);
+    font-family: Zurich;
+    font-size: 8px;
+    border-radius: 30px;
+    height: auto;
+    padding: 0px 12px;
+    display: flex;
+    flex-direction: row-reverse;
+    letter-spacing: 0.25px;
+}
+[data-threedy-web-id]>button>span {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+  
+.threedy-embed-btn img.threedy-icon {
+    filter: invert(1);
+  height: 10px;
+  margin-right: 10px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 0px;
+}
+@media only screen and (max-width: 425px) {
+  .threedy-embed-btn img.threedy-icon {
+    height: 10px;
+  }
+  [data-threedy-web-id] {
+    top: 10px;
+    left: 10px;
+  }
+} 
+</style>

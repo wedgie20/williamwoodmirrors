@@ -1,0 +1,605 @@
+{%- comment -%}
+  ------------------------------------------------------------------------------------------------------------------------
+  NOTE TO DEVELOPERS: welcome to Focal theme! We hope that you will enjoy editing this theme as much as we did for
+    developing it. We have put a lot of work to make this theme as developer friendly as possible by offering you
+    hooks to integrate into critical parts of the theme. You will find the complete technical documentation (including
+    all events, dependencies...) in the "custom.js" file, located in the Assets folder.
+  ------------------------------------------------------------------------------------------------------------------------
+  ------------------------------------------------------------------------------------------------------------------------
+  NOTE TO DEVELOPERS: welcome to Focal theme! We hope that you will enjoy editing this theme as much as we did for
+    developing it. We have put a lot of work to make this theme as developer friendly as possible by offering you
+    hooks to integrate into critical parts of the theme. You will find the complete technical documentation (including
+    all events, dependencies...) in the "custom.js" file, located in the Assets folder.
+  ------------------------------------------------------------------------------------------------------------------------
+{%- endcomment -%}
+
+<!doctype html>
+
+{%- assign direction = 'ltr' -%}
+{%- case request.locale.iso_code -%}
+  {%- when 'ar', 'arc', 'dv', 'fa', 'ha', 'he', 'kwh', 'ks', 'ku', 'ps', 'ur', 'yi' -%}
+    {%- assign direction = 'rtl' -%}
+{%- endcase -%}
+
+
+
+
+<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ direction }}">
+  <head>
+
+    <!-- Start of Inteligems scripts -->
+        <script>
+        window.Shopify = window.Shopify || {theme: {id: {{ theme.id }}, role: '{{ theme.role }}' } };
+        window._template = {
+            directory: "{{ template.directory }}",
+            name: "{{ template.name }}",
+            suffix: "{{ template.suffix }}"
+        };
+      </script>
+      <script type="module" blocking="render" fetchpriority="high" src="https://cdn.intelligems.io/esm/968a89323dc0/bundle.js" async></script>
+    <!-- end of Inteligems scripts -->
+
+    <!-- Start of Heatmap scripts -->
+    <script>(function (h,e,a,t,m,ap) { (h._heatmap_paq = []).push([ 'setTrackerUrl', (h.heatUrl = e) + a]); h.hErrorLogs=h.hErrorLogs || []; ap=t.createElement('script');  ap.src=h.heatUrl+'preprocessor.min.js?sid='+m;  ap.defer=true; t.head.appendChild(ap); ['error', 'unhandledrejection'].forEach(function (ty) {     h.addEventListener(ty, function (et) { h.hErrorLogs.push({ type: ty, event: et }); }); });})(window,'https://dashboard.heatmap.com/','heatmap.php',document,3661);</script>
+<!-- end of Heatmap scripts -->
+
+{% render 'visually_io_sdk' %}
+
+<!-- Start of Shoplift scripts -->
+{% render 'shoplift' %}
+<!-- End of Shoplift scripts -->
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-MG63SS6');
+    </script>
+    <!-- End Google Tag Manager -->
+    <!-- Hotjar Tracking Code for Site 4962654 (name missing) -->
+    <script>
+      (function (h, o, t, j, a, r) {
+        h.hj =
+          h.hj ||
+          function () {
+            (h.hj.q = h.hj.q || []).push(arguments);
+          };
+        h._hjSettings = { hjid: 4962654, hjsv: 6 };
+        a = o.getElementsByTagName('head')[0];
+        r = o.createElement('script');
+        r.async = 1;
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+        a.appendChild(r);
+      })();
+    </script>
+    
+    <script src="//cdn.jsdelivr.net/npm/alpinejs@2" defer></script>
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" /> 
+    <meta name="theme-color" content="{{ settings.header_background }}">
+
+    <title>
+      {% if page_title == blank -%}
+        {{- shop.name -}}
+      {%- else -%}
+        {{- page_title -}}
+        {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}
+      {%- endif %}
+    </title>
+
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}">
+    {%- endif -%}
+
+    <link rel="canonical" href="{{ canonical_url  }}">
+
+    {%- if settings.favicon -%}
+      <link rel="shortcut icon" href="{{ settings.speedsize_url_pfx_https -}}{{ settings.favicon | img_url: '96x96' }}" type="image/png">
+    {%- endif -%}
+
+    {%- comment -%} Few prefech to increase performance on commonly used third-parties {%- endcomment -%}
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.shopify.com" crossorigin>
+    <link rel="preconnect" href="https://monorail-edge.shopifysvc.com" crossorigin>
+
+    <!-- fallback for browsers that don't support preconnect -->
+    <link rel="dns-prefetch" href="https://fonts.shopifycdn.com">
+    <link rel="dns-prefetch" href="https://cdn.shopify.com">
+    <link rel="dns-prefetch" href="https://v.shopify.com">
+    <link rel="dns-prefetch" href="https://cdn.shopifycloud.com">
+    <link rel="dns-prefetch" href="https://monorail-edge.shopifysvc.com">
+
+    {%- unless settings.heading_font.system? and settings.text_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"
+      integrity="sha512-UOJe4paV6hYWBnS0c9GnIRH8PLm2nFK22uhfAvsTIqd3uwnWsVri1OPn5fJYdLtGY3wB11LGHJ4yPU1WFJeBYQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      defer
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css"
+      integrity="sha512-qveKnGrvOChbSzAdtSs8p69eoLegyh+1hwOMbmpCViIwj7rn4oJjdmMvWOuyQlTOZgTlZA0N2PXA7iA8/2TUYA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    >
+
+    <script>
+  fetch('https://ipapi.co/json/')
+    .then(response => response.json())
+    .then(data => {
+      if (data.country_code === 'IE') {
+        window.location.href = 'https://www.williamwoodmirrors.eu';
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching the geolocation data: ', error);
+    });
+</script>
+
+      
+    {%- comment -%}Preload important resources{%- endcomment -%}
+
+    {%- comment -%}
+      IMPLEMENTATION NOTE: for improving performance, Focal tries to preload images on known pages (such as blog page,
+      product or collection pages). In order to keep a main JS file size minimal, the theme also lazyloads non-essential
+      libraries (such as PhotoSwipe or Flickity) and only loads them on demand.
+    {%- endcomment -%}
+    {%- if request.page_type == 'product' -%}
+      {%- assign selected_media = product.selected_variant.featured_media | default: product.featured_media -%}
+
+      <link rel="preload" as="fetch" href="{{ product.url  }}.js" crossorigin>
+      <link
+        rel="preload"
+        as="image"
+        imagesizes="(max-width: 999px) calc(100vw - 48px), 640px"
+        imagesrcset="{% render 'image-attributes', image: selected_media, sizes: '400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800', sizes_only: true %}"
+      >
+
+
+      {%- if product.media.size > 1 -%}
+        <script src="{{ 'flickity.js' | asset_url }}" defer></script>
+      {%- endif -%}
+    {%- elsif request.page_type == 'collection' and collection.image -%}
+      <link
+        rel="preload"
+        as="image"
+        media="(max-width: 740px)"
+        imagesizes="100vw"
+        imagesrcset="{% render 'image-attributes', image: collection.image, sizes: '400,500,600,700,800,900,1000', height_constraint: 600, crop: 'center', sizes_only: true %}"
+      >
+      <link
+        rel="preload"
+        as="image"
+        media="(min-width: 741px)"
+        imagesizes="100vw"
+        imagesrcset="{% render 'image-attributes', image: collection.image, sizes: '600,700,800,1000,1200,1400,1600,1800,2000,2200,2400,2600', sizes_only: true %}"
+      >
+    {%- endif -%}
+
+    {% render 'social-meta-tags' %}
+    {% render 'microdata-schema' %}
+
+    {% render 'css-variables', direction: direction %}
+    {% render 'js-variables', direction: direction %}
+
+    <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
+    <link rel="stylesheet" href="{{ 'predictive-search.css' | asset_url }}">
+
+    <script src="{{ 'vendor.js' | asset_url }}" defer></script>
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+    <script src="{{ 'predictive-search.js' | asset_url }}" defer></script>
+
+    {% include 'vital-loader' %}
+    {% capture cfh %}{{ content_for_header }}{% endcapture %}
+
+    <!-- start Ecodrive -->
+    <style>
+      .ecodrive-toggle > div {
+        margin: 0 !important;
+      }
+
+      .ecodrive-toggle > div > div {
+        padding: 0 32px 8px 32px !important;
+        background-color: rgba(0, 0, 0, 0) !important;
+      }
+
+      .ecodrive-toggle > div > div > div:nth-child(2) span {
+        font-size: 8px !important;
+      }
+
+      .ecodrive-toggle > div > div > div:nth-child(2) svg {
+        width: 42px !important;
+        height: 12px !important;
+      }
+    </style>
+    <!-- end Ecodrive -->
+  {% include 'kart_discount' %}
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "q87r9pem7i");
+</script>
+    <link rel="preconnect" href="https://sfycdn.speedsize.com/" data-speedsize="auto">
+    
+
+
+<script>
+/* >> Heatmap.com :: Snippet << */
+(function (h,e,a,t,m,ap) {
+  (h._heatmap_paq = []).push([ 'setTrackerUrl', (h.heatUrl = e) + a]);
+  h.hErrorLogs=h.hErrorLogs || []; ap=t.createElement('script'); 
+  ap.src=h.heatUrl+'preprocessor.min.js?sid='+m; 
+  ap.defer=true; t.head.appendChild(ap);
+  ['error', 'unhandledrejection'].forEach(function (ty) {
+      h.addEventListener(ty, function (et) { h.hErrorLogs.push({ type: ty, event: et }); });
+  });
+})(window,'https://dashboard.heatmap.com/','heatmap.php',document,3661);
+</script>
+<!--START Digioh Fast Activation Javascript-->
+<script async type='text/javascript' src='https://www.lightboxcdn.com/vendor/d96de789-36dc-428f-ac21-6b801511df68/lightbox_inline.js'></script>
+<!--END Digioh Fast Activation Javascript-->
+
+    <style> 
+      .countdown_cart_page_timer_wrapper_cmemstfb400f5t9itqtxql6dj div.h2 {
+        font-weight: normal;
+      }
+      .cart-page-inline-timer.h2 > span {
+        display: block;
+      }
+      .countdown_wrapper_cmeom7bfn000coenvom7t1ahc span:first-child, .countdown_wrapper_cmeom7bfn000coenvom7t1ahc span:nth-child(2),
+      .countdown_wrapper_cmeom7bfn000coenvom7t1ahc div[class*="countdown_legend_cmeom7bfn000coenvom7t1ahc"] {
+        display:none;
+      }
+      .countdown_wrapper_cmeom7bfn000coenvom7t1ahc {
+        margin-left: 65px!important;
+      }
+
+    </style>
+  </head>
+
+  {%- assign feature_classes = '' -%}
+
+  {%- if settings.show_image_zoom -%}
+    {% assign feature_classes = feature_classes | append: ' features--image-zoom' %}
+  {%- endif -%}
+
+  <body class="no-focus-outline {{ feature_classes }} template-{{ template }} {% if template.name == "product" %}{% unless product.available %}template-product-sold-out{% endunless %}{% endif %}" data-instant-allow-query-string>
+    <script>
+      window.KlarnaThemeGlobals={};{% case template.name%} {%when"product"%} {% if product.first_available_variant.price %}window.KlarnaThemeGlobals.data_purchase_amount = {{ product.first_available_variant.price }};{% endif %}window.KlarnaThemeGlobals.productVariants={{product.variants|json}};window.KlarnaThemeGlobals.documentCopy=document.cloneNode(true);{%when"cart"%} window.KlarnaThemeGlobals.data_purchase_amount={{cart.total_price}};window.KlarnaThemeGlobals.documentCopy=document.cloneNode(true);{%endcase%}
+    </script>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-MG63SS6"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    {%- comment -%}Common SVG definitions that we are re-using in several places{%- endcomment -%}
+    <svg class="visually-hidden">
+      <linearGradient id="rating-star-gradient-half">
+        <stop offset="50%" stop-color="rgb(var(--product-star-rating))" />
+        <stop offset="50%" stop-color="rgb(var(--product-star-rating))" stop-opacity="0.4" />
+      </linearGradient>
+    </svg>
+
+    <a href="#main" class="visually-hidden skip-to-content">{{ 'general.accessibility.skip_to_content' | t }}</a>
+    <loading-bar class="loading-bar"></loading-bar>
+
+    {%- if request.page_type != 'gift_card' and request.page_type != 'password' -%}
+      {%- sections 'header-group' -%}
+      {%- sections 'overlay-group' -%}
+
+ {%- if settings.cart_type != 'page' and request.page_type != 'cart' -%}
+    {%- unless request.path contains "/en-international" -%}
+        {%- section 'mini-cart' -%}
+    {%- else -%}
+        {%- section 'international-mini-cart' -%}
+    {%- endunless -%}
+{%- endif -%}
+
+    {%- endif -%}
+
+    <div id="main" role="main" class="anchor">
+      {%- comment -%}
+        IMPLEMENTATION NOTE: on collection and search page, the theme was designed to show on mobile the filter bar and/or sort
+          by at the very top of the page. However, due to the fact that sections are isolated, I had to move the code
+          here. Then, the collection section, based on the selected settings, will eventually hide those elements in CSS
+      {%- endcomment -%}
+      {%- if request.page_type == 'collection' or request.page_type == 'search' -%}
+        {%- assign active_filters_count = 0 -%}
+
+        {%- if request.page_type == 'collection' -%}
+          {%- assign filters = collection.filters -%}
+        {%- else -%}
+          {%- assign filters = search.filters -%}
+        {%- endif -%}
+
+        {%- for filter in filters -%}
+          {%- if filter.type == 'list' -%}
+            {%- assign active_filters_count = active_filters_count | plus: filter.active_values.size -%}
+          {%- elsif filter.type == 'price_range' and filter.min_value.value or filter.max_value.value -%}
+            {%- assign active_filters_count = active_filters_count | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- assign is_toolbar_collapsed = false -%}
+
+        {%- if request.page_type == 'search'
+          and search.results.first.object_type != 'product'
+          and search.results_count > 0
+        -%}
+          {%- assign is_toolbar_collapsed = true -%}
+        {%- endif -%}
+
+        <div
+          id="mobile-facet-toolbar"
+          class="mobile-toolbar {% if is_toolbar_collapsed %}is-collapsed{% endif %} hidden-lap-and-up"
+        >
+          <button
+            is="toggle-button"
+            class="mobile-toolbar__item mobile-toolbar__item--filters {% if active_filters_count > 0 %}has-filters{% endif %}"
+            aria-expanded="false"
+            aria-controls="facet-filters"
+            style="display: none"
+          >
+            {%- render 'icon' with 'filters' -%}
+            <span class="mobile-toolbar__item-label">{{- 'collection.general.filters' | t -}}</span>
+          </button>
+
+          <button
+            is="toggle-button"
+            class="mobile-toolbar__item mobile-toolbar__item--sort"
+            aria-expanded="false"
+            aria-controls="sort-by-popover"
+            style="display: none"
+          >
+            <span class="mobile-toolbar__item-label">{{- 'collection.general.sort_by' | t -}}</span>
+            {%- render 'icon' with 'chevron' -%}
+          </button>
+        </div>
+      {%- endif -%}
+
+      {{ content_for_layout }}
+
+      {%- unless request.page_type == 'index' or request.page_type == 'password' or request.page_type == 'gift_card' -%}
+        {%- section 'static-text-with-icons' -%}
+        {%- section 'static-newsletter' -%}
+      {%- endunless -%}
+    </div>
+ {% if request.path contains '/pages/members-sign-up' %}
+<div class="klaviyo-form-UbfZHA"></div>
+  {% endif %}
+    {%- if request.page_type != 'gift_card' and request.page_type != 'password' -%}
+      {%- sections 'footer-group' -%}
+    {%- endif -%}
+
+    <!-- Back in Stock helper snippet -->
+    {% render 'back-in-stock-helper' %}
+    <!-- End Back in Stock helper snippet -->
+
+    {% include 'swymSnippet' %}
+    <script
+      type="text/javascripts"
+    >
+      /* >> TriplePixel :: start*/
+      ~(function (W, H, A, L, E, _) {
+        function O(T, R) {
+          void 0 === R && (R = !1),
+            (H = new XMLHttpRequest()),
+            H.open('GET', '//triplewhale-pixel.web.app/triplepx.txt?' + ~(Date.now() / 9e7), !0),
+            H.send(null),
+            (H.onreadystatechange = function () {
+              4 === H.readyState && 200 === H.status
+                ? setTimeout(function () {
+                    return eval(H.responseText);
+                  }, 50)
+                : (299 < H.status || H.status < 200) && T && !R && ((R = !0), O(T - 1));
+            });
+        }
+        if (((L = window), !L[H + 'sn'])) {
+          L[H + 'sn'] = 1;
+          try {
+            A.setItem(H, 1 + (0 | A.getItem(H) || 0)),
+              W.includes('⇈') && A.setItem(H + 'Stg', 1 + (0 | A.getItem(H + 'Stg') || 0)),
+              (E = JSON.parse(A.getItem(H + 'U') || '[]')).push(location.href),
+              A.setItem(H + 'U', JSON.stringify(E));
+          } catch (e) {}
+          A.getItem('"!nC`') ||
+            ((A = L),
+            A[H] ||
+              ((L = function () {
+                return Date.now().toString(36) + '_' + Math.random().toString(36);
+              }),
+              (E = A[H] =
+                function (t, e) {
+                  return (W = L()), (E._q = E._q || []).push([W, t, e]), (E._headless = !0), W;
+                }),
+              (E.ch = W),
+              O(5)));
+        }
+      })('', 'TriplePixel', localStorage);
+      /* << TriplePixel :: end*/
+    </script>
+
+    <script>
+      document.addEventListener('click', function (e) {
+        let el = e.target;
+
+        if (el.classList.contains('checkout-drawer-button') || el.closest('.checkout-drawer-button')) {
+          if (!el.classList.contains('checkout-drawer-button')) {
+            el = el.closest('.checkout-drawer-button');
+          }
+          e.preventDefault();
+
+          let mini_cartEl = el.closest('#mini-cart');
+          if (mini_cartEl) {
+            let mini_cartFormEl = mini_cartEl.querySelector('#mini-cart-form');
+            if (mini_cartFormEl) {
+              console.log(mini_cartFormEl);
+              mini_cartFormEl.submit();
+            }
+          }
+        }
+      });
+    </script>
+
+    {{ 'custom.min.js' | asset_url | script_tag }}
+
+    {% render 'rebuy-extensions' %}
+    <style>
+      /* Initially hide the readMoreContent */
+      .read-more-content {
+        display: none;
+      }
+    </style>
+    <script>
+      const readMoreLink = document.querySelector('.read-more');
+      const readMoreContent = document.querySelector('.read-more-content');
+      const readLessLink = document.querySelector('.read-less');
+
+      if (readMoreLink) {
+        readMoreLink.addEventListener('click', () => {
+          if (!readMoreContent) return;
+          readMoreContent.style.display = 'block';
+          readMoreLink.style.display = 'none';
+          if (!readLessLink) return;
+          readLessLink.style.display = 'inline';
+        });
+      }
+      if (readLessLink) {
+        readLessLink.addEventListener('click', () => {
+          if (!readMoreContent) return;
+          readMoreContent.style.display = 'none';
+          if (!readMoreLink) return;
+          readMoreLink.style.display = 'inline';
+          readLessLink.style.display = 'none';
+        });
+      }
+    </script>
+          {% if product %}
+                <script >
+    window.addEventListener('load', function() {
+    var _learnq = window._learnq || [];
+    function addedToCart() {
+      fetch(`${window.location.origin}/cart.js`)
+      .then(res = res.clone().json().then(data = {
+        var cart = {
+          total_price: data.total_price/100,
+          $value: data.total_price/100,
+          total_discount: data.total_discount,
+          original_total_price: data.original_total_price/100,
+          items: data.items
+        }
+        if (typeof variable !== 'undefined') {
+          cart = Object.assign(cart, item)
+        }
+        if (klAjax) {
+            _learnq.push(['track', 'Added to Cart', cart]);
+            klAjax = false;
+          }
+      }))
+    };
+    (function (ns, fetch) {
+      ns.fetch = function() {
+        const response = fetch.apply(this, arguments);
+        response.then(res = {
+          if (`${window.location.origin}/cart/add.js`
+          	.includes(res.url) && res.url !== '') {
+            	addedToCart()
+          }
+        });
+        return response
+      }
+    }(window, window.fetch));
+    var klAjax = true;
+    var atcButtons = document.querySelectorAll("form[action*='/cart/add'] button[type='submit']");
+    for (var i = 0; i < atcButtons.length; i++) {  
+      atcButtons[i].addEventListener("click", function() {
+        if (klAjax) {
+          _learnq.push(['track', 'Added to Cart', item]);
+          klAjax = false;
+        }
+      })
+    }
+    });
+    <script >
+    </script>
+            {% endif %}
+          {% assign wsp = " " -%}
+          <style type="text/css">
+          #ProductPrice + .afterpay-paragraph {
+            display: none !important;
+          }
+        </style>
+          
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    if (window.location.pathname.startsWith('/fr-fr')) {
+        var newPath = window.location.pathname.replace('/fr-fr', '/en-fr');
+              window.location.href = 'https://www.williamwoodmirrors.co.uk' + newPath;
+    }
+});
+</script>
+          
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var path = window.location.pathname.toLowerCase().replace(/\/+$/, ""); 
+    if (path.startsWith('/en-irelandportal')) {
+        window.location.href = 'https://www.williamwoodmirrors.eu';
+    }
+  });
+</script>
+
+
+          <style>
+            #header-localization-form {
+              display: none !important;
+            }
+          </style>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let lastScrollTop = 0;
+
+    const header = document.querySelector('[id^="shopify-section-sections--"][id$="__header"]');
+    const announcement = document.querySelector('[id^="shopify-section-sections--"][id$="__announcement-bar"]');
+    const facetToolbar = document.getElementById("mobile-facet-toolbar");
+
+    window.addEventListener("scroll", function () {
+      const currentScroll = window.scrollY;
+
+      if (currentScroll > lastScrollTop && currentScroll > 50) {
+        if (header) header.classList.add("hide-on-scroll");
+        if (announcement) announcement.classList.add("hide-on-scroll");
+        if (facetToolbar) facetToolbar.classList.add("hide-on-scroll");
+      } else {
+        if (header) header.classList.remove("hide-on-scroll");
+        if (announcement) announcement.classList.remove("hide-on-scroll");
+        if (facetToolbar) facetToolbar.classList.remove("hide-on-scroll");
+      }
+
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    });
+  });
+</script>
+  </body>
+</html>

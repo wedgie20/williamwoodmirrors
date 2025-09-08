@@ -1,0 +1,55 @@
+<!-- Start of cleanhub.io script-->
+
+<script type="text/javascript" src=https://cdn.cleanhub.io/embed/CleanhubBanner.js></script>
+
+<script type="text/javascript">
+
+  CleanhubBanner.mount({
+
+    clientId: "f3i67c09iaaoic9ns8dfum2f0eb38qr6ekeed9q",
+
+    elementId: "cleanhub-banner"
+
+  })
+
+</script>
+
+<!-- End of cleanhub.io script -->
+
+
+<div style="margin: {{ section.settings.top_margin }} px 0 {{ section.settings.bottom_margin }}px" id="cleanhub-banner"></div>
+
+{% schema %}
+  {
+    "name": "CleanHub banner",
+    "tag": "section",
+    "presets": [
+      {
+        "name": "CleanHub banner",
+        "category": "Custom"
+      }
+    ],
+    "settings": [
+      {
+        "type": "range",
+        "id": "top_margin",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Top spacing",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "bottom_margin",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Bottom spacing",
+        "default": 0
+      }
+    ]
+  }
+{% endschema %}

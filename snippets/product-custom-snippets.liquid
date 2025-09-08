@@ -1,0 +1,109 @@
+{% if product.tags contains '__label:BEST SELLER' %}
+  <div style="display: block; margin: 20px 0 0 0; background-color: #efefef; text-align: center;padding: 6px 10px;">
+    <p style="margin-bottom: 0;"><b> Purchase 2 or more best sellers and recieve 25% off </b></p>
+  </div>
+  <div style="display: block; margin: 20px 0 0 0; background-color: #efefef; text-align: center;padding: 6px 10px;">
+    <p style="margin-bottom: 0;"><b> 20% off full-price with code HEAT - Ends Midnight Tonight </b></p>
+  </div>
+{% elsif product.tags contains 'sale' %}
+  <div style="display: block; margin: 20px 0 0 0; background-color: #efefef; text-align: center;padding: 6px 10px;">
+    <p style="margin-bottom: 0;"><b>Spend £100+ save £10</b></p>
+  </div>
+{% else %}
+  <div style="display: block; margin: 20px 0 0 0; background-color: #efefef; text-align: center;padding: 6px 10px;">
+    <p style="margin-bottom: 0;"><b> 20% off full-price with code HEAT - Ends Midnight Tonight </b></p>
+  </div>
+{% endif %}
+
+{% if product.tags contains 'sale' %}
+  <div style="display: block; margin: 20px 0 0 0; background-color: #efefef; text-align: center;padding: 6px 10px;">
+    <p style="margin-bottom: 0;"><b>Spend £175+ save £25 </b></p>
+  </div>
+  <div style="display: block; margin: 20px 0 0 0; background-color: #efefef; text-align: center;padding: 6px 10px;">
+    <p style="margin-bottom: 0;"><b> Spend £250+ save £50 </b></p>
+  </div>
+{% endif %}
+
+{% if product.variants[0].inventory_quantity > 0 %}
+  {% for tag in product.tags %}
+    {% if tag == 'pre-order' and product.variants[0].inventory_quantity < 11 %}
+      <div class="instock-pulse">
+        <span class="icon--pulsing"></span>
+        <span>Available for pre order, {{ product.variants[0].inventory_quantity }} left </span>
+      </div>
+    {% elsif tag == 'pre-order' %}
+      <div class="instock-pulse">
+        <span class="icon--pulsing"></span>
+        <span>Available for pre order </span>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  {% unless product.tags contains 'pre-order' %}
+    {% if product.available and product.variants[0].inventory_quantity < 11 %}
+      <div class="instock-pulse">
+        <span class="icon--pulsing"></span>
+        <span>In stock and ready to ship, {{ product.variants[0].inventory_quantity }} left </span>
+      </div>
+    {% else %}
+      <div class="instock-pulse">
+        <span class="icon--pulsing"></span>
+        <span>In stock and ready to ship</span>
+      </div>
+    {% endif %}
+  {% endunless %}
+
+  <style>
+    {% if product.available %}
+
+        .instock-pulse {
+          display: flex;
+          flex-wrap: nowrap;
+          align-items: center;
+          margin: 30px 0;
+        }
+
+        .icon--pulsing {
+          position: relative;
+          width: 20px;
+          height: 20px;
+          margin-right: 10px;
+        }
+
+        .icon--pulsing:after,
+        .icon--pulsing:before {
+            background: #54c63a;
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            content: "";
+            margin: 5px;
+        }
+
+        @keyframes inventory-pulse{
+          0%{
+            opacity:0.5;
+          }
+          to{
+            transform:scale(2.5);
+            opacity:0;
+          }
+        }
+    {% endif %}
+    {% if product.variants[0].inventory_quantity >= 11 %}
+
+        .icon--pulsing:before {
+            animation: inventory-pulse 2s linear infinite;
+        }
+
+        {% else %}
+
+        .icon--pulsing:before {
+            animation: inventory-pulse 1s linear infinite;
+        }
+    {% endif %}
+  </style>
+{% endif %}

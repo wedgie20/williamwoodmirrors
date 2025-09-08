@@ -1,0 +1,91 @@
+<style>
+  button.swym-button {
+    margin: 0 auto;
+    border: none;
+    font: inherit;
+    line-height: normal;
+    height: 40px;
+    display: block;
+    color: #545454;
+    padding: 0 0 0 20px;
+    text-transform: uppercase;
+    font-size: 12px;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+  .swym-button .not-selected {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    transform: translate(-2px, 3px);
+  }
+  .swym-button .selected {
+    width: 19px;
+    height: 19px;
+    display: none;
+    transform: translate(-2px, 5px);
+  }
+  .swym-button.swym-added .selected {
+    display: inline-block;
+  }
+  .swym-button.swym-added .not-selected {
+    display: none;
+  }
+ /* .swym-button-bar {
+    display: none !important;
+  }*/
+  @media (min-width: 768px) {
+    button.swym-button {
+      font-size: 14px;
+    }
+    .swym-button .not-selected {
+      transform: translate(-2px, 2px);
+    }
+    .swym-button .selected {
+      transform: translate(-2px, 4px);
+    }
+  }
+  @media (max-width: 900px) {
+    .swym-ui-component .swym-add-wishlist-modal .swym-modal-content .swym-action-btns .swym-new-wishlist-btn,
+    .swym-ui-component .swym-add-wishlist-modal .swym-modal-content .swym-action-btns .swym-add-to-list-btn {
+      width: 153px;
+    }
+  }
+</style>
+
+<div>
+  {% comment %}
+  <button
+    class="swym-button swym-add-to-wishlist"
+    data-with-epi="true"
+    data-swaction="addToWishlist"
+    data-product-id="{{ product.id }}"
+    data-variant-id="{{ product.variants[0].id }}"
+    data-product-url="{{ shop.url }}{{ product.url }}"
+  >
+    <svg
+      fill="#545454"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      viewBox="0 0 471.701 471.701"
+      class="not-selected"
+    >
+      <g>
+        <path d="M433.601,67.001c-24.7-24.7-57.4-38.2-92.3-38.2s-67.7,13.6-92.4,38.3l-12.9,12.9l-13.1-13.1
+          c-24.7-24.7-57.6-38.4-92.5-38.4c-34.8,0-67.6,13.6-92.2,38.2c-24.7,24.7-38.3,57.5-38.2,92.4c0,34.9,13.7,67.6,38.4,92.3
+          l187.8,187.8c2.6,2.6,6.1,4,9.5,4c3.4,0,6.9-1.3,9.5-3.9l188.2-187.5c24.7-24.7,38.3-57.5,38.3-92.4
+          C471.801,124.501,458.301,91.701,433.601,67.001z M414.401,232.701l-178.7,178l-178.3-178.3c-19.6-19.6-30.4-45.6-30.4-73.3
+          s10.7-53.7,30.3-73.2c19.5-19.5,45.5-30.3,73.1-30.3c27.7,0,53.8,10.8,73.4,30.4l22.6,22.6c5.3,5.3,13.8,5.3,19.1,0l22.4-22.4
+          c19.6-19.6,45.7-30.4,73.3-30.4c27.6,0,53.6,10.8,73.2,30.3c19.6,19.6,30.3,45.6,30.3,73.3
+          C444.801,187.101,434.001,213.101,414.401,232.701z"/>
+      </g>
+    </svg>
+    <svg class="selected" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 5.881C12.981 4.729 14.484 4 16.05 4C18.822 4 21 6.178 21 8.95C21 12.3492 17.945 15.1195 13.3164 19.3167L13.305 19.327L12 20.515L10.695 19.336L10.6595 19.3037C6.04437 15.1098 3 12.3433 3 8.95C3 6.178 5.178 4 7.95 4C9.516 4 11.019 4.729 12 5.881Z" fill="#545454"/>
+    </svg>
+    ADD TO WISHLIST
+  </button>
+  {% endcomment %}
+</div>

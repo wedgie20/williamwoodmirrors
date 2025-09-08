@@ -1,0 +1,224 @@
+{% comment %} not sure this variable is used {% endcomment %}
+{% assign first_column_results_size = predictive_search.resources.queries.size
+  | plus: predictive_search.resources.collections.size
+  | plus: predictive_search.resources.pages.size
+  | plus: predictive_search.resources.articles.size
+%}
+<div id="predictive-search-results" role="listbox">
+  <div class="predictive-search__suggestions">
+     <div class="trending-title" style="text-align: center;">
+       <p style="font-family: altesse-std-24pt; text-transform: lowercase; font-size: 25px; font-weight: 300;">Trending Searches</p>
+    </div>
+    <ul
+      class="search-suggestion-list"
+      role="group"
+      aria-labelledby="predictive-search-queries"
+    >
+      {%- if predictive_search.resources.queries.size > 0 -%}
+        {%- for query in predictive_search.resources.queries -%}
+          <li
+            data-suggested-query="{{ query.text  }}"
+            class="suggested-search-term"
+            role="option"
+          >
+            {{ query.styled_text }}
+          </li>
+        {%- endfor -%}
+      {%- else -%}
+        {% assign serach_query_array = settings.suggested_search_terms | split: ',' %}
+        {%- for query in serach_query_array -%}
+          <li
+            data-suggested-query="{{ query }}"
+            class="suggested-search-term"
+            role="option"
+          >
+            {{ query }}
+          </li>
+        {%- endfor -%}
+      {%- endif -%}
+    </ul>
+  </div>
+
+  <div class="predictive-search__pages-wrapper">
+    <div class="sticky-wrapper">
+      <div class="title-wrapper">
+        <h2>{{- 'templates.search.help_links' | t -}}</h2>
+        <span class="mobile-product-count" id="mobile-results-count">
+          {{ 'templates.search.results_products_with_count' | t: count: collections.all.products_count }}
+        </span>
+      </div>
+      <ul
+        class="suggested-links"
+        role="group"
+        aria-labelledby="predictive-search-pages-results"
+      >
+        {% comment %}
+          esthetic-ignore
+        {%- if predictive_search.resources.articles.size > 0 or predictive_search.resources.pages.size > 0 -%}
+          {%- for page in predictive_search.resources.pages -%}
+            <li>
+              <a href="{{ page.url  }}" tabindex="-1">
+                {{ page.title | escape }}
+              </a>
+            </li>
+          {%- endfor -%}
+          {%- for article in predictive_search.resources.articles -%}
+            <li>
+              <a href="{{ article.url  }}" tabindex="-1">
+                {{ article.title | escape }}
+              </a>
+            </li>
+          {%- endfor -%}
+          {%- for collection in predictive_search.resources.collections -%}
+            <li>
+              <a href="{{ collection.url  }}" tabindex="-1">
+                {{ collection.title | escape }}
+              </a>
+            </li>
+          {%- endfor -%}
+        {%- else -%}
+          {% for link in settings.help_links.links -%}
+            <li>
+              {{ link.title | link_to: link.url }}
+            </li>
+          {%- endfor %}
+        {%- endif -%}
+
+        {% endcomment %}
+        {% for link in settings.help_links.links -%}
+            <li>
+              {{ link.title | link_to: link.url }}
+            </li>
+        {%- endfor %}
+      </ul>
+    </div>
+  </div>
+
+  {%- if predictive_search.performed -%}
+    <div id="search-results-container" class="predictive-search__result-group "></div>
+  {%- else -%}
+    <div class="predictive-search__result-group ">
+      <span class="desktop-product-count">
+        {{ 'templates.search.results_products_with_count' | t: count: collections.all.products_count }}
+      </span>
+      <ul class="predictive-search__results-list">
+        {% for product in settings.defualt_collection.products %}
+          <li>
+            {% comment %} {% render 'product-item' with product: product %} {% endcomment %}
+             {% render 'product-item-updated' with product: product, forloop_index: forloop.index %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {%- endif -%}
+
+  <div class="link-to-search-wrapper">
+    <a
+      href="{% if predictive_search.terms == blank %}/collections/all{% else %}{{- routes.search_url | append: '?q=' | append: predictive_search.terms  -}}{% endif %}"
+      id="searchUrl"
+      class="button"
+      tabindex="-1"
+      role="option"
+      aria-selected="false"
+    >
+      <span>
+        {% if predictive_search.terms == blank %}
+          View all
+        {% else %}
+          {{- 'templates.search.search_for' | t: terms: predictive_search.terms -}}
+        {% endif %}
+      </span>
+      {%- render 'icon' with 'nav-arrow-right', stroke_width: 2 -%}
+    </a>
+  </div>
+</div>
+
+<span style="visibility: hidden" data-predictive-search-live-region-count-value>
+  {% liquid
+    assign total_results = predictive_search.resources.products.size | plus: first_column_results_size
+    if total_results == 0
+      echo 'templates.search.no_results' | t: terms: predictive_search.terms
+    else
+      echo 'templates.search.results_with_count' | t: count: total_results | append: ': '
+      if predictive_search.resources.queries.size > 0
+        assign count = predictive_search.resources.queries.size | plus: predictive_search.resources.collections.size
+        echo 'templates.search.results_suggestions_with_count' | t: count: count | append: ', '
+      endif
+      if predictive_search.resources.pages.size > 0
+        assign count = predictive_search.resources.pages.size | plus: predictive_search.resources.articles.size
+        echo 'templates.search.results_pages_with_count' | t: count: count | append: ', '
+      endif
+      if predictive_search.resources.products.size > 0
+        echo 'templates.search.results_products_with_count' | t: count: predictive_search.resources.products.size
+      endif
+    endif
+  %}
+</span>
+
+{% if template == 'collection' or template.name == 'collection' %}
+
+{% else %}
+  <script>
+ function setupAnimateImagesObserver() {
+  // Only run on screens smaller than 550px
+  if (!window.matchMedia('(max-width: 549px)').matches) return;
+
+  const elements = document.querySelectorAll('.this_is_animate');
+  if (!('IntersectionObserver' in window)) return; // Fallback for old browsers
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        el.classList.remove('animate_images');
+        // Force reflow to restart the animation
+        void el.offsetWidth;
+        el.classList.add('animate_images');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  elements.forEach(el => observer.observe(el));
+}
+
+document.addEventListener('DOMContentLoaded', setupAnimateImagesObserver);
+</script>
+
+<style>
+  @media screen and (min-width: 550px) {
+  .updated-product-item.product-item .mobile_images{
+  display: none !important;
+}
+  }
+  @media screen and (max-width: 549px) {
+    .updated-product-item.product-item .product-item__secondary-image, .updated-product-item.product-item .product-item__primary-image {
+      display: none !important;
+    }
+    @keyframes peekAnimation {
+    0% { transform: translateZ(0); }
+  50% { transform: translate3d(-25%, 0, 0); }
+  100% { transform: translateZ(0); }
+}
+
+.updated-product-item.product-item .product-item__aspect-ratio.animate_images .mobile_images.clc-Items_Items-animate{
+  animation: peekAnimation 1s ease-in-out;
+  animation-delay: 2s;
+}
+    .updated-product-item.product-item .product-item__aspect-ratio{
+      display: flex;
+    -ms-overflow-style: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    }
+    .updated-product-item.product-item .mobile_images{
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    width: 100%;
+    position: unset;
+    }
+  }
+</style>
+{% endif %}
