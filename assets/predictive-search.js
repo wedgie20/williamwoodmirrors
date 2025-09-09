@@ -85,8 +85,15 @@ if (header && quickSearchContent) {
         const thisButton = e.currentTarget;
         const query = thisButton.dataset.suggestedQuery;
         this.input.value = query;
-        // create custom event for submting the search term
-        // - this could probably be done without custom events, but the listener of the call to accept the input change was not working for me
+
+        // Remove 'activethis' from all sibling li elements
+        const parentLi = thisButton.closest('li');
+        if (parentLi) {
+          const allLis = parentLi.parentElement.querySelectorAll('li');
+          allLis.forEach(li => li.classList.remove('activethis'));
+          parentLi.classList.add('activethis');
+        }
+
         const newSearchTerm = new CustomEvent("search_term_added");
         this.input.dispatchEvent(newSearchTerm);
       });
@@ -161,7 +168,7 @@ if (quickSearchContent) {
   quickSearchContent.style.visibility = 'hidden';
 }
     //
-    if (window.innerWidth < 550 && document.body.classList.contains('template-index')) {
+    if (document.body.classList.contains('template-index')) {
     document.querySelector('.mobile-searchbar').style.display = 'block';
 }
     setTimeout(() => {
