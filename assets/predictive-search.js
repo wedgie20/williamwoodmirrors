@@ -161,7 +161,9 @@ if (quickSearchContent) {
   quickSearchContent.style.visibility = 'hidden';
 }
     //
+    if (window.innerWidth < 550 && document.body.classList.contains('template-index')) {
     document.querySelector('.mobile-searchbar').style.display = 'block';
+}
     setTimeout(() => {
     document.querySelector("store-header").classList.add("header--transparent");
     }, 500);
