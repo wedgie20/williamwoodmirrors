@@ -14,7 +14,7 @@
       role="group"
       aria-labelledby="predictive-search-queries"
     >
-      {%- if predictive_search.resources.queries.size > 0 -%}
+      {% comment %} {%- if predictive_search.resources.queries.size > 0 -%}
         {%- for query in predictive_search.resources.queries -%}
           <li
             data-suggested-query="{{ query.text  }}"
@@ -23,8 +23,8 @@
           >
             {{ query.styled_text }}
           </li>
-        {%- endfor -%}
-      {%- else -%}
+        {%- endfor -%} {% endcomment %}
+      {% comment %} {%- else -%} {% endcomment %}
         {% assign serach_query_array = settings.suggested_search_terms | split: ',' %}
         {%- for query in serach_query_array -%}
           <li
@@ -35,7 +35,7 @@
             {{ query }}
           </li>
         {%- endfor -%}
-      {%- endif -%}
+      {% comment %} {%- endif -%} {% endcomment %}
     </ul>
   </div>
 
