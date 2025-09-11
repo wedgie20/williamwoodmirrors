@@ -209,7 +209,7 @@
 
                 <div class="content">
 
-                  {% if section_content contains 'Boxing Day' or section_content contains 'SEASON' %}
+             
 <style>
   @media screen and (max-width: 740px) {
   .slideshow__text-wrapper {
@@ -317,52 +317,9 @@
 </style>
 
 
-                    {% elsif section_content contains 'FGCOPY' %}
-                      <div class="heading h1">Free Gift</div>
-                    <br>
-                    {%- if cart.currency.iso_code == 'GBP' -%}
-                    <p style="color: white;">Spend £299 GBP or more and select one complimentary Free Gift of your choice worth up to £99 GBP, courtesy of William Wood.</p>
-                    {% else %}
-                    <p style="color: white;">Spend €299 EUR or more and select one complimentary Free Gift of your choice worth up to €149,95 EUR, courtesy of William Wood.</p>
-                    {% endif %}
-                    <p style="color: white;">Select Free Gifts are available only in September.</p>
-                    <br>
-                    <p style="color: white;"><b>Note - To receive your Free Gift, please ensure to add it to your cart before you purchase. If there's no Free Gift in your cart, it won't be included with your order. </b></p>
-                    {% elsif section_content contains 'Members Club' %}        
-<div style="text-align: center;">
-  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/15_Balloon.png?v=1742810388" width="150" height="150" style="display: inline-block;">
-</div>
-     <span class="heading h1" style="margin-top: 0; font-size: 20px;"><b>Congratulations</b></span>
- 
-                    <span class="heading heading--small" style="margin-top: 0; font-size: 15px;"><b>You have successfully enrolled as a William Wood Member and have gained access to 40% off.
-</b></span>
-                    <br>
-                                        <span class="heading heading--small" style="margin-top: 0; font-size: 15px;"><b>Event Schedule</b></span>                    <br>
-                                        <span class="heading heading--small" style="margin-top: 0; font-size: 15px;"><b>30.03.25</b></span>                    <br>
-                                        <span class="heading heading--small" style="margin-top: 0; font-size: 15px;"><b>8 PM BST - 8.40 PM BST</b></span>
-                     <br>
-                                                            <span class="heading heading--small" style="margin-top: 0; font-size: 15px;"><b>Check your emails for more information on the William Wood 15th Anniversary Event.</b></span>
-                     <br>
-                                              <a href="/collections/best-sellers"><div class="button button--primary">Continue Shopping</div></a>
+        
 
 
-{% elsif section_content contains 'Spring Sale' %}
-                    <span class="heading h1" style="font-size: 25px;"><b>END OF SEASON SALE</b></span>
-                    <div class="heading heading--small" style="margin-bottom: 0px">Up to 50% off select products<br></br>{%- if cart.currency.iso_code == 'GBP' -%}Extra 15% off with code {% else %} Extra 15% off with code{% endif %}</div>
-                  <div class="discount-code">
-                    <span class="heading h1" style="margin-top: 12px; font-size: 25px; margin-bottom: 0px;">{%- if cart.currency.iso_code == 'GBP' -%}SE15 {% else %}SE15 {% endif %}</span>
-                    <span class="heading heading--small" style="margin-bottom: 0px; margin-top: 12px;">{%- if cart.currency.iso_code == 'GBP' -%}FREE PREMIUM UK DELIVERY + 90 DAYS FREE RETURNS {% else %}90 DAYS FREE RETURNS{%- endif -%}</span>
-                  </div>
-                    
-{% elsif section_content contains 'Best Sellers' or section_content contains 'Most Loved' %}
-                    <span class="heading h1" style="font-size: 25px;"><b>BEST SELLERS</b></span>
-                    <div class="heading heading--small">A selection of the best selling William Wood pieces, curated by you. <br>{%- if cart.currency.iso_code == 'GBP' -%}FREE PREMIUM UK DELIVERY + 90 DAYS FREE RETURNS {% else %}90 DAYS FREE RETURNS{%- endif -%}</div>
-{% elsif section_content contains 'Latest Arrivals' %}
-                    <span class="heading h1" style="font-size: 25px;"><b>Latest Arrivals</b></span>
-                    <div class="heading heading--small">The latest arrivals at William Wood <br></br><br>{%- if cart.currency.iso_code == 'GBP' -%}FREE PREMIUM UK DELIVERY + 90 DAYS FREE RETURNS {% else %}90 DAYS FREE RETURNS{%- endif -%}</div>
-                  {% else  %}
-{{ section_content }}
-                  {% endif %}
                 </div>
                 </div>
               </div>
