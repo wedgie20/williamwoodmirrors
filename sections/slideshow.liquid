@@ -231,8 +231,10 @@
 
 
 <div class="tp-desktop heading--small" style="text-align: center; margin-bottom: 0.5rem; margin-top: 1rem;">
+  {% if block.settings.review_image != blank %}
                     <img style="display: inline-block; vertical-align: middle; width: 60px; margin-right: 8px; margin-bottom: 0px !important; margin-top: 0px;" src="{{ block.settings.review_image | img_url: '60x60' }}" alt="Trustpilot rating">
                     <span class="review_text" style="display: inline-block; vertical-align: middle; color: white; text-transform: capitalize;">{{ block.settings.review_text }}</span>
+  {%  endif %}
                   </div>
 <div class="tp-mobile" style="text-align: center; margin-bottom: 0px; margin-top: 20px;">
   <img style="display: inline-block; vertical-align: middle; width: 60px; margin-right: 8px; margin-bottom: 0px !important; margin-top: 0px;" src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.review_image | img_url: '60x60' }}" alt="Trustpilot rating">
