@@ -207,7 +207,7 @@
                   <div class="slideshow__text-wrapper slideshow__text-wrapper--{{ text_alignment }} vertical-breather">
                 <div class="content-box content-box--medium content-box--text-{{ text_position }} content-box--{{ text_position }} text-container">
 
-                <div class="content imhere">
+                <div class="content">
 
                   {% if section_content contains 'Boxing Day' or section_content contains 'SEASON' %}
 <style>
@@ -241,10 +241,6 @@
 <span class="heading h1 slideshow_txt tp-desktop title" style="margin-top: 0; margin-bottom: 12px;"><b>{{ block.settings.title }}</b><span class="subheading" style="text-transform: lowercase;"><br>{{ block.settings.subheading }}</span>{% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %}<br></b>{% endunless %}</span>
 <span class="heading h1 slideshow_txt tp-mobile title imhere" style="margin-top: 0; margin-bottom: 12px;">{{ block.settings.title }}<span class="subheading" style="text-transform: lowercase;"><br>{{ block.settings.subheading }}</span>{% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %}<br>{% endunless %}</span>
 
-{% if block.settings.title contains 'Best Sellers' %}
-  <span class="heading h1 slideshow_txt tp-desktop title" style="margin-top: 0; margin-bottom: 12px;"><b>Bundle Offer</b>
-<span class="heading h1 slideshow_txt tp-mobile title" style="margin-top: 0; margin-bottom: 12px;">Bundle Offer</span>
-{% endif %}
                     {% comment %}
 <span class="heading h1 slideshow_txt tp-desktop" style="margin-top: 0; margin-bottom: 5px; font-size: 25px;">24% Off</span>
                     <span class="heading heading--small slideshow_txt tp-desktop" style="margin-top: 0; margin-bottom: 0;">CODE</span>
@@ -361,7 +357,9 @@
 {% elsif section_content contains 'Best Sellers' or section_content contains 'Most Loved' %}
                     <span class="heading h1" style="font-size: 25px;"><b>BEST SELLERS</b></span>
                     <div class="heading heading--small">A selection of the best selling William Wood pieces, curated by you. <br><br>{%- if cart.currency.iso_code == 'GBP' -%}FREE PREMIUM UK DELIVERY + 90 DAYS FREE RETURNS {% else %}90 DAYS FREE RETURNS{%- endif -%}</div>
-{% elsif section_content contains 'Latest Arrivals' %}
+<span class="heading h1" style="font-size: 25px;"><b>Bundle Offer</b></span>
+<div class="heading heading--small" style="margin-top: 10px !important;">Save 28% when you purchase 3 or more full priced products <br>(This Weekend Only)</div>
+                  {% elsif section_content contains 'Latest Arrivals' %}
                     <span class="heading h1" style="font-size: 25px;"><b>Latest Arrivals</b></span>
                     <div class="heading heading--small">The latest arrivals at William Wood <br><br>{%- if cart.currency.iso_code == 'GBP' -%}FREE PREMIUM UK DELIVERY + 90 DAYS FREE RETURNS {% else %}90 DAYS FREE RETURNS{%- endif -%}</div>
                   {% else  %}
