@@ -357,7 +357,7 @@
                       {{ jm_metafields.featured_carousel }}
                     </div>
                     <!-- End of Judge.me code -->
-                    {%- render 'product-item-updated',
+                    {%- render 'product-card-coll',
                       product: product,
                       collection: collection,
                       block: block,
@@ -366,7 +366,7 @@
                       forloop_index: forloop.index
                     -%}
                   {% else %}
-                    {%- render 'product-item-updated',
+                    {%- render 'product-card-coll',
                       product: product,
                       collection: collection,
                       block: block,
@@ -440,6 +440,50 @@ document.addEventListener('DOMContentLoaded', setupAnimateImagesObserver);
 </script>
 
 <style>
+  #shopify-section-{{ section.id }} .product-item__cta-wrapper .product-item__cta{
+    display: flex;
+    width: 36px;
+    height: 36px;
+    padding: unset;
+    place-content: center;
+    flex-wrap: wrap;
+    border: 1px solid rgb(var(--border-color));
+    border-radius: var(--button-border-radius);
+    background: rgb(var(--root-background));
+    color: rgb(var(--root-text-color));
+    transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out, transform 0.25s ease-in-out, color 0.25s ease-in-out;
+    margin: unset;
+  }
+  #shopify-section-{{ section.id }} .product-item__cta-wrapper.hereis {
+    display: none;
+    place-content: center;
+    flex-wrap: wrap;
+    place-items: center;
+    position: absolute;
+        bottom: 10px;
+    right: 10px;
+}
+#shopify-section-{{ section.id }} .product-item__image-wrapper:hover .product-item__cta-wrapper.hereis{
+display: flex;
+}
+@media screen and (max-width: 767px) {
+#shopify-section-{{ section.id }} .product-item__cta-wrapper.hereis {
+display: flex;
+}
+}
+  #shopify-section-{{ section.id }} .product-item__cta-wrapper .product-item__cta:hover{
+    border-color: rgb(var(--heading-color));
+    color: rgb(var(--heading-color));
+    transform: scale(1.1);
+  }
+  #shopify-section-{{ section.id }} .product-item__cta-wrapper .product-item__cta:focus{
+    outline: 2px solid rgb(var(--heading-color));
+    outline-offset: 2px;
+  }
+  #shopify-section-{{ section.id }} .product-item__cta-wrapper .product-item__cta:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
   @media screen and (min-width: 550px) {
   .updated-product-item.product-item .mobile_images{
   display: none !important;
