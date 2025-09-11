@@ -17,6 +17,9 @@
 {%- endfor -%}
 <cart-drawer section="{{ section.id }}" id="mini-cart" class="mini-cart drawer drawer--large" data-cart-count="{{ cart.item_count }}">
   <span class="drawer__overlay"></span>
+  <div class="mini-cart__global-loader" hidden>
+    <span class="mini-cart__global-loader-spinner spinner">{% render 'icon' with 'spinner', width: 32, height: 32, stroke_width: 6 %}</span>
+  </div>
   <header class="drawer__header">
     {% comment %} <p class="drawer__title heading h6" style="font-size: 13px; text-transform: capitalize !important; font-family: altesse-std-24pt;">
       {%- case settings.cart_icon -%}
@@ -43,12 +46,30 @@
 
   {%- if cart.item_count == 0 -%}
     <div class="drawer__content drawer__content--center">
-      <p>{{ 'cart.general.empty' | t }}</p>
-
-      <div class="button-wrapper">
-        <a href="{{ section.settings.empty_button_link  }}" class="button button--primary">{{ 'cart.general.start_shopping' | t }}</a>
+      <div class="mini-cart__empty-message">
+        <p>{{ 'cart.general.empty' | t }}</p>
+        <div class="button-wrapper">
+          <a href="{{ section.settings.empty_button_link  }}" class="button button--primary">{{ 'cart.general.start_shopping' | t }}</a>
+        </div>
       </div>
     </div>
+</cart-drawer>
+<style>
+  .mini-cart__global-loader {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.7);
+    z-index: 100;
+    {% comment %} display: none; {% endcomment %}
+  }
+  .mini-cart__global-loader-spinner.spinner {
+    width: 32px;
+    height: 32px;
+  }
+</style>
   {%- else -%}
     <div class="drawer__content">
 

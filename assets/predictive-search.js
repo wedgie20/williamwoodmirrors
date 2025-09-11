@@ -148,6 +148,7 @@ if (header && quickSearchContent) {
     // disable scrolling on the main doc body
     document.querySelector("body").classList.add("no-scroll");
     document.querySelector('.mobile-searchbar').style.display = 'none';
+    document.querySelector('#lightboxjs-lightboxlib').style.display = 'none';
     // open search container
     this.predictiveSearchResults.classList.add("show");
     // show close button

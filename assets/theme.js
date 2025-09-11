@@ -1204,7 +1204,7 @@
           if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
             event.preventDefault();
             this.setAttribute("aria-busy", "true");
-            setTimeout(() => this.form.submit(), 250);
+            setTimeout(() => this.form.submit(), 100);
           } else {
             this.setAttribute("aria-busy", "true");
           }
@@ -5010,6 +5010,18 @@
         submitButton.setAttribute("disabled", "disabled");
         submitButton.setAttribute("aria-busy", "true");
       });
+      // --- Optimistically open the cart drawer immediately ---
+      let cartDrawer = null;
+      let wasEmpty = false;
+      if (window.themeVariables.settings.cartType === "drawer") {
+        cartDrawer = document.querySelector("cart-drawer");
+        if (cartDrawer && !cartDrawer.open) {
+          cartDrawer.open = true;
+        }
+        // Check if cart was empty before add-to-cart
+        wasEmpty = cartDrawer && cartDrawer.querySelector('.drawer__content--center') !== null;
+      }
+      // ------------------------------------------------------
       const productForm = new FormData(this);
       productForm.append("sections", ["mini-cart"]);
       productForm.delete("option1");
@@ -5022,6 +5034,13 @@
           "X-Requested-With": "XMLHttpRequest"
         }
       });
+      // Show global loader whenever add-to-cart is initiated
+      if (cartDrawer) {
+        const globalLoader = cartDrawer.querySelector('.mini-cart__global-loader');
+        if (globalLoader) {
+          globalLoader.removeAttribute('hidden');
+        }
+      }
       submitButtons.forEach((submitButton) => {
         submitButton.removeAttribute("disabled");
         submitButton.removeAttribute("aria-busy");
@@ -5747,10 +5766,7 @@
     connectedCallback() {
       this.rootDelegate.on("cart:updated", (event) => this.innerText = event.detail.cart["item_count"]);
       this.rootDelegate.on("cart:refresh", (event) => this.innerText = event.detail.cart["item_count"]);
-      const countroot = document.getElementById('py-flip-countdown');
-      if(countroot) {
-     this.rootDelegate.on("cart:updated", (event) => initializeCountdown());
-      }
+      // Removed countdown timer code for performance
     }
   };
   window.customElements.define("cart-count", CartCount);
@@ -5761,10 +5777,28 @@
       super.connectedCallback();
       this.nextReplacementDelay = 0;
       this.rootDelegate.on("cart:refresh", this._rerenderCart.bind(this));
-      this.addEventListener("variant:added", () => this.nextReplacementDelay = 600);
+  // Reduce the built-in delay for cart drawer update
+  this.addEventListener("variant:added", () => this.nextReplacementDelay = 100);
       
     }
     async _rerenderCart(event) {
+      // Show loader in each cart item area before fetching new cart data
+      const cartDrawer = this;
+      // Show global loader if cart is empty
+      const globalLoader = cartDrawer.querySelector('.mini-cart__global-loader');
+      const wasEmpty = cartDrawer.querySelector('.drawer__content--center') !== null;
+      if (wasEmpty && globalLoader) {
+        globalLoader.removeAttribute('hidden');
+      }
+      if (cartDrawer && !wasEmpty) {
+        const loaders = cartDrawer.querySelectorAll('.line-item__loader');
+        loaders.forEach(loader => loader.removeAttribute('hidden'));
+      }
+      // Show loader in each cart item area before fetching new cart data
+      if (cartDrawer) {
+        const loaders = cartDrawer.querySelectorAll('.line-item__loader');
+        loaders.forEach(loader => loader.removeAttribute('hidden'));
+      }
       var _a;
       let cartContent = null, html = "";
       if (event.detail && event.detail["cart"] && event.detail["cart"]["sections"]) {
@@ -5776,35 +5810,54 @@
       }
       const fakeDiv = document.createElement("div");
       fakeDiv.innerHTML = html;
-      setTimeout(async () => {
+      // Split delay into two phases: before and after showing the cart drawer
+      const totalDelay = ((_a = event == null ? void 0 : event.detail) == null ? void 0 : _a.replacementDelay) || this.nextReplacementDelay;
+      const beforeDrawerDelay = Math.min(300, totalDelay); // e.g. 300ms before showing drawer
+      const afterDrawerDelay = Math.max(0, totalDelay - beforeDrawerDelay); // rest after
+
+      setTimeout(() => {
         var _a2;
-        const previousPosition = this.querySelector(".drawer__content").scrollTop;
-        if (cartContent && cartContent["item_count"] === 0) {
-          const animation = new CustomAnimation(new ParallelEffect(Array.from(this.querySelectorAll(".drawer__content, .drawer__footer")).map((item) => {
-            return new CustomKeyframeEffect(item, { opacity: [1, 0] }, { duration: 250, easing: "ease-in" });
-          })));
-          animation.play();
-          await animation.finished;
-        }
-        this.innerHTML = fakeDiv.querySelector("cart-drawer").innerHTML;
-        if (cartContent && cartContent["item_count"] === 0) {
-          this.querySelector(".drawer__content").animate({ opacity: [0, 1], transform: ["translateY(40px)", "translateY(0)"] }, { duration: 450, easing: "cubic-bezier(0.33, 1, 0.68, 1)" });
-        } else {
-          this.querySelector(".drawer__content").scrollTop = previousPosition;
-        }
         if ((_a2 = event == null ? void 0 : event.detail) == null ? void 0 : _a2.openMiniCart) {
           this.clientWidth;
           this.open = true;
         }
-      }, ((_a = event == null ? void 0 : event.detail) == null ? void 0 : _a.replacementDelay) || this.nextReplacementDelay);
-      this.nextReplacementDelay = 0;
-      const countRoot = document.getElementById('py-flip-countdown');
-      if(countRoot) {
-       initializeCountdown();
-      }
-        setTimeout(function(){
-  initializeCountdown();
-  }, 3000);
+        setTimeout(async () => {
+          const previousPosition = this.querySelector(".drawer__content").scrollTop;
+          if (cartContent && cartContent["item_count"] === 0) {
+            const animation = new CustomAnimation(new ParallelEffect(Array.from(this.querySelectorAll(".drawer__content, .drawer__footer")).map((item) => {
+              return new CustomKeyframeEffect(item, { opacity: [1, 0] }, { duration: 250, easing: "ease-in" });
+            })));
+            animation.play();
+            await animation.finished;
+          }
+          this.innerHTML = fakeDiv.querySelector("cart-drawer").innerHTML;
+          if (cartContent && cartContent["item_count"] === 0) {
+            this.querySelector(".drawer__content").animate({ opacity: [0, 1], transform: ["translateY(40px)", "translateY(0)"] }, { duration: 450, easing: "cubic-bezier(0.33, 1, 0.68, 1)" });
+          } else {
+            this.querySelector(".drawer__content").scrollTop = previousPosition;
+          }
+        }, afterDrawerDelay);
+      }, beforeDrawerDelay);
+      // Hide loader after cart is refreshed (after DOM update)
+      setTimeout(() => {
+        const cartDrawer = this;
+        const globalLoader = cartDrawer.querySelector('.mini-cart__global-loader');
+        if (globalLoader) globalLoader.setAttribute('hidden', '');
+        if (cartDrawer) {
+          const loaders = cartDrawer.querySelectorAll('.line-item__loader');
+          loaders.forEach(loader => loader.setAttribute('hidden', ''));
+        }
+      }, beforeDrawerDelay + afterDrawerDelay + 100); // Small delay to ensure DOM is updated
+      // Hide loader after cart is refreshed (after DOM update)
+      setTimeout(() => {
+        const cartDrawer = this;
+        if (cartDrawer) {
+          const loaders = cartDrawer.querySelectorAll('.line-item__loader');
+          loaders.forEach(loader => loader.setAttribute('hidden', ''));
+        }
+      }, beforeDrawerDelay + afterDrawerDelay + 100); // Small delay to ensure DOM is updated
+  this.nextReplacementDelay = 0;
+  // Removed countdown timer code for performance
 
     }
     async attributeChangedCallback(name, oldValue, newValue) {
