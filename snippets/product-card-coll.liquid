@@ -159,7 +159,7 @@
             <input type="hidden" name="quantity" value="1">
             <input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
             <button type="submit" {% if show_cta or request.path contains 'collections' %}is="loader-button"{% endif %} class="{% if reduced_content %}product-item__link link text--subdued{% else %}product-item__cta button button--primary{% endif %}">
-                {% render 'plus-icon' %}
+                {%- render 'icon' with 'header-cart' -%}
             </button>
           {%- endform -%}
         {%- else -%}
