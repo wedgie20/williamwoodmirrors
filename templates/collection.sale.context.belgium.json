@@ -105,7 +105,7 @@
         "liquid": "<div class=\"OTTP\" style=\"display: flex; align-items: center; gap: 8px; white-space: nowrap; justify-content: center;\">\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.png?v=1741099146\" style=\"height: 14px;\">\n    <span style=\"white-space: nowrap; font-size: 9px;\">4.7 / 5 Excellent • Based on 10,000+ reviews</span>\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_Logo__2022__svg.webp?v=1741089163\" style=\"height: 14px;\">\n</div>",
         "add_vertical_spacing": true,
         "background_type": "full_width",
-        "header-59fce0d9c2b0f5691996432b8c64710d": null,
+        "header-7944118e7ca56a03fcbc6902a8a319d6": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -126,7 +126,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-064a6cf6f3ba135e5b33bdb13ec34e32": null,
+        "header-38ec661866d14d035864f1e88ca4d5cf": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -135,19 +135,6 @@
       "blocks": {},
       "block_order": [],
       "name": "Rich text"
-    },
-    "slideshow_UzTyaG": {
-      "settings": {},
-      "blocks": {
-        "image_VUfAmB": {
-          "settings": {
-            "image": "shopify://shop_images/Landing_Page_v2.jpg",
-            "mobile_image": "shopify://shop_images/Landing_Page_4.jpg",
-            "text_position": "top_left",
-            "text_color": "#ffffff"
-          }
-        }
-      }
     },
     "main": {
       "custom_css": [
@@ -161,10 +148,94 @@
       ],
       "settings": {},
       "blocks": {}
+    },
+    "coll_slideshow_eDWRr": {
+      "type": "coll-slideshow",
+      "disabled": false,
+      "settings": {
+        "section_height": "auto",
+        "transition_type": "sweep",
+        "autoplay": true,
+        "cycle_speed": 5,
+        "background": "rgba(0,0,0,0)"
+      },
+      "blocks": {
+        "image_mT8h3": {
+          "type": "image",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Landing_Page_v2.jpg",
+            "split_image": "shopify://shop_images/Landing_Page_v2.jpg",
+            "mobile_image": null,
+            "header-ca201d9738abae0f2e07012fd3ddf62a": null,
+            "text_position": "middle_left",
+            "header-26bac872dd911fe50be7ed2824d55ef4": null,
+            "review_image": null,
+            "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
+            "review_text_font": "assistant_n4",
+            "custom_review_font": "Zurich, sans-serif",
+            "review_text_size": 13,
+            "review_font_weight": "400",
+            "header-ca6ab53450b5cf371f3c91ccb55f2e0e": null,
+            "title": "Spring Sale",
+            "heading_font": "sans-serif",
+            "custom_heading_font": "Zurich, sans-serif",
+            "heading_text_size": 25,
+            "heading_font_weight": "400",
+            "header-55868074e886cc211e0fdf96560b888b": null,
+            "subheading": "Tell your story",
+            "subheading_font": "sans-serif",
+            "custom_subheading_font": "Zurich, sans-serif",
+            "subheading_text_size": 25,
+            "subheading_font_weight": "400",
+            "header-a413efffd2209ae8cbe4a3dfa490ead0": null,
+            "slide_text": "We help you create a space you’re proud to come home to, every single day.",
+            "slide_text_font": "sans-serif",
+            "custom_text_font": "Zurich, sans-serif",
+            "slide_text_size": 25,
+            "text_font_weight": "400",
+            "header-64b242d7998b8b3c49e9d5c88f63b1cd": null,
+            "above_text": "Join Over 700,000+ Satisfied Customers",
+            "above_button_font": "sans-serif",
+            "custom_abovetext_font": "Zurich, sans-serif",
+            "above_button_text_size": 25,
+            "above_font_weight": "400",
+            "header-233a6518d7960690416abee54fd6d636": null,
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_font": "sans-serif",
+            "custom_button_font": "Zurich, sans-serif",
+            "button_text_size": 25,
+            "button_font_weight": "400",
+            "header-a0e2494633871efe28996fe049f11aeb": null,
+            "review_line_1": "",
+            "review_line_2": "",
+            "review_line_3": "",
+            "review_line_4": "",
+            "review_line_5": "",
+            "review_font": "sans-serif",
+            "custom_reviewline_font": "Zurich, sans-serif",
+            "review_lines_size": 25,
+            "lines_font_weight": "400",
+            "header-91c748fecbe398096b5ea225bbe363ef": null,
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        }
+      },
+      "block_order": [
+        "image_mT8h3"
+      ],
+      "name": "Slideshow For Collections"
     }
   },
   "order": [
-    "slideshow_UzTyaG",
+    "coll_slideshow_eDWRr",
     "collection-banner",
     "infinite_scroller2_VrqVN",
     "custom_liquid_pUb7j",
