@@ -335,7 +335,7 @@
         "mobile_item_size": "small",
         "desktop_item_size": "pico",
         "spacing": "tight",
-        "header-e44cd681aea5d8018783a98a001f5ebe": null,
+        "header-f3404bf6fbcde803da6242e8ce59bd21": null,
         "background": "#efefef",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -560,7 +560,7 @@
         "liquid": "{% if product.type == 'Table' or product.type == 'Chair' %}\n<br>\n{% if product.tags contains 'prebuilt' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n{% else %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">3-5 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives ready for quick and easy assembly.\n</span>\n</div>\n</body>\n</html>\n{% endif %}\n{% else %}\n{% if product.type == 'Furniture Set' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    All pieces of this furniture set arrive fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n\n{% endif %}\n{% endif %}\n{% if product.type == 'Mirror' %}\n<br>\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Can this mirror be wall mounted?</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\" style=\"font-size: 20px;\">Yes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This mirror can be wall mounted in{% assign description = product.description | downcase %}{% if description contains 'portrait' and description contains 'landscape' %} either{% endif %}{% if description contains 'portrait' %} portrait{% endif %}{% if description contains 'portrait' and description contains 'landscape' %} or{% endif %}{% if description contains 'landscape' %} landscape{% endif %} orientation.\n</span>\n</div>\n</body>\n</html>\n{% endif %}",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-0c71abb2beb69689b777b9a41a21be8f": null,
+        "header-e29789b08e44f09d1efa787f380821a1": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -581,7 +581,7 @@
         "liquid": "{% if product.type == 'Mirror' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_MakeSmallRoomsBig_v1.02.jpg?v=1729256817\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_MakeSmallRoomsBig_v1.0_2.jpg?v=1729595254\">\n{% elsif product.title contains 'Coffee Table' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_CoffeTables_v1.02_8875e8e7-b11c-4491-8427-803ef508469f.jpg?v=1729261477\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_CoffeTables_v1.0.jpg?v=1729260504\">\n{% elsif product.type == 'Lamp' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Lamps_v1.02.jpg?v=1729518322\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Lamps_v1.0_3.jpg?v=1730115270\">\n{% elsif product.type == 'vase' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Vases_v1.22.jpg?v=1730293344\">\n{% endif %}",
         "add_vertical_spacing": true,
         "background_type": "full_width",
-        "header-32ffdf3acb401e2268ef096c1301ab55": null,
+        "header-ad1c5bdf01b19d36fccf2a453c7d3e24": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -601,7 +601,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-7da80c0dc197e11bedebce84247e4d9d": null,
+        "header-5a6339b508d45047e30b0d1c2ae23f92": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -623,7 +623,7 @@
         "liquid": "<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_ElevateYourHome-02.jpg?v=1729592904\">",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-17b8f115e0c8bed85e10c7baf499623e": null,
+        "header-2f3972b2a7e716c5713fd5eb7d022087": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -669,7 +669,7 @@
         "liquid": "<video src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/videos/c/o/v/d07d71b60fe9447c99bada59959df6a3.mp4\" controls \n  poster=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/A_sit_down_with_Jenna_final_edit_2_0-00-02-24.jpg?v=1728481189\">\n  Your browser does not support the video tag.\n</video>",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-cfbe362e19ff8398f1288ff2097b75fc": null,
+        "header-52e1ab39245a4a30c1b94502d77d2cbc": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -711,7 +711,7 @@
           "type": "product_status",
           "disabled": false,
           "settings": {
-            "header-025c3ac1098836d883d7039000353851": null,
+            "header-c4c02b51e8c03216086470495b9ac6c4": null,
             "margin_top": 0,
             "font_weight": "bold",
             "font_size": 12,
@@ -721,9 +721,9 @@
             "border_radius": 15,
             "padding_vertical": 5,
             "padding_horizontal": 15,
-            "header-3a836ec526d50834a253e2bca80c7254": null,
+            "header-b64b753f9eefca7a8ae630b189788fbc": null,
             "promo_text": "Buy 1 item and receive 15% off, enter code SE15 at checkout\nor\nBuy 2 items and receive 28% off, no code required\n(Ends Midnight Tonight)\nor\nBuy 3 items or more and receive 30% off, no code required\n+\nFree Gift with your purchase worth up to £149 GBP when you spend £299 GBP or more",
-            "header-3f25cc4b7e5f0880497c3cbb2e70fbb3": null,
+            "header-2d38ae8ddc5f1bb26d969ae1f0423606": null,
             "coming_soon_text": "Coming Soon",
             "back_soon_text": "Back in stock soon, sign up for restock notifications below",
             "black_friday_launch_text": "Launches 29.11.24",
@@ -731,7 +731,7 @@
             "black_friday_restock_text": "Restocks 29.11.24",
             "restock_text": "Restocks [DATE] 8PM",
             "out_of_stock_text": "Currently out of stock",
-            "header-48073fce638bba19c8ba5d661d142e4a": null,
+            "header-f1b6ca2216ea911ae14d6ed891442a27": null,
             "show_hudson_message": true,
             "hudson_message": "Free cushion included with the Hudson Chair",
             "show_sale_promotion": true,
@@ -769,7 +769,7 @@
           "settings": {
             "start_time": "2025-09-12 00:00",
             "end_time": "2025-09-14 23:59",
-            "label": "28% off when you purchase 2 full priced products, no code required. Offer ends in…"
+            "label": "30% off when you purchase 3 or more full priced products, no code required. Offer ends in…"
           }
         },
         "buy_buttons": {
@@ -866,7 +866,7 @@
           "type": "button",
           "disabled": false,
           "settings": {
-            "paragraph-ed5e3b1ecc6751a8f65ef61db0feeaf0": null,
+            "paragraph-993fdb3f5a3f0e2311816306f75bead7": null,
             "link": "",
             "text": "",
             "stretch": true,
