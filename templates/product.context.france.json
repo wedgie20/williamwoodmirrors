@@ -29,7 +29,7 @@
         "mobile_item_size": "small",
         "desktop_item_size": "pico",
         "spacing": "tight",
-        "header-ec08bb48a39eee17658c9f5cdd46a5c1": null,
+        "header-154e519fa2c3faeee9c705252a203ed5": null,
         "background": "#efefef",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -190,7 +190,7 @@
         "liquid": "{% if product.type == 'Table' or product.type == 'Chair' %}\n{% if product.tags contains 'prebuilt' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px; /* Adjust the size as needed */\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n{% else %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px; /* Adjust the size as needed */\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">3-5 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives ready for quick and easy assembly.\n</span>\n</div>\n</body>\n</html>\n{% endif %}\n{% else %}\n{% if product.type == 'Furniture Set' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px; /* Adjust the size as needed */\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    All pieces of this furniture set arrive fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n\n{% endif %}\n{% endif %}",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-e966f0607022a5fb6f886df9085e35c7": null,
+        "header-f4a5e42fcc10141c362d5647cb5254be": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -210,7 +210,7 @@
         "liquid": "{% if product.type == 'Mirror' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_MakeSmallRoomsBig_v1.02.jpg?v=1729256817\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_MakeSmallRoomsBig_v1.0_2.jpg?v=1729595254\">\n{% elsif product.title contains 'Coffee Table' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_CoffeTables_v1.02_8875e8e7-b11c-4491-8427-803ef508469f.jpg?v=1729261477\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_CoffeTables_v1.0.jpg?v=1729260504\">\n{% elsif product.type == 'Lamp' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Lamps_v1.02.jpg?v=1729518322\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Lamps_v1.0_3.jpg?v=1730115270\">\n{% elsif product.type == 'vase' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Vases_v1.22.jpg?v=1730293344\">\n{% endif %}",
         "add_vertical_spacing": true,
         "background_type": "full_width",
-        "header-67c8c6a5966c98e7d99937e8c87dd625": null,
+        "header-699fd63fd1049f4978a4cc25133bb8e3": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -230,7 +230,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-ae9baabbdc1f390a64ec788a7d26d53d": null,
+        "header-99885d5eef7e357b29f17f2ea00385a1": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -252,7 +252,7 @@
         "liquid": "<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_ElevateYourHome-02.jpg?v=1729592904\">",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-c721827ae839be10d80251423b120039": null,
+        "header-28a2cf65ba5c2b25f340a3ca1d319084": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -298,7 +298,7 @@
         "liquid": "<video src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/videos/c/o/v/d07d71b60fe9447c99bada59959df6a3.mp4\" controls \n  poster=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/A_sit_down_with_Jenna_final_edit_2_0-00-02-24.jpg?v=1728481189\">\n  Your browser does not support the video tag.\n</video>",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-932dd6c770bbbea3fe560698046306ec": null,
+        "header-e73e1d4139708a5a3588a78b88465452": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -347,6 +347,15 @@
             "liquid": "{% if product.available %}\n{% if product.tags contains '__label:RESTOCKED' %}\n  <div style=\"margin-left: 5px;\">\n   <b> Recently restocked</b>, don't miss out.\n  </div>\n{% endif %}\n{% if product.variants[0].inventory_quantity < 16 %}\n<span style=\"margin-left: 4px;\"><span class=\"urgency-indicator\"></span> Low stock, <b>only {{ product.variants[0].inventory_quantity }} left</b></span>\n{% else %}\n<div style=\"margin-left: 5px;\"><b>Availability is limited</b> - secure yours while stock lasts</div>\n{% endif %}\n{% endif %}\n\n{% if product.tags contains '__label:LAST CHANCE' %}\n<div style=\"margin-top: 10px; margin-bottom: 10px; margin-left: 5px;\">Last chance to purchase, this product <b>won't be restocked.</b></div>\n{% endif %}\n\n{% if product.tags contains '__label:LIMITED OFFER' %}\n<div style=\"margin-top: 10px; margin-bottom: 10px; margin-left: 5px;\"><span style=\"font-weight: bold;\">Exclusive offer</span>, returning to full price soon.</div>\n{% endif %}\n\n<div style=\"margin-top: 0px; margin-bottom: 15px; display: flex; flex-direction: column;\">\n{% if product.variants[0].inventory_quantity > 0 %}\n{% for tag in product.tags %}\n{% if tag == 'pre-order' and product.variants[0].inventory_quantity < 16 %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Available for pre order</span>\n</div>\n{% elsif tag == 'pre-order' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Available for pre order</span>\n</div>\n{% endif %}\n{% endfor %}\n{% unless product.tags contains 'pre-order' %}\n{% if product.available and product.variants[0].inventory_quantity < 16 %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span><b>In stock</b> and ready to ship</span>\n</div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>In stock and ready to ship</span>\n</div>\n{% endunless %}\n{% else %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span><b>In stock</b> and ready to ship</span>\n</div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span><b>In stock</b> and ready to ship</span>\n</div>\n{% endunless %}\n{% endif %}\n{% endunless %}\n{% endif %}\n</div>\n\n<style>\n{% if product.available %}\n.instock-pulse {\ndisplay: flex;\nflex-wrap: nowrap;\nalign-items: center;\njustify-content: center;\nmargin: 3px 0 0;\n}\n.icon--pulsing {\nposition: relative;\nwidth: 20px;\nheight: 20px;\nmargin-right: 5px;\n}\n.icon--pulsing:after,\n.icon--pulsing:before {\nbackground: #54c63a;\nwidth: 10px;\nheight: 10px;\nborder-radius: 10px;\nposition: absolute;\nleft: 0;\ntop: 0;\ncontent: \"\";\nmargin: 5px;\n}\n@keyframes inventory-pulse {\n0% {\nopacity: 0.5;\n}\nto {\ntransform: scale(2.5);\nopacity: 0;\n}\n}\n{% endif %}\n{% if product.variants[0].inventory_quantity >= 11 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 2.5s linear infinite;\n}\n{% elsif product.variants[0].inventory_quantity < 11 and product.variants[0].inventory_quantity > 1 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1.5s linear infinite;\n}\n{% else %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1s linear infinite;\n}\n{% endif %}\n\n.urgency-indicator {\nposition: relative;\ndisplay: inline-block;\nwidth: 10px;\nheight: 10px;\nmargin-right: 6px;\nvertical-align: middle;\nbackground-color: #FFBF00;\nborder-radius: 20px;\nmargin-top: -1px;\n}\n.urgency-indicator::before {\nanimation: inventory-pulse 2s linear infinite;\nwidth: 8px;\nheight: 8px;\n}\n.urgency-indicator::before,\n.urgency-indicator::after {\nbackground: #FFBF00;\nborder-radius: 9px;\nposition: absolute;\nleft: 1px;\ntop: 1px;\ncontent: '';\n}\n</style>"
           }
         },
+        "timer_Hcda8": {
+          "type": "timer",
+          "disabled": false,
+          "settings": {
+            "start_time": "2025-09-12 00:00",
+            "end_time": "2025-09-14 23:59",
+            "label": "30% off when you purchase 3 or more full priced products, no code required. Offer ends in…"
+          }
+        },
         "liquid_cMUKY": {
           "type": "liquid",
           "disabled": true,
@@ -386,20 +395,11 @@
             "liquid": "<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n{% assign in_best_sellers = false %}\n{% for collection in product.collections %}\n    {% if collection.handle == 'best-sellers' %}\n{% unless product.tags contains \"pre-order\" %}\n        {% assign in_best_sellers = true %}\n{% endunless %}\n    {% endif %}\n{% endfor %}\n    <style>\n        @media (max-width: 768px) {\n            .FGbutton--primary {\n                background-color: black;\n                color: white;\n                text-align: center;\n                text-decoration: none;\n                padding: 5px 20px;\n                font-size: 12px;\n                border-radius: 15px;\n                transform: translateY(38%);\n            }\n\n            .Gcontainer {\n\n            }\n\n            .Gcontainer p {\n                transform: translateY(-7px);\n            }\n\n            .Gcontainer .delmins {\n                transform: translateY(-5px);\n            }\n\n            .text-button-container {\n                transform: translateY(-5px);\n            }\n        }\n\n        @media (min-width: 1024px) { \n            .Gcontainer p + b {\n                display: block;\n                margin-left: -20px;\n            }\n        }\n        .Gcontainer {\n            display: flex;\n            flex-direction: column;\n            align-items: flex-start;\n            background-color: #efefef !important;\n            padding: 20px;\n        }\n        .Gcontainer img {\n            width: 30px;\n            margin-bottom: 5px; \n        }\n        .Gcontainer p {\n            margin: 0;\n            font-size: 16px;\n        }\n        .Gcontainer .delmins {\n            font-size: 20px;\n            margin-top: 5px;\n        }\n        .text-button-container {\n            display: flex;\n            align-items: center;\n            justify-content: space-between;\n            width: 100%;\n        }\n\n        @media (min-width: 1024px) {\n        .FGbutton--primary {\n            background-color: black;\n            color: white;\n            text-align: center;\n            text-decoration: none;\n            padding: 5px 20px;\n            font-size: 10px;\n            border-radius: 15px;\n            transform: translateY(45%);\n        }\n            .Acontainer {\n                width: 100%;\n                height: 40%;\n                transform: translate(0%, 0%);\n            }\n        }\n    </style>\n</head>\n{% if in_best_sellers %}\n<body>\n    <div class=\"Gcontainer\">\n        <style>\n            @media only screen and (min-width: 1024px) {\n                .bigger-text {\n                    font-size: 20px;\n                }\n            }\n        </style>\n        <div class=\"text-button-container\">\n            <b class=\"bigger-text\">25% Off</b>\n<style>\n\n  .desktop-only {\n    display: none;\n  }\n  @media (min-width: 768px) {\n    .desktop-only {\n      display: inline-block;\n\n    }\n  }\n</style>\n        </span>\n<span class=\"desktop-only\" style=\"\n                text-align: center;\n                text-decoration: none;\n                padding: 5px 20px;\n                font-size: 18px;\n                border-radius: 15px;\n                transform: translateY(38%);\">Code: <b>BEST</b></span>\n        </div>\n        <span class=\"delmins\" style=\"font-size: 13px;\">\n            When you purchase <b>2</b> or more <b>Best Sellers</b>\n        </span>\n        <span class=\"delmins\" style=\"font-size: 10px;\">\n            (This Product Qualifies)\n        </span>\n<span></span>\n        <span class=\"delmins mobile-only\" style=\"font-size: 13px; transform: translateY(5px);\">\n            Code: <b>BEST</b>\n        </span>\n\n<style>\n\n  .mobile-only {\n    display: none;\n  }\n  @media (max-width: 768px) {\n    .mobile-only {\n      display: inline-block;\n    }\n  }\n.desktop-only {\nfont-size: 15px;\n}\n</style>\n    </div>\n</body>\n<br><br>\n\n{% endif %}\n<body>\n    <div class=\"Gcontainer\">\n        <style>\n            @media only screen and (min-width: 1024px) {\n                .bigger-text {\n                    font-size: 20px;\n                }\n            }\n        </style>\n        <div class=\"text-button-container\">\n            <b class=\"bigger-text\">Free Gift With This Purchase</b>\n<style>\n\n  .desktop-only {\n    display: none;\n  }\n  @media (min-width: 768px) {\n    .desktop-only {\n      display: inline-block;\n    }\n  }\n</style>\n        </span>\n<a href=\"/pages/free-gift\" class=\"FGbutton--primary desktop-only\">View Free Gifts</a>\n        </div>\n        <span class=\"delmins\" style=\"font-size: 13px;\">\n            When you spend €359 or more\n        </span>\n<a href=\"/pages/free-gift\" class=\"FGbutton--primary mobile-only\">View Free Gifts</a><p style=\"font-size: 4px; opacity: 0%;\">r</p>\n\n<style>\n\n  .mobile-only {\n    display: none;\n  }\n  @media (max-width: 768px) {\n    .mobile-only {\n      display: inline-block;\n    }\n  }\n.desktop-only {\nfont-size: 15px;\n}\n</style>\n    </div>\n</body>\n</html>"
           }
         },
-        "timer_Hcda8": {
-          "type": "timer",
-          "disabled": false,
-          "settings": {
-            "start_time": "2025-09-12 00:00",
-            "end_time": "2025-09-14 23:59",
-            "label": "28% off when you purchase 2 full priced products, no code required. Offer ends in…"
-          }
-        },
         "button_hGLYr": {
           "type": "button",
           "disabled": false,
           "settings": {
-            "paragraph-793290a1308a4ede5679c86c0e260f21": null,
+            "paragraph-92ef8d9627b2af7d64d6f879e6202ff5": null,
             "link": "",
             "text": "",
             "stretch": true,
