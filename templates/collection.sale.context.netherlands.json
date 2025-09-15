@@ -26,7 +26,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-8188bfd31b8319e694d3d8bd1da52a50": null,
+        "header-31e9aabfd195bfb1c114b21fdac9ed9f": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -34,46 +34,6 @@
       },
       "blocks": {},
       "block_order": []
-    },
-    "slideshow_iqbHR": {
-      "type": "slideshow",
-      "disabled": false,
-      "settings": {
-        "section_height": "auto",
-        "transition_type": "sweep",
-        "autoplay": true,
-        "cycle_speed": 5,
-        "background": "rgba(0,0,0,0)"
-      },
-      "blocks": {
-        "image_mtt9B": {
-          "type": "image",
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/Landing_Page_v2.jpg",
-            "split_image": null,
-            "mobile_image": "shopify://shop_images/Landing_Page_4.jpg",
-            "header-906f9b8455b04f68ae3fb8a4939793ac": null,
-            "text_position": "top_left",
-            "subheading": "Tell your story",
-            "title": "Spring Sale",
-            "button_1_text": "",
-            "button_1_link": "",
-            "button_2_text": "",
-            "button_2_link": "",
-            "header-05cdc099bd29cdd262c27a31649eef58": null,
-            "text_color": "#ffffff",
-            "button_background": "#ffffff",
-            "button_text_color": "#000000",
-            "overlay_color": "#000000",
-            "overlay_opacity": 30
-          }
-        }
-      },
-      "block_order": [
-        "image_mtt9B"
-      ],
-      "name": "Slideshow"
     },
     "infinite_scroller2_8MD9x": {
       "type": "infinite-scroller2",
@@ -167,7 +127,7 @@
         "liquid": "<div class=\"OTTP\" style=\"display: flex; align-items: center; gap: 8px; white-space: nowrap; justify-content: center;\">\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.png?v=1741099146\" style=\"height: 14px;\">\n    <span style=\"white-space: nowrap; font-size: 9px;\">4.7 / 5 Excellent • Based on 10,000+ reviews</span>\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_Logo__2022__svg.webp?v=1741089163\" style=\"height: 14px;\">\n</div>",
         "add_vertical_spacing": true,
         "background_type": "full_width",
-        "header-81996148f4d11f664e26d204f31e0fde": null,
+        "header-a7453e83065bce7f6cb25c4e944e21b2": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -188,7 +148,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-197b7587857715a902d43eb5234f686a": null,
+        "header-869d544f23a2e85fdb26c83c1f66789c": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -210,12 +170,96 @@
       ],
       "settings": {},
       "blocks": {}
+    },
+    "coll_slideshow_yjzYh": {
+      "type": "coll-slideshow",
+      "disabled": false,
+      "settings": {
+        "section_height": "auto",
+        "transition_type": "sweep",
+        "autoplay": true,
+        "cycle_speed": 5,
+        "background": "rgba(0,0,0,0)"
+      },
+      "blocks": {
+        "image_mwQAP": {
+          "type": "image",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Landing_Page_v2.jpg",
+            "split_image": null,
+            "mobile_image": "shopify://shop_images/Landing_Page_4_Mob.jpg",
+            "header-46ca36a32a32412e5b7c47333aa9f0ba": null,
+            "text_position": "middle_left",
+            "header-507a182b6553f11e96b8d95f13d3c308": null,
+            "review_image": null,
+            "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
+            "review_text_font": "assistant_n4",
+            "custom_review_font": "Zurich, sans-serif",
+            "review_text_size": 13,
+            "review_font_weight": "400",
+            "header-678edf1707fe5635e8de14b5f67d17b5": null,
+            "title": "Spring Sale",
+            "heading_font": "sans-serif",
+            "custom_heading_font": "Zurich, sans-serif",
+            "heading_text_size": 25,
+            "heading_font_weight": "400",
+            "header-b5e5b49d2c584d07b31ce1c302e9b26f": null,
+            "subheading": "Tell your story",
+            "subheading_font": "sans-serif",
+            "custom_subheading_font": "Zurich, sans-serif",
+            "subheading_text_size": 25,
+            "subheading_font_weight": "400",
+            "header-ce18a83819a1f06d684d86082a557b1b": null,
+            "slide_text": "We help you create a space you’re proud to come home to, every single day.",
+            "slide_text_font": "sans-serif",
+            "custom_text_font": "Zurich, sans-serif",
+            "slide_text_size": 25,
+            "text_font_weight": "400",
+            "header-f85b9d2a5fe01b0dc8c0805a0e77a6cf": null,
+            "above_text": "Join Over 700,000+ Satisfied Customers",
+            "above_button_font": "sans-serif",
+            "custom_abovetext_font": "Zurich, sans-serif",
+            "above_button_text_size": 25,
+            "above_font_weight": "400",
+            "header-429c59c926190349cc6912259e597587": null,
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_font": "sans-serif",
+            "custom_button_font": "Zurich, sans-serif",
+            "button_text_size": 25,
+            "button_font_weight": "400",
+            "header-c8d0df50eb9e25b5011d0a21ae0ea761": null,
+            "review_line_1": "",
+            "review_line_2": "",
+            "review_line_3": "",
+            "review_line_4": "",
+            "review_line_5": "",
+            "review_font": "sans-serif",
+            "custom_reviewline_font": "Zurich, sans-serif",
+            "review_lines_size": 25,
+            "lines_font_weight": "400",
+            "header-2d3997204a4c43290d6f9f8c50e0ae91": null,
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        }
+      },
+      "block_order": [
+        "image_mwQAP"
+      ],
+      "name": "Slideshow For Collections"
     }
   },
   "order": [
     "collection-banner",
     "rich_text_C8MBJ",
-    "slideshow_iqbHR",
+    "coll_slideshow_yjzYh",
     "infinite_scroller2_8MD9x",
     "custom_liquid_9hrxA",
     "rich_text_bP8Eg",
