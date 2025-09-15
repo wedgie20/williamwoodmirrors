@@ -357,7 +357,7 @@
                       {{ jm_metafields.featured_carousel }}
                     </div>
                     <!-- End of Judge.me code -->
-                    {%- render 'product-item-updated',
+                    {%- render 'product-card-coll',
                       product: product,
                       collection: collection,
                       block: block,
@@ -366,7 +366,7 @@
                       forloop_index: forloop.index
                     -%}
                   {% else %}
-                    {%- render 'product-item-updated',
+                    {%- render 'product-card-coll',
                       product: product,
                       collection: collection,
                       block: block,
@@ -440,6 +440,60 @@ document.addEventListener('DOMContentLoaded', setupAnimateImagesObserver);
 </script>
 
 <style>
+  #shopify-section-{{ section.id }} .product-item__cta-wrapper .product-item__cta{
+    display: flex;
+    width: 22px;
+    height: 22px;
+    padding: unset;
+    place-content: center;
+    flex-wrap: wrap;
+    border: 1px solid rgb(var(--border-color));
+    border-radius: var(--button-border-radius);
+    background: rgb(var(--root-background));
+    color: rgb(var(--root-text-color));
+    transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out, transform 0.25s ease-in-out, color 0.25s ease-in-out;
+    margin: unset;
+  }
+  #shopify-section-{{ section.id }} .product-item__cta-wrapper.hereis {
+    {% comment %} display: none; {% endcomment %}
+    place-content: center;
+    flex-wrap: wrap;
+    place-items: center;
+    {% comment %} position: absolute; {% endcomment %}
+        {% comment %} bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%); {% endcomment %}
+    transition-property: transform, translate, scale, rotate;
+    transition-timing-function: ease-in-out;
+    transition-duration: .28s;
+    translate: 0 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+        opacity: 0.8;
+}
+#shopify-section-{{ section.id }} .product-item__image-wrapper:hover .product-item__cta-wrapper.hereis{
+    translate: 0 -200%;
+}
+@media screen and (max-width: 767px) {
+#shopify-section-{{ section.id }} .product-item__cta-wrapper.hereis {
+display: flex;
+translate: 0 -200%;
+}
+}
+  #shopify-section-{{ section.id }} .product-item__cta-wrapper .product-item__cta:hover{
+    border-color: rgb(var(--heading-color));
+    color: rgb(var(--heading-color));
+    transform: scale(1.1);
+  }
+  #shopify-section-{{ section.id }} .product-item__cta-wrapper .product-item__cta:focus{
+    outline: 2px solid rgb(var(--heading-color));
+    outline-offset: 2px;
+  }
+  #shopify-section-{{ section.id }} .product-item__cta-wrapper .product-item__cta:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
   @media screen and (min-width: 550px) {
   .updated-product-item.product-item .mobile_images{
   display: none !important;
@@ -449,8 +503,12 @@ document.addEventListener('DOMContentLoaded', setupAnimateImagesObserver);
      @keyframes peekAnimation {
      0% { transform: translateZ(0); }
   50% { transform: translate3d(-25%, 0, 0); }
-  100% { transform: translateZ(0); }
+  100% { transform: translateZ(0); 
+  }
 }
+.product-item__cta-wrapper .product-item__cta {
+    margin-bottom: -8px !important;
+  }
 .updated-product-item.product-item .product-item__aspect-ratio.animate_images .mobile_images.clc-Items_Items-animate{
   animation: peekAnimation 1s ease-in-out;
   animation-delay: 2s;
