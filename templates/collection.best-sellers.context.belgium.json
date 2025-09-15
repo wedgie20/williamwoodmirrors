@@ -13,46 +13,6 @@
     "market": "belgium"
   },
   "sections": {
-    "slideshow_nTC7V": {
-      "type": "slideshow",
-      "disabled": false,
-      "settings": {
-        "section_height": "auto",
-        "transition_type": "sweep",
-        "autoplay": true,
-        "cycle_speed": 5,
-        "background": "rgba(0,0,0,0)"
-      },
-      "blocks": {
-        "image_4wdpq": {
-          "type": "image",
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/efefef_Desktop.jpg",
-            "split_image": null,
-            "mobile_image": "shopify://shop_images/efefef_Desktop.jpg",
-            "header-94933e7628b4c01c32d48f21c234648c": null,
-            "text_position": "top_left",
-            "subheading": "",
-            "title": "Best Sellers",
-            "button_1_text": "",
-            "button_1_link": "",
-            "button_2_text": "",
-            "button_2_link": "",
-            "header-77c62ddcb1edd2df8c43272943182ed8": null,
-            "text_color": "#000000",
-            "button_background": "#ffffff",
-            "button_text_color": "#000000",
-            "overlay_color": "#000000",
-            "overlay_opacity": 0
-          }
-        }
-      },
-      "block_order": [
-        "image_4wdpq"
-      ],
-      "name": "Slideshow"
-    },
     "rich_text_Xyync": {
       "type": "rich-text",
       "disabled": false,
@@ -66,7 +26,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-cbdd58bf1316150776a641489ccc7d64": null,
+        "header-4889a3ad85b872c970ba61d083b71550": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -99,11 +59,95 @@
       ],
       "settings": {},
       "blocks": {}
+    },
+    "coll_slideshow_JbiUP": {
+      "type": "coll-slideshow",
+      "disabled": false,
+      "settings": {
+        "section_height": "auto",
+        "transition_type": "sweep",
+        "autoplay": true,
+        "cycle_speed": 5,
+        "background": "rgba(0,0,0,0)"
+      },
+      "blocks": {
+        "image_UeAwn": {
+          "type": "image",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/efefef_Desktop.jpg",
+            "split_image": null,
+            "mobile_image": "shopify://shop_images/efefef_Mobile.jpg",
+            "header-0d3fa9c5b9ed5702adef97994ce34dbc": null,
+            "text_position": "middle_left",
+            "header-04f1743a35767e1e81edd1004fe9f140": null,
+            "review_image": null,
+            "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
+            "review_text_font": "assistant_n4",
+            "custom_review_font": "Zurich, sans-serif",
+            "review_text_size": 13,
+            "review_font_weight": "400",
+            "header-b9f93d3cdcf6065469c7bdd9f2c71e6f": null,
+            "title": "Best Sellers",
+            "heading_font": "sans-serif",
+            "custom_heading_font": "Zurich, sans-serif",
+            "heading_text_size": 25,
+            "heading_font_weight": "400",
+            "header-8d83a907e6a43488fe3bcfda42e71ad9": null,
+            "subheading": "Tell your story",
+            "subheading_font": "sans-serif",
+            "custom_subheading_font": "Zurich, sans-serif",
+            "subheading_text_size": 25,
+            "subheading_font_weight": "400",
+            "header-58f4d34cca2294ccc904e07d63b977b9": null,
+            "slide_text": "We help you create a space you’re proud to come home to, every single day.",
+            "slide_text_font": "sans-serif",
+            "custom_text_font": "Zurich, sans-serif",
+            "slide_text_size": 25,
+            "text_font_weight": "400",
+            "header-c05112ac6f82c31171e3f832593030b8": null,
+            "above_text": "Join Over 700,000+ Satisfied Customers",
+            "above_button_font": "sans-serif",
+            "custom_abovetext_font": "Zurich, sans-serif",
+            "above_button_text_size": 25,
+            "above_font_weight": "400",
+            "header-7fb9a58b62a24cfacf515738dbbe1674": null,
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_font": "sans-serif",
+            "custom_button_font": "Zurich, sans-serif",
+            "button_text_size": 25,
+            "button_font_weight": "400",
+            "header-f558daaf42fe029706eba2a38643a302": null,
+            "review_line_1": "",
+            "review_line_2": "",
+            "review_line_3": "",
+            "review_line_4": "",
+            "review_line_5": "",
+            "review_font": "sans-serif",
+            "custom_reviewline_font": "Zurich, sans-serif",
+            "review_lines_size": 25,
+            "lines_font_weight": "400",
+            "header-4c6b0ba1ec6bcf634483d0db9f586b31": null,
+            "text_color": "#000000",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        }
+      },
+      "block_order": [
+        "image_UeAwn"
+      ],
+      "name": "Slideshow For Collections"
     }
   },
   "order": [
     "collection-banner",
-    "slideshow_nTC7V",
+    "coll_slideshow_JbiUP",
     "infinite_scroller_LGnhM",
     "custom_liquid_YLJKrR",
     "rich_text_Xyync",

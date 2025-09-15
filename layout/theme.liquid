@@ -211,6 +211,9 @@
       .ecodrive-toggle > div {
         margin: 0 !important;
       }
+      #lightboxjs-lightboxlib{
+      display: none !important;
+    }
 
       .product-facet__filter-list .collapsible .checkbox-container{
   position: relative;
@@ -240,6 +243,11 @@
         width: 42px !important;
         height: 12px !important;
       }
+      @media (max-width: 550px) {
+       body.no-scroll {
+        overflow: auto !important;
+      }
+    }
     </style>
     <!-- end Ecodrive -->
   {% include 'kart_discount' %}
