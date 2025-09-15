@@ -13,46 +13,6 @@
     "market": "gb"
   },
   "sections": {
-    "slideshow_P9njm": {
-      "type": "slideshow",
-      "disabled": false,
-      "custom_css": [],
-      "settings": {
-        "section_height": "auto",
-        "transition_type": "fade",
-        "autoplay": false,
-        "cycle_speed": 5,
-        "background": "rgba(0,0,0,0)"
-      },
-      "blocks": {
-        "image_tmkHL": {
-          "type": "image",
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/Desktop_Tuscany.jpg",
-            "split_image": null,
-            "mobile_image": "shopify://shop_images/Mobile_Tuscany_2.jpg",
-            "header-5da1a70dd4f2c26f7e3c0edf8c05e272": null,
-            "text_position": "middle_center",
-            "subheading": "",
-            "title": "COMING SOON",
-            "button_1_text": "",
-            "button_1_link": "",
-            "button_2_text": "",
-            "button_2_link": "",
-            "header-3a3ed060421c94527f6cc20d1a80de9d": null,
-            "text_color": "#ffffff",
-            "button_background": "#ffffff",
-            "button_text_color": "#000000",
-            "overlay_color": "#000000",
-            "overlay_opacity": 30
-          }
-        }
-      },
-      "block_order": [
-        "image_tmkHL"
-      ]
-    },
     "custom_liquid_EH3Cr": {
       "type": "custom-liquid",
       "disabled": false,
@@ -62,7 +22,7 @@
         "liquid": "<div class=\"klaviyo-form-WhQLFf\"></div>",
         "add_vertical_spacing": true,
         "background_type": "full_width",
-        "header-3d233f30132ee0cbaded80aea9a49da1": null,
+        "header-d2d20aeb8f16eff6bda570ac96548638": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -82,7 +42,7 @@
         "mobile_item_size": "small",
         "desktop_item_size": "small",
         "spacing": "tight",
-        "header-be5a6a2b00cf5ae60145cf859e291949": null,
+        "header-6eb1a5f423069b78917f7d52aab0d96a": null,
         "background": "#efefef",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -163,10 +123,94 @@
       "disabled": true,
       "settings": {},
       "blocks": {}
+    },
+    "coll_slideshow_UwwmB": {
+      "type": "coll-slideshow",
+      "disabled": false,
+      "settings": {
+        "section_height": "auto",
+        "transition_type": "sweep",
+        "autoplay": true,
+        "cycle_speed": 5,
+        "background": "rgba(0,0,0,0)"
+      },
+      "blocks": {
+        "image_7nCJK": {
+          "type": "image",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Desktop_Tuscany.jpg",
+            "split_image": null,
+            "mobile_image": "shopify://shop_images/Mobile_Tuscany_2.jpg",
+            "header-eb75460f983dbe77e5a369939f6e5cfe": null,
+            "text_position": "middle_center",
+            "header-74a359dc1ecdc6c4961780928a168ae6": null,
+            "review_image": null,
+            "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
+            "review_text_font": "assistant_n4",
+            "custom_review_font": "Zurich, sans-serif",
+            "review_text_size": 13,
+            "review_font_weight": "400",
+            "header-7c704e6d575f639cc4c88d38492caaf5": null,
+            "title": "COMING SOON",
+            "heading_font": "sans-serif",
+            "custom_heading_font": "Zurich, sans-serif",
+            "heading_text_size": 25,
+            "heading_font_weight": "400",
+            "header-68c77472c3fd5a2c74c406ffd214c58d": null,
+            "subheading": "",
+            "subheading_font": "sans-serif",
+            "custom_subheading_font": "Zurich, sans-serif",
+            "subheading_text_size": 25,
+            "subheading_font_weight": "400",
+            "header-136caa709b0d04b5a8169aac4c623334": null,
+            "slide_text": "We help you create a space you’re proud to come home to, every single day.",
+            "slide_text_font": "sans-serif",
+            "custom_text_font": "Zurich, sans-serif",
+            "slide_text_size": 25,
+            "text_font_weight": "400",
+            "header-42c274f741e50b1879a843c8f9157034": null,
+            "above_text": "Join Over 700,000+ Satisfied Customers",
+            "above_button_font": "sans-serif",
+            "custom_abovetext_font": "Zurich, sans-serif",
+            "above_button_text_size": 25,
+            "above_font_weight": "400",
+            "header-59849e3810dd66aca61eb044554b7f63": null,
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_font": "sans-serif",
+            "custom_button_font": "Zurich, sans-serif",
+            "button_text_size": 25,
+            "button_font_weight": "400",
+            "header-236beeed74a6a93e92d46d99b776a49c": null,
+            "review_line_1": "",
+            "review_line_2": "",
+            "review_line_3": "",
+            "review_line_4": "",
+            "review_line_5": "",
+            "review_font": "sans-serif",
+            "custom_reviewline_font": "Zurich, sans-serif",
+            "review_lines_size": 25,
+            "lines_font_weight": "400",
+            "header-c48a32d6e16ad17a30d7dcefb22f2898": null,
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        }
+      },
+      "block_order": [
+        "image_7nCJK"
+      ],
+      "name": "Slideshow For Collections"
     }
   },
   "order": [
-    "slideshow_P9njm",
+    "coll_slideshow_UwwmB",
     "custom_liquid_EH3Cr",
     "multi_column_qReY3",
     "6cc91c8c-a57c-41dd-9ac0-a95015ad3ab6",

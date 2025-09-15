@@ -1,0 +1,1020 @@
+{{ block.settings.review_text_font | font_face }}
+<style>
+  #shopify-section-{{ section.id }} {
+    --progress-bar-color: {{ section.blocks.first.settings.text_color.red }}, {{ section.blocks.first.settings.text_color.green }}, {{ section.blocks.first.settings.text_color.blue }};
+    --section-autoplay-duration: {% if section.settings.autoplay %}{{ section.settings.cycle_speed }}s{% else %}0s{% endif %};
+    --section-animation-play-state: paused;
+    background-color: {{ section.settings.background }}; /* Allows to set a placeholder color while loading */
+  }
+
+  {%- for block in section.blocks -%}
+    {%- assign text_position = block.settings.text_position | split: '_' | first -%}
+
+    {%- case text_position -%}
+      {%- when 'top' -%}
+        {%- assign section_items_alignment = 'flex-start' -%}
+      {%- when 'middle' -%}
+        {%- assign section_items_alignment = 'center' -%}
+      {%- when 'bottom' -%}
+        {%- assign section_items_alignment = 'flex-end' -%}
+    {%- endcase -%}
+
+    #block-{{ section.id }}-{{ block.id }} {
+      --heading-color: {{ block.settings.text_color.red }}, {{ block.settings.text_color.green }}, {{ block.settings.text_color.blue }};
+      --text-color: {{ block.settings.text_color.red }}, {{ block.settings.text_color.green }}, {{ block.settings.text_color.blue }};
+      --primary-button-background: {{ block.settings.button_background.red }}, {{ block.settings.button_background.green }}, {{ block.settings.button_background.blue }};
+      --primary-button-text-color: {{ block.settings.button_text_color.red }}, {{ block.settings.button_text_color.green }}, {{ block.settings.button_text_color.blue }};
+
+      --section-blocks-alignment: {{ section_items_alignment }};
+      --section-blocks-overlay-color: {{ block.settings.overlay_color.red }}, {{ block.settings.overlay_color.green }}, {{ block.settings.overlay_color.blue }};
+      --section-blocks-overlay-opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};
+    }
+
+    #block-{{ section.id }}-{{ block.id }} .review_text{
+      {%  if block.settings.custom_review_font != "Select Font" %}
+        font-family: {{ block.settings.custom_review_font }};
+      {% else %}
+        font-family: {{ block.settings.review_text_font }};
+      {% endif %}
+    font-size: {{ block.settings.review_text_size }}px;
+    font-weight: {{ block.settings.review_font_weight }};
+    }
+
+    #block-{{ section.id }}-{{ block.id }} .title{
+          {%  if block.settings.custom_heading_font != "Select Font" %}
+        font-family: {{ block.settings.custom_heading_font }};
+      {% else %}
+        font-family: {{ block.settings.heading_font }};
+      {% endif %}
+    font-size: {{ block.settings.heading_text_size }}px;
+    font-weight: {{ block.settings.heading_font_weight }};
+    }
+
+    #block-{{ section.id }}-{{ block.id }} .subheading{
+          {%  if block.settings.custom_subheading_font != "Select Font" %}
+        font-family: {{ block.settings.custom_subheading_font }};
+      {% else %}
+        font-family: {{ block.settings.subheading_font }};
+      {% endif %}
+    font-size: {{ block.settings.subheading_text_size }}px;
+    font-weight: {{ block.settings.subheading_font_weight }};
+    }
+
+    #block-{{ section.id }}-{{ block.id }} .slide_text{
+          {%  if block.settings.custom_text_font != "Select Font" %}
+        font-family: {{ block.settings.custom_text_font }};
+      {% else %}
+        font-family: {{ block.settings.slide_text_font }};
+      {% endif %}
+    font-size: {{ block.settings.slide_text_size }}px;
+    font-weight: {{ block.settings.text_font_weight }};
+    }
+
+    #block-{{ section.id }}-{{ block.id }} .above_text{
+          {%  if block.settings.custom_abovetext_font != "Select Font" %}
+        font-family: {{ block.settings.custom_abovetext_font }};
+      {% else %}
+        font-family: {{ block.settings.above_button_font }};
+      {% endif %}
+    font-size: {{ block.settings.above_button_text_size }}px;
+     font-weight: {{ block.settings.above_font_weight }};
+    }
+
+    #block-{{ section.id }}-{{ block.id }} .button_1_text{
+          {%  if block.settings.custom_button_font != "Select Font" %}
+        font-family: {{ block.settings.custom_button_font }};
+      {% else %}
+        font-family: {{ block.settings.button_font }};
+      {% endif %}
+    font-size: {{ block.settings.button_text_size }}px;
+    font-weight: {{ block.settings.button_font_weight }};
+    }
+
+    #block-{{ section.id }}-{{ block.id }} .review_line{
+          {%  if block.settings.custom_reviewline_font != "Select Font" %}
+        font-family: {{ block.settings.custom_reviewline_font }};
+      {% else %}
+        font-family: {{ block.settings.review_font }};
+      {% endif %}
+    font-size: {{ block.settings.review_lines_size }}px;
+    font-weight: {{ block.settings.lines_font_weight }};
+    }
+  {%- endfor -%}
+</style>
+
+
+
+<section class="section section--flush">
+  <slide-show reveal-on-scroll {% if section.settings.autoplay %}auto-play{% endif %} transition-type="{{ section.settings.transition_type | escape }}" class="slideshow slideshow--{{ section.settings.section_height }}">
+    <div class="slideshow__slide-list ">
+      {%- for block in section.blocks -%}
+        {%- comment -%}
+        ------------------------------------------------------------------------------------------------------------------
+        IMAGE PART
+        ------------------------------------------------------------------------------------------------------------------
+        {%- endcomment -%}
+
+        {%- assign image = block.settings.image -%}
+        {%- assign split_image = block.settings.split_image -%}
+        {%- assign mobile_image = block.settings.mobile_image -%}
+
+        {%- assign image_aspect_ratio = image.aspect_ratio | default: 2.63 -%}
+
+        {%- comment -%}
+        If the image is split and that we want to preserve the ratio, we have to multiply the ratio by 2 (as each image
+        only account for half the screen size)
+        {%- endcomment -%}
+
+        {%- if image != blank and split_image != blank and section.settings.section_height == 'auto' -%}
+          {%- assign image_aspect_ratio = image_aspect_ratio | times: 2.0 -%}
+        {%- endif -%}
+
+          {%- assign loading_attribute_value = 'eager' -%}
+          {%- assign preload_image = false -%}
+
+        {%- capture slide_content -%}
+          <div class="slideshow__image-wrapper {% if collection.handle == 'spring-sale' %} spring-sale-overlay{% endif %} {% if mobile_image != blank %}hidden-pocket{% endif %}" {% if section.settings.transition_type == 'reveal' %}reveal-visibility{% endif %}>
+            {%- if image != blank -%}
+              {%- capture sizes_attributes -%}{% if split_image != blank %}(min-width: 1000px) 50vw{% else %}100vw{% endif %}{%- endcapture -%}
+              {{- image | image_url: width: 3000 | image_tag: loading: loading_attribute_value, draggable: false, class: 'slideshow__image', sizes: sizes_attributes, widths: '600,700,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000', preload: preload_image | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+            {%- else -%}
+              {% capture image_name %}lifestyle-{% cycle '1', '2' %}{%- endcapture -%}
+              {{- image_name | placeholder_svg_tag: 'slideshow__image slideshow__image--placeholder' | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+            {%- endif -%}
+          </div>
+
+          {%- comment -%}If a second image (split image) is uploaded, we use it. Note that we use the same ratio as the first image (to have equal column height){% endcomment %}
+          {%- if image != blank and split_image != blank -%}
+            <div class="slideshow__image-wrapper slideshow__image-wrapper--secondary hidden-pocket" {% if section.settings.transition_type == 'reveal' %}reveal-visibility{% endif %}>
+              {{- split_image | image_url: width: 3000 | image_tag: loading: loading_attribute_value, draggable: false, class: 'slideshow__image', sizes: '50vw', widths: '600,700,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000', preload: preload_image | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+            </div>
+          {%- endif -%}
+
+          {%- if mobile_image != blank -%}
+            <div class="slideshow__image-wrapper hidden-lap-and-up {% if collection.handle == 'spring-sale' %} spring-sale-overlay{% endif %} "  {% if section.settings.transition_type == 'reveal' %}reveal-visibility{% endif %}>
+              {{- mobile_image | image_url: width: 3000 | image_tag: loading: loading_attribute_value, draggable: false, class: 'slideshow__image', sizes: '100vw', widths: '600,700,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000', preload: preload_image | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+            </div>
+          {%- endif -%}
+
+          {%- comment -%}
+          ----------------------------------------------------------------------------------------------------------------
+          CONTENT PART
+          ----------------------------------------------------------------------------------------------------------------
+          {%- endcomment -%}
+
+          {%- capture section_content -%}
+            {%- if block.settings.subheading != blank -%}
+              <h2 class="heading heading--small">
+                <split-lines {% if section.settings.transition_type != 'fade' %}reveal{% endif %}>{{ block.settings.subheading | escape }}</split-lines>
+              </h2>
+            {%- endif -%}
+
+            {%- if block.settings.title != blank -%}
+              <h3 class="heading heading--large">
+                <split-lines {% if section.settings.transition_type != 'fade' %}reveal{% endif %}>{{ block.settings.title | escape }}</split-lines>
+              </h3>
+            {%- endif -%}
+
+            {%- capture buttons -%}
+              {%- if block.settings.button_1_text != blank -%}
+                <a href="{{ block.settings.button_1_link  }}" class="button button--primary">{{ block.settings.button_1_text | escape }}</a>
+              {%- endif -%}
+
+              {%- if block.settings.button_2_text != blank -%}
+                <a href="{{ block.settings.button_2_link  }}" class="button button--primary">{{ block.settings.button_2_text | escape }}</a>
+              {%- endif -%}
+            {%- endcapture -%}
+
+            {%- if block.settings.button_1_text != blank and block.settings.button_2_text != blank -%}
+              <div class="button-group" {% if section.settings.transition_type != 'fade' %}reveal{% endif %}>
+                <div class="button-group__wrapper">
+                  {{- buttons -}}
+                </div>
+              </div>
+            {%- elsif buttons != blank -%}
+              <div class="button-wrapper" {% if section.settings.transition_type != 'fade' %}reveal{% endif %}>
+                {{- buttons -}}
+              </div>
+            {%- endif -%}
+          {%- endcapture -%}
+
+          {%- if section_content != blank -%}
+            <div class="container">
+              {%- assign text_alignment = block.settings.text_position | split: '_' | first -%}
+              {%- assign text_position = block.settings.text_position | split: '_' | last -%}
+
+
+                  <div class="slideshow__text-wrapper slideshow__text-wrapper--{{ text_alignment }} vertical-breather">
+                <div class="content-box content-box--medium content-box--text-{{ text_position }} content-box--{{ text_position }} text-container">
+
+                <div class="content">
+
+                  {% if section_content contains 'Boxing Day' or section_content contains 'SEASON' %}
+<style>
+  @media screen and (max-width: 740px) {
+  .slideshow__text-wrapper {
+                    padding-bottom: 10rem !important;
+                   
+    }
+
+        .shop-now-summer {
+          display: grid;
+        }
+  }
+</style>
+                  <div class="MobileDown">
+                    <div class="heading heading--small"></div>
+  <div class="heading heading--small"></div>
+    <style>
+      </style>
+
+
+
+<div class="tp-desktop heading--small" style="text-align: center; margin-bottom: 0.5rem; margin-top: 1rem;">
+                    <img style="display: inline-block; vertical-align: middle; width: 60px; margin-right: 8px; margin-bottom: 0px !important; margin-top: 0px;" src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.review_image | img_url: '60x60' }}" alt="Trustpilot rating">
+                    <span class="review_text" style="display: inline-block; vertical-align: middle; color: white; text-transform: capitalize;">{{ block.settings.review_text }}</span>
+                  </div>
+<div class="tp-mobile" style="text-align: center; margin-bottom: 0px; margin-top: 20px;">
+  <img style="display: inline-block; vertical-align: middle; width: 60px; margin-right: 8px; margin-bottom: 0px !important; margin-top: 0px;" src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.review_image | img_url: '60x60' }}" alt="Trustpilot rating">
+   <span class="review_text" style="display: inline-block; vertical-align: middle; color: white;">{{ block.settings.review_text }}</span>
+</div>
+<span class="heading h1 slideshow_txt tp-desktop title" style="margin-top: 0; margin-bottom: 12px;"><b>{{ block.settings.title }}</b><span class="subheading" style="text-transform: lowercase;"><br>{{ block.settings.subheading }}</span>{% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %}<br></b>{% endunless %}</span>
+<span class="heading h1 slideshow_txt tp-mobile title imhere" style="margin-top: 0; margin-bottom: 12px;">{{ block.settings.title }}<span class="subheading" style="text-transform: lowercase;"><br>{{ block.settings.subheading }}</span>{% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %}<br>{% endunless %}</span>
+
+                    {% comment %}
+<span class="heading h1 slideshow_txt tp-desktop" style="margin-top: 0; margin-bottom: 5px; font-size: 25px;">24% Off</span>
+                    <span class="heading heading--small slideshow_txt tp-desktop" style="margin-top: 0; margin-bottom: 0;">CODE</span>
+                    <span class="heading h1 slideshow_txt tp-desktop" style="margin-top: 5px; font-size: 30px;">ES24</span>
+                     
+                   
+                                      <span class="tp-desktop" style="color: white; margin-bottom: 2rem; font-size: 13px;">Mystery Gift with all orders,<br>ends midnight tonight. {% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %} {% endunless %}</span><br>
+                  
+                  <span class="tp-mobile" style="color: white; font-size: 13px; margin-bottom: 25px;">Mystery Gift with all orders, ends <br>ends midnight tonight. {% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %} {% endunless %}</span><br><br>
+                    {% endcomment %}
+                      <span class="tp-desktop slide_text" style="color: white; margin-bottom: 2rem;">{{ block.settings.slide_text | escape | newline_to_br }} {% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %} {% endunless %}</span>
+
+                  <span class="tp-mobile slide_text" style="color: white;">{{ block.settings.slide_text | escape | newline_to_br }} {% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %} {% endunless %}</span>
+
+                  {% comment %}
+              <span class="tp-desktop" style="color: white; margin-bottom: 2rem; font-size: 13px; margin-bottom: 25px;">Use code <b>JUL22</b> at checkout <br> (Ends Midnight Tonight){% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %} {% endunless %}</span>
+                  
+                  <span class="tp-mobile" style="color: white; font-size: 13px">Use code <b>JUL22</b> at checkout <br> (Ends Soon){% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %} {% endunless %}</span>
+                    {% endcomment %}
+
+<span class="heading heading--small tp-desktop above_text" style="display: block; vertical-align: middle; color: white; margin-bottom: 2rem; text-transform: capitalize;">{{ block.settings.above_text | escape | newline_to_br }}</span>
+  <span class="heading heading--small tp-mobile above_text" style="display: block; vertical-align: middle; color: white; text-transform: capitalize; margin-bottom:25px;">{{ block.settings.above_text | escape | newline_to_br }}</span>
+
+
+<div class="button-row-mobile" style="text-align: center; white-space: nowrap;">
+  <!-- <a href="https://www.williamwoodmirrors.co.uk/collections/best-sellers?utm_source=hp" style="margin-right: 12px;">
+    <button class="button button--primary slideshow_txt" style="display: inline-flex; align-items: center; justify-content: center; transform: translateY(10px); gap: 6px;">
+      <span style="white-space: nowrap;">MOST LOVED</span>
+    </button>
+  </a> -->
+  <a href="{{ block.settings.button_1_link | escape }}" class="shop-now-summer">
+    <button class="button button--primary slideshow_txt clearance-text" style="display: inline-flex; align-items: center; justify-content: center; transform: translateY(10px); gap: 6px;">
+      <span class="button_1_text" style="white-space: nowrap; width: 100%;">{{ block.settings.button_1_text | escape | newline_to_br }}</span>
+    </button>
+  </a>
+        <div style="margin-top: 2rem;">
+                    {% render 'rotating-reviews-lines' section: section, block: block %}
+        </div>
+
+</div>
+                   
+</div>
+
+
+
+
+
+
+<style>
+@media screen and (max-width: 740px) {
+  .tp-desktop {
+    display: none !important;
+  }
+  .slideshow_txt {
+    justify-content: top;
+  }
+  .MobileDown {
+    transform: translateY(25px);
+  }
+}
+
+
+@media screen and (min-width: 741px) {
+  .tp-mobile {
+    display: none !important;
+  }
+
+  .clearance-text {
+    width: 200px !important;
+  }
+}
+
+
+</style>
+
+
+                    {% elsif section_content contains 'FGCOPY' %}
+                      <div class="heading h1">Free Gift</div>
+                    <br>
+                    {%- if cart.currency.iso_code == 'GBP' -%}
+                    <p style="color: white;">Spend £299 GBP or more and select one complimentary Free Gift of your choice worth up to £99 GBP, courtesy of William Wood.</p>
+                    {% else %}
+                    <p style="color: white;">Spend €299 EUR or more and select one complimentary Free Gift of your choice worth up to €149,95 EUR, courtesy of William Wood.</p>
+                    {% endif %}
+                    <p style="color: white;">Select Free Gifts are available only in September.</p>
+                    <br>
+                    <p style="color: white;"><b>Note - To receive your Free Gift, please ensure to add it to your cart before you purchase. If there's no Free Gift in your cart, it won't be included with your order. </b></p>
+                    {% elsif section_content contains 'Members Club' %}        
+<div style="text-align: center;">
+  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/15_Balloon.png?v=1742810388" width="150" height="150" style="display: inline-block;">
+</div>
+     <span class="heading h1" style="margin-top: 0; font-size: 20px;"><b>Congratulations</b></span>
+ 
+                    <span class="heading heading--small" style="margin-top: 0; font-size: 15px;"><b>You have successfully enrolled as a William Wood Member and have gained access to 40% off.
+</b></span>
+                    <br>
+                                        <span class="heading heading--small" style="margin-top: 0; font-size: 15px;"><b>Event Schedule</b></span>                    <br>
+                                        <span class="heading heading--small" style="margin-top: 0; font-size: 15px;"><b>30.03.25</b></span>                    <br>
+                                        <span class="heading heading--small" style="margin-top: 0; font-size: 15px;"><b>8 PM BST - 8.40 PM BST</b></span>
+                     <br>
+                                                            <span class="heading heading--small" style="margin-top: 0; font-size: 15px;"><b>Check your emails for more information on the William Wood 15th Anniversary Event.</b></span>
+                     <br>
+                                              <a href="/collections/best-sellers"><div class="button button--primary">Continue Shopping</div></a>
+
+
+{% elsif section_content contains 'Spring Sale' %}
+                    <span class="heading h1" style="font-size: 25px;"><b>END OF SEASON SALE</b></span>
+                    <div class="heading heading--small" style="margin-bottom: 0px">Up to 50% off select products<br></br>{%- if cart.currency.iso_code == 'GBP' -%}Extra 15% off with code {% else %} Extra 15% off with code{% endif %}</div>
+                  <div class="discount-code">
+                    <span class="heading h1" style="margin-top: 12px; font-size: 25px; margin-bottom: 0px;">{%- if cart.currency.iso_code == 'GBP' -%}SE15 {% else %}SE15 {% endif %}</span>
+                    <span class="heading heading--small" style="margin-bottom: 0px; margin-top: 12px;">{%- if cart.currency.iso_code == 'GBP' -%}FREE PREMIUM UK DELIVERY + 90 DAYS FREE RETURNS {% else %}90 DAYS FREE RETURNS{%- endif -%}</span>
+                  </div>
+                    
+{% elsif section_content contains 'Best Sellers' or section_content contains 'Most Loved' %}
+                    <span class="heading h1" style="font-size: 25px;"><b>BEST SELLERS</b></span>
+                    <div class="heading heading--small">A selection of the best selling William Wood pieces, curated by you. <br><br>{%- if cart.currency.iso_code == 'GBP' -%}FREE PREMIUM UK DELIVERY + 90 DAYS FREE RETURNS {% else %}90 DAYS FREE RETURNS{%- endif -%}</div>
+<span class="heading h1" style="font-size: 25px;"><b>Bundle Offer</b></span>
+<div class="heading heading--small" style="margin-top: 10px !important;">Save 28% when you purchase 2 full priced products <br>(Ends Midnight Tonight)</div>
+                  {% elsif section_content contains 'Latest Arrivals' %}
+                    <span class="heading h1" style="font-size: 25px;"><b>Latest Arrivals</b></span>
+                    <div class="heading heading--small">The latest arrivals at William Wood <br><br>{%- if cart.currency.iso_code == 'GBP' -%}FREE PREMIUM UK DELIVERY + 90 DAYS FREE RETURNS {% else %}90 DAYS FREE RETURNS{%- endif -%}</div>
+                  {% else  %}
+{{ section_content }}
+                  {% endif %}
+                </div>
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endcapture -%}
+
+        {%- comment -%}If only the button 1 link is filled, then we make the whole slide clickable{%- endcomment -%}
+
+        {%- capture slide_attributes -%}
+          {{ block.shopify_attributes }}
+          id="block-{{ section.id }}-{{ block.id }}"
+          class="slideshow__slide {% if split_image != blank %}slideshow__slide--split{% endif %} {% if section.settings.transition_type == 'sweep' %}slideshow__slide--sweep{% endif %}"
+          {% unless forloop.first %}hidden{% endunless %}
+          {% if section.settings.section_height == 'auto' %}
+            style="--image-aspect-ratio: {{ image_aspect_ratio | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}; --mobile-image-aspect-ratio: {{ mobile_image.aspect_ratio | default: image_aspect_ratio | default: 1 }};"
+          {% endif %}
+        {%- endcapture -%}
+
+        <slide-show-item {% if section.settings.transition_type != 'reveal' %}reveal-visibility{% endif %} {{ slide_attributes }}>
+          {%- if block.settings.button_1_link != blank and block.settings.button_1_text == blank and block.settings.button_2_text == blank -%}
+            <a class="slideshow__slide-inner" href="{{ block.settings.button_1_link  }}">
+              {{- slide_content  -}}
+            </a>
+          {%- else -%}
+            <div class="slideshow__slide-inner">
+              {{- slide_content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+            </div>
+          {%- endif -%}
+        </slide-show-item>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.blocks.size > 1 -%}
+      <page-dots {% if section.settings.autoplay %}animation-timer{% endif %} class="slideshow__nav container">
+        {%- for block in section.blocks -%}
+          <button class="slideshow__progress-bar" aria-controls="block-{{ section.id }}-{{ block.id }}" {% if forloop.first %}aria-current="true"{% endif%}>
+            <span class="visually-hidden">{{ 'general.accessibility.go_to_slide' | t: num: forloop.index }}</span>
+          </button>
+        {%- endfor -%}
+      </page-dots>
+    {%- endif -%}
+  </slide-show>
+</section>
+
+{% schema %}
+{
+  "name": "Slideshow For Collections",
+  "class": "shopify-section--slideshow",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "Section height",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Original image ratio"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "fit",
+          "label": "Fit screen height"
+        }
+      ],
+      "info": "Choose \"Original image ratio\" to not cut images. [Learn more](https://help.shopify.com/en/manual/online-store/images/theme-images#best-practices-for-slideshows-and-full-width-images)",
+      "default": "auto"
+    },
+    {
+      "type": "select",
+      "id": "transition_type",
+      "label": "Transition type",
+      "options": [
+        {
+          "value": "sweep",
+          "label": "Sweep"
+        },
+        {
+          "value": "reveal",
+          "label": "Reveal"
+        },
+        {
+          "value": "fade",
+          "label": "Fade"
+        }
+      ],
+      "default": "sweep"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto rotate between slides",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "cycle_speed",
+      "min": 1,
+      "max": 20,
+      "step": 0.5,
+      "unit": "sec",
+      "label": "Change slides every",
+      "default": 5
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "info": "Used while slideshow image is loading",
+      "default": "rgba(0,0,0,0)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "info": "2160 x 1080px .jpg recommended, 1080 x 1080px .jpg recommended if split",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "split_image",
+          "info": "1080 x 1080px .jpg recommended. Won't show up on mobile.",
+          "label": "Split image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile image",
+          "info": "1000 x 1400px .jpg recommended. If none is set, desktop image will be used."
+        },
+        {
+          "type": "header",
+          "content": "Content Position"
+        },
+        {
+          "type": "select",
+          "id": "text_position",
+          "label": "Text position",
+          "options": [
+            {
+              "value": "top_left",
+              "label": "Top left"
+            },
+            {
+              "value": "top_center",
+              "label": "Top center"
+            },
+            {
+              "value": "top_right",
+              "label": "Top right"
+            },
+            {
+              "value": "middle_left",
+              "label": "Middle left"
+            },
+            {
+              "value": "middle_center",
+              "label": "Middle center"
+            },
+            {
+              "value": "middle_right",
+              "label": "Middle right"
+            },
+            {
+              "value": "bottom_left",
+              "label": "Bottom left"
+            },
+            {
+              "value": "bottom_center",
+              "label": "Bottom center"
+            },
+            {
+              "value": "bottom_right",
+              "label": "Bottom right"
+            }
+          ],
+          "default": "middle_center"
+        },
+        {
+          "type": "header",
+          "content": "Review Text/Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "review_image",
+          "label": "Stars image"
+        },
+        {
+          "type": "text",
+          "id": "review_text",
+          "label": "Review text",
+          "default": "4.7 / 5 Excellent | 9,500+ reviews"
+        },
+        {
+  "type": "font_picker",
+  "id": "review_text_font",
+  "label": "Review text font",
+  "default": "assistant_n4"
+},
+{
+  "type": "select",
+  "id": "custom_review_font",
+  "label": "Custom Font",
+  "options": [
+    { "value": "Select Font", "label": "Select Font" },
+    { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+    { "value": "GothamBlack", "label": "GothamBlack" },
+    { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+  ],
+  "default": "Zurich, sans-serif"
+},
+{
+  "type": "range",
+  "id": "review_text_size",
+  "label": "Review Font Size",
+  "min": 10,
+  "max": 48,
+  "step": 1,
+  "unit": "px",
+  "default": 13
+},
+{
+  "type": "select",
+  "id": "review_font_weight",
+  "label": "Font Weight",
+  "options": [
+    { "value": "400", "label": "Normal" },
+    { "value": "500", "label": "Medium" },
+    { "value": "600", "label": "Semi Bold" },
+    { "value": "700", "label": "Bold" },
+    { "value": "900", "label": "Extra Bold" }
+  ],
+  "default": "400"
+},
+        {
+          "type": "header",
+          "content": "Slide's Heading"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Slide title"
+        },
+        {
+  "type": "font_picker",
+  "id": "heading_font",
+  "label": "Heading font",
+  "default": "sans-serif"
+},
+{
+  "type": "select",
+  "id": "custom_heading_font",
+  "label": "Custom Font",
+  "options": [
+    { "value": "Select Font", "label": "Select Font" },
+    { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+    { "value": "GothamBlack", "label": "GothamBlack" },
+    { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+  ],
+  "default": "Zurich, sans-serif"
+},
+{
+  "type": "range",
+  "id": "heading_text_size",
+  "label": "Heading Font Size",
+  "min": 10,
+  "max": 48,
+  "step": 1,
+  "unit": "px",
+  "default": 25
+},
+{
+  "type": "select",
+  "id": "heading_font_weight",
+  "label": "Font Weight",
+  "options": [
+    { "value": "400", "label": "Normal" },
+    { "value": "500", "label": "Medium" },
+    { "value": "600", "label": "Semi Bold" },
+    { "value": "700", "label": "Bold" },
+    { "value": "900", "label": "Extra Bold" }
+  ],
+  "default": "400"
+},
+        {
+          "type": "header",
+          "content": "Slide's Subheading"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Tell your story"
+        },
+        {
+  "type": "font_picker",
+  "id": "subheading_font",
+  "label": "Subheading font",
+  "default": "sans-serif"
+},
+{
+  "type": "select",
+  "id": "custom_subheading_font",
+  "label": "Custom Font",
+  "options": [
+    { "value": "Select Font", "label": "Select Font" },
+    { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+    { "value": "GothamBlack", "label": "GothamBlack" },
+    { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+  ],
+  "default": "Zurich, sans-serif"
+},
+{
+  "type": "range",
+  "id": "subheading_text_size",
+  "label": "Subheading Font Size",
+  "min": 10,
+  "max": 48,
+  "step": 1,
+  "unit": "px",
+  "default": 25
+},
+{
+  "type": "select",
+  "id": "subheading_font_weight",
+  "label": "Font Weight",
+  "options": [
+    { "value": "400", "label": "Normal" },
+    { "value": "500", "label": "Medium" },
+    { "value": "600", "label": "Semi Bold" },
+    { "value": "700", "label": "Bold" },
+    { "value": "900", "label": "Extra Bold" }
+  ],
+  "default": "400"
+},
+        {
+          "type": "header",
+          "content": "Slide's Main Text"
+        },
+        {
+  "type": "textarea",
+  "id": "slide_text",
+  "label": "Slide's Text",
+  "default": "We help you create a space you’re proud to come home to, every single day."
+},
+{
+  "type": "font_picker",
+  "id": "slide_text_font",
+  "label": "Slide Text font",
+  "default": "sans-serif"
+},
+{
+  "type": "select",
+  "id": "custom_text_font",
+  "label": "Custom Font",
+  "options": [
+    { "value": "Select Font", "label": "Select Font" },
+    { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+    { "value": "GothamBlack", "label": "GothamBlack" },
+    { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+  ],
+  "default": "Zurich, sans-serif"
+},
+{
+  "type": "range",
+  "id": "slide_text_size",
+  "label": "Slide Text Font Size",
+  "min": 10,
+  "max": 48,
+  "step": 1,
+  "unit": "px",
+  "default": 25
+},
+{
+  "type": "select",
+  "id": "text_font_weight",
+  "label": "Font Weight",
+  "options": [
+    { "value": "400", "label": "Normal" },
+    { "value": "500", "label": "Medium" },
+    { "value": "600", "label": "Semi Bold" },
+    { "value": "700", "label": "Bold" },
+    { "value": "900", "label": "Extra Bold" }
+  ],
+  "default": "400"
+},
+{
+          "type": "header",
+          "content": "Text Above Buttons"
+        },
+{
+  "type": "textarea",
+  "id": "above_text",
+  "label": "Above Button's Text",
+  "default": "Join Over 700,000+ Satisfied Customers"
+},
+{
+  "type": "font_picker",
+  "id": "above_button_font",
+  "label": "Above Button Text font",
+  "default": "sans-serif"
+},
+{
+  "type": "select",
+  "id": "custom_abovetext_font",
+  "label": "Custom Font",
+  "options": [
+    { "value": "Select Font", "label": "Select Font" },
+    { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+    { "value": "GothamBlack", "label": "GothamBlack" },
+    { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+  ],
+  "default": "Zurich, sans-serif"
+},
+{
+  "type": "range",
+  "id": "above_button_text_size",
+  "label": "Above Button Font Size",
+  "min": 10,
+  "max": 48,
+  "step": 1,
+  "unit": "px",
+  "default": 25
+},
+{
+  "type": "select",
+  "id": "above_font_weight",
+  "label": "Font Weight",
+  "options": [
+    { "value": "400", "label": "Normal" },
+    { "value": "500", "label": "Medium" },
+    { "value": "600", "label": "Semi Bold" },
+    { "value": "700", "label": "Bold" },
+    { "value": "900", "label": "Extra Bold" }
+  ],
+  "default": "400"
+},
+{
+          "type": "header",
+          "content": "Buttons"
+        },
+        {
+          "type": "text",
+          "id": "button_1_text",
+          "label": "Button 1 text"
+        },
+        {
+          "type": "url",
+          "id": "button_1_link",
+          "label": "Button 1 link",
+          "info": "Leave the \"Button 1 text\" and \"Button 2\" settings empty to make the slide fully clickable."
+        },
+        {
+          "type": "text",
+          "id": "button_2_text",
+          "label": "Button 2 text"
+        },
+        {
+          "type": "url",
+          "id": "button_2_link",
+          "label": "Button 2 link"
+        },
+        {
+  "type": "font_picker",
+  "id": "button_font",
+  "label": "Button font",
+  "default": "sans-serif"
+},
+{
+  "type": "select",
+  "id": "custom_button_font",
+  "label": "Custom Font",
+  "options": [
+    { "value": "Select Font", "label": "Select Font" },
+    { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+    { "value": "GothamBlack", "label": "GothamBlack" },
+    { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+  ],
+  "default": "Zurich, sans-serif"
+},
+{
+  "type": "range",
+  "id": "button_text_size",
+  "label": "Button Font Size",
+  "min": 10,
+  "max": 48,
+  "step": 1,
+  "unit": "px",
+  "default": 25
+},
+{
+  "type": "select",
+  "id": "button_font_weight",
+  "label": "Font Weight",
+  "options": [
+    { "value": "400", "label": "Normal" },
+    { "value": "500", "label": "Medium" },
+    { "value": "600", "label": "Semi Bold" },
+    { "value": "700", "label": "Bold" },
+    { "value": "900", "label": "Extra Bold" }
+  ],
+  "default": "400"
+},
+        {
+          "type": "header",
+          "content": "Review Lines"
+        },
+        {
+  "type": "textarea",
+  "id": "review_line_1",
+  "label": "Review Line 1"
+},
+{
+  "type": "textarea",
+  "id": "review_line_2",
+  "label": "Review Line 2"
+},
+{
+  "type": "textarea",
+  "id": "review_line_3",
+  "label": "Review Line 3"
+},
+{
+  "type": "textarea",
+  "id": "review_line_4",
+  "label": "Review Line 4"
+},
+{
+  "type": "textarea",
+  "id": "review_line_5",
+  "label": "Review Line 5"
+},
+{
+  "type": "font_picker",
+  "id": "review_font",
+  "label": "Review font",
+  "default": "sans-serif"
+},
+{
+  "type": "select",
+  "id": "custom_reviewline_font",
+  "label": "Custom Font",
+  "options": [
+    { "value": "Select Font", "label": "Select Font" },
+    { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+    { "value": "GothamBlack", "label": "GothamBlack" },
+    { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+  ],
+  "default": "Zurich, sans-serif"
+},
+{
+  "type": "range",
+  "id": "review_lines_size",
+  "label": "Review Font Size",
+  "min": 10,
+  "max": 48,
+  "step": 1,
+  "unit": "px",
+  "default": 25
+},
+{
+  "type": "select",
+  "id": "lines_font_weight",
+  "label": "Font Weight",
+  "options": [
+    { "value": "400", "label": "Normal" },
+    { "value": "500", "label": "Medium" },
+    { "value": "600", "label": "Semi Bold" },
+    { "value": "700", "label": "Bold" },
+    { "value": "900", "label": "Extra Bold" }
+  ],
+  "default": "400"
+},
+        {
+          "type": "header",
+          "content": "Colors"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_background",
+          "label": "Button background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button text",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "label": "Overlay",
+          "default": "#000000"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "label": "Overlay opacity",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 30
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow For Collections",
+      "blocks": [
+        {
+          "type": "image",
+          "settings": {
+            "title": "Slide 1"
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+            "title": "Slide 2"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
