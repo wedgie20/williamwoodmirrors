@@ -13,6 +13,12 @@
     "market": "gb"
   },
   "sections": {
+    "custom_liquid_pYpLMY": {
+      "settings": {
+        "liquid": "<div class=\"klaviyo-form-V5u7a7\"></div>"
+      },
+      "blocks": {}
+    },
     "footer": {
       "settings": {},
       "blocks": {
@@ -22,12 +28,6 @@
           }
         }
       }
-    },
-    "custom_liquid_pYpLMY": {
-      "settings": {
-        "liquid": "{% unless request.path contains 'sign' %}<div class=\"klaviyo-form-Szzi3u\"></div>\n{% endunless %}"
-      },
-      "blocks": {}
     }
   },
   "order": [
