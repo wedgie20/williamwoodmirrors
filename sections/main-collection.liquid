@@ -414,6 +414,27 @@
         {%- endif -%}
       </div>
     </product-facet>
+
+    {% if collection.metafields.custom.title_text_section or collection.metafields.custom.description_text_section or collection.metafields.custom.link_text_text_section %}
+    <div class="metafields_section">
+      {% if collection.metafields.custom.title_text_section %}
+  <h3 class="heading h2">{{ collection.metafields.custom.title_text_section }}</h3>
+{% endif %}
+
+{% if collection.metafields.custom.description_text_section %}
+  <div class="collection-description">
+    {{ collection.metafields.custom.description_text_section | metafield_tag }}
+  </div>
+{% endif %}
+
+{% if collection.metafields.custom.link_text_text_section and collection.metafields.custom.link_text_section %}
+  <a href="{{ collection.metafields.custom.link_text_section }}" class="collection-link">
+    {{ collection.metafields.custom.link_text_text_section }}
+  </a>
+{% endif %}
+    </div>
+    {% endif %}
+
   </div>
 </section>
 
@@ -440,6 +461,25 @@ document.addEventListener('DOMContentLoaded', setupAnimateImagesObserver);
 </script>
 
 <style>
+  .metafields_section h3.heading.h2{
+  margin-bottom: 24px;
+  }
+  .metafields_section {
+    text-align: center;
+    margin-bottom: 80px;
+}
+.metafields_section a{
+text-decoration: underline;
+}
+.metafields_section .collection-description {
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 740px) {
+ .metafields_section {
+    margin-bottom: 48px;
+}
+}
   @media screen and (min-width: 550px) {
   .updated-product-item.product-item .mobile_images{
   display: none !important;
