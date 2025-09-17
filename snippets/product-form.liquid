@@ -823,7 +823,7 @@ document.addEventListener('DOMContentLoaded', function () {
         Free Gift with your purchase worth up to £149 GBP when you spend £299 GBP or more
       
     {% else %}
-     <p style="font-family: var(--heading-font-family, Arial, sans-serif); font-size: 15px; text-transform: uppercase; margin: 0; margin-bottom: 5px">Bundle Offer</p>
+     {% comment %} <p style="font-family: var(--heading-font-family, Arial, sans-serif); font-size: 15px; text-transform: uppercase; margin: 0; margin-bottom: 5px">Bundle Offer</p> {% endcomment %}
     {{ block.settings.promo_text | escape | newline_to_br }}
     {% endif %}
   {% endif %}

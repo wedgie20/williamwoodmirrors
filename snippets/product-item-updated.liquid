@@ -357,7 +357,7 @@
     </div>
 
     {%- if product.available and reduced_content or show_cta or request.path contains 'collections' -%}
-      <div class="product-item__cta-wrapper">
+      <div class="product-item__cta-wrapper hereis">
         {%- if product.variants.size == 1 -%}
           {%- capture form_id -%}product_form_{{ section.id }}_{{ block.id }}_{{ product.id }}_{% increment product_form_index %}{%- endcapture -%}
           {%- form 'product', product, is: 'product-form', id: form_id -%}
