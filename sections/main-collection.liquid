@@ -84,10 +84,59 @@
       }
     }
   {%- endif -%}
+
+  .hookpoint-tags li {
+    padding: 5px 12px 3px;
+    margin: 0 8px;
+    border-radius: 4px;
+    list-style: none;
+    background-color: rgb(var(--product-custom-label-background));
+    cursor: pointer;
+}
+ul.hookpoint-tags {
+  padding: unset;
+  display: flex;
+  place-items: center;
+  place-content: flex-start;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+ul.hookpoint-tags::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+.hookpoint-tags li {
+  white-space: nowrap;
+}
+.collection-tags {
+    margin-bottom: var(--vertical-breather);
+}
+.hookpoint-tags li.custom-filter-tag.activetag {
+    background-color: black;
+    color: white;
+}
 </style>
 
 <section>
   <div class="container">
+
+    {% if collection.metafields.custom.hookpoint_tags %}
+      <div class="collection-tags">
+       {% assign hookpoint_tags = collection.metafields.custom.hookpoint_tags | split: ',' %}
+<ul class="hookpoint-tags">
+     {%- assign current_tag = request.path | split: '/' | last -%}
+    <li class="custom-filter-tag{% if current_tag == collection.handle %} activetag{% endif %}" data-tag="__all__">All</li>
+  {% for tag in hookpoint_tags %}
+    {% assign tag_label = tag | strip | replace: '_', ' ' %}
+      {% assign tag_value = tag | strip %}
+      <li class="custom-filter-tag{% if current_tag == tag_value %} activetag{% endif %}" data-tag="{{ tag_value }}">{{ tag_label }}</li>
+  {% endfor %}
+
+</ul>
+      </div>
+    {% endif %}
     <product-facet section-id="{{ section.id }}" class="product-facet">
       {%- if section.settings.show_filters and collection.filters != empty -%}
         {%- if section.settings.filter_position == 'always_visible' -%}
@@ -438,6 +487,46 @@
   </div>
 </section>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const customTags = document.querySelectorAll('.custom-filter-tag');
+  const facetMain = document.getElementById('facet-main');
+  const collectionHandle = window.location.pathname.split('/')[2]; // e.g., "tables"
+
+  customTags.forEach(tag => {
+    tag.addEventListener('click', function (e) {
+      e.preventDefault();
+      const tagValue = tag.getAttribute('data-tag');
+      if (!facetMain) return;
+
+      // Remove activetag from all, add to clicked
+      customTags.forEach(t => t.classList.remove('activetag'));
+      tag.classList.add('activetag');
+
+      let newUrl;
+      if (tagValue === '__all__') {
+        // Go to the base collection URL (no tag)
+        newUrl = `/collections/${collectionHandle}`;
+      } else {
+        // Go to the tag-filtered URL
+        newUrl = `/collections/${collectionHandle}/${encodeURIComponent(tagValue)}`;
+      }
+
+      fetch(newUrl)
+        .then(response => response.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const newFacetMain = doc.getElementById('facet-main');
+          if (newFacetMain) {
+            facetMain.innerHTML = newFacetMain.innerHTML;
+            window.history.pushState({}, '', newUrl);
+          }
+        });
+    });
+  });
+});
+</script>
 <script>
  function setupAnimateImagesObserver() {
   // Only run on screens smaller than 550px
