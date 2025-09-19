@@ -722,7 +722,9 @@ document.addEventListener('DOMContentLoaded', function () {
         {%- endcomment -%}
 
         {%- when 'timer' -%}
+          {% if collection.handle == 'spring-sale' %}
         {% render 'countdown-timer', block: block -%}
+          {% endif %}
 
         
   {%- when 'product_status' -%}
