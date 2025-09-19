@@ -145,7 +145,13 @@
 
     --heading-text-transform: {{ settings.heading_text_transform }};
 
-    {%  if settings.custom_body_font %}
+    {%  if settings.zurich_body_font %}
+
+    --text-font-family:Zurich, sans-serif;
+    --text-font-weight: 500;
+    --text-font-style: normal;
+
+    {%  elsif settings.custom_body_font %}
 
     --text-font-family:'GothamBook';
     --text-font-weight: 500;
