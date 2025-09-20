@@ -85,24 +85,35 @@
     }
   {%- endif -%}
 
-  .hookpoint-tags li {
-    padding: 5px 12px 3px;
-    margin: 0 8px;
-    border-radius: 4px;
-    list-style: none;
-    background-color: rgb(var(--product-custom-label-background));
-    cursor: pointer;
+  ./* Pills */
+.hookpoint-tags li {
+  flex: 0 0 auto;               /* don't shrink */
+  padding: 5px 12px 3px;
+  margin: 0 8px;
+  border-radius: 9999px;         /* optional: true pill */
+  list-style: none;
+  background-color: rgb(var(--product-custom-label-background));
+  cursor: pointer;
+  white-space: nowrap;
 }
+
+/* First/last chip margins so edges aren't clipped */
+.hookpoint-tags li:first-child { margin-left: 0; }
+.hookpoint-tags li:last-child  { margin-right: 0; }
+
+/* Row */
 ul.hookpoint-tags {
-  padding: unset;
   display: flex;
-  place-items: center;
-  place-content: center;
+  align-items: center;
+  justify-content: flex-start;   /* was centering content */
+  gap: 0.5rem;
+  padding-inline: 12px;          /* breathing room so first pill is fully visible */
   overflow-x: auto;
   flex-wrap: nowrap;
-  gap: 0.5rem;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none;         /* Firefox */
+  scroll-padding-left: 12px;     /* aligns snap/scroll to the padding */
+  padding-block: 0;              /* keep vertical padding unset */
 }
 ul.hookpoint-tags::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
