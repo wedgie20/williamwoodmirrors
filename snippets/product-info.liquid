@@ -292,7 +292,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   <div class="product-meta__price-list-container" role="region" aria-live="polite">
     {%- if product.tags contains 'sale' -%}
-        <p style="color: #780606; margin-bottom: 0px !important; font-weight: 700;">Autumn Sale Exclusive </p>
+        <p class="exclusive-text" style="color: #780606; margin-bottom: 0px !important; font-weight: 700;">Autumn Sale Exclusive </p>
         {%- endif -%}
       <div class="price-list price-list-update" data-product-price-list>
         {%- if product.selected_or_first_available_variant.compare_at_price
@@ -925,6 +925,10 @@ Or in 3 instalments of <span id="installment"></span> with
 
     .product-meta__title {
       width: 80%;
+    }
+
+    .exclusive-text {
+    margin-top: 10px;
     }
 
     .price-list-update {
