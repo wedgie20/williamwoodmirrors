@@ -85,7 +85,47 @@
     }
   {%- endif -%}
 
-  .hookpoint-tags li {
+   /* Pills */
+
+@media (min-width: 750px) {
+  .collection-tags ul.hookpoint-tags {
+    justify-content: center;   /* center pills horizontally */
+    padding-left: 0;           /* remove the mobile gutter */
+    scroll-padding-left: 0;
+  }
+}
+
+.hookpoint-tags li {
+  flex: 0 0 auto;               /* don't shrink */
+  padding: 5px 12px 3px;
+  margin: 0 8px;
+     border-radius: 4px;
+  list-style: none;
+  background-color: rgb(var(--product-custom-label-background));
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* First/last chip margins so edges aren't clipped */
+.hookpoint-tags li:first-child { margin-left: 0; }
+.hookpoint-tags li:last-child  { margin-right: 0; }
+
+/* Row */
+ul.hookpoint-tags {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;   /* was centering content */
+  gap: 0.5rem;
+  padding-inline: 12px;          /* breathing room so first pill is fully visible */
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;         /* Firefox */
+  scroll-padding-left: 12px;     /* aligns snap/scroll to the padding */
+  padding-block: 0;              /* keep vertical padding unset */
+}
+
+  {% comment %} .hookpoint-tags li {
     padding: 5px 12px 3px;
     margin: 0 8px;
     border-radius: 4px;
@@ -103,7 +143,7 @@ ul.hookpoint-tags {
   gap: 0.5rem;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none; /* Firefox */
-}
+} {% endcomment %}
 ul.hookpoint-tags::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
@@ -118,6 +158,14 @@ ul.hookpoint-tags::-webkit-scrollbar {
     color: white;
 }
 </style>
+
+<script>
+ document.addEventListener('DOMContentLoaded', () => {
+  const row = document.querySelector('ul.hookpoint-tags');
+  if (row) row.scrollLeft = 0;
+});
+
+</script>
 
 <section>
   <div class="container">
