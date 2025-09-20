@@ -120,11 +120,9 @@ ul.hookpoint-tags::-webkit-scrollbar {
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-  const pillsRow = document.querySelector(".hookpoint-tags");
-  if (pillsRow) {
-    pillsRow.scrollLeft = 0;
-  }
+ document.addEventListener('DOMContentLoaded', () => {
+  const row = document.querySelector('ul.hookpoint-tags');
+  if (row) row.scrollLeft = 0;
 });
 
 </script>
