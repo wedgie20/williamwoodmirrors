@@ -85,6 +85,30 @@
     }
   {%- endif -%}
 
+@media (max-width: 749px) {
+  ul.hookpoint-tags {
+    justify-content: flex-start;   /* stop centering so the row starts at the first pill */
+    padding-left: 12px;            /* tiny gutter so the first pill isn't clipped */
+    scroll-padding-left: 12px;     /* aligns snap/scroll with the gutter */
+  }
+
+  .hookpoint-tags li {
+    flex: 0 0 auto;                /* prevent shrinking on small screens */
+    white-space: nowrap;           /* keep labels on one line */
+  }
+
+  .hookpoint-tags li:first-child {
+    margin-left: 0;                /* no extra offset on the first pill */
+  }
+}
+
+
+
+
+
+
+  
+
   .hookpoint-tags li {
     padding: 5px 12px 3px;
     margin: 0 8px;
@@ -97,7 +121,6 @@
 ul.hookpoint-tags {
   padding: unset;
   display: flex;
-  justify-content: flex-start; 
   place-items: center;
   place-content: center;
   overflow-x: auto;
