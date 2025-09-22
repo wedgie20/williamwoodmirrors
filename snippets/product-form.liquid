@@ -811,8 +811,8 @@ document.addEventListener('DOMContentLoaded', function () {
       {% endif %}
     {% endunless %}
 
-    {% if product.title contains "Hudson" %}
-      <p style="transform: translateY(-5px);">{{ block.settings.show_hudson_message | escape | newline_to_br }}</p>
+    {% if product.title contains "Hudson" and block.settings.show_hudson_message %}
+      <p style="transform: translateY(-5px);">{{ block.settings.hudson_message | escape | newline_to_br }}</p>
     {% endif %}
 
 
