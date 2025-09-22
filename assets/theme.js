@@ -5707,12 +5707,34 @@
     }
     _onFiltersCleared(event, target) {
       event.preventDefault();
+      
+      // Extract tag values from current URL that will be removed
+      const currentUrl = new URL(window.location.href);
+      const newUrl = new URL(target.href);
+      
+      // Find which hookpoint_tag filters are being removed
+      const currentTags = currentUrl.searchParams.getAll('filter.p.m.custom.hookpoint_tag');
+      const newTags = newUrl.searchParams.getAll('filter.p.m.custom.hookpoint_tag');
+      
+      // Find tags that were removed
+      const removedTags = currentTags.filter(tag => !newTags.includes(tag));
+      
+      // Remove activetag class from corresponding custom filter tags
+      removedTags.forEach(tagValue => {
+        const customTag = document.querySelector(`.custom-filter-tag[data-tag="${tagValue}"]`);
+        if (customTag) {
+          customTag.classList.remove('activetag');
+        }
+      });
+     
       triggerEvent(this, "facet:criteria-changed", { url: target.href });
+      
     }
     _onFilterChanged() {
       const formData = new FormData(this.querySelector("#facet-filters-form"));
       const searchParamsAsString = new URLSearchParams(formData).toString();
       triggerEvent(this, "facet:criteria-changed", { url: `${window.location.pathname}?${searchParamsAsString}` });
+       console.log('hereis: '+searchParamsAsString);
     }
     _adjustDrawer(match) {
       this.classList.toggle("drawer", match.matches);
