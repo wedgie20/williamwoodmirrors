@@ -117,7 +117,7 @@
 
           {%- assign filter_label_downcase = filter.label | downcase -%}
 
-          <div class="product-facet__filter-item {% if filter_label_downcase contains 'height' %}visually-hidden{% endif %}">
+          <div class="product-facet__filter-item {{ filter_label_downcase | handle }} {% if filter_label_downcase contains 'height' %}visually-hidden{% endif %}">
             {%- if filter.type == 'list' or filter.type == 'price_range' -%}
               <button
                 type="button"
