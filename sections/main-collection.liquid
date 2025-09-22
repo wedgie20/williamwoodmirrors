@@ -175,7 +175,7 @@ ul.hookpoint-tags::-webkit-scrollbar {
        {% assign hookpoint_tags = collection.metafields.custom.hookpoint_tags | split: ',' %}
 <ul class="hookpoint-tags">
      {%- assign current_tag = request.path | split: '/' | last -%}
-    <li class="custom-filter-tag{% if current_tag == collection.handle %} activetag{% endif %}" data-tag="__all__">All</li>
+    {% comment %} <li class="custom-filter-tag{% if current_tag == collection.handle %} activetag{% endif %}" data-tag="__all__">All</li> {% endcomment %}
   {% for tag in hookpoint_tags %}
     {% assign tag_label = tag | strip | replace: '_', ' ' %}
       {% assign tag_value = tag | strip %}
@@ -548,30 +548,17 @@ document.addEventListener('DOMContentLoaded', function () {
       const tagValue = tag.getAttribute('data-tag');
       if (!facetMain) return;
 
-      // Remove activetag from all, add to clicked
-      customTags.forEach(t => t.classList.remove('activetag'));
-      tag.classList.add('activetag');
+      // Toggle activetag class on clicked tag
+      tag.classList.toggle('activetag');
 
-      let newUrl;
-      if (tagValue === '__all__') {
-        // Go to the base collection URL (no tag)
-        newUrl = `/collections/${collectionHandle}`;
-      } else {
-        // Go to the tag-filtered URL
-        newUrl = `/collections/${collectionHandle}/${encodeURIComponent(tagValue)}`;
+      // Find the corresponding label in the filter section
+      const hookpointFilterItem = document.querySelector('.product-facet__filter-item.hookpoint-tag');
+      if (hookpointFilterItem) {
+        const targetLabel = hookpointFilterItem.querySelector(`label[label-value="${tagValue}"]`);
+        if (targetLabel) {
+          targetLabel.click();
+        }
       }
-
-      fetch(newUrl)
-        .then(response => response.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-          const newFacetMain = doc.getElementById('facet-main');
-          if (newFacetMain) {
-            facetMain.innerHTML = newFacetMain.innerHTML;
-            window.history.pushState({}, '', newUrl);
-          }
-        });
     });
   });
 });
