@@ -730,7 +730,7 @@ document.addEventListener('DOMContentLoaded', function () {
   {%- when 'product_status' -%}
 {% unless product.tags contains 'freegift' %}
 <div style="
-        background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), url('https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Autumn_Banner_V2.jpg?v=1758370298');
+        background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), url('{{ block.settings.background_image | img_url: 'master' }}');
         background-size: cover;
         background-position: center;
         color: white;
@@ -781,19 +781,19 @@ document.addEventListener('DOMContentLoaded', function () {
   {% endfor %}
 
   {% if has_coming_soon %}
-    <p>Coming Soon</p>
+    <p>{{ block.settings.coming_soon_text | escape | newline_to_br }}</p>
   {% elsif has_back_soon %}
-    <p>Back in stock soon, sign up for restock notifications below</p>
+    <p>{{ block.settings.back_soon_text | escape | newline_to_br }}</p>
   {% elsif black_friday_launch_date %}
-    <p>Launches 29.11.24</p>
+    <p>{{ block.settings.black_friday_launch_text | escape | newline_to_br }}</p>
   {% elsif has_launch %}
-    <p>Launches {{ launch_date }}</p>
+    <p>{{ block.settings.launch_text | escape | newline_to_br }}</p>
   {% elsif has_black_friday_restock %}
-    <p>Restocks 29.11.24</p>
+    <p>{{ block.settings.black_friday_restock_text | escape | newline_to_br }}</p>
   {% elsif has_restock %}
-    <p>Restocks {{ restock_date }} 8PM</p>
+    <p>{{ block.settings.restock_text | escape | newline_to_br }}</p>
   {% elsif product.available == false %}
-    <p>Currently out of stock</p>
+    <p>{{ block.settings.out_of_stock_text | escape | newline_to_br }}</p>
   {% else %}
     {% if has_last_chance or product.tags contains "__label:LIMITED OFFER" %}
       {% unless in_best_sellers %}
@@ -818,12 +818,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     {% if product.tags contains 'sale' %}
       <!-- 🎯 Sale block with background image + overlay and matching padding -->
-      
-       Extra 15% off Autumn Sale, enter code SE15 at checkout (Ends Soon)
-        <br>+ 
-      <br>
-        Free Gift with your purchase worth up to £149 GBP when you spend £299 GBP or more
-      
+      {{ block.settings.sale_text | escape | newline_to_br }}
     {% else %}
      {% comment %} <p style="font-family: var(--heading-font-family, Arial, sans-serif); font-size: 15px; text-transform: uppercase; margin: 0; margin-bottom: 5px">Bundle Offer</p> {% endcomment %}
     {{ block.settings.promo_text | escape | newline_to_br }}
