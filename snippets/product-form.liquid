@@ -812,7 +812,7 @@ document.addEventListener('DOMContentLoaded', function () {
     {% endunless %}
 
     {% if product.title contains "Hudson" %}
-      <p style="transform: translateY(-5px);">Free cushion included with the Hudson Chair</p>
+      <p style="transform: translateY(-5px);">{{ block.settings.show_hudson_message | escape | newline_to_br }}</p>
     {% endif %}
 
 
