@@ -730,7 +730,7 @@ document.addEventListener('DOMContentLoaded', function () {
   {%- when 'product_status' -%}
 {% unless product.tags contains 'freegift' %}
 <div style="
-        background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), url('{{ block.settings.background_image | img_url: 'master' }}');
+        background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), url('{{ settings.speedsize_url_pfx_https -}}{{ block.settings.background_image | img_url: 'master' }}');
         background-size: cover;
         background-position: center;
         color: white;
