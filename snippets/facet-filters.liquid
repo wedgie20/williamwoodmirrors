@@ -581,7 +581,7 @@
         document.querySelector('.' + id + '-values').innerHTML = capitalizeFirstLetter(id) /*+ " " + splitValues[1]*/;
       } else {
         input.checked = false;
-        console.log('Unchecking input:', input.name, input.value);
+        {% comment %} console.log('Unchecking input:', input.name, input.value); {% endcomment %}
       }
     });
   }

@@ -667,7 +667,10 @@
   {% comment %} Show all enabled payment types except clearpay for EU {% endcomment %}
   {% for type in shop.enabled_payment_types %}
     {% unless is_eu and type == 'clearpay' %}
-      {{ type | payment_type_svg_tag }}
+{% if type == 'ideal' %}
+{% else %}
+    {{ type | payment_type_svg_tag }}
+      {% endif %}
     {% endunless %}
   {% endfor %}
 
@@ -691,6 +694,11 @@
     gap: 8px 20px;
       margin-bottom: 10px;
 }
+
+.payment-methods-list.payment-methods-list--auto svg[aria-labelledby="pi-apple_pay"] {
+    display: none;
+  }
+
   </style>
   
 </cart-drawer>

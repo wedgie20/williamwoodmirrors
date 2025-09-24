@@ -175,7 +175,16 @@ ul.hookpoint-tags::-webkit-scrollbar {
        {% assign hookpoint_tags = collection.metafields.custom.hookpoint_tags | split: ',' %}
 <ul class="hookpoint-tags">
      {%- assign current_tag = request.path | split: '/' | last -%}
-    {% comment %} <li class="custom-filter-tag{% if current_tag == collection.handle %} activetag{% endif %}" data-tag="__all__">All</li> {% endcomment %}
+     
+     {%- comment -%} Check if any filters are active {%- endcomment -%}
+     {%- assign has_filters = false -%}
+     {%- if active_filters_count > 0 -%}
+       {%- assign has_filters = true -%}
+     {%- endif -%}
+     
+     {%- comment -%} All option - active when no filters are applied {%- endcomment -%}
+     <li class="custom-filter-tag custom-filter-all{% unless has_filters %} activetag{% endunless %}" data-tag="__all__">All</li>
+     
   {% for tag in hookpoint_tags %}
     {% assign tag_label = tag | strip | replace: '_', ' ' %}
       {% assign tag_value = tag | strip %}
@@ -539,14 +548,39 @@ ul.hookpoint-tags::-webkit-scrollbar {
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const customTags = document.querySelectorAll('.custom-filter-tag');
+  const allTag = document.querySelector('.custom-filter-all');
   const facetMain = document.getElementById('facet-main');
-  const collectionHandle = window.location.pathname.split('/')[2]; // e.g., "tables"
 
   customTags.forEach(tag => {
     tag.addEventListener('click', function (e) {
       e.preventDefault();
       const tagValue = tag.getAttribute('data-tag');
       if (!facetMain) return;
+
+      // Handle "All" option - clear all filters using native Shopify mechanism
+      if (tagValue === '__all__') {
+        // Find and click the "Clear all" link in the native filter system
+        const clearAllLink = document.querySelector('a[data-action="clear-filters"]');
+        if (clearAllLink) {
+          clearAllLink.click();
+        } else {
+          // Fallback: trigger filter change event with empty params
+          const facetFilters = document.querySelector('facet-filters');
+          if (facetFilters) {
+            const baseUrl = window.location.pathname;
+            facetFilters.dispatchEvent(new CustomEvent('facet:criteria-changed', {
+              bubbles: true,
+              detail: { url: baseUrl }
+            }));
+          }
+        }
+        return;
+      }
+
+      // For regular filter tags - remove "All" active state when any filter is selected
+      if (allTag) {
+        allTag.classList.remove('activetag');
+      }
 
       // Toggle activetag class on clicked tag
       tag.classList.toggle('activetag');
