@@ -7,6 +7,10 @@
     --text-color: {{ settings.footer_text_color.red }}, {{ settings.footer_text_color.green }}, {{ settings.footer_text_color.blue }};
     --border-color: {{ border_color.red }}, {{ border_color.green }}, {{ border_color.blue }};
   }
+  
+  .payment-methods-list.payment-methods-list--auto svg[aria-labelledby="pi-apple_pay"] {
+    display: none;
+  }
 </style>
 
 <footer class="footer {% if settings.footer_background == settings.background %}footer--bordered{% endif %}">
@@ -200,7 +204,10 @@
 
             <div class="payment-methods-list payment-methods-list--auto">
               {% for type in shop.enabled_payment_types %}
-                {{ type | payment_type_svg_tag }}
+              {% if type == 'ideal' %}
+{% else %}
+    {{ type | payment_type_svg_tag }}
+      {% endif %}
               {% endfor %}
               <img src="https://cdn.shopify.com/shopifycloud/admin-ui-foundations/payment-icons/0e6f3.svg">
               <img src="https://cdn.shopify.com/shopifycloud/admin-ui-foundations/payment-icons/70ff7.svg">

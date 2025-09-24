@@ -5726,6 +5726,13 @@
           customTag.classList.remove('activetag');
         }
       });
+
+      // Check if all filters are cleared and activate "All" option
+      const hasAnyFilters = newTags.length > 0 || newUrl.searchParams.has('filter.v.price.gte') || newUrl.searchParams.has('filter.v.price.lte');
+      const allTag = document.querySelector('.custom-filter-all');
+      if (allTag && !hasAnyFilters) {
+        allTag.classList.add('activetag');
+      }
      
       triggerEvent(this, "facet:criteria-changed", { url: target.href });
       
@@ -5733,6 +5740,13 @@
     _onFilterChanged() {
       const formData = new FormData(this.querySelector("#facet-filters-form"));
       const searchParamsAsString = new URLSearchParams(formData).toString();
+      
+      // Remove "All" active state when any filter is applied
+      const allTag = document.querySelector('.custom-filter-all');
+      if (allTag && searchParamsAsString) {
+        allTag.classList.remove('activetag');
+      }
+      
       triggerEvent(this, "facet:criteria-changed", { url: `${window.location.pathname}?${searchParamsAsString}` });
        console.log('hereis: '+searchParamsAsString);
     }

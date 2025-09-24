@@ -16084,6 +16084,10 @@ trust-badges {
 }
 }
 
+.payment-methods-list.payment-methods-list--auto svg[aria-labelledby="pi-apple_pay"] {
+    display: none;
+  }
+
 @media screen and (min-width: 740px) {
   .clearance-text {
     width: 200px !important;
