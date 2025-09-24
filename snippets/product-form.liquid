@@ -3,263 +3,269 @@
 {%- assign size_label_list = 'general.label.size' | t | replace: ', ', ',' | downcase | split: ',' -%}
 {%- assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id -%}
 
-
 {% if product.available %}
- <div class="floating-add-to-cart" id="floatingAddToCart" aria-hidden="true">
-  <div class="floating-add-to-cart-content">
-    <!-- Price (Left) -->
-    <div class="floating-product-price">
-      {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
-        <span class="floating-price-sale">{{ product.selected_or_first_available_variant.price | money }}</span>
-        <span class="floating-price-compare">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
-      {% else %}
-        <span class="floating-price-regular">{{ product.selected_or_first_available_variant.price | money }}</span>
-      {% endif %}
+  <div class="floating-add-to-cart" id="floatingAddToCart" aria-hidden="true">
+    <div class="floating-add-to-cart-content">
+      <!-- Price (Left) -->
+      <div class="floating-product-price">
+        {% if product.selected_or_first_available_variant.compare_at_price
+            > product.selected_or_first_available_variant.price
+        %}
+          <span class="floating-price-sale">{{ product.selected_or_first_available_variant.price | money }}</span>
+          <span class="floating-price-compare">
+            {{- product.selected_or_first_available_variant.compare_at_price | money -}}
+          </span>
+        {% else %}
+          <span class="floating-price-regular">{{ product.selected_or_first_available_variant.price | money }}</span>
+        {% endif %}
+      </div>
+
+      <!-- Product Image (Center) -->
+      <div class="floating-product-image">
+        <img
+          src="{{ settings.speedsize_url_pfx_https -}}{{ product.featured_image | image_url: width: 100 }}"
+          alt="{{ product.title | escape }}"
+          width="50"
+          height="50"
+        >
+      </div>
+
+      <!-- Add to Cart Button (Right) -->
+      <button
+        class="floating-add-to-cart-button"
+        data-form-id="product-form-{{ section.id }}-{{ product.id }}"
+        data-product-id="{{ product.id }}"
+        data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+        aria-label="Add to Bag"
+      >
+        {% if product.template_suffix == 'pre-order' %}
+          {{ 'product.form.pre_order' | t }}
+        {% else %}
+          ADD TO BAG
+        {% endif %}
+      </button>
     </div>
 
-
-    <!-- Product Image (Center) -->
-    <div class="floating-product-image">
-      <img src="{{ settings.speedsize_url_pfx_https -}}{{ product.featured_image | image_url: width: 100 }}"
-           alt="{{ product.title | escape }}"
-           width="50"
-           height="50">
-    </div>
-
-    <!-- Add to Cart Button (Right) -->
-    <button class="floating-add-to-cart-button"
-            data-form-id="product-form-{{ section.id }}-{{ product.id }}"
-            data-product-id="{{ product.id }}"
-            data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-            aria-label="Add to Bag">
-      {% if product.template_suffix == 'pre-order' %}
-        {{ 'product.form.pre_order' | t }}
-      {% else %}
-        ADD TO BAG
-      {% endif %}
-    </button>
+    <span class="floating-add-to-cart-message" style="display:none;" aria-live="polite" role="status"></span>
   </div>
 
-  <span class="floating-add-to-cart-message" style="display:none;" aria-live="polite" role="status"></span>
-</div>
-
-<style>
-/* Tune this if you want full-width on desktop: set to width:100%; max-width:none; */
-.floating-add-to-cart {
-  position: fixed;
-  width: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #fff;
-  padding: 12px 16px;
-  z-index: 999;
-  transition: transform .3s ease, opacity .3s ease, visibility .3s ease;
-  display: none;
-  visibility: hidden;
-  opacity: 0;
-}
-
-
-
-/* Mobile: bottom placement (unchanged) */
-.floating-add-to-cart {
-  bottom: max(20px, env(safe-area-inset-bottom));
-  transform: translateX(-50%) translateY(100%); /* start hidden below */
-}
-
-/* Desktop (≥1024px): top placement just under header */
-@media (min-width: 1024px) {
-  :root { --fa-header-offset: 20px; } /* fallback */
-  .floating-add-to-cart {
-    top: var(--fa-header-offset, 20px);
-    bottom: auto;
-    transform: translateX(-50%) translateY(-120%); /* start hidden above */
-  }
-
-  .floating-add-to-cart {
-    top: 13%; 
-  }
-
-  .floating-add-to-cart { box-shadow: 0 10px 28px rgba(0, 0, 0, .16), 0 2px 6px rgba(0, 0, 0, .08);}
-
-      
-}
-
-
-
-/* Show/Hide */
-.floating-add-to-cart.show {
-  display: block;
-  visibility: visible;
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
- {% comment %} z-index: 1;  {% endcomment %}
-}
-.floating-add-to-cart.hide {
-  opacity: 0;
-  visibility: hidden;
-}
-
-/* Content + visuals */
-.floating-add-to-cart-content {
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-}
-.floating-add-to-cart-content > * { flex: 1; display: flex; justify-content: center; align-items: center; }
-.floating-product-image img { border-radius: 30px; object-fit: cover; }
-.floating-product-price { display: flex; flex-direction: column; gap: 2px; font-size: 13px; font-weight: 600; }
-.floating-price-sale { color: #000; font-size: 13px; }
-.floating-price-compare { color: #666; text-decoration: line-through; font-size: 13px; font-weight: 400; }
-.floating-price-regular { color: #333; font-size: 14px; }
-.floating-add-to-cart-button {
-  background: #000; color: #fff; border: none; padding: 12px 20px; border-radius: 30px;
-  font-size: 10px; font-weight: 600; cursor: pointer; transition: background-color .2s; white-space: nowrap;
-}
-.floating-add-to-cart-button:hover { background: #333; }
-
-@media (max-width: 480px) {
-  .floating-add-to-cart { padding: 16px 12px; }
-  .floating-product-image img { width: 55px; height: 55px; border-radius: 30px; }
-  .floating-add-to-cart-button { padding: 16px 16px; font-size: 10px; }
-
-  .floating-add-to-cart {max-width: 480px; width: calc(100% - 32px); box-shadow: 0 8px 32px rgba(0,0,0,.15); border-radius: 12px;}
-
-}
-  
-}
-</style>
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const floatingCart = document.getElementById('floatingAddToCart');
-  const floatingButton = document.querySelector('.floating-add-to-cart-button');
-  const DESKTOP_BP = 1024;
-  let isVisible = false;
-  let lastVisibleState = null; // Prevent unnecessary updates
-  
-  function $(sel) { return document.querySelector(sel); }
-  
-  function isElementInViewport(el) {
-    if (!el) return false;
-    const r = el.getBoundingClientRect();
-    const vh = window.innerHeight || document.documentElement.clientHeight;
-    return r.top < vh && r.bottom > 0;
-  }
-
-  // Set up smooth animations and GPU acceleration
-  function setupSmoothAnimations() {
-    if (!floatingCart) return;
-    
-    // Add CSS for smooth performance
-    floatingCart.style.willChange = 'transform, opacity';
-    floatingCart.style.backfaceVisibility = 'hidden';
-    floatingCart.style.perspective = '1000px';
-  }
-
-  // Apply desktop bottom placement (run once, not on every scroll)
-  function applyDesktopBottomPlacement() {
-    if (!floatingCart) return;
-    if (window.innerWidth >= DESKTOP_BP) {
-      floatingCart.style.top = 'auto';
-      floatingCart.style.bottom = 'env(safe-area-inset-bottom, 0)';
-    } else {
-      floatingCart.style.top = '';
-      floatingCart.style.bottom = '';
+  <style>
+    /* Tune this if you want full-width on desktop: set to width:100%; max-width:none; */
+    .floating-add-to-cart {
+      position: fixed;
+      width: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      padding: 12px 16px;
+      z-index: 999;
+      transition: transform .3s ease, opacity .3s ease, visibility .3s ease;
+      display: none;
+      visibility: hidden;
+      opacity: 0;
     }
-  }
 
-  // Debounced visibility check - prevents rapid state changes
-  function updateFloatingVisibility() {
-    const mainButton = $('.product-form__add-button');
-    const mainVisible = isElementInViewport(mainButton);
-    
-    // Only update if state actually changed
-    if (lastVisibleState === mainVisible) return;
-    lastVisibleState = mainVisible;
 
-    if (!mainVisible) {
-      showFloating();
-    } else {
-      hideFloating();
+
+    /* Mobile: bottom placement (unchanged) */
+    .floating-add-to-cart {
+      bottom: max(20px, env(safe-area-inset-bottom));
+      transform: translateX(-50%) translateY(100%); /* start hidden below */
     }
-  }
 
-  function showFloating() {
-    if (!floatingCart || isVisible) return;
-    
-    // Use CSS classes instead of inline transforms for smoother animation
-    floatingCart.style.display = 'block';
-    floatingCart.setAttribute('aria-hidden', 'false');
-    
-    // Force reflow
-    void floatingCart.offsetHeight;
-    
-    // Remove any previous transforms
-    floatingCart.style.transform = '';
-    
-    floatingCart.classList.remove('hide');
-    floatingCart.classList.add('show');
-    isVisible = true;
-  }
-
-  function hideFloating() {
-    if (!floatingCart || !isVisible) return;
-    
-    floatingCart.classList.remove('show');
-    floatingCart.classList.add('hide');
-    floatingCart.setAttribute('aria-hidden', 'true');
-    isVisible = false;
-    
-    setTimeout(() => {
-      if (!isVisible) {
-        floatingCart.style.display = 'none';
+    /* Desktop (≥1024px): top placement just under header */
+    @media (min-width: 1024px) {
+      :root { --fa-header-offset: 20px; } /* fallback */
+      .floating-add-to-cart {
+        top: var(--fa-header-offset, 20px);
+        bottom: auto;
+        transform: translateX(-50%) translateY(-120%); /* start hidden above */
       }
-    }, 300);
-  }
 
-  // Submit form
-  if (floatingButton) {
-    floatingButton.addEventListener('click', function () {
-      const formId = this.dataset.formId;
-      const form = document.getElementById(formId);
-      if (form) form.requestSubmit();
-    });
-  }
+      .floating-add-to-cart {
+        top: 13%;
+      }
 
-  // Reduced frequency scroll handling - only check visibility
-  let scrollTimeout;
-  function onScroll() {
-    // Clear previous timeout
-    clearTimeout(scrollTimeout);
-    
-    // Debounce the visibility check to reduce frequency
-    scrollTimeout = setTimeout(() => {
-      updateFloatingVisibility();
-    }, 50); // Check every 50ms instead of every frame
-  }
+      .floating-add-to-cart { box-shadow: 0 10px 28px rgba(0, 0, 0, .16), 0 2px 6px rgba(0, 0, 0, .08);}
 
-  // Resize handler (separate from scroll)
-  let resizeTimeout;
-  function onResize() {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
+
+    }
+
+
+
+    /* Show/Hide */
+    .floating-add-to-cart.show {
+      display: block;
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+     {% comment %} z-index: 1;  {% endcomment %}
+    }
+    .floating-add-to-cart.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    /* Content + visuals */
+    .floating-add-to-cart-content {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .floating-add-to-cart-content > * { flex: 1; display: flex; justify-content: center; align-items: center; }
+    .floating-product-image img { border-radius: 30px; object-fit: cover; }
+    .floating-product-price { display: flex; flex-direction: column; gap: 2px; font-size: 13px; font-weight: 600; }
+    .floating-price-sale { color: #000; font-size: 13px; }
+    .floating-price-compare { color: #666; text-decoration: line-through; font-size: 13px; font-weight: 400; }
+    .floating-price-regular { color: #333; font-size: 14px; }
+    .floating-add-to-cart-button {
+      background: #000; color: #fff; border: none; padding: 12px 20px; border-radius: 30px;
+      font-size: 10px; font-weight: 600; cursor: pointer; transition: background-color .2s; white-space: nowrap;
+    }
+    .floating-add-to-cart-button:hover { background: #333; }
+
+    @media (max-width: 480px) {
+      .floating-add-to-cart { padding: 16px 12px; }
+      .floating-product-image img { width: 55px; height: 55px; border-radius: 30px; }
+      .floating-add-to-cart-button { padding: 16px 16px; font-size: 10px; }
+
+      .floating-add-to-cart {max-width: 480px; width: calc(100% - 32px); box-shadow: 0 8px 32px rgba(0,0,0,.15); border-radius: 12px;}
+
+    }
+
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const floatingCart = document.getElementById('floatingAddToCart');
+      const floatingButton = document.querySelector('.floating-add-to-cart-button');
+      const DESKTOP_BP = 1024;
+      let isVisible = false;
+      let lastVisibleState = null; // Prevent unnecessary updates
+
+      function $(sel) {
+        return document.querySelector(sel);
+      }
+
+      function isElementInViewport(el) {
+        if (!el) return false;
+        const r = el.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        return r.top < vh && r.bottom > 0;
+      }
+
+      // Set up smooth animations and GPU acceleration
+      function setupSmoothAnimations() {
+        if (!floatingCart) return;
+
+        // Add CSS for smooth performance
+        floatingCart.style.willChange = 'transform, opacity';
+        floatingCart.style.backfaceVisibility = 'hidden';
+        floatingCart.style.perspective = '1000px';
+      }
+
+      // Apply desktop bottom placement (run once, not on every scroll)
+      function applyDesktopBottomPlacement() {
+        if (!floatingCart) return;
+        if (window.innerWidth >= DESKTOP_BP) {
+          floatingCart.style.top = 'auto';
+          floatingCart.style.bottom = 'env(safe-area-inset-bottom, 0)';
+        } else {
+          floatingCart.style.top = '';
+          floatingCart.style.bottom = '';
+        }
+      }
+
+      // Debounced visibility check - prevents rapid state changes
+      function updateFloatingVisibility() {
+        const mainButton = $('.product-form__add-button');
+        const mainVisible = isElementInViewport(mainButton);
+
+        // Only update if state actually changed
+        if (lastVisibleState === mainVisible) return;
+        lastVisibleState = mainVisible;
+
+        if (!mainVisible) {
+          showFloating();
+        } else {
+          hideFloating();
+        }
+      }
+
+      function showFloating() {
+        if (!floatingCart || isVisible) return;
+
+        // Use CSS classes instead of inline transforms for smoother animation
+        floatingCart.style.display = 'block';
+        floatingCart.setAttribute('aria-hidden', 'false');
+
+        // Force reflow
+        void floatingCart.offsetHeight;
+
+        // Remove any previous transforms
+        floatingCart.style.transform = '';
+
+        floatingCart.classList.remove('hide');
+        floatingCart.classList.add('show');
+        isVisible = true;
+      }
+
+      function hideFloating() {
+        if (!floatingCart || !isVisible) return;
+
+        floatingCart.classList.remove('show');
+        floatingCart.classList.add('hide');
+        floatingCart.setAttribute('aria-hidden', 'true');
+        isVisible = false;
+
+        setTimeout(() => {
+          if (!isVisible) {
+            floatingCart.style.display = 'none';
+          }
+        }, 300);
+      }
+
+      // Submit form
+      if (floatingButton) {
+        floatingButton.addEventListener('click', function () {
+          const formId = this.dataset.formId;
+          const form = document.getElementById(formId);
+          if (form) form.requestSubmit();
+        });
+      }
+
+      // Reduced frequency scroll handling - only check visibility
+      let scrollTimeout;
+      function onScroll() {
+        // Clear previous timeout
+        clearTimeout(scrollTimeout);
+
+        // Debounce the visibility check to reduce frequency
+        scrollTimeout = setTimeout(() => {
+          updateFloatingVisibility();
+        }, 50); // Check every 50ms instead of every frame
+      }
+
+      // Resize handler (separate from scroll)
+      let resizeTimeout;
+      function onResize() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          applyDesktopBottomPlacement();
+          updateFloatingVisibility();
+        }, 100);
+      }
+
+      // Separate event listeners for better performance
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onResize);
+
+      // Initial setup
+      setupSmoothAnimations();
       applyDesktopBottomPlacement();
       updateFloatingVisibility();
-    }, 100);
-  }
-
-  // Separate event listeners for better performance
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onResize);
-
-  // Initial setup
-  setupSmoothAnimations();
-  applyDesktopBottomPlacement();
-  updateFloatingVisibility();
-});
-</script>
-
+    });
+  </script>
 {% endif %}
-
 
 <div class="product-form">
   {%- for block in section.blocks -%}
@@ -721,122 +727,117 @@ document.addEventListener('DOMContentLoaded', function () {
           ----------------------------------------------------------------------------------------------------------------
         {%- endcomment -%}
 
-        {%- when 'timer' -%}
-         {% if product.tags contains 'sale' %}
-        {% render 'countdown-timer', block: block -%}
-          {% endif %}
+      {%- when 'timer' -%}
+        {% if product.tags contains 'sale' %}
+          {% render 'countdown-timer', block: block -%}
+        {% endif %}
 
-        
-  {%- when 'product_status' -%}
-{% unless product.tags contains 'freegift' %}
-<div style="
-        background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), url('https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Autumn_Banner_V2.jpg?v=1758370298');
-        background-size: cover;
-        background-position: center;
-        color: white;
-        padding: 15px;
-        border-radius: 10px;
-  text-align: center;
-  font-weight: 700;
-  font-size: 11px;
-      ">
-  
-  {% assign has_coming_soon = false %}
-  {% assign has_back_soon = false %}
-  {% assign has_restock = false %}
-  {% assign has_black_friday_restock = false %}
-  {% assign has_last_chance = false %}
-  {% assign has_launch = false %}
-  {% assign restock_date = "" %}
-  {% assign launch_date = "" %}
-  {% assign black_friday_launch_date = false %}
+      {%- when 'product_status' -%}
+        {% unless product.tags contains 'freegift' %}
+          <div
+            style="
+                    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), url('https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Autumn_Banner_V2.jpg?v=1758370298');
+                    background-size: cover;
+                    background-position: center;
+                    color: white;
+                    padding: 15px;
+                    border-radius: 10px;
+              text-align: center;
+              font-weight: 700;
+              font-size: 11px;
+            "
+          >
+            {% assign has_coming_soon = false %}
+            {% assign has_back_soon = false %}
+            {% assign has_restock = false %}
+            {% assign has_black_friday_restock = false %}
+            {% assign has_last_chance = false %}
+            {% assign has_launch = false %}
+            {% assign restock_date = '' %}
+            {% assign launch_date = '' %}
+            {% assign black_friday_launch_date = false %}
 
-  {% for tag in product.tags %}
-    {% if tag == "__label:COMING SOON" %}
-      {% assign has_coming_soon = true %}
-    {% elsif tag == "__label:BACK SOON" %}
-      {% assign has_back_soon = true %}
-    {% elsif tag == "__label:RESTOCKS BLACK FRIDAY" %}
-      {% assign has_black_friday_restock = true %}
-    {% elsif tag contains "__label:RESTOCKS" %}
-      {% assign has_restock = true %}
-      {% assign restock_date = tag | remove: "__label:RESTOCKS " %}
-    {% elsif tag == "__label:LAUNCHES BLACK FRIDAY" %}
-      {% assign black_friday_launch_date = true %}
-    {% elsif tag == "__label:LAST CHANCE" %}
-      {% assign has_last_chance = true %}
-    {% elsif tag contains "__label:LAUNCHES" %}
-      {% assign has_launch = true %}
-      {% assign launch_date = tag | remove: "__label:LAUNCHES " %}
-    {% endif %}
-  {% endfor %}
+            {% for tag in product.tags %}
+              {% if tag == '__label:COMING SOON' %}
+                {% assign has_coming_soon = true %}
+              {% elsif tag == '__label:BACK SOON' %}
+                {% assign has_back_soon = true %}
+              {% elsif tag == '__label:RESTOCKS BLACK FRIDAY' %}
+                {% assign has_black_friday_restock = true %}
+              {% elsif tag contains '__label:RESTOCKS' %}
+                {% assign has_restock = true %}
+                {% assign restock_date = tag | remove: '__label:RESTOCKS ' %}
+              {% elsif tag == '__label:LAUNCHES BLACK FRIDAY' %}
+                {% assign black_friday_launch_date = true %}
+              {% elsif tag == '__label:LAST CHANCE' %}
+                {% assign has_last_chance = true %}
+              {% elsif tag contains '__label:LAUNCHES' %}
+                {% assign has_launch = true %}
+                {% assign launch_date = tag | remove: '__label:LAUNCHES ' %}
+              {% endif %}
+            {% endfor %}
 
-  {% assign in_best_sellers = false %}
-  {% for collection in product.collections %}
-    {% if collection.handle == 'best-sellers' %}
-      {% unless product.tags contains "pre-order" %}
-        {% assign in_best_sellers = true %}
-      {% endunless %}
-    {% endif %}
-  {% endfor %}
+            {% assign in_best_sellers = false %}
+            {% for collection in product.collections %}
+              {% if collection.handle == 'best-sellers' %}
+                {% unless product.tags contains 'pre-order' %}
+                  {% assign in_best_sellers = true %}
+                {% endunless %}
+              {% endif %}
+            {% endfor %}
 
-  {% if has_coming_soon %}
-    <p>Coming Soon</p>
-  {% elsif has_back_soon %}
-    <p>Back in stock soon, sign up for restock notifications below</p>
-  {% elsif black_friday_launch_date %}
-    <p>Launches 29.11.24</p>
-  {% elsif has_launch %}
-    <p>Launches {{ launch_date }}</p>
-  {% elsif has_black_friday_restock %}
-    <p>Restocks 29.11.24</p>
-  {% elsif has_restock %}
-    <p>Restocks {{ restock_date }} 8PM</p>
-  {% elsif product.available == false %}
-    <p>Currently out of stock</p>
-  {% else %}
-    {% if has_last_chance or product.tags contains "__label:LIMITED OFFER" %}
-      {% unless in_best_sellers %}
-        {% comment %} Add any limited-offer-specific messaging here {% endcomment %}
-      {% endunless %}
-    {% endif %}
+            {% if has_coming_soon %}
+              <p>Coming Soon</p>
+            {% elsif has_back_soon %}
+              <p>Back in stock soon, sign up for restock notifications below</p>
+            {% elsif black_friday_launch_date %}
+              <p>Launches 29.11.24</p>
+            {% elsif has_launch %}
+              <p>Launches {{ launch_date }}</p>
+            {% elsif has_black_friday_restock %}
+              <p>Restocks 29.11.24</p>
+            {% elsif has_restock %}
+              <p>Restocks {{ restock_date }} 8PM</p>
+            {% elsif product.available == false %}
+              <p>Currently out of stock</p>
+            {% else %}
+              {% if has_last_chance or product.tags contains '__label:LIMITED OFFER' %}
+                {% unless in_best_sellers %}
+                  {% comment %} Add any limited-offer-specific messaging here {% endcomment %}
+                {% endunless %}
+              {% endif %}
 
-    {% unless product.tags contains 'sale' %}
-      {% if product.tags contains 'pre-order' %}
-        {% unless product.tags contains 'NPRE28' %}
-          {% if product.available %}
-            {% comment %} Pre-order message (if needed) {% endcomment %}
-          {% endif %}
+              {% unless product.tags contains 'sale' %}
+                {% if product.tags contains 'pre-order' %}
+                  {% unless product.tags contains 'NPRE28' %}
+                    {% if product.available %}
+                      {% comment %} Pre-order message (if needed) {% endcomment %}
+                    {% endif %}
+                  {% endunless %}
+                {% endif %}
+              {% endunless %}
+
+              {% if product.title contains 'Hudson' %}
+                <p style="transform: translateY(-5px);">Free cushion included with the Hudson Chair</p>
+              {% endif %}
+
+              {% if product.tags contains 'sale' %}
+                <!-- 🎯 Sale block with background image + overlay and matching padding -->
+
+                Extra 15% off Autumn Sale, enter code SE15 at checkout (Ends Soon)
+                <br>
+                +
+                <br>
+                Free Gift with your purchase worth up to £149 GBP when you spend £299 GBP or more
+
+              {% else %}
+                {% comment %} <p style="font-family: var(--heading-font-family, Arial, sans-serif); font-size: 15px; text-transform: uppercase; margin: 0; margin-bottom: 5px">Bundle Offer</p> {% endcomment %}
+                {{ block.settings.promo_text | escape | newline_to_br }}
+              {% endif %}
+            {% endif %}
+          </div>
         {% endunless %}
-      {% endif %}
-    {% endunless %}
 
-    {% if product.title contains "Hudson" %}
-      <p style="transform: translateY(-5px);">Free cushion included with the Hudson Chair</p>
-    {% endif %}
-
-
-    {% if product.tags contains 'sale' %}
-      <!-- 🎯 Sale block with background image + overlay and matching padding -->
-      
-       Extra 15% off Autumn Sale, enter code SE15 at checkout (Ends Soon)
-        <br>+ 
-      <br>
-        Free Gift with your purchase worth up to £149 GBP when you spend £299 GBP or more
-      
-    {% else %}
-     {% comment %} <p style="font-family: var(--heading-font-family, Arial, sans-serif); font-size: 15px; text-transform: uppercase; margin: 0; margin-bottom: 5px">Bundle Offer</p> {% endcomment %}
-    {{ block.settings.promo_text | escape | newline_to_br }}
-    {% endif %}
-  {% endif %}
-</div>
-{% endunless %}
-
-
-
-
-
-  
       {%- when 'liquid' -%}
         {% if block.settings.liquid != blank %}
           <div class="product-form__custom-liquid" {{ block.shopify_attributes }}>
@@ -849,7 +850,7 @@ document.addEventListener('DOMContentLoaded', function () {
           QUANTITY SELECTOR
           ----------------------------------------------------------------------------------------------------------------
         {%- endcomment -%}
-     
+
         <div class="ultimate-countdown"></div>
 
         {%- comment -%}
@@ -860,7 +861,13 @@ document.addEventListener('DOMContentLoaded', function () {
       {%- when 'description' -%}
         {%- if product.description != blank -%}
           <div class="product-form__description rte" {{ block.shopify_attributes }}>
-            {{- product.description | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+            {{-
+              product.description
+              | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn
+              | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn
+              | replace: 'https:https:', 'https:'
+              | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
+            -}}
           </div>
         {%- endif -%}
 
@@ -989,11 +996,9 @@ document.addEventListener('DOMContentLoaded', function () {
           </product-inventory>
         {%- endif -%}
 
-
-
-          {% if block.settings.show_read_more and short_description != blank %}
-            <a href="#product-{{ product.id  }}-content">{{ block.settings.read_more_text }}</a>
-          {% endif %}
+        {% if block.settings.show_read_more and short_description != blank %}
+          <a href="#product-{{ product.id  }}-content">{{ block.settings.read_more_text }}</a>
+        {% endif %}
         </div>
 
         {%- comment -%}
@@ -1007,115 +1012,110 @@ document.addEventListener('DOMContentLoaded', function () {
             {%- form 'product', product, is: 'product-form', id: product_form_id -%}
               <input type="hidden" disabled name="id" value="{{ product.selected_or_first_available_variant.id }}">
 
-<product-payment-container
-  form-id="{{ product_form_id }}"
-  {% if update_url %}
-    id="MainPaymentContainer"
-  {% endif %}
-  class="product-form__payment-container"
-  {{ block.shopify_attributes }}
->
-{%- assign preorder_tag = 'pre-order' -%}
-{%- assign shipping_date_formatted = '' -%}
-{%- assign message = '' -%}
+              <product-payment-container
+                form-id="{{ product_form_id }}"
+                {% if update_url %}
+                  id="MainPaymentContainer"
+                {% endif %}
+                class="product-form__payment-container"
+                {{ block.shopify_attributes }}
+              >
+                {%- assign preorder_tag = 'pre-order' -%}
+                {%- assign shipping_date_formatted = '' -%}
+                {%- assign message = '' -%}
 
-{%- if product.tags contains preorder_tag -%}
-  {%- comment %} Extract date from product description using locale conditions {%- endcomment -%}
-  {%- if current_path contains '/en-fr/' or current_path contains '/en-de/' or current_path contains '/en-nl/' -%}
-    {%- assign raw_date = product.description 
-          | strip_html 
-          | replace: 'between', 'from' 
-          | split: 'and' 
-          | first 
-          | strip 
-    -%}
-  {%- else -%}
-    {%- assign raw_date = product.description
-          | strip_html
-          | split: ':' 
-          | first 
-          | strip 
-    -%}
-  {%- endif -%}
-  
-  {%- comment %} Format the extracted date {%- endcomment -%}
-  {%- if raw_date != blank -%}
-    {%- assign shipping_date_formatted = raw_date | date: "%B %d, %Y" -%}
-    {%- comment %} If date formatting failed, use raw text {%- endcomment -%}
-    {%- if shipping_date_formatted == blank or shipping_date_formatted == raw_date -%}
-      {%- assign shipping_date_formatted = raw_date -%}
-    {%- endif -%}
-  {%- endif -%}
-{%- endif -%}
+                {%- if product.tags contains preorder_tag -%}
+                  {%- comment %} Extract date from product description using locale conditions {%- endcomment %}
+                  {%- if current_path contains '/en-fr/'
+                    or current_path contains '/en-de/'
+                    or current_path contains '/en-nl/'
+                  -%}
+                    {%- assign raw_date = product.description
+                      | strip_html
+                      | replace: 'between', 'from'
+                      | split: 'and'
+                      | first
+                      | strip
+                    -%}
+                  {%- else -%}
+                    {%- assign raw_date = product.description | strip_html | split: ':' | first | strip -%}
+                  {%- endif -%}
 
-{%- comment %} Build the message {%- endcomment -%}
-{%- if product.tags contains preorder_tag -%}
-  {%- if shipping_date_formatted != blank -%}
-    {%- assign message = 'Pre Order, Delivered from ' | append: shipping_date_formatted -%}
-  {%- else -%}
-    {%- assign message = 'Pre Order, Delivery date to be confirmed' -%}
-  {%- endif -%}
-{%- else -%}
-  {%- assign message = 'In Stock and ready to ship' -%}
-{%- endif -%}
+                  {%- comment %} Format the extracted date {%- endcomment %}
+                  {%- if raw_date != blank -%}
+                    {%- assign shipping_date_formatted = raw_date | date: '%B %d, %Y' -%}
+                    {%- comment %} If date formatting failed, use raw text {%- endcomment %}
+                    {%- if shipping_date_formatted == blank or shipping_date_formatted == raw_date -%}
+                      {%- assign shipping_date_formatted = raw_date -%}
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endif -%}
 
-<input type="hidden" name="properties[Note]" value="{{ message }}">
-    <div class="countdown-timer-block" countdown-timer-id="cmeom7bfn000coenvom7t1ahc"></div>
+                {%- comment %} Build the message {%- endcomment %}
+                {%- if product.tags contains preorder_tag -%}
+                  {%- if shipping_date_formatted != blank -%}
+                    {%- assign message = 'Pre Order, Delivered from ' | append: shipping_date_formatted -%}
+                  {%- else -%}
+                    {%- assign message = 'Pre Order, Delivery date to be confirmed' -%}
+                  {%- endif -%}
+                {%- else -%}
+                  {%- assign message = 'In Stock and ready to ship' -%}
+                {%- endif -%}
 
-  <div class="product-form__controls" style="display: flex; align-items: center; gap: 10px;">
-    <button
-      id="AddToCart"
-      type="submit"
-      {% comment %} is="loader-button" {% endcomment %}
-      {% unless block.settings.show_payment_button and template.suffix != 'quick-buy-popover' %}
-        data-use-primary
-      {% endunless %}
-      data-product-add-to-cart-button
-      data-button-content="{% if product.template_suffix == 'pre-order' %}{{ 'product.form.pre_order' | t | escape }}{% else %}{{ 'product.form.add_to_cart' | t | escape }}{% endif %}"
-      class="product-submit product-form__add-button button {% unless product.selected_or_first_available_variant.available %}button--ternary{% else %}{% if block.settings.show_payment_button and template.suffix != 'quick-buy-popover' %}button--secondary{% else %}button--primary{% endif %}{% endunless %} button--full"
-      {% unless product.selected_or_first_available_variant.available %}
-        disabled
-      {% endunless %}
-    >
-      {{ 'product.form.add_to_cart' | t }}
-    </button>
-    {% comment %} <div class="product-form__quantity" {{ block.shopify_attributes }}>
-      <span class="product-form__quantity-label">{{ 'product.form.quantity' | t }}:</span>
+                <input type="hidden" name="properties[Note]" value="{{ message }}">
+                <div class="countdown-timer-block" countdown-timer-id="cmeom7bfn000coenvom7t1ahc"></div>
 
-      <quantity-selector class="quantity-selector">
-        <button type="button" class="quantity-selector__button" disabled>
-          <span class="visually-hidden">{{ 'cart.general.decrease_quantity' | t }}</span>
-          {%- render 'icon' with 'minus-big' -%}
-        </button>
+                <div class="product-form__controls" style="display: flex; align-items: center; gap: 10px;">
+                  <button
+                    id="AddToCart"
+                    type="submit"
+                    {% comment %} is="loader-button" {% endcomment %}
+                    {% unless block.settings.show_payment_button and template.suffix != 'quick-buy-popover' %}
+                      data-use-primary
+                    {% endunless %}
+                    data-product-add-to-cart-button
+                    data-button-content="{% if product.template_suffix == 'pre-order' %}{{ 'product.form.pre_order' | t | escape }}{% else %}{{ 'product.form.add_to_cart' | t | escape }}{% endif %}"
+                    class="product-submit product-form__add-button button {% unless product.selected_or_first_available_variant.available %}button--ternary{% else %}{% if block.settings.show_payment_button and template.suffix != 'quick-buy-popover' %}button--secondary{% else %}button--primary{% endif %}{% endunless %} button--full"
+                    {% unless product.selected_or_first_available_variant.available %}
+                      disabled
+                    {% endunless %}
+                  >
+                    {{ 'product.form.add_to_cart' | t }}
+                  </button>
+                  {% comment %}
+                    <div class="product-form__quantity" {{ block.shopify_attributes }}>
+                      <span class="product-form__quantity-label">{{ 'product.form.quantity' | t }}:</span>
 
-        <input
-          type="text"
-          form="{{ product_form_id }}"
-          is="input-number"
-          class="quantity-selector__input"
-          inputmode="numeric"
-          name="quantity"
-          autocomplete="off"
-          min="1"
-          value="1"
-          size="2"
-          aria-label="{{ 'product.form.quantity' | t | escape }}"
-        >
+                      <quantity-selector class="quantity-selector">
+                        <button type="button" class="quantity-selector__button" disabled>
+                          <span class="visually-hidden">{{ 'cart.general.decrease_quantity' | t }}</span>
+                          {%- render 'icon' with 'minus-big' -%}
+                        </button>
 
-        <button type="button" class="quantity-selector__button">
-          <span class="visually-hidden">{{ 'cart.general.increase_quantity' | t }}</span>
-          {%- render 'icon' with 'plus-big' -%}
-        </button>
-      </quantity-selector>
-    </div> {% endcomment %}
+                        <input
+                          type="text"
+                          form="{{ product_form_id }}"
+                          is="input-number"
+                          class="quantity-selector__input"
+                          inputmode="numeric"
+                          name="quantity"
+                          autocomplete="off"
+                          min="1"
+                          value="1"
+                          size="2"
+                          aria-label="{{ 'product.form.quantity' | t | escape }}"
+                        >
 
-  </div>
-
-</product-payment-container>
-
-
+                        <button type="button" class="quantity-selector__button">
+                          <span class="visually-hidden">{{ 'cart.general.increase_quantity' | t }}</span>
+                          {%- render 'icon' with 'plus-big' -%}
+                        </button>
+                      </quantity-selector>
+                    </div>
+                  {% endcomment %}
+                </div>
+              </product-payment-container>
             {%- endform -%}
-
 
             {% comment %}
               {% if additional_checkout_buttons %}
@@ -1389,7 +1389,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <div class="drawer__content drawer__content--padded-start">
       <div class="rte">
-        {{- size_chart_page.content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+        {{-
+          size_chart_page.content
+          | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn
+          | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn
+          | replace: 'https:https:', 'https:'
+          | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
+        -}}
       </div>
     </div>
   </drawer-content>
@@ -1413,14 +1419,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <div class="popover__content">
       <div class="rte">
-        {{- size_chart_page.content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+        {{-
+          size_chart_page.content
+          | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn
+          | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn
+          | replace: 'https:https:', 'https:'
+          | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
+        -}}
       </div>
     </div>
   </popover-content>
 {%- endif -%}
 
-
-                      
 {% if product.tags contains 'pre-order'
   and section.settings.question_mark_title != blank
   and section.settings.question_mark_content != blank
@@ -1447,7 +1457,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <div class="drawer__content drawer__content--padded-start">
       <div class="rte">
-        {{- section.settings.question_mark_content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+        {{-
+          section.settings.question_mark_content
+          | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn
+          | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn
+          | replace: 'https:https:', 'https:'
+          | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
+        -}}
       </div>
     </div>
   </drawer-content>
@@ -1474,112 +1490,114 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <div class="popover__content">
       <div class="rte">
-        {{- section.settings.question_mark_content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+        {{-
+          section.settings.question_mark_content
+          | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn
+          | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn
+          | replace: 'https:https:', 'https:'
+          | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
+        -}}
       </div>
     </div>
   </popover-content>
 {% endif %}
 <style>
+    .product-form {
+      transform: none !important;
+    }
 
-  .product-form {
-    transform: none !important;
-  }
+    #BIS_trigger {
+    margin-top: 0px !important;
+    }
 
-  #BIS_trigger {
-  margin-top: 0px !important;
-  }
-  
-  
-  .product-form__quantity-label {
-    display: none !important;
-  }
-  #trustpilot-widget-trustbox-0-wrapper {
+
+    .product-form__quantity-label {
+      display: none !important;
+    }
+    #trustpilot-widget-trustbox-0-wrapper {
+      display: none;
+    }
+  {% unless product.available %}
+  #AddToCart {
     display: none;
   }
-{% unless product.available %}
-#AddToCart {
-  display: none;
-}
-.product-form__quantity {
-  display: none;
-}
-#BIS_trigger {
-  width: 100%;
-}
-{% endunless %}
+  .product-form__quantity {
+    display: none;
+  }
+  #BIS_trigger {
+    width: 100%;
+  }
+  {% endunless %}
 
-#AddToCart.button--clicked {
-  background: #EFEFEF !important; /* grey background */
-  color: #000 !important;           /* black text */
-}
+  #AddToCart.button--clicked {
+    background: #EFEFEF !important; /* grey background */
+    color: #000 !important;           /* black text */
+  }
 
-/* Style for disabled minus button */
-.quantity-selector__button:disabled {
-  color: #999 !important;
-  cursor: not-allowed !important;
-  pointer-events: none; /* fully non-clickable */
-}
+  /* Style for disabled minus button */
+  .quantity-selector__button:disabled {
+    color: #999 !important;
+    cursor: not-allowed !important;
+    pointer-events: none; /* fully non-clickable */
+  }
 
-/* Grey out the minus icon inside the disabled button */
-.quantity-selector__button:disabled svg {
-  fill: #999 !important;
-}
+  /* Grey out the minus icon inside the disabled button */
+  .quantity-selector__button:disabled svg {
+    fill: #999 !important;
+  }
 
-.countdown_timer_wrapper_cmeom7bfn000coenvom7t1ahc {
-margin-bottom: 0px !important;
-margin-top: 0px !important;
-margin-left: 0 !important;
+  .countdown_timer_wrapper_cmeom7bfn000coenvom7t1ahc {
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+  margin-left: 0 !important;
 
-}
-
-
+  }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-  const addToCartBtn = document.getElementById('AddToCart');
+    const addToCartBtn = document.getElementById('AddToCart');
 
-  if (!addToCartBtn) return;
+    if (!addToCartBtn) return;
 
-  addToCartBtn.addEventListener('click', function () {
-    // Add clicked style
-    addToCartBtn.classList.add('button--clicked');
+    addToCartBtn.addEventListener('click', function () {
+      // Add clicked style
+      addToCartBtn.classList.add('button--clicked');
 
-    // Optional: Add loading delay to simulate drawer open delay
-    setTimeout(() => {
-      // Remove clicked style after e.g. 800ms
-      addToCartBtn.classList.remove('button--clicked');
-    }, 800);
-  });
-});
-
-</script>
-
- <script>
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('quantity-selector').forEach((qs) => {
-    const minusBtn = qs.querySelector('.quantity-selector__button:first-of-type');
-    const qtyInput = qs.querySelector('.quantity-selector__input');
-
-    function setMinusState() {
-      const qty = parseInt(qtyInput.value, 10) || 1;
-      // disable if qty <= 1, enable otherwise
-      minusBtn.toggleAttribute('disabled', qty <= 1);
-    }
-
-    // initial state (covers default value=1)
-    setMinusState();
-
-    // when quantity changes via typing or theme logic
-    qtyInput.addEventListener('input', setMinusState);
-    qtyInput.addEventListener('change', setMinusState);
-
-    // after any +/- button click, let the theme update first, then sync state
-    qs.addEventListener('click', (e) => {
-      if (e.target.closest('.quantity-selector__button')) {
-        setTimeout(setMinusState, 0);
-      }
+      // Optional: Add loading delay to simulate drawer open delay
+      setTimeout(() => {
+        // Remove clicked style after e.g. 800ms
+        addToCartBtn.classList.remove('button--clicked');
+      }, 800);
     });
   });
-});
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('quantity-selector').forEach((qs) => {
+      const minusBtn = qs.querySelector('.quantity-selector__button:first-of-type');
+      const qtyInput = qs.querySelector('.quantity-selector__input');
+
+      function setMinusState() {
+        const qty = parseInt(qtyInput.value, 10) || 1;
+        // disable if qty <= 1, enable otherwise
+        minusBtn.toggleAttribute('disabled', qty <= 1);
+      }
+
+      // initial state (covers default value=1)
+      setMinusState();
+
+      // when quantity changes via typing or theme logic
+      qtyInput.addEventListener('input', setMinusState);
+      qtyInput.addEventListener('change', setMinusState);
+
+      // after any +/- button click, let the theme update first, then sync state
+      qs.addEventListener('click', (e) => {
+        if (e.target.closest('.quantity-selector__button')) {
+          setTimeout(setMinusState, 0);
+        }
+      });
+    });
+  });
 </script>
