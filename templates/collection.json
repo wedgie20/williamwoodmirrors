@@ -25,6 +25,7 @@
     },
     "custom_liquid_NCfRNU": {
       "type": "custom-liquid",
+      "disabled": true,
       "settings": {
         "subheading": "",
         "title": "",
@@ -71,6 +72,7 @@
     },
     "main": {
       "type": "main-collection",
+      "disabled": true,
       "custom_css": [
         ".block-swatch-list {display: none !important;}"
       ],
@@ -90,6 +92,7 @@
     },
     "rich_text_Vb6xKb": {
       "type": "rich-text",
+      "disabled": true,
       "name": "Rich text",
       "settings": {
         "subheading": "",
@@ -177,6 +180,7 @@
         "item_aTnwGA",
         "item_7rBD9x"
       ],
+      "disabled": true,
       "settings": {
         "reveal_on_scroll": true,
         "stack_items": true,
@@ -190,6 +194,19 @@
         "background": "#efefef",
         "text_color": "rgba(0,0,0,0)"
       }
+    },
+    "913d72be-ab82-45ff-8428-c8c3971f0348": {
+      "type": "apps",
+      "blocks": {
+        "55725800-a5e7-4020-b432-959531a78309": {
+          "type": "shopify://apps/boost-ai-search-filter/blocks/filter-product-list-ssr/7fc998ae-a150-4367-bab8-505d8a4503f7",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "55725800-a5e7-4020-b432-959531a78309"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -198,6 +215,7 @@
     "promotion_blocks_gLj7PN",
     "main",
     "rich_text_Vb6xKb",
-    "multi_column_zWQVjj"
+    "multi_column_zWQVjj",
+    "913d72be-ab82-45ff-8428-c8c3971f0348"
   ]
 }
