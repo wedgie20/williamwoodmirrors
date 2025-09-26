@@ -293,6 +293,9 @@
 <!--END Digioh Fast Activation Javascript-->
 
     <style> 
+      .warehouse-prive-event-sign-up .shopify-section-group-footer-group.shopify-section--custom-liquid{
+  display: none !important;
+}
       .countdown_cart_page_timer_wrapper_cmemstfb400f5t9itqtxql6dj div.h2 {
         font-weight: normal;
       }
@@ -316,7 +319,7 @@
     {% assign feature_classes = feature_classes | append: ' features--image-zoom' %}
   {%- endif -%}
 
-  <body class="no-focus-outline {{ feature_classes }} template-{{ template }} {% if template.name == "product" %}{% unless product.available %}template-product-sold-out{% endunless %}{% endif %}" data-instant-allow-query-string>
+  <body class="no-focus-outline {{ feature_classes }} {{ handle }} template-{{ template }} {% if template.name == "product" %}{% unless product.available %}template-product-sold-out{% endunless %}{% endif %}" data-instant-allow-query-string>
     <script>
       window.KlarnaThemeGlobals={};{% case template.name%} {%when"product"%} {% if product.first_available_variant.price %}window.KlarnaThemeGlobals.data_purchase_amount = {{ product.first_available_variant.price }};{% endif %}window.KlarnaThemeGlobals.productVariants={{product.variants|json}};window.KlarnaThemeGlobals.documentCopy=document.cloneNode(true);{%when"cart"%} window.KlarnaThemeGlobals.data_purchase_amount={{cart.total_price}};window.KlarnaThemeGlobals.documentCopy=document.cloneNode(true);{%endcase%}
     </script>
