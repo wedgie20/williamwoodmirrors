@@ -183,7 +183,7 @@ ul.hookpoint-tags::-webkit-scrollbar {
      {%- endif -%}
      
      {%- comment -%} All option - active when no filters are applied {%- endcomment -%}
-     <li class="custom-filter-tag custom-filter-all{% unless has_filters %} activetag{% endunless %}" data-tag="__all__">All</li>
+     <li class="custom-filter-tag custom-filter-all{% unless has_filters %} activetag{% endunless %}" data-tag="__all__">all</li>
      
   {% for tag in hookpoint_tags %}
     {% assign tag_label = tag | strip | replace: '_', ' ' %}
