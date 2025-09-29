@@ -14,32 +14,23 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "announcement_bar_position": "sticky",
-        "announcement_text_size": "small",
-        "cycle_speed": 3
-      },
       "blocks": {
         "message_N4D9HB": {
           "disabled": true,
           "settings": {
             "text": "Mystery Gift with all orders",
             "learn_more_text": "more info",
-            "image": null,
             "title": "MYSTERY GIFT",
             "content": "<p>Receive a Mystery Gift with all orders, <strong>ends</strong> <strong>midnight tonight </strong>(no minimum spend).<br/>+<br/><strong>22% off</strong> storewide, enter code <strong>JUL22</strong> at checkout.</p>",
             "button_text": "SHOP NOW",
-            "button_link": "shopify://collections/spring-sale"
+            "button_link": "shopify://collections/autumn-sale"
           }
         },
         "message_yMjrK": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "Build Your Bundle: Up to 30% off",
             "learn_more_text": "shop now",
-            "header-1f861c126bd30e6a8f8e59bef6ef3af6": null,
-            "image": null,
             "title": "BUY MORE, SAVE MORE.",
             "content": "<p>20% off storewide with code <strong>AUTUMN</strong> <strong>(Ends Soon)<br/></strong>or<br/>Buy 2 full priced items and receive 25% off, <strong>no code required<br/></strong>or<br/>Buy 3 full priced items or more and receive 30% off, <strong>no code required<br/></strong>+<br/>Free Gift with your purchase worth up to £149 GBP when you spend £299 GBP or more</p>",
             "button_text": "SHOP NOW",
@@ -47,11 +38,9 @@
           }
         },
         "message_wc4BFE": {
-          "disabled": false,
           "settings": {
             "text": "Free Premium UK Delivery + 90 Days Free Returns",
             "learn_more_text": "",
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -59,11 +48,9 @@
           }
         },
         "3f097275-f772-44d9-b5f7-6d6999645314": {
-          "disabled": false,
           "settings": {
             "text": "Flexible payments, 0% interest.",
             "learn_more_text": "more info",
-            "image": null,
             "title": "0% finance payment options",
             "content": "<p>Pay in instalments over 3-12 months. <strong>0% interest. No fees.</strong><br/><br/>Choose from Klarna, Clearpay, PayPal or DivideBuy at checkout.<br/><br/>Pay over 6 months, minimum spend £300 GBP.<br/><br/>Pay over 9 months, minimum spend £450 GBP.<br/><br/>Pay over 12 months, minimum spend £600 GBP.</p>",
             "button_text": "",
@@ -71,11 +58,9 @@
           }
         },
         "955bcd74-0608-4f78-afae-e87df09b9f88": {
-          "disabled": false,
           "settings": {
             "text": "30,000+ 5 Star Reviews",
             "learn_more_text": "",
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -84,12 +69,9 @@
         },
         "message_Pn9HN": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "700,000+ Satisfied Customers",
             "learn_more_text": "",
-            "header-ed2d8fdad99c0026b60eea449bf3145a": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -98,12 +80,9 @@
         },
         "message_Nh4hB": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "100% Money Back Guarantee",
             "learn_more_text": "",
-            "header-bb7774fcd5c8f658131a7a358459d3a2": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -120,7 +99,12 @@
         "message_Pn9HN",
         "message_Nh4hB",
         "trustpilot_Q4xFtD"
-      ]
+      ],
+      "settings": {
+        "announcement_bar_position": "sticky",
+        "announcement_text_size": "small",
+        "cycle_speed": 3
+      }
     },
     "header": {
       "settings": {
@@ -128,8 +112,7 @@
         "navigation_menu": "nav-menu-new",
         "header_layout": "drawer",
         "enable_transparent_header": true
-      },
-      "blocks": {}
+      }
     }
   },
   "order": [
