@@ -12,5 +12,49 @@
   "context": {
     "market": "netherlands"
   },
-  "sections": {}
+  "sections": {
+    "slideshow_W4WtCf": {
+      "settings": {},
+      "blocks": {
+        "image_LnKcqV": {
+          "settings": {
+            "image": "shopify://shop_images/Web_EU_100_Off_Members.jpg",
+            "mobile_image": "shopify://shop_images/Mob_EU_100_Off_Members.jpg"
+          }
+        }
+      }
+    },
+    "custom_liquid_HRyMi": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "custom_css": [
+        ".confirm-btn {text-align: center;}",
+        ".confirm-btn a {padding: 20px 40px 20px 40px; background: black; color: white; border-radius: 30px; font-weight: 700;}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<div class=\"confirm-btn\">\n<a href=\"/best-sellers\">Shop Now </button>\n</a>\n</div>",
+        "add_vertical_spacing": true,
+        "background_type": "full_width",
+        "header-cac7dbc10bb336cb7c15746b3b36fadb": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
+    }
+  },
+  "order": [
+    "1662460824ad6e755b",
+    "6cc91c8c-a57c-41dd-9ac0-a95015ad3ab6",
+    "slideshow_W4WtCf",
+    "custom_liquid_HRyMi",
+    "custom_liquid_My69x9",
+    "custom_liquid_jCLdkn",
+    "custom_liquid_iDxE9b",
+    "main",
+    "9b75a0b7-27db-4dc4-ad56-e99d0feea4fa"
+  ]
 }
