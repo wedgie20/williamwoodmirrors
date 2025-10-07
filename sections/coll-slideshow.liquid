@@ -7,6 +7,12 @@
     background-color: {{ section.settings.background }}; /* Allows to set a placeholder color while loading */
   }
 
+   @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .slideshow__slide-inner .slideshow__text-wrapper .content-box span.heading.h1{
+      margin-top: 4px !important;
+      }
+    }
+
   {%- for block in section.blocks -%}
     {%- assign text_position = block.settings.text_position | split: '_' | first -%}
 
