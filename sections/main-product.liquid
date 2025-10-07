@@ -405,6 +405,127 @@
         }
       ]
     },
+
+{
+  "type": "low_stock",
+  "name": "Low Stock",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Stock Status Messages"
+    },
+    {
+      "type": "text",
+      "id": "restocked_text",
+      "label": "Recently Restocked Text",
+      "default": "Recently restocked, don't miss out."
+    },
+    {
+      "type": "text",
+      "id": "low_stock_text",
+      "label": "Low Stock Message",
+      "default": "Low stock, only",
+      "info": "Text before inventory count"
+    },
+    {
+      "type": "text",
+      "id": "low_stock_suffix",
+      "label": "Low Stock Suffix",
+      "default": "left",
+      "info": "Text after inventory count"
+    },
+    {
+      "type": "text",
+      "id": "limited_availability_text",
+      "label": "Limited Availability Text",
+      "default": "Availability is limited - secure yours while stock lasts"
+    },
+    {
+      "type": "header",
+      "content": "Special Offer Messages"
+    },
+    {
+      "type": "text",
+      "id": "last_chance_text",
+      "label": "Last Chance Message",
+      "default": "Last chance to purchase, this product won't be restocked."
+    },
+    {
+      "type": "text",
+      "id": "limited_offer_prefix",
+      "label": "Limited Offer Prefix",
+      "default": "Exclusive offer"
+    },
+    {
+      "type": "text",
+      "id": "limited_offer_suffix",
+      "label": "Limited Offer Suffix",
+      "default": ", returning to full price soon."
+    },
+    {
+      "type": "header",
+      "content": "Delivery Messages"
+    },
+    {
+      "type": "text",
+      "id": "preorder_delivery_text",
+      "label": "Pre-order Delivery Message",
+      "default": "Free UK Delivery: Available for pre order"
+    },
+    {
+      "type": "text",
+      "id": "instock_delivery_bold_text",
+      "label": "In Stock Delivery (Bold Version)",
+      "default": "Free & Fast UK Delivery: In stock & ready to ship",
+      "info": "For products without PF tag and low stock"
+    },
+    {
+      "type": "text",
+      "id": "instock_delivery_regular_text",
+      "label": "In Stock Delivery (Regular Version)", 
+      "default": "Free & Fast UK Delivery: In stock & ready to ship",
+      "info": "For products with PF tag"
+    },
+    {
+      "type": "header",
+      "content": "Inventory Settings"
+    },
+    {
+      "type": "range",
+      "id": "low_stock_threshold",
+      "label": "Low Stock Threshold",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 16,
+      "info": "Products with inventory below this number will show low stock message"
+    },
+    {
+      "type": "header",
+      "content": "Animation Settings"
+    },
+    {
+      "type": "color",
+      "id": "pulse_color",
+      "label": "Pulse Animation Color",
+      "default": "#54c63a"
+    },
+    {
+      "type": "color",
+      "id": "urgency_indicator_color",
+      "label": "Urgency Indicator Color",
+      "default": "#FFBF00"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_animations",
+      "label": "Enable Pulse Animations",
+      "default": true
+    }
+  ]
+},
+
         {
       "type": "product_status",
       "name": "Product Status Banner",
