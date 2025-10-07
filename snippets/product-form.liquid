@@ -722,7 +722,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {%- endcomment -%}
 
         {%- when 'timer' -%}
-          {% if product.tags contains "last chance" or product.tags contains "limited offer" %}
+          {% if product.tags contains "__label:LAST CHANCE" or product.tags contains "__label:LIMITED OFFER" %}
             {% render 'countdown-timer', block: block %}
           {% endif %}
         {% comment %} {% render 'countdown-timer', block: block -%} {% endcomment %}
