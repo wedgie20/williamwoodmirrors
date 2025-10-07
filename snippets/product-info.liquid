@@ -530,6 +530,13 @@ document.addEventListener("DOMContentLoaded", function() {
             color: grey;
             font-size: 0.8em;
         }
+
+        @media (max-width: 768px) {
+        .DB-logo {
+          top: 1.5px !important;
+          height: 15px !important;
+        }
+        }
     </style>
 </head>
 {% comment %} {% unless request.path contains '/en-fr/' or request.path contains '/en-de/' or request.path contains '/en-nl/' %} {% endcomment %}
