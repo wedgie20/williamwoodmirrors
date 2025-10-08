@@ -2939,6 +2939,11 @@
           categoryResultDiv.setAttribute("hidden", "");
           this.insertAdjacentElement("beforeend", categoryResultDiv);
           this.tabsNav.addButton(tabNavItem);
+          
+          // Reinitialize infinite scroll for new search results
+          if (window.reinitializeInfiniteScroll) {
+            setTimeout(window.reinitializeInfiniteScroll, 300);
+          }
         }
       }));
     }
@@ -5676,6 +5681,11 @@
           scrollTo.scrollIntoView({ block: "start", behavior: "smooth" });
         });
         this.hideLoadingBar();
+        
+        // Reinitialize infinite scroll for facet results
+        if (window.reinitializeInfiniteScroll) {
+          setTimeout(window.reinitializeInfiniteScroll, 300);
+        }
       } catch (e) {
         if (e.name === "AbortError") {
           return;

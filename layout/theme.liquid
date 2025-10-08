@@ -654,7 +654,214 @@
         }
       });
     }
+
+    // Infinite scroll for mobile product images
+    function setupInfiniteScroll() {
+      {% comment %} console.log('🔄 Setting up infinite scroll...');
+      console.log('📱 Window width:', window.innerWidth); {% endcomment %}
+      
+      // Only run on mobile devices
+      if (window.innerWidth >= 550) {
+        {% comment %} console.log('⏭️ Skipping - desktop mode'); {% endcomment %}
+        return;
+      }
+      
+      const containers = document.querySelectorAll('.updated-product-item.product-item .product-item__aspect-ratio');
+      {% comment %} console.log('📦 Found containers:', containers.length); {% endcomment %}
+      
+      containers.forEach((container, index) => {
+        // Skip if already processed
+        if (container.dataset.infiniteSetup) {
+          {% comment %} console.log(`⏭️ Container ${index} already setup`); {% endcomment %}
+          return;
+        }
+        container.dataset.infiniteSetup = 'true';
+        
+        const images = container.querySelectorAll('.mobile_images');
+        {% comment %} console.log(`🖼️ Container ${index} has ${images.length} images`); {% endcomment %}
+        
+        if (images.length <= 1) {
+          {% comment %} console.log(`⏭️ Container ${index} skipped - need more images`); {% endcomment %}
+          return;
+        }
+        
+        // Clone first and last images for seamless loop
+        const firstImage = images[0].cloneNode(true);
+        const lastImage = images[images.length - 1].cloneNode(true);
+        
+        // Mark as clones and add to container
+        firstImage.classList.add('clone-image');
+        lastImage.classList.add('clone-image');
+        
+        container.appendChild(firstImage);
+        container.insertBefore(lastImage, images[0]);
+        
+        {% comment %} console.log(`✅ Container ${index} cloned images added`); {% endcomment %}
+        
+        // Set initial position after cloning
+        setTimeout(() => {
+          const imageWidth = images[0].offsetWidth;
+          container.scrollLeft = imageWidth;
+          {% comment %} console.log(`📍 Container ${index} initial position set to ${imageWidth}px`); {% endcomment %}
+        }, 100);
+        
+        let isJumping = false;
+        let scrollTimeout;
+        
+        container.addEventListener('scroll', function() {
+          if (isJumping) return;
+          
+          // Clear any existing timeout
+          clearTimeout(scrollTimeout);
+          
+          // Set a small delay to ensure scroll has settled
+          scrollTimeout = setTimeout(() => {
+            const scrollLeft = container.scrollLeft;
+            const maxScroll = container.scrollWidth - container.clientWidth;
+            const imageWidth = images[0].offsetWidth;
+            const tolerance = imageWidth * 0.1; // 10% tolerance
+            
+            {% comment %} console.log(`📊 Scroll: ${scrollLeft}, Max: ${maxScroll}, Width: ${imageWidth}`); {% endcomment %}
+            
+            // Check if we're at the cloned last image (beginning of scroll)
+            if (scrollLeft <= tolerance) {
+              isJumping = true;
+              {% comment %} console.log(`🔄 At cloned last image, jumping to real last image`); {% endcomment %}
+              
+              // Temporarily disable scroll-snap and smooth behavior
+              container.style.scrollSnapType = 'none';
+              container.style.scrollBehavior = 'auto';
+              
+              // Jump to the real last image
+              const targetPosition = maxScroll - imageWidth;
+              container.scrollLeft = targetPosition;
+              
+              // Re-enable scroll-snap and smooth behavior after jump
+              requestAnimationFrame(() => {
+                container.style.scrollSnapType = 'x mandatory';
+                container.style.scrollBehavior = 'smooth';
+                isJumping = false;
+              });
+            }
+            // Check if we're at the cloned first image (end of scroll)
+            else if (scrollLeft >= maxScroll - tolerance) {
+              isJumping = true;
+              {% comment %} console.log(`🔄 At cloned first image, jumping to real first image`); {% endcomment %}
+              
+              // Temporarily disable scroll-snap and smooth behavior
+              container.style.scrollSnapType = 'none';
+              container.style.scrollBehavior = 'auto';
+              
+              // Jump to the real first image
+              container.scrollLeft = imageWidth;
+              
+              // Re-enable scroll-snap and smooth behavior after jump
+              requestAnimationFrame(() => {
+                container.style.scrollSnapType = 'x mandatory';
+                container.style.scrollBehavior = 'smooth';
+                isJumping = false;
+              });
+            }
+          }, 10); // Small delay to let scroll settle
+        });
+        
+        {% comment %} console.log(`✅ Container ${index} infinite scroll setup complete`); {% endcomment %}
+      });
+    }
+
+    // Run infinite scroll setup
+    setupInfiniteScroll();
+    
+    // Re-run on window resize and after content loads
+    window.addEventListener('resize', setupInfiniteScroll);
+    setTimeout(setupInfiniteScroll, 1000);
+    setTimeout(setupInfiniteScroll, 2000);
+    
+    // Call animation observer after infinite scroll is set up
+    if (typeof setupAnimateImagesObserver === 'function') {
+      setTimeout(setupAnimateImagesObserver, 1500);
+      setTimeout(setupAnimateImagesObserver, 3000);
+    }
   });
+
+  // Global function to reinitialize infinite scroll for dynamically loaded content
+  window.reinitializeInfiniteScroll = function() {
+    // Call the main infinite scroll setup
+    if (typeof setupInfiniteScroll === 'function') {
+      setupInfiniteScroll();
+    }
+    
+    // Call search-specific infinite scroll if available
+    if (typeof window.setupInfiniteScrollForSearch === 'function') {
+      window.setupInfiniteScrollForSearch();
+    }
+    
+    // Also reinitialize animation observer
+    if (typeof setupAnimateImagesObserver === 'function') {
+      setTimeout(setupAnimateImagesObserver, 500);
+    }
+  };
+
+  // Listen for common events that indicate new content has been loaded
+  document.addEventListener('shopify:section:load', function() {
+    setTimeout(window.reinitializeInfiniteScroll, 500);
+  });
+
+  // Listen for facet changes (search/filter updates)
+  document.addEventListener('facet:criteria-changed', function() {
+    setTimeout(window.reinitializeInfiniteScroll, 1000);
+  });
+
+  // Listen for predictive search updates
+  document.addEventListener('predictive-search:updated', function() {
+    setTimeout(window.reinitializeInfiniteScroll, 500);
+  });
+
+  // Listen for pagination events (AJAX pagination)
+  document.addEventListener('page:loaded', function() {
+    setTimeout(window.reinitializeInfiniteScroll, 500);
+  });
+
+  // Listen for pagination changes
+  document.addEventListener('pagination:page-changed', function() {
+    setTimeout(window.reinitializeInfiniteScroll, 800);
+  });
+
+  // Add MutationObserver to detect when new product items are added to the DOM
+  if (window.MutationObserver) {
+    const productObserver = new MutationObserver(function(mutations) {
+      let shouldReinitialize = false;
+      mutations.forEach(function(mutation) {
+        if (mutation.type === 'childList') {
+          mutation.addedNodes.forEach(function(node) {
+            if (node.nodeType === 1) { // Element node
+              // Check if new product items were added
+              if (node.classList && (node.classList.contains('product-item') || node.classList.contains('updated-product-item'))) {
+                shouldReinitialize = true;
+              }
+              // Check if new product containers were added
+              if (node.querySelector && node.querySelector('.product-item, .updated-product-item')) {
+                shouldReinitialize = true;
+              }
+            }
+          });
+        }
+      });
+      
+      if (shouldReinitialize) {
+        setTimeout(window.reinitializeInfiniteScroll, 300);
+      }
+    });
+
+    // Start observing product containers
+    const productContainers = document.querySelectorAll('.product-list, .product-list__inner, .product-facet__product-list');
+    productContainers.forEach(function(container) {
+      productObserver.observe(container, {
+        childList: true,
+        subtree: true
+      });
+    });
+  }
 </script>
   </body>
 </html>
