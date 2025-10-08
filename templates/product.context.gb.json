@@ -335,7 +335,7 @@
         "mobile_item_size": "small",
         "desktop_item_size": "pico",
         "spacing": "tight",
-        "header-56532ec6301e8804ff4170901c8654cc": null,
+        "header-0bec52f7601ee720b8cfa2be73be064f": null,
         "background": "#efefef",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -480,6 +480,63 @@
         "item_MBhTg"
       ]
     },
+    "custom_video_NwWXP": {
+      "type": "custom-video",
+      "disabled": false,
+      "custom_css": [],
+      "settings": {
+        "header-f47d76a22ae2ad57b0e82b88579a0bef": null,
+        "video": "shopify://files/videos/Website Video - Abandoned Cart v2.mp4",
+        "poster_image": "shopify://shop_images/Screenshot_2025-10-08_153408.png",
+        "autoplay": false,
+        "muted": false,
+        "loop": false,
+        "show_controls": true,
+        "show_controls_on_play": true,
+        "pause_on_scroll": true,
+        "header-13b11ef97b5ea82f16fc7e98144e66e2": null,
+        "use_aspect_ratio": false,
+        "video_aspect_ratio": "50",
+        "video_border_radius": 4,
+        "video_shadow": "0 4px 20px rgba(0,0,0,0.15)",
+        "header-0d85228ddb114c30802b1cd969bb2d45": null,
+        "play_button_size": 80,
+        "play_button_background": "#ffffff",
+        "play_button_opacity": 90,
+        "play_button_icon_color": "#000000",
+        "header-ddfb144fc62ae4e7c1fe6c2fb17a7003": null,
+        "show_header": false,
+        "title": "",
+        "subtitle": "",
+        "description": "",
+        "text_alignment": "center",
+        "header-0f117be820e73518da2ee7045f8ea723": null,
+        "title_size": 36,
+        "title_weight": "600",
+        "subtitle_size": 18,
+        "description_size": 16,
+        "header-c1e32f601276bdecfe8de3ee60acb3fd": null,
+        "show_button": false,
+        "button_text": "Learn More",
+        "button_link": "",
+        "button_background": "#000000",
+        "button_text_color": "#ffffff",
+        "button_border_radius": 4,
+        "header-e9a36ded90f62e123fd8b251b6d86491": null,
+        "container_width": 550,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "content_spacing": 10,
+        "title_margin": 0,
+        "subtitle_margin": 0,
+        "header-c0627509f9e87d28a860a584297812be": null,
+        "background_color": "#ffffff",
+        "text_color": "#000000"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Video Section"
+    },
     "text_with_icons_jchib": {
       "type": "text-with-icons",
       "disabled": false,
@@ -560,7 +617,7 @@
         "liquid": "{% if product.type == 'Table' or product.type == 'Chair' %}\n<br>\n{% if product.tags contains 'prebuilt' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n{% else %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">3-5 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives ready for quick and easy assembly.\n</span>\n</div>\n</body>\n</html>\n{% endif %}\n{% else %}\n{% if product.type == 'Furniture Set' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    All pieces of this furniture set arrive fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n\n{% endif %}\n{% endif %}\n{% if product.type == 'Mirror' %}\n<br>\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Can this mirror be wall mounted?</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\" style=\"font-size: 20px;\">Yes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This mirror can be wall mounted in{% assign description = product.description | downcase %}{% if description contains 'portrait' and description contains 'landscape' %} either{% endif %}{% if description contains 'portrait' %} portrait{% endif %}{% if description contains 'portrait' and description contains 'landscape' %} or{% endif %}{% if description contains 'landscape' %} landscape{% endif %} orientation.\n</span>\n</div>\n</body>\n</html>\n{% endif %}",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-5d712534e34e6873eac6e244850496fd": null,
+        "header-9d824768d45dca38af55e8a92594b7cc": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -581,7 +638,7 @@
         "liquid": "{% if product.type == 'Mirror' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_MakeSmallRoomsBig_v1.02.jpg?v=1729256817\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_MakeSmallRoomsBig_v1.0_2.jpg?v=1729595254\">\n{% elsif product.title contains 'Coffee Table' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_CoffeTables_v1.02_8875e8e7-b11c-4491-8427-803ef508469f.jpg?v=1729261477\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_CoffeTables_v1.0.jpg?v=1729260504\">\n{% elsif product.type == 'Lamp' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Lamps_v1.02.jpg?v=1729518322\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Lamps_v1.0_3.jpg?v=1730115270\">\n{% elsif product.type == 'vase' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Vases_v1.22.jpg?v=1730293344\">\n{% endif %}",
         "add_vertical_spacing": true,
         "background_type": "full_width",
-        "header-4c3583ae7ffdafc571f5f5685a981b36": null,
+        "header-8c3192ce192627fae6e910195fcec4e6": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -601,7 +658,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-3b981445b00dba7492bbc2a45193f7f1": null,
+        "header-05589cf467656aced7c295829c0de49d": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -623,7 +680,7 @@
         "liquid": "<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_ElevateYourHome-02.jpg?v=1729592904\">",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-6ea1ec670e2044c7a61d5f63c073178d": null,
+        "header-85e3f345814b9c5da03ab272f4f9a56b": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -669,7 +726,7 @@
         "liquid": "<video src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/videos/c/o/v/d07d71b60fe9447c99bada59959df6a3.mp4\" controls \n  poster=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/A_sit_down_with_Jenna_final_edit_2_0-00-02-24.jpg?v=1728481189\">\n  Your browser does not support the video tag.\n</video>",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-6a0cf0510133a0a1ea8f5df7fd0e5e9e": null,
+        "header-442d6bbae9800622e2738c67a2b3e4a9": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -711,7 +768,7 @@
           "type": "product_status",
           "disabled": false,
           "settings": {
-            "header-85794c2d75082de2b66a3515c1c88288": null,
+            "header-db30eb2eab6b8d1d1119fc64c5f6eef8": null,
             "margin_top": 0,
             "font_weight": "bold",
             "font_size": 12,
@@ -721,11 +778,11 @@
             "border_radius": 15,
             "padding_vertical": 5,
             "padding_horizontal": 15,
-            "background_image": "shopify://shop_images/Autumn_Banner_V2.jpg",
-            "header-730e94d5703d4923954823f17090f011": null,
-            "promo_text": "15% off storewide, enter code OCT15 at checkout (Ends Soon)\nor\nBuy 2 items and receive 25% off, no code required\nor\nBuy 3 items or more and receive 30% off, no code required\n+\nFree Gift with your purchase worth up to £99 GBP when you spend £299 GBP or more",
-            "sale_text": "Extra 10% off Autumn Sale, enter code AS10 at checkout\n+\nFree Gift with your purchase worth up to £99 GBP when you spend £299 GBP or more",
-            "header-42566c4c6207d7757dfc8b98905b576b": null,
+            "background_image": "shopify://shop_images/Prime_Edition_Desktop_Landing_V1.jpg",
+            "header-2e9ec18599726fa3cf2bcfa1eb84fd2e": null,
+            "promo_text": "15% off full price, enter code OCT15 at checkout (Ends Soon)\nor\nBuy 2 full priced items and receive 25% off, no code required\nor\nBuy 3 full priced items or more and receive 30% off, no code required\n+\nFree Gift with your purchase worth up to £99 GBP when you spend £299 GBP or more",
+            "sale_text": "Extra 10% off Prime Edition, enter code P10 at checkout (Ends Midnight Tonight)\n+\nFree Gift with your purchase worth up to £99 GBP when you spend £299 GBP or more",
+            "header-39a68ab225114446b00dfc4d968374ff": null,
             "coming_soon_text": "Coming Soon",
             "back_soon_text": "Back in stock soon, sign up for restock notifications below",
             "black_friday_launch_text": "Launches 29.11.24",
@@ -733,7 +790,7 @@
             "black_friday_restock_text": "Restocks 29.11.24",
             "restock_text": "Restocks [DATE] 8PM",
             "out_of_stock_text": "Currently out of stock",
-            "header-94393642a2ba3b467e9a396ca457f27f": null,
+            "header-bc1141124c8c60bf57e027057b32d768": null,
             "show_hudson_message": true,
             "hudson_message": "Free cushion included with the Hudson Chair"
           }
@@ -756,29 +813,29 @@
           "type": "liquid",
           "disabled": true,
           "settings": {
-            "liquid": "{% if product.available %}\n{% if product.tags contains '__label:RESTOCKED' %}\n<div style=\"margin-left: 5px;\">\n<b> Recently restocked</b>, don't miss out.\n</div>\n{% endif %}\n{% if product.variants[0].inventory_quantity < 16 %}\n<span style=\"margin-left: 4px;\"><span class=\"urgency-indicator\"></span> Low stock, <b>only {{ product.variants[0].inventory_quantity }} left</b></span>\n{% else %}\n<div style=\"margin-left: 5px;\"><b>Availability is limited</b> - secure yours while stock lasts</div>\n{% endif %}\n{% endif %}\n\n\n\n{% if product.tags contains '__label:LAST CHANCE' %}\n<div style=\"margin-top: 10px; margin-bottom: 10px; margin-left: 5px;\">Last chance to purchase, this product <b>won't be restocked.</b></div>\n{% endif %}\n\n{% if product.tags contains '__label:LIMITED OFFER' %}\n<div style=\"margin-top: 10px; margin-bottom: 10px; margin-left: 5px;\"><span style=\"font-weight: bold;\">Exclusive offer</span>, returning to full price soon.</div>\n{% endif %}\n\n<div style=\"margin-top: 0px; margin-bottom: 15px; display: flex; flex-direction: column;\">\n{% if product.variants[0].inventory_quantity > 0 %}\n{% for tag in product.tags %}\n{% if tag == 'pre-order' and product.variants[0].inventory_quantity < 16 %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: Available for pre order</span>\n</div>\n{% elsif tag == 'pre-order' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: Available for pre order</span>\n</div>\n{% endif %}\n{% endfor %}\n{% unless product.tags contains 'pre-order' %}\n{% if product.available and product.variants[0].inventory_quantity < 16 %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span><b>Free</b> &  <b>Fast</b> UK Delivery: <b>In stock</b> & ready to ship</span>\n</div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span><b>Free</b> & <b>Fast</b> UK Delivery: In stock & ready to ship</span>\n</div>\n{% endunless %}\n{% else %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span><b>Free</b> & <b>Fast</b> UK Delivery: <b>In stock</b> & ready to ship</span>\n</div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span><b>Free</b> & <b>Fast</b> UK Delivery: <b>In stock</b> & ready to ship</span>\n</div>\n{% endunless %}\n{% endif %}\n{% endunless %}\n{% endif %}\n</div>\n\n<style>\n{% if product.available %}\n.instock-pulse {\ndisplay: flex;\nflex-wrap: nowrap;\nalign-items: center;\njustify-content: center;\nmargin: 3px 0 0;\n}\n.icon--pulsing {\nposition: relative;\nwidth: 20px;\nheight: 20px;\nmargin-right: 5px;\n}\n.icon--pulsing:after,\n.icon--pulsing:before {\nbackground: #54c63a;\nwidth: 10px;\nheight: 10px;\nborder-radius: 10px;\nposition: absolute;\nleft: 0;\ntop: 0;\ncontent: \"\";\nmargin: 5px;\n}\n@keyframes inventory-pulse {\n0% {\nopacity: 0.5;\n}\nto {\ntransform: scale(2.5);\nopacity: 0;\n}\n}\n{% endif %}\n{% if product.variants[0].inventory_quantity >= 11 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 2.5s linear infinite;\n}\n{% elsif product.variants[0].inventory_quantity < 11 and product.variants[0].inventory_quantity > 1 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1.5s linear infinite;\n}\n{% else %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1s linear infinite;\n}\n{% endif %}\n\n.urgency-indicator {\nposition: relative;\ndisplay: inline-block;\nwidth: 10px;\nheight: 10px;\nmargin-right: 6px;\nvertical-align: middle;\nbackground-color: #FFBF00;\nborder-radius: 20px;\nmargin-top: -1px;\n}\n.urgency-indicator::before {\nanimation: inventory-pulse 2s linear infinite;\nwidth: 8px;\nheight: 8px;\n}\n.urgency-indicator::before,\n.urgency-indicator::after {\nbackground: #FFBF00;\nborder-radius: 9px;\nposition: absolute;\nleft: 1px;\ntop: 1px;\ncontent: '';\n}\n</style>"
+            "liquid": "{% if product.available %}\n{% if product.tags contains '__label:RESTOCKED' %}\n<div style=\"margin-left: 5px;\">\n<b> Recently restocked</b>, don't miss out.\n</div>\n{% endif %}\n{% if product.variants[0].inventory_quantity < 16 %}\n<span style=\"margin-left: 4px;\"><span class=\"urgency-indicator\"></span> Low stock, <b>only {{ product.variants[0].inventory_quantity }} left</b></span>\n{% else %}\n<div style=\"margin-left: 5px;\"><b>Availability is limited</b> - secure yours while stock lasts</div>\n{% endif %}\n{% endif %}\n\n\n\n{% if product.tags contains '__label:LAST CHANCE' %}\n<div style=\"margin-top: 10px; margin-bottom: 10px; margin-left: 5px;\">Last chance to purchase, this product <b>won't be restocked.</b> Price increases midnight tonight.</div>\n{% endif %}\n\n{% if product.tags contains '__label:LIMITED OFFER' %}\n<div style=\"margin-top: 10px; margin-bottom: 10px; margin-left: 5px;\"><span style=\"font-weight: bold;\">Exclusive Prime Edition offer</span>, price increases midnight tonight.</div>\n{% endif %}\n\n<div style=\"margin-top: 0px; margin-bottom: 15px; display: flex; flex-direction: column;\">\n{% if product.variants[0].inventory_quantity > 0 %}\n{% for tag in product.tags %}\n{% if tag == 'pre-order' and product.variants[0].inventory_quantity < 16 %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: Available for pre order</span>\n</div>\n{% elsif tag == 'pre-order' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: Available for pre order</span>\n</div>\n{% endif %}\n{% endfor %}\n{% unless product.tags contains 'pre-order' %}\n{% if product.available and product.variants[0].inventory_quantity < 16 %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span><b>Free</b> &  <b>Fast</b> UK Delivery: <b>In stock</b> & ready to ship</span>\n</div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span><b>Free</b> & <b>Fast</b> UK Delivery: In stock & ready to ship</span>\n</div>\n{% endunless %}\n{% else %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span><b>Free</b> & <b>Fast</b> UK Delivery: <b>In stock</b> & ready to ship</span>\n</div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span><b>Free</b> & <b>Fast</b> UK Delivery: <b>In stock</b> & ready to ship</span>\n</div>\n{% endunless %}\n{% endif %}\n{% endunless %}\n{% endif %}\n</div>\n\n<style>\n{% if product.available %}\n.instock-pulse {\ndisplay: flex;\nflex-wrap: nowrap;\nalign-items: center;\njustify-content: center;\nmargin: 3px 0 0;\n}\n.icon--pulsing {\nposition: relative;\nwidth: 20px;\nheight: 20px;\nmargin-right: 5px;\n}\n.icon--pulsing:after,\n.icon--pulsing:before {\nbackground: #54c63a;\nwidth: 10px;\nheight: 10px;\nborder-radius: 10px;\nposition: absolute;\nleft: 0;\ntop: 0;\ncontent: \"\";\nmargin: 5px;\n}\n@keyframes inventory-pulse {\n0% {\nopacity: 0.5;\n}\nto {\ntransform: scale(2.5);\nopacity: 0;\n}\n}\n{% endif %}\n{% if product.variants[0].inventory_quantity >= 11 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 2.5s linear infinite;\n}\n{% elsif product.variants[0].inventory_quantity < 11 and product.variants[0].inventory_quantity > 1 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1.5s linear infinite;\n}\n{% else %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1s linear infinite;\n}\n{% endif %}\n\n.urgency-indicator {\nposition: relative;\ndisplay: inline-block;\nwidth: 10px;\nheight: 10px;\nmargin-right: 6px;\nvertical-align: middle;\nbackground-color: #FFBF00;\nborder-radius: 20px;\nmargin-top: -1px;\n}\n.urgency-indicator::before {\nanimation: inventory-pulse 2s linear infinite;\nwidth: 8px;\nheight: 8px;\n}\n.urgency-indicator::before,\n.urgency-indicator::after {\nbackground: #FFBF00;\nborder-radius: 9px;\nposition: absolute;\nleft: 1px;\ntop: 1px;\ncontent: '';\n}\n</style>"
           }
         },
         "low_stock_tPEQa": {
           "type": "low_stock",
           "disabled": false,
           "settings": {
-            "header-e393e16c0964d223fd24a18505644be5": null,
+            "header-e4323e681a829a711d71f91aa015610e": null,
             "restocked_text": "Recently restocked, don't miss out.",
             "low_stock_text": "Low stock, only",
             "low_stock_suffix": "left",
             "limited_availability_text": "Availability is limited - secure yours while stock lasts",
-            "header-2bd62b1b2ba07ac338148b090b66df34": null,
-            "last_chance_text": "Last chance to purchase, this product won't be restocked.",
-            "limited_offer_prefix": "Exclusive offer",
-            "limited_offer_suffix": ", returning to full price soon.",
-            "header-6964b59e11d12a44ad427cffbaa8a2a1": null,
+            "header-5f37ba7c98a1ac148fffa3dfd33993c2": null,
+            "last_chance_text": "Last chance to purchase, this product <b>won't be restocked.</b> Price increases midnight tonight.",
+            "limited_offer_prefix": "Exclusive Prime Edition offer",
+            "limited_offer_suffix": ", price increases midnight tonight.",
+            "header-b747a6fe5f4336f35808836418f527c9": null,
             "preorder_delivery_text": "Free UK Delivery: Available for pre order",
-            "instock_delivery_bold_text": "Free & Fast UK Delivery: In stock & ready to ship",
-            "instock_delivery_regular_text": "Free & Fast UK Delivery: In stock & ready to ship",
-            "header-1f98c9209ae5632f11b3eef13b25f666": null,
+            "instock_delivery_bold_text": "<b>Free & Fast</b> UK Delivery: <b>In stock</b> & ready to ship",
+            "instock_delivery_regular_text": "<b>Free & Fast UK</b> Delivery: In stock & ready to ship",
+            "header-5fe7fa279b7f29a776ed096c2ed7cc54": null,
             "low_stock_threshold": 16,
-            "header-486b316ccc7c0375c45f7b3ab9d7829e": null,
+            "header-2998b3cd6426717b2877a159d0f308df": null,
             "pulse_color": "#54c63a",
             "urgency_indicator_color": "#ffbf00",
             "enable_animations": true
@@ -786,11 +843,11 @@
         },
         "timer_6zhje": {
           "type": "timer",
-          "disabled": true,
+          "disabled": false,
           "settings": {
-            "start_time": "2025-09-24 00:00",
-            "end_time": "2025-09-30 23:59",
-            "label": "20% off storewide code AUTUMN. End of Month Sale ends in..."
+            "start_time": "2025-10-07 00:00",
+            "end_time": "2025-10-08 23:59",
+            "label": "Extra 10% off with code P10. Prime Edition Sale ends in..."
           }
         },
         "buy_buttons": {
@@ -887,7 +944,7 @@
           "type": "button",
           "disabled": false,
           "settings": {
-            "paragraph-23d5e06228e7f84b81bbfef676005d58": null,
+            "paragraph-243e728aa640ce545dfa4720fa7e5f59": null,
             "link": "",
             "text": "",
             "stretch": true,
@@ -1024,12 +1081,47 @@
         "title2": "Follow @williamwood"
       },
       "blocks": {}
+    },
+    "video_hero_WR9EV": {
+      "type": "video-hero",
+      "disabled": true,
+      "custom_css": [
+        "@media (min-width: 750px) {{display: none;}}"
+      ],
+      "settings": {
+        "header-e7ad1a303719c0f142c4952df04540c1": null,
+        "desktop_video": "shopify://files/videos/Website Video - Abandoned Cart v2.mp4",
+        "desktop_poster": null,
+        "mobile_video": null,
+        "mobile_poster": null,
+        "autoplay": false,
+        "loop": true,
+        "hide_controls": false,
+        "header-d3c286d24afdbd3b825a03f8bb2cdecc": null,
+        "show_content": true,
+        "show_heading": true,
+        "show_text": true,
+        "show_button": true,
+        "header-2728b3d6649af265f63b52e505876f9b": null,
+        "section_height": 80,
+        "mobile_section_height": 80,
+        "header-4896dafb939b7c4a244151021b6e6256": null,
+        "overlay_opacity": 30,
+        "text_color": "#ffffff",
+        "button_color": "#000000",
+        "start_muted": false
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Video Hero"
     }
   },
   "order": [
     "main",
     "infinite_scroller_LGnhM",
     "multi_column_cBCjX",
+    "custom_video_NwWXP",
+    "video_hero_WR9EV",
     "text_with_icons_jchib",
     "custom_liquid_3UjHa",
     "product-content",
