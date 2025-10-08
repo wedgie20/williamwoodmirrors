@@ -52,6 +52,12 @@
     border-radius: {{ section.settings.video_border_radius }}px;
     overflow: hidden;
     box-shadow: {{ section.settings.video_shadow }};
+    {% if section.settings.poster_image != blank and section.settings.autoplay == false %}
+    background-image: url('{{ section.settings.poster_image | image_url: width: 1920 }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    {% endif %}
   }
 
   .video-section__video {
@@ -70,6 +76,19 @@
     object-fit: cover;
     cursor: pointer;
     transition: opacity 0.3s ease;
+    z-index: 1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  /* iOS specific fixes for poster */
+  @supports (-webkit-touch-callout: none) {
+    .video-section__poster {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      will-change: opacity;
+    }
   }
 
   .video-section__play-button {
@@ -153,6 +172,34 @@
       width: {{ section.settings.play_button_size | minus: 20 | divided_by: 3 }}px;
       height: {{ section.settings.play_button_size | minus: 20 | divided_by: 3 }}px;
     }
+
+    /* Mobile-specific poster fixes */
+    .video-section__poster {
+      pointer-events: auto;
+      touch-action: manipulation;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    .video-section__video-wrapper {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  /* iOS Safari specific fixes */
+  @supports (-webkit-touch-callout: none) {
+    .video-section__video-wrapper {
+      -webkit-perspective: 1000;
+      perspective: 1000;
+    }
+    
+    .video-section__poster {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
   }
 
   /* Video aspect ratio container */
@@ -208,7 +255,9 @@
           {% if section.settings.loop %}loop{% endif %}
           {% if section.settings.show_controls %}controls{% endif %}
           {% unless section.settings.autoplay %}preload="metadata"{% else %}preload="auto"{% endunless %}
+          {% if section.settings.poster_image != blank and section.settings.autoplay == false %}poster="{{ section.settings.poster_image | image_url: width: 1920 }}"{% endif %}
           playsinline
+          webkit-playsinline
         >
           <source src="{{ section.settings.video.sources[1].url }}" type="video/mp4">
           <source src="{{ section.settings.video.sources[0].url }}" type="video/webm">
@@ -217,12 +266,13 @@
 
         {% unless section.settings.autoplay or section.settings.show_controls %}
           {% if section.settings.poster_image != blank %}
-            <img 
+            <div 
               class="video-section__poster" 
-              src="{{ section.settings.poster_image | img_url: '1920x' }}"
-              alt="{{ section.settings.poster_image.alt | default: section.settings.title }}"
+              style="background-image: url('{{ section.settings.poster_image | image_url: width: 1920 }}');"
               id="{{ video_id }}-poster"
-            >
+              role="img"
+              aria-label="{{ section.settings.poster_image.alt | default: section.settings.title }}"
+            ></div>
           {% endif %}
 
           <button 
@@ -258,11 +308,28 @@ document.addEventListener('DOMContentLoaded', function() {
   const poster = document.getElementById('{{ video_id }}-poster');
   const playButton = document.getElementById('{{ video_id }}-play-btn');
 
+  // Force poster visibility on mobile
+  if (poster && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+    poster.style.display = 'block';
+    poster.style.opacity = '1';
+    poster.style.visibility = 'visible';
+  }
+
   if (video && playButton) {
     function playVideo() {
-      video.play();
-      if (poster) poster.style.opacity = '0';
-      playButton.style.opacity = '0';
+      // Remove poster attribute to prevent conflicts
+      video.removeAttribute('poster');
+      
+      video.play().then(() => {
+        if (poster) {
+          poster.style.opacity = '0';
+          poster.style.visibility = 'hidden';
+        }
+        playButton.style.opacity = '0';
+        playButton.style.visibility = 'hidden';
+      }).catch(error => {
+        console.log('Video play failed:', error);
+      });
       
       // Show controls after playing if enabled
       {% if section.settings.show_controls_on_play %}
@@ -274,23 +341,40 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (poster) {
       poster.addEventListener('click', playVideo);
+      poster.addEventListener('touchstart', playVideo, { passive: true });
     }
 
     // Hide poster and play button when video starts playing
     video.addEventListener('play', function() {
-      if (poster) poster.style.opacity = '0';
+      if (poster) {
+        poster.style.opacity = '0';
+        poster.style.visibility = 'hidden';
+      }
       playButton.style.opacity = '0';
+      playButton.style.visibility = 'hidden';
     });
 
     // Show poster and play button when video ends (if not looping)
     video.addEventListener('ended', function() {
       {% unless section.settings.loop %}
-        if (poster) poster.style.opacity = '1';
+        if (poster) {
+          poster.style.opacity = '1';
+          poster.style.visibility = 'visible';
+        }
         playButton.style.opacity = '1';
+        playButton.style.visibility = 'visible';
         {% if section.settings.show_controls_on_play %}
           video.controls = false;
         {% endif %}
       {% endunless %}
+    });
+
+    // Ensure poster is visible on load
+    video.addEventListener('loadstart', function() {
+      if (poster && !video.autoplay) {
+        poster.style.opacity = '1';
+        poster.style.visibility = 'visible';
+      }
     });
 
     // Pause video when it goes out of viewport (if enabled)
