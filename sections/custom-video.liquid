@@ -49,16 +49,16 @@
     position: relative;
     width: 100%;
     margin-top: {{ section.settings.content_spacing }}px;
-    border-radius: {{ section.settings.video_border_radius }}px;
+    border-radius: {{ section.settings.video_border_radius | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  }}px;
     overflow: hidden;
-    box-shadow: {{ section.settings.video_shadow }};
+    box-shadow: {{ section.settings.video_shadow | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  }};
   }
 
   .video-section__video {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: {{ section.settings.video_border_radius }}px;
+    border-radius: {{ section.settings.video_border_radius | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  }}px;
   }
 
   .video-section__poster {
@@ -160,9 +160,9 @@
     position: relative;
     width: 100%;
     height: 0;
-    padding-bottom: {{ section.settings.video_aspect_ratio }}%;
+    padding-bottom: {{ section.settings.video_aspect_ratio | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  }}%;
     overflow: hidden;
-    border-radius: {{ section.settings.video_border_radius }}px;
+    border-radius: {{ section.settings.video_border_radius | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  }}px;
   }
 
   .video-section__aspect-ratio .video-section__video,
@@ -189,7 +189,7 @@
         {% endif %}
         
         {% if section.settings.description != blank %}
-          <div class="video-section__description">{{ section.settings.description }}</div>
+          <div class="video-section__description">{{ section.settings.description | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  }}</div>
         {% endif %}
       </div>
     {% endif %}
@@ -201,7 +201,7 @@
         {% endif %}
         
         <video
-          id="{{ video_id }}"
+          id="{{ video_id | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  }}"
           class="video-section__video"
           {% if section.settings.autoplay %}autoplay{% endif %}
           {% if section.settings.muted %}muted{% endif %}
@@ -210,8 +210,8 @@
           {% unless section.settings.autoplay %}preload="metadata"{% else %}preload="auto"{% endunless %}
           playsinline
         >
-          <source src="{{ section.settings.video.sources[1].url }}" type="video/mp4">
-          <source src="{{ section.settings.video.sources[0].url }}" type="video/webm">
+          <source src="{{ section.settings.video.sources[1].url | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  }}" type="video/mp4">
+          <source src="{{ section.settings.video.sources[0].url | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  }}" type="video/webm">
           Your browser does not support the video tag.
         </video>
 
@@ -219,15 +219,15 @@
           {% if section.settings.poster_image != blank %}
             <img 
               class="video-section__poster" 
-              src="{{ section.settings.poster_image | img_url: '1920x' }}"
+              src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.poster_image | img_url: '1920x' }}"
               alt="{{ section.settings.poster_image.alt | default: section.settings.title }}"
-              id="{{ video_id }}-poster"
+              id="{{ video_id | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  }}-poster"
             >
           {% endif %}
 
           <button 
             class="video-section__play-button" 
-            id="{{ video_id }}-play-btn"
+            id="{{ video_id | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  }}-play-btn"
             aria-label="Play video"
           >
             <svg class="video-section__play-icon" viewBox="0 0 24 24">
@@ -254,9 +254,9 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const video = document.getElementById('{{ video_id }}');
-  const poster = document.getElementById('{{ video_id }}-poster');
-  const playButton = document.getElementById('{{ video_id }}-play-btn');
+  const video = document.getElementById('{{ video_id | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  }}');
+  const poster = document.getElementById('{{ video_id | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  }}-poster');
+  const playButton = document.getElementById('{{ video_id | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  }}-play-btn');
 
   if (video && playButton) {
     function playVideo() {
