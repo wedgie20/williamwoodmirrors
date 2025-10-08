@@ -358,20 +358,131 @@ SECTION: Url Parsing
   if (!window.matchMedia('(max-width: 549px)').matches) return;
   const elements = document.querySelectorAll('.this_is_animate');
   if (!('IntersectionObserver' in window)) return; // Fallback for old browsers
+  
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const el = entry.target;
-        el.classList.remove('animate_images');
-        // Force reflow to restart the animation
-        void el.offsetWidth;
-        el.classList.add('animate_images');
+        
+        // Check if container has mobile images
+        const mobileImages = el.querySelectorAll('.mobile_images');
+        if (mobileImages.length > 0) {
+          // Temporarily disable scroll-snap to prevent conflicts with animation
+          const originalScrollSnapType = el.style.scrollSnapType;
+          el.style.scrollSnapType = 'none';
+          
+          // Remove and re-add animation class for restart
+          el.classList.remove('animate_images');
+          // Force reflow to restart the animation
+          void el.offsetWidth;
+          el.classList.add('animate_images');
+          
+          // Re-enable scroll-snap after animation completes (1s animation + small buffer)
+          setTimeout(() => {
+            el.style.scrollSnapType = originalScrollSnapType || 'x mandatory';
+          }, 1200);
+        }
       }
     });
   }, { threshold: 0.1 });
+  
   elements.forEach(el => observer.observe(el));
 }
-document.addEventListener('DOMContentLoaded', setupAnimateImagesObserver);
+// Infinite scroll setup function for digioh results
+function setupInfiniteScrollForSearch() {
+  // Only run on mobile devices
+  if (window.innerWidth >= 550) return;
+  
+  const containers = document.querySelectorAll('.updated-product-item.product-item .product-item__aspect-ratio');
+  
+  containers.forEach((container, index) => {
+    // Skip if already processed
+    if (container.dataset.infiniteSetup) return;
+    container.dataset.infiniteSetup = 'true';
+    
+    const images = container.querySelectorAll('.mobile_images');
+    if (images.length <= 1) return;
+    
+    // Clone first and last images for seamless loop
+    const firstImage = images[0].cloneNode(true);
+    const lastImage = images[images.length - 1].cloneNode(true);
+    
+    // Mark as clones and add to container
+    firstImage.classList.add('clone-image');
+    lastImage.classList.add('clone-image');
+    
+    container.appendChild(firstImage);
+    container.insertBefore(lastImage, images[0]);
+    
+    // Set initial position after cloning
+    setTimeout(() => {
+      const imageWidth = images[0].offsetWidth;
+      container.scrollLeft = imageWidth;
+    }, 100);
+    
+    let isJumping = false;
+    let scrollTimeout;
+    
+    container.addEventListener('scroll', function() {
+      if (isJumping) return;
+      
+      clearTimeout(scrollTimeout);
+      
+      scrollTimeout = setTimeout(() => {
+        const scrollLeft = container.scrollLeft;
+        const maxScroll = container.scrollWidth - container.clientWidth;
+        const imageWidth = images[0].offsetWidth;
+        const tolerance = imageWidth * 0.1;
+        
+        // Check if we're at the cloned last image (beginning of scroll)
+        if (scrollLeft <= tolerance) {
+          isJumping = true;
+          container.style.scrollSnapType = 'none';
+          container.style.scrollBehavior = 'auto';
+          
+          const targetPosition = maxScroll - imageWidth;
+          container.scrollLeft = targetPosition;
+          
+          requestAnimationFrame(() => {
+            container.style.scrollSnapType = 'x mandatory';
+            container.style.scrollBehavior = 'smooth';
+            isJumping = false;
+          });
+        }
+        // Check if we're at the cloned first image (end of scroll)
+        else if (scrollLeft >= maxScroll - tolerance) {
+          isJumping = true;
+          container.style.scrollSnapType = 'none';
+          container.style.scrollBehavior = 'auto';
+          
+          container.scrollLeft = imageWidth;
+          
+          requestAnimationFrame(() => {
+            container.style.scrollSnapType = 'x mandatory';
+            container.style.scrollBehavior = 'smooth';
+            isJumping = false;
+          });
+        }
+      }, 10);
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  setupAnimateImagesObserver();
+  setupInfiniteScrollForSearch();
+  
+  // Call again after infinite scroll setup (with delay to ensure DOM is ready)
+  setTimeout(setupAnimateImagesObserver, 1500);
+  setTimeout(setupAnimateImagesObserver, 3000);
+  setTimeout(setupInfiniteScrollForSearch, 1000);
+  setTimeout(setupInfiniteScrollForSearch, 2000);
+});
+
+// Also call when search results are updated (for dynamic content)
+if (typeof window.setupInfiniteScrollForSearch === 'undefined') {
+  window.setupInfiniteScrollForSearch = setupInfiniteScrollForSearch;
+}
 </script>
 
 <style>
@@ -386,9 +497,19 @@ document.addEventListener('DOMContentLoaded', setupAnimateImagesObserver);
   50% { transform: translate3d(-25%, 0, 0); }
   100% { transform: translateZ(0); }
 }
-.updated-product-item.product-item .product-item__aspect-ratio.animate_images .mobile_images.clc-Items_Items-animate{
+.updated-product-item.product-item .product-item__aspect-ratio.animate_images .mobile_images.clc-Items_Items-animate:not(.clone-image) {
   animation: peekAnimation 1s ease-in-out;
   animation-delay: 2s;
+}
+
+/* Ensure cloned images don't interfere with animation */
+.updated-product-item.product-item .product-item__aspect-ratio.animate_images .mobile_images.clone-image {
+  animation: none;
+}
+
+/* Prevent scroll-snap during animation to avoid conflicts */
+.updated-product-item.product-item .product-item__aspect-ratio.animate_images {
+  scroll-snap-type: none !important;
 }
     .updated-product-item.product-item .product-item__secondary-image, .updated-product-item.product-item .product-item__primary-image {
       display: none !important;
