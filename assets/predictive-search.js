@@ -132,6 +132,14 @@ if (header && quickSearchContent) {
           document.querySelector("#search-result-count").innerHTML;
 
         this.setQueryButtonListeners();
+        
+        // Reinitialize infinite scroll for new search results
+        if (window.reinitializeInfiniteScroll) {
+          setTimeout(window.reinitializeInfiniteScroll, 300);
+        }
+        
+        // Dispatch custom event for search results updated
+        document.dispatchEvent(new CustomEvent('predictive-search:updated'));
       })
       .catch((error) => {
         console.error("Error fetching sections:", error);
@@ -195,6 +203,14 @@ if (quickSearchContent) {
         // populate the target with the result
         document.querySelector(targetEl).innerHTML = result[section];
         this.setQueryButtonListeners();
+        
+        // Reinitialize infinite scroll for dynamically loaded content
+        if (window.reinitializeInfiniteScroll) {
+          setTimeout(window.reinitializeInfiniteScroll, 300);
+        }
+        
+        // Dispatch custom event for section rendered
+        document.dispatchEvent(new CustomEvent('predictive-search:updated'));
       });
   }
 }

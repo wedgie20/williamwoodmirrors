@@ -604,20 +604,43 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!window.matchMedia('(max-width: 549px)').matches) return;
   const elements = document.querySelectorAll('.this_is_animate');
   if (!('IntersectionObserver' in window)) return; // Fallback for old browsers
+  
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const el = entry.target;
-        el.classList.remove('animate_images');
-        // Force reflow to restart the animation
-        void el.offsetWidth;
-        el.classList.add('animate_images');
+        
+        // Check if container has mobile images
+        const mobileImages = el.querySelectorAll('.mobile_images');
+        if (mobileImages.length > 0) {
+          // Temporarily disable scroll-snap to prevent conflicts with animation
+          const originalScrollSnapType = el.style.scrollSnapType;
+          el.style.scrollSnapType = 'none';
+          
+          // Remove and re-add animation class for restart
+          el.classList.remove('animate_images');
+          // Force reflow to restart the animation
+          void el.offsetWidth;
+          el.classList.add('animate_images');
+          
+          // Re-enable scroll-snap after animation completes (1s animation + small buffer)
+          setTimeout(() => {
+            el.style.scrollSnapType = originalScrollSnapType || 'x mandatory';
+          }, 1200);
+        }
       }
     });
   }, { threshold: 0.1 });
+  
   elements.forEach(el => observer.observe(el));
 }
-document.addEventListener('DOMContentLoaded', setupAnimateImagesObserver);
+document.addEventListener('DOMContentLoaded', function() {
+  setupAnimateImagesObserver();
+  
+  // Call again after infinite scroll setup (with delay to ensure DOM is ready)
+  setTimeout(setupAnimateImagesObserver, 1500);
+  setTimeout(setupAnimateImagesObserver, 3000);
+});
 </script>
 
 <style>
@@ -712,9 +735,19 @@ translate: 0 -200%;
 .product-item__cta-wrapper .product-item__cta {
     margin-bottom: -8px !important;
   }
-.updated-product-item.product-item .product-item__aspect-ratio.animate_images .mobile_images.clc-Items_Items-animate{
+.updated-product-item.product-item .product-item__aspect-ratio.animate_images .mobile_images.clc-Items_Items-animate:not(.clone-image) {
   animation: peekAnimation 1s ease-in-out;
   animation-delay: 2s;
+}
+
+/* Ensure cloned images don't interfere with animation */
+.updated-product-item.product-item .product-item__aspect-ratio.animate_images .mobile_images.clone-image {
+  animation: none;
+}
+
+/* Prevent scroll-snap during animation to avoid conflicts */
+.updated-product-item.product-item .product-item__aspect-ratio.animate_images {
+  scroll-snap-type: none !important;
 }
     .updated-product-item.product-item .product-item__secondary-image, .updated-product-item.product-item .product-item__primary-image {
       display: none !important;
@@ -733,6 +766,30 @@ translate: 0 -200%;
     scroll-snap-stop: always;
     width: 100%;
     position: unset;
+    }
+    
+    /* Hide scrollbar for infinite scroll */
+    .updated-product-item.product-item .product-item__aspect-ratio::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* Smooth scroll behavior for infinite loop - controlled by JavaScript */
+    .updated-product-item.product-item .product-item__aspect-ratio {
+      scroll-behavior: smooth;
+    }
+    
+    /* Ensure scroll-snap works properly with clones */
+    .updated-product-item.product-item .product-item__aspect-ratio {
+      scroll-snap-type: x mandatory;
+    }
+    
+    /* Clone images should look identical */
+    .updated-product-item.product-item .mobile_images.clone-image {
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      width: 100%;
+      position: unset;
     }
   }
 </style>
