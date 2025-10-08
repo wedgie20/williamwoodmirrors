@@ -1,0 +1,736 @@
+{%- liquid
+  assign video_id = 'video-' | append: section.id
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --video-section-background: {{ section.settings.background_color.red }}, {{ section.settings.background_color.green }}, {{ section.settings.background_color.blue }};
+    --video-section-text-color: {{ section.settings.text_color.red }}, {{ section.settings.text_color.green }}, {{ section.settings.text_color.blue }};
+  }
+
+  .video-section {
+    background: rgb(var(--video-section-background));
+    color: rgb(var(--video-section-text-color));
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+  }
+
+  .video-section__inner {
+    max-width: {{ section.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .video-section__header {
+    text-align: {{ section.settings.text_alignment }};
+    margin-bottom: {{ section.settings.content_spacing }}px;
+  }
+
+  .video-section__title {
+    font-size: {{ section.settings.title_size }}px;
+    font-weight: {{ section.settings.title_weight }};
+    margin-bottom: {{ section.settings.title_margin }}px;
+    line-height: 1.2;
+  }
+
+  .video-section__subtitle {
+    font-size: {{ section.settings.subtitle_size }}px;
+    opacity: 0.8;
+    margin-bottom: {{ section.settings.subtitle_margin }}px;
+  }
+
+  .video-section__description {
+    font-size: {{ section.settings.description_size }}px;
+    line-height: 1.6;
+    max-width: 800px;
+    {% if section.settings.text_alignment == 'center' %}margin: 0 auto;{% endif %}
+  }
+
+  .video-section__video-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: {{ section.settings.content_spacing }}px;
+    border-radius: {{ section.settings.video_border_radius }}px;
+    overflow: hidden;
+    box-shadow: {{ section.settings.video_shadow }};
+  }
+
+  .video-section__video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: {{ section.settings.video_border_radius }}px;
+  }
+
+  .video-section__poster {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+
+  .video-section__play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: {{ section.settings.play_button_size }}px;
+    height: {{ section.settings.play_button_size }}px;
+    background: rgba({{ section.settings.play_button_background.red }}, {{ section.settings.play_button_background.green }}, {{ section.settings.play_button_background.blue }}, {{ section.settings.play_button_opacity | divided_by: 100.0 }});
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 2;
+  }
+
+  .video-section__play-button:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: rgba({{ section.settings.play_button_background.red }}, {{ section.settings.play_button_background.green }}, {{ section.settings.play_button_background.blue }}, {{ section.settings.play_button_opacity | divided_by: 100.0 | plus: 0.2 }});
+  }
+
+  .video-section__play-icon {
+    width: {{ section.settings.play_button_size | divided_by: 3 }}px;
+    height: {{ section.settings.play_button_size | divided_by: 3 }}px;
+    fill: rgb({{ section.settings.play_button_icon_color.red }}, {{ section.settings.play_button_icon_color.green }}, {{ section.settings.play_button_icon_color.blue }});
+    margin-left: 2px;
+  }
+
+  .video-section__controls {
+    margin-top: {{ section.settings.content_spacing }}px;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  .video-section__button {
+    display: inline-block;
+    padding: 12px 24px;
+    background: rgb({{ section.settings.button_background.red }}, {{ section.settings.button_background.green }}, {{ section.settings.button_background.blue }});
+    color: rgb({{ section.settings.button_text_color.red }}, {{ section.settings.button_text_color.green }}, {{ section.settings.button_text_color.blue }});
+    text-decoration: none;
+    border-radius: {{ section.settings.button_border_radius }}px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .video-section__button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .video-section__inner {
+      padding: 0 15px;
+    }
+
+    .video-section__title {
+      font-size: {{ section.settings.title_size | minus: 8 }}px;
+    }
+
+    .video-section__subtitle {
+      font-size: {{ section.settings.subtitle_size | minus: 4 }}px;
+    }
+
+    .video-section__description {
+      font-size: {{ section.settings.description_size | minus: 2 }}px;
+    }
+
+    .video-section__play-button {
+      width: {{ section.settings.play_button_size | minus: 20 }}px;
+      height: {{ section.settings.play_button_size | minus: 20 }}px;
+    }
+
+    .video-section__play-icon {
+      width: {{ section.settings.play_button_size | minus: 20 | divided_by: 3 }}px;
+      height: {{ section.settings.play_button_size | minus: 20 | divided_by: 3 }}px;
+    }
+  }
+
+  /* Video aspect ratio container */
+  .video-section__aspect-ratio {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: {{ section.settings.video_aspect_ratio }}%;
+    overflow: hidden;
+    border-radius: {{ section.settings.video_border_radius }}px;
+  }
+
+  .video-section__aspect-ratio .video-section__video,
+  .video-section__aspect-ratio .video-section__poster {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>
+
+<section class="video-section container">
+  <div class="video-section__inner">
+    {% if section.settings.show_header %}
+      <div class="video-section__header">
+        {% if section.settings.title != blank %}
+          <h2 class="video-section__title">{{ section.settings.title | escape }}</h2>
+        {% endif %}
+        
+        {% if section.settings.subtitle != blank %}
+          <p class="video-section__subtitle">{{ section.settings.subtitle | escape }}</p>
+        {% endif %}
+        
+        {% if section.settings.description != blank %}
+          <div class="video-section__description">{{ section.settings.description }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.video != blank %}
+      <div class="video-section__video-wrapper">
+        {% if section.settings.use_aspect_ratio %}
+          <div class="video-section__aspect-ratio">
+        {% endif %}
+        
+        <video
+          id="{{ video_id }}"
+          class="video-section__video"
+          {% if section.settings.autoplay %}autoplay{% endif %}
+          {% if section.settings.muted %}muted{% endif %}
+          {% if section.settings.loop %}loop{% endif %}
+          {% if section.settings.show_controls %}controls{% endif %}
+          {% unless section.settings.autoplay %}preload="metadata"{% else %}preload="auto"{% endunless %}
+          playsinline
+        >
+          <source src="{{ section.settings.video.sources[1].url }}" type="video/mp4">
+          <source src="{{ section.settings.video.sources[0].url }}" type="video/webm">
+          Your browser does not support the video tag.
+        </video>
+
+        {% unless section.settings.autoplay or section.settings.show_controls %}
+          {% if section.settings.poster_image != blank %}
+            <img 
+              class="video-section__poster" 
+              src="{{ section.settings.poster_image | img_url: '1920x' }}"
+              alt="{{ section.settings.poster_image.alt | default: section.settings.title }}"
+              id="{{ video_id }}-poster"
+            >
+          {% endif %}
+
+          <button 
+            class="video-section__play-button" 
+            id="{{ video_id }}-play-btn"
+            aria-label="Play video"
+          >
+            <svg class="video-section__play-icon" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </button>
+        {% endunless %}
+
+        {% if section.settings.use_aspect_ratio %}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.show_button and section.settings.button_text != blank %}
+      <div class="video-section__controls">
+        <a href="{{ section.settings.button_link | default: '#' }}" class="video-section__button">
+          {{ section.settings.button_text | escape }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const video = document.getElementById('{{ video_id }}');
+  const poster = document.getElementById('{{ video_id }}-poster');
+  const playButton = document.getElementById('{{ video_id }}-play-btn');
+
+  if (video && playButton) {
+    function playVideo() {
+      video.play();
+      if (poster) poster.style.opacity = '0';
+      playButton.style.opacity = '0';
+      
+      // Show controls after playing if enabled
+      {% if section.settings.show_controls_on_play %}
+        video.controls = true;
+      {% endif %}
+    }
+
+    playButton.addEventListener('click', playVideo);
+    
+    if (poster) {
+      poster.addEventListener('click', playVideo);
+    }
+
+    // Hide poster and play button when video starts playing
+    video.addEventListener('play', function() {
+      if (poster) poster.style.opacity = '0';
+      playButton.style.opacity = '0';
+    });
+
+    // Show poster and play button when video ends (if not looping)
+    video.addEventListener('ended', function() {
+      {% unless section.settings.loop %}
+        if (poster) poster.style.opacity = '1';
+        playButton.style.opacity = '1';
+        {% if section.settings.show_controls_on_play %}
+          video.controls = false;
+        {% endif %}
+      {% endunless %}
+    });
+
+    // Pause video when it goes out of viewport (if enabled)
+    {% if section.settings.pause_on_scroll %}
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting && !video.paused) {
+            video.pause();
+          }
+        });
+      }, { threshold: 0.1 });
+
+      observer.observe(video);
+    {% endif %}
+  }
+});
+</script>
+
+{% schema %}
+{
+  "name": "Custom Video Section",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Video Settings"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Shopify Video",
+      "info": "Upload a video file to Shopify. Recommended formats: MP4, WebM"
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_image",
+      "label": "Video Poster Image",
+      "info": "Image shown before video plays (optional)"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay video",
+      "default": false,
+      "info": "Video will autoplay when visible (muted by default for autoplay)"
+    },
+    {
+      "type": "checkbox",
+      "id": "muted",
+      "label": "Mute video",
+      "default": true,
+      "info": "Start video without sound"
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Loop video",
+      "default": false,
+      "info": "Video will repeat continuously"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_controls",
+      "label": "Show video controls",
+      "default": false,
+      "info": "Display play/pause and other video controls"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_controls_on_play",
+      "label": "Show controls after play",
+      "default": true,
+      "info": "Show controls once user starts playing video"
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_scroll",
+      "label": "Pause when out of view",
+      "default": false,
+      "info": "Pause video when scrolled out of viewport"
+    },
+    {
+      "type": "header",
+      "content": "Video Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_aspect_ratio",
+      "label": "Use fixed aspect ratio",
+      "default": false,
+      "info": "Force video to specific aspect ratio"
+    },
+    {
+      "type": "select",
+      "id": "video_aspect_ratio",
+      "label": "Video aspect ratio",
+      "options": [
+        {
+          "value": "56.25",
+          "label": "16:9 (YouTube standard)"
+        },
+        {
+          "value": "75",
+          "label": "4:3 (Classic)"
+        },
+        {
+          "value": "66.67",
+          "label": "3:2"
+        },
+        {
+          "value": "50",
+          "label": "2:1 (Cinema)"
+        },
+        {
+          "value": "100",
+          "label": "1:1 (Square)"
+        }
+      ],
+      "default": "56.25"
+    },
+    {
+      "type": "range",
+      "id": "video_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Video border radius",
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "video_shadow",
+      "label": "Video shadow",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "0 2px 10px rgba(0,0,0,0.1)",
+          "label": "Subtle"
+        },
+        {
+          "value": "0 4px 20px rgba(0,0,0,0.15)",
+          "label": "Medium"
+        },
+        {
+          "value": "0 8px 30px rgba(0,0,0,0.2)",
+          "label": "Strong"
+        }
+      ],
+      "default": "0 4px 20px rgba(0,0,0,0.15)"
+    },
+    {
+      "type": "header",
+      "content": "Play Button"
+    },
+    {
+      "type": "range",
+      "id": "play_button_size",
+      "min": 40,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Play button size",
+      "default": 80
+    },
+    {
+      "type": "color",
+      "id": "play_button_background",
+      "label": "Play button background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "play_button_opacity",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Play button opacity",
+      "default": 90
+    },
+    {
+      "type": "color",
+      "id": "play_button_icon_color",
+      "label": "Play button icon color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show header content",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Watch Our Video"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section subtitle",
+      "default": "Discover more about our story"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Section description",
+      "default": "<p>Add a compelling description about your video content here.</p>"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title font size",
+      "default": 36
+    },
+    {
+      "type": "select",
+      "id": "title_weight",
+      "label": "Title font weight",
+      "options": [
+        {
+          "value": "300",
+          "label": "Light"
+        },
+        {
+          "value": "400",
+          "label": "Normal"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Subtitle font size",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Description font size",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show button",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Layout & Spacing"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 550,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Container max width",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Section top padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Section bottom padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "content_spacing",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Content spacing",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "title_margin",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Title bottom margin",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "subtitle_margin",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Subtitle bottom margin",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Video Section",
+      "settings": {
+        "title": "Watch Our Video",
+        "subtitle": "Discover more about our story",
+        "description": "<p>Add a compelling description about your video content here.</p>",
+        "show_header": true,
+        "text_alignment": "center",
+        "autoplay": false,
+        "muted": true,
+        "show_controls": false,
+        "show_controls_on_play": true
+      }
+    }
+  ]
+}
+{% endschema %}
