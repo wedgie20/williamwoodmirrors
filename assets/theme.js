@@ -1460,7 +1460,7 @@
     return parseInt(documentStyles.getPropertyValue("--header-height") || 0) * parseInt(documentStyles.getPropertyValue("--enable-sticky-header") || 0) + parseInt(documentStyles.getPropertyValue("--announcement-bar-height") || 0) * parseInt(documentStyles.getPropertyValue("--enable-sticky-announcement-bar") || 0);
   }
 
-  // js/custom-element/behavior/safe-sticky.js
+  // js/custom-element/behavior/safe-sticky.js 
   var SafeSticky = class extends HTMLElement {
     connectedCallback() {
       this.lastKnownY = window.scrollY;
