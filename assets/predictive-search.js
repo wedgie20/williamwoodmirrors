@@ -183,7 +183,7 @@ if (quickSearchContent) {
     document.querySelector('.mobile-searchbar').style.display = 'block';
 }
     setTimeout(() => {
-    document.querySelector("store-header").classList.add("header--transparent");
+    // document.querySelector("store-header").classList.add("header--transparent");
     }, 500);
     this.classList.remove("active");
     this.input.value = "";
