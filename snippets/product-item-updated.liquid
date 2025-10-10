@@ -363,6 +363,19 @@
           {%- form 'product', product, is: 'product-form', id: form_id -%}
             <input type="hidden" name="quantity" value="1">
             <input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
+
+            {%- if product.tags contains preorder_tag -%}
+  {%- if shipping_date_formatted != blank -%}
+    {%- assign message = 'Pre Order, Delivered from ' | append: shipping_date_formatted -%}
+  {%- else -%}
+    {%- assign message = 'Pre Order, Delivery date to be confirmed' -%}
+  {%- endif -%}
+{%- else -%}
+  {%- assign message = 'In Stock and ready to ship' -%}
+{%- endif -%}
+
+<input type="hidden" name="properties[Note]" value="{{ message }}">
+
             <button type="submit" {% if show_cta or request.path contains 'collections' %}is="loader-button"{% endif %} class="{% if reduced_content %}product-item__link link text--subdued{% else %}product-item__cta button button--primary{% endif %}">{{ 'collection.product.add_to_cart_short' | t }}</button>
           {%- endform -%}
         {%- else -%}
