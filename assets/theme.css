@@ -3963,7 +3963,14 @@ p + .button-group,
   align-items: center;
   visibility: visible;
   z-index: 2;
-  transition: margin-top 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  transition: margin-top 0.2s ease-in-out, visibility 0.2s ease-in-out, top 0.5s ease-in-out;
+}
+
+body.enabled-scroll-handler .mobile-toolbar{
+  top: calc(
+      var(--announcement-bar-height, 0px) *
+      var(--enable-sticky-announcement-bar)
+  );
 }
 
 .mobile-toolbar.is-collapsed {

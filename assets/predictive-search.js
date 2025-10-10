@@ -29,6 +29,7 @@ class PredictiveSearch extends HTMLElement {
   }
 
   onShow() {
+    window.disableScrollHandler = true;
       document.querySelector(".mobile-search").classList.add("mobile-search__show");
       document.querySelector("predictive-search").classList.add("show");
   
@@ -164,6 +165,7 @@ if (header && quickSearchContent) {
   }
 
   close() {
+    window.disableScrollHandler = false;
     // enable scrolling on the main doc body
     document.querySelector("body").classList.remove("no-scroll");
     //
