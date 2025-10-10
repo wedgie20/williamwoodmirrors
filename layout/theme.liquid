@@ -209,6 +209,26 @@
     <!-- start Ecodrive -->
     <style>
 
+      safe-sticky.is-hidden {
+  transition: transform 0.3s, opacity 0.3s;
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+safe-sticky {
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.shopify-section--header.hide-on-scroll{
+display: none !important;
+}
+
+      #shopify-section-sections--header,
+      #shopify-section-sections--announcement-bar,
+      #mobile-facet-toolbar {
+        transition: transform 0.3s, opacity 0.3s;
+}
+
       @media screen and (max-width: 740px) {
   .shopify-product-form #installment .klarna-logo{
     margin-top: -2px !important;
