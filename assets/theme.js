@@ -1260,17 +1260,20 @@
       this.rootDelegate = new main_default(document.documentElement);
     }
     _onButtonClick() {
+      
       this.isExpanded = !this.isExpanded;
     }
     connectedCallback() {
       document.addEventListener("openable-element:close", (event) => {
         if (this.controlledElement === event.target) {
+          window.disableScrollHandler = false;
           this.isExpanded = false;
           event.stopPropagation();
         }
       });
       document.addEventListener("openable-element:open", (event) => {
         if (this.controlledElement === event.target) {
+          window.disableScrollHandler = true;
           this.isExpanded = true;
           event.stopPropagation();
         }
