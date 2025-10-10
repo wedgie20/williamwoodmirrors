@@ -219,13 +219,14 @@ safe-sticky {
   transition: transform 0.3s, opacity 0.3s;
 }
 
-{% comment %} .shopify-section--header{
-  transition: transform 0.5s, opacity 0.5s;
+.shopify-section--header{
+  transition: transform 0.5s !important;
+      transform: translateY(0);
 }
 
 .shopify-section--header.hide-on-scroll{
-  opacity: 0 !important;
-} {% endcomment %}
+  transform: translateY(-100%);
+}
 
       #shopify-section-sections--header,
       #shopify-section-sections--announcement-bar,
@@ -650,18 +651,22 @@ safe-sticky {
     const header = document.querySelector('[id^="shopify-section-sections--"][id$="__header"]');
     const announcement = document.querySelector('[id^="shopify-section-sections--"][id$="__announcement-bar"]');
     const facetToolbar = document.getElementById("mobile-facet-toolbar");
+    const mainbody = document.body;
 
     window.addEventListener("scroll", function () {
+      if (window.disableScrollHandler) return;
       const currentScroll = window.scrollY;
 
       if (currentScroll > lastScrollTop && currentScroll > 50) {
         if (header) header.classList.add("hide-on-scroll");
         if (announcement) announcement.classList.add("hide-on-scroll");
         if (facetToolbar) facetToolbar.classList.add("hide-on-scroll");
+        if (mainbody) mainbody.classList.add("enabled-scroll-handler");
       } else {
         if (header) header.classList.remove("hide-on-scroll");
         if (announcement) announcement.classList.remove("hide-on-scroll");
         if (facetToolbar) facetToolbar.classList.remove("hide-on-scroll");
+        if (mainbody) mainbody.classList.remove("enabled-scroll-handler");
       }
 
       lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
