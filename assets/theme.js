@@ -1461,35 +1461,53 @@
   }
 
   // js/custom-element/behavior/safe-sticky.js
-  var SafeSticky = class extends HTMLElement {
-    connectedCallback() {
-      this.lastKnownY = window.scrollY;
-      this.currentTop = 0;
-      this.hasPendingRaf = false;
-      window.addEventListener("scroll", this._checkPosition.bind(this));
+var SafeSticky = class extends HTMLElement {
+  connectedCallback() {
+    this.lastKnownY = window.scrollY;
+    this.currentTop = 0;
+    this.hasPendingRaf = false;
+    this.isHidden = false;
+    window.addEventListener("scroll", this._checkPosition.bind(this));
+  }
+  get initialTopOffset() {
+    return getStickyHeaderOffset() + (parseInt(this.getAttribute("offset")) || 0);
+  }
+  _checkPosition() {
+    if (this.hasPendingRaf) {
+      return;
     }
-    get initialTopOffset() {
-      return getStickyHeaderOffset() + (parseInt(this.getAttribute("offset")) || 0);
-    }
-    _checkPosition() {
-      if (this.hasPendingRaf) {
-        return;
-      }
-      this.hasPendingRaf = true;
-      requestAnimationFrame(() => {
-        let bounds = this.getBoundingClientRect(), maxTop = bounds.top + window.scrollY - this.offsetTop + this.initialTopOffset, minTop = this.clientHeight - window.innerHeight;
-        if (window.scrollY < this.lastKnownY) {
-          this.currentTop -= window.scrollY - this.lastKnownY;
-        } else {
-          this.currentTop += this.lastKnownY - window.scrollY;
+    this.hasPendingRaf = true;
+    requestAnimationFrame(() => {
+      let bounds = this.getBoundingClientRect(),
+        maxTop = bounds.top + window.scrollY - this.offsetTop + this.initialTopOffset,
+        minTop = this.clientHeight - window.innerHeight;
+
+      // Detect scroll direction
+      const currentY = window.scrollY;
+      if (currentY > this.lastKnownY + 5) {
+        // Scrolling down
+        if (!this.isHidden) {
+          this.classList.add("is-hidden");
+          this.isHidden = true;
         }
-        this.currentTop = Math.min(Math.max(this.currentTop, -minTop), maxTop, this.initialTopOffset);
-        this.lastKnownY = window.scrollY;
-        this.style.top = `${this.currentTop}px`;
-        this.hasPendingRaf = false;
-      });
-    }
-  };
+      } else if (currentY < this.lastKnownY - 5) {
+        // Scrolling up
+        if (this.isHidden) {
+       
+          this.classList.remove("is-hidden");
+          this.isHidden = false;
+        }
+      }
+      this.lastKnownY = currentY;
+
+      // Keep sticky logic if needed
+      this.currentTop = Math.min(Math.max(this.currentTop, -minTop), maxTop, this.initialTopOffset);
+      this.style.top = `${this.currentTop}px`;
+      this.hasPendingRaf = false;
+    });
+  }
+};
+
   window.customElements.define("safe-sticky", SafeSticky);
 
   // js/helper/throttle.js
