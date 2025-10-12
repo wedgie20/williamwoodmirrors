@@ -1073,7 +1073,11 @@ document.addEventListener('DOMContentLoaded', function () {
         disabled
       {% endunless %}
     >
+       {% if product.tags contains 'pre-order' %}
+        PRE ORDER
+      {% else %}
       {{ 'product.form.add_to_cart' | t }}
+      {% endif %}
     </button>
     {% comment %} <div class="product-form__quantity" {{ block.shopify_attributes }}>
       <span class="product-form__quantity-label">{{ 'product.form.quantity' | t }}:</span>
