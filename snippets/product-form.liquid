@@ -1064,31 +1064,32 @@ document.addEventListener('DOMContentLoaded', function () {
       {% assign is_preorder = true %}
     {% endif %}
     <button
-      id="AddToCart"
-      type="submit"
-      {% unless block.settings.show_payment_button and template.suffix != 'quick-buy-popover' %}
-        data-use-primary
-      {% endunless %}
-      data-product-add-to-cart-button
-      data-button-content="{% if is_preorder %}{{ 'product.form.pre_order' | t | escape }}{% else %}{{ 'product.form.add_to_cart' | t | escape }}{% endif %}"
-      class="product-submit product-form__add-button button
-        {% unless product.selected_or_first_available_variant.available %}button--ternary
-        {% else %}
-          {% if block.settings.show_payment_button and template.suffix != 'quick-buy-popover' %}button--secondary{% else %}button--primary{% endif %}
-        {% endunless %}
-        button--full
-        {% if is_preorder %} is-preorder{% endif %}"
-      {% unless product.selected_or_first_available_variant.available %}
-        disabled
-      {% endunless %}
-      aria-describedby="{% if is_preorder %}preorder-note{% endif %}"
-      >
-        {% if is_preorder %}
-          Pre Order
-        {% else %}
-          {{ 'product.form.add_to_cart' | t }}
-        {% endif %}
-    </button>
+  id="AddToCart"
+  type="submit"
+  {% unless block.settings.show_payment_button and template.suffix != 'quick-buy-popover' %}
+    data-use-primary
+  {% endunless %}
+  data-product-add-to-cart-button
+  data-allow-preorder="{{ is_preorder }}"
+  data-button-content="{% if is_preorder %}{{ 'product.form.pre_order' | t | escape }}{% else %}{{ 'product.form.add_to_cart' | t | escape }}{% endif %}"
+  class="product-submit product-form__add-button button
+    {% unless product.selected_or_first_available_variant.available or is_preorder %}button--ternary
+    {% else %}
+      {% if block.settings.show_payment_button and template.suffix != 'quick-buy-popover' %}button--secondary{% else %}button--primary{% endif %}
+    {% endunless %}
+    button--full
+    {% if is_preorder %} is-preorder{% endif %}"
+  {% unless product.selected_or_first_available_variant.available or is_preorder %}
+    disabled
+  {% endunless %}
+  aria-describedby="{% if is_preorder %}preorder-note{% endif %}"
+>
+  {% if is_preorder %}
+    {{ 'product.form.pre_order' | t }}
+  {% else %}
+    {{ 'product.form.add_to_cart' | t }}
+  {% endif %}
+</button>
     {% comment %} <div class="product-form__quantity" {{ block.shopify_attributes }}>
       <span class="product-form__quantity-label">{{ 'product.form.quantity' | t }}:</span>
 
