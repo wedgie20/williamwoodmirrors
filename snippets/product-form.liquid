@@ -33,7 +33,8 @@
             data-variant-id="{{ product.selected_or_first_available_variant.id }}"
             aria-label="Add to Bag">
       {% if product.template_suffix == 'pre-order' %}
-        {{ 'product.form.pre_order' | t }}
+        {% comment %} {{ 'product.form.pre_order' | t }} {% endcomment %}
+         Pre Order
       {% else %}
         ADD TO BAG
       {% endif %}
