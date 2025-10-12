@@ -28,17 +28,16 @@
 
     <!-- Add to Cart Button (Right) -->
     <button class="floating-add-to-cart-button"
-            data-form-id="product-form-{{ section.id }}-{{ product.id }}"
-            data-product-id="{{ product.id }}"
-            data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-            aria-label="Add to Bag">
-      {% if product.template_suffix == 'pre-order' %}
-        {% comment %} {{ 'product.form.pre_order' | t }} {% endcomment %}
-         Pre Order
-      {% else %}
-        ADD TO BAG
-      {% endif %}
-    </button>
+        data-form-id="product-form-{{ section.id }}-{{ product.id }}"
+        data-product-id="{{ product.id }}"
+        data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+        aria-label="Add to Bag">
+  {% if product.tags contains 'pre-order' %}
+    Pre Order
+  {% else %}
+    ADD TO BAG
+  {% endif %}
+</button>
   </div>
 
   <span class="floating-add-to-cart-message" style="display:none;" aria-live="polite" role="status"></span>
