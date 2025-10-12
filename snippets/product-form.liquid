@@ -1059,21 +1059,35 @@ document.addEventListener('DOMContentLoaded', function () {
     <div class="countdown-timer-block" countdown-timer-id="cmeom7bfn000coenvom7t1ahc"></div>
 
   <div class="product-form__controls" style="display: flex; align-items: center; gap: 10px;">
+    {% assign is_preorder = false %}
+    {% if product.tags contains 'pre-order' or product.template_suffix == 'pre-order' %}
+      {% assign is_preorder = true %}
+    {% endif %}
     <button
       id="AddToCart"
       type="submit"
-      {% comment %} is="loader-button" {% endcomment %}
       {% unless block.settings.show_payment_button and template.suffix != 'quick-buy-popover' %}
         data-use-primary
       {% endunless %}
       data-product-add-to-cart-button
-      data-button-content="{% if product.template_suffix == 'pre-order' %}{{ 'product.form.pre_order' | t | escape }}{% else %}{{ 'product.form.add_to_cart' | t | escape }}{% endif %}"
-      class="product-submit product-form__add-button button {% unless product.selected_or_first_available_variant.available %}button--ternary{% else %}{% if block.settings.show_payment_button and template.suffix != 'quick-buy-popover' %}button--secondary{% else %}button--primary{% endif %}{% endunless %} button--full"
+      data-button-content="{% if is_preorder %}{{ 'product.form.pre_order' | t | escape }}{% else %}{{ 'product.form.add_to_cart' | t | escape }}{% endif %}"
+      class="product-submit product-form__add-button button
+        {% unless product.selected_or_first_available_variant.available %}button--ternary
+        {% else %}
+          {% if block.settings.show_payment_button and template.suffix != 'quick-buy-popover' %}button--secondary{% else %}button--primary{% endif %}
+        {% endunless %}
+        button--full
+        {% if is_preorder %} is-preorder{% endif %}"
       {% unless product.selected_or_first_available_variant.available %}
         disabled
       {% endunless %}
-    >
-      {{ 'product.form.add_to_cart' | t }}
+      aria-describedby="{% if is_preorder %}preorder-note{% endif %}"
+      >
+        {% if is_preorder %}
+          {{ 'product.form.pre_order' | t }}
+        {% else %}
+          {{ 'product.form.add_to_cart' | t }}
+        {% endif %}
     </button>
     {% comment %} <div class="product-form__quantity" {{ block.shopify_attributes }}>
       <span class="product-form__quantity-label">{{ 'product.form.quantity' | t }}:</span>
