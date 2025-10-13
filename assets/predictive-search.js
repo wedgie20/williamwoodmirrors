@@ -182,9 +182,11 @@ if (quickSearchContent) {
     if (document.body.classList.contains('template-index')) {
     document.querySelector('.mobile-searchbar').style.display = 'block';
 }
-    setTimeout(() => {
+
+    // setTimeout(() => {
     // document.querySelector("store-header").classList.add("header--transparent");
-    }, 500);
+    // }, 500);
+
     this.classList.remove("active");
     this.input.value = "";
   }
