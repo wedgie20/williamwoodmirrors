@@ -186,8 +186,8 @@
           
           // Re-enable scroll-snap after animation completes (1s animation + small buffer)
           setTimeout(() => {
-            el.style.scrollSnapType = originalScrollSnapType || 'x mandatory';
-          }, 1200);
+            el.style.scrollSnapType = 'x mandatory';
+          }, 6000);
         }
       }
     });
@@ -321,7 +321,7 @@ if (typeof window.setupInfiniteScrollForSearch === 'undefined') {
 
 /* Prevent scroll-snap during animation to avoid conflicts */
 .updated-product-item.product-item .product-item__aspect-ratio.animate_images {
-  scroll-snap-type: none !important;
+  {% comment %} scroll-snap-type: none !important; {% endcomment %}
 }
     .updated-product-item.product-item .product-item__aspect-ratio{
       display: flex;
