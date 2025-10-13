@@ -196,6 +196,24 @@
     {% render 'css-variables', direction: direction %}
     {% render 'js-variables', direction: direction %}
 
+    <style>
+      @media (max-width: 740px) {
+  #main #mobile-facet-toolbar {
+    position: sticky;
+    {% comment %} top: 0; {% endcomment %}
+    z-index: 101;
+    background: #fff;
+    transition: transform 0.5s, opacity 0.5s !important;
+    transform: translateY(0);
+  }
+  #main #mobile-facet-toolbar.hide-on-scroll {
+    transform: translateY(-90px);
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+    </style>
+
     <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
     <link rel="stylesheet" href="{{ 'predictive-search.css' | asset_url }}">
 
