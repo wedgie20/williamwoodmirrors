@@ -1,4 +1,4 @@
-<div class="description-container-preorder">
+<div class="description-container-preorder" style="display:none !important;">
     {% if product.tags contains 'pre-order' %}
       {% if current_path contains '/en-fr/' or current_path contains '/en-de/' or current_path contains '/en-nl/' %}
         {% assign short_description = product.description 
