@@ -1005,49 +1005,108 @@ document.addEventListener('DOMContentLoaded', function () {
 
       {%- when 'buy_buttons' -%}
 
-        {% assign selectedvar = product.selected_or_first_available_variant.inventory_quantity %}
-        {% unless product.tags contains 'jansale' %}
-        {% unless product.tags contains 'sale' %}
-        {% if product.title != 'PRM FG' %}
-        {% if product.title != 'PRM HOLD' %}
-        {% if selectedvar > 1 %}
-                  <div class="quantity_base_btns">
-                    <div class="buy_two_get25" quantity="2">
-                      <p>Buy 2 items</p>
-                    </div>
-                    {% if selectedvar > 2 %}
-                      <div class="buy_three_get30" quantity="3">
-                        <p>Buy 3 items</p>
-                      </div>
-                    {% endif %}
-                  </div>
-                   <script>
-                  document.addEventListener('DOMContentLoaded', function () {
-                    document.querySelectorAll('.quantity_base_btns div').forEach(function (btn) {
-                      btn.addEventListener('click', function () {
-                        var input = document.getElementById('hidden-quantity');
-                        if (btn.classList.contains('active')) {
-                          btn.classList.remove('active');
-                          if (input) input.value = 1;
-                        } else {
-                          btn.parentElement.querySelectorAll('div').forEach(function (sibling) {
-                            sibling.classList.remove('active');
-                          });
-                          btn.classList.add('active');
-                          var qty = btn.getAttribute('quantity');
-                          if (input && qty) {
-                            input.value = qty;
-                          }
-                        }
-                      });
-                    });
-                  });
-                </script>
-                {% endif %}
-        {% endif %}
-        {% endif %}
-        {% endunless %}
-             {% endunless %}
+ {% assign selectedvar = product.selected_or_first_available_variant.inventory_quantity %}
+{% assign base_price = product.selected_or_first_available_variant.price %}
+{% assign compare_price = product.selected_or_first_available_variant.compare_at_price %}
+{% unless product.tags contains 'jansale' %}
+{% unless product.tags contains 'sale' %}
+{% if product.title != 'PRM FG' %}
+{% if product.title != 'PRM HOLD' %}
+{% if selectedvar > 1 %}
+  <div class="quantity_base_btns">
+    {%- assign buy2_discount = 25 -%}
+    {%- assign buy3_discount = 30 -%}
+    {%- assign buy2_qty = 2 -%}
+    {%- assign buy3_qty = 3 -%}
+    {%- assign buy2_total = base_price | times: buy2_qty -%}
+    {%- assign buy3_total = base_price | times: buy3_qty -%}
+    {%- assign buy2_discount_amount = buy2_total | times: buy2_discount | divided_by: 100 -%}
+    {%- assign buy3_discount_amount = buy3_total | times: buy3_discount | divided_by: 100 -%}
+    {%- assign buy2_new_price = buy2_total | minus: buy2_discount_amount -%}
+    {%- assign buy3_new_price = buy3_total | minus: buy3_discount_amount -%}
+    {%- if compare_price > base_price and compare_price > 0 -%}
+      {%- assign buy2_old_price = compare_price | times: buy2_qty -%}
+    {%- else -%}
+      {%- assign buy2_old_price = base_price | times: buy2_qty -%}
+    {%- endif -%}
+    {%- if compare_price > base_price and compare_price > 0 -%}
+      {%- assign buy3_old_price = compare_price | times: buy3_qty -%}
+    {%- else -%}
+      {%- assign buy3_old_price = base_price | times: buy3_qty -%}
+    {%- endif -%}
+
+    <div class="buy_two_get25 bundle_buy_x_btns" quantity="2">
+      <div class="offer-btn-content">
+        <div class="offer-btn-title-discount">
+          <span class="buy-x-get-y">
+          BUY 2 ITEMS</span>
+          <span class="offer-btn-discount">25% OFF</span>
+        </div>
+        <div class="offer-btn-price">
+          <span class="offer-price">
+            {{ buy2_new_price | money_without_trailing_zeros }}
+          </span>
+          <span class="offer-compare">
+            {{ buy2_old_price | money_without_trailing_zeros }}
+          </span>
+        </div>
+        
+      </div>
+    </div>
+    {% if selectedvar > 2 %}
+    <div class="buy_three_get30 bundle_buy_x_btns" quantity="3">
+      <div class="offer-btn-content">
+       <div class="offer-btn-title-discount">
+          <span class="buy-x-get-y">
+          BUY 3 ITEMS</span>
+          <span class="offer-btn-discount">30% OFF</span>
+        </div>
+        <div class="offer-btn-price">
+          <span class="offer-price">
+            {{ buy3_new_price | money_without_trailing_zeros }}
+          </span>
+          <span class="offer-compare">
+            {{ buy3_old_price | money_without_trailing_zeros }}
+          </span>
+        </div>
+       
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.quantity_base_btns div.bundle_buy_x_btns').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var input = document.getElementById('hidden-quantity');
+          if (btn.classList.contains('active')) {
+            btn.classList.remove('active');
+            if (input) input.value = 1;
+          } else {
+            btn.parentElement.querySelectorAll('div').forEach(function (sibling) {
+              sibling.classList.remove('active');
+            });
+            btn.classList.add('active');
+            var qty = btn.getAttribute('quantity');
+            if (input && qty) {
+              input.value = qty;
+
+              document.getElementById('AddToCart')?.click();
+setTimeout(function() {
+              btn.classList.remove('active');
+              if (input) input.value = 1;
+              }, 2000);
+            }
+          }
+        });
+      });
+    });
+  </script>
+{% endif %}
+{% endif %}
+{% endif %}
+{% endunless %}
+{% endunless %}
         {%- if request.page_type != 'password' -%}
           <div class="product-form__buy-buttons" {{ block.shopify_attributes }}>
             {%- form 'product', product, is: 'product-form', id: product_form_id -%}
@@ -1532,22 +1591,28 @@ document.addEventListener('DOMContentLoaded', function () {
       gap: 10px;
   }
 
-  .quantity_base_btns div{
-   background-color: #efefef;
-      border-radius: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 10px;
-      color: black;
-      cursor: pointer;
-      width: 50%;
-      font-size: calc(var(--base-font-size) - 2px);
+  .offer-btn-title-discount {
+    display: flex;
+    place-content: center;
+    place-items: center;
+    flex-direction: column;
+    width: 50%;
+}
+
+  .quantity_base_btns div.offer-btn-content{
+display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    cursor: pointer;
+    width: 100%;
+    font-size: calc(var(--base-font-size) - 2px);
     text-transform: uppercase;
     font-family: var(--text-font-family);
     font-weight: var(--text-font-bold-weight);
     letter-spacing: 0.5px;
-        height: 52px;
+    flex-direction: row;
+        padding: 0 15px;
   }
 
   .quantity_base_btns div.active{
@@ -1606,6 +1671,85 @@ margin-left: 0 !important;
 
 }
 
+.quantity_base_btns {
+  display: flex;
+  gap: 10px;
+}
+.quantity_base_btns > div {
+  background-color: #efefef;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0 10px 0;
+  color: black;
+  cursor: pointer;
+  width: 50%;
+  font-size: 13px;
+  text-transform: uppercase;
+  font-family: var(--text-font-family);
+  font-weight: var(--text-font-bold-weight);
+  letter-spacing: 0.5px;
+  height: 60px;
+  flex-direction: column;
+  transition: background 0.2s, color 0.2s;
+  position: relative;
+}
+.quantity_base_btns > div.active {
+  background-color: rgb(40, 40, 40);
+  color: white;
+}
+.offer-btn-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.offer-btn-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 2px;
+  letter-spacing: 0.5px;
+}
+.offer-btn-price {
+  display: flex;
+  place-content: center;
+  place-items: center;
+  flex-direction: column;
+      width: 50%;
+}
+.offer-price {
+  font-weight: 700;
+  font-size: 14px;
+}
+.offer-compare {
+    font-size: 10px;
+    color: #888;
+    text-decoration: line-through;
+    font-weight: 400;
+    line-height: 17px;
+}
+.offer-btn-discount {
+font-size: 9px;
+    font-weight: 400;
+    background-color: white;
+    line-height: 9px;
+    padding: 5px 5px 3px;
+    border-radius: 10px;
+}
+@media (max-width: 600px) {
+.quantity_base_btns {
+    flex-direction: column;
+    gap: 13px;
+}
+.quantity_base_btns > div{
+    width: 100%;
+  }
+}
+
+.bundle_buy_x_btns.active span.buy-x-get-y, .bundle_buy_x_btns.active span.offer-price, .bundle_buy_x_btns.active span.offer-compare{
+color: white;
+}
 
 </style>
 
