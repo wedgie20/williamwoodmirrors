@@ -1000,12 +1000,59 @@ document.addEventListener('DOMContentLoaded', function () {
           BUY BUTTONS
           ----------------------------------------------------------------------------------------------------------------
         {%- endcomment -%}
+
+
+
       {%- when 'buy_buttons' -%}
+
+        {% assign selectedvar = product.selected_or_first_available_variant.inventory_quantity %}
+        {% unless product.tags contains 'jansale' %}
+        {% unless product.tags contains 'sale' %}
+        {% if product.title != 'PRM FG' %}
+        {% if product.title != 'PRM HOLD' %}
+        {% if selectedvar > 1 %}
+                  <div class="quantity_base_btns">
+                    <div class="buy_two_get25" quantity="2">
+                      <p>Buy 2 items</p>
+                    </div>
+                    {% if selectedvar > 2 %}
+                      <div class="buy_three_get30" quantity="3">
+                        <p>Buy 3 items</p>
+                      </div>
+                    {% endif %}
+                  </div>
+                   <script>
+                  document.addEventListener('DOMContentLoaded', function () {
+                    document.querySelectorAll('.quantity_base_btns div').forEach(function (btn) {
+                      btn.addEventListener('click', function () {
+                        var input = document.getElementById('hidden-quantity');
+                        if (btn.classList.contains('active')) {
+                          btn.classList.remove('active');
+                          if (input) input.value = 1;
+                        } else {
+                          btn.parentElement.querySelectorAll('div').forEach(function (sibling) {
+                            sibling.classList.remove('active');
+                          });
+                          btn.classList.add('active');
+                          var qty = btn.getAttribute('quantity');
+                          if (input && qty) {
+                            input.value = qty;
+                          }
+                        }
+                      });
+                    });
+                  });
+                </script>
+                {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endunless %}
+             {% endunless %}
         {%- if request.page_type != 'password' -%}
           <div class="product-form__buy-buttons" {{ block.shopify_attributes }}>
             {%- form 'product', product, is: 'product-form', id: product_form_id -%}
               <input type="hidden" disabled name="id" value="{{ product.selected_or_first_available_variant.id }}">
-
+<input type="hidden" name="quantity" id="hidden-quantity" value="1">
 <product-payment-container
   form-id="{{ product_form_id }}"
   {% if update_url %}
@@ -1479,6 +1526,34 @@ document.addEventListener('DOMContentLoaded', function () {
   </popover-content>
 {% endif %}
 <style>
+
+  .quantity_base_btns {
+      display: flex;
+      gap: 10px;
+  }
+
+  .quantity_base_btns div{
+   background-color: #efefef;
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 10px;
+      color: black;
+      cursor: pointer;
+      width: 50%;
+      font-size: calc(var(--base-font-size) - 2px);
+    text-transform: uppercase;
+    font-family: var(--text-font-family);
+    font-weight: var(--text-font-bold-weight);
+    letter-spacing: 0.5px;
+        height: 52px;
+  }
+
+  .quantity_base_btns div.active{
+      background-color: rgb(40, 40, 40);
+      color: white;
+  }
 
   .product-form {
     transform: none !important;
