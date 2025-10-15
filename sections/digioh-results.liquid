@@ -390,73 +390,67 @@ SECTION: Url Parsing
 }
 // Infinite scroll setup function for digioh results
 function setupInfiniteScrollForSearch() {
-  // Only run on mobile devices
   if (window.innerWidth >= 550) return;
-  
+
   const containers = document.querySelectorAll('.updated-product-item.product-item .product-item__aspect-ratio');
-  
-  containers.forEach((container, index) => {
-    // Skip if already processed
+
+  containers.forEach((container) => {
     if (container.dataset.infiniteSetup) return;
     container.dataset.infiniteSetup = 'true';
-    
+
     const images = container.querySelectorAll('.mobile_images');
     if (images.length <= 1) return;
-    
-    // Clone first and last images for seamless loop
+
+    container.querySelectorAll('.mobile_images.clone-image').forEach(clone => clone.remove());
+
     const firstImage = images[0].cloneNode(true);
     const lastImage = images[images.length - 1].cloneNode(true);
-    
-    // Mark as clones and add to container
     firstImage.classList.add('clone-image');
     lastImage.classList.add('clone-image');
-    
     container.appendChild(firstImage);
     container.insertBefore(lastImage, images[0]);
-    
-    // Set initial position after cloning
-    setTimeout(() => {
-      const imageWidth = images[0].offsetWidth;
-      container.scrollLeft = imageWidth;
-    }, 100);
-    
+
+    function setToFirstRealImage() {
+      const updatedImages = container.querySelectorAll('.mobile_images');
+      if (updatedImages.length > 2) {
+        const imageWidth = updatedImages[1].offsetWidth;
+        container.scrollLeft = imageWidth;
+      }
+    }
+    setTimeout(setToFirstRealImage, 100);
+    setTimeout(setToFirstRealImage, 500);
+
     let isJumping = false;
     let scrollTimeout;
-    
+
     container.addEventListener('scroll', function() {
       if (isJumping) return;
-      
+
       clearTimeout(scrollTimeout);
-      
+
       scrollTimeout = setTimeout(() => {
+        const updatedImages = container.querySelectorAll('.mobile_images');
         const scrollLeft = container.scrollLeft;
         const maxScroll = container.scrollWidth - container.clientWidth;
-        const imageWidth = images[0].offsetWidth;
+        const imageWidth = updatedImages[1].offsetWidth;
         const tolerance = imageWidth * 0.1;
-        
-        // Check if we're at the cloned last image (beginning of scroll)
+
         if (scrollLeft <= tolerance) {
           isJumping = true;
           container.style.scrollSnapType = 'none';
           container.style.scrollBehavior = 'auto';
-          
           const targetPosition = maxScroll - imageWidth;
           container.scrollLeft = targetPosition;
-          
           requestAnimationFrame(() => {
             container.style.scrollSnapType = 'x mandatory';
             container.style.scrollBehavior = 'smooth';
             isJumping = false;
           });
-        }
-        // Check if we're at the cloned first image (end of scroll)
-        else if (scrollLeft >= maxScroll - tolerance) {
+        } else if (scrollLeft >= maxScroll - tolerance) {
           isJumping = true;
           container.style.scrollSnapType = 'none';
           container.style.scrollBehavior = 'auto';
-          
           container.scrollLeft = imageWidth;
-          
           requestAnimationFrame(() => {
             container.style.scrollSnapType = 'x mandatory';
             container.style.scrollBehavior = 'smooth';
@@ -511,7 +505,7 @@ if (typeof window.setupInfiniteScrollForSearch === 'undefined') {
 .updated-product-item.product-item .product-item__aspect-ratio.animate_images {
   {% comment %} scroll-snap-type: none !important; {% endcomment %}
 }
-    .updated-product-item.product-item .product-item__secondary-image, .updated-product-item.product-item .product-item__primary-image {
+    .updated-product-item.product-item .product-item__secondary-image, .updated-product-item.product.item .product-item__primary-image {
       display: none !important;
     }
     .updated-product-item.product-item .product-item__aspect-ratio{
