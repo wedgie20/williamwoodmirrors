@@ -4,7 +4,7 @@
 {%- assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id -%}
 
 
-{% if product.available %}
+{% if product.available and product.id != 7172026105955 %}
  <div class="floating-add-to-cart" id="floatingAddToCart" aria-hidden="true">
   <div class="floating-add-to-cart-content">
     <!-- Price (Left) -->
@@ -998,6 +998,7 @@ document.addEventListener('DOMContentLoaded', function () {
           ----------------------------------------------------------------------------------------------------------------
         {%- endcomment -%}
       {%- when 'buy_buttons' -%}
+        {%- if product.id != 7172026105955 -%}
         {%- if request.page_type != 'password' -%}
           <div class="product-form__buy-buttons" {{ block.shopify_attributes }}>
             {%- form 'product', product, is: 'product-form', id: product_form_id -%}
@@ -1325,6 +1326,7 @@ document.addEventListener('DOMContentLoaded', function () {
             {% endcomment %}
           </div>
         {%- endif -%}
+         {%- endif -%}
 
         {% comment %}
           {% unless product.tags contains "pre-order" %}

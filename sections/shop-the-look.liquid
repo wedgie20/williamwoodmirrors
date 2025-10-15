@@ -145,7 +145,7 @@
                       {%- render 'icon' with 'close' -%}
                     </button>
                   </header>
-
+{% if product.id != 7172026105955 %}
                   <div class="popover__content popover__content--no-padding">
                     <div class="product-form">
                       <div class="product-form__buy-buttons">
@@ -153,6 +153,7 @@
                       </div>
                     </div>
                   </div>
+                  {% endif %}
                 </quick-buy-popover>
               {%- elsif product != blank -%}
                 <button type="button" is="toggle-button" {% if section.settings.reveal_on_scroll or forloop.parentloop.first == false %}reveal{% endif %} class="shop-the-look__dot tap-area hidden-phone" aria-controls="{{ look_id }}-{{ forloop.index }}-product" aria-expanded="false">
