@@ -1035,7 +1035,7 @@ document.addEventListener('DOMContentLoaded', function () {
       {%- assign buy3_old_price = base_price | times: buy3_qty -%}
     {%- endif -%}
 
-    <div class="buy_two_get25 bundle_buy_x_btns" quantity="2">
+    <div class="buy_two_get25 bundle_buy_x_btns" quantity="2" amount="{{ buy2_new_price }}">
       <div class="offer-btn-content">
         <div class="offer-btn-title-discount">
           <span class="buy-x-get-y">
@@ -1044,10 +1044,10 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
         <div class="offer-btn-price">
           <span class="offer-price">
-            {{ buy2_new_price | money_without_trailing_zeros }}
+            {% render 'format-money', amount: buy2_new_price %}
           </span>
           <span class="offer-compare">
-            {{ buy2_old_price | money_without_trailing_zeros }}
+            {% render 'format-money', amount: buy2_old_price %}
           </span>
         </div>
         
@@ -1063,10 +1063,10 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
         <div class="offer-btn-price">
           <span class="offer-price">
-            {{ buy3_new_price | money_without_trailing_zeros }}
+            {% render 'format-money', amount: buy3_new_price %}
           </span>
           <span class="offer-compare">
-            {{ buy3_old_price | money_without_trailing_zeros }}
+            {% render 'format-money', amount: buy3_old_price %}
           </span>
         </div>
        
