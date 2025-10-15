@@ -710,117 +710,78 @@ safe-sticky {
 
     // Infinite scroll for mobile product images
     function setupInfiniteScroll() {
-      {% comment %} console.log('🔄 Setting up infinite scroll...');
-      console.log('📱 Window width:', window.innerWidth); {% endcomment %}
-      
-      // Only run on mobile devices
-      if (window.innerWidth >= 550) {
-        {% comment %} console.log('⏭️ Skipping - desktop mode'); {% endcomment %}
-        return;
+  if (window.innerWidth >= 550) return;
+
+  const containers = document.querySelectorAll('.updated-product-item.product-item .product-item__aspect-ratio');
+
+  containers.forEach((container) => {
+    if (container.dataset.infiniteSetup) return;
+    container.dataset.infiniteSetup = 'true';
+
+    const images = container.querySelectorAll('.mobile_images');
+    if (images.length <= 1) return;
+
+    container.querySelectorAll('.mobile_images.clone-image').forEach(clone => clone.remove());
+
+    const firstImage = images[0].cloneNode(true);
+    const lastImage = images[images.length - 1].cloneNode(true);
+    firstImage.classList.add('clone-image');
+    lastImage.classList.add('clone-image');
+    container.appendChild(firstImage);
+    container.insertBefore(lastImage, images[0]);
+
+    // Always set scroll position to the first real image after setup
+    function setToFirstRealImage() {
+      const updatedImages = container.querySelectorAll('.mobile_images');
+      if (updatedImages.length > 2) {
+        const imageWidth = updatedImages[1].offsetWidth;
+        container.scrollLeft = imageWidth;
       }
-      
-      const containers = document.querySelectorAll('.updated-product-item.product-item .product-item__aspect-ratio');
-      {% comment %} console.log('📦 Found containers:', containers.length); {% endcomment %}
-      
-      containers.forEach((container, index) => {
-        // Skip if already processed
-        if (container.dataset.infiniteSetup) {
-          {% comment %} console.log(`⏭️ Container ${index} already setup`); {% endcomment %}
-          return;
-        }
-        container.dataset.infiniteSetup = 'true';
-        
-        const images = container.querySelectorAll('.mobile_images');
-        {% comment %} console.log(`🖼️ Container ${index} has ${images.length} images`); {% endcomment %}
-        
-        if (images.length <= 1) {
-          {% comment %} console.log(`⏭️ Container ${index} skipped - need more images`); {% endcomment %}
-          return;
-        }
-        
-        // Clone first and last images for seamless loop
-        const firstImage = images[0].cloneNode(true);
-        const lastImage = images[images.length - 1].cloneNode(true);
-        
-        // Mark as clones and add to container
-        firstImage.classList.add('clone-image');
-        lastImage.classList.add('clone-image');
-        
-        container.appendChild(firstImage);
-        container.insertBefore(lastImage, images[0]);
-        
-        {% comment %} console.log(`✅ Container ${index} cloned images added`); {% endcomment %}
-        
-        // Set initial position after cloning
-        setTimeout(() => {
-          const imageWidth = images[0].offsetWidth;
-          container.scrollLeft = imageWidth;
-          {% comment %} console.log(`📍 Container ${index} initial position set to ${imageWidth}px`); {% endcomment %}
-        }, 100);
-        
-        let isJumping = false;
-        let scrollTimeout;
-        
-        container.addEventListener('scroll', function() {
-          if (isJumping) return;
-          
-          // Clear any existing timeout
-          clearTimeout(scrollTimeout);
-          
-          // Set a small delay to ensure scroll has settled
-          scrollTimeout = setTimeout(() => {
-            const scrollLeft = container.scrollLeft;
-            const maxScroll = container.scrollWidth - container.clientWidth;
-            const imageWidth = images[0].offsetWidth;
-            const tolerance = imageWidth * 0.1; // 10% tolerance
-            
-            {% comment %} console.log(`📊 Scroll: ${scrollLeft}, Max: ${maxScroll}, Width: ${imageWidth}`); {% endcomment %}
-            
-            // Check if we're at the cloned last image (beginning of scroll)
-            if (scrollLeft <= tolerance) {
-              isJumping = true;
-              {% comment %} console.log(`🔄 At cloned last image, jumping to real last image`); {% endcomment %}
-              
-              // Temporarily disable scroll-snap and smooth behavior
-              container.style.scrollSnapType = 'none';
-              container.style.scrollBehavior = 'auto';
-              
-              // Jump to the real last image
-              const targetPosition = maxScroll - imageWidth;
-              container.scrollLeft = targetPosition;
-              
-              // Re-enable scroll-snap and smooth behavior after jump
-              requestAnimationFrame(() => {
-                container.style.scrollSnapType = 'x mandatory';
-                container.style.scrollBehavior = 'smooth';
-                isJumping = false;
-              });
-            }
-            // Check if we're at the cloned first image (end of scroll)
-            else if (scrollLeft >= maxScroll - tolerance) {
-              isJumping = true;
-              {% comment %} console.log(`🔄 At cloned first image, jumping to real first image`); {% endcomment %}
-              
-              // Temporarily disable scroll-snap and smooth behavior
-              container.style.scrollSnapType = 'none';
-              container.style.scrollBehavior = 'auto';
-              
-              // Jump to the real first image
-              container.scrollLeft = imageWidth;
-              
-              // Re-enable scroll-snap and smooth behavior after jump
-              requestAnimationFrame(() => {
-                container.style.scrollSnapType = 'x mandatory';
-                container.style.scrollBehavior = 'smooth';
-                isJumping = false;
-              });
-            }
-          }, 10); // Small delay to let scroll settle
-        });
-        
-        {% comment %} console.log(`✅ Container ${index} infinite scroll setup complete`); {% endcomment %}
-      });
     }
+    setTimeout(setToFirstRealImage, 100);
+    setTimeout(setToFirstRealImage, 500);
+
+    let isJumping = false;
+    let scrollTimeout;
+
+    container.addEventListener('scroll', function() {
+      if (isJumping) return;
+
+      clearTimeout(scrollTimeout);
+
+      scrollTimeout = setTimeout(() => {
+        const updatedImages = container.querySelectorAll('.mobile_images');
+        const scrollLeft = container.scrollLeft;
+        const maxScroll = container.scrollWidth - container.clientWidth;
+        const imageWidth = updatedImages[1].offsetWidth;
+        const tolerance = imageWidth * 0.1;
+
+        if (scrollLeft <= tolerance) {
+          isJumping = true;
+          container.style.scrollSnapType = 'none';
+          container.style.scrollBehavior = 'auto';
+          const targetPosition = maxScroll - imageWidth;
+          container.scrollLeft = targetPosition;
+          requestAnimationFrame(() => {
+            container.style.scrollSnapType = 'x mandatory';
+            container.style.scrollBehavior = 'smooth';
+            isJumping = false;
+          });
+        } else if (scrollLeft >= maxScroll - tolerance) {
+          isJumping = true;
+          container.style.scrollSnapType = 'none';
+          container.style.scrollBehavior = 'auto';
+          container.scrollLeft = imageWidth;
+          requestAnimationFrame(() => {
+            container.style.scrollSnapType = 'x mandatory';
+            container.style.scrollBehavior = 'smooth';
+            isJumping = false;
+          });
+        }
+      }, 10);
+    });
+  });
+}
 
     // Run infinite scroll setup
     setupInfiniteScroll();
