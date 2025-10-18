@@ -68,7 +68,7 @@
       <div class="shipping-bar__text"><img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_GiftIcon.png?v=1734096314" width="20" height="20" alt="Gift Icon" style="margin-right: 5px;"><span style="color: green;">Free Gift Unlocked.</span> Please select your Free Gift of choice <a href="/collections/free-gift?utm_source=mc"><u>here</u></a></div>
     {%- else -%}
       {%- assign remaining_amount = threshold_in_cents | minus: cart.items_subtotal_price | money -%}
-      <div class="shipping-bar__text"><img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_GiftIcon.png?v=1734096314" width="20" height="20" alt="Gift Icon" style="margin-right: 5px;">You are <b>{{ remaining_amount }}</b> away from receiving a Free Gift with your purchase worth up to <b>{%- if cart.currency.iso_code == 'GBP' -%}£149 GBP {% else %} €149,95{% endif %}</b></div>
+      <div class="shipping-bar__text"><img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_GiftIcon.png?v=1734096314" width="20" height="20" alt="Gift Icon" style="margin-right: 5px;">You are <b>{{ remaining_amount }}</b> away from receiving a Free Gift with your purchase worth up to <b>{%- if cart.currency.iso_code == 'GBP' -%}£99 GBP {% else %} €149,95{% endif %}</b></div>
     {%- endif -%}
   {%- endif -%}
 
