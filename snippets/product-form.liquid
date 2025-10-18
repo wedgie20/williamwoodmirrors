@@ -63,7 +63,7 @@
 
 /* Mobile: bottom placement (unchanged) */
 .floating-add-to-cart {
-  bottom: max(20px, env(safe-area-inset-bottom));
+  bottom:env(safe-area-inset-bottom);
   transform: translateX(-50%) translateY(100%); /* start hidden below */
 }
 
@@ -121,7 +121,7 @@
   .floating-product-image img { width: 55px; height: 55px; border-radius: 30px; }
   .floating-add-to-cart-button { padding: 16px 16px; font-size: 10px; }
 
-  .floating-add-to-cart {max-width: 480px; width: calc(100% - 32px); box-shadow: 0 8px 32px rgba(0,0,0,.15); border-radius: 12px;}
+  .floating-add-to-cart {max-width: 480px; width: 100%; box-shadow: 0 8px 32px rgba(0,0,0,.15); border-radius: unset;}
 
 }
   
