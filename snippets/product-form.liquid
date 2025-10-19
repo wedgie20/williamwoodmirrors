@@ -722,7 +722,7 @@ document.addEventListener('DOMContentLoaded', function () {
         {%- endcomment -%}
 
         {%- when 'timer' -%}
-         {% unless product.tags contains 'Sale' or collection.handle == 'spring-sale' %}
+         {% unless product.tags contains 'Sale' or collection.handle == 'autumn-sale' %}
             {% render 'countdown-timer', block: block %}
           {% endunless %}
         {% comment %} {% render 'countdown-timer', block: block -%} {% endcomment %}
