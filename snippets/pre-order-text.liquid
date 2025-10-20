@@ -1,0 +1,35 @@
+<div class="description-container-preorder">
+    {% if product.tags contains 'pre-order' %}
+      {% if current_path contains '/en-fr/' or current_path contains '/en-de/' or current_path contains '/en-nl/' %}
+        {% assign short_description = product.description 
+              | strip_html 
+              | replace: 'between', 'from' 
+              | split: 'and' 
+              | first 
+              | strip 
+        %}
+      {% else %}
+          {% assign short_description = product.description
+            | strip_html
+            | split: ':' 
+            | first 
+            | strip 
+          %}
+      {% endif %}
+
+      {% if block.settings.short_description != blank %}
+        <p><b>{{ block.settings.short_description }}</b></p>
+      {% else %}
+        <p><b>{{ short_description }}</b></p>
+      {% endif %}
+
+    {% else %}
+      <p>
+{% if product.tags contains 'madetoorder' %}
+Made to order: Dispatched in 7-10 Business Days
+{% else %}
+Usually dispatched in 1–3 Business Days
+{% endif %}
+</p>
+    {% endif %}
+</div>
