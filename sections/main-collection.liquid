@@ -196,6 +196,7 @@ ul.hookpoint-tags::-webkit-scrollbar {
     {% if collection.metafields.custom.hookpoint_tags %}
       <div class="collection-tags">
        {% assign hookpoint_tags = collection.metafields.custom.hookpoint_tags | split: ',' %}
+       <div class="hookpoint-scrollbar-container">
 <ul class="hookpoint-tags">
      {%- assign current_tag = request.path | split: '/' | last -%}
      
@@ -215,6 +216,10 @@ ul.hookpoint-tags::-webkit-scrollbar {
   {% endfor %}
 
 </ul>
+ <div class="hookpoint-scrollbar-track">
+    <div class="hookpoint-scrollbar-thumb"></div>
+  </div>
+</div>
       </div>
     {% endif %}
 
@@ -815,7 +820,77 @@ translate: 0 -200%;
       position: unset;
     }
   }
+
+  @media (max-width: 749px) {
+  .hookpoint-scrollbar-container {
+    position: relative;
+  }
+  ul.hookpoint-tags {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Hide native scrollbar */
+    margin-bottom: 0;
+    padding-bottom: 18px; /* Space for fake scrollbar */
+  }
+  ul.hookpoint-tags::-webkit-scrollbar {
+    display: none;
+  }
+  .hookpoint-scrollbar-track {
+    position: absolute;
+    left: 0; right: 0; bottom: 4px;
+    height: 4px;
+    background: #eee;
+    border-radius: 4px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .hookpoint-scrollbar-thumb {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    height: 4px;
+    background: #ccc;
+    border-radius: 4px;
+    width: 40px; /* JS will update */
+    z-index: 3;
+    pointer-events: none;
+    transition: background 0.2s;
+  }
+}
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  var containers = document.querySelectorAll('.hookpoint-scrollbar-container');
+  containers.forEach(function(container) {
+    var ul = container.querySelector('.hookpoint-tags');
+    var track = container.querySelector('.hookpoint-scrollbar-track');
+    var thumb = container.querySelector('.hookpoint-scrollbar-thumb');
+
+    function updateThumb() {
+      var scrollWidth = ul.scrollWidth;
+      var clientWidth = ul.clientWidth;
+      var scrollLeft = ul.scrollLeft;
+      if (scrollWidth <= clientWidth) {
+        thumb.style.display = 'none';
+        return;
+      }
+      thumb.style.display = 'block';
+      var ratio = clientWidth / scrollWidth;
+      var thumbWidth = Math.max(clientWidth * ratio, 30); // min width
+      var maxScroll = scrollWidth - clientWidth;
+      var left = (scrollLeft / maxScroll) * (clientWidth - thumbWidth);
+      thumb.style.width = thumbWidth + 'px';
+      thumb.style.left = (left || 0) + 'px';
+    }
+
+    ul.addEventListener('scroll', updateThumb);
+    window.addEventListener('resize', updateThumb);
+    updateThumb();
+  });
+});
+</script>
 
 {% schema %}
 {
