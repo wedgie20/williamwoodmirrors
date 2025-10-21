@@ -535,7 +535,7 @@
       {% if localization.country.iso_code != "GB" and eu_countries contains localization.country.iso_code %}
         <p style="font-weight: bold; color: black;">Duties & Taxes Paid</p>
       {% endif %}
-      <p class="" style="color: #780606;"><strong>Items in your bag aren’t held, </strong>checkout now to secure your order.</p>
+      <p class="" style="color: #780606; text-align: center;"><strong>Items in your bag aren’t held, </strong>checkout now to secure your order.</p>
 </div>
      {%- for line_item in cart.items -%}
 {% if line_item.product.tags contains 'pre-order' %}
