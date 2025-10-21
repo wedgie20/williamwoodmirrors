@@ -161,7 +161,7 @@ ul.hookpoint-tags::-webkit-scrollbar {
 @media (max-width: 749px) {
   ul.hookpoint-tags {
     overflow-x: auto;
-    overflow-y: hidden;
+    {% comment %} overflow-y: hidden; {% endcomment %}
     white-space: nowrap;
     -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
     scrollbar-width: thin; /* for Firefox */
