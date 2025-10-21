@@ -197,7 +197,30 @@
     {% render 'js-variables', direction: direction %}
 
     <style>
+      .formobile{
+      display: none !important;
+      }
       @media (max-width: 740px) {
+        .fordesktop{
+        display: none !important;
+        }
+        .formobile{
+      display: inline !important;
+      }
+      .usps-lines {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0px 24px;
+}
+.usps-lines div{
+    font-size: 9px;
+    margin-top: 10px;
+}
+.usps-lines div svg{
+width: 10px;
+height: 10px;
+}
+
   #main #mobile-facet-toolbar {
     position: sticky;
     {% comment %} top: 0; {% endcomment %}
