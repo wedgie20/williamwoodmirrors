@@ -145,7 +145,7 @@ ul.hookpoint-tags {
   scrollbar-width: none; /* Firefox */
 } {% endcomment %}
 ul.hookpoint-tags::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  {% comment %} display: none; /* Chrome, Safari, Opera */ {% endcomment %}
 }
 .hookpoint-tags li {
   white-space: nowrap;
@@ -156,6 +156,29 @@ ul.hookpoint-tags::-webkit-scrollbar {
 .hookpoint-tags li.custom-filter-tag.activetag {
     background-color: black;
     color: white;
+}
+
+@media (max-width: 749px) {
+  ul.hookpoint-tags {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+    scrollbar-width: thin; /* for Firefox */
+            padding-bottom: 15px;
+  }
+  ul.hookpoint-tags::-webkit-scrollbar {
+    height: 3px;
+    background: #eee;
+  }
+  ul.hookpoint-tags::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+  }
+   ul.hookpoint-tags::-webkit-scrollbar-track {
+    background: #eee;
+    border-radius: 6px; /* This is for the track */
+  }
 }
 </style>
 
