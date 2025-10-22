@@ -9,7 +9,7 @@
 <span style="margin-left: 4px;"><span class="urgency-indicator"></span> {{ block.settings.low_stock_text | default: "Low stock, only" }} <b>{{ product.variants[0].inventory_quantity }} {{ block.settings.low_stock_suffix | default: "left" }}</b></span>
 {% else %}
 <div style="margin-left: 5px;">
-  <b>{{ block.settings.limited_availability_bold | default: "Availability is limited" }}</b>{{ block.settings.limited_availability_normal | default: " - secure yours before it's gone" }}
+  <b>{{ block.settings.limited_availability_bold | default: "Availability is limited" }} </b>{{ block.settings.limited_availability_normal | default: " - secure yours before it's gone" }}
 </div>
 {% endif %}
 {% endif %}
