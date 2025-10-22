@@ -5,6 +5,67 @@
 {%- endif -%}
 
 <style>
+
+  #shopify-section-{{ section.id }} .product-item__cta-wrapper .product-item__cta{
+    display: flex;
+    width: 22px;
+    height: 22px;
+    padding: unset;
+    place-content: center;
+    flex-wrap: wrap;
+    border: 1px solid rgb(var(--border-color));
+    border-radius: var(--button-border-radius);
+    background: rgb(var(--root-background));
+    color: rgb(var(--root-text-color));
+    transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out, transform 0.25s ease-in-out, color 0.25s ease-in-out;
+    margin: unset;
+  }
+  #shopify-section-{{ section.id }} .product-item__cta-wrapper.hereis {
+    {% comment %} display: none; {% endcomment %}
+    place-content: center;
+    flex-wrap: wrap;
+    place-items: center;
+    {% comment %} position: absolute; {% endcomment %}
+        {% comment %} bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%); {% endcomment %}
+    transition-property: transform, translate, scale, rotate;
+    transition-timing-function: ease-in-out;
+    transition-duration: .28s;
+    translate: 0 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+        opacity: 0.8;
+}
+#shopify-section-{{ section.id }} .product-item__image-wrapper:hover .product-item__cta-wrapper.hereis{
+        translate: 0 -300%;
+}
+@media screen and (max-width: 767px) {
+#shopify-section-{{ section.id }} .product-item__cta-wrapper.hereis {
+display: flex;
+translate: 0 -300%;
+}
+}
+  #shopify-section-{{ section.id }} .product-item__cta-wrapper .product-item__cta:hover{
+    border-color: rgb(var(--heading-color));
+    color: rgb(var(--heading-color));
+    transform: scale(1.1);
+  }
+  #shopify-section-{{ section.id }} .product-item__cta-wrapper .product-item__cta:focus{
+    outline: 2px solid rgb(var(--heading-color));
+    outline-offset: 2px;
+  }
+  #shopify-section-{{ section.id }} .product-item__cta-wrapper .product-item__cta:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+
+}
+.product-item__cta-wrapper .product-item__cta {
+    margin-bottom: -8px !important;
+  }
+
+
   #shopify-section-{{ section.id }} {
     {%- if section.settings.background == 'rgba(0,0,0,0)' -%}
       {%- assign section_background = settings.background -%}
@@ -80,7 +141,7 @@
                     {%- assign smallest_image_aspect_ratio = smallest_image_aspect_ratio | at_least: product.featured_media.aspect_ratio -%}
 
                     {%- capture sizes_attribute -%}(max-width: 740px) 75vw, min({{ 100.0 | divided_by: 4 | ceil }}vw, {{ 1520.0 | divided_by: 4 | ceil }}px){%- endcapture -%}
-                    {%- render 'product-item', product: product, sizes_attribute: sizes_attribute, reveal: settings.stagger_products_apparition -%}
+                    {%- render 'product-featured-item', product: product, sizes_attribute: sizes_attribute, show_cta: true, reveal: settings.stagger_products_apparition -%}
 
                     {%- break -%}
                   {%- endif -%}
