@@ -242,10 +242,10 @@
                     <span class="review_text" style="display: inline-block; vertical-align: middle; color: white; text-transform: capitalize;">{{ block.settings.review_text }}</span>
   {%  endif %}
                   </div>
-<div class="tp-mobile" style="text-align: center; margin-bottom: 0px; margin-top: 20px;">
+{% comment %} <div class="tp-mobile" style="text-align: center; margin-bottom: 0px; margin-top: 20px;">
   <img style="display: inline-block; vertical-align: middle; width: 60px; margin-right: 8px; margin-bottom: 0px !important; margin-top: 0px;" src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.review_image | img_url: '60x60' }}" alt="Trustpilot rating">
    <span class="review_text" style="display: inline-block; vertical-align: middle; color: white;">{{ block.settings.review_text }}</span>
-</div>
+</div> {% endcomment %}
 {% comment %} <span class="heading h1 slideshow_txt tp-desktop title" style="margin-top: 12px; margin-bottom: 12px;"><b>{{ block.settings.title }}</b><span class="subheading" style="text-transform: lowercase;"><br>{{ block.settings.subheading }}</span>{% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %}<br></b>{% endunless %}</span>
 <span class="heading h1 slideshow_txt tp-mobile title" style="margin-top: 12px; margin-bottom: 12px;">{{ block.settings.title }}<span class="subheading" style="text-transform: lowercase;"><br>{{ block.settings.subheading }}</span>{% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %}<br>{% endunless %}</span>
                    {% endcomment %}
