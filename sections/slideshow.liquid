@@ -246,9 +246,9 @@
   <img style="display: inline-block; vertical-align: middle; width: 60px; margin-right: 8px; margin-bottom: 0px !important; margin-top: 0px;" src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.review_image | img_url: '60x60' }}" alt="Trustpilot rating">
    <span class="review_text" style="display: inline-block; vertical-align: middle; color: white;">{{ block.settings.review_text }}</span>
 </div>
-<span class="heading h1 slideshow_txt tp-desktop title" style="margin-top: 12px; margin-bottom: 12px;"><b>{{ block.settings.title }}</b><span class="subheading" style="text-transform: lowercase;"><br>{{ block.settings.subheading }}</span>{% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %}<br></b>{% endunless %}</span>
+{% comment %} <span class="heading h1 slideshow_txt tp-desktop title" style="margin-top: 12px; margin-bottom: 12px;"><b>{{ block.settings.title }}</b><span class="subheading" style="text-transform: lowercase;"><br>{{ block.settings.subheading }}</span>{% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %}<br></b>{% endunless %}</span>
 <span class="heading h1 slideshow_txt tp-mobile title" style="margin-top: 12px; margin-bottom: 12px;">{{ block.settings.title }}<span class="subheading" style="text-transform: lowercase;"><br>{{ block.settings.subheading }}</span>{% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %}<br>{% endunless %}</span>
-                  
+                   {% endcomment %}
 {% comment %} <span class="heading h1 slideshow_txt" style="margin-top: 0; font-size: 25px; margin-bottom: 15px;"><span style="font-family: altesse-std-24pt; text-transform: lowercase; font-size: 25px; font-weight: 300;">code </span><br>AUTUMN</b>{% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %}<br></b>{% endunless %}</span>
 
 
@@ -264,9 +264,9 @@
                   
                   <span class="tp-mobile" style="color: white; font-size: 13px; margin-bottom: 25px;">Mystery Gift with all orders, ends <br>ends midnight tonight. {% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %} {% endunless %}</span><br><br>
                     {% endcomment %}
-                      <span class="tp-desktop slide_text" style="color: white; margin-bottom: 2rem;">{{ block.settings.slide_text | escape | newline_to_br }} {% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %} {% endunless %}</span>
+                      {% comment %} <span class="tp-desktop slide_text" style="color: white; margin-bottom: 2rem;">{{ block.settings.slide_text | escape | newline_to_br }} {% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %} {% endunless %}</span>
 
-                  <span class="tp-mobile slide_text" style="color: white;">{{ block.settings.slide_text | escape | newline_to_br }} {% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %} {% endunless %}</span>
+                  <span class="tp-mobile slide_text" style="color: white;">{{ block.settings.slide_text | escape | newline_to_br }} {% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %} {% endunless %}</span> {% endcomment %}
 
                   {% comment %}
               <span class="tp-desktop" style="color: white; margin-bottom: 2rem; font-size: 13px; margin-bottom: 25px;">Use code <b>JUL22</b> at checkout <br> (Ends Midnight Tonight){% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %} {% endunless %}</span>
@@ -274,8 +274,8 @@
                   <span class="tp-mobile" style="color: white; font-size: 13px">Use code <b>JUL22</b> at checkout <br> (Ends Soon){% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %} {% endunless %}</span>
                     {% endcomment %}
 
-<span class="heading heading--small tp-desktop above_text" style="display: block; vertical-align: middle; color: white; margin-bottom: 2rem; text-transform: capitalize;">{{ block.settings.above_text | escape | newline_to_br }}</span>
-  <span class="heading heading--small tp-mobile above_text" style="display: block; vertical-align: middle; color: white; text-transform: capitalize; margin-bottom:25px;">{{ block.settings.above_text | escape | newline_to_br }}</span>
+{% comment %} <span class="heading heading--small tp-desktop above_text" style="display: block; vertical-align: middle; color: white; margin-bottom: 2rem; text-transform: capitalize;">{{ block.settings.above_text | escape | newline_to_br }}</span>
+  <span class="heading heading--small tp-mobile above_text" style="display: block; vertical-align: middle; color: white; text-transform: capitalize; margin-bottom:25px;">{{ block.settings.above_text | escape | newline_to_br }}</span> {% endcomment %}
 
 
 <div class="button-row-mobile" style="text-align: center; white-space: nowrap;">
