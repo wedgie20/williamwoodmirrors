@@ -67,14 +67,17 @@
                 <split-lines {% if collection.handle == 'aurelia' %}aurelia-heading{% endif %} reveal>{{ collection.title }}</split-lines>
               </h1>
             {%- endif -%}
-
-
+{% if section_content contains 'FGCOPY' %}
+<span>Spend £299 GBP or more and select one complimentary Free Gift of your choice worth up to £99 GBP, courtesy of William Wood.</span><br>
+<span>Select Free Gifts are available only in October.</span><br>
+<span>Note - To receive your Free Gift, please ensure to add it to your cart before you purchase. If there's no Free Gift in your cart, it won't be included with your order. </span>
+{% else %}
             <div class="heading heading--small">
                 THE HALLOWEEN EVENT<br><br>
                 25% OFF STOREWIDE<br><br>
                 USE CODE: <span style="font-family: 'Halloween';">RIP</span>
               </div>
-
+            {% endif %}
             {%- if section.settings.show_collection_description and collection.description != blank -%}
               <div class="image-overlay__text-container" reveal style="display: none;">
                 {{- collection.description | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
