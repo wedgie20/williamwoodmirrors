@@ -290,7 +290,7 @@
       --vertical-breather-tight: {% if settings.vertical_spacing == 'small' %}48px{% elsif settings.vertical_spacing == 'medium' %}48px{% else %}64px{% endif %};
     }
   }
-  body.template-index .slideshow__slide .button.button--primary {
+  {% comment %} body.template-index .slideshow__slide .button.button--primary {
       background: transparent;
       color: white;
       text-decoration: underline;
@@ -299,6 +299,6 @@
       font-size: 12px;
       padding-left: 20px;
       position: relative;
-  }
+  } {% endcomment %}
 
 </style>
