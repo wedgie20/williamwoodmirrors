@@ -78,6 +78,36 @@
         </div>
       </div>
     </image-with-text-overlay>
+  {%- elsif section.settings.custom_collection_image -%}
+    <image-with-text-overlay reveal-on-scroll class="image-overlay image-overlay--{{ section.settings.section_height }}" {% if section.settings.section_height == 'auto' %}style="--image-aspect-ratio: {{ section.settings.custom_collection_image.aspect_ratio }}"{% endif %}>
+      <div class="image-overlay__image-wrapper" {% if section.settings.section_height == 'auto' %}style="padding-bottom: {{ 100.0 | divided_by: section.settings.custom_collection_image.aspect_ratio }}%"{% endif %}>
+        {%- comment -%}Performance note: this image must not be lazyloaded as it contributes to the LCP{%- endcomment -%}
+        <picture>
+          <source media="(max-width: 740px)" {% render 'image-attributes', image: section.settings.custom_collection_image, sizes: '400,500,600,700,800,900,1000', height_constraint: 600, crop: 'center', ignore_src: true %}>
+          <img class="image-overlay__image" reveal {% render 'image-attributes', image: section.settings.custom_collection_image, sizes: '600,700,800,1000,1200,1400,1600,1800,2000,2200,2400,2600' %}>
+        </picture>
+      </div>
+
+      <div class="container">
+        <div class="image-overlay__content-wrapper">
+          {{- breadcrumb -}}
+
+          <div class="image-overlay__content content-box content-box--{{ section.settings.text_width }} content-box--text-center content-box--center text-container">
+            {%- if section.settings.show_collection_title -%}
+              <h1 class="heading h1 {% if collection.handle == 'aurelia' %}aurelia-heading{% endif %}">
+                <split-lines {% if collection.handle == 'aurelia' %}aurelia-heading{% endif %} reveal>{{ collection.title }}</split-lines>
+              </h1>
+            {%- endif -%}
+
+            {%- if section.settings.show_collection_description and collection.description != blank -%}
+              <div class="image-overlay__text-container" reveal>
+                {{- collection.description | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </image-with-text-overlay>
   {%- else -%}
     <div class="container">
       <div class="page-header">
@@ -135,6 +165,11 @@
     {
       "type": "paragraph",
       "content": "To change collection descriptions or collection images, [edit your collections](/admin/collections)."
+    },
+     {
+      "type": "image_picker",
+      "id": "custom_collection_image",
+      "label": "Custom collection image"
     },
     {
       "type": "checkbox",
