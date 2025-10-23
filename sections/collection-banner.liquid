@@ -68,16 +68,14 @@
               </h1>
             {%- endif -%}
 
-            <div class="halloween_text">
-              <p>
-                THE HALLOWEEN EVENT<br>
-                25% OFF STOREWIDE<br>
+            <div class="heading heading--small">
+                THE HALLOWEEN EVENT<br><br>
+                25% OFF STOREWIDE<br><br>
                 USE CODE RIP
-              </p>
-            </div>
+              </div>
 
             {%- if section.settings.show_collection_description and collection.description != blank -%}
-              <div class="image-overlay__text-container" reveal>
+              <div class="image-overlay__text-container" reveal style="display: none;">
                 {{- collection.description | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
               </div>
             {%- endif -%}
