@@ -261,6 +261,12 @@ height: 10px;
     pointer-events: none;
   }
 }
+
+{% if template != 'index' and template != 'collection' %}
+  #tidio-chat-iframe{
+  display: none !important;
+  }
+{% endif %}
     </style>
 
     <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
