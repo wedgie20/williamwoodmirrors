@@ -12,5 +12,24 @@
   "context": {
     "market": "gb"
   },
-  "sections": {}
+  "sections": {
+    "blog-post-banner": {
+      "disabled": true,
+      "settings": {},
+      "blocks": {}
+    },
+    "main": {
+      "custom_css": [
+        ".article__info {display: none;}",
+        "@media screen and (min-width: 1000px) {.article {margin-top: 50px; margin-bottom: 50px; }}"
+      ],
+      "settings": {
+        "show_on_scroll_navigation": false,
+        "show_author": false,
+        "show_date": false,
+        "show_share_buttons": false
+      },
+      "blocks": {}
+    }
+  }
 }
