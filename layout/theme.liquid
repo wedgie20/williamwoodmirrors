@@ -200,6 +200,19 @@
       .formobile{
       display: none !important;
       }
+       @media (min-width: 741px) {
+      .usps-lines {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0px 5px;
+    place-content: center;
+    place-items: flex-start;
+            margin-top: 10px;
+}
+ .usps-lines div{
+width: 100%;
+}
+      }
       @media (max-width: 740px) {
         .fordesktop{
         display: none !important;
