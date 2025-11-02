@@ -359,33 +359,20 @@
 
                     {% comment %} <div class="heading heading--small" style="margin-bottom: 0px">Up to 50% off select products<br></br>{%- if cart.currency.iso_code == 'GBP' -%}Extra 15% off with code {% else %} Extra 15% off with code{% endif %}</div> {% endcomment %}
 
-                                        <div class="heading heading--small" style="margin-bottom: 0px">Up to 50% off select products<br> + <br>Extra 25% Off with code: RIP<br></div>
+                                        <div class="heading heading--small" style="margin-bottom: 0px">Up to 50% off select products<br></br></div>
 
                   <div class="discount-code">
                     {% comment %} <span class="heading h1" style="margin-top: 12px; font-size: 25px; margin-bottom: 0px;">{%- if cart.currency.iso_code == 'GBP' -%}SE15 {% else %}SE15 {% endif %}</span> {% endcomment %}
-                    <span class="heading heading--small" style="margin-bottom: 0px; margin-top: 12px;">{%- if cart.currency.iso_code == 'GBP' -%}AUTUMN SALE ENDS MIDNIGHT TONIGHT{% else %}90 DAYS FREE RETURNS{%- endif -%}</span>
+                    <span class="heading heading--small" style="margin-bottom: 0px; margin-top: 12px;">{%- if cart.currency.iso_code == 'GBP' -%}FREE PREMIUM UK DELIVERY + 90 DAYS FREE RETURNS {% else %}90 DAYS FREE RETURNS{%- endif -%}</span>
                   </div>
                     
 {% elsif section_content contains 'Best Sellers' or section_content contains 'Most Loved' %}
                     <span class="heading h1" style="font-size: 25px;"><b>BEST SELLERS</b></span>
-              <div class="heading heading--small">
-                THE HALLOWEEN EVENT<br><br>
-                25% OFF STOREWIDE<br><br>
-                USE CODE: <span style="font-family: 'Halloween';">RIP</span><br><br>
-                ENDS MIDNIGHT TONIGHT
-              </div>
+                    <div class="heading heading--small">A selection of the best selling William Wood pieces, curated by you. <br><br>{%- if cart.currency.iso_code == 'GBP' -%}FREE PREMIUM UK DELIVERY + 90 DAYS FREE RETURNS {% else %}90 DAYS FREE RETURNS{%- endif -%}</div>
 
-                    <div class="heading heading--small" style="display: none;">A selection of the best selling William Wood pieces, curated by you.<br><br>{%- if cart.currency.iso_code == 'GBP' -%}FREE PREMIUM UK DELIVERY + 90 DAYS FREE RETURNS {% else %}90 DAYS FREE RETURNS{%- endif -%}</div>
- 
                   {% elsif section_content contains 'Latest Arrivals' %}
                     <span class="heading h1" style="font-size: 25px;"><b>Latest Arrivals</b></span>
-                     <div class="heading heading--small">
-                THE HALLOWEEN EVENT<br><br>
-                25% OFF STOREWIDE<br><br>
-                USE CODE: <span style="font-family: 'Halloween';">RIP</span><br><br>
-                ENDS MIDNIGHT TONIGHT
-              </div>
-                    <div class="heading heading--small" style="display:none;">The latest arrivals at William Wood <br><br>{%- if cart.currency.iso_code == 'GBP' -%}FREE PREMIUM UK DELIVERY + 90 DAYS FREE RETURNS {% else %}90 DAYS FREE RETURNS{%- endif -%}</div>
+                    <div class="heading heading--small">The latest arrivals at William Wood <br><br>{%- if cart.currency.iso_code == 'GBP' -%}FREE PREMIUM UK DELIVERY + 90 DAYS FREE RETURNS {% else %}90 DAYS FREE RETURNS{%- endif -%}</div>
                   {% else  %}
 {{ section_content }}
                   {% endif %}
