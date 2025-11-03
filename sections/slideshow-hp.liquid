@@ -235,90 +235,49 @@
       </style>
 
  <div style="text-align: left; margin-bottom: 2rem; color: white; " class="tp-mobile" >
-  <p style="margin-bottom: unset; font-size: 8px;">Join Over 700,000+ Satisfied Customers</p>
-  <div class="OTTP" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; margin-bottom: 16px;">
-    <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.png?v=1741099146" style="height: 8px; margin: 0px;">
-    <span style="white-space: nowrap; font-size: 8px;">4.7 / 5 Excellent • Based on 10,000+ reviews</span>
+
+<p style="margin-bottom: unset; font-size: 8px;">{{ block.settings.review_headline | default: "Join Over 700,000+ Satisfied Customers" }}</p>
+<div class="OTTP" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; margin-bottom: 24px;">
+  {% if block.settings.review_image != blank %}
+    <img src="{{ block.settings.review_image | image_url }}" style="height: {{ block.settings.review_image_height | default: 14 }}px; margin: 0px;">
+  {% endif %}
+  <span style="white-space: nowrap; font-size: 8px;">{{ block.settings.review_text | default: "4.7 / 5 Excellent • Based on 10,000+ reviews" }}</span>
 </div>
- <span class="" style="font-family: sans-serif;
-    font-weight: 400;
-    font-size: 11px;
-    line-height: 100%;
-    letter-spacing: 3px;
-    text-transform: uppercase;"></span>
-           <span style="font-family: 'GothamBlack';
-    font-weight: 500;
-    font-size: 25px;
-    line-height: 100%;
-    letter-spacing: 0;
-    text-transform: uppercase;" class="heading slideshow_txt title">Make Your Home</span>
-                      <span  style="font-family: GothamBlack;
-    font-weight: 500;
-    font-size: 25px;
-    line-height: 100%;
-    letter-spacing: 0;
-    text-transform: uppercase;
-    " class="heading slideshow_txt title"><span style="font-family: altesse-std-24pt; text-transform: lowercase; font-size: 34px;">UNFORGETTABLE</span><br><span style="font-size: 12px;"></span></span>
-                      <span style="font-weight: 400;
-    font-style: Italic;
-    font-size: 12px;
-    line-height: 100%;
-    letter-spacing: 0;" class=""></span>
-<div class="dt-button" style="margin-top: 10px;">
-    <a href="/collections/best-sellers" class="shop-now-summer">
-    <button class="button button--primary slideshow_txt clearance-text" style="display: inline-flex; align-items: center; justify-content: center; transform: translateY(10px);
-        width: 230px !important;
-    height: 49px !important;
-    gap: 10px;
-    opacity: 1;
-    border-radius: 1000px;
-    padding-top: 16px;
-    padding-right: 24px;
-    padding-bottom: 16px;
-    padding-left: 16px;">
-      <span class="button_1_text" style="white-space: nowrap; width: 100%;font-family: Zurich, sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    line-height: 100%;
-    letter-spacing: 0;">SHOP OUR BEST SELLERS</span>
-    </button>
-  </a>
 </div>
 
    </div>
 
    <div style="text-align: left; margin-bottom: 2rem; color: white; " class="tp-desktop" >
-  <p style="margin-bottom: unset; font-size: 16px;">Join Over 700,000+ Satisfied Customers</p>
-  <div class="OTTP" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; margin-bottom: 24px;">
-    <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.png?v=1741099146" style="height: 14px; margin: 0px;">
-    <span style="white-space: nowrap; font-size: 16px;">4.7 / 5 Excellent • Based on 10,000+ reviews</span>
+
+<p style="margin-bottom: unset; font-size: 16px;">{{ block.settings.review_headline | default: "Join Over 700,000+ Satisfied Customers" }}</p>
+<div class="OTTP" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; margin-bottom: 24px;">
+  {% if block.settings.review_image != blank %}
+    <img src="{{ block.settings.review_image | image_url }}" style="height: {{ block.settings.review_image_height | default: 14 }}px; margin: 0px;">
+  {% endif %}
+  <span style="white-space: nowrap; font-size: 16px;">{{ block.settings.review_text | default: "4.7 / 5 Excellent • Based on 10,000+ reviews" }}</span>
 </div>
-          <span class="" style="font-family: sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 100%;
-    letter-spacing: 4px;
-    text-transform: uppercase;"></span>
+</div>
+
            <span style="font-family: 'GothamBlack';
     font-weight: 500;
     font-size: 25px;
     line-height: 100%;
     letter-spacing: 0;
-    text-transform: uppercase;" class="heading slideshow_txt title">Make Your Home</span>
+    text-transform: uppercase;" class="heading slideshow_txt title">{{ block.settings.title | escape }}</span>
                       <span  style="font-family: GothamBlack;
     font-weight: 500;
     font-size: 35px;
     line-height: 100%;
     letter-spacing: 0;
     text-transform: uppercase;
-    margin-bottom: 24px;" class="heading slideshow_txt title"><span style="font-family: altesse-std-24pt; text-transform: lowercase; font-size: 34px;">UNFORGETTABLE</span><br><span style="font-size: 12px;"></span></span>
+    margin-bottom: 24px;" class="heading slideshow_txt title"><span style="font-family: altesse-std-24pt; text-transform: lowercase; font-size: 34px;">{{ block.settings.subheading | escape }}</span><br><span style="font-size: 12px;"></span></span>
                       <span style="font-weight: 400;
     font-style: Italic;
     font-size: 14px;
     line-height: 100%;
     letter-spacing: 0;" class=""></span>
 <div class="dt-button" style="margin-top: 24px;">
-    <a href="/collections/best-sellers" class="shop-now-summer">
+    <a href="{{ block.settings.button_1_link | escape }}" class="shop-now-summer">
     <button class="button button--primary slideshow_txt clearance-text" style="display: inline-flex; align-items: center; justify-content: center; transform: translateY(10px);
         width: 230px !important;
     height: 49px !important;
@@ -333,7 +292,7 @@
     font-size: 10px;
     font-weight: 700;
     line-height: 100%;
-    letter-spacing: 0;">SHOP OUR BEST SELLERS</span>
+    letter-spacing: 0;">{{ block.settings.button_1_text | escape }}</span>
     </button>
   </a>
 </div>
@@ -586,6 +545,12 @@
           "type": "header",
           "content": "Review Text/Image"
         },
+        {
+  "type": "text",
+  "id": "review_headline",
+  "label": "Review Headline",
+  "default": "Join Over 700,000+ Satisfied Customers"
+},
         {
           "type": "image_picker",
           "id": "review_image",
