@@ -291,9 +291,9 @@
       </div>
       <div class="ups-tag">
         {%- comment %} Show Summer Event only for products tagged with "sale" {%- endcomment -%}
-        {%- if product.tags contains 'sale' -%}
+        {% comment %} {%- if product.tags contains 'sale' -%}
         <p style="color: #780606; margin-bottom: 0px;">Autumn Sale Ends Midnight Tonight</p> 
-        {%- endif -%}
+        {%- endif -%} {% endcomment %}
         <div class="guarantee-item">
             <span class="icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 18 13" fill="none">
