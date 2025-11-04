@@ -14,11 +14,6 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "announcement_bar_position": "sticky",
-        "announcement_text_size": "small",
-        "cycle_speed": 3
-      },
       "blocks": {
         "message_N4D9HB": {
           "disabled": true,
@@ -28,31 +23,25 @@
             "title": "MYSTERY GIFT",
             "content": "<p>Receive a Mystery Gift with all orders, <strong>ends</strong> <strong>midnight tonight </strong>(no minimum spend).<br/>+<br/><strong>22% off</strong> storewide, enter code <strong>JUL22</strong> at checkout.</p>",
             "button_text": "SHOP NOW",
-            "button_link": "shopify://collections/autumn-sale"
+            "button_link": "shopify://collections/early-bird-offers"
           }
         },
         "message_yMjrK": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "Prime Edition: Up to 60% off today only",
             "learn_more_text": "shop now",
-            "header-42a3d2f79bba5e3b9d7ce3a222d77b50": null,
-            "image": null,
             "title": "PRIME EDITION",
             "content": "<p>Up to 60% off select products for one day only, extra 10% off with code <strong>P10 (Ends Midnight Tonight)<br/></strong>+<br/>Free Gift with your purchase worth up to £99 GBP when you spend £299 GBP or more<br/><br/><strong>All prices increase midnight tonight</strong></p>",
             "button_text": "SHOP NOW",
-            "button_link": "shopify://collections/autumn-sale"
+            "button_link": "shopify://collections/early-bird-offers"
           }
         },
         "message_Nh4hB": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "90 Day 100% Money Back Guarantee",
             "learn_more_text": "",
-            "header-6111a10a1a6fc92ab9a3d24e47785132": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -61,12 +50,9 @@
         },
         "message_Pn9HN": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "700,000+ Satisfied Customers",
             "learn_more_text": "",
-            "header-7efde32d03bf801ab693e480f3906345": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -113,7 +99,12 @@
         "message_wc4BFE",
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "trustpilot_Q4xFtD"
-      ]
+      ],
+      "settings": {
+        "announcement_bar_position": "sticky",
+        "announcement_text_size": "small",
+        "cycle_speed": 3
+      }
     },
     "header": {
       "settings": {
@@ -121,8 +112,7 @@
         "navigation_menu": "nav-menu-new",
         "header_layout": "drawer",
         "enable_transparent_header": true
-      },
-      "blocks": {}
+      }
     }
   },
   "order": [
