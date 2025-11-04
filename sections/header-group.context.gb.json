@@ -17,7 +17,9 @@
       "settings": {
         "announcement_bar_position": "sticky",
         "announcement_text_size": "small",
-        "cycle_speed": 3
+        "cycle_speed": 3,
+        "background": "#000000",
+        "text_color": "#ffffff"
       },
       "blocks": {
         "message_N4D9HB": {
@@ -45,18 +47,16 @@
             "button_link": "shopify://collections/best-sellers"
           }
         },
-        "message_Nh4hB": {
-          "type": "message",
+        "955bcd74-0608-4f78-afae-e87df09b9f88": {
           "disabled": false,
           "settings": {
-            "text": "Free UK Delivery | 90 Day 100% Money Back Guarantee",
-            "learn_more_text": "",
-            "header-b4cf6c46814747d39bdd3559ce577a01": null,
-            "image": null,
-            "title": "",
-            "content": "",
-            "button_text": "",
-            "button_link": ""
+            "text": "Early Bird Offers: Up 60% off + Extra 20% off",
+            "learn_more_text": "shop now",
+            "image": "shopify://shop_images/BF25_Early_Bird_Mobile_V2.jpg",
+            "title": "EARLY BIRD OFFERS",
+            "content": "<p>Up to 60% off select products<br/>+<br/>Extra 20% off when you spend £299 GBP or more. Code <strong>EB20</strong>.</p>",
+            "button_text": "SHOP NOW",
+            "button_link": "https://www.williamwoodmirrors.co.uk/pages/what-our-customers-are-saying"
           }
         },
         "message_Pn9HN": {
@@ -73,16 +73,18 @@
             "button_link": ""
           }
         },
-        "955bcd74-0608-4f78-afae-e87df09b9f88": {
+        "message_Nh4hB": {
+          "type": "message",
           "disabled": false,
           "settings": {
-            "text": "Early Bird Offers: Up 60% off + Extra 20% off",
-            "learn_more_text": "shop now",
-            "title": "EARLY BIRD OFFERS",
-            "content": "<p>Discover over 30,000 verified 5 Star Reviews from real customers.</p>",
-            "button_text": "READ REVIEWS",
-            "button_link": "https://www.williamwoodmirrors.co.uk/pages/what-our-customers-are-saying",
-            "image": "shopify://shop_images/BF25_Early_Bird_Mobile_V2.jpg"
+            "text": "Free UK Delivery | 90 Day 100% Money Back Guarantee",
+            "learn_more_text": "",
+            "header-b4cf6c46814747d39bdd3559ce577a01": null,
+            "image": null,
+            "title": "",
+            "content": "",
+            "button_text": "",
+            "button_link": ""
           }
         },
         "message_wc4BFE": {
