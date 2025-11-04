@@ -651,7 +651,36 @@ document.addEventListener("DOMContentLoaded", function() {
             top: -7px;
       }
     }
+
+    @media screen and (max-width: 740px) {
+  .tp-desktop {
+    display: none !important;
+  }
+  .slideshow_txt {
+    justify-content: top;
+  }
+  .MobileDown {
+    transform: translateY(25px);
+  }
+}
+
+.content-box--text-center {
+{% comment %} margin-left: 0px !important; {% endcomment %}
+}
+
+
+@media screen and (min-width: 741px) {
+  .tp-mobile {
+    display: none !important;
+  }
+
+  .clearance-text {
+    width: 200px !important;
+  }
+}
   </style>
+
+
   
     <div id="price-divider-container" class="Kimg">
 Or in 3 instalments of <span id="installment"></span> with 
