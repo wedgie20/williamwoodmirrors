@@ -14,6 +14,11 @@
   },
   "sections": {
     "announcement-bar": {
+      "settings": {
+        "announcement_bar_position": "sticky",
+        "announcement_text_size": "small",
+        "cycle_speed": 3
+      },
       "blocks": {
         "message_N4D9HB": {
           "disabled": true,
@@ -28,9 +33,12 @@
         },
         "message_yMjrK": {
           "type": "message",
+          "disabled": true,
           "settings": {
             "text": "Buy more, save more. Up to 30% off.",
             "learn_more_text": "shop now",
+            "header-82e7e9a58fb17c247d5a04faa4309c9e": null,
+            "image": null,
             "title": "Bundle Offer",
             "content": "<p>Buy 2 full priced items & receive 25% off, <strong>no code required</strong><br/>or<br/>Buy 3 full priced items or more & receive 30% off, <strong>no code required</strong><br/>+<br/>Free Gift with your purchase worth up to £99 GBP when you spend £299 GBP or more</p>",
             "button_text": "SHOP NOW",
@@ -39,9 +47,12 @@
         },
         "message_Nh4hB": {
           "type": "message",
+          "disabled": false,
           "settings": {
             "text": "Free UK Delivery | 90 Day 100% Money Back Guarantee",
             "learn_more_text": "",
+            "header-b4cf6c46814747d39bdd3559ce577a01": null,
+            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -50,9 +61,12 @@
         },
         "message_Pn9HN": {
           "type": "message",
+          "disabled": false,
           "settings": {
             "text": "700,000+ Satisfied Customers | 30,000+ 5 Star Reviews",
             "learn_more_text": "",
+            "header-dfc14401a26c8335d58b98cefcedb3f6": null,
+            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -60,14 +74,15 @@
           }
         },
         "955bcd74-0608-4f78-afae-e87df09b9f88": {
-          "disabled": true,
+          "disabled": false,
           "settings": {
-            "text": "30,000+ 5 Star Reviews",
-            "learn_more_text": "",
-            "title": "Don't just take it from us.",
+            "text": "Early Bird Offers: Up 60% off + Extra 20% off",
+            "learn_more_text": "shop now",
+            "title": "EARLY BIRD OFFERS",
             "content": "<p>Discover over 30,000 verified 5 Star Reviews from real customers.</p>",
             "button_text": "READ REVIEWS",
-            "button_link": "https://www.williamwoodmirrors.co.uk/pages/what-our-customers-are-saying"
+            "button_link": "https://www.williamwoodmirrors.co.uk/pages/what-our-customers-are-saying",
+            "image": "shopify://shop_images/BF25_Early_Bird_Mobile_V2.jpg"
           }
         },
         "message_wc4BFE": {
@@ -81,6 +96,7 @@
           }
         },
         "3f097275-f772-44d9-b5f7-6d6999645314": {
+          "disabled": true,
           "settings": {
             "text": "Flexible payments, 0% interest.",
             "learn_more_text": "more info",
@@ -94,18 +110,13 @@
       "block_order": [
         "message_N4D9HB",
         "message_yMjrK",
-        "message_Nh4hB",
-        "message_Pn9HN",
         "955bcd74-0608-4f78-afae-e87df09b9f88",
+        "message_Pn9HN",
+        "message_Nh4hB",
         "message_wc4BFE",
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "trustpilot_Q4xFtD"
-      ],
-      "settings": {
-        "announcement_bar_position": "sticky",
-        "announcement_text_size": "small",
-        "cycle_speed": 3
-      }
+      ]
     },
     "header": {
       "settings": {
@@ -113,7 +124,8 @@
         "navigation_menu": "nav-menu-new",
         "header_layout": "drawer",
         "enable_transparent_header": true
-      }
+      },
+      "blocks": {}
     }
   },
   "order": [
