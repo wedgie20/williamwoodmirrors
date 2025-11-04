@@ -237,7 +237,7 @@
  <div style="text-align: left; margin-bottom: 2rem; color: white; " class="tp-mobile" >
 
 <p style="margin-bottom: unset; font-size: 8px;">{{ block.settings.review_headline | default: "Join Over 700,000+ Satisfied Customers" }}</p>
-<div class="OTTP" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; margin-bottom: 24px;">
+<div class="OTTP" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; padding-bottom: 24px;">
   {% if block.settings.review_image != blank %}
     <img src="{{ block.settings.review_image | image_url }}" style="height: {{ block.settings.review_image_height | default: 14 }}px; margin: 0px;">
   {% endif %}
