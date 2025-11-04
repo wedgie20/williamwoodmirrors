@@ -289,6 +289,23 @@ document.addEventListener("DOMContentLoaded", function() {
     </b>
     <p style="font-size: 13px; margin-top: 4px !important; text-transform: capitalize !important; font-family: Zurich, sans-serif; font-weight: bold !important;">{{ title_words | join: ' ' | remove: '-' | remove: remove_first_word }}</p>
   </h1>
+
+  <style>
+    @media screen and (max-width: 740px) {
+  .tp-desktop {
+    display: none !important;
+  }
+
+}
+
+
+
+@media screen and (min-width: 741px) {
+  .tp-mobile {
+    display: none !important;
+  }
+}
+  </style>
   
   <div class="product-meta__price-list-container" role="region" aria-live="polite">
      {%- if product.tags contains 'sale' -%}
@@ -619,20 +636,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
 
-@media screen and (max-width: 740px) {
-  .tp-desktop {
-    display: none !important;
-  }
 
-}
-
-
-
-@media screen and (min-width: 741px) {
-  .tp-mobile {
-    display: none !important;
-  }
-}
 
 
         .klarna-logo {
