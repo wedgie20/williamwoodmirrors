@@ -618,6 +618,23 @@ document.addEventListener("DOMContentLoaded", function() {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+
+@media screen and (max-width: 740px) {
+  .tp-desktop {
+    display: none !important;
+  }
+
+}
+
+
+
+@media screen and (min-width: 741px) {
+  .tp-mobile {
+    display: none !important;
+  }
+}
+
+
         .klarna-logo {
             position: absolute;
             height: 35px !important;
@@ -652,32 +669,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
 
-    @media screen and (max-width: 740px) {
-  .tp-desktop {
-    display: none !important;
-  }
-  .slideshow_txt {
-    justify-content: top;
-  }
-  .MobileDown {
-    transform: translateY(25px);
-  }
-}
-
-.content-box--text-center {
-{% comment %} margin-left: 0px !important; {% endcomment %}
-}
-
-
-@media screen and (min-width: 741px) {
-  .tp-mobile {
-    display: none !important;
-  }
-
-  .clearance-text {
-    width: 200px !important;
-  }
-}
+    
   </style>
 
 
