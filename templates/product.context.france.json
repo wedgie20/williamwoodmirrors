@@ -29,7 +29,7 @@
         "mobile_item_size": "small",
         "desktop_item_size": "pico",
         "spacing": "tight",
-        "header-053092480e54643793442b3967503c0b": null,
+        "header-4a8ee274720cb4280eff0062d7f661da": null,
         "background": "#efefef",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -190,7 +190,7 @@
         "liquid": "{% if product.type == 'Table' or product.type == 'Chair' %}\n{% if product.tags contains 'prebuilt' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px; /* Adjust the size as needed */\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n{% else %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px; /* Adjust the size as needed */\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">3-5 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives ready for quick and easy assembly.\n</span>\n</div>\n</body>\n</html>\n{% endif %}\n{% else %}\n{% if product.type == 'Furniture Set' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px; /* Adjust the size as needed */\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    All pieces of this furniture set arrive fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n\n{% endif %}\n{% endif %}",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-cf3b78d58fedd6af6f19053924ea5705": null,
+        "header-740b84c1ff9487326725bb7b7ade7f60": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -210,7 +210,7 @@
         "liquid": "{% if product.type == 'Mirror' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_MakeSmallRoomsBig_v1.02.jpg?v=1729256817\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_MakeSmallRoomsBig_v1.0_2.jpg?v=1729595254\">\n{% elsif product.title contains 'Coffee Table' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_CoffeTables_v1.02_8875e8e7-b11c-4491-8427-803ef508469f.jpg?v=1729261477\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_CoffeTables_v1.0.jpg?v=1729260504\">\n{% elsif product.type == 'Lamp' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Lamps_v1.02.jpg?v=1729518322\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Lamps_v1.0_3.jpg?v=1730115270\">\n{% elsif product.type == 'vase' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Vases_v1.22.jpg?v=1730293344\">\n{% endif %}",
         "add_vertical_spacing": true,
         "background_type": "full_width",
-        "header-5013b1f068c5554cf79bdb520ce4ad0d": null,
+        "header-94afb774b456b0aee82df16260fc4272": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -230,7 +230,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-8636d04df1e422cceaf300b20eead5db": null,
+        "header-eec74393582b37f44172f40238c7a7e5": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -252,7 +252,7 @@
         "liquid": "<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_ElevateYourHome-02.jpg?v=1729592904\">",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-1828bc40f5c22428510fbc0552cb4a2c": null,
+        "header-d43ea4f05f50d5aa1c862c5b882e7f6e": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -298,7 +298,7 @@
         "liquid": "<video src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/videos/c/o/v/d07d71b60fe9447c99bada59959df6a3.mp4\" controls \n  poster=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/A_sit_down_with_Jenna_final_edit_2_0-00-02-24.jpg?v=1728481189\">\n  Your browser does not support the video tag.\n</video>",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-b87bb3c08a01e9822e7f0ed253974961": null,
+        "header-c2d247908f8f7e37a9ecb0090c860267": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -330,7 +330,7 @@
           "type": "product_status",
           "disabled": false,
           "settings": {
-            "header-aff21a99ecf6938275c133302904a03b": null,
+            "header-2f86a84c745ccd2057c450079d97c241": null,
             "margin_top": 0,
             "font_weight": "bold",
             "font_size": 12,
@@ -341,10 +341,10 @@
             "padding_vertical": 5,
             "padding_horizontal": 15,
             "background_image": "shopify://shop_images/BF_Collection_Page_Desk_-_Texture.jpg",
-            "header-0760c89087b788338d4d7162a4b85760": null,
+            "header-a0ba33d557c7b984e06810679dc68041": null,
             "promo_text": "Buy 2 full priced items & receive 25% off, no code required\nor\nBuy 3 full priced items or more & receive 30% off, no code required\n+\nFree Gift with your purchase worth up to €148,95 EUR when you spend €440 EUR or more\n+\n30% Off shipping code: SHIP30",
             "sale_text": "Extra 20% off  €459 EUR or more. Code 'EB20'.\n+\nFree Gift with your purchase worth up to €148,95 EUR when you spend €440 EUR or more",
-            "header-d1b6d99fd0951702633740555e7be3cf": null,
+            "header-b37dde839b63b9acaba090dc9af8d7d6": null,
             "coming_soon_text": "Coming Soon",
             "back_soon_text": "Back in stock soon, sign up for restock notifications below",
             "black_friday_launch_text": "Launches 29.11.24",
@@ -352,7 +352,7 @@
             "black_friday_restock_text": "Restocks 29.11.24",
             "restock_text": "Restocks [DATE] 8PM",
             "out_of_stock_text": "Currently out of stock",
-            "header-c8006110735ff6ca78d60a7eaea5cfc3": null,
+            "header-594673bbcb810bac0dd9c37ac207d4d1": null,
             "show_hudson_message": true,
             "hudson_message": "Free cushion included with the Hudson Chair"
           }
@@ -421,7 +421,7 @@
           "type": "liquid",
           "disabled": false,
           "settings": {
-            "liquid": "<div class=\"\">\n\n<div style=\"font-weight: 500; text-transform: capitalize; margin-top: 10px; display: block;\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span> Easy 90 days free returns </div>\n\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span> 100% Money Back Guarantee </div>\n\n\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span> 700,000+ Satisfied Customers</div>\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span> You are protected by our 5 Year Warranty Guarantee </div>\n\n{% comment %}\n\n<div style=\"margin-top: 0px; margin-bottom: 15px; display: flex; flex-direction: column; \">\n{% if product.variants[0].inventory_quantity > 0 %}\n{% for tag in product.tags %}\n{% if tag == 'pre-order' and product.variants[0].inventory_quantity < 16 %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: Available for pre order</span>\n</div>\n{% elsif tag == 'pre-order' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: Available for pre order</span>\n</div>\n{% endif %}\n{% endfor %}\n\n{% unless product.tags contains 'pre-order' %}\n{% if product.available and product.variants[0].inventory_quantity < 16 %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: <b>In stock</b> and ready to ship</span>\n</div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: In stock and ready to ship</span>\n</div>\n{% endunless %}\n{% else %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: <b>In stock</b> and ready to ship</span>\n</div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: <b>In stock</b> and ready to ship</span>\n</div>\n{% endunless %}\n{% endif %}\n{% endunless %}\n\n{% for tag in product.tags %}\n{% if tag == '#sp' %}\n<div class=\"shattered-glass\">\n<span>Assembled with <b>safe and secure</b></span><br>\n<span>accident preventing shatter proof glass</span>\n</div>\n{% endif %}\n{% endfor %}\n\n\n \n\n\n\n\n\n<style>\n\n{% if product.available %}\n.instock-pulse {\ndisplay: flex;\nflex-wrap: nowrap;\nalign-items: center;\njustify-content: center;\nmargin: 2px -4px 0;\n}\n\n.icon--pulsing {\nposition: relative;\nwidth: 20px;\nheight: 20px;\nmargin-right: 4px;\n}\n\n.icon--pulsing:after,\n.icon--pulsing:before {\nbackground: #54c63a;\nwidth: 10px;\nheight: 10px;\nborder-radius: 10px;\nposition: absolute;\nleft: 0;\ntop: 0;\ncontent: \"\";\nmargin: 5px;\n}\n\n@keyframes inventory-pulse {\n0% {\nopacity: 0.5;\n}\nto {\ntransform: scale(2.5);\nopacity: 0;\n}\n}\n{% endif %}\n\n{% if product.variants[0].inventory_quantity >= 11 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 2.5s linear infinite;\n}\n{% elsif product.variants[0].inventory_quantity < 11 and product.variants[0].inventory_quantity > 1 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1.5s linear infinite;\n}\n{% else %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1s linear infinite;\n}\n{% endif %}\n</style>\n{% endif %}\n\n{% endcomment %}\n\n{% for tag in product.tags %}\n{% if tag == '#sp' %}\n<div class=\"shattered-glass\">\n<span>Assembled with <b>safe and secure</b></span><br>\n<span>accident preventing shatter proof glass</span>\n</div>\n{% endif %}\n{% endfor %}\n\n{% if product.tags contains 'pre-order' %}\n\n<div class=\"icon-blocks-container\">\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Order Instantly.svg' | asset_url }}\" alt=\"Free Shipping\" width=\"34\" height=\"34\">\n    </div>\n    <div class=\"icon-block__number\">Step 1</div>\n    <h3 class=\"icon-block__title\">Order instantly today</h3>\n    <div class=\"icon-block__description\">Simply tap the <b>add to bag button</b> and checkout <b>securely</b> today to get your order in progress.</div>\n  </div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Fast Delivery.svg' | asset_url }}\" alt=\"Easy Returns\" width=\"34\" height=\"34\">\n    </div>\n\n    <div class=\"icon-block__number\">Step 2</div>\n    <h3 class=\"icon-block__title\">We ship your order from the date above</h3>\n    <div class=\"icon-block__description\">Once the Pre Order date arrives, our warehouse team carefully prepares your order for <b>safe & secure</b> delivery by your dedicated William Wood driver.</div>\n  </div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Love Your Home.svg' | asset_url }}\" alt=\"24/7 Support\" width=\"34\" height=\"34\">\n    </div>\n    <div class=\"icon-block__number\">Step 3</div>\n    <h3 class=\"icon-block__title\">Be more proud of your home</h3>\n    <div class=\"icon-block__description\">Feel <b>happier</b> and <b>prouder</b> of your home, every single day.</div>\n  </div>\n</div>\n\n{% else %}\n<div class=\"icon-blocks-container\">\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Order Instantly.svg' | asset_url }}\" alt=\"Free Shipping\" width=\"34\" height=\"34\">\n    </div>\n    <div class=\"icon-block__number\">Step 1</div>\n    <h3 class=\"icon-block__title\">Order instantly today</h3>\n    <div class=\"icon-block__description\">Simply tap the <b>add to bag button</b> and checkout <b>securely</b> today to get your order in progress.</div>\n  </div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Fast Delivery.svg' | asset_url }}\" alt=\"Easy Returns\" width=\"34\" height=\"34\">\n    </div>\n\n    <div class=\"icon-block__number\">Step 2</div>\n    <h3 class=\"icon-block__title\">We usually ship within 7-28 Business Days</h3>\n    <div class=\"icon-block__description\">Our warehouse team carefully prepares your order for <b>safe & secure</b> delivery by your dedicated William Wood driver.</div>\n  </div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Love Your Home.svg' | asset_url }}\" alt=\"24/7 Support\" width=\"34\" height=\"34\">\n    </div>\n    <div class=\"icon-block__number\">Step 3</div>\n    <h3 class=\"icon-block__title\">Be more proud of your home</h3>\n    <div class=\"icon-block__description\">Feel <b>happier</b> and <b>prouder</b> of your home, every single day.</div>\n  </div>\n</div>\n\n{% endif %}\n\n<style>\n.cart-return-product-page {\ndisplay: flex\n;\nalign-items: self-end;\njustify-content: left;\ngap: 6px;\n}\n\n.instock-pulse {\njustify-content: left;\n}\n\n.shattered-glass {\nmargin: 15px 0px;\n}\n\n.icon-blocks-container {\n    display: flex;\n    flex-wrap: wrap;\n    gap: 2rem;\n    justify-content: center;\n    margin: 2rem 0px 4rem;\n  }\n\n  .icon-block {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    text-align: center;\n    border-radius: 8px;\n  }\n  .icon-block__icon img {\n    width: 34px;\n    height: 34px;\n    object-fit: contain;\n  }\n  \n  .icon-block__number {\n    font-size: 12px;\n    font-weight: bold;\n    margin-bottom: 0.5rem;\n  }\n  \n  .icon-block__title {\n    font-size: 12px;\n    font-weight: 600;\n    margin-bottom: 0.75rem;\nmargin-top: 0px;\n  }\n  \n  .icon-block__description {\n    font-size: 12px;\n    line-height: 1.5;\n    max-width: 280px;\n  }\n  \n  /* Desktop flex styling */\n  @media (min-width: 768px) {\n    .icon-blocks-container .icon-block {\n      flex: 1;\n      \n    }\n  }\n  \n  /* Mobile stacking */\n  @media (max-width: 767px) {\n    .icon-blocks-container {\n      flex-direction: column;\n      gap: 1rem;\n    }\n    \n  }\n</style>"
+            "liquid": "<div>\n<div class=\"usps-lines\">\n<div style=\"font-weight: 500; text-transform: capitalize; display: block;\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span> Easy 90 days free returns </div>\n\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span> 100% Money Back Guarantee </div>\n\n\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span> 700,000+ Satisfied Customers</div>\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span> <span class=\"fordesktop\">5 Year Warranty Guarantee\n</span>\n<span class=\"formobile\">5 Year Warranty Guarantee\n</span> </div>\n\n{% for tag in product.tags %}\n{% if tag == '#sp' %}\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span>\n<span>Assembled with <b>safe and secure</b> accident preventing shatter proof glass</span></div>\n{% endif %}\n{% endfor %}\n\n</div>\n{% comment %}\n\n<div style=\"margin-top: 0px; margin-bottom: 15px; display: flex; flex-direction: column; \">\n{% if product.variants[0].inventory_quantity > 0 %}\n{% for tag in product.tags %}\n{% if tag == 'pre-order' and product.variants[0].inventory_quantity < 16 %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: Available for pre order</span>\n</div>\n{% elsif tag == 'pre-order' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: Available for pre order</span>\n</div>\n{% endif %}\n{% endfor %}\n\n{% unless product.tags contains 'pre-order' %}\n{% if product.available and product.variants[0].inventory_quantity < 16 %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: <b>In stock</b> and ready to ship</span>\n</div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: In stock and ready to ship</span>\n</div>\n{% endunless %}\n{% else %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: <b>In stock</b> and ready to ship</span>\n</div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: <b>In stock</b> and ready to ship</span>\n</div>\n{% endunless %}\n{% endif %}\n{% endunless %}\n\n\n\n\n\n\n<style>\n\n{% if product.available %}\n.instock-pulse {\ndisplay: flex;\nflex-wrap: nowrap;\nalign-items: center;\njustify-content: center;\nmargin: 2px -4px 0;\n}\n\n.icon--pulsing {\nposition: relative;\nwidth: 20px;\nheight: 20px;\nmargin-right: 4px;\n}\n\n.icon--pulsing:after,\n.icon--pulsing:before {\nbackground: #54c63a;\nwidth: 10px;\nheight: 10px;\nborder-radius: 10px;\nposition: absolute;\nleft: 0;\ntop: 0;\ncontent: \"\";\nmargin: 5px;\n}\n\n@keyframes inventory-pulse {\n0% {\nopacity: 0.5;\n}\nto {\ntransform: scale(2.5);\nopacity: 0;\n}\n}\n{% endif %}\n\n{% if product.variants[0].inventory_quantity >= 11 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 2.5s linear infinite;\n}\n{% elsif product.variants[0].inventory_quantity < 11 and product.variants[0].inventory_quantity > 1 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1.5s linear infinite;\n}\n{% else %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1s linear infinite;\n}\n{% endif %}\n</style>\n{% endif %}\n\n{% endcomment %}\n\n\n{% if product.tags contains 'pre-order' %}\n\n<div class=\"icon-blocks-container\">\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Order Instantly.svg' | asset_url }}\" alt=\"Free Shipping\" width=\"34\" height=\"34\">\n    </div>\n    <div class=\"icon-block__number\">Step 1</div>\n    <h3 class=\"icon-block__title\">Order instantly today</h3>\n    <div class=\"icon-block__description\">Simply tap the <b>add to bag button</b> and checkout <b>securely</b> today to get your order in progress.</div>\n  </div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Fast Delivery.svg' | asset_url }}\" alt=\"Easy Returns\" width=\"34\" height=\"34\">\n    </div>\n\n    <div class=\"icon-block__number\">Step 2</div>\n    <h3 class=\"icon-block__title\">We ship your order from the date above</h3>\n    <div class=\"icon-block__description\">Once the Pre Order date arrives, our warehouse team carefully prepares your order for <b>safe & secure</b> delivery by your dedicated William Wood driver.</div>\n  </div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Love Your Home.svg' | asset_url }}\" alt=\"24/7 Support\" width=\"34\" height=\"34\">\n    </div>\n    <div class=\"icon-block__number\">Step 3</div>\n    <h3 class=\"icon-block__title\">Be more proud of your home</h3>\n    <div class=\"icon-block__description\">Feel <b>happier</b> and <b>prouder</b> of your home, every single day.</div>\n  </div>\n</div>\n\n{% else %}\n<div class=\"icon-blocks-container\">\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Order Instantly.svg' | asset_url }}\" alt=\"Free Shipping\" width=\"34\" height=\"34\">\n    </div>\n    <div class=\"icon-block__number\">Step 1</div>\n    <h3 class=\"icon-block__title\">Order instantly today</h3>\n    <div class=\"icon-block__description\">Simply tap the <b>add to bag button</b> and checkout <b>securely</b> today to get your order in progress.</div>\n  </div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Fast Delivery.svg' | asset_url }}\" alt=\"Easy Returns\" width=\"34\" height=\"34\">\n    </div>\n\n    <div class=\"icon-block__number\">Step 2</div>\n    <h3 class=\"icon-block__title\">We usually ship within 1-3 Business Days</h3>\n    <div class=\"icon-block__description\">Our warehouse team carefully prepares your order for <b>safe & secure</b> delivery by your dedicated William Wood driver.</div>\n  </div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Love Your Home.svg' | asset_url }}\" alt=\"24/7 Support\" width=\"34\" height=\"34\">\n    </div>\n    <div class=\"icon-block__number\">Step 3</div>\n    <h3 class=\"icon-block__title\">Be more proud of your home</h3>\n    <div class=\"icon-block__description\">Feel <b>happier</b> and <b>prouder</b> of your home, every single day.</div>\n  </div>\n</div>\n\n{% endif %}\n\n<style>\n.cart-return-product-page {\ndisplay: flex\n;\nalign-items: self-end;\njustify-content: left;\ngap: 6px;\n}\n\n.instock-pulse {\njustify-content: left;\n}\n\n.shattered-glass {\nmargin: 15px 0px;\n}\n\n.icon-blocks-container {\n    display: flex;\n    flex-wrap: wrap;\n    gap: 2rem;\n    justify-content: center;\n    margin: 2rem 0px 4rem;\n  }\n\n  .icon-block {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    text-align: center;\n    border-radius: 8px;\n  }\n  .icon-block__icon img {\n    width: 34px;\n    height: 34px;\n    object-fit: contain;\n  }\n  \n  .icon-block__number {\n    font-size: 12px;\n    font-weight: bold;\n    margin-bottom: 0.5rem;\n  }\n  \n  .icon-block__title {\n    font-size: 12px;\n    font-weight: 600;\n    margin-bottom: 0.75rem;\nmargin-top: 0px;\n  }\n  \n  .icon-block__description {\n    font-size: 12px;\n    line-height: 1.5;\n    max-width: 280px;\n  }\n  \n  /* Desktop flex styling */\n  @media (min-width: 768px) {\n    .icon-blocks-container .icon-block {\n      flex: 1;\n      \n    }\n  }\n  \n  /* Mobile stacking */\n  @media (max-width: 767px) {\n    .icon-blocks-container {\n      flex-direction: column;\n      gap: 1rem;\n    }\n    \n  }\n</style>"
           }
         },
         "liquid_dRJt6": {
@@ -435,7 +435,7 @@
           "type": "button",
           "disabled": false,
           "settings": {
-            "paragraph-1294ff79f6fc52a23b591c88f1a73b39": null,
+            "paragraph-707f132da65c6305786d4a9bd56ecfa7": null,
             "link": "",
             "text": "",
             "stretch": true,
@@ -579,12 +579,69 @@
         "liquid": "<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_PlantTree-01_4.jpg?v=1734355785\">"
       },
       "blocks": {}
+    },
+    "custom_video_cRxc8": {
+      "type": "custom-video",
+      "disabled": false,
+      "settings": {
+        "header-7ab4eb8b23e4b1cb9567daa6e016d63a": null,
+        "video": "shopify://files/videos/Website Video - Abandoned Cart v2.mp4",
+        "poster_image": "shopify://shop_images/Screenshot_2025-10-08_153408.png",
+        "autoplay": false,
+        "muted": false,
+        "loop": false,
+        "show_controls": true,
+        "show_controls_on_play": true,
+        "pause_on_scroll": true,
+        "header-3b2ef79b37015ba95a96db82b534b809": null,
+        "use_aspect_ratio": false,
+        "video_aspect_ratio": "50",
+        "video_border_radius": 4,
+        "video_shadow": "0 4px 20px rgba(0,0,0,0.15)",
+        "header-a3fefb425fa2ec7c75308c7096c542f3": null,
+        "play_button_size": 80,
+        "play_button_background": "#ffffff",
+        "play_button_opacity": 90,
+        "play_button_icon_color": "#000000",
+        "header-b15653603698ef07d4098c47ea3e88bd": null,
+        "show_header": false,
+        "title": "Watch Our Video",
+        "subtitle": "Discover more about our story",
+        "description": "<p>Add a compelling description about your video content here.</p>",
+        "text_alignment": "center",
+        "header-9108c61365284ffd412c6af5781d7692": null,
+        "title_size": 36,
+        "title_weight": "600",
+        "subtitle_size": 18,
+        "description_size": 16,
+        "header-bde9bd3615f7b16eba8e0531e9aa7920": null,
+        "show_button": false,
+        "button_text": "Learn More",
+        "button_link": "",
+        "button_background": "#000000",
+        "button_text_color": "#ffffff",
+        "button_border_radius": 4,
+        "header-e693bfd5c2813d3579112b95463d82f1": null,
+        "container_width": 550,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "content_spacing": 10,
+        "title_margin": 0,
+        "subtitle_margin": 0,
+        "header-d9013118b96b419c1a97c1c00bbdb5b5": null,
+        "background_color": "#ffffff",
+        "text_color": "#000000"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Video Section"
     }
   },
   "order": [
     "main",
     "infinite_scroller_PLWixJ",
     "multi_column_cBCjX",
+    "custom_video_cRxc8",
     "product-content",
     "custom_liquid_3UjHa",
     "custom_liquid_JWcmz",
