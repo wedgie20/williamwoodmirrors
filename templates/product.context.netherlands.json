@@ -174,29 +174,6 @@
         "item_MBhTg"
       ]
     },
-    "custom_liquid_3UjHa": {
-      "type": "custom-liquid",
-      "disabled": false,
-      "custom_css": [
-        ".Acontainer {display: flex; flex-direction: column; align-items: center; background-color: #efefef !important; padding: 20px;}",
-        ".Acontainer img {width: 30px; margin-bottom: 10px;}",
-        ".Acontainer p {margin: 0; font-size: 16px;}",
-        ".Acontainer .delmins {font-size: 20px;}",
-        "@media (min-width: 1024px) {.Acontainer {width: 50%; transform: translate(50%, 0%); }}"
-      ],
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "liquid": "{% if product.type == 'Table' or product.type == 'Chair' %}\n{% if product.tags contains 'prebuilt' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px; /* Adjust the size as needed */\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n{% else %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px; /* Adjust the size as needed */\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">3-5 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives ready for quick and easy assembly.\n</span>\n</div>\n</body>\n</html>\n{% endif %}\n{% else %}\n{% if product.type == 'Furniture Set' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px; /* Adjust the size as needed */\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    All pieces of this furniture set arrive fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n\n{% endif %}\n{% endif %}",
-        "add_vertical_spacing": false,
-        "background_type": "full_width",
-        "header-0053d023b2c63a245fa4ff11cfea2c18": null,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
-    },
     "custom_liquid_JWcmz": {
       "type": "custom-liquid",
       "disabled": false,
@@ -542,7 +519,10 @@
       ]
     },
     "multi_column_yFeQDG": {
-      "settings": {},
+      "settings": {
+        "desktop_item_size": "medium",
+        "spacing": "normal"
+      },
       "blocks": {
         "item_UDdzRJ": {
           "settings": {
@@ -562,6 +542,7 @@
       }
     },
     "1662736476a1d5736f": {
+      "disabled": true,
       "settings": {
         "title": "Join our Community of over 608,000 discerning home enthusiasts just like you.",
         "title2": "Follow @williamwood"
@@ -573,7 +554,8 @@
         "@media (min-width: 1024px) {.container {display: none; }}"
       ],
       "settings": {
-        "liquid": "<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_PlantTree-01_4.jpg?v=1734355785\">"
+        "liquid": "<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_PlantTree-01_4.jpg?v=1734355785\">",
+        "add_vertical_spacing": false
       },
       "blocks": {}
     },
@@ -665,7 +647,6 @@
     "custom_video_BnVCm",
     "custom_liquid_VWnCD",
     "product-content",
-    "custom_liquid_3UjHa",
     "custom_liquid_JWcmz",
     "multi_column_yFeQDG",
     "rich_text_RWTB7",
