@@ -602,7 +602,7 @@
     },
     "custom_liquid_3UjHa": {
       "type": "custom-liquid",
-      "disabled": false,
+      "disabled": true,
       "custom_css": [
         ".Acontainer {display: flex; flex-direction: column; align-items: center; background-color: #efefef !important; padding: 20px;}",
         ".Acontainer img {width: 30px; margin-bottom: 10px;}",
@@ -754,8 +754,8 @@
         "#AddToCart {box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);}"
       ],
       "settings": {
-        "show_thumbnails_on_mobile": true,
-        "review_block": "<p><em><strong>The verdict from our valued customers</strong></em></p><p><em>\"Impeccable quality, seamless delivery, and truly </em><em><strong>worth the investment.</strong></em><em> I was cautious about ordering online, but William Wood </em><em><strong>surpassed every expectation.</strong></em><em> Their products bring a real sense of elegance to the space.\"<br/></em><em><strong>Hannah R. United Kingdom</strong></em></p><p><em><strong>Verified Review</strong></em></p>"
+        "review_block": "<p><em><strong>The verdict from our valued customers</strong></em></p><p><em>\"Impeccable quality, seamless delivery, and truly </em><em><strong>worth the investment.</strong></em><em> I was cautious about ordering online, but William Wood </em><em><strong>surpassed every expectation.</strong></em><em> Their products bring a real sense of elegance to the space.\"<br/></em><em><strong>Hannah R. United Kingdom</strong></em></p><p><em><strong>Verified Review</strong></em></p>",
+        "show_thumbnails_on_mobile": true
       },
       "blocks": {
         "liquid_DDqgU3": {
@@ -1223,6 +1223,50 @@
         "title2": "Follow @williamwood"
       },
       "blocks": {}
+    },
+    "mounting_information_RGGDN": {
+      "type": "mounting-information",
+      "disabled": false,
+      "settings": {
+        "header-65fe8a21f45e7d4c5782d79136c1ac12": null,
+        "icon_url": "https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832",
+        "icon_alt_text": "Spanner Icon",
+        "icon_size": 30,
+        "section_margin_top": 20,
+        "header-c6eb78c4696df7bb8c66d437aaf357cf": null,
+        "background_color": "#efefef",
+        "container_padding": 20,
+        "desktop_width": 50,
+        "desktop_transform": 50,
+        "header-359c9812fdfe1df79943feb52812b544": null,
+        "heading_font_size": 16,
+        "heading_font_weight": "400",
+        "heading_color": "#000000",
+        "header-6d6b14edd59e3ffcf4ed329088ba4340": null,
+        "time_font_size_mobile": 16,
+        "time_font_size_desktop": 20,
+        "time_font_weight": "700",
+        "time_color": "#000000",
+        "header-ce76ab93d7a0a27f1ca441ae89908505": null,
+        "description_font_size": 11,
+        "description_color": "#000000",
+        "header-a3c11be3e53631ce562a1ae17fd3586f": null,
+        "assembly_heading": "Assembly Time:",
+        "prebuilt_time": "0 Minutes",
+        "prebuilt_description": "This piece of furniture arrives fully assembled for your convenience.",
+        "assembly_time": "3-5 Minutes",
+        "assembly_description": "This piece of furniture arrives ready for quick and easy assembly.",
+        "header-833aef8c3f7d684c669b896a8f4ac211": null,
+        "furniture_set_time": "0 Minutes",
+        "furniture_set_description": "All pieces of this furniture set arrive fully assembled for your convenience.",
+        "header-093ec7f93d9892993488911d5ac8a17f": null,
+        "mirror_heading": "Can this mirror be wall mounted?",
+        "mirror_answer": "Yes",
+        "mirror_description": "This mirror can be wall mounted in[orientation] orientation."
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Assembly Info"
     }
   },
   "order": [
@@ -1232,6 +1276,7 @@
     "custom_video_LnMnj",
     "text_with_icons_jchib",
     "custom_liquid_3UjHa",
+    "mounting_information_RGGDN",
     "product-content",
     "custom_liquid_JWcmz",
     "multi_column_yFeQDG",
