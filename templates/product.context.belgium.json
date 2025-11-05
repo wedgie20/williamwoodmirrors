@@ -422,6 +422,30 @@
       "blocks": {},
       "block_order": [],
       "name": "Custom Video Section"
+    },
+    "custom_liquid_3t6yW": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "custom_css": [
+        ".Acontainer {display: flex; flex-direction: column; align-items: center; background-color: #efefef !important; padding: 20px;}",
+        ".Acontainer img {width: 30px; margin-bottom: 10px;}",
+        ".Acontainer p {margin: 0; font-size: 16px;}",
+        ".Acontainer .delmins {font-size: 20px;}",
+        "@media (min-width: 1024px) {.Acontainer {width: 50%; transform: translate(50%, 0%); }}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "{% if product.type == 'Table' or product.type == 'Chair' %}\n<br>\n{% if product.tags contains 'prebuilt' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n{% else %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">3-5 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives ready for quick and easy assembly.\n</span>\n</div>\n</body>\n</html>\n{% endif %}\n{% else %}\n{% if product.type == 'Furniture Set' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    All pieces of this furniture set arrive fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n\n{% endif %}\n{% endif %}\n{% if product.type == 'Mirror' %}\n<br>\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Can this mirror be wall mounted?</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\" style=\"font-size: 20px;\">Yes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This mirror can be wall mounted in{% assign description = product.description | downcase %}{% if description contains 'portrait' and description contains 'landscape' %} either{% endif %}{% if description contains 'portrait' %} portrait{% endif %}{% if description contains 'portrait' and description contains 'landscape' %} or{% endif %}{% if description contains 'landscape' %} landscape{% endif %} orientation.\n</span>\n</div>\n</body>\n</html>\n{% endif %}",
+        "add_vertical_spacing": false,
+        "background_type": "full_width",
+        "header-123e9daeb33e367082678b0384a750a0": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
     }
   },
   "order": [
@@ -429,6 +453,7 @@
     "infinite_scroller_PLWixJ",
     "multi_column_NJbkz",
     "custom_video_E94N8",
+    "custom_liquid_3t6yW",
     "multi_column_yFeQDG",
     "product-content",
     "custom_liquid_NNFwRd",
