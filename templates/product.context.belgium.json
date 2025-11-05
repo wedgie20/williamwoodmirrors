@@ -446,6 +446,61 @@
       "blocks": {},
       "block_order": [],
       "name": "Custom Liquid"
+    },
+    "rich_text_jhi4k": {
+      "type": "rich-text",
+      "disabled": false,
+      "settings": {
+        "subheading": "Precision & Elegance, Since 2010.",
+        "title": "",
+        "content": "<p>Discover Premium Home Design at William Wood. Each product in our collection has been meticulously chosen to meet the high demands of our customers, with countless hours dedicated to ensuring exceptional quality and craftsmanship.</p>",
+        "button_text": "",
+        "button_link": "",
+        "background_type": "full_width",
+        "text_width": "medium",
+        "text_position": "center",
+        "text_alignment": "center",
+        "header-715286fc2b2db0ea3e9cb881702ffcd0": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Rich text"
+    },
+    "176235268923f913dc": {
+      "type": "apps",
+      "disabled": false,
+      "custom_css": [
+        ".rebuy-product-grid {text-align: left;}"
+      ],
+      "settings": {
+        "include_trustpilot": false,
+        "include_horizontal_margins": true,
+        "include_vertical_margins": false
+      },
+      "blocks": {
+        "rebuy_personalization_engine_rebuy_widget_VgAXg": {
+          "type": "shopify://apps/rebuy-personalization-engine/blocks/rebuy-widget/a26ae9b9-933b-40bf-bbc6-bf1220bbc4dc",
+          "disabled": false,
+          "settings": {
+            "enabled": true,
+            "id": "172735",
+            "product_id_enabled": true,
+            "collection_id_enabled": false
+          }
+        }
+      },
+      "block_order": [
+        "rebuy_personalization_engine_rebuy_widget_VgAXg"
+      ]
+    },
+    "custom_liquid_NNFwRd": {
+      "disabled": true,
+      "settings": {},
+      "blocks": {}
     }
   },
   "order": [
@@ -454,8 +509,10 @@
     "multi_column_NJbkz",
     "custom_video_E94N8",
     "custom_liquid_3t6yW",
-    "multi_column_yFeQDG",
     "product-content",
+    "multi_column_yFeQDG",
+    "rich_text_jhi4k",
+    "176235268923f913dc",
     "custom_liquid_NNFwRd",
     "1662458800f72f357a",
     "1662736476a1d5736f",
