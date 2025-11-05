@@ -410,20 +410,58 @@
   "type": "benefits",
   "name": "Benefits Section",
   "settings": [
-    {
+   {
       "type": "header",
-      "content": "Benefits Section"
-    },
-    {
-      "type": "text",
-      "id": "benefits_heading",
-      "label": "Section Heading",
-      "default": "Benefits"
+      "content": "General Settings"
     },
     {
       "type": "range",
-      "id": "benefits_heading_size",
-      "label": "Heading Font Size",
+      "id": "section_margin_top",
+      "label": "Section Top Margin",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "label": "Section Bottom Margin",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section Padding (Desktop)",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "section_padding_mobile",
+      "label": "Section Padding (Mobile)",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Heading Style"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Heading Font Size (Desktop)",
       "min": 16,
       "max": 48,
       "step": 1,
@@ -431,122 +469,708 @@
       "default": 24
     },
     {
-      "type": "header",
-      "content": "Benefit Item 1"
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "label": "Heading Font Size (Mobile)",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 20
     },
     {
-      "type": "image_picker",
-      "id": "benefit_icon_1",
-      "label": "Icon 1"
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "Heading Font Weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "600"
     },
     {
-      "type": "text",
-      "id": "benefit_text_1",
-      "label": "Text 1",
-      "default": "Maximises natural light"
-    },
-    {
-      "type": "header",
-      "content": "Benefit Item 2"
-    },
-    {
-      "type": "image_picker",
-      "id": "benefit_icon_2",
-      "label": "Icon 2"
-    },
-    {
-      "type": "text",
-      "id": "benefit_text_2",
-      "label": "Text 2",
-      "default": "Creates the illusion of more space"
-    },
-    {
-      "type": "header",
-      "content": "Benefit Item 3"
-    },
-    {
-      "type": "image_picker",
-      "id": "benefit_icon_3",
-      "label": "Icon 3"
-    },
-    {
-      "type": "text",
-      "id": "benefit_text_3",
-      "label": "Text 3",
-      "default": "Part of your daily routine"
-    },
-    {
-      "type": "header",
-      "content": "Benefit Item 4"
-    },
-    {
-      "type": "image_picker",
-      "id": "benefit_icon_4",
-      "label": "Icon 4"
-    },
-    {
-      "type": "text",
-      "id": "benefit_text_4",
-      "label": "Text 4",
-      "default": "Focal point of your room"
-    },
-    {
-      "type": "header",
-      "content": "Benefit Item 5"
-    },
-    {
-      "type": "image_picker",
-      "id": "benefit_icon_5",
-      "label": "Icon 5"
-    },
-    {
-      "type": "text",
-      "id": "benefit_text_5",
-      "label": "Text 5"
-    },
-    {
-      "type": "header",
-      "content": "Benefit Item 6"
-    },
-    {
-      "type": "image_picker",
-      "id": "benefit_icon_6",
-      "label": "Icon 6"
-    },
-    {
-      "type": "text",
-      "id": "benefit_text_6",
-      "label": "Text 6"
-    },
-    {
-      "type": "header",
-      "content": "Styling"
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
     },
     {
       "type": "range",
-      "id": "benefits_text_size",
-      "label": "Text Font Size",
-      "min": 12,
-      "max": 24,
-      "step": 1,
+      "id": "heading_margin_bottom",
+      "label": "Heading Bottom Margin (Desktop)",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "heading_margin_bottom_mobile",
+      "label": "Heading Bottom Margin (Mobile)",
+      "min": 8,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Benefits Items Style"
+    },
+    {
+      "type": "range",
+      "id": "items_gap",
+      "label": "Items Gap (Desktop)",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "items_gap_mobile",
+      "label": "Items Gap (Mobile)",
+      "min": 8,
+      "max": 40,
+      "step": 2,
       "unit": "px",
       "default": 16
     },
     {
       "type": "range",
-      "id": "benefits_icon_size",
-      "label": "Icon Size",
-      "min": 20,
+      "id": "icon_text_gap",
+      "label": "Icon to Text Gap",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon Size (Desktop)",
+      "min": 16,
       "max": 48,
       "step": 2,
       "unit": "px",
-      "default": 32
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "icon_size_mobile",
+      "label": "Icon Size (Mobile)",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "text_font_size",
+      "label": "Text Font Size (Desktop)",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "text_font_size_mobile",
+      "label": "Text Font Size (Mobile)",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "text_font_weight",
+      "label": "Text Font Weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "400"
     },
     {
       "type": "color",
-      "id": "benefits_text_color",
+      "id": "text_color",
       "label": "Text Color",
       "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Mirror Benefits"
+    },
+    {
+      "type": "text",
+      "id": "mirror_heading",
+      "label": "Heading",
+      "default": "Benefits"
+    },
+    {
+      "type": "image_picker",
+      "id": "mirror_icon_1",
+      "label": "Icon 1"
+    },
+    {
+      "type": "text",
+      "id": "mirror_text_1",
+      "label": "Text 1",
+      "default": "Maximises natural light"
+    },
+    {
+      "type": "image_picker",
+      "id": "mirror_icon_2",
+      "label": "Icon 2"
+    },
+    {
+      "type": "text",
+      "id": "mirror_text_2",
+      "label": "Text 2",
+      "default": "Creates the illusion of more space"
+    },
+    {
+      "type": "image_picker",
+      "id": "mirror_icon_3",
+      "label": "Icon 3"
+    },
+    {
+      "type": "text",
+      "id": "mirror_text_3",
+      "label": "Text 3",
+      "default": "Part of your daily routine"
+    },
+    {
+      "type": "image_picker",
+      "id": "mirror_icon_4",
+      "label": "Icon 4"
+    },
+    {
+      "type": "text",
+      "id": "mirror_text_4",
+      "label": "Text 4",
+      "default": "Focal point of your room"
+    },
+    {
+      "type": "image_picker",
+      "id": "mirror_icon_5",
+      "label": "Icon 5"
+    },
+    {
+      "type": "text",
+      "id": "mirror_text_5",
+      "label": "Text 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "mirror_icon_6",
+      "label": "Icon 6"
+    },
+    {
+      "type": "text",
+      "id": "mirror_text_6",
+      "label": "Text 6"
+    },
+    {
+      "type": "header",
+      "content": "Coffee Table Benefits"
+    },
+    {
+      "type": "text",
+      "id": "coffee_table_heading",
+      "label": "Heading",
+      "default": "Benefits"
+    },
+    {
+      "type": "image_picker",
+      "id": "coffee_table_icon_1",
+      "label": "Icon 1"
+    },
+    {
+      "type": "text",
+      "id": "coffee_table_text_1",
+      "label": "Text 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "coffee_table_icon_2",
+      "label": "Icon 2"
+    },
+    {
+      "type": "text",
+      "id": "coffee_table_text_2",
+      "label": "Text 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "coffee_table_icon_3",
+      "label": "Icon 3"
+    },
+    {
+      "type": "text",
+      "id": "coffee_table_text_3",
+      "label": "Text 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "coffee_table_icon_4",
+      "label": "Icon 4"
+    },
+    {
+      "type": "text",
+      "id": "coffee_table_text_4",
+      "label": "Text 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "coffee_table_icon_5",
+      "label": "Icon 5"
+    },
+    {
+      "type": "text",
+      "id": "coffee_table_text_5",
+      "label": "Text 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "coffee_table_icon_6",
+      "label": "Icon 6"
+    },
+    {
+      "type": "text",
+      "id": "coffee_table_text_6",
+      "label": "Text 6"
+    },
+    {
+      "type": "header",
+      "content": "Tray Benefits"
+    },
+    {
+      "type": "text",
+      "id": "tray_heading",
+      "label": "Heading",
+      "default": "Benefits"
+    },
+    {
+      "type": "image_picker",
+      "id": "tray_icon_1",
+      "label": "Icon 1"
+    },
+    {
+      "type": "text",
+      "id": "tray_text_1",
+      "label": "Text 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "tray_icon_2",
+      "label": "Icon 2"
+    },
+    {
+      "type": "text",
+      "id": "tray_text_2",
+      "label": "Text 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "tray_icon_3",
+      "label": "Icon 3"
+    },
+    {
+      "type": "text",
+      "id": "tray_text_3",
+      "label": "Text 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "tray_icon_4",
+      "label": "Icon 4"
+    },
+    {
+      "type": "text",
+      "id": "tray_text_4",
+      "label": "Text 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "tray_icon_5",
+      "label": "Icon 5"
+    },
+    {
+      "type": "text",
+      "id": "tray_text_5",
+      "label": "Text 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "tray_icon_6",
+      "label": "Icon 6"
+    },
+    {
+      "type": "text",
+      "id": "tray_text_6",
+      "label": "Text 6"
+    },
+    {
+      "type": "header",
+      "content": "Lamp Benefits"
+    },
+    {
+      "type": "text",
+      "id": "lamp_heading",
+      "label": "Heading",
+      "default": "Benefits"
+    },
+    {
+      "type": "image_picker",
+      "id": "lamp_icon_1",
+      "label": "Icon 1"
+    },
+    {
+      "type": "text",
+      "id": "lamp_text_1",
+      "label": "Text 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "lamp_icon_2",
+      "label": "Icon 2"
+    },
+    {
+      "type": "text",
+      "id": "lamp_text_2",
+      "label": "Text 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "lamp_icon_3",
+      "label": "Icon 3"
+    },
+    {
+      "type": "text",
+      "id": "lamp_text_3",
+      "label": "Text 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "lamp_icon_4",
+      "label": "Icon 4"
+    },
+    {
+      "type": "text",
+      "id": "lamp_text_4",
+      "label": "Text 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "lamp_icon_5",
+      "label": "Icon 5"
+    },
+    {
+      "type": "text",
+      "id": "lamp_text_5",
+      "label": "Text 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "lamp_icon_6",
+      "label": "Icon 6"
+    },
+    {
+      "type": "text",
+      "id": "lamp_text_6",
+      "label": "Text 6"
+    },
+    {
+      "type": "header",
+      "content": "Vase Benefits"
+    },
+    {
+      "type": "text",
+      "id": "vase_heading",
+      "label": "Heading",
+      "default": "Benefits"
+    },
+    {
+      "type": "image_picker",
+      "id": "vase_icon_1",
+      "label": "Icon 1"
+    },
+    {
+      "type": "text",
+      "id": "vase_text_1",
+      "label": "Text 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "vase_icon_2",
+      "label": "Icon 2"
+    },
+    {
+      "type": "text",
+      "id": "vase_text_2",
+      "label": "Text 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "vase_icon_3",
+      "label": "Icon 3"
+    },
+    {
+      "type": "text",
+      "id": "vase_text_3",
+      "label": "Text 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "vase_icon_4",
+      "label": "Icon 4"
+    },
+    {
+      "type": "text",
+      "id": "vase_text_4",
+      "label": "Text 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "vase_icon_5",
+      "label": "Icon 5"
+    },
+    {
+      "type": "text",
+      "id": "vase_text_5",
+      "label": "Text 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "vase_icon_6",
+      "label": "Icon 6"
+    },
+    {
+      "type": "text",
+      "id": "vase_text_6",
+      "label": "Text 6"
+    },
+    {
+      "type": "header",
+      "content": "Side Table Benefits"
+    },
+    {
+      "type": "text",
+      "id": "side_table_heading",
+      "label": "Heading",
+      "default": "Benefits"
+    },
+    {
+      "type": "image_picker",
+      "id": "side_table_icon_1",
+      "label": "Icon 1"
+    },
+    {
+      "type": "text",
+      "id": "side_table_text_1",
+      "label": "Text 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "side_table_icon_2",
+      "label": "Icon 2"
+    },
+    {
+      "type": "text",
+      "id": "side_table_text_2",
+      "label": "Text 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "side_table_icon_3",
+      "label": "Icon 3"
+    },
+    {
+      "type": "text",
+      "id": "side_table_text_3",
+      "label": "Text 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "side_table_icon_4",
+      "label": "Icon 4"
+    },
+    {
+      "type": "text",
+      "id": "side_table_text_4",
+      "label": "Text 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "side_table_icon_5",
+      "label": "Icon 5"
+    },
+    {
+      "type": "text",
+      "id": "side_table_text_5",
+      "label": "Text 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "side_table_icon_6",
+      "label": "Icon 6"
+    },
+    {
+      "type": "text",
+      "id": "side_table_text_6",
+      "label": "Text 6"
+    },
+    {
+      "type": "header",
+      "content": "Coaster Benefits"
+    },
+    {
+      "type": "text",
+      "id": "coaster_heading",
+      "label": "Heading",
+      "default": "Benefits"
+    },
+    {
+      "type": "image_picker",
+      "id": "coaster_icon_1",
+      "label": "Icon 1"
+    },
+    {
+      "type": "text",
+      "id": "coaster_text_1",
+      "label": "Text 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "coaster_icon_2",
+      "label": "Icon 2"
+    },
+    {
+      "type": "text",
+      "id": "coaster_text_2",
+      "label": "Text 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "coaster_icon_3",
+      "label": "Icon 3"
+    },
+    {
+      "type": "text",
+      "id": "coaster_text_3",
+      "label": "Text 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "coaster_icon_4",
+      "label": "Icon 4"
+    },
+    {
+      "type": "text",
+      "id": "coaster_text_4",
+      "label": "Text 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "coaster_icon_5",
+      "label": "Icon 5"
+    },
+    {
+      "type": "text",
+      "id": "coaster_text_5",
+      "label": "Text 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "coaster_icon_6",
+      "label": "Icon 6"
+    },
+    {
+      "type": "text",
+      "id": "coaster_text_6",
+      "label": "Text 6"
+    },
+    {
+      "type": "header",
+      "content": "Chair Benefits"
+    },
+    {
+      "type": "text",
+      "id": "chair_heading",
+      "label": "Heading",
+      "default": "Benefits"
+    },
+    {
+      "type": "image_picker",
+      "id": "chair_icon_1",
+      "label": "Icon 1"
+    },
+    {
+      "type": "text",
+      "id": "chair_text_1",
+      "label": "Text 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "chair_icon_2",
+      "label": "Icon 2"
+    },
+    {
+      "type": "text",
+      "id": "chair_text_2",
+      "label": "Text 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "chair_icon_3",
+      "label": "Icon 3"
+    },
+    {
+      "type": "text",
+      "id": "chair_text_3",
+      "label": "Text 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "chair_icon_4",
+      "label": "Icon 4"
+    },
+    {
+      "type": "text",
+      "id": "chair_text_4",
+      "label": "Text 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "chair_icon_5",
+      "label": "Icon 5"
+    },
+    {
+      "type": "text",
+      "id": "chair_text_5",
+      "label": "Text 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "chair_icon_6",
+      "label": "Icon 6"
+    },
+    {
+      "type": "text",
+      "id": "chair_text_6",
+      "label": "Text 6"
     }
   ]
 },
