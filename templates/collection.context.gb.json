@@ -332,7 +332,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-55e4e3981cd3ffda745f5a8543ae534f": null,
+        "header-1ae072aa6237c8e82dd46870ce08d464": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -357,7 +357,7 @@
         "mobile_item_size": "small",
         "desktop_item_size": "medium",
         "spacing": "tight",
-        "header-4add39faa4f8c58c5ac02612ff20bd48": null,
+        "header-8f9132b43aa73f4800b2988b2fab2f6c": null,
         "background": "#efefef",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -521,14 +521,14 @@
     },
     "custom_liquid_XqahY": {
       "type": "custom-liquid",
-      "disabled": false,
+      "disabled": true,
       "settings": {
         "subheading": "",
         "title": "",
         "liquid": "<div class=\"OTTP\" style=\"display: flex; align-items: center; gap: 8px; white-space: nowrap; justify-content: center;\">\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.png?v=1741099146\" style=\"height: 14px;\">\n    <span style=\"white-space: nowrap; font-size: 9px;\">4.7 / 5 Excellent • Based on 10,000+ reviews</span>\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_Logo__2022__svg.webp?v=1741089163\" style=\"height: 14px;\">\n</div>",
         "add_vertical_spacing": true,
         "background_type": "full_width",
-        "header-5ed22d05c22c54b37e09b184671ae564": null,
+        "header-fd27c40f13c9eceee1f0ef30ab0291f5": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -548,7 +548,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-680c77b23c3b05755aec680c19058fa0": null,
+        "header-2fd5fb42986bfd50301d950c9164e6a3": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -561,13 +561,12 @@
     "collection-banner": {
       "disabled": false,
       "settings": {
-        "custom_collection_image": "shopify://shop_images/best-sellers.jpg",
+        "show_collection_image": true,
         "show_collection_title": true,
+        "show_collection_description": true,
         "section_height": "small",
         "text_width": "medium",
-        "image_overlay_opacity": 30,
-        "show_collection_image": true,
-        "show_collection_description": true
+        "image_overlay_opacity": 30
       },
       "blocks": {}
     },
@@ -623,6 +622,42 @@
         "item_aTnwGA",
         "item_7rBD9x"
       ]
+    },
+    "trustpilot_bar_tmtrR": {
+      "type": "trustpilot-bar",
+      "disabled": false,
+      "settings": {
+        "header-0b0c1560ef6bbd4576c944b136e9a475": null,
+        "alignment": "center",
+        "section_margin_top": 0,
+        "section_margin_bottom": 0,
+        "header-ae7cb5abe037c34e3f6bfc816c694626": null,
+        "background_color": "transparent",
+        "container_padding": 0,
+        "container_padding_mobile": 0,
+        "border_radius": 0,
+        "items_gap": 8,
+        "items_gap_mobile": 8,
+        "header-a24ceb79f5581575f3414474d6a7e316": null,
+        "stars_image": "shopify://shop_images/Trustpilot_ratings_5star-RGB-min_0a651061-7fb3-4d09-81b6-b7f887efdbe1.png",
+        "stars_alt_text": "5 Star Rating",
+        "stars_height": 14,
+        "stars_height_mobile": 12,
+        "header-cab9303e4c5383e826ab17302e61bfd4": null,
+        "review_text": "4.7 / 5 Excellent • Based on 10,000+ reviews",
+        "text_font_size": 9,
+        "text_font_size_mobile": 9,
+        "text_font_weight": "400",
+        "text_color": "#000000",
+        "header-4096a98666ee65bfa3384dfc334fe9fe": null,
+        "logo_image": "shopify://shop_images/Trustpilot_Logo__2022__svg.webp",
+        "logo_alt_text": "Trustpilot Logo",
+        "logo_height": 14,
+        "logo_height_mobile": 12
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Trustpilot Review Bar"
     }
   },
   "order": [
@@ -631,6 +666,7 @@
     "rich_text_jztMN",
     "multi_column_6VrFM",
     "custom_liquid_XqahY",
+    "trustpilot_bar_tmtrR",
     "rich_text_TnfEP",
     "main",
     "multi_column_zWQVjj"
