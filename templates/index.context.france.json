@@ -1525,6 +1525,28 @@
       "blocks": {},
       "block_order": [],
       "name": "Custom Liquid"
+    },
+    "custom_liquid_gbXWY": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "custom_css": [
+        ".title_usp {text-align: center;}",
+        ".title_usp span {font-size: 34px; font-weight: 300;}",
+        ".title_usp ~ * {display: none !important;}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<div class=\"title_usp\">\n<span class=\"heading h1 slideshow_txt\" style=\"margin-top: 0;\"><span style=\"font-family: altesse-std-24pt; text-transform: lowercase;\"><span style=\"text-transform: capitalize;\">Why</span> shop with us?</span></span>\n</div>",
+        "add_vertical_spacing": true,
+        "background_type": "full_width",
+        "header-20a156e6e0761a84510fefe9ec3d2c81": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
     }
   },
   "order": [
@@ -1545,6 +1567,7 @@
     "slideshow_A7JMV",
     "slideshow_JKi6b",
     "slideshow_cFUXm",
+    "custom_liquid_gbXWY",
     "text_with_icons_mf3TN",
     "video_hero_jWUdy",
     "custom_liquid_NEV77",
