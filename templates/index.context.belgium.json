@@ -370,8 +370,8 @@
       "disabled": false,
       "settings": {
         "paragraph-e61c43707ee959169429ae8132157c2e": null,
-        "subheading": "",
-        "title": "Recently viewed",
+        "subheading": "Your Recently viewed",
+        "title": "",
         "products_count": 4,
         "header-4c833ea5937048ea57267a0c8a5caee3": null,
         "background": "rgba(0,0,0,0)",
@@ -623,7 +623,7 @@
     },
     "rich_text_P3M8A": {
       "type": "rich-text",
-      "disabled": false,
+      "disabled": true,
       "settings": {
         "subheading": "",
         "title": "",
@@ -647,8 +647,11 @@
     "trustpilot_carousel_nzQkX": {
       "type": "trustpilot-carousel",
       "disabled": false,
+      "custom_css": [
+        "@media (max-width: 768px) {.trustpilot-widget, .trustpilot-widget iframe {height: 300px !important; min-height: 0 !important; }}"
+      ],
       "settings": {
-        "padding_top": 0,
+        "padding_top": 36,
         "padding_bottom": 0
       },
       "blocks": {},
@@ -732,6 +735,50 @@
         "collection_qCPRH"
       ],
       "name": "Featured collections"
+    },
+    "custom_liquid_CzbEe": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "custom_css": [
+        ".title_usp {text-align: center; margin-top: 4rem;}",
+        ".title_usp span {font-size: 34px; font-weight: 300;}",
+        ".title_usp ~ * {display: none !important;}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<div class=\"title_usp\">\n<span class=\"heading h1 slideshow_txt\" style=\"margin-top: 0;\"><span style=\"font-family: altesse-std-24pt; text-transform: lowercase;\"><span style=\"text-transform: capitalize;\">Join</span> our community of over 600,000 followers <br><span style=\"\n    margin-left: -22px;\n\">@williamwood</span></span></span>\n</div>",
+        "add_vertical_spacing": false,
+        "background_type": "full_width",
+        "header-2f8179c03fb8258dad64d368983a85d5": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
+    },
+    "custom_liquid_aLPMy": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "custom_css": [
+        ".title_usp {text-align: center;}",
+        ".title_usp span {font-size: 34px; font-weight: 300;}",
+        ".title_usp ~ * {display: none !important;}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<div class=\"title_usp\">\n<span class=\"heading h1 slideshow_txt\" style=\"margin-top: 0;\"><span style=\"font-family: altesse-std-24pt; text-transform: lowercase;\"><span style=\"text-transform: capitalize;\">Why</span> shop with us?</span></span>\n</div>",
+        "add_vertical_spacing": true,
+        "background_type": "full_width",
+        "header-2f8179c03fb8258dad64d368983a85d5": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
     }
   },
   "order": [
@@ -742,12 +789,14 @@
     "infinite_scroller2_zkLfc",
     "rich_text_9jx4r",
     "rich_text_U6Cfx",
+    "rich_text_P3M8A",
+    "custom_liquid_CzbEe",
+    "1713859403df738b93",
     "recently_viewed_products_zP8fr",
     "collection_list_rpEUU",
+    "custom_liquid_aLPMy",
     "text_with_icons_czgF4",
     "video_hero_9yJb9",
-    "rich_text_P3M8A",
-    "1713859403df738b93",
     "trustpilot_carousel_nzQkX",
     "custom_liquid_zTF7P"
   ]
