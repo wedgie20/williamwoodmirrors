@@ -27,7 +27,7 @@
         font-size: {{ section.settings.text_font_size }}px;
         color: {{ section.settings.text_color }};
         font-weight: {{ section.settings.text_font_weight }};
-            line-height: {{ section.settings.text_font_size }}px;
+            line-height: {{ section.settings.text_font_size | plus: 1 }}px;
       ">
         {{ section.settings.review_text }}
       </span>
