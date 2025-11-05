@@ -305,17 +305,6 @@
       "blocks": {},
       "block_order": []
     },
-    "1721117569940993f4": {
-      "type": "apps",
-      "disabled": false,
-      "settings": {
-        "include_trustpilot": false,
-        "include_horizontal_margins": true,
-        "include_vertical_margins": false
-      },
-      "blocks": {},
-      "block_order": []
-    },
     "main": {
       "custom_css": [
         "#BIS_trigger {background-color: black; color: white;}",
@@ -426,13 +415,6 @@
             "liquid": "<div>\n<div class=\"usps-lines\">\n<div style=\"font-weight: 500; text-transform: capitalize; display: block;\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span> Easy 90 days free returns </div>\n\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span> 100% Money Back Guarantee </div>\n\n\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span> 700,000+ Satisfied Customers</div>\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span> <span class=\"fordesktop\">5 Year Warranty Guarantee\n</span>\n<span class=\"formobile\">5 Year Warranty Guarantee\n</span> </div>\n\n{% for tag in product.tags %}\n{% if tag == '#sp' %}\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span>\n<span>Assembled with <b>safe and secure</b> accident preventing shatter proof glass</span></div>\n{% endif %}\n{% endfor %}\n\n</div>\n{% comment %}\n\n<div style=\"margin-top: 0px; margin-bottom: 15px; display: flex; flex-direction: column; \">\n{% if product.variants[0].inventory_quantity > 0 %}\n{% for tag in product.tags %}\n{% if tag == 'pre-order' and product.variants[0].inventory_quantity < 16 %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: Available for pre order</span>\n</div>\n{% elsif tag == 'pre-order' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: Available for pre order</span>\n</div>\n{% endif %}\n{% endfor %}\n\n{% unless product.tags contains 'pre-order' %}\n{% if product.available and product.variants[0].inventory_quantity < 16 %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: <b>In stock</b> and ready to ship</span>\n</div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: In stock and ready to ship</span>\n</div>\n{% endunless %}\n{% else %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: <b>In stock</b> and ready to ship</span>\n</div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: <b>In stock</b> and ready to ship</span>\n</div>\n{% endunless %}\n{% endif %}\n{% endunless %}\n\n\n\n\n\n\n<style>\n\n{% if product.available %}\n.instock-pulse {\ndisplay: flex;\nflex-wrap: nowrap;\nalign-items: center;\njustify-content: center;\nmargin: 2px -4px 0;\n}\n\n.icon--pulsing {\nposition: relative;\nwidth: 20px;\nheight: 20px;\nmargin-right: 4px;\n}\n\n.icon--pulsing:after,\n.icon--pulsing:before {\nbackground: #54c63a;\nwidth: 10px;\nheight: 10px;\nborder-radius: 10px;\nposition: absolute;\nleft: 0;\ntop: 0;\ncontent: \"\";\nmargin: 5px;\n}\n\n@keyframes inventory-pulse {\n0% {\nopacity: 0.5;\n}\nto {\ntransform: scale(2.5);\nopacity: 0;\n}\n}\n{% endif %}\n\n{% if product.variants[0].inventory_quantity >= 11 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 2.5s linear infinite;\n}\n{% elsif product.variants[0].inventory_quantity < 11 and product.variants[0].inventory_quantity > 1 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1.5s linear infinite;\n}\n{% else %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1s linear infinite;\n}\n{% endif %}\n</style>\n{% endif %}\n\n{% endcomment %}\n\n\n{% if product.tags contains 'pre-order' %}\n\n<div class=\"icon-blocks-container\">\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Order Instantly.svg' | asset_url }}\" alt=\"Free Shipping\" width=\"34\" height=\"34\">\n    </div>\n    <div class=\"icon-block__number\">Step 1</div>\n    <h3 class=\"icon-block__title\">Order instantly today</h3>\n    <div class=\"icon-block__description\">Simply tap the <b>add to bag button</b> and checkout <b>securely</b> today to get your order in progress.</div>\n  </div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Fast Delivery.svg' | asset_url }}\" alt=\"Easy Returns\" width=\"34\" height=\"34\">\n    </div>\n\n    <div class=\"icon-block__number\">Step 2</div>\n    <h3 class=\"icon-block__title\">We ship your order from the date above</h3>\n    <div class=\"icon-block__description\">Once the Pre Order date arrives, our warehouse team carefully prepares your order for <b>safe & secure</b> delivery by your dedicated William Wood driver.</div>\n  </div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Love Your Home.svg' | asset_url }}\" alt=\"24/7 Support\" width=\"34\" height=\"34\">\n    </div>\n    <div class=\"icon-block__number\">Step 3</div>\n    <h3 class=\"icon-block__title\">Be more proud of your home</h3>\n    <div class=\"icon-block__description\">Feel <b>happier</b> and <b>prouder</b> of your home, every single day.</div>\n  </div>\n</div>\n\n{% else %}\n<div class=\"icon-blocks-container\">\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Order Instantly.svg' | asset_url }}\" alt=\"Free Shipping\" width=\"34\" height=\"34\">\n    </div>\n    <div class=\"icon-block__number\">Step 1</div>\n    <h3 class=\"icon-block__title\">Order instantly today</h3>\n    <div class=\"icon-block__description\">Simply tap the <b>add to bag button</b> and checkout <b>securely</b> today to get your order in progress.</div>\n  </div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Fast Delivery.svg' | asset_url }}\" alt=\"Easy Returns\" width=\"34\" height=\"34\">\n    </div>\n\n    <div class=\"icon-block__number\">Step 2</div>\n    <h3 class=\"icon-block__title\">We usually ship within 1-3 Business Days</h3>\n    <div class=\"icon-block__description\">Our warehouse team carefully prepares your order for <b>safe & secure</b> delivery by your dedicated William Wood driver.</div>\n  </div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Love Your Home.svg' | asset_url }}\" alt=\"24/7 Support\" width=\"34\" height=\"34\">\n    </div>\n    <div class=\"icon-block__number\">Step 3</div>\n    <h3 class=\"icon-block__title\">Be more proud of your home</h3>\n    <div class=\"icon-block__description\">Feel <b>happier</b> and <b>prouder</b> of your home, every single day.</div>\n  </div>\n</div>\n\n{% endif %}\n\n<style>\n.cart-return-product-page {\ndisplay: flex\n;\nalign-items: self-end;\njustify-content: left;\ngap: 6px;\n}\n\n.instock-pulse {\njustify-content: left;\n}\n\n.shattered-glass {\nmargin: 15px 0px;\n}\n\n.icon-blocks-container {\n    display: flex;\n    flex-wrap: wrap;\n    gap: 2rem;\n    justify-content: center;\n    margin: 2rem 0px 4rem;\n  }\n\n  .icon-block {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    text-align: center;\n    border-radius: 8px;\n  }\n  .icon-block__icon img {\n    width: 34px;\n    height: 34px;\n    object-fit: contain;\n  }\n  \n  .icon-block__number {\n    font-size: 12px;\n    font-weight: bold;\n    margin-bottom: 0.5rem;\n  }\n  \n  .icon-block__title {\n    font-size: 12px;\n    font-weight: 600;\n    margin-bottom: 0.75rem;\nmargin-top: 0px;\n  }\n  \n  .icon-block__description {\n    font-size: 12px;\n    line-height: 1.5;\n    max-width: 280px;\n  }\n  \n  /* Desktop flex styling */\n  @media (min-width: 768px) {\n    .icon-blocks-container .icon-block {\n      flex: 1;\n      \n    }\n  }\n  \n  /* Mobile stacking */\n  @media (max-width: 767px) {\n    .icon-blocks-container {\n      flex-direction: column;\n      gap: 1rem;\n    }\n    \n  }\n</style>"
           }
         },
-        "liquid_tpcdQ": {
-          "type": "liquid",
-          "disabled": false,
-          "settings": {
-            "liquid": "<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Green_USP_V1.1.webp?v=1746534818\" style=\"transform: translateY(-20px);\">"
-          }
-        },
         "liquid_dRJt6": {
           "type": "liquid",
           "disabled": true,
@@ -462,6 +444,13 @@
           "settings": {
             "padding_top": 10,
             "padding_bottom": 0
+          }
+        },
+        "liquid_tpcdQ": {
+          "type": "liquid",
+          "disabled": false,
+          "settings": {
+            "liquid": "<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Green_USP_V1.1.webp?v=1746534818\" style=\"transform: translateY(-20px);\">"
           }
         }
       },
@@ -559,7 +548,10 @@
       ]
     },
     "multi_column_yFeQDG": {
-      "settings": {},
+      "settings": {
+        "desktop_item_size": "medium",
+        "spacing": "normal"
+      },
       "blocks": {
         "item_UDdzRJ": {
           "settings": {
@@ -593,23 +585,104 @@
         "liquid": "<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_PlantTree-01_4.jpg?v=1734355785\">"
       },
       "blocks": {}
+    },
+    "custom_video_tpae4": {
+      "type": "custom-video",
+      "disabled": false,
+      "settings": {
+        "header-fbd5ca4fea6a17140c8044cb5fa75473": null,
+        "video": "shopify://files/videos/Website Video - Abandoned Cart v2.mp4",
+        "poster_image": "shopify://shop_images/Screenshot_2025-10-08_153408.png",
+        "autoplay": false,
+        "muted": false,
+        "loop": false,
+        "show_controls": true,
+        "show_controls_on_play": true,
+        "pause_on_scroll": true,
+        "header-8f735f31d1782ccd5882e10fd8a74dd4": null,
+        "use_aspect_ratio": false,
+        "video_aspect_ratio": "50",
+        "video_border_radius": 4,
+        "video_shadow": "0 4px 20px rgba(0,0,0,0.15)",
+        "header-e0684549b6326a68bb47d5b2c8c4eb3c": null,
+        "play_button_size": 80,
+        "play_button_background": "#ffffff",
+        "play_button_opacity": 90,
+        "play_button_icon_color": "#000000",
+        "header-6a322c1f85c93415873de3d0e5586d1c": null,
+        "show_header": false,
+        "title": "Watch Our Video",
+        "subtitle": "Discover more about our story",
+        "description": "<p>Add a compelling description about your video content here.</p>",
+        "text_alignment": "center",
+        "header-3401e2af4ce9366a6b6a9d9418053b49": null,
+        "title_size": 36,
+        "title_weight": "600",
+        "subtitle_size": 18,
+        "description_size": 16,
+        "header-3855fa898d7744d80e1c049bb35b0ca0": null,
+        "show_button": false,
+        "button_text": "Learn More",
+        "button_link": "",
+        "button_background": "#000000",
+        "button_text_color": "#ffffff",
+        "button_border_radius": 4,
+        "header-a41cdd6d25b2be99da01a72840532938": null,
+        "container_width": 550,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "content_spacing": 10,
+        "title_margin": 0,
+        "subtitle_margin": 0,
+        "header-2827d74d8c15112ae87ee9086cac5fd6": null,
+        "background_color": "#ffffff",
+        "text_color": "#000000"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Video Section"
+    },
+    "custom_liquid_gaGE7": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "custom_css": [
+        ".Acontainer {display: flex; flex-direction: column; align-items: center; background-color: #efefef !important; padding: 20px;}",
+        ".Acontainer img {width: 30px; margin-bottom: 10px;}",
+        ".Acontainer p {margin: 0; font-size: 16px;}",
+        ".Acontainer .delmins {font-size: 20px;}",
+        "@media (min-width: 1024px) {.Acontainer {width: 50%; transform: translate(50%, 0%); }}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "{% if product.type == 'Table' or product.type == 'Chair' %}\n<br>\n{% if product.tags contains 'prebuilt' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n{% else %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">3-5 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives ready for quick and easy assembly.\n</span>\n</div>\n</body>\n</html>\n{% endif %}\n{% else %}\n{% if product.type == 'Furniture Set' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    All pieces of this furniture set arrive fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n\n{% endif %}\n{% endif %}\n{% if product.type == 'Mirror' %}\n<br>\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Can this mirror be wall mounted?</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\" style=\"font-size: 20px;\">Yes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This mirror can be wall mounted in{% assign description = product.description | downcase %}{% if description contains 'portrait' and description contains 'landscape' %} either{% endif %}{% if description contains 'portrait' %} portrait{% endif %}{% if description contains 'portrait' and description contains 'landscape' %} or{% endif %}{% if description contains 'landscape' %} landscape{% endif %} orientation.\n</span>\n</div>\n</body>\n</html>\n{% endif %}",
+        "add_vertical_spacing": false,
+        "background_type": "full_width",
+        "header-6f9c9b2ed89413f143f53c343fd57045": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
     }
   },
   "order": [
     "main",
     "infinite_scroller_PLWixJ",
     "multi_column_cBCjX",
+    "custom_video_tpae4",
+    "custom_liquid_gaGE7",
     "product-content",
     "custom_liquid_3UjHa",
-    "custom_liquid_JWcmz",
     "multi_column_yFeQDG",
     "rich_text_RWTB7",
-    "custom_liquid_HGKiF",
+    "custom_liquid_JWcmz",
     "17266470579eb0696b",
+    "1664500680eee3b37a",
+    "custom_liquid_HGKiF",
     "1662736476a1d5736f",
     "custom_liquid_NNFwRd",
-    "custom_liquid_9X3BD",
-    "1664500680eee3b37a",
-    "1721117569940993f4"
+    "custom_liquid_9X3BD"
   ]
 }
