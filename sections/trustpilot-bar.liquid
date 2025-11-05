@@ -1,0 +1,298 @@
+{%- comment -%}
+  Section: Trustpilot Review Bar
+  Displays Trustpilot rating with stars and logo
+{%- endcomment -%}
+
+<div class="trustpilot-review-bar section">
+  <div class="OTTP" style="
+    display: flex; 
+    align-items: center; 
+    gap: {{ section.settings.items_gap }}px; 
+    white-space: nowrap; 
+    justify-content: {{ section.settings.alignment }};
+    background-color: {{ section.settings.background_color }};
+    padding: {{ section.settings.container_padding }}px;
+    border-radius: {{ section.settings.border_radius }}px;
+  ">
+    {%- if section.settings.stars_image != blank -%}
+      <img src="{{ section.settings.stars_image | image_url }}" 
+           alt="{{ section.settings.stars_alt_text }}" 
+           style="height: {{ section.settings.stars_height }}px;"
+           loading="lazy">
+    {%- endif -%}
+    
+    {%- if section.settings.review_text != blank -%}
+      <span style="
+        white-space: nowrap; 
+        font-size: {{ section.settings.text_font_size }}px;
+        color: {{ section.settings.text_color }};
+        font-weight: {{ section.settings.text_font_weight }};
+            line-height: {{ section.settings.text_font_size }}px;
+      ">
+        {{ section.settings.review_text }}
+      </span>
+    {%- endif -%}
+    
+    {%- if section.settings.logo_image != blank -%}
+      <img src="{{ section.settings.logo_image | image_url }}" 
+           alt="{{ section.settings.logo_alt_text }}" 
+           style="height: {{ section.settings.logo_height }}px;"
+           loading="lazy">
+    {%- endif -%}
+  </div>
+</div>
+
+<style>
+  .trustpilot-review-bar {
+    width: 100%;
+  }
+  
+  .OTTP img {
+    object-fit: contain;
+  }
+  
+  @media screen and (max-width: 740px) {
+    .trustpilot-review-bar .OTTP {
+      gap: {{ section.settings.items_gap_mobile }}px !important;
+      padding: {{ section.settings.container_padding_mobile }}px !important;
+    }
+    
+    .trustpilot-review-bar .OTTP span {
+      font-size: {{ section.settings.text_font_size_mobile }}px !important;
+    }
+    
+    .trustpilot-review-bar .OTTP img:first-child {
+      height: {{ section.settings.stars_height_mobile }}px !important;
+    }
+    
+    .trustpilot-review-bar .OTTP img:last-child {
+      height: {{ section.settings.logo_height_mobile }}px !important;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Trustpilot Review Bar",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "label": "Section Top Margin",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_margin_bottom",
+      "label": "Section Bottom Margin",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Container Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "transparent"
+    },
+    {
+      "type": "range",
+      "id": "container_padding",
+      "label": "Container Padding (Desktop)",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "container_padding_mobile",
+      "label": "Container Padding (Mobile)",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border Radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "items_gap",
+      "label": "Items Gap (Desktop)",
+      "min": 4,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "items_gap_mobile",
+      "label": "Items Gap (Mobile)",
+      "min": 4,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Stars Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "stars_image",
+      "label": "Stars Image"
+    },
+    {
+      "type": "text",
+      "id": "stars_alt_text",
+      "label": "Stars Alt Text",
+      "default": "5 Star Rating"
+    },
+    {
+      "type": "range",
+      "id": "stars_height",
+      "label": "Stars Height (Desktop)",
+      "min": 8,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "stars_height_mobile",
+      "label": "Stars Height (Mobile)",
+      "min": 8,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Review Text"
+    },
+    {
+      "type": "text",
+      "id": "review_text",
+      "label": "Review Text",
+      "default": "4.7 / 5 Excellent • Based on 10,000+ reviews"
+    },
+    {
+      "type": "range",
+      "id": "text_font_size",
+      "label": "Text Font Size (Desktop)",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 9
+    },
+    {
+      "type": "range",
+      "id": "text_font_size_mobile",
+      "label": "Text Font Size (Mobile)",
+      "min": 8,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 9
+    },
+    {
+      "type": "select",
+      "id": "text_font_weight",
+      "label": "Text Font Weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Trustpilot Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo Image"
+    },
+    {
+      "type": "text",
+      "id": "logo_alt_text",
+      "label": "Logo Alt Text",
+      "default": "Trustpilot Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Logo Height (Desktop)",
+      "min": 8,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "logo_height_mobile",
+      "label": "Logo Height (Mobile)",
+      "min": 8,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trustpilot Review Bar"
+    }
+  ]
+}
+{% endschema %}

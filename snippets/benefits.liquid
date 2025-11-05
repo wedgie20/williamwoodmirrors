@@ -1,0 +1,93 @@
+{%- for block in section.blocks -%}
+  {%- if block.type == 'benefits' -%}
+    <div class="benefits-section" id="block-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
+      {%- if block.settings.benefits_heading != blank -%}
+        <h3 class="benefits-heading" style="font-size: {{ block.settings.benefits_heading_size }}px;">
+          {{ block.settings.benefits_heading }}
+        </h3>
+      {%- endif -%}
+      
+      <div class="benefits-list">
+        {%- for i in (1..6) -%}
+          {%- assign icon_key = 'benefit_icon_' | append: i -%}
+          {%- assign text_key = 'benefit_text_' | append: i -%}
+          {%- assign icon = block.settings[icon_key] -%}
+          {%- assign text = block.settings[text_key] -%}
+          
+          {%- if icon != blank or text != blank -%}
+            <div class="benefit-item">
+              {%- if icon != blank -%}
+                <div class="benefit-icon">
+                  <img src="{{ icon | image_url: width: 100 }}" 
+                       alt="{{ text }}">
+                </div>
+              {%- endif -%}
+              {%- if text != blank -%}
+                <p class="benefit-text">
+                  {{ text }}
+                </p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+{%- endfor -%}
+
+<style>
+.benefits-section {
+  margin: 40px 0;
+  padding: 5px;
+}
+
+.benefits-heading {
+  font-weight: 600;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.benefit-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.benefit-icon img {
+  object-fit: contain;
+      width: 22px;
+  height: 22px;
+}
+
+.benefit-text {
+  margin: 0;
+  line-height: 1.4;
+  flex: 1;
+      font-size: 12px;
+    color: #000000;
+}
+
+@media screen and (max-width: 740px) {
+  .benefits-section {
+    padding: 5px;
+    margin: 24px 0;
+  }
+  .benefits-heading{
+margin-bottom: 16px;
+  }
+  
+}
+</style>

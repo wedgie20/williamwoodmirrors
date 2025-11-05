@@ -1,0 +1,408 @@
+{%- comment -%}
+  Section: Product Assembly Info
+  Displays assembly time or mounting information based on product type
+{%- endcomment -%}
+
+{%- assign show_section = false -%}
+{%- assign icon_url = section.settings.icon_url -%}
+{%- assign heading_text = '' -%}
+{%- assign time_text = '' -%}
+{%- assign description_text = '' -%}
+
+{%- comment -%}Determine which content to show based on product type and tags{%- endcomment -%}
+{%- if product.type == 'Table' or product.type == 'Chair' -%}
+  {%- assign show_section = true -%}
+  {%- assign heading_text = section.settings.assembly_heading -%}
+  
+  {%- if product.tags contains 'prebuilt' -%}
+    {%- assign time_text = section.settings.prebuilt_time -%}
+    {%- assign description_text = section.settings.prebuilt_description -%}
+  {%- else -%}
+    {%- assign time_text = section.settings.assembly_time -%}
+    {%- assign description_text = section.settings.assembly_description -%}
+  {%- endif -%}
+  
+{%- elsif product.type == 'Furniture Set' -%}
+  {%- assign show_section = true -%}
+  {%- assign heading_text = section.settings.assembly_heading -%}
+  {%- assign time_text = section.settings.furniture_set_time -%}
+  {%- assign description_text = section.settings.furniture_set_description -%}
+  
+{%- elsif product.type == 'Mirror' -%}
+  {%- assign show_section = true -%}
+  {%- assign heading_text = section.settings.mirror_heading -%}
+  {%- assign time_text = section.settings.mirror_answer -%}
+  
+  {%- comment -%}Build dynamic description for mirror orientation{%- endcomment -%}
+  {%- assign description = product.description | downcase -%}
+  {%- assign has_portrait = false -%}
+  {%- assign has_landscape = false -%}
+  
+  {%- if description contains 'portrait' -%}
+    {%- assign has_portrait = true -%}
+  {%- endif -%}
+  
+  {%- if description contains 'landscape' -%}
+    {%- assign has_landscape = true -%}
+  {%- endif -%}
+  
+  {%- assign orientation_text = '' -%}
+  {%- if has_portrait and has_landscape -%}
+    {%- assign orientation_text = ' either portrait or landscape' -%}
+  {%- elsif has_portrait -%}
+    {%- assign orientation_text = ' portrait' -%}
+  {%- elsif has_landscape -%}
+    {%- assign orientation_text = ' landscape' -%}
+  {%- endif -%}
+  
+  {%- assign description_text = section.settings.mirror_description | replace: '[orientation]', orientation_text -%}
+{%- endif -%}
+
+{%- if show_section -%}
+  <div class="assembly-info-section" style="margin-top: {{ section.settings.section_margin_top }}px;">
+    <div class="Acontainer">
+      {%- if icon_url != blank -%}
+        <img src="{{ icon_url }}" 
+             alt="{{ section.settings.icon_alt_text | default: 'Icon' }}" 
+             class="assembly-icon">
+      {%- endif -%}
+      
+      {%- if heading_text != blank -%}
+        <p class="assembly-heading">
+          {{ heading_text }}
+        </p>
+      {%- endif -%}
+      
+      {%- if time_text != blank -%}
+        <b class="bigger-text assembly-time">
+          {{ time_text }}
+        </b>
+      {%- endif -%}
+      
+      <br>
+      
+      {%- if description_text != blank -%}
+        <span class="delmins assembly-description">
+          {{ description_text }}
+        </span>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <style>
+    .assembly-info-section {
+      margin-bottom: 20px;
+    }
+    
+    .assembly-info-section .Acontainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: {{ section.settings.background_color }} !important;
+      padding: {{ section.settings.container_padding }}px;
+      max-width: 760px;
+        margin: 0 auto;
+    }
+    
+    .assembly-info-section .Acontainer img {
+      width: {{ section.settings.icon_size }}px;
+      margin-bottom: 10px;
+    }
+    
+    .assembly-info-section .Acontainer p {
+      margin: 0;
+      font-size: {{ section.settings.heading_font_size }}px;
+      font-weight: {{ section.settings.heading_font_weight }};
+      color: {{ section.settings.heading_color }};
+    }
+    
+    .assembly-info-section .assembly-time {
+      font-size: {{ section.settings.time_font_size_mobile }}px;
+      font-weight: {{ section.settings.time_font_weight }};
+      color: {{ section.settings.time_color }};
+      display: block;
+    }
+    
+    .assembly-info-section .Acontainer .delmins {
+      font-size: {{ section.settings.description_font_size }}px;
+      color: {{ section.settings.description_color }};
+      text-align: center;
+    }
+    
+    @media (min-width: 1024px) {
+      .assembly-info-section .Acontainer {
+
+      }
+      
+      .assembly-info-section .Acontainer p + b {
+        display: block;
+      }
+      
+      .assembly-info-section .assembly-time {
+        font-size: {{ section.settings.time_font_size_desktop }}px;
+      }
+    }
+
+    @media (max-width: 800px) {
+    .assembly-info-section .Acontainer{
+    margin: 0 20px;}
+    }
+  </style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Assembly Info",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "url",
+      "id": "icon_url",
+      "label": "Icon URL"
+    },
+    {
+      "type": "text",
+      "id": "icon_alt_text",
+      "label": "Icon Alt Text",
+      "default": "Spanner Icon"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon Size",
+      "min": 16,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "section_margin_top",
+      "label": "Section Top Margin",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Container Style"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#efefef"
+    },
+    {
+      "type": "range",
+      "id": "container_padding",
+      "label": "Container Padding",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "desktop_width",
+      "label": "Desktop Width (%)",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "desktop_transform",
+      "label": "Desktop Horizontal Position",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 50,
+      "info": "Center position: 50%"
+    },
+    {
+      "type": "header",
+      "content": "Heading Style"
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "label": "Heading Font Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "Heading Font Weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Time/Answer Style"
+    },
+    {
+      "type": "range",
+      "id": "time_font_size_mobile",
+      "label": "Time Font Size (Mobile)",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "time_font_size_desktop",
+      "label": "Time Font Size (Desktop)",
+      "min": 16,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "time_font_weight",
+      "label": "Time Font Weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi Bold" },
+        { "value": "700", "label": "Bold" },
+        { "value": "900", "label": "Extra Bold" }
+      ],
+      "default": "700"
+    },
+    {
+      "type": "color",
+      "id": "time_color",
+      "label": "Time Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Description Style"
+    },
+    {
+      "type": "range",
+      "id": "description_font_size",
+      "label": "Description Font Size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Assembly Content (Tables & Chairs)"
+    },
+    {
+      "type": "text",
+      "id": "assembly_heading",
+      "label": "Assembly Heading",
+      "default": "Assembly Time:"
+    },
+    {
+      "type": "text",
+      "id": "prebuilt_time",
+      "label": "Prebuilt Time",
+      "default": "0 Minutes"
+    },
+    {
+      "type": "textarea",
+      "id": "prebuilt_description",
+      "label": "Prebuilt Description",
+      "default": "This piece of furniture arrives fully assembled for your convenience."
+    },
+    {
+      "type": "text",
+      "id": "assembly_time",
+      "label": "Assembly Time",
+      "default": "3-5 Minutes"
+    },
+    {
+      "type": "textarea",
+      "id": "assembly_description",
+      "label": "Assembly Description",
+      "default": "This piece of furniture arrives ready for quick and easy assembly."
+    },
+    {
+      "type": "header",
+      "content": "Furniture Set Content"
+    },
+    {
+      "type": "text",
+      "id": "furniture_set_time",
+      "label": "Furniture Set Time",
+      "default": "0 Minutes"
+    },
+    {
+      "type": "textarea",
+      "id": "furniture_set_description",
+      "label": "Furniture Set Description",
+      "default": "All pieces of this furniture set arrive fully assembled for your convenience."
+    },
+    {
+      "type": "header",
+      "content": "Mirror Content"
+    },
+    {
+      "type": "text",
+      "id": "mirror_heading",
+      "label": "Mirror Heading",
+      "default": "Can this mirror be wall mounted?"
+    },
+    {
+      "type": "text",
+      "id": "mirror_answer",
+      "label": "Mirror Answer",
+      "default": "Yes"
+    },
+    {
+      "type": "textarea",
+      "id": "mirror_description",
+      "label": "Mirror Description",
+      "info": "Use [orientation] as a placeholder for dynamic orientation text",
+      "default": "This mirror can be wall mounted in[orientation] orientation."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Assembly Info"
+    }
+  ]
+}
+{% endschema %}

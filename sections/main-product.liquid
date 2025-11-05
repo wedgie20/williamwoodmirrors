@@ -77,7 +77,7 @@
       <!-- PRODUCT TOP PART -->
       <div class="product product--thumbnails-{{ section.settings.desktop_thumbnails_position }}">
         {%- render 'product-media', product: product -%}
-        {%- render 'product-info', product: product, update_url: true, section: section -%}
+        {%- render 'product-info-updated', product: product, update_url: true, section: section -%}
       </div>
     </div>
   </section>
@@ -405,6 +405,151 @@
         }
       ]
     },
+
+    {
+  "type": "benefits",
+  "name": "Benefits Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Benefits Section"
+    },
+    {
+      "type": "text",
+      "id": "benefits_heading",
+      "label": "Section Heading",
+      "default": "Benefits"
+    },
+    {
+      "type": "range",
+      "id": "benefits_heading_size",
+      "label": "Heading Font Size",
+      "min": 16,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Benefit Item 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "benefit_icon_1",
+      "label": "Icon 1"
+    },
+    {
+      "type": "text",
+      "id": "benefit_text_1",
+      "label": "Text 1",
+      "default": "Maximises natural light"
+    },
+    {
+      "type": "header",
+      "content": "Benefit Item 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "benefit_icon_2",
+      "label": "Icon 2"
+    },
+    {
+      "type": "text",
+      "id": "benefit_text_2",
+      "label": "Text 2",
+      "default": "Creates the illusion of more space"
+    },
+    {
+      "type": "header",
+      "content": "Benefit Item 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "benefit_icon_3",
+      "label": "Icon 3"
+    },
+    {
+      "type": "text",
+      "id": "benefit_text_3",
+      "label": "Text 3",
+      "default": "Part of your daily routine"
+    },
+    {
+      "type": "header",
+      "content": "Benefit Item 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "benefit_icon_4",
+      "label": "Icon 4"
+    },
+    {
+      "type": "text",
+      "id": "benefit_text_4",
+      "label": "Text 4",
+      "default": "Focal point of your room"
+    },
+    {
+      "type": "header",
+      "content": "Benefit Item 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "benefit_icon_5",
+      "label": "Icon 5"
+    },
+    {
+      "type": "text",
+      "id": "benefit_text_5",
+      "label": "Text 5"
+    },
+    {
+      "type": "header",
+      "content": "Benefit Item 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "benefit_icon_6",
+      "label": "Icon 6"
+    },
+    {
+      "type": "text",
+      "id": "benefit_text_6",
+      "label": "Text 6"
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "range",
+      "id": "benefits_text_size",
+      "label": "Text Font Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "benefits_icon_size",
+      "label": "Icon Size",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "benefits_text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    }
+  ]
+},
 
 {
   "type": "low_stock",
@@ -992,6 +1137,11 @@
       "id": "question_mark_content",
       "label": "Content"
     },
+    {
+  "type": "richtext",
+  "id": "review_block",
+  "label": "Verified Review"
+},
     {
       "type": "checkbox",
       "id": "show_vendor",
