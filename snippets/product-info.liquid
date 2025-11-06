@@ -981,22 +981,29 @@ Product Description
 </style> 
 
 <script>
-// Wait for element and shadow root to be available
-function styleShadowRoot() {
-    const hostElement = document.querySelector('#installementsid-{{ product_form_id }}');
-    if (hostElement && hostElement.shadowRoot) {
-      console.log('imherenow');
-        const style = document.createElement('style');
-        style.textContent = `
-            #shopify-installments {
-                display: none;
-            }
-        `;
-        hostElement.shadowRoot.appendChild(style);
-    }
+function observeShadowRoot() {
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (node.shadowRoot) {
+                  console.log('checking');
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        #shopify-installments {
+                            display: none;
+                        }
+                    `;
+                    node.shadowRoot.appendChild(style);
+                }
+            });
+        });
+    });
+    
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
 }
 
-// Try immediately and also listen for DOM changes
-styleShadowRoot();
-document.addEventListener('DOMContentLoaded', styleShadowRoot);
+observeShadowRoot();
 </script>
