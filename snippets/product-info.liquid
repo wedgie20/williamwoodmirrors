@@ -979,31 +979,3 @@ Product Description
 
   
 </style> 
-
-<script>
-console.log('update shadow');
-  function observeShadowRoot() {
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            mutation.addedNodes.forEach((node) => {
-                if (node.shadowRoot) {
-                    const style = document.createElement('style');
-                    style.textContent = `
-                        #shopify-installments {
-                            display: none;
-                        }
-                    `;
-                    node.shadowRoot.appendChild(style);
-                }
-            });
-        });
-    });
-    
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-}
-
-observeShadowRoot();
-</script>
