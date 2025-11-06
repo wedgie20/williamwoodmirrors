@@ -987,13 +987,10 @@ function observeShadowRoot() {
             mutation.addedNodes.forEach((node) => {
                 if (node.shadowRoot) {
                   console.log('checking');
-                    const style = document.createElement('style');
-                    style.textContent = `
-                        #shopify-installments {
-                            display: none;
-                        }
-                    `;
-                    node.shadowRoot.appendChild(style);
+                   const installmentsElement = node.shadowRoot.querySelector('#shopify-installments');
+                    if (installmentsElement) {
+                        installmentsElement.style.display = 'none';
+                    }
                 }
             });
         });
