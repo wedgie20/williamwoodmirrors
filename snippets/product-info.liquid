@@ -522,7 +522,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
       {%- form 'product', product, id: product_installment_form_id -%}
         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-        {{- form | payment_terms -}}
+        {% comment %} {{- form | payment_terms -}} {% endcomment %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
