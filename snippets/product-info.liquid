@@ -980,29 +980,3 @@ Product Description
   
 </style> 
 
-<script>
-function observeShadowRoot() {
-    const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            mutation.addedNodes.forEach((node) => {
-                if (node.shadowRoot) {
-                  setTimeout(() => {
-                   const installmentsElement = node.shadowRoot.querySelector('#shopify-installments');
-                    if (installmentsElement) {
-                      console.log('checking');
-                        installmentsElement.style.display = 'none';
-                    }
-                    }, 2000);
-                }
-            });
-        });
-    });
-    
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-}
-
-observeShadowRoot();
-</script>
