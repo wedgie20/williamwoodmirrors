@@ -979,3 +979,23 @@ Product Description
 
   
 </style> 
+
+<script>
+// Wait for element and shadow root to be available
+function styleShadowRoot() {
+    const hostElement = document.querySelector('.shopify-product-form');
+    if (hostElement && hostElement.shadowRoot) {
+        const style = document.createElement('style');
+        style.textContent = `
+            #shopify-installments {
+                display: none;
+            }
+        `;
+        hostElement.shadowRoot.appendChild(style);
+    }
+}
+
+// Try immediately and also listen for DOM changes
+styleShadowRoot();
+document.addEventListener('DOMContentLoaded', styleShadowRoot);
+</script>
