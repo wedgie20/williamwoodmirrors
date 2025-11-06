@@ -985,6 +985,7 @@ Product Description
 function styleShadowRoot() {
     const hostElement = document.querySelector('#installementsid-{{ product_form_id }}');
     if (hostElement && hostElement.shadowRoot) {
+      console.log('imherenow');
         const style = document.createElement('style');
         style.textContent = `
             #shopify-installments {
