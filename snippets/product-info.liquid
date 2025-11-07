@@ -522,7 +522,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
       {%- form 'product', product, id: product_installment_form_id -%}
         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <div class="shopify_payment-terms">
         {{- form | payment_terms -}}
+        </div>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -951,6 +953,9 @@ Product Description
 {% render buy_buttons %}
 
 <style>
+  .shopify_payment-terms {
+    margin-bottom: 5px;
+}
   @media (max-width: 768px) {
     {% comment %} .product-title-price {
       display: flex; 
