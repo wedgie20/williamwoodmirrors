@@ -418,6 +418,35 @@ safe-sticky {
       }
 
     </style>
+
+        {% if handle == 'blackfriday-signup' and localization.country != 'United Kingdom' %}
+      <script>
+        function replaceLastPathSegment(newSegment) {
+    const pathname = window.location.pathname;
+    const pathArray = pathname.split('/');
+    pathArray.pop(); // Remove the last segment
+    pathArray.push(newSegment); // Add new segment
+    const newPathname = pathArray.join('/');
+    
+    window.location.pathname = newPathname;
+}
+replaceLastPathSegment('eu-blackfriday-signup');
+      </script>
+    {% elsif handle == 'eu-blackfriday-signup' and localization.country == 'United Kingdom' %}
+      <script>
+               function replaceLastPathSegment(newSegment) {
+    const pathname = window.location.pathname;
+    const pathArray = pathname.split('/');
+    pathArray.pop(); // Remove the last segment
+    pathArray.push(newSegment); // Add new segment
+    const newPathname = pathArray.join('/');
+    
+    window.location.pathname = newPathname;
+}
+replaceLastPathSegment('blackfriday-signup');
+      </script>
+    {% endif %}
+    
   </head>
 
   {%- assign feature_classes = '' -%}
