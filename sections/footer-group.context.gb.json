@@ -15,12 +15,14 @@
   "sections": {
     "custom_liquid_pYpLMY": {
       "disabled": false,
-      "custom_css": [],
+      "custom_css": [
+        "form{max-width: 600px;}"
+      ],
       "settings": {
-        "liquid": "<div class=\"klaviyo-form-SHjExP\"></div>",
+        "subheading": "-- This Form May Take 5-10 seconds to load -- ",
         "title": "",
-        "text_color": "#ffffff",
-        "subheading": "-- This Form May Take 5-10 seconds to load -- "
+        "liquid": "<div class=\"klaviyo-form-SHjExP\"></div>",
+        "text_color": "#ffffff"
       },
       "blocks": {}
     },
