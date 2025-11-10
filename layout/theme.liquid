@@ -421,11 +421,11 @@ safe-sticky {
 
     {% if handle == 'blackfriday-signup' and localization.country != 'United Kingdom' %}
       <script>
-        window.location.href = 'https://www.williamwoodmirrors.co.uk/pages/eu-blackfriday-signup';
+        window.location.pathname = '/eu-blackfriday-signup';
       </script>
     {% elsif handle == 'eu-blackfriday-signup' and localization.country == 'United Kingdom' %}
       <script>
-        window.location.href = 'https://www.williamwoodmirrors.co.uk/pages/blackfriday-signup';
+        window.location.pathname = '/blackfriday-signup';
       </script>
     {% endif %}
 
