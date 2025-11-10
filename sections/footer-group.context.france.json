@@ -13,6 +13,26 @@
     "market": "france"
   },
   "sections": {
+    "custom_liquid_GpwmN": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "custom_css": [
+        ".form-text-mesage {text-align: center; font-weight: bold;}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<div class=\"form-text-mesage\">-- THIS FORM MAY TAKE 5–10 SECONDS TO LOAD -- </div>",
+        "add_vertical_spacing": false,
+        "background_type": "full_width",
+        "header-f69e6e9a52ae7fa65dc591a566aeb276": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
+    },
     "custom_liquid_pYpLMY": {
       "disabled": false,
       "custom_css": [
@@ -35,21 +55,18 @@
         }
       }
     },
-    "custom_liquid_GpwmN": {
+    "custom_liquid_QPT4P": {
       "type": "custom-liquid",
       "disabled": false,
-      "custom_css": [
-        ".form-text-mesage {text-align: center; font-weight: bold;}"
-      ],
       "settings": {
         "subheading": "",
         "title": "",
-        "liquid": "<div class=\"form-text-mesage\">-- THIS FORM MAY TAKE 5–10 SECONDS TO LOAD -- </div>",
-        "add_vertical_spacing": false,
+        "liquid": "<div class=\"klaviyo-form-RiSKui\"></div>",
+        "add_vertical_spacing": true,
         "background_type": "full_width",
-        "header-445fed85142e9c94bef52e30dd978f7f": null,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
+        "header-a42d3158595093ca108592a9a0b37427": null,
+        "background": "#000000",
+        "text_color": "#ffffff"
       },
       "blocks": {},
       "block_order": [],
@@ -59,6 +76,7 @@
   "order": [
     "custom_liquid_GpwmN",
     "custom_liquid_pYpLMY",
+    "custom_liquid_QPT4P",
     "footer"
   ]
 }
