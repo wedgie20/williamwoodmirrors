@@ -43,9 +43,13 @@
                   <div class="footer__item-content">
                     <ul class="linklist list--unstyled" role="list">
                       {%- for link in menu.links -%}
-                        <li class="linklist__item">
+                        {% assign linkhandle = link.url | handle %}
+                        {% if linkhandle == 'en-be-pages-deliveries' or linkhandle == 'en-fr-pages-deliveries' or linkhandle == 'en-de-pages-deliveries' or linkhandle == 'en-nl-pages-deliveries' %}
+                      {% else %}
+                        <li class="linklist__item" linkhandle1="{{ linkhandle }}">
                           <a href="{{ link.url  }}" class="link--faded">{{ link.title }}</a>
                         </li>
+                        {% endif %}
                       {%- endfor -%}
                     </ul>
                   </div>
