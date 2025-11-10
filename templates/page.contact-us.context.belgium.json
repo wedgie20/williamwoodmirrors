@@ -222,6 +222,67 @@
       "disabled": true,
       "settings": {},
       "blocks": {}
+    },
+    "text_with_icons_rNVeP": {
+      "type": "text-with-icons",
+      "disabled": false,
+      "settings": {
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {
+        "item_jtUUf": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "icon": "picto-box",
+            "custom_icon": "shopify://shop_images/WW_24_LogosPackage_v1.0.svg",
+            "custom_icon_width": 50,
+            "title": "HAVE A MARKETING ENQUIRY?",
+            "content": "<p>Contact us via <a href=\"mailto:marketing@williamwoodmirrors.co.uk\" target=\"_blank\" title=\"mailto:marketing@williamwoodmirrors.co.uk\"><strong>marketing@williamwoodmirrors.co.uk</strong></a></p>"
+          }
+        },
+        "item_VLfdg": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "icon": "picto-phone",
+            "custom_icon": null,
+            "custom_icon_width": 50,
+            "title": "Customer service",
+            "content": "<p>We are available from monday to friday to answer your questions.</p>"
+          }
+        },
+        "item_fjFHD": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "icon": "picto-lock",
+            "custom_icon": null,
+            "custom_icon_width": 50,
+            "title": "Secure payment",
+            "content": "<p>Your payment information is processed securely.</p>"
+          }
+        },
+        "item_CdMeN": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "icon": "picto-email",
+            "custom_icon": null,
+            "custom_icon_width": 50,
+            "title": "Contact us",
+            "content": "<p>Need to contact us ? Just send us an e-mail at info@yourstore.com</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_jtUUf",
+        "item_VLfdg",
+        "item_fjFHD",
+        "item_CdMeN"
+      ],
+      "name": "Text with icons"
     }
   },
   "order": [
@@ -229,6 +290,7 @@
     "rich_text_Tncpy",
     "multi_column_m3WVk",
     "6cc91c8c-a57c-41dd-9ac0-a95015ad3ab6",
+    "text_with_icons_rNVeP",
     "main",
     "9b75a0b7-27db-4dc4-ad56-e99d0feea4fa"
   ]
