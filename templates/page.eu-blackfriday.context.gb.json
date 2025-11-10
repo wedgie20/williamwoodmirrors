@@ -31,40 +31,40 @@
             "image": "shopify://shop_images/EU_BF25_Sign_up_Desk.jpg",
             "split_image": null,
             "mobile_image": "shopify://shop_images/EU_BF25_Sign_up_Mob.jpg",
-            "header-c043519acff119f06da86dfd52e9830e": null,
+            "header-33837e3d5cdcb88ccde27c4797ebc797": null,
             "text_position": "middle_center",
-            "header-216b778e58175e7e77edfd870efebfeb": null,
+            "header-c35eb22b254ea5096db72d47f5b765af": null,
             "review_image": null,
             "review_text": "",
             "review_text_font": "assistant_n4",
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-47653b05c1d531769a635a7e00cec6e1": null,
+            "header-fea92b5e7aa56938b414729f2f4570b5": null,
             "title": "",
             "heading_font": "system_ui_n4",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-fed40da7a230f092d1ff19c1a5c0701f": null,
+            "header-54bc515bab69614544aec818240eb422": null,
             "subheading": "",
             "subheading_font": "system_ui_n4",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-b7797d7e76cc37311d2edeaff5b49930": null,
+            "header-3395b1d5967bffbc7491dcd5935175e8": null,
             "slide_text": "",
             "slide_text_font": "system_ui_n4",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-590b2c052e238ae61fdfd5d88012680e": null,
+            "header-d7f0669365b934b6e613c9530de42b96": null,
             "above_text": "",
             "above_button_font": "system_ui_n4",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-e3659eb3f6b642b29312a8562202283e": null,
+            "header-19dc4695a12af03d130c63170538d3dd": null,
             "button_1_text": "",
             "button_1_link": "",
             "button_2_text": "",
@@ -73,7 +73,7 @@
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-18ffeaf1ad34399cb04652604532506a": null,
+            "header-b992bd925a94db6b8579a4156a6d546c": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
@@ -83,7 +83,7 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-ecb42a857c4104b7cc8d834a1c243aa1": null,
+            "header-dd67d774758ee40ed909d4a770f8b50a": null,
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
@@ -101,6 +101,46 @@
       "disabled": true,
       "settings": {},
       "blocks": {}
+    },
+    "custom_liquid_GnDri": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "custom_css": [
+        ".form-text-mesage {text-align: center; font-weight: bold;}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<div class=\"form-text-mesage\">-- THIS FORM MAY TAKE 5–10 SECONDS TO LOAD -- </div>",
+        "add_vertical_spacing": false,
+        "background_type": "full_width",
+        "header-012ff6897bb847d3c269343c43724c2b": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
+    },
+    "custom_liquid_azrqF": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "custom_css": [
+        "form {max-width: 600px;}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<div class=\"klaviyo-form-SHjExP\"></div>",
+        "add_vertical_spacing": true,
+        "background_type": "full_width",
+        "header-012ff6897bb847d3c269343c43724c2b": null,
+        "background": "#000000",
+        "text_color": "#ffffff"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
     }
   },
   "order": [
@@ -108,6 +148,8 @@
     "6cc91c8c-a57c-41dd-9ac0-a95015ad3ab6",
     "main",
     "9b75a0b7-27db-4dc4-ad56-e99d0feea4fa",
-    "slideshow_WWPkm"
+    "slideshow_WWPkm",
+    "custom_liquid_GnDri",
+    "custom_liquid_azrqF"
   ]
 }
