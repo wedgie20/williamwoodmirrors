@@ -244,7 +244,7 @@
         },
         "item_VLfdg": {
           "type": "item",
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "icon": "picto-phone",
             "custom_icon": null,
@@ -255,7 +255,7 @@
         },
         "item_fjFHD": {
           "type": "item",
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "icon": "picto-lock",
             "custom_icon": null,
@@ -283,6 +283,29 @@
         "item_CdMeN"
       ],
       "name": "Text with icons"
+    },
+    "rich_text_wNjtA": {
+      "type": "rich-text",
+      "disabled": false,
+      "settings": {
+        "subheading": "Head Office",
+        "title": "",
+        "content": "<p>William Wood<br/>Unit 2 Wellington Close<br/>Parkgate Industrial Estate<br/>Knutsford, Cheshire<br/>WA16 8XL</p>",
+        "button_text": "",
+        "button_link": "",
+        "background_type": "full_width",
+        "text_width": "medium",
+        "text_position": "center",
+        "text_alignment": "center",
+        "header-72f27832feb8009a2b998fa14db6314d": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Rich text"
     }
   },
   "order": [
@@ -291,6 +314,7 @@
     "multi_column_m3WVk",
     "6cc91c8c-a57c-41dd-9ac0-a95015ad3ab6",
     "text_with_icons_rNVeP",
+    "rich_text_wNjtA",
     "main",
     "9b75a0b7-27db-4dc4-ad56-e99d0feea4fa"
   ]
