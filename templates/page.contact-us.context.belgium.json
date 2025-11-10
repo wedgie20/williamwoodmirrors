@@ -119,11 +119,103 @@
       "blocks": {},
       "block_order": [],
       "name": "Rich text"
+    },
+    "multi_column_m3WVk": {
+      "type": "multi-column",
+      "disabled": false,
+      "settings": {
+        "reveal_on_scroll": true,
+        "stack_items": false,
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "column_alignment": "center",
+        "mobile_item_size": "medium",
+        "desktop_item_size": "medium",
+        "spacing": "normal",
+        "header-285cce61ed26ba6ec933808fb329e41f": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {
+        "item_aRGfk": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/icons8-whatsapp.svg",
+            "image_width": 100,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "WhatsApp",
+            "content": "<p><a href=\"tel:+44 7407 728747\" title=\"tel:+44 7407 728747\">+44 7407 728747</a></p><p>(Please note this is a text only service)</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        },
+        "item_nqER8": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/icons8-email.svg",
+            "image_width": 100,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "Email",
+            "content": "<p><a href=\"mailto:hello@williamwoodmirrors.co.uk\" title=\"mailto:hello@williamwoodmirrors.co.uk\">hello@williamwoodmirrors.co.uk</a></p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        },
+        "item_LC3JM": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/icons8-chat.svg",
+            "image_width": 100,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "Live Chat",
+            "content": "<p>Monday to Thursday - 10am - 4pm</p><p>Friday - 10am - 4pm</p><p>Saturday & Sunday - Closed</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        },
+        "item_xNhG3": {
+          "type": "item",
+          "disabled": true,
+          "settings": {
+            "image": null,
+            "image_width": 100,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "Column 1",
+            "content": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        }
+      },
+      "block_order": [
+        "item_aRGfk",
+        "item_nqER8",
+        "item_LC3JM",
+        "item_xNhG3"
+      ],
+      "name": "Multi-column"
     }
   },
   "order": [
     "coll_slideshow_rVH7z",
     "rich_text_Tncpy",
+    "multi_column_m3WVk",
     "6cc91c8c-a57c-41dd-9ac0-a95015ad3ab6",
     "main",
     "9b75a0b7-27db-4dc4-ad56-e99d0feea4fa"
