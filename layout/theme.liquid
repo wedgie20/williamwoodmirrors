@@ -419,7 +419,13 @@ safe-sticky {
 
     </style>
 
-        {% if handle == 'blackfriday-signup' and localization.country != 'United Kingdom' %}
+    {% if handle == 'blackfriday-signup' %}
+<style>
+  
+</style>
+    {% endif %}
+
+        {% comment %} {% if handle == 'blackfriday-signup' and localization.country != 'United Kingdom' %}
       <script>
         function replaceLastPathSegment(newSegment) {
     const pathname = window.location.pathname;
@@ -445,7 +451,7 @@ replaceLastPathSegment('eu-blackfriday-signup');
 }
 replaceLastPathSegment('blackfriday-signup');
       </script>
-    {% endif %}
+    {% endif %} {% endcomment %}
     
   </head>
 
