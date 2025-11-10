@@ -13,11 +13,6 @@
     "market": "france"
   },
   "sections": {
-    "main": {
-      "disabled": true,
-      "settings": {},
-      "blocks": {}
-    },
     "slideshow_KnzXT": {
       "type": "slideshow",
       "disabled": false,
@@ -36,40 +31,40 @@
             "image": "shopify://shop_images/EU_BF25_Sign_up_Desk.jpg",
             "split_image": null,
             "mobile_image": "shopify://shop_images/EU_BF25_Sign_up_Mob.jpg",
-            "header-b00c4bb129eeec9ab4bfcc3854abe96e": null,
+            "header-5ade8f9a99779cef8a7ab09390ba458b": null,
             "text_position": "middle_center",
-            "header-5a12fc003943037181483091ec0c9253": null,
+            "header-adb9b8649e191e2867131e1c923faace": null,
             "review_image": null,
             "review_text": "",
             "review_text_font": "assistant_n4",
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-af66856cb55aab1da173062aeed5dfc5": null,
+            "header-327151c4ee2f1e0b0665922dd93699f2": null,
             "title": "",
             "heading_font": "system_ui_n4",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-6566a8e351c035d5469d39d728a6ac6b": null,
+            "header-26711d92a3c01945997f5a45f3862ed1": null,
             "subheading": "",
             "subheading_font": "system_ui_n4",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-dea52f7fda832a65c72a3291b9c85111": null,
+            "header-90135f0ebd76a7fc2a2892b6ca6503ff": null,
             "slide_text": "",
             "slide_text_font": "system_ui_n4",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-d866cf4dfec2e09e21a31c19c5650dc8": null,
+            "header-a511e7dd5d6d466ad7c64041c114645d": null,
             "above_text": "",
             "above_button_font": "system_ui_n4",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-462bd504d575c5a13d8c8d076dd03a39": null,
+            "header-abb7a7d0fca2fd3412e8060393b0860d": null,
             "button_1_text": "",
             "button_1_link": "",
             "button_2_text": "",
@@ -78,7 +73,7 @@
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-85295172ad41957db26d81e858b6a4af": null,
+            "header-c985ac15d4d50725ed32798fe5cd1c41": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
@@ -88,7 +83,7 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-c6d2db18bf87fdea8aa6de60ea328cba": null,
+            "header-666bd09d0203c256199b981f1f5a6a03": null,
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
@@ -102,26 +97,10 @@
       ],
       "name": "Slideshow"
     },
-    "custom_liquid_gcHqj": {
-      "type": "custom-liquid",
-      "disabled": false,
-      "custom_css": [
-        "form{max-width: 600px;}",
-        "button{background: rgb(20, 20, 20) !important; color: white !important;}"
-      ],
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "liquid": "<div class=\"klaviyo-form-V3iQfJ\"></div>",
-        "add_vertical_spacing": true,
-        "background_type": "full_width",
-        "header-9544b5b16f333edfca6c24312ec51cb1": null,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": [],
-      "name": "Custom Liquid"
+    "main": {
+      "disabled": true,
+      "settings": {},
+      "blocks": {}
     }
   },
   "order": [
@@ -129,7 +108,6 @@
     "6cc91c8c-a57c-41dd-9ac0-a95015ad3ab6",
     "main",
     "9b75a0b7-27db-4dc4-ad56-e99d0feea4fa",
-    "slideshow_KnzXT",
-    "custom_liquid_gcHqj"
+    "slideshow_KnzXT"
   ]
 }
