@@ -16,10 +16,10 @@
     "custom_liquid_pYpLMY": {
       "disabled": false,
       "custom_css": [
-        "form{max-width: 600px;}"
+        "form {max-width: 600px;}"
       ],
       "settings": {
-        "subheading": "-- This Form May Take 5-10 seconds to load -- ",
+        "subheading": "",
         "title": "",
         "liquid": "<div class=\"klaviyo-form-SHjExP\"></div>",
         "text_color": "#ffffff"
@@ -35,9 +35,30 @@
           }
         }
       }
+    },
+    "custom_liquid_L9hEF": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "custom_css": [
+        ".form-text-mesage {text-align: center; font-weight: bold;}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<div class=\"form-text-mesage\">-- THIS FORM MAY TAKE 5–10 SECONDS TO LOAD -- </div>",
+        "add_vertical_spacing": false,
+        "background_type": "full_width",
+        "header-445fed85142e9c94bef52e30dd978f7f": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
     }
   },
   "order": [
+    "custom_liquid_L9hEF",
     "custom_liquid_pYpLMY",
     "footer"
   ]
