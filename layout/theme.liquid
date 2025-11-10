@@ -419,6 +419,12 @@ safe-sticky {
 
     </style>
 
+    {% if handle == 'blackfriday-signup' and localization.country != 'United Kingdom' %}
+      <script>
+        window.location.href = 'https://www.williamwoodmirrors.co.uk/pages/eu-blackfriday-signup';
+      </script>
+    {% endif %}
+
   </head>
 
   {%- assign feature_classes = '' -%}
