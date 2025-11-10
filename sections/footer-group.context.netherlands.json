@@ -13,18 +13,6 @@
     "market": "netherlands"
   },
   "sections": {
-    "custom_liquid_pYpLMY": {
-      "disabled": false,
-      "custom_css": [
-        "form {max-width: 600px;}"
-      ],
-      "settings": {
-        "subheading": "",
-        "liquid": "<div class=\"klaviyo-form-V3iQfJ\"></div>",
-        "text_color": "#ffffff"
-      },
-      "blocks": {}
-    },
     "custom_liquid_qFrUR": {
       "type": "custom-liquid",
       "disabled": false,
@@ -37,9 +25,38 @@
         "liquid": "<div class=\"form-text-mesage\">-- THIS FORM MAY TAKE 5–10 SECONDS TO LOAD -- </div>",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-445fed85142e9c94bef52e30dd978f7f": null,
+        "header-9205ecc5e00f1a4c396ed095b7bf2273": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
+    },
+    "custom_liquid_pYpLMY": {
+      "disabled": false,
+      "custom_css": [
+        "form {max-width: 600px;}"
+      ],
+      "settings": {
+        "subheading": "",
+        "liquid": "<div class=\"klaviyo-form-V3iQfJ\"></div>",
+        "text_color": "#ffffff"
+      },
+      "blocks": {}
+    },
+    "custom_liquid_W76p7": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<div class=\"klaviyo-form-YakGyv\"></div>",
+        "add_vertical_spacing": true,
+        "background_type": "full_width",
+        "header-a42d3158595093ca108592a9a0b37427": null,
+        "background": "#000000",
+        "text_color": "#ffffff"
       },
       "blocks": {},
       "block_order": [],
@@ -49,6 +66,7 @@
   "order": [
     "custom_liquid_qFrUR",
     "custom_liquid_pYpLMY",
+    "custom_liquid_W76p7",
     "footer"
   ]
 }
