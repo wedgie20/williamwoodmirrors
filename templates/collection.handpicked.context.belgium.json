@@ -13,18 +13,22 @@
     "market": "belgium"
   },
   "sections": {
-    "main": {
-      "custom_css": [
-        ".block-swatch-list {display: none !important;}",
-        "@supports (aspect-ratio: 1 / 1) {.aspect-ratio {aspect-ratio: 4.8 / 5; }}",
-        ".product-list {--product-list-column-gap: 4px; --container-gutter: 48px;}",
-        ".product-item__info {text-align: left;}",
-        ".product-item__label-list {justify-content: left;}",
-        "@media only screen and (max-width: 768px) {.product-item__info {padding-left: 5px; }}",
-        ".button--primary {color: black; background: #efefef; display: none;}"
-      ],
-      "settings": {},
-      "blocks": {}
+    "custom_liquid_EmQeT": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<div class=\"OTTP\" style=\"display: flex; align-items: center; gap: 8px; white-space: nowrap; justify-content: center;\">\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.png?v=1741099146\" style=\"height: 14px;\">\n    <span style=\"white-space: nowrap; font-size: 9px;\">4.7 / 5 Excellent • Based on 9,500+ reviews</span>\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_Logo__2022__svg.webp?v=1741089163\" style=\"height: 14px;\">\n</div>",
+        "add_vertical_spacing": true,
+        "background_type": "full_width",
+        "header-58716089956159228297eaf9a2c8174d": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
     },
     "rich_text_mTYYD": {
       "type": "rich-text",
@@ -39,7 +43,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-9a12af66cb96132f22ed93fed69b4ad3": null,
+        "header-0babc091b1cbfbbe967a66a80fdfcace": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -49,27 +53,60 @@
       "block_order": [],
       "name": "Rich text"
     },
-    "custom_liquid_EmQeT": {
-      "type": "custom-liquid",
+    "main": {
+      "custom_css": [
+        ".block-swatch-list {display: none !important;}",
+        "@supports (aspect-ratio: 1 / 1) {.aspect-ratio {aspect-ratio: 4.8 / 5; }}",
+        ".product-list {--product-list-column-gap: 4px; --container-gutter: 48px;}",
+        ".product-item__info {text-align: left;}",
+        ".product-item__label-list {justify-content: left;}",
+        "@media only screen and (max-width: 768px) {.product-item__info {padding-left: 5px; }}",
+        ".button--primary {color: black; background: #efefef; display: none;}"
+      ],
+      "settings": {},
+      "blocks": {}
+    },
+    "trustpilot_bar_dpbNp": {
+      "type": "trustpilot-bar",
       "disabled": false,
       "settings": {
-        "subheading": "",
-        "title": "",
-        "liquid": "<div class=\"OTTP\" style=\"display: flex; align-items: center; gap: 8px; white-space: nowrap; justify-content: center;\">\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.png?v=1741099146\" style=\"height: 14px;\">\n    <span style=\"white-space: nowrap; font-size: 9px;\">4.7 / 5 Excellent • Based on 9,500+ reviews</span>\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_Logo__2022__svg.webp?v=1741089163\" style=\"height: 14px;\">\n</div>",
-        "add_vertical_spacing": true,
-        "background_type": "full_width",
-        "header-8b20ab001ec9f4542a2eda9a750f31b5": null,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
+        "header-5978b29b45c1e75aff59785e023f29ac": null,
+        "alignment": "center",
+        "section_margin_top": 0,
+        "section_margin_bottom": 0,
+        "header-13687ccf21ce83da317b04fddc2768ac": null,
+        "background_color": "transparent",
+        "container_padding": 0,
+        "container_padding_mobile": 0,
+        "border_radius": 0,
+        "items_gap": 8,
+        "items_gap_mobile": 8,
+        "header-d57e5216062bbd65c5e9a61a77cd8f50": null,
+        "stars_image": "shopify://shop_images/Trustpilot_ratings_5star-RGB-min_0a651061-7fb3-4d09-81b6-b7f887efdbe1.png",
+        "stars_alt_text": "5 Star Rating",
+        "stars_height": 14,
+        "stars_height_mobile": 12,
+        "header-763adda4b2ae8227aa4636a9211a2992": null,
+        "review_text": "4.7 / 5 Excellent • Based on 10,000+ reviews",
+        "text_font_size": 9,
+        "text_font_size_mobile": 9,
+        "text_font_weight": "400",
+        "text_color": "#000000",
+        "header-e60413e5d07957af29746c135593447b": null,
+        "logo_image": "shopify://shop_images/Trustpilot_Logo__2022__svg.webp",
+        "logo_alt_text": "Trustpilot Logo",
+        "logo_height": 14,
+        "logo_height_mobile": 12
       },
       "blocks": {},
       "block_order": [],
-      "name": "Custom Liquid"
+      "name": "Trustpilot Review Bar"
     }
   },
   "order": [
     "collection-banner",
     "custom_liquid_EmQeT",
+    "trustpilot_bar_dpbNp",
     "rich_text_mTYYD",
     "main",
     "multi_column_zWQVjj"

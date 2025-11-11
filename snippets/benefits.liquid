@@ -1,0 +1,163 @@
+{%- comment -%}
+  Snippet: Product Benefits
+  Displays product-specific benefits with icons and text based on product type/title
+{%- endcomment -%}
+
+{%- unless product.title contains 'bowl' -%}
+  {%- assign show_benefits = false -%}
+  {%- assign benefit_items = '' -%}
+  {%- assign benefits_heading = '' -%}
+
+  {%- comment -%}Determine which benefits to show based on product{%- endcomment -%}
+  {%- if product.type == "Mirror" -%}
+    {%- assign show_benefits = true -%}
+    {%- assign benefits_heading = block.settings.mirror_heading -%}
+    {%- assign benefit_items = 'mirror' -%}
+    
+  {%- elsif product.title contains "Coffee Table" -%}
+    {%- assign show_benefits = true -%}
+    {%- assign benefits_heading = block.settings.coffee_table_heading -%}
+    {%- assign benefit_items = 'coffee_table' -%}
+    
+  {%- elsif product.title contains "Tray" -%}
+    {%- assign show_benefits = true -%}
+    {%- assign benefits_heading = block.settings.tray_heading -%}
+    {%- assign benefit_items = 'tray' -%}
+    
+  {%- elsif product.title contains "Lamp" -%}
+    {%- assign show_benefits = true -%}
+    {%- assign benefits_heading = block.settings.lamp_heading -%}
+    {%- assign benefit_items = 'lamp' -%}
+    
+  {%- elsif product.title contains "Vase" -%}
+    {%- assign show_benefits = true -%}
+    {%- assign benefits_heading = block.settings.vase_heading -%}
+    {%- assign benefit_items = 'vase' -%}
+    
+  {%- elsif product.title contains "Side Table" -%}
+    {%- assign show_benefits = true -%}
+    {%- assign benefits_heading = block.settings.side_table_heading -%}
+    {%- assign benefit_items = 'side_table' -%}
+    
+  {%- elsif product.title contains "Coaster" -%}
+    {%- assign show_benefits = true -%}
+    {%- assign benefits_heading = block.settings.coaster_heading -%}
+    {%- assign benefit_items = 'coaster' -%}
+    
+  {%- elsif product.title contains "Chair" -%}
+    {%- assign show_benefits = true -%}
+    {%- assign benefits_heading = block.settings.chair_heading -%}
+    {%- assign benefit_items = 'chair' -%}
+  {%- endif -%}
+
+  {%- if show_benefits -%}
+    <div class="benefits-section" style="margin-top: {{ block.settings.section_margin_top }}px; margin-bottom: {{ block.settings.section_margin_bottom }}px;">
+      {%- if benefits_heading != blank -%}
+        <h3 class="benefits-heading" style="
+          font-size: {{ block.settings.heading_font_size }}px;
+          font-weight: {{ block.settings.heading_font_weight }};
+          color: {{ block.settings.heading_color }};
+        ">
+          {{ benefits_heading }}
+        </h3>
+      {%- endif -%}
+      
+      <div class="benefits-list">
+        {%- for i in (1..6) -%}
+          {%- assign icon_key = benefit_items | append: '_icon_' | append: i -%}
+          {%- assign text_key = benefit_items | append: '_text_' | append: i -%}
+          {%- assign icon = block.settings[icon_key] -%}
+          {%- assign text = block.settings[text_key] -%}
+          
+          {%- if icon != blank or text != blank -%}
+            <div class="benefit-item">
+              {%- if icon != blank -%}
+                <div class="benefit-icon">
+                  <img src="{{ icon | image_url: width: 100 }}" 
+                       alt="{{ text }}"
+                       loading="lazy">
+                </div>
+              {%- endif -%}
+              {%- if text != blank -%}
+                <p class="benefit-text" style="
+                  font-size: {{ block.settings.text_font_size }}px;
+                  color: {{ block.settings.text_color }};
+                  font-weight: {{ block.settings.text_font_weight }};
+                ">
+                  {{ text }}
+                </p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+{%- endunless -%}
+
+<style>
+  .benefits-section {
+    padding: {{ block.settings.section_padding }}px;
+  }
+
+  .benefits-heading {
+    margin-bottom: {{ block.settings.heading_margin_bottom }}px;
+    text-align: left;
+  }
+
+  .benefits-list {
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.items_gap }}px;
+  }
+
+  .benefit-item {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.icon_text_gap }}px;
+  }
+
+  .benefit-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .benefit-icon img {
+    object-fit: contain;
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+  }
+
+  .benefit-text {
+    margin: 0;
+    line-height: 1.4;
+    flex: 1;
+  }
+
+  @media screen and (max-width: 740px) {
+    .benefits-section {
+      padding: {{ block.settings.section_padding_mobile }}px;
+    }
+    
+    .benefits-heading {
+      margin-bottom: {{ block.settings.heading_margin_bottom_mobile }}px;
+      font-size: {{ block.settings.heading_font_size_mobile }}px !important;
+    }
+    
+    .benefits-list {
+      gap: {{ block.settings.items_gap_mobile }}px;
+    }
+    
+    .benefit-icon img {
+      width: {{ block.settings.icon_size_mobile }}px;
+      height: {{ block.settings.icon_size_mobile }}px;
+    }
+    
+    .benefit-text {
+      font-size: {{ block.settings.text_font_size_mobile }}px !important;
+    }
+  }
+</style>
+

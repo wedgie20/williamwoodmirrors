@@ -109,7 +109,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-53bad601b5cf110743ad9e37a2a803f6": null,
+        "header-3db0cb1fd43ca537e564c88517f4ce13": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -120,6 +120,7 @@
       "name": "Rich text"
     },
     "custom_liquid_NCfRNU": {
+      "disabled": true,
       "settings": {
         "liquid": "<div class=\"OTTP\" style=\"display: flex; align-items: center; gap: 8px; white-space: nowrap; justify-content: center;\">\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.png?v=1741099146\" style=\"height: 14px;\">\n    <span style=\"white-space: nowrap; font-size: 9px;\">4.7 / 5 Excellent • Based on 10,000+ reviews</span>\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_Logo__2022__svg.webp?v=1741089163\" style=\"height: 14px;\">\n</div>"
       },
@@ -137,12 +138,49 @@
       ],
       "settings": {},
       "blocks": {}
+    },
+    "trustpilot_bar_HL678": {
+      "type": "trustpilot-bar",
+      "disabled": false,
+      "settings": {
+        "header-0fcf4f64d64f28719d3a12c1538a0ab7": null,
+        "alignment": "center",
+        "section_margin_top": 0,
+        "section_margin_bottom": 0,
+        "header-0d751c9d182644bd07f45ad6b6d2f61c": null,
+        "background_color": "transparent",
+        "container_padding": 0,
+        "container_padding_mobile": 0,
+        "border_radius": 0,
+        "items_gap": 8,
+        "items_gap_mobile": 8,
+        "header-cea8afd0f6704b0c3b123447fa22c938": null,
+        "stars_image": "shopify://shop_images/Trustpilot_ratings_5star-RGB-min_0a651061-7fb3-4d09-81b6-b7f887efdbe1.png",
+        "stars_alt_text": "5 Star Rating",
+        "stars_height": 14,
+        "stars_height_mobile": 12,
+        "header-c0d2c5a56d52bdc24e5987a98a59715e": null,
+        "review_text": "4.7 / 5 Excellent • Based on 10,000+ reviews",
+        "text_font_size": 9,
+        "text_font_size_mobile": 9,
+        "text_font_weight": "400",
+        "text_color": "#000000",
+        "header-56a98670d49499a2d462c0817abd86fb": null,
+        "logo_image": "shopify://shop_images/Trustpilot_Logo__2022__svg.webp",
+        "logo_alt_text": "Trustpilot Logo",
+        "logo_height": 14,
+        "logo_height_mobile": 12
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Trustpilot Review Bar"
     }
   },
   "order": [
     "collection-banner",
     "infinite_scroller2_XKdnL",
     "custom_liquid_NCfRNU",
+    "trustpilot_bar_HL678",
     "rich_text_rT6j8",
     "promotion_blocks_gLj7PN",
     "main",

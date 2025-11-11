@@ -732,7 +732,11 @@ document.addEventListener('DOMContentLoaded', function () {
  {%- when 'low_stock' -%}
 
   {% render 'low_stock', block: block %}
-        
+
+   {%- when 'benefits' -%}
+
+  {% render 'benefits', block: block %}
+
   {%- when 'product_status' -%}
 {% unless product.tags contains 'freegift' %}
 <div style="

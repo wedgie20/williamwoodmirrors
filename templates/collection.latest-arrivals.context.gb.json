@@ -212,6 +212,7 @@
       "blocks": {}
     },
     "custom_liquid_NCfRNU": {
+      "disabled": true,
       "settings": {
         "liquid": "<div class=\"OTTP\" style=\"display: flex; align-items: center; gap: 8px; white-space: nowrap; justify-content: center;\">\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.png?v=1741099146\" style=\"height: 14px;\">\n    <span style=\"white-space: nowrap; font-size: 9px;\">4.7 / 5 Excellent • Based on 10,000+ reviews</span>\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_Logo__2022__svg.webp?v=1741089163\" style=\"height: 14px;\">\n</div>"
       },
@@ -246,6 +247,42 @@
           }
         }
       }
+    },
+    "trustpilot_bar_tDJEp": {
+      "type": "trustpilot-bar",
+      "disabled": false,
+      "settings": {
+        "header-053a7547d82a0eac19ef0bd47636f660": null,
+        "alignment": "center",
+        "section_margin_top": 0,
+        "section_margin_bottom": 0,
+        "header-11478924ffc1dbdfd9caf1da0a4ac3c0": null,
+        "background_color": "transparent",
+        "container_padding": 0,
+        "container_padding_mobile": 0,
+        "border_radius": 0,
+        "items_gap": 8,
+        "items_gap_mobile": 8,
+        "header-e8d05e90d93eb72a1581ec81cfce5ab1": null,
+        "stars_image": "shopify://shop_images/Trustpilot_ratings_5star-RGB-min_0a651061-7fb3-4d09-81b6-b7f887efdbe1.png",
+        "stars_alt_text": "5 Star Rating",
+        "stars_height": 14,
+        "stars_height_mobile": 12,
+        "header-d1936256c9fb41fbbf295684fd1af29a": null,
+        "review_text": "4.7 / 5 Excellent • Based on 10,000+ reviews",
+        "text_font_size": 9,
+        "text_font_size_mobile": 9,
+        "text_font_weight": "400",
+        "text_color": "#000000",
+        "header-d54f62e5de332a6fd3a5f0eb87450239": null,
+        "logo_image": "shopify://shop_images/Trustpilot_Logo__2022__svg.webp",
+        "logo_alt_text": "Trustpilot Logo",
+        "logo_height": 14,
+        "logo_height_mobile": 12
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Trustpilot Review Bar"
     }
   },
   "order": [
@@ -253,6 +290,7 @@
     "collection-banner",
     "infinite_scroller2_HzVPj",
     "custom_liquid_NCfRNU",
+    "trustpilot_bar_tDJEp",
     "promotion_blocks_gLj7PN",
     "rich_text_XNefW",
     "main",
