@@ -17,7 +17,7 @@
             {%- if current_path contains '/en-fr' or current_path contains '/en-de' or current_path contains '/en-nl'-%}
               {%- assign free_shipping_calculated_threshold = 29900 -%}
             {%- else -%}
-              {%- assign free_shipping_calculated_threshold = 29800 -%}
+              {%- assign free_shipping_calculated_threshold = 29900 -%}
             {%- endif -%}
 
             {%- assign threshold_in_cents = free_shipping_calculated_threshold -%}
