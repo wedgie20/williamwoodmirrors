@@ -70,7 +70,11 @@
             {%- endif -%}
 
             {%- if section.settings.show_collection_description and collection.description != blank -%}
-              <div class="image-overlay__text-container" reveal>
+              <div class="image-overlay__text-container imhere" reveal>
+                {{ localization.country }}
+                {% if localization.country == 'United Kingdom' %}
+                  United Kingdom
+                {% endif %}
                 {{- collection.description | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
               </div>
             {%- endif -%}
