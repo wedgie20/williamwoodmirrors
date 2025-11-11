@@ -676,12 +676,12 @@
 
   {% comment %} Show iDEAL ONLY for EU customers {% endcomment %}
   {% if is_eu %}
-  <img style="width: 30px !important; height: 30px !important;" src="{{ 'ideal-logo.svg' | asset_url }}" alt="iDEAL">
+  <img style="width: 30px; height: 30px !important;" src="{{ 'ideal-logo.svg' | asset_url }}" alt="iDEAL">
   {% endif %}
 
   {% comment %} Show your custom icon for non-EU customers only {% endcomment %}
   {% unless is_eu %}
-    <img style="width: 30px !important; height: 20px !important;" src="https://cdn.shopify.com/shopifycloud/admin-ui-foundations/payment-icons/0e6f3.svg">
+    <img style="width: 30px; height: 20px !important;" src="https://cdn.shopify.com/shopifycloud/admin-ui-foundations/payment-icons/0e6f3.svg">
   {% endunless %}
 </div>
  
@@ -843,6 +843,17 @@ text-transform: capitalize;
 .customer-text {
     text-align: center;
   }
+
+  @media (max-width: 768px) {
+   #mini-cart .payment-methods-list svg, #mini-cart .payment-methods-list img  {
+  width: 27px !important;
+}
+}
+  @media (max-width: 410px) {
+   #mini-cart .payment-methods-list svg, #mini-cart .payment-methods-list img  {
+  width: 26px !important;
+}
+}
 </style>
 
 

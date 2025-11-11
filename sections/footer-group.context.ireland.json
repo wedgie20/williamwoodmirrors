@@ -1,20 +1,41 @@
 /*
-* ------------------------------------------------------------
-* IMPORTANT: The contents of this file are auto-generated.
-*
-* This file may be updated by the Shopify admin theme editor
-* or related systems. Please exercise caution as any changes
-* made to this file may be overwritten.
-* ------------------------------------------------------------
-*/
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "parent": "footer-group.json",
   "context": {
     "market": "ireland"
   },
   "sections": {
+    "custom_liquid_t4E3E": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "custom_css": [
+        "form{max-width: 600px;}"
+      ],
+      "settings": {
+        "subheading": "-- This Form May Take 5-10 seconds to load -- ",
+        "title": "",
+        "liquid": "<div class=\"klaviyo-form-SCeq4v\"></div>",
+        "add_vertical_spacing": true,
+        "background_type": "full_width",
+        "header-3e09f77f99608183b32345618b9b05ad": null,
+        "background": "#000000",
+        "text_color": "#ffffff"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
+    }
   },
   "order": [
+    "custom_liquid_t4E3E",
     "footer"
   ]
 }

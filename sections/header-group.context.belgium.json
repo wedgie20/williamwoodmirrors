@@ -14,12 +14,31 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {},
+      "settings": {
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
+      },
       "blocks": {
         "3f097275-f772-44d9-b5f7-6d6999645314": {
           "disabled": false,
           "settings": {
             "text": "Duties & Taxes Paid"
+          }
+        },
+        "message_KN8hh": {
+          "type": "message",
+          "disabled": false,
+          "settings": {
+            "text": "Early Bird Offers: Up 60% off + Extra 20% off",
+            "learn_more_text": "shop now",
+            "header-42a141579091cbb39a6e0b38a4eacf05": null,
+            "image": "shopify://shop_images/1080_BF25_Early_Bird_49703f10-432d-4d73-9e9d-448030f119d4.jpg",
+            "title": "EARLY BIRD OFFERS",
+            "content": "<p>Up to 60% off select products<br/>                              +<br/>Extra 20% off when you spend €459 EUR or more. Code <strong>EB20</strong>. </p>",
+            "button_text": "SHOP NOW",
+            "button_link": "shopify://collections/early-bird-offers"
           }
         },
         "955bcd74-0608-4f78-afae-e87df09b9f88": {
@@ -32,18 +51,27 @@
             "text": "100% Insured Belgium Delivery"
           }
         },
+        "message_N4D9HB": {
+          "settings": {
+            "text": "90 Days Free Returns"
+          }
+        },
         "message_wc4BFE": {
           "disabled": false,
           "settings": {
             "text": "700,000+ Satisfied Customers"
           }
-        },
-        "message_N4D9HB": {
-          "settings": {
-            "text": "90 Days Free Returns"
-          }
         }
-      }
+      },
+      "block_order": [
+        "3f097275-f772-44d9-b5f7-6d6999645314",
+        "message_KN8hh",
+        "955bcd74-0608-4f78-afae-e87df09b9f88",
+        "c4b45150-0e14-460e-8c47-88fd9bd72b02",
+        "message_N4D9HB",
+        "message_wc4BFE",
+        "trustpilot_Q4xFtD"
+      ]
     }
   }
 }

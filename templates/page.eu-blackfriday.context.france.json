@@ -1,0 +1,155 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "parent": "page.eu-blackfriday.json",
+  "context": {
+    "market": "france"
+  },
+  "sections": {
+    "slideshow_8y3mG": {
+      "type": "slideshow",
+      "disabled": false,
+      "settings": {
+        "section_height": "auto",
+        "transition_type": "fade",
+        "autoplay": true,
+        "cycle_speed": 5,
+        "background": "rgba(0,0,0,0)"
+      },
+      "blocks": {
+        "image_QG7WW": {
+          "type": "image",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/EU_BF25_Sign_up_Desk.jpg",
+            "split_image": null,
+            "mobile_image": "shopify://shop_images/EU_BF25_Sign_up_Mob.jpg",
+            "header-22512672af8bee0715b3e644e206ca1d": null,
+            "text_position": "middle_center",
+            "header-74d666513363491ea45d48fcbd13524d": null,
+            "review_image": null,
+            "review_text": "",
+            "review_text_font": "assistant_n4",
+            "custom_review_font": "Zurich, sans-serif",
+            "review_text_size": 13,
+            "review_font_weight": "400",
+            "header-738a39da41f0ea068bffd7b6986d1824": null,
+            "title": "",
+            "heading_font": "system_ui_n4",
+            "custom_heading_font": "Zurich, sans-serif",
+            "heading_text_size": 25,
+            "heading_font_weight": "400",
+            "header-2e7a4c04e957b0d5e6472f7a1acee44b": null,
+            "subheading": "",
+            "subheading_font": "system_ui_n4",
+            "custom_subheading_font": "Zurich, sans-serif",
+            "subheading_text_size": 25,
+            "subheading_font_weight": "400",
+            "header-f2e49450300e244fa84e6545ec5d33b2": null,
+            "slide_text": "",
+            "slide_text_font": "system_ui_n4",
+            "custom_text_font": "Zurich, sans-serif",
+            "slide_text_size": 25,
+            "text_font_weight": "400",
+            "header-77b13eec0d58ec9311de43bd6793f560": null,
+            "above_text": "",
+            "above_button_font": "system_ui_n4",
+            "custom_abovetext_font": "Zurich, sans-serif",
+            "above_button_text_size": 25,
+            "above_font_weight": "400",
+            "header-bf10c7bafe32c801e5c779212cec5815": null,
+            "button_1_text": "",
+            "button_1_link": "",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_font": "system_ui_n4",
+            "custom_button_font": "Zurich, sans-serif",
+            "button_text_size": 25,
+            "button_font_weight": "400",
+            "header-36483e06f783eaa1d3dcf33ab23484db": null,
+            "review_line_1": "",
+            "review_line_2": "",
+            "review_line_3": "",
+            "review_line_4": "",
+            "review_line_5": "",
+            "review_font": "system_ui_n4",
+            "custom_reviewline_font": "Zurich, sans-serif",
+            "review_lines_size": 25,
+            "lines_font_weight": "400",
+            "header-fa51cfbcbe2949b28b8480e23e5e8cb1": null,
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        }
+      },
+      "block_order": [
+        "image_QG7WW"
+      ],
+      "name": "Slideshow"
+    },
+    "main": {
+      "disabled": true,
+      "settings": {},
+      "blocks": {}
+    },
+    "custom_liquid_pV6EK": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "custom_css": [
+        ".form-text-mesage {text-align: center; font-weight: bold;}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<div class=\"form-text-mesage\">-- THIS FORM MAY TAKE 5–10 SECONDS TO LOAD -- </div>",
+        "add_vertical_spacing": false,
+        "background_type": "full_width",
+        "header-644627c09910593d8aa591f4be871480": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
+    },
+    "custom_liquid_dBPx4": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "custom_css": [
+        "form {max-width: 600px;}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<div class=\"klaviyo-form-V3iQfJ\"></div>",
+        "add_vertical_spacing": true,
+        "background_type": "full_width",
+        "header-644627c09910593d8aa591f4be871480": null,
+        "background": "#000000",
+        "text_color": "#ffffff"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
+    }
+  },
+  "order": [
+    "1662460824ad6e755b",
+    "6cc91c8c-a57c-41dd-9ac0-a95015ad3ab6",
+    "main",
+    "9b75a0b7-27db-4dc4-ad56-e99d0feea4fa",
+    "slideshow_8y3mG",
+    "custom_liquid_pV6EK",
+    "custom_liquid_dBPx4"
+  ]
+}

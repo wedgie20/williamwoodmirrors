@@ -513,7 +513,7 @@ document.addEventListener("DOMContentLoaded", function() {
       {%- endif -%}
     {%- endif -%}
 
-    <product-payment-terms form-id="{{ product_form_id }}">
+    <product-payment-terms form-id="{{ product_form_id }}" id="installementsid-{{ product_form_id }}">
       {%- assign product_installment_form_id = 'product-installment-form-'
         | append: section.id
         | append: '-'
@@ -522,7 +522,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
       {%- form 'product', product, id: product_installment_form_id -%}
         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <div class="shopify_payment-terms">
         {{- form | payment_terms -}}
+        </div>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -951,7 +953,14 @@ Product Description
 {% render buy_buttons %}
 
 <style>
+  .shopify_payment-terms {
+    margin-bottom: 5px;
+}
   @media (max-width: 768px) {
+      .shopify_payment-terms {
+       margin-bottom: 8px;
+    font-size: 10px !important;
+}
     {% comment %} .product-title-price {
       display: flex; 
       justify-content: space-between; 
@@ -979,3 +988,4 @@ Product Description
 
   
 </style> 
+

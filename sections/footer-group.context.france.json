@@ -13,12 +13,22 @@
     "market": "france"
   },
   "sections": {
-    "custom_liquid_pYpLMY": {
+    "custom_liquid_QPT4P": {
+      "type": "custom-liquid",
       "disabled": false,
       "settings": {
-        "liquid": "<div class=\"klaviyo-form-RiSKui\"></div>"
+        "subheading": "",
+        "title": "",
+        "liquid": "<div class=\"klaviyo-form-RiSKui\"></div>",
+        "add_vertical_spacing": true,
+        "background_type": "full_width",
+        "header-cfb35df920605c8df22fd095e7b6c5c6": null,
+        "background": "#000000",
+        "text_color": "#ffffff"
       },
-      "blocks": {}
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
     },
     "footer": {
       "settings": {},
@@ -32,7 +42,7 @@
     }
   },
   "order": [
-    "custom_liquid_pYpLMY",
+    "custom_liquid_QPT4P",
     "footer"
   ]
 }
