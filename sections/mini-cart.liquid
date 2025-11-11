@@ -73,7 +73,7 @@
   {%- endif -%}
 
 <div class="cart-milestones-bar_Cart">
-<span class="icon_milestone" style="width: 18px; height: 18px;">
+<span class="icon_milestone" style="width: 13px; height: 13px;">
 {% render 'free-gift' %}
 </span><p>FREE</p>
 </div>
@@ -880,17 +880,20 @@ text-transform: capitalize;
     line-height: .875rem;
     font-weight: 400;
     --tw-text-opacity: 1;
-    color: white;
+    color: black;
     margin-left: auto;
-    background-color: black;
+    background-color: rgb(199 241 197/var(--tw-bg-opacity,1));
         right: -7px;
             margin-top: 5px;
+            padding: 4px 8px;
 }
 .cart-milestones-bar_Cart p{
 margin: unset;
+font-size: 10px;
 }
 .cart-milestones-bar_Cart svg path{
-fill: white;}
+fill: black;
+    font-size: 10px;}
 .cart-milestones-bar_Cart:after{
 position: absolute;
     bottom: -.25rem;
@@ -910,6 +913,8 @@ position: absolute;
         --tw-border-opacity: 1;
     border-bottom-color: black;
         right: 7px;
+            --tw-border-opacity: 1;
+    border-bottom-color: rgb(199 241 197 / var(--tw-border-opacity, 1));
 }
 .shipping_threshold {
     text-align: right;

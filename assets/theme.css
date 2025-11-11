@@ -8532,10 +8532,11 @@ input:checked + .popover__choice-label::after,
   position: relative;
   display: block;
   margin-top: 6px;
-  height: 7px;
-  border: 2px solid currentColor;
+  height: 6px;
+  /* border: 2px solid currentColor; */
   border-radius: 4px;
   overflow: hidden;
+      background-color: rgb(222 222 223 / var(--tw-bg-opacity, 1));
 }
 
 .shipping-bar__progress::after {
@@ -8545,7 +8546,7 @@ input:checked + .popover__choice-label::after,
   right: -1px;
   bottom: -1px;
   left: -1px;
-    background: linear-gradient(90deg, #e0e0e0, #444444 70%, #000000);
+    background: linear-gradient(90deg,#bbf3c1,#00b67a 70%,#005036);
   transition: transform 0.2s ease;
   transform: scaleX(var(--progress));
   transform-origin: var(--transform-origin-start);
@@ -8562,7 +8563,7 @@ input:checked + .popover__choice-label::after,
 
   .shipping-bar__progress {
     margin-top: 8px;
-    height: 8px;
+    height: 6px;
   }
 
   .shipping-bar--large .shipping-bar__progress {
