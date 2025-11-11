@@ -72,7 +72,16 @@
     {%- endif -%}
   {%- endif -%}
 
-  <span class="shipping-bar__progress"></span>
+<div class="cart-milestones-bar_Cart">
+<span class="icon_milestone" style="width: 13px; height: 13px;">
+{% render 'free-gift' %}
+</span><p>FREE</p>
+</div>
+
+  <span class="shipping-bar__progress imhere"></span>
+  <div class="shipping_threshold">
+    {{ threshold_in_cents | money }}
+  </div>
 </free-shipping-bar>
 
       <form id="mini-cart-form" action="{{ routes.cart_url }}" novalidate method="post">
@@ -854,6 +863,67 @@ text-transform: capitalize;
   width: 26px !important;
 }
 }
+
+.cart-milestones-bar_Cart {
+    position: relative;
+    margin-bottom: 10px;
+    display: flex;
+    width: -moz-max-content;
+    width: max-content;
+    align-items: center;
+    justify-content: center;
+    gap: .25rem;
+    border-radius: 9999px;
+    --tw-bg-opacity: 1;
+    padding: .25rem .5rem;
+    font-size: .625rem;
+    line-height: .875rem;
+    font-weight: 400;
+    --tw-text-opacity: 1;
+    color: black;
+    margin-left: auto;
+    background-color: rgb(199 241 197/var(--tw-bg-opacity,1));
+        right: -7px;
+            margin-top: 10px;
+            padding: 5px 8px;
+}
+.cart-milestones-bar_Cart p{
+margin: unset;
+font-size: 10px;
+}
+.cart-milestones-bar_Cart svg path{
+fill: black;
+    font-size: 10px;}
+.cart-milestones-bar_Cart:after{
+position: absolute;
+    bottom: -.25rem;
+    z-index: -1;
+    height: 0;
+    width: 0;
+    --tw-rotate: 180deg;
+    transform: translate(0, 0) rotate(180deg) skewX(0) skewY(0) scaleX(1) scaleY(1);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 0 solid transparent;
+    --tw-border-opacity: 1;
+    border-bottom: 4px solid transparent;
+    border-bottom-color: rgb(236 236 237 / var(--tw-border-opacity, 1));
+    --tw-content: "";
+    content: " ";
+        --tw-border-opacity: 1;
+    border-bottom-color: black;
+        right: 7px;
+            --tw-border-opacity: 1;
+    border-bottom-color: rgb(199 241 197 / var(--tw-border-opacity, 1));
+}
+.shipping_threshold {
+    text-align: right;
+    font-size: 11px;
+    font-weight: bold;
+    margin-top: 3px;
+}
+.shipping-bar__text img{
+display: none;}
 </style>
 
 
