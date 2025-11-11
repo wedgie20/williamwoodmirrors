@@ -8545,7 +8545,7 @@ input:checked + .popover__choice-label::after,
   right: -1px;
   bottom: -1px;
   left: -1px;
-  background: currentColor;
+    background: linear-gradient(90deg, #e0e0e0, #444444 70%, #000000);
   transition: transform 0.2s ease;
   transform: scaleX(var(--progress));
   transform-origin: var(--transform-origin-start);
@@ -8566,7 +8566,7 @@ input:checked + .popover__choice-label::after,
   }
 
   .shipping-bar--large .shipping-bar__progress {
-    margin-top: 16px;
+    margin-top: 10px;
   }
 }
 
