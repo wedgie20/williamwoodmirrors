@@ -44,12 +44,15 @@
                     <ul class="linklist list--unstyled" role="list">
                       {%- for link in menu.links -%}
                        {% assign linkhandle = link.url | handle %}
-                        {% comment %} {% if linkhandle == 'en-be-pages-deliveries' or linkhandle == 'en-fr-pages-deliveries' or linkhandle == 'en-de-pages-deliveries' or linkhandle == 'en-nl-pages-deliveries' %}
-                      {% else %} {% endcomment %}
+                        {% if linkhandle == 'en-be-pages-deliveries' or linkhandle == 'en-fr-pages-deliveries' or linkhandle == 'en-de-pages-deliveries' or linkhandle == 'en-nl-pages-deliveries' %}
+                       <li class="linklist__item" linkhandle1="{{ linkhandle }}">
+                          <a href="{{ link.url  }}" class="link--faded">Delivery & Returns</a>
+                        </li>
+                        {% else %}
                         <li class="linklist__item" linkhandle1="{{ linkhandle }}">
                           <a href="{{ link.url  }}" class="link--faded">{{ link.title }}</a>
                         </li>
-                        {% comment %} {% endif %} {% endcomment %}
+                        {% endif %}
                       {%- endfor -%}
                     </ul>
                   </div>
