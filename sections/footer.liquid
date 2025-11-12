@@ -45,10 +45,7 @@
                       {%- for link in menu.links -%}
                        {% assign linkhandle = link.url | handle %}
                         {% if linkhandle == 'en-be-pages-deliveries' or linkhandle == 'en-fr-pages-deliveries' or linkhandle == 'en-de-pages-deliveries' or linkhandle == 'en-nl-pages-deliveries' %}
-                       <li class="linklist__item" linkhandle1="{{ linkhandle }}">
-                          <a href="{{ link.url  }}" class="link--faded">Delivery & Returns</a>
-                        </li>
-                        {% else %}
+                      {% else %}
                         <li class="linklist__item" linkhandle1="{{ linkhandle }}">
                           <a href="{{ link.url  }}" class="link--faded">{{ link.title }}</a>
                         </li>
