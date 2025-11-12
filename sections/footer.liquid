@@ -46,7 +46,7 @@
                        {% assign linkhandle = link.url | handle %}
                         {% if linkhandle == 'en-be-pages-deliveries' or linkhandle == 'en-fr-pages-deliveries' or linkhandle == 'en-de-pages-deliveries' or linkhandle == 'en-nl-pages-deliveries' %}
                       {% else %}
-                        <li class="linklist__item" linkhandle1="{{ linkhandle }}">
+                        <li class="linklist__item" menu-title="{{ menu.title }}">
                           <a href="{{ link.url  }}" class="link--faded">{{ link.title }}</a>
                         </li>
                         {% endif %}
