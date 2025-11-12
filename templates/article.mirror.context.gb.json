@@ -20,7 +20,8 @@
     },
     "main": {
       "custom_css": [
-        ".article__info {display: none;}"
+        ".article__info {display: none;}",
+        "@media screen and (min-width: 1000px) {.article {margin-top: 50px; margin-bottom: 50px; }}"
       ],
       "settings": {
         "show_on_scroll_navigation": false,
