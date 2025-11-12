@@ -80,7 +80,7 @@
           {%- endcapture -%}
         {%- endif -%}
 
-        <li class="mobile-nav__item" data-level="1">
+        <li class="mobile-nav__item imhere" data-level="1">
           {%- if link.links.size > 0 or mega_menu_images != blank -%}
             <button
               is="toggle-button"
@@ -137,12 +137,27 @@
               {%- endif -%}
             </collapsible-content>
           {%- else -%}
+            {% if link.url == section.settings.highlighted_menu_item %}
+              <a
+              href="{{ link.url  }}"
+              class="makeit_highlighted mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
+            style="background: {{ section.settings.highlighted_menu_bg_color }}; color: {{ section.settings.highlighted_menu_text_color }};"
+            >
+              <div class="highlighted_item">
+             <span class="highlighted_bold_text">
+              {{ section.settings.menu_bold_text | default: link.title }}
+             </span>
+             <span class="highlighted_normal_text">{{ section.settings.menu_normal_text }}</span>
+             </div>
+            </a>
+            {% else %}
             <a
               href="{{ link.url  }}"
               class="mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
             >
               {{- link.title -}}
             </a>
+            {% endif %}
           {%- endif -%}
         </li>
       {%- endfor -%}
@@ -413,6 +428,28 @@ margin-left: 30px;
 margin-top: 8px;
   }
 
+  a.makeit_highlighted {
+    padding-top: 20px;
+    padding-bottom: 20px;
+        border-radius: 5px;
+}
+
+.highlighted_item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+span.highlighted_bold_text {
+    font-size: 22px;
+    text-transform: uppercase;
+}
+
+span.highlighted_normal_text
+ {
+    font-weight: 400;
+    text-decoration: underline;
+}
 
 </style>
 
