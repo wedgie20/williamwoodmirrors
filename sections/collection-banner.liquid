@@ -75,6 +75,7 @@
                  {{- collection.description | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
                 {% else %}
                    {{- collection.description | replace: 'Free UK &amp; Northern Ireland Delivery + 90 Days Free Returns.<br><br>', ''  -}}
+                   imhere
                 {% endif %}
               </div>
             {%- endif -%}
