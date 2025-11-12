@@ -141,9 +141,9 @@
               <a
               href="{{ link.url  }}"
               class="makeit_highlighted mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
-            style="background: {{ section.settings.highlighted_menu_bg_color }}; color: {{ section.settings.highlighted_menu_text_color }};"
+            
             >
-              <div class="highlighted_item">
+              <div class="highlighted_item" style="background: {{ section.settings.highlighted_menu_bg_color }}; color: {{ section.settings.highlighted_menu_text_color }};">
              <span class="highlighted_bold_text">
               {{ section.settings.menu_bold_text | default: link.title }}
              </span>
@@ -429,19 +429,20 @@ margin-top: 8px;
   }
 
   a.makeit_highlighted {
-    padding-top: 20px;
-    padding-bottom: 20px;
-        border-radius: 5px;
+  
 }
 
 .highlighted_item {
     display: flex;
     flex-direction: column;
     gap: 5px;
+      padding: 20px;
+        border-radius: 5px;
+        width: 100%;
 }
 
 span.highlighted_bold_text {
-    font-size: 22px;
+    font-size: 16px;
     text-transform: uppercase;
 }
 
