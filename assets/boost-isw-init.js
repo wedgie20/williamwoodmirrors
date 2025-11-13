@@ -11,7 +11,7 @@ if (searchTriggers.length > 0) {
       searchInput.dispatchEvent(new Event('input', { bubbles: true }));
 
       setTimeout(() => {
-        searchInput.focus();
+        //searchInput.focus();
         
         searchInput.select();
       }, 100); 
