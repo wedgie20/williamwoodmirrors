@@ -1,5 +1,5 @@
 
-document.querySelectorAll('.icon--header-search').forEach(el => {
+document.querySelectorAll('.boost-trigger').forEach(el => {
 el.addEventListener('click', () => {
     const searchInput = document.querySelector('.boost-sd__search-widget-init-input');
     
