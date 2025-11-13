@@ -14,7 +14,7 @@ if (searchTriggers.length > 0) {
         searchInput.focus();
         
         searchInput.select();
-      }, 0); 
+      }, 100); 
       
     } else {
       console.warn('Boost instant search input not found at time of click.');
