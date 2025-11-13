@@ -8,12 +8,13 @@ if (searchTriggers.length > 0) {
     const searchInput = document.querySelector('.boost-sd__search-widget-init-input');
 
     if (searchInput) {
-      searchInput.focus();
       searchInput.dispatchEvent(new Event('input', { bubbles: true }));
 
       setTimeout(() => {
+        searchInput.focus();
+        
         searchInput.select();
-      }, 0);
+      }, 0); 
       
     } else {
       console.warn('Boost instant search input not found at time of click.');
