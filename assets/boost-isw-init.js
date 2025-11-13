@@ -1,29 +1,17 @@
 const searchTriggers = document.querySelectorAll('.boost-trigger');
 
-if (searchTriggers.length > 0) {
-  
-  const openAndFocusSearch = (event) => {
-    event.preventDefault(); 
+const clearAndFocusSearch = () => {
+  const searchInput = document.querySelector('.boost-sd__search-widget-init-input');
 
-    const searchInput = document.querySelector('.boost-sd__search-widget-init-input');
+  if (searchInput) {
+    searchInput.value = '';
+    searchInput.focus();
+    searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+  } else {
+    console.warn('Boost instant search input not found at time of click.');
+  }
+};
 
-    if (searchInput) {
-      searchInput.focus();
-      searchInput.dispatchEvent(new Event('input', { bubbles: true }));
-
-      setTimeout(() => {
-        searchInput.select();
-      }, 0);
-      
-    } else {
-      console.warn('Boost instant search input not found at time of click.');
-    }
-  };
-
-  searchTriggers.forEach(trigger => {
-    trigger.addEventListener('click', openAndFocusSearch);
-  });
-  
-} else {
-  console.warn('Boost triggers (.boost-trigger) not found on page load.');
-}
+searchTriggers.forEach(trigger => {
+  trigger.addEventListener('click', clearAndFocusSearch);
+});
