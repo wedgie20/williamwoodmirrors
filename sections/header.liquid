@@ -569,7 +569,7 @@
         {% render 'desktop-menu', menu: menu, bottom_navigation: true %}
       </nav>
     {%- endif -%}
-
+    {% comment %} Removed for Boost :: Alex
     <div class="mobile-searchbar">
       <form action="{{ routes.search_url }}" method="get" role="search">
           <input
@@ -589,6 +589,7 @@
 
         </form>
     </div>
+    {% endcomment %}
 
     {%- if section.settings.header_layout != 'logo_center_search_open' -%}
       <predictive-search class="mobile-search">
