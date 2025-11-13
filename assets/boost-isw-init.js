@@ -1,4 +1,5 @@
 const searchInput = document.querySelector('.boost-sd__search-widget-init-input');
+console.log('helloooo world')
 
 const clearAndFocusSearch = () => {
   searchInput.value = '';
