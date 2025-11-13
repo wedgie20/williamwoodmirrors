@@ -5,6 +5,8 @@ const clearAndFocusSearch = () => {
 
   if (searchInput) {
     searchInput.focus();
+    const textLength = searchInput.value.length;
+    searchInput.setSelectionRange(textLength, textLength);
   } else {
     console.warn('Boost instant search input not found at time of click.');
   }
