@@ -287,12 +287,12 @@
   </a>
      <div style="text-align: center; margin-bottom: 2rem; color: white; margin-top: 10px; " class="tp-desktop" >
 
-<p style="margin-bottom: unset; font-size: 16px;">{{ block.settings.review_headline | default: "Join Over 700,000+ Satisfied Customers" }}</p>
+<p style="margin-bottom: unset; font-size: 12px;">{{ block.settings.review_headline | default: "Join Over 700,000+ Satisfied Customers" }}</p>
 <div class="OTTP" style="display: flex; place-content: center; align-items: center; gap: 8px; white-space: nowrap; margin-bottom: 24px;">
   {% if block.settings.review_image != blank %}
     <img src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.review_image | image_url }}" style="height: {{ block.settings.review_image_height | default: 14 | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}px; margin: 0px;">
   {% endif %}
-  <span style="white-space: nowrap; font-size: 16px;">{{ block.settings.review_text | default: "4.7 / 5 Excellent • Based on 10,000+ reviews" }}</span>
+  <span style="white-space: nowrap; font-size: 12px;">{{ block.settings.review_text | default: "4.7 / 5 Excellent • Based on 10,000+ reviews" }}</span>
 </div>
 </div>
 </div>
