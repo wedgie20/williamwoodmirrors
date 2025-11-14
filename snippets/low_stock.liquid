@@ -1,6 +1,9 @@
 {% if product.available %}
-<span style="margin-top: 10px; margin-bottom: 10px; margin-left: 5px;"><b>Exclusive Black Friday</b> price - offer ends midnight</span> 
-
+{% if product.compare_at_price_max <= product.price_max %}
+    <span style="margin-top: 10px; margin-bottom: 10px; margin-left: 5px;">
+        <b>Exclusive Black Friday</b> price - offer ends midnight
+    </span>
+{% endif %}
 {% if product.tags contains '__label:RESTOCKED' %}
 <div style="margin-left: 5px;">
 <b>{{ block.settings.restocked_text | default: "Recently restocked, don't miss out." }}</b>
