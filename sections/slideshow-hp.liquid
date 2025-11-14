@@ -205,7 +205,7 @@
 
 
                   <div class="slideshow__text-wrapper slideshow__text-wrapper--{{ text_alignment }} vertical-breather">
-                <div class="content-box content-box--text-{{ text_position }} content-box--{{ text_position }} text-container">
+                <div class="content-box content-box--text-{{ text_position }} content-box--{{ text_position }} text-container" style="">
 
                 <div class="content">
 
@@ -213,7 +213,7 @@
 <style>
   @media screen and (max-width: 740px) {
   .slideshow__text-wrapper {
-                    padding-top: 35rem !important;
+                    {% comment %} padding-top: 35rem !important; {% endcomment %}
                    
     }
 
@@ -228,59 +228,46 @@
   }
   {%  endif %}
 </style>
-                  <div class="MobileDown">
-                    <div class="heading heading--small"></div>
-  <div class="heading heading--small"></div>
-    <style>
-      </style>
+                  
 
- <div style="text-align: left; margin-bottom: 2rem; color: white; " class="tp-mobile" >
 
-<p style="margin-bottom: 3px; font-size: 8px;">{{ block.settings.review_headline | default: "Join Over 700,000+ Satisfied Customers" }}</p>
-<div class="OTTP" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; padding-bottom: 24px;">
-  {% if block.settings.review_image != blank %}
-    <img src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.review_image | image_url }}" style="height: {{ block.settings.review_image_height | default: 14 | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}px; margin: 0px;">
-  {% endif %}
-  <span style="white-space: nowrap; font-size: 8px;">{{ block.settings.review_text | default: "4.7 / 5 Excellent • Based on 10,000+ reviews" }}</span>
-</div>
-</div>
-
-   </div>
-
-   <div style="text-align: left; margin-bottom: 2rem; color: white; " class="tp-desktop" >
-
-<p style="margin-bottom: unset; font-size: 16px;">{{ block.settings.review_headline | default: "Join Over 700,000+ Satisfied Customers" }}</p>
-<div class="OTTP" style="display: flex; align-items: center; gap: 8px; white-space: nowrap; margin-bottom: 24px;">
-  {% if block.settings.review_image != blank %}
-    <img src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.review_image | image_url }}" style="height: {{ block.settings.review_image_height | default: 14 | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}px; margin: 0px;">
-  {% endif %}
-  <span style="white-space: nowrap; font-size: 16px;">{{ block.settings.review_text | default: "4.7 / 5 Excellent • Based on 10,000+ reviews" }}</span>
-</div>
-</div>
 
            <span style="font-family: 'GothamBlack';
-    font-weight: 500;
-    font-size: 25px;
-    line-height: 100%;
-    letter-spacing: 0;
-    text-transform: uppercase;" class="heading slideshow_txt title">{{ block.settings.title | escape }}</span>
-                      <span  style="font-family: GothamBlack;
     font-weight: 500;
     font-size: 35px;
     line-height: 100%;
     letter-spacing: 0;
+    text-transform: uppercase;" class="heading slideshow_txt title">{{ block.settings.title | escape }}</span>
+                      <span  style="font-family: Zurich, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0;
     text-transform: uppercase;
      padding-bottom: 20px
-    " class="heading slideshow_txt title"><span style="font-family: altesse-std-24pt; text-transform: lowercase; font-size: 34px;">{{ block.settings.subheading | escape }}</span><br><span style="font-size: 12px;"></span></span>
-                      <span style="font-weight: 400;
+    " class="heading slideshow_txt title"><span style="font-family: Zurich, sans-serif;text-transform: uppercase;
+    font-size: 16px;    letter-spacing: 1px;">{{ block.settings.subheading | escape }}</span><br><span style="font-size: 12px;"></span></span>
+                      
+       <span  style="font-family: GothamBlack;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 0;
+    text-transform: uppercase;
+     padding-bottom: 0px
+    " class="heading slideshow_txt title"><span style="font-family: Zurich, sans-serif;text-transform: uppercase;
+    font-size: 12px;">USE CODE</span></span>
+    <span style="font-weight: 400;
     
-    font-size: 25px;
+    font-size: 35px;
     line-height: 100%;
     font-family: GothamBlack;
     font-weight: 500;
-    letter-spacing: 0; color:white" class="">UP TO 60% OFF</span>
-<div class="dt-button" style="margin-top: 9px;">
-    <a href="{{ block.settings.button_1_link | escape }}" class="shop-now-summer">
+    letter-spacing: 0; color:white" class="">BF27</span>
+<div class="dt-button" style="margin-top: 15px;">
+    <a href="{{ block.settings.button_1_link | escape }}" class="shop-now-summer" style="display: block;
+    overflow: hidden;
+    min-height: 70px;">
     <button class="button button--primary slideshow_txt clearance-text" style="display: inline-flex; align-items: center; justify-content: center; transform: translateY(10px);
         width: 206px !important;
     height: 49px !important;
@@ -298,7 +285,35 @@
     letter-spacing: 0;">{{ block.settings.button_1_text | escape }}</span>
     </button>
   </a>
+     <div style="text-align: center; margin-bottom: 2rem; color: white; margin-top: 10px; " class="tp-desktop" >
+
+<p style="margin-bottom: unset; font-size: 16px;">{{ block.settings.review_headline | default: "Join Over 700,000+ Satisfied Customers" }}</p>
+<div class="OTTP" style="display: flex; place-content: center; align-items: center; gap: 8px; white-space: nowrap; margin-bottom: 24px;">
+  {% if block.settings.review_image != blank %}
+    <img src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.review_image | image_url }}" style="height: {{ block.settings.review_image_height | default: 14 | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}px; margin: 0px;">
+  {% endif %}
+  <span style="white-space: nowrap; font-size: 16px;">{{ block.settings.review_text | default: "4.7 / 5 Excellent • Based on 10,000+ reviews" }}</span>
 </div>
+</div>
+</div>
+
+<div class="MobileDown">
+
+    <style>
+      </style>
+
+ <div style="text-align: center; margin-bottom: 2rem; color: white; " class="tp-mobile" >
+
+<p style="margin-bottom: 3px; font-size: 8px;">{{ block.settings.review_headline | default: "Join Over 700,000+ Satisfied Customers" }}</p>
+<div class="OTTP" style="display: flex;    place-content: center; align-items: center; gap: 8px; white-space: nowrap; padding-bottom: 24px;">
+  {% if block.settings.review_image != blank %}
+    <img src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.review_image | image_url }}" style="height: {{ block.settings.review_image_height | default: 14 | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}px; margin: 0px;">
+  {% endif %}
+  <span style="white-space: nowrap; font-size: 8px;">{{ block.settings.review_text | default: "4.7 / 5 Excellent • Based on 10,000+ reviews" }}</span>
+</div>
+</div>
+
+   </div>
 
    </div>
 
@@ -323,7 +338,7 @@
     justify-content: top;
   }
   .MobileDown {
-    transform: translateY(25px);
+    transform: translateY(15px);
   }
 }
 
@@ -393,6 +408,22 @@
     {%- endif -%}
   </slide-show>
 </section>
+
+<style>
+   #shopify-section-{{ section.id }} .content-box--text-center{
+      margin-top: 100px;
+  }
+  @media screen and (max-width: 740px) {
+    #shopify-section-{{ section.id }} .content-box--text-center{
+      margin-top: 75px;
+  }
+  }
+  @media screen and (max-width: 550px) {
+   #shopify-section-{{ section.id }} .content-box--text-center{
+      margin-top: 110px;
+  }
+  }
+</style>
 
 {% schema %}
 {
