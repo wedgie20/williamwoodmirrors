@@ -38,12 +38,10 @@
 {% unless product.tags contains 'PF' %}
 <div class="instock-pulse">
 <span class="icon--pulsing"></span>
-<span>{{ block.settings.instock_delivery_bold_text | default: "<b>Free</b> & <b>Fast</b> UK Delivery: <b>In stock</b> & ready to ship" }}</span><br>
-  <span>Exclusive Black Friday price - offer ends midnight</span> 
-
+<span>{{ block.settings.instock_delivery_bold_text | default: "<b>Free</b> & <b>Fast</b> UK Delivery: <b>In stock</b> & ready to ship" }}</span>
 </div>
+<span>Exclusive Black Friday price - offer ends midnight</span> 
 {% else %}
-
 
 <div class="instock-pulse">
 <span class="icon--pulsing"></span>
