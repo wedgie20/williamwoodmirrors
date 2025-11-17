@@ -16,6 +16,12 @@
     "slideshow_hp_mNNPx": {
       "type": "slideshow-hp",
       "disabled": false,
+      "custom_css": [
+        ".button--primary {background-color: black; color: white; text-align: center; text-decoration: none; padding: 0px 20px; margin-right: 0px; font-size: 10px; margin-left: 0px;}",
+        ".slideshow {margin-top: 40px;}",
+        ".button--primary {transition: background-color 0.3s ease, color 0.3s ease;}",
+        ".button--primary:hover {background-color: #efefef !important;}"
+      ],
       "settings": {
         "section_height": "fit",
         "transition_type": "sweep",
