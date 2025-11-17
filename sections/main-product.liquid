@@ -532,6 +532,25 @@
   ]
 },
 
+{
+  "type": "customer_count",
+  "name": "Customer Count Banner",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_banner",
+      "label": "Show customer count banner",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "banner_text",
+      "label": "Banner text",
+      "default": "1,000 customers shopped today"
+    }
+  ]
+},
+
         {
       "type": "product_status",
       "name": "Product Status Banner",
@@ -636,12 +655,23 @@
           "content": "Offers Messages"
         },
         {
+  "type": "text",
+  "id": "promo_heading",
+  "label": "Offers Heading",
+  "default": "Special Offers"
+},
+        {
   "type": "textarea",
   "id": "promo_text",
   "label": "Offers Text",
   "default": "Buy 1 item and receive 15% off, code SE15 (Limited Time Only)\nor\nBuy 2 items and receive 25% off, no code required\nor\nBuy 3 items or more and receive 30% off, no code required\n\n+\n\nFree Gift with your purchase worth up to £99 GBP when you spend £299 GBP or more"
 },
-
+{
+  "type": "text",
+  "id": "sale_heading",
+  "label": "Sale Heading",
+  "default": "Sale"
+},
 {
   "type": "textarea",
   "id": "sale_text",

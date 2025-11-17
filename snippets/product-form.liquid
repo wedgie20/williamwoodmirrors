@@ -824,18 +824,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     {% if product.tags contains 'sale' %}
       <!-- 🎯 Sale block with background image + overlay and matching padding -->
-      {{ block.settings.sale_text | escape | newline_to_br }}
+      <h3>{{ block.settings.sale_heading }}</h3>
+      {{ block.settings.sale_text | newline_to_br }}
     {% else %}
      {% comment %} <p style="font-family: var(--heading-font-family, Arial, sans-serif); font-size: 15px; text-transform: uppercase; margin: 0; margin-bottom: 5px">Bundle Offer</p> {% endcomment %}
-    {{ block.settings.promo_text | escape | newline_to_br }}
+    <h3>{{ block.settings.promo_heading }}</h3>
+     {{ block.settings.promo_text | newline_to_br }}
     {% endif %}
   {% endif %}
 </div>
 {% endunless %}
 
 
-
-
+{%- when 'customer_count' -%}
+{%- if block.settings.show_banner -%}
+    <div class="customer-count-banner">
+      {{ block.settings.banner_text }}
+    </div>
+  {%- endif -%}
 
   
       {%- when 'liquid' -%}
@@ -1552,6 +1558,34 @@ margin-left: 0 !important;
       addToCartBtn.classList.remove('button--clicked');
     }, 800);
   });
+
+document.querySelectorAll('.click-to-copy').forEach(element => {
+  element.addEventListener('click', async () => {
+    // Extract text between <b> tags or look for BF27 pattern
+    const text = element.textContent || element.innerText;
+    const codeMatch = text.match(/BF27/); // Adjust pattern as needed
+    
+    if (codeMatch) {
+      try {
+        await navigator.clipboard.writeText(codeMatch[0]);
+        
+        // Visual feedback
+        const originalHTML = element.innerHTML;
+        element.innerHTML = `✓ Copied code: <b>${codeMatch[0]}</b>`;
+        element.style.color = '#4CAF50';
+        
+        setTimeout(() => {
+          element.innerHTML = originalHTML;
+          element.style.color = '';
+        }, 2000);
+        
+      } catch (err) {
+        console.error('Copy failed: ', err);
+      }
+    }
+  });
+});
+
 });
 
 </script>
