@@ -315,6 +315,8 @@
 
    </div>
 
+   {% render 'hp-counter' section: section, block: block %}
+
    </div>
 
 <div class="tp-desktop heading--small" style="text-align: center; margin-bottom: 0.5rem; margin-top: 1rem;">
@@ -411,16 +413,16 @@
 
 <style>
    #shopify-section-{{ section.id }} .content-box--text-center{
-      margin-top: 150px;
+      margin-top: 210px;
   }
   @media screen and (max-width: 740px) {
     #shopify-section-{{ section.id }} .content-box--text-center{
-      margin-top: 75px;
+      margin-top: 100px;
   }
   }
   @media screen and (max-width: 550px) {
    #shopify-section-{{ section.id }} .content-box--text-center{
-      margin-top: 150px;
+      margin-top: 200px;
   }
   }
 </style>
@@ -935,11 +937,34 @@
   "label": "Review Line 5"
 },
 {
+          "type": "header",
+          "content": "Countdown Timer"
+        },
+    {
+      "type": "text",
+      "id": "start_time",
+      "label": "Start Time (YYYY-MM-DD HH:MM)",
+      "default": "2025-08-27 00:00"
+    },
+    {
+      "type": "text",
+      "id": "end_time",
+      "label": "End Time (YYYY-MM-DD HH:MM)",
+      "default": "2025-08-27 23:59"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Timer Label",
+      "default": "Bank Holiday Sale Ends Midnight Tonight"
+    },
+{
   "type": "font_picker",
   "id": "review_font",
   "label": "Review font",
   "default": "sans-serif"
 },
+
 {
   "type": "select",
   "id": "custom_reviewline_font",
