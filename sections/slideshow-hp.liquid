@@ -244,10 +244,11 @@
     line-height: 1.5;
     letter-spacing: 0;
     text-transform: uppercase;
-     padding-bottom: 20px
     " class="heading slideshow_txt title"><span style="font-family: Zurich, sans-serif;text-transform: uppercase;
     font-size: 16px;    letter-spacing: 1px; font-weight: bold;">{{ block.settings.subheading | escape }}</span><br><span style="font-size: 12px;"></span></span>
-                      
+                      <span class="mini_subheading">
+                        21.11.25 - 27.11.25
+                      </span>
        <span  style="font-family: GothamBlack;
     font-weight: 300;
     font-size: 14px;
@@ -256,15 +257,18 @@
     text-transform: uppercase;
      padding-bottom: 0px
     " class="heading slideshow_txt title"><span style="font-family: Zurich, sans-serif;text-transform: uppercase;
-    font-size: 12px; font-weight: 700;">USE CODE</span></span>
+    font-size: 12px; font-weight: 700; letter-spacing: 1px;">UP TO</span></span>
     <span style="font-weight: 400;
     
     font-size: 35px;
     line-height: 100%;
     font-family: GothamBlack;
     font-weight: 500;
-    letter-spacing: 0; color:white" class="">BF27</span>
-<div class="dt-button" style="margin-top: 15px;">
+    letter-spacing: 0; color:#000000;letter-spacing: 3px;" class="">70% OFF</span>
+    <span class="min_subheading">
+      SELECT PRODUCTS
+    </span>
+<div class="dt-button" style="margin-top: 10px;">
     <a href="{{ block.settings.button_1_link | escape }}" class="shop-now-summer" style="display: block;
     overflow: hidden;
     min-height: 70px;">
@@ -285,7 +289,7 @@
     letter-spacing: 0;">{{ block.settings.button_1_text | escape }}</span>
     </button>
   </a>
-     <div style="text-align: center; margin-bottom: 2rem; color: white; margin-top: 10px; " class="tp-desktop" >
+     <div style="text-align: center; margin-bottom: 15px; color: white; margin-top: 10px; " class="tp-desktop" >
 
 <p style="margin-bottom: unset; font-size: 12px;">{{ block.settings.review_headline | default: "Join Over 700,000+ Satisfied Customers" }}</p>
 <div class="OTTP" style="display: flex; place-content: center; align-items: center; gap: 8px; white-space: nowrap; margin-bottom: 24px;">
@@ -332,6 +336,16 @@
 
 
 <style>
+  span.min_subheading {
+    display: block;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+  span.mini_subheading {
+    font-size: 12px;
+    margin-bottom: 15px;
+    display: block;
+}
 @media screen and (max-width: 740px) {
   .tp-desktop {
     display: none !important;
@@ -413,7 +427,7 @@
 
 <style>
    #shopify-section-{{ section.id }} .content-box--text-center{
-      margin-top: 210px;
+      margin-top: 100px;
   }
   @media screen and (max-width: 740px) {
     #shopify-section-{{ section.id }} .content-box--text-center{
@@ -422,7 +436,7 @@
   }
   @media screen and (max-width: 550px) {
    #shopify-section-{{ section.id }} .content-box--text-center{
-      margin-top: 200px;
+      margin-top: 50px;
   }
   }
 </style>
