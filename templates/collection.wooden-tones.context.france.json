@@ -116,29 +116,16 @@
       "settings": {
         "subheading": "",
         "title": "",
-        "liquid": "<div class=\"OTTP\" style=\"display: flex; align-items: center; gap: 8px; white-space: nowrap; justify-content: center;\">\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.png?v=1741099146\" style=\"height: 14px;\">\n    <span style=\"white-space: nowrap; font-size: 9px;\">4.7 / 5 Excellent • Based on 9,500+ reviews</span>\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_Logo__2022__svg.webp?v=1741089163\" style=\"height: 14px;\">\n</div>",
+        "liquid": "<div class=\"OTTP\" style=\"display: flex; align-items: center; gap: 8px; white-space: nowrap; justify-content: center;\">\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.png?v=1741099146\" style=\"height: 14px;\">\n    <span style=\"white-space: nowrap; font-size: 9px;\">4.7 / 5 Excellent • Based on 9,500+ Reviews</span>\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_Logo__2022__svg.webp?v=1741089163\" style=\"height: 14px;\">\n</div>",
         "add_vertical_spacing": true,
         "background_type": "full_width",
-        "header-80cac072da4c62cfe9698de959ee8576": null,
+        "header-74f3323196a69e2ace76a85e0ce8bf57": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
       "blocks": {},
       "block_order": [],
       "name": "Custom Liquid"
-    },
-    "main": {
-      "custom_css": [
-        ".block-swatch-list {display: none !important;}",
-        "@supports (aspect-ratio: 1 / 1) {.aspect-ratio {aspect-ratio: 4.8 / 5; }}",
-        ".product-list {--product-list-column-gap: 4px; --container-gutter: 48px;}",
-        ".product-item__info {text-align: left;}",
-        ".product-item__label-list {justify-content: left;}",
-        "@media only screen and (max-width: 768px) {.product-item__info {padding-left: 5px; }}",
-        ".button--primary {color: black; background: #efefef; display: none;}"
-      ],
-      "settings": {},
-      "blocks": {}
     },
     "rich_text_MKDnw": {
       "type": "rich-text",
@@ -153,7 +140,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-7f7c4a091d2b43b6de3c916893c5cd54": null,
+        "header-cacd6c2cd485326e217e12ff065ac13b": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -165,6 +152,19 @@
     },
     "ss_circle_menu_U877fY": {
       "disabled": true,
+      "settings": {},
+      "blocks": {}
+    },
+    "main": {
+      "custom_css": [
+        ".block-swatch-list {display: none !important;}",
+        "@supports (aspect-ratio: 1 / 1) {.aspect-ratio {aspect-ratio: 4.8 / 5; }}",
+        ".product-list {--product-list-column-gap: 4px; --container-gutter: 48px;}",
+        ".product-item__info {text-align: left;}",
+        ".product-item__label-list {justify-content: left;}",
+        "@media only screen and (max-width: 768px) {.product-item__info {padding-left: 5px; }}",
+        ".button--primary {color: black; background: #efefef; display: none;}"
+      ],
       "settings": {},
       "blocks": {}
     }
