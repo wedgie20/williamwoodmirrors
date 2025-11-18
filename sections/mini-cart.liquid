@@ -594,7 +594,7 @@
         <a href="{{ routes.cart_url  }}" class="button button--primary button--full" data-no-instant>{{ 'cart.general.go_to_cart' | t }}</a>
       {%- endif -%}
 
-        <div id="price-divider-container" class="" style="text-align: center !important; margin-top:  10px;">
+        <div id="price-divider-container" class="customer-text" style="text-align: center !important; margin-top:  10px;">
           {% assign installment_amount = cart.total_price | divided_by: 3 %}
           Or in 3 <b>interest free</b> instalments of <strong>{% render 'format-money', amount: installment_amount %}</strong> with Klarna
         </div>
