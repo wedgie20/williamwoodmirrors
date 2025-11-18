@@ -13,18 +13,22 @@
     "market": "belgium"
   },
   "sections": {
-    "main": {
-      "custom_css": [
-        ".block-swatch-list {display: none !important;}",
-        "@supports (aspect-ratio: 1 / 1) {.aspect-ratio {aspect-ratio: 4.8 / 5; }}",
-        ".product-list {--product-list-column-gap: 4px; --container-gutter: 48px;}",
-        ".product-item__info {text-align: left;}",
-        ".product-item__label-list {justify-content: left;}",
-        "@media only screen and (max-width: 768px) {.product-item__info {padding-left: 5px; }}",
-        ".button--primary {color: black; background: #efefef; display: none;}"
-      ],
-      "settings": {},
-      "blocks": {}
+    "custom_liquid_EmQeT": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<div class=\"OTTP\" style=\"display: flex; align-items: center; gap: 8px; white-space: nowrap; justify-content: center;\">\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.png?v=1741099146\" style=\"height: 14px;\">\n    <span style=\"white-space: nowrap; font-size: 9px;\">4.7 / 5 Excellent • Based on 9,500+ Reviews</span>\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_Logo__2022__svg.webp?v=1741089163\" style=\"height: 14px;\">\n</div>",
+        "add_vertical_spacing": true,
+        "background_type": "full_width",
+        "header-8ea9e898d7a6ade3fee5ae0b912a7c5e": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
     },
     "rich_text_mTYYD": {
       "type": "rich-text",
@@ -39,7 +43,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-9a12af66cb96132f22ed93fed69b4ad3": null,
+        "header-86b6d62fc1f4bd90c716901046a81ce4": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -49,22 +53,18 @@
       "block_order": [],
       "name": "Rich text"
     },
-    "custom_liquid_EmQeT": {
-      "type": "custom-liquid",
-      "disabled": false,
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "liquid": "<div class=\"OTTP\" style=\"display: flex; align-items: center; gap: 8px; white-space: nowrap; justify-content: center;\">\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.png?v=1741099146\" style=\"height: 14px;\">\n    <span style=\"white-space: nowrap; font-size: 9px;\">4.7 / 5 Excellent • Based on 9,500+ reviews</span>\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_Logo__2022__svg.webp?v=1741089163\" style=\"height: 14px;\">\n</div>",
-        "add_vertical_spacing": true,
-        "background_type": "full_width",
-        "header-8b20ab001ec9f4542a2eda9a750f31b5": null,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": [],
-      "name": "Custom Liquid"
+    "main": {
+      "custom_css": [
+        ".block-swatch-list {display: none !important;}",
+        "@supports (aspect-ratio: 1 / 1) {.aspect-ratio {aspect-ratio: 4.8 / 5; }}",
+        ".product-list {--product-list-column-gap: 4px; --container-gutter: 48px;}",
+        ".product-item__info {text-align: left;}",
+        ".product-item__label-list {justify-content: left;}",
+        "@media only screen and (max-width: 768px) {.product-item__info {padding-left: 5px; }}",
+        ".button--primary {color: black; background: #efefef; display: none;}"
+      ],
+      "settings": {},
+      "blocks": {}
     }
   },
   "order": [
