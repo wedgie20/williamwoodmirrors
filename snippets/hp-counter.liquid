@@ -1,0 +1,123 @@
+{% assign start = block.settings.start_time | date: "%s" %}
+{% assign end = block.settings.end_time | date: "%s" %}
+{% assign now = 'now' | date: "%s" %}
+
+{% if now >= start and now < end %}
+  <div class="countdown-banner">
+    <div class="countdown-progress-bar">
+        <div class="countdown-progress-fill"></div>
+      </div>
+    <p class="countdown-label">{{ block.settings.label }}</p>
+    <div id="countdown-timer-{{ block.id }}" class="countdown-timer" data-start="{{ block.settings.start_time }}" data-end="{{ block.settings.end_time }}">
+      <span class="hours">00</span> :
+      <span class="minutes">00</span> :
+      <span class="seconds">00</span>
+      
+    </div>
+  </div>
+{% endif %}
+
+<style>
+    .countdown-banner {
+      background-color: transparent;
+      border-radius: 55px;
+      color: #fff;
+      padding: 0px 10px;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin: 0px auto 0;
+        max-width: 320px;
+        display: none !important;
+    }
+
+    .countdown-label {
+      font-size: calc(var(--base-font-size) - 2px);
+      text-transform: capitalize;
+      font-family: var(--text-font-family);
+      letter-spacing: 0.5px;
+      margin-bottom: unset;
+    }
+
+    .countdown-timer {
+      font-size: calc(var(--base-font-size) - 2px);
+      font-family: var(--text-font-family);
+      font-weight: var(--text-font-bold-weight);
+      letter-spacing: 1px;
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .countdown-progress-bar {
+      width: 90%;
+      height: 9px;
+      background: #fff;
+      border-radius: 5px;
+      margin: 0px auto 0 auto;
+      overflow: hidden;
+      border: 1px solid #fff;
+      display: block;
+    }
+
+    .countdown-progress-fill {
+      height: 100%;
+      background: #000;
+      border-radius: 5px 0 0 5px;
+      width: 0%;
+      transition: width 0.5s linear;
+    }
+
+    @media (max-width: 768px) {
+      .countdown-label {
+        font-size: 11px;
+      }
+      .countdown-timer {
+        font-size: 11px;
+      }
+      .countdown-progress-bar {
+        height: 9px;
+      }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.countdown-timer').forEach(function (timer) {
+            const endTimeStr = timer.getAttribute('data-end');
+            const startTimeStr = timer.getAttribute('data-start');
+            const endTime = new Date(endTimeStr.replace(' ', 'T'));
+            const startTime = new Date(startTimeStr.replace(' ', 'T'));
+            const progressFill = document.querySelector('.countdown-progress-fill');
+
+            function updateCountdown() {
+                const now = new Date();
+                const total = endTime - startTime;
+                const elapsed = now - startTime;
+                const diff = endTime - now;
+
+                if (diff <= 0) {
+                    timer.querySelector('.hours').textContent = '00';
+                    timer.querySelector('.minutes').textContent = '00';
+                    timer.querySelector('.seconds').textContent = '00';
+                    if (progressFill) progressFill.style.width = '100%';
+                    return;
+                }
+
+                const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
+                const minutes = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, '0');
+                const seconds = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
+
+                timer.querySelector('.hours').textContent = hours;
+                timer.querySelector('.minutes').textContent = minutes;
+                timer.querySelector('.seconds').textContent = seconds;
+
+                // Progress calculation
+                let percent = Math.max(0, Math.min(1, elapsed / total));
+                if (progressFill) progressFill.style.width = (percent * 100) + '%';
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        });
+    });
+</script>
