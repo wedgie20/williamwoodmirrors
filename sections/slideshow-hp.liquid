@@ -272,7 +272,7 @@
     <a href="{{ block.settings.button_1_link | escape }}" class="shop-now-summer" style="display: block;
     overflow: hidden;
     min-height: 70px;">
-    <button class="button button--primary slideshow_txt clearance-text" style="display: inline-flex; align-items: center; justify-content: center; transform: translateY(10px);
+    <button id="AddToCart" class="button button--primary slideshow_txt clearance-text" style="display: inline-flex; align-items: center; justify-content: center; transform: translateY(10px);
         width: 206px !important;
     height: 49px !important;
     gap: 10px;
@@ -439,7 +439,31 @@
       margin-top: 50px;
   }
   }
+  #AddToCart.button--clicked {
+  background: #EFEFEF !important; /* grey background */
+  color: #000 !important;           /* black text */
+}
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+  const addToCartBtn = document.getElementById('AddToCart');
+
+  if (!addToCartBtn) return;
+
+  addToCartBtn.addEventListener('click', function () {
+    // Add clicked style
+    addToCartBtn.classList.add('button--clicked');
+
+    // Optional: Add loading delay to simulate drawer open delay
+    setTimeout(() => {
+      // Remove clicked style after e.g. 800ms
+      addToCartBtn.classList.remove('button--clicked');
+    }, 800);
+  });
+});
+
+</script>
 
 {% schema %}
 {
