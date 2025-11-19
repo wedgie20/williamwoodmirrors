@@ -290,7 +290,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <b>
       <p class="cardo_title" style="text-transform: capitalize !important; font-size: 30px;">{{ first_word }}</p>
     </b>
-    <p style="font-size: 13px; margin-top: 4px !important; text-transform: capitalize !important; font-family: Zurich, sans-serif; font-weight: bold !important;">{{ title_words | join: ' ' | remove: '-' | remove: remove_first_word }}</p>
+    <p style="font-size: 13px; margin-top: 4px !important; text-transform: none !important; font-family: Zurich, sans-serif; font-weight: bold !important;">{{ title_words | join: ' ' | remove: '-' | remove: remove_first_word }}</p>
   </h1>
 
   <style>
