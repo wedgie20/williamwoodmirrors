@@ -2,6 +2,17 @@
   {%- assign selected_media = product.selected_variant.featured_media | default: product.featured_media -%}
 
   {%- comment -%}
+  Extract soldout number from product tags
+  {%- endcomment -%}
+  {%- assign soldout_count = '' -%}
+  {%- for tag in product.tags -%}
+    {%- if tag contains 'soldout_' -%}
+      {%- assign soldout_parts = tag | split: 'soldout_' -%}
+      {%- assign soldout_count = soldout_parts[1] -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- comment -%}
   IMPLEMENTATION NOTE: Shopify does not natively offers a way to create a set of images per variant. This is often
     pretty limited when you have a lot of colors and would like to only see the images specific to a given color. To
     goes around that, Focal offers a hack using alt tags whose usage is described here: https://support.maestrooo.com/article/187-product-creating-variant-image-set
@@ -40,6 +51,21 @@
   <product-media form-id="product-form-{{ section.id }}-{{ product.id }}" {% if section.settings.enable_video_autoplay %}autoplay-video{% endif %} thumbnails-position="{{ section.settings.desktop_thumbnails_position }}" {% if settings.reveal_product_media %}reveal-on-scroll{% endif %} product-handle="{{ product.handle }}" class="product__media" style="--largest-image-aspect-ratio: {{ largest_image_aspect_ratio | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}">
     <div class="product__media-list-wrapper" style="max-width: {{ max_width }}px">
 {% render "aritize-3d-quick-ar" %}
+
+     {%- if soldout_count != '' -%}
+        <div class="soldout-label" id="soldout-label-{{ section.id }}">
+         <div class="soldout-label__content">
+            {{ soldout_count }} SOLD IN THE LAST 48 HOURS
+          </div>
+          <button type="button" class="soldout-label__close" data-action="close-soldout-label" title="Close">
+            <svg class="icon icon--close" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+           
+        </div>
+      {%- endif -%}
 
       {%- capture flickity_config -%}
       {
@@ -286,7 +312,50 @@
       }
       }
 
+      .soldout-label {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background-color: #000000;
+        color: #ffffff;
+        padding: 6px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+        border-radius: 15px;
+        z-index: 10;
+            display: flex;
+    place-items: center;
+    gap: 5px;
+      }
+
+      .product__media-list-wrapper {
+        position: relative;
+      }
+      @media screen and (max-width: 767px) {
+      .soldout-label{
+top: unset;
+        bottom: 60px;
+        left: -10px;
+        right: unset;
+  }
+      }
     </style>
+     <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const closeButtons = document.querySelectorAll('[data-action="close-soldout-label"]');
+        closeButtons.forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const label = this.closest('.soldout-label');
+            if (label) {
+              label.classList.add('is-hidden');
+            }
+          });
+        });
+      });
+    </script>
   </product-media>
 {%- endif -%}
 
@@ -300,5 +369,12 @@ display: none;}
 @media screen and (max-width: 999px) {
 .product__thumbnail-list-inner {
 margin-bottom: 10px;}
+}
+.soldout-label__content {
+    font-size: 12px;
+    line-height: 16px;
+}
+.soldout-label.is-hidden{
+  display:none;
 }
 </style> 
