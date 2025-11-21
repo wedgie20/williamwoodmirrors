@@ -150,6 +150,21 @@
              <span class="highlighted_normal_text">{{ section.settings.menu_normal_text }}</span>
              </div>
             </a>
+
+            {% elsif link.url == section.settings.second_highlighted_menu_item %}
+              <a
+              href="{{ link.url  }}"
+              class="makeit_highlighted mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
+            
+            >
+              <div class="highlighted_item" style="background: {{ section.settings.second_highlighted_menu_bg_color }}; color: {{ section.settings.second_highlighted_menu_text_color }}; background-image: url('{{ settings.speedsize_url_pfx_https -}}{{ section.settings.second_highlighted_menu_background_image | img_url: 'master' }}'); background-size: cover; background-position: center;">
+             <span class="highlighted_bold_text">
+              {{ section.settings.second_menu_bold_text | default: link.title }}
+             </span>
+             <span class="highlighted_normal_text">{{ section.settings.second_menu_normal_text }}</span>
+             </div>
+            </a>
+
             {% else %}
             <a
               href="{{ link.url  }}"
