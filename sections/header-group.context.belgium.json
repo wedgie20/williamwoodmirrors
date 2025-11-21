@@ -14,27 +14,17 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      },
       "blocks": {
         "3f097275-f772-44d9-b5f7-6d6999645314": {
-          "disabled": false,
           "settings": {
             "text": "Duties & Taxes Paid"
           }
         },
         "message_KN8hh": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "Black Friday: 27% off storewide with code BF27 (Ends Midnight Tonight)",
             "learn_more_text": "shop now",
-            "header-5a6f76b209265eab7c36a24bafaec8af": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "SHOP NOW",
@@ -57,7 +47,6 @@
           }
         },
         "message_wc4BFE": {
-          "disabled": false,
           "settings": {
             "text": "700,000+ Satisfied Customers"
           }
@@ -71,14 +60,19 @@
         "message_N4D9HB",
         "message_wc4BFE",
         "trustpilot_Q4xFtD"
-      ]
+      ],
+      "settings": {
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
+      }
     },
     "header": {
       "settings": {
-        "highlighted_menu_item": "shopify://collections/early-bird-offers",
+        "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
         "menu_normal_text": "Early Bird Offers"
-      },
-      "blocks": {}
+      }
     }
   }
 }
