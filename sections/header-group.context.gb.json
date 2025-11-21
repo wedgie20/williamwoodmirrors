@@ -14,15 +14,6 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "announcement_bar_position": "sticky",
-        "announcement_text_size": "small",
-        "cycle_speed": 3,
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      },
       "blocks": {
         "message_N4D9HB": {
           "disabled": true,
@@ -32,17 +23,14 @@
             "title": "MYSTERY GIFT",
             "content": "<p>Receive a Mystery Gift with all orders, <strong>ends</strong> <strong>midnight tonight </strong>(no minimum spend).<br/>+<br/><strong>22% off</strong> storewide, enter code <strong>JUL22</strong> at checkout.</p>",
             "button_text": "SHOP NOW",
-            "button_link": "shopify://collections/early-bird-offers"
+            "button_link": "shopify://collections/black-friday-warm-up"
           }
         },
         "message_yMjrK": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "Black Friday: 27% off storewide with code BF27 (Ends Midnight Tonight)",
             "learn_more_text": "",
-            "header-ee21798b19322a98b4f577b17c7f4214": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -67,8 +55,6 @@
           "settings": {
             "text": "700,000+ Satisfied Customers | 30,000+ 5 Star Reviews",
             "learn_more_text": "",
-            "header-22637fd8540a896af9a7ade07be68ce7": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -81,8 +67,6 @@
           "settings": {
             "text": "Free UK Delivery | 90 Day 100% Money Back Guarantee",
             "learn_more_text": "",
-            "header-f31455c18625616c32375e1a3122c138": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -120,19 +104,27 @@
         "message_wc4BFE",
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "trustpilot_Q4xFtD"
-      ]
+      ],
+      "settings": {
+        "announcement_bar_position": "sticky",
+        "announcement_text_size": "small",
+        "cycle_speed": 3,
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
+      }
     },
     "header": {
       "settings": {
         "mobile_logo_max_width": 140,
         "navigation_menu": "nav-menu-new",
         "header_layout": "drawer",
-        "highlighted_menu_item": "shopify://collections/early-bird-offers",
+        "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
         "menu_bold_text": "BLACK FRIDAY: NEW LAUNCHES",
         "menu_normal_text": "shop now",
         "enable_transparent_header": true
-      },
-      "blocks": {}
+      }
     }
   },
   "order": [
