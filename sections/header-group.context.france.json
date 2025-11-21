@@ -14,22 +14,12 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "announcement_bar_position": "sticky",
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      },
       "blocks": {
         "message_67DEB": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "Duties & Taxes Paid",
             "learn_more_text": "",
-            "header-8957c1c95663125aeb2331e79c4ed352": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -37,7 +27,6 @@
           }
         },
         "message_N4D9HB": {
-          "disabled": false,
           "settings": {
             "text": "Ends Midnight Tonight: Up 60% off + Up to an extra 30% off",
             "learn_more_text": "shop now",
@@ -45,13 +34,12 @@
             "title": "EARLY BIRD OFFERS",
             "content": "<p>Extra 15% off any spend code 'EB15'<br/>or<br/>Extra 20% off when you spend €452 EUR or more code 'EB20<strong>'<br/></strong>or<br/>Extra 30% off €765 EUR or more code 'EB30'</p>",
             "button_text": "SHOP NOW",
-            "button_link": "shopify://collections/early-bird-offers"
+            "button_link": "shopify://collections/black-friday-warm-up"
           }
         },
         "c4b45150-0e14-460e-8c47-88fd9bd72b02": {
           "settings": {
             "text": "Flexible payments, 0% interest.",
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -61,7 +49,6 @@
         "955bcd74-0608-4f78-afae-e87df09b9f88": {
           "settings": {
             "text": "100% Insured France Delivery",
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -72,7 +59,6 @@
           "settings": {
             "text": "90 Days Free Returns",
             "learn_more_text": "",
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -80,7 +66,6 @@
           }
         },
         "message_wc4BFE": {
-          "disabled": false,
           "settings": {
             "text": "700,000+ Satisfied Customers",
             "title": "",
@@ -95,8 +80,6 @@
           "settings": {
             "text": "Boxing Day Sale - 22% off everything code BD22 - Ends Midnight Tonight",
             "learn_more_text": "Learn more",
-            "header-5c626153e473ceeff21244dd748f7774": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -113,18 +96,24 @@
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "message_wc4BFE",
         "message_z4EP8"
-      ]
+      ],
+      "settings": {
+        "announcement_bar_position": "sticky",
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
+      }
     },
     "header": {
       "settings": {
         "navigation_menu": "nav-menu-new",
         "header_layout": "drawer",
-        "highlighted_menu_item": "shopify://collections/early-bird-offers",
+        "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
         "menu_bold_text": "Up To 60% Off - Ends Midnight Tonight",
         "menu_normal_text": "Early Bird Offers",
         "enable_transparent_header": true
-      },
-      "blocks": {}
+      }
     }
   },
   "order": [
