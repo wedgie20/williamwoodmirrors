@@ -15,31 +15,13 @@
   "sections": {
     "slideshow_hp_UHRLG": {
       "type": "slideshow-hp",
-      "disabled": false,
-      "custom_css": [
-        ".button--primary {background-color: white; color: black; text-align: center; text-decoration: none; padding: 0px 20px; margin-right: 0px; font-size: 10px; margin-left: 0px;}",
-        ".slideshow {margin-top: 40px;}",
-        ".button--primary {transition: background-color 0.3s ease, color 0.3s ease;}",
-        ".button--primary:hover {background-color: #efefef !important;}"
-      ],
-      "settings": {
-        "section_height": "fit",
-        "transition_type": "fade",
-        "autoplay": true,
-        "cycle_speed": 4,
-        "background": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "image_RyQ3F": {
           "type": "image",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/BF25_Early_Bird_Desktop_V2.jpg",
-            "split_image": null,
             "mobile_image": "shopify://shop_images/BF25_Early_Bird_Mobile_V3.jpg",
-            "header-f64a9558fedca0946032bf4a7f89729d": null,
             "text_position": "middle_left",
-            "header-7b24a959ededc11863d7e86c2acea131": null,
             "review_headline": "Join Over 700,000+ Satisfied Customers",
             "review_image": "shopify://shop_images/Trustpilot_ratings_5star-RGB-min_0a651061-7fb3-4d09-81b6-b7f887efdbe1.png",
             "review_text": "4.7 / 5 Excellent | 10,000+ Reviews",
@@ -47,31 +29,26 @@
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-1f03c5848c26039fa43d449b5b930c2a": null,
             "title": "EARLY BIRD",
             "heading_font": "system_ui_n4",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-e4ce80297624ca8f709b4272f747ed49": null,
             "subheading": "OFFERS",
             "subheading_font": "system_ui_n4",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-8a3bfb60bbfd1a72c4984be08b225ea7": null,
             "slide_text": "",
             "slide_text_font": "system_ui_n4",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-482f24d2c1c72029ab23f2f6f946a1a8": null,
             "above_text": "",
             "above_button_font": "system_ui_n4",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-eea88f6e58a951c9788d832c381fa8bd": null,
             "button_1_text": "SHOP NOW",
             "button_1_link": "https://www.williamwoodmirrors.co.uk/collections/early-bird-offers?sort_by=best-selling&filter.p.m.checkoutblocks.trigger=In+Stock&filter.v.price.gte=&filter.v.price.lte=&height-input=0&width-input=0",
             "button_2_text": "",
@@ -80,7 +57,6 @@
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-efb2234e31f55c6a08628c78c94da1d5": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
@@ -90,7 +66,6 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-8723c1440965f93d135bca908e5fb4cc": null,
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
@@ -102,7 +77,20 @@
       "block_order": [
         "image_RyQ3F"
       ],
-      "name": "Slideshow HP"
+      "custom_css": [
+        ".button--primary {background-color: white; color: black; text-align: center; text-decoration: none; padding: 0px 20px; margin-right: 0px; font-size: 10px; margin-left: 0px;}",
+        ".slideshow {margin-top: 40px;}",
+        ".button--primary {transition: background-color 0.3s ease, color 0.3s ease;}",
+        ".button--primary:hover {background-color: #efefef !important;}"
+      ],
+      "name": "Slideshow HP",
+      "settings": {
+        "section_height": "fit",
+        "transition_type": "fade",
+        "autoplay": true,
+        "cycle_speed": 4,
+        "background": "rgba(0,0,0,0)"
+      }
     },
     "custom_liquid_iTApV": {
       "type": "custom-liquid",
@@ -116,292 +104,239 @@
         "liquid": "<div class=\"qStatementWrapper\">\n  <img class=\"qStatement\" src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/Quote_SVG.svg?v=1744635632\">\n</div>\n\n<style>\n@media screen and (min-width: 740px) {\n  .qStatementWrapper {\n    text-align: center;\n  }\n  .qStatement {\n    width: 500px;\n  }\n}\n</style>\n\n</style>",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-86dc89e461d25e34e6021d69ce66265b": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "custom_liquid_PcCfn": {
       "type": "custom-liquid",
       "disabled": true,
+      "name": "Custom Liquid",
       "settings": {
         "subheading": "",
         "title": "",
         "liquid": "<div style=\"text-align: center; padding: 20px 0;\">\n  <div class=\"heading heading--small\" style=\"font-weight: bold; margin-bottom: 10px;\">\n    600,000+ Satisfied Customers\n  </div>\n\n  <!-- Mobile: image + text -->\n  <div class=\"tp-mobile\" style=\"text-align: center;\">\n    <img \n      style=\"display: block; margin: 0 auto 5px; width: 60px;\" \n      src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.png?v=1741099146\" \n      alt=\"Trustpilot rating\">\n    <div style=\"font-size: 12px;\">\n      4.7 / 5 Excellent | 9,500+ reviews\n    </div>\n  </div>\n\n  <!-- Desktop: image + text -->\n  <div class=\"tp-desktop\" style=\"display: flex; align-items: center; justify-content: center; gap: 10px;\">\n    <img style=\"width: 65px;\" \n         src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.png?v=1741099146\" \n         alt=\"Trustpilot rating\">\n    <span class=\"heading heading--small slideshow_txt\" style=\"font-size: 12px;\">\n      4.7 / 5 Excellent | 9,500+ reviews\n    </span>\n  </div>\n</div>\n\n<style>\n@media screen and (max-width: 740px) {\n  .tp-desktop {\n    display: none !important;\n  }\n}\n\n@media screen and (min-width: 741px) {\n  .tp-mobile {\n    display: none !important;\n  }\n}\n</style>",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-aa2a05ead19153e7b92fcdb6105305a8": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": [],
-      "name": "Custom Liquid"
+      }
     },
     "infinite_scroller_LGnhM": {
       "type": "infinite-scroller",
-      "disabled": false,
-      "custom_css": [
-        "@media (min-width: 767px) {.infinite-logo-scroller {display: none; }}"
-      ],
-      "settings": {
-        "logos_shown": 3.5,
-        "logo_spacing": 10,
-        "animation_speed": 50,
-        "background_color": "#efefef",
-        "image_size": "200x200"
-      },
       "blocks": {
         "logo_aE9Rm": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/Recommended_by_1.png"
           }
         },
         "logo_pNtbk": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-03.png"
           }
         },
         "logo_3g8Jp": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-05.png"
           }
         },
         "logo_E9Qiw": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-01.png"
           }
         },
         "logo_kyyqn": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-07.png"
           }
         },
         "logo_Jq8D7": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-06.png"
           }
         },
         "logo_9d3KE": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-02.png"
           }
         },
         "logo_KyVGz": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-09.png"
           }
         },
         "logo_W786w": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-10.png"
           }
         },
         "logo_QwFdF": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/Recommended_by_1.png"
           }
         },
         "logo_A6kYy": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-03.png"
           }
         },
         "logo_yGYdD": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-05.png"
           }
         },
         "logo_yVHG4": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-01.png"
           }
         },
         "logo_rE8yr": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-07.png"
           }
         },
         "logo_dkmgC": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-06.png"
           }
         },
         "logo_dBfyE": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-02.png"
           }
         },
         "logo_FnTLb": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-09.png"
           }
         },
         "logo_Tj64n": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-10.png"
           }
         },
         "logo_wdhq7": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/Recommended_by_1.png"
           }
         },
         "logo_fNFt7": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-03.png"
           }
         },
         "logo_VGrkf": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-05.png"
           }
         },
         "logo_ptUWx": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-01.png"
           }
         },
         "logo_xQffm": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-07.png"
           }
         },
         "logo_PErzU": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-06.png"
           }
         },
         "logo_zrAwN": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-02.png"
           }
         },
         "logo_3gDxh": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-09.png"
           }
         },
         "logo_hJ7pT": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-10.png"
           }
         },
         "logo_iEVN7": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/Recommended_by_1.png"
           }
         },
         "logo_PLDNV": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-03.png"
           }
         },
         "logo_rhyij": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-05.png"
           }
         },
         "logo_Yhi4M": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-01.png"
           }
         },
         "logo_TA67F": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-07.png"
           }
         },
         "logo_Vc66g": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-06.png"
           }
         },
         "logo_7exNz": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-02.png"
           }
         },
         "logo_nVeBr": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-09.png"
           }
         },
         "logo_AWLzN": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-10.png"
           }
@@ -444,74 +379,65 @@
         "logo_7exNz",
         "logo_nVeBr",
         "logo_AWLzN"
-      ]
+      ],
+      "custom_css": [
+        "@media (min-width: 767px) {.infinite-logo-scroller {display: none; }}"
+      ],
+      "settings": {
+        "logos_shown": 3.5,
+        "logo_spacing": 10,
+        "animation_speed": 50,
+        "background_color": "#efefef",
+        "image_size": "200x200"
+      }
     },
     "infinite_scroller_AE36X": {
       "type": "infinite-scroller",
-      "disabled": true,
-      "custom_css": [
-        "@media (max-width: 767px) {.infinite-logo-scroller {display: none; }}"
-      ],
-      "settings": {
-        "logos_shown": 8,
-        "logo_spacing": 10,
-        "animation_speed": 10,
-        "background_color": "#efefef",
-        "image_size": "800x800"
-      },
       "blocks": {
         "logo_A3BUn": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-08_1.jpg"
           }
         },
         "logo_NYdc9": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-03.png"
           }
         },
         "logo_QARPG": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-05.png"
           }
         },
         "logo_P4dtF": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-01.png"
           }
         },
         "logo_H944T": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-07.png"
           }
         },
         "logo_rdxbU": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-06.png"
           }
         },
         "logo_gbbhR": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-09.png"
           }
         },
         "logo_KjAF3": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-02.png"
           }
@@ -526,33 +452,24 @@
         "logo_rdxbU",
         "logo_gbbhR",
         "logo_KjAF3"
-      ]
+      ],
+      "disabled": true,
+      "custom_css": [
+        "@media (max-width: 767px) {.infinite-logo-scroller {display: none; }}"
+      ],
+      "settings": {
+        "logos_shown": 8,
+        "logo_spacing": 10,
+        "animation_speed": 10,
+        "background_color": "#efefef",
+        "image_size": "800x800"
+      }
     },
     "multi_column_b7wdF": {
       "type": "multi-column",
-      "disabled": false,
-      "custom_css": [
-        "@media (max-width: 767px) {.container {display: none; }}",
-        ".vertical-breather {padding-top: 0px; padding-bottom: 0px;}"
-      ],
-      "settings": {
-        "reveal_on_scroll": false,
-        "stack_items": false,
-        "subheading": "",
-        "title": "",
-        "content": "",
-        "column_alignment": "center",
-        "mobile_item_size": "small",
-        "desktop_item_size": "pico",
-        "spacing": "tight",
-        "header-581e0f73f77e473f8835b44bb1301e0f": null,
-        "background": "#efefef",
-        "text_color": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "item_3H7WW": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Recommended_by_1_02205230-6a9f-42da-8183-23016fe241e3.png",
             "image_width": 90,
@@ -568,7 +485,6 @@
         },
         "item_j6hJj": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/640px-VOGUE_LOGO_svg.png",
             "image_width": 70,
@@ -584,7 +500,6 @@
         },
         "item_ViYdR": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Feature_Logos-02.png",
             "image_width": 100,
@@ -600,7 +515,6 @@
         },
         "item_MbyTH": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/640px-Gentlemen_s-Quarterly-Logo__black__svg.png",
             "image_width": 50,
@@ -616,7 +530,6 @@
         },
         "item_cbt4c": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/interior_designer_1b4e789e-612a-4ab1-a3e0-a9e4c2bc0152.png",
             "image_width": 100,
@@ -632,7 +545,6 @@
         },
         "item_RYYcA": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Sheerluxe-logo-e1572805242856.png",
             "image_width": 100,
@@ -648,7 +560,6 @@
         },
         "item_hQkF9": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/WW_24_AsSeenIn_Icons-09.png",
             "image_width": 60,
@@ -664,7 +575,6 @@
         },
         "item_zNgXD": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/WW_24_AsSeenIn_Icons-10.png",
             "image_width": 88,
@@ -680,7 +590,6 @@
         },
         "item_fMgiD": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/logo-3-2.svg",
             "image_width": 85,
@@ -705,32 +614,32 @@
         "item_hQkF9",
         "item_zNgXD",
         "item_fMgiD"
-      ]
+      ],
+      "custom_css": [
+        "@media (max-width: 767px) {.container {display: none; }}",
+        ".vertical-breather {padding-top: 0px; padding-bottom: 0px;}"
+      ],
+      "settings": {
+        "reveal_on_scroll": false,
+        "stack_items": false,
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "column_alignment": "center",
+        "mobile_item_size": "small",
+        "desktop_item_size": "pico",
+        "spacing": "tight",
+        "background": "#efefef",
+        "text_color": "rgba(0,0,0,0)"
+      }
     },
     "featured_collections_meJ8d": {
       "type": "featured-collections",
-      "disabled": false,
-      "custom_css": [],
-      "settings": {
-        "subheading": "DISCOVER",
-        "title": "",
-        "content": "",
-        "products_count": 12,
-        "products_per_row": 4,
-        "stack_products": false,
-        "show_cta": true,
-        "header-773ccd46756f26a55b978bebc3810c5d": null,
-        "background": "#ffffff",
-        "text_color": "rgba(0,0,0,0)",
-        "button_background": "rgba(0,0,0,0)",
-        "button_text_color": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "collection_PgrMY": {
           "type": "collection",
-          "disabled": false,
           "settings": {
-            "collection": "early-bird-offers",
+            "collection": "black-friday-warm-up",
             "label": "Early bird Offers",
             "button_text": "SHOP UP TO 60% OFF",
             "button_url": "https://www.williamwoodmirrors.co.uk/collections/early-bird-offers?sort_by=best-selling&filter.p.m.checkoutblocks.trigger=In+Stock&filter.v.price.gte=&filter.v.price.lte=&height-input=0&width-input=0"
@@ -738,7 +647,6 @@
         },
         "collection_pFXw9": {
           "type": "collection",
-          "disabled": false,
           "settings": {
             "collection": "best-sellers",
             "label": "BEST SELLERS",
@@ -748,7 +656,6 @@
         },
         "collection_YUQf6": {
           "type": "collection",
-          "disabled": false,
           "settings": {
             "collection": "new-in",
             "label": "",
@@ -761,11 +668,24 @@
         "collection_PgrMY",
         "collection_pFXw9",
         "collection_YUQf6"
-      ]
+      ],
+      "custom_css": [],
+      "settings": {
+        "subheading": "DISCOVER",
+        "title": "",
+        "content": "",
+        "products_count": 12,
+        "products_per_row": 4,
+        "stack_products": false,
+        "show_cta": true,
+        "background": "#ffffff",
+        "text_color": "rgba(0,0,0,0)",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)"
+      }
     },
     "custom_liquid_NEV77": {
       "type": "custom-liquid",
-      "disabled": false,
       "custom_css": [
         ".title_usp {text-align: center; margin-top: 4rem;}",
         ".title_usp span {font-size: 34px; font-weight: 300;}",
@@ -777,32 +697,23 @@
         "liquid": "<div class=\"title_usp\">\n<span class=\"heading h1 slideshow_txt\" style=\"margin-top: 0;\"><span style=\"font-family: altesse-std-24pt; text-transform: lowercase;\"><span style=\"text-transform: capitalize;\">Join</span> our community of over 600,000 followers <br><span style=\"\n    margin-left: -22px;\n\">@williamwood</span></span></span>\n</div>",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-f67709ee3e898fb547d7c6a161b6c70c": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "recently_viewed_products_EETTj": {
       "type": "recently-viewed-products",
-      "disabled": false,
       "custom_css": [],
       "settings": {
-        "paragraph-d8115fcd8d1849bfe53fd5c9cea54e08": null,
         "subheading": "Your Recently viewed",
         "title": "",
         "products_count": 4,
-        "header-55eb273776ff216ca4ba9aca341ea83a": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "slideshow_9Dep7": {
       "type": "slideshow",
-      "disabled": false,
       "custom_css": [
         ".button--primary {background-color: white; color: black; text-align: center; text-decoration: none; padding: 0px 20px; margin-right: 0px; font-size: 10px;}",
         "@media only screen and (max-width: 600px) {.heading--large {font-size: 28px; }}"
@@ -813,13 +724,10 @@
         "autoplay": true,
         "cycle_speed": 5,
         "background": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "slideshow_KcPgh": {
       "type": "slideshow",
-      "disabled": false,
       "custom_css": [
         ".button--primary {background-color: white; color: black; text-align: center; text-decoration: none; padding: 0px 20px; margin-right: 0px; font-size: 10px;}",
         "@media only screen and (max-width: 600px) {.heading--large {font-size: 28px; }}"
@@ -830,66 +738,43 @@
         "autoplay": false,
         "cycle_speed": 5,
         "background": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "slideshow_A7JMV": {
       "type": "slideshow",
-      "disabled": false,
-      "custom_css": [
-        ".button--primary {background-color: white; color: black; text-align: center; text-decoration: none; padding: 0px 20px; margin-right: 0px; font-size: 10px;}",
-        "@media only screen and (max-width: 600px) {.heading--large {font-size: 28px; }}"
-      ],
-      "settings": {
-        "section_height": "auto",
-        "transition_type": "fade",
-        "autoplay": true,
-        "cycle_speed": 5,
-        "background": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "image_Frip4": {
           "type": "image",
           "disabled": true,
           "settings": {
             "image": "shopify://shop_images/WW_24_WWGC_2-1_bd6fc11d-dee5-4910-8ab6-f12b0873d14b.jpg",
-            "split_image": null,
             "mobile_image": "shopify://shop_images/WW_24_WWGC_1884_97b9aadc-0a73-430f-aee4-a57f86e3a7f4.jpg",
-            "header-cc9ee3757bdc392657d27a21fdffaace": null,
             "text_position": "bottom_left",
-            "header-917bd493e5a1295eee91e1fc50455943": null,
-            "review_image": null,
             "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
             "review_text_font": "assistant_n4",
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-f0e8bfc1e79b409e21a4e81b44b3a07c": null,
             "title": "E-GIFT CARDS",
             "heading_font": "system_ui_n4",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-0061cb7d7bdb23bd816f60d0997dc178": null,
             "subheading": "",
             "subheading_font": "system_ui_n4",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-a409a25db26843b86f3b2f4de9ddeff6": null,
             "slide_text": "We help you create a space you’re proud to come home to, every single day.",
             "slide_text_font": "system_ui_n4",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-dce143e85f32f3fabcd0a1f9b1da0590": null,
             "above_text": "Join Over 700,000+ Satisfied Customers",
             "above_button_font": "system_ui_n4",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-837bb5223c36bdd578cdf3c3a401bb9e": null,
             "button_1_text": "SHOP NOW",
             "button_1_link": "shopify://products/gift-card",
             "button_2_text": "",
@@ -898,7 +783,6 @@
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-1eeee8904d7ab444250ad60f18613fd4": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
@@ -908,7 +792,6 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-48b08ae7d7f9677ce1794da1ff0ca586": null,
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
@@ -919,11 +802,7 @@
       },
       "block_order": [
         "image_Frip4"
-      ]
-    },
-    "slideshow_JKi6b": {
-      "type": "slideshow",
-      "disabled": false,
+      ],
       "custom_css": [
         ".button--primary {background-color: white; color: black; text-align: center; text-decoration: none; padding: 0px 20px; margin-right: 0px; font-size: 10px;}",
         "@media only screen and (max-width: 600px) {.heading--large {font-size: 28px; }}"
@@ -934,31 +813,27 @@
         "autoplay": true,
         "cycle_speed": 5,
         "background": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
+      }
+    },
+    "slideshow_JKi6b": {
+      "type": "slideshow",
+      "custom_css": [
+        ".button--primary {background-color: white; color: black; text-align: center; text-decoration: none; padding: 0px 20px; margin-right: 0px; font-size: 10px;}",
+        "@media only screen and (max-width: 600px) {.heading--large {font-size: 28px; }}"
+      ],
+      "settings": {
+        "section_height": "auto",
+        "transition_type": "fade",
+        "autoplay": true,
+        "cycle_speed": 5,
+        "background": "rgba(0,0,0,0)"
+      }
     },
     "collection_list_iaHT3": {
       "type": "collection-list",
-      "disabled": false,
-      "custom_css": [
-        "@supports (aspect-ratio: 1 / 1) {.aspect-ratio {aspect-ratio: 4.8 / 5; }}",
-        ".product-list {--product-list-column-gap: 4px;}",
-        ".list-collections__item-list {gap: 4px;}"
-      ],
-      "settings": {
-        "reveal_on_scroll": true,
-        "layout": "carousel",
-        "subheading": "",
-        "title": "",
-        "header-e6ca319cf8855395cca57d1cd8d68a88": null,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "collection_9tGLH": {
           "type": "collection",
-          "disabled": false,
           "settings": {
             "collection": "all-mirrors",
             "image": "shopify://shop_images/Liberty_1080_6db2b2bb-9a88-4a66-b3b8-ce14fdcea585.jpg",
@@ -966,7 +841,6 @@
             "title": "Mirrors",
             "link_text": "",
             "link_url": "shopify://collections/all-mirrors",
-            "header-2a3a6cb79c452087b478a0812d7153a4": null,
             "text_color": "rgba(0,0,0,0)",
             "overlay_color": "#000000",
             "overlay_opacity": 10
@@ -974,7 +848,6 @@
         },
         "collection_BL4WC": {
           "type": "collection",
-          "disabled": false,
           "settings": {
             "collection": "coffee-tables",
             "image": "shopify://shop_images/LeonardoConcreteWEBUGC.jpg",
@@ -982,7 +855,6 @@
             "title": "Coffee Tables",
             "link_text": "",
             "link_url": "shopify://collections/coffee-tables",
-            "header-4056c9d2a83427fef2dfafaad3a65bf1": null,
             "text_color": "rgba(0,0,0,0)",
             "overlay_color": "#000000",
             "overlay_opacity": 10
@@ -990,7 +862,6 @@
         },
         "collection_DXdwt": {
           "type": "collection",
-          "disabled": false,
           "settings": {
             "collection": "side-tables",
             "image": "shopify://shop_images/RenukaconcreteWEBUGC.jpg",
@@ -998,7 +869,6 @@
             "title": "SIDE TABLES",
             "link_text": "",
             "link_url": "shopify://collections/side-tables",
-            "header-7208608f8d561bea2a78742454b92889": null,
             "text_color": "rgba(0,0,0,0)",
             "overlay_color": "#000000",
             "overlay_opacity": 10
@@ -1006,7 +876,6 @@
         },
         "collection_rBPpK": {
           "type": "collection",
-          "disabled": false,
           "settings": {
             "collection": "accent-chairs",
             "image": "shopify://shop_images/HudsonOliverLeather_DarkWoodAccentChair.jpg",
@@ -1014,7 +883,6 @@
             "title": "ACCENT CHAIRS",
             "link_text": "",
             "link_url": "shopify://collections/accent-chairs",
-            "header-eb0825d8d58d13efa5394884a3d14706": null,
             "text_color": "rgba(0,0,0,0)",
             "overlay_color": "#000000",
             "overlay_opacity": 10
@@ -1022,7 +890,6 @@
         },
         "collection_YqcN6": {
           "type": "collection",
-          "disabled": false,
           "settings": {
             "collection": "ceramic-lamps",
             "image": "shopify://shop_images/SicilyWebUGC.jpg",
@@ -1030,7 +897,6 @@
             "title": "LAMPS",
             "link_text": "",
             "link_url": "shopify://collections/ceramic-lamps",
-            "header-aad82c5b816b7d4067c8a90016048622": null,
             "text_color": "rgba(0,0,0,0)",
             "overlay_color": "#000000",
             "overlay_opacity": 10
@@ -1038,15 +904,12 @@
         },
         "collection_aQcrL": {
           "type": "collection",
-          "disabled": false,
           "settings": {
             "collection": "accessories",
-            "image": null,
             "subheading": "",
             "title": "ACCESSORIES",
             "link_text": "",
             "link_url": "shopify://collections/accessories",
-            "header-2fa311d27d0cbb7eab5c2005f3af2c5c": null,
             "text_color": "rgba(0,0,0,0)",
             "overlay_color": "#000000",
             "overlay_opacity": 10
@@ -1061,11 +924,23 @@
         "collection_YqcN6",
         "collection_aQcrL"
       ],
-      "name": "Collection list"
+      "custom_css": [
+        "@supports (aspect-ratio: 1 / 1) {.aspect-ratio {aspect-ratio: 4.8 / 5; }}",
+        ".product-list {--product-list-column-gap: 4px;}",
+        ".list-collections__item-list {gap: 4px;}"
+      ],
+      "name": "Collection list",
+      "settings": {
+        "reveal_on_scroll": true,
+        "layout": "carousel",
+        "subheading": "",
+        "title": "",
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      }
     },
     "slideshow_cFUXm": {
       "type": "slideshow",
-      "disabled": false,
       "custom_css": [
         ".button--primary {background-color: white; color: black; text-align: center; text-decoration: none; padding: 0px 20px; margin-right: 0px; font-size: 10px;}",
         "@media only screen and (max-width: 600px) {.heading--large {font-size: 28px; }}"
@@ -1076,24 +951,15 @@
         "autoplay": true,
         "cycle_speed": 5,
         "background": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "text_with_icons_pmiLw": {
       "type": "text-with-icons",
-      "disabled": false,
-      "settings": {
-        "background": "#ffffff",
-        "text_color": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "item_TPN9Y": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "icon": "picto-fast-delivery",
-            "custom_icon": null,
             "custom_icon_width": 50,
             "title": "100% insured delivery",
             "content": "<p><strong>Free UK Delivery<br/></strong><br/>All deliveries are <strong>100% insured</strong>. If in the rare case damage occurs during transit, we promise to replace your order with the same product.</p>"
@@ -1101,10 +967,8 @@
         },
         "item_Tatrt": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "icon": "picto-return-box",
-            "custom_icon": null,
             "custom_icon_width": 50,
             "title": "90 Days Free Returns",
             "content": "<p><strong>Returns are 100% free<br/><br/></strong>You have <strong>90 days</strong> to let us know if it's not to be<strong> </strong>from the day you receive your order. We’ll even handle the collection of your order for you, making returning your William Wood purchase an effortless process.</p>"
@@ -1112,10 +976,8 @@
         },
         "item_6fCMN": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "icon": "picto-warranty",
-            "custom_icon": null,
             "custom_icon_width": 50,
             "title": "5 year warranty guarantee",
             "content": "<p><strong>Peace of mind with your purchase<br/></strong><br/>There are no shortcuts in our design process. Every William Wood product is built to stand the test of time and backed by our <strong>5 Year Warranty Guarantee</strong>.</p>"
@@ -1123,10 +985,8 @@
         },
         "item_RKQ6p": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "icon": "picto-worldwide",
-            "custom_icon": null,
             "custom_icon_width": 50,
             "title": "Sustainability",
             "content": "<p><strong>One tree planted with every order received<br/></strong><br/>We're committed to sustainability. Through our partnership with Ecodrive, we plant one tree for every order we receive.</p>"
@@ -1138,38 +998,17 @@
         "item_Tatrt",
         "item_6fCMN",
         "item_RKQ6p"
-      ]
+      ],
+      "settings": {
+        "background": "#ffffff",
+        "text_color": "rgba(0,0,0,0)"
+      }
     },
     "video_hero_r6zXM": {
       "type": "video-hero",
-      "disabled": false,
-      "settings": {
-        "header-034a4c3c41e722bb464797577a3c8373": null,
-        "desktop_video": "shopify://files/videos/Brand Hero Video Final.mp4",
-        "desktop_poster": null,
-        "mobile_video": "shopify://files/videos/Brand Hero Video - Portrait v3.mp4",
-        "mobile_poster": null,
-        "autoplay": true,
-        "loop": true,
-        "hide_controls": true,
-        "header-6820d65b9eb08d70c641b4bdc43c6304": null,
-        "show_content": false,
-        "show_heading": true,
-        "show_text": true,
-        "show_button": true,
-        "header-ce864c7efe480425351f23acdb5cdf9c": null,
-        "section_height": 80,
-        "mobile_section_height": 90,
-        "header-e569024c6dfc4ed680909bbb8112a191": null,
-        "overlay_opacity": 30,
-        "text_color": "#ffffff",
-        "button_color": "#000000",
-        "start_muted": false
-      },
       "blocks": {
         "heading_ybJie": {
           "type": "heading",
-          "disabled": false,
           "settings": {
             "heading": "Your Video Title",
             "heading_size": "h1"
@@ -1177,14 +1016,12 @@
         },
         "text_cM9Rt": {
           "type": "text",
-          "disabled": false,
           "settings": {
             "text": "Add your description here"
           }
         },
         "button_b4bpr": {
           "type": "button",
-          "disabled": false,
           "settings": {
             "button_label": "Shop Now",
             "button_link": "",
@@ -1197,40 +1034,51 @@
         "text_cM9Rt",
         "button_b4bpr"
       ],
-      "name": "Video Hero"
+      "name": "Video Hero",
+      "settings": {
+        "desktop_video": "shopify://files/videos/Brand Hero Video Final.mp4",
+        "mobile_video": "shopify://files/videos/Brand Hero Video - Portrait v3.mp4",
+        "autoplay": true,
+        "loop": true,
+        "hide_controls": true,
+        "show_content": false,
+        "show_heading": true,
+        "show_text": true,
+        "show_button": true,
+        "section_height": 80,
+        "mobile_section_height": 90,
+        "overlay_opacity": 30,
+        "text_color": "#ffffff",
+        "button_color": "#000000",
+        "start_muted": false
+      }
     },
     "trustpilot_carousel_4qVRt": {
       "type": "trustpilot-carousel",
-      "disabled": false,
       "custom_css": [
         "@media (max-width: 768px) {.trustpilot-widget, .trustpilot-widget iframe {height: 300px !important; min-height: 0 !important; }}"
       ],
       "settings": {
         "padding_top": 36,
         "padding_bottom": 0
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "custom_liquid_rM4MY": {
       "type": "custom-liquid",
-      "disabled": false,
       "settings": {
         "subheading": "",
         "title": "",
         "liquid": "",
         "add_vertical_spacing": true,
         "background_type": "full_width",
-        "header-31b26a9ace554cbed06c322aa34a98bc": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "blog_posts_nFDAB": {
       "type": "blog-posts",
       "disabled": true,
+      "name": "Blog posts",
       "settings": {
         "blog": "news",
         "subheading": "",
@@ -1239,17 +1087,14 @@
         "stack_mobile": false,
         "show_category": true,
         "show_excerpt": false,
-        "header-ba1da6b5b3fb0197095b66da87fcd76e": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": [],
-      "name": "Blog posts"
+      }
     },
     "rich_text_BqqzG": {
       "type": "rich-text",
       "disabled": true,
+      "name": "Rich text",
       "settings": {
         "subheading": "",
         "title": "Flexible payments, 0% interest.",
@@ -1260,25 +1105,21 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-b204392c52738cd8dfeaf330263c8a20": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
         "button_text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": [],
-      "name": "Rich text"
+      }
     },
     "1713859403df738b93": {
-      "settings": {},
       "blocks": {
         "foursixty_shoppable_social_ugc_custom_slider_k6iBXG": {
           "settings": {
             "shop_type": "border"
           }
         }
-      }
+      },
+      "settings": {}
     },
     "custom_liquid_By7TiP": {
       "custom_css": [
@@ -1289,8 +1130,7 @@
       "settings": {
         "title": "",
         "liquid": "<div class=\"title_usp\">\n<span class=\"heading h1 slideshow_txt\" style=\"margin-top: 0;\"><span style=\"font-family: altesse-std-24pt; text-transform: lowercase;\"><span style=\"text-transform: capitalize;\">Why</span> shop with us?</span></span>\n</div>"
-      },
-      "blocks": {}
+      }
     }
   },
   "order": [
