@@ -14,6 +14,12 @@
   },
   "sections": {
     "announcement-bar": {
+      "settings": {
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
+      },
       "blocks": {
         "3f097275-f772-44d9-b5f7-6d6999645314": {
           "settings": {
@@ -22,9 +28,11 @@
         },
         "message_KN8hh": {
           "type": "message",
+          "disabled": false,
           "settings": {
             "text": "Up 70% off + Extra 10% off everything",
             "learn_more_text": "shop now",
+            "header-1a2a77d5b197489e46de05385ceafc47": null,
             "image": "shopify://shop_images/1080_BF_70.jpg",
             "title": "BLACK FRIDAY WARM UP",
             "content": "<p>Extra 10% off any spend code 'BFW10'</p>",
@@ -61,20 +69,19 @@
         "message_N4D9HB",
         "message_wc4BFE",
         "trustpilot_Q4xFtD"
-      ],
-      "settings": {
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      }
+      ]
     },
     "header": {
       "settings": {
         "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
         "menu_bold_text": "Up To 70% Off",
-        "menu_normal_text": "Black Friday Warm Up"
-      }
+        "menu_normal_text": "Black Friday Warm Up",
+        "second_highlighted_menu_item": "https://www.williamwoodmirrors.co.uk/collections/black-friday-launches-1",
+        "second_menu_normal_text": "Discover",
+        "second_menu_bold_text": "Launching 28.11.25",
+        "second_highlighted_menu_background_image": "shopify://shop_images/BF25_BANNER_DETAIL_SHOT.jpg"
+      },
+      "blocks": {}
     }
   }
 }
