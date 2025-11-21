@@ -14,14 +14,11 @@
   },
   "sections": {
     "featured_collections_TReqYU": {
-      "settings": {
-        "show_cta": true
-      },
       "blocks": {
         "collection_d7ntb4": {
           "settings": {
             "button_text": "SHOP UP TO 60% OFF",
-            "button_url": "shopify://collections/early-bird-offers"
+            "button_url": "shopify://collections/black-friday-warm-up"
           }
         }
       },
@@ -29,56 +26,50 @@
         "collection_d7ntb4",
         "collection_DpGexd",
         "collection_bMg6C4"
-      ]
+      ],
+      "settings": {
+        "show_cta": true
+      }
     },
     "custom_liquid_WW9AR": {
       "type": "custom-liquid",
-      "disabled": false,
       "custom_css": [
         ".title_usp {text-align: center; margin-top: 4rem;}",
         ".title_usp span {font-size: 34px; font-weight: 300;}",
         ".title_usp ~ * {display: none !important;}"
       ],
+      "name": "Custom Liquid",
       "settings": {
         "subheading": "",
         "title": "",
         "liquid": "<div class=\"title_usp\">\n<span class=\"heading h1 slideshow_txt\" style=\"margin-top: 0;\"><span style=\"font-family: altesse-std-24pt; text-transform: lowercase;\"><span style=\"text-transform: capitalize;\">Join</span> our community of over 600,000 followers <br><span style=\"\n    margin-left: -22px;\n\">@williamwood</span></span></span>\n</div>",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-20a156e6e0761a84510fefe9ec3d2c81": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": [],
-      "name": "Custom Liquid"
+      }
     },
     "custom_liquid_XMGKh": {
       "type": "custom-liquid",
-      "disabled": false,
       "custom_css": [
         ".title_usp {text-align: center;}",
         ".title_usp span {font-size: 34px; font-weight: 300;}",
         ".title_usp ~ * {display: none !important;}"
       ],
+      "name": "Custom Liquid",
       "settings": {
         "subheading": "",
         "title": "",
         "liquid": "<div class=\"title_usp\">\n<span class=\"heading h1 slideshow_txt\" style=\"margin-top: 0;\"><span style=\"font-family: altesse-std-24pt; text-transform: lowercase;\"><span style=\"text-transform: capitalize;\">Why</span> shop with us?</span></span>\n</div>",
         "add_vertical_spacing": true,
         "background_type": "full_width",
-        "header-20a156e6e0761a84510fefe9ec3d2c81": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": [],
-      "name": "Custom Liquid"
+      }
     },
     "rich_text_L4eqt3": {
       "disabled": true,
-      "settings": {},
-      "blocks": {}
+      "settings": {}
     }
   },
   "order": [
