@@ -43,8 +43,8 @@
     gap: 16px;
     text-align: center;
     padding: 0 0 10px;
-        max-height: 47px;
-            background-color: black;
+    max-height: 47px;
+    background-color: black;
   }
 
   .announcement-bar-countdown__label {
@@ -167,26 +167,25 @@
         </button>
       {%- endif -%}
     </announcement-bar>
+
     {%- for block in section.blocks -%}
       {%- if block.type == 'countdown_timer' -%}
-            {%- assign countdown_start = block.settings.start_time | date: "%s" -%}
-            {%- assign countdown_end = block.settings.end_time | date: "%s" -%}
-            {%- assign countdown_now = 'now' | date: "%s" -%}
+        {%- assign countdown_start = block.settings.start_time | date: "%s" -%}
+        {%- assign countdown_end = block.settings.end_time | date: "%s" -%}
+        {%- assign countdown_now = 'now' | date: "%s" -%}
 
-            {%- if countdown_now >= countdown_start and countdown_now < countdown_end -%}
-              <announcement-bar-item class="announcement-bar__item" {{ block.shopify_attributes }}>
-                <div class="announcement-bar-countdown">
-                  <p class="announcement-bar-countdown__label">{{ block.settings.label }}</p>
-                  <div id="announcement-countdown-{{ block.id }}" class="announcement-bar-countdown__timer" data-end="{{ block.settings.end_time }}">
-                    <span class="countdown-hours">00</span> :
-                    <span class="countdown-minutes">00</span> :
-                    <span class="countdown-seconds">00</span>
-                  </div>
-                </div>
-              </announcement-bar-item>
-            {%- endif -%}
-          {%- endif -%}
-        {%- endfor -%}
+        {%- if countdown_now >= countdown_start and countdown_now < countdown_end -%}
+          <div class="announcement-bar-countdown" {{ block.shopify_attributes }}>
+            <p class="announcement-bar-countdown__label">{{ block.settings.label }}</p>
+            <div id="announcement-countdown-{{ block.id }}" class="announcement-bar-countdown__timer" data-end="{{ block.settings.end_time }}">
+              <span class="countdown-hours">00</span> :
+              <span class="countdown-minutes">00</span> :
+              <span class="countdown-seconds">00</span>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
   </section>
 
   <script>
