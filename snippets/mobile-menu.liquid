@@ -138,6 +138,10 @@
             </collapsible-content>
           {%- else -%}
             {% if link.url == section.settings.highlighted_menu_item %}
+              {%- assign highlight_start = section.settings.highlighted_menu_timer_start | date: "%s" -%}
+              {%- assign highlight_end = section.settings.highlighted_menu_timer_end | date: "%s" -%}
+              {%- assign highlight_now = 'now' | date: "%s" -%}
+
               <a
               href="{{ link.url  }}"
               class="makeit_highlighted mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
@@ -148,8 +152,43 @@
               {{ section.settings.menu_bold_text | default: link.title }}
              </span>
              <span class="highlighted_normal_text">{{ section.settings.menu_normal_text }}</span>
+             {%- if highlight_now >= highlight_start and highlight_now < highlight_end and section.settings.show_highlighted_menu_timer -%}
+               <div id="highlight-menu-timer-{{ section.id }}" class="highlighted-menu-timer" data-end="{{ section.settings.highlighted_menu_timer_end }}">
+                <p>Sale ends in</p>  
+                <span class="highlight-timer-hours">00</span> :
+                 <span class="highlight-timer-minutes">00</span> :
+                 <span class="highlight-timer-seconds">00</span>
+               </div>
+             {%- endif -%}
              </div>
             </a>
+
+            {% elsif link.url == section.settings.second_highlighted_menu_item %}
+              {%- assign second_highlight_start = section.settings.second_highlighted_menu_timer_start | date: "%s" -%}
+              {%- assign second_highlight_end = section.settings.second_highlighted_menu_timer_end | date: "%s" -%}
+              {%- assign second_highlight_now = 'now' | date: "%s" -%}
+
+              <a
+              href="{{ link.url  }}"
+              class="makeit_highlighted mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
+            
+            >
+              <div class="highlighted_item" style="background: {{ section.settings.second_highlighted_menu_bg_color }}; color: {{ section.settings.second_highlighted_menu_text_color }}; background-image: url('{{ settings.speedsize_url_pfx_https -}}{{ section.settings.second_highlighted_menu_background_image | img_url: 'master' }}'); background-size: cover; background-position: center;">
+             <span class="highlighted_bold_text">
+              {{ section.settings.second_menu_bold_text | default: link.title }}
+             </span>
+             <span class="highlighted_normal_text">{{ section.settings.second_menu_normal_text }}</span>
+             {%- if second_highlight_now >= second_highlight_start and second_highlight_now < second_highlight_end and section.settings.show_second_highlighted_menu_timer -%}
+               <div id="highlight-menu-timer-second-{{ section.id }}" class="highlighted-menu-timer highlighted-menu-timer--second" data-end="{{ section.settings.second_highlighted_menu_timer_end }}">
+                <p>Sale ends in</p> 
+                <span class="highlight-timer-hours">00</span> :
+                 <span class="highlight-timer-minutes">00</span> :
+                 <span class="highlight-timer-seconds">00</span>
+               </div>
+             {%- endif -%}
+             </div>
+            </a>
+            
             {% else %}
             <a
               href="{{ link.url  }}"
@@ -439,6 +478,7 @@ margin-top: 8px;
       padding: 20px;
         border-radius: 5px;
         width: 100%;
+            position: relative;
 }
 
 span.highlighted_bold_text {
@@ -452,5 +492,54 @@ span.highlighted_normal_text
     text-decoration: underline;
 }
 
+.highlighted-menu-timer {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-top: unset;
+  text-align: center;
+      position: absolute;
+    right: 15px;
+    top: 23px;
+}
+
+.highlighted-menu-timer p{
+margin-bottom: 5px;
+font-weight: bold;}
+
+.highlighted-menu-timer--second {
+  color: inherit;
+}
+
 </style>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Highlight Menu Timer Script
+    document.querySelectorAll('[id^="highlight-menu-timer-"]').forEach(function (timer) {
+      const endTimeStr = timer.getAttribute('data-end');
+      const endTime = new Date(endTimeStr.replace(' ', 'T'));
+
+      function updateHighlightMenuTimer() {
+        const now = new Date();
+        const diff = endTime - now;
+
+        if (diff <= 0) {
+          timer.innerHTML = '00 : 00 : 00';
+          return;
+        }
+
+        const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
+        const minutes = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, '0');
+        const seconds = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
+
+        timer.querySelector('.highlight-timer-hours').textContent = hours;
+        timer.querySelector('.highlight-timer-minutes').textContent = minutes;
+        timer.querySelector('.highlight-timer-seconds').textContent = seconds;
+      }
+
+      updateHighlightMenuTimer();
+      setInterval(updateHighlightMenuTimer, 1000);
+    });
+  });
+</script>
