@@ -14,6 +14,15 @@
   },
   "sections": {
     "announcement-bar": {
+      "settings": {
+        "announcement_bar_position": "sticky",
+        "announcement_text_size": "small",
+        "cycle_speed": 3,
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
+      },
       "blocks": {
         "message_N4D9HB": {
           "disabled": true,
@@ -28,9 +37,12 @@
         },
         "message_yMjrK": {
           "type": "message",
+          "disabled": false,
           "settings": {
             "text": "Black Friday: 27% off storewide with code BF27 (Ends Midnight Tonight)",
             "learn_more_text": "",
+            "header-ffd87cbbabf1ac864d4886eeef544aa2": null,
+            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -55,6 +67,8 @@
           "settings": {
             "text": "700,000+ Satisfied Customers | 30,000+ 5 Star Reviews",
             "learn_more_text": "",
+            "header-220d5d72f64dcf14cd37a81e26a792c4": null,
+            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -67,6 +81,8 @@
           "settings": {
             "text": "Free UK Delivery | 90 Day 100% Money Back Guarantee",
             "learn_more_text": "",
+            "header-c5de2f22200c09e6ab5922a0d0fdfea0": null,
+            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -93,6 +109,15 @@
             "button_text": "",
             "button_link": ""
           }
+        },
+        "countdown_timer_M8jaT": {
+          "type": "countdown_timer",
+          "disabled": false,
+          "settings": {
+            "label": "Sale Ends in",
+            "start_time": "2025-11-24 00:00",
+            "end_time": "2025-11-31 23:59"
+          }
         }
       },
       "block_order": [
@@ -103,17 +128,8 @@
         "message_Nh4hB",
         "message_wc4BFE",
         "3f097275-f772-44d9-b5f7-6d6999645314",
-        "trustpilot_Q4xFtD"
-      ],
-      "settings": {
-        "announcement_bar_position": "sticky",
-        "announcement_text_size": "small",
-        "cycle_speed": 3,
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      }
+        "countdown_timer_M8jaT"
+      ]
     },
     "header": {
       "settings": {
@@ -124,7 +140,8 @@
         "menu_bold_text": "BLACK FRIDAY: NEW LAUNCHES",
         "menu_normal_text": "shop now",
         "enable_transparent_header": true
-      }
+      },
+      "blocks": {}
     }
   },
   "order": [
