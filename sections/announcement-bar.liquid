@@ -196,6 +196,9 @@
       document.querySelectorAll('[id^="announcement-countdown-"]').forEach(function (timer) {
         const endTimeStr = timer.getAttribute('data-end');
         const endTime = new Date(endTimeStr.replace(' ', 'T'));
+        console.log('End time string:', endTimeStr);
+console.log('Parsed end time:', endTime);
+console.log('Is valid date:', !isNaN(endTime.getTime()));
 
         function updateAnnouncementCountdown() {
           const now = new Date();
