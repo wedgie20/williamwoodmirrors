@@ -27,7 +27,7 @@
       position: relative;
     {%- endif -%}
 
-    top: {% if section.settings.enable_sticky_header %}calc(var(--enable-sticky-announcement-bar) * var(--announcement-bar-height, 0px)){% else %}0{% endif %};
+    top: {% if section.settings.enable_sticky_header %}calc(var(--enable-sticky-announcement-bar) * 60px){% else %}0{% endif %};
     z-index: 4;
   }
 
