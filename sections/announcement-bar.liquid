@@ -42,9 +42,9 @@
     justify-content: center;
     gap: 16px;
     text-align: center;
-    padding: 10px 0;
+    padding: 0 0 10px;
+    max-height: 47px;
     background-color: black;
-    color: white;
   }
 
   .announcement-bar-countdown__label {
@@ -52,8 +52,7 @@
     text-transform: capitalize;
     font-family: var(--text-font-family);
     letter-spacing: 0.5px;
-    margin: 0;
-    color: white;
+    margin-bottom: 0;
   }
 
   .announcement-bar-countdown__timer {
@@ -61,17 +60,9 @@
     font-family: var(--text-font-family);
     font-weight: var(--text-font-bold-weight);
     letter-spacing: 1px;
-    color: white;
-    margin: 0;
   }
 
   @media (max-width: 768px) {
-    .announcement-bar-countdown {
-      flex-direction: column;
-      gap: 8px;
-      padding: 8px 0;
-    }
-
     .announcement-bar-countdown__label {
       font-size: 11px;
     }
@@ -198,12 +189,12 @@
   </section>
 
   <script>
-    // Initialize timers first
-    function initializeTimers() {
+    document.documentElement.style.setProperty('--announcement-bar-height', document.getElementById('shopify-section-{{ section.id }}').clientHeight + 'px');
+
+    // Announcement Bar Countdown Timer Script
+    document.addEventListener('DOMContentLoaded', function () {
       document.querySelectorAll('[id^="announcement-countdown-"]').forEach(function (timer) {
         const endTimeStr = timer.getAttribute('data-end');
-        if (!endTimeStr) return;
-        
         const endTime = new Date(endTimeStr.replace(' ', 'T'));
 
         function updateAnnouncementCountdown() {
@@ -211,9 +202,7 @@
           const diff = endTime - now;
 
           if (diff <= 0) {
-            timer.querySelector('.countdown-hours').textContent = '00';
-            timer.querySelector('.countdown-minutes').textContent = '00';
-            timer.querySelector('.countdown-seconds').textContent = '00';
+            timer.innerHTML = '00 : 00 : 00';
             return;
           }
 
@@ -229,22 +218,7 @@
         updateAnnouncementCountdown();
         setInterval(updateAnnouncementCountdown, 1000);
       });
-    }
-
-    // Run on DOMContentLoaded
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initializeTimers);
-    } else {
-      initializeTimers();
-    }
-
-    // Update announcement bar height after timers are initialized
-    setTimeout(function() {
-      const section = document.getElementById('shopify-section-{{ section.id }}');
-      if (section) {
-        document.documentElement.style.setProperty('--announcement-bar-height', section.clientHeight + 'px');
-      }
-    }, 100);
+    });
   </script>
 {%- endif -%}
 
