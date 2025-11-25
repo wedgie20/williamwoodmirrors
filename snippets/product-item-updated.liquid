@@ -184,7 +184,7 @@
 {% else %}
     {% assign title_words = product.title | split: ' ' %}
   {% assign first_word = title_words[0] | replace: '-', '' %}
-  <a href={{ product.url }}><b><p style="">{{ first_word }}</p></b><p style="text-transform: capitalize !important; margin-top: 2px;">{{ title_words | join: ' ' | remove: '-' | remove: first_word }}</p></a>
+  <a href={{ product.url }}><b><p style="">{{ first_word }}</p></b><p style="text-transform: inherit !important; margin-top: 2px;">{{ title_words | join: ' ' | remove: '-' | remove: first_word }}</p></a>
 {% endif %}
 {% if request.path != "/en-international" %}
       <div class="product-item-meta__price-list-container">
