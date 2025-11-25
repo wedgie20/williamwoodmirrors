@@ -312,16 +312,6 @@
         "button_text_color": "rgba(0,0,0,0)"
       },
       "blocks": {
-        "collection_Ek7Fh": {
-          "type": "collection",
-          "disabled": false,
-          "settings": {
-            "collection": "black-friday-warm-up",
-            "label": "Black Friday Offers",
-            "button_text": "SHOP NOW",
-            "button_url": "shopify://collections/black-friday-warm-up"
-          }
-        },
         "collection_7Nw9N": {
           "type": "collection",
           "disabled": false,
@@ -336,17 +326,27 @@
           "type": "collection",
           "disabled": false,
           "settings": {
-            "collection": "new-in",
-            "label": "",
+            "collection": "black-friday-launches-1",
+            "label": "NOW LIVE: NEW LAUNCHES",
             "button_text": "SHOP ALL",
             "button_url": "shopify://collections/new-in"
+          }
+        },
+        "collection_Ek7Fh": {
+          "type": "collection",
+          "disabled": false,
+          "settings": {
+            "collection": "black-friday-warm-up",
+            "label": "Black Friday Offers",
+            "button_text": "SHOP NOW",
+            "button_url": "shopify://collections/black-friday-warm-up"
           }
         }
       },
       "block_order": [
-        "collection_Ek7Fh",
         "collection_7Nw9N",
-        "collection_qCPRH"
+        "collection_qCPRH",
+        "collection_Ek7Fh"
       ],
       "name": "Featured collections"
     },
