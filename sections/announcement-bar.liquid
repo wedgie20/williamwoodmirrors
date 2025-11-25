@@ -74,7 +74,7 @@
 
 {%- if section.blocks.size > 0 -%}
   <section>
-    <announcement-bar {% if section.blocks.size > 1 and section.settings.autoplay %}auto-play cycle-speed="{{ section.settings.cycle_speed | escape }}"{% endif %} class="announcement-bar {% if section.blocks.size > 1 %}announcement-bar--multiple{% endif %}">
+    <announcement-bar {% if section.blocks.size > 1 and section.settings.autoplay %}auto-play cycle-speed="{{ section.settings.cycle_speed | escape }}"{% endif %} class="announcement-bar {% if section.blocks.size > 1 %}announcement-bar--multiple{% endif %}" {%- if section.blocks.size > 2 -%}style="justify-content: center;"{%- endif -%}>
       {%- if section.blocks.size > 2 -%}
         <button data-action="prev" class="tap-area tap-area--large">
           <span class="visually-hidden">{{ 'general.accessibility.previous' | t }}</span>
