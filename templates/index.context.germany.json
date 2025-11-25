@@ -684,16 +684,6 @@
         "button_text_color": "rgba(0,0,0,0)"
       },
       "blocks": {
-        "collection_atYeU": {
-          "type": "collection",
-          "disabled": false,
-          "settings": {
-            "collection": "black-friday-warm-up",
-            "label": "Black Friday Offers",
-            "button_text": "SHOP NOW",
-            "button_url": "shopify://collections/black-friday-warm-up"
-          }
-        },
         "collection_pFXw9": {
           "type": "collection",
           "disabled": false,
@@ -708,17 +698,27 @@
           "type": "collection",
           "disabled": false,
           "settings": {
-            "collection": "new-in",
-            "label": "",
+            "collection": "black-friday-launches-1",
+            "label": "NOW LIVE: NEW LAUNCHES",
             "button_text": "Shop All",
             "button_url": "shopify://collections/new-in"
+          }
+        },
+        "collection_atYeU": {
+          "type": "collection",
+          "disabled": false,
+          "settings": {
+            "collection": "black-friday-warm-up",
+            "label": "Black Friday Offers",
+            "button_text": "SHOP NOW",
+            "button_url": "shopify://collections/black-friday-warm-up"
           }
         }
       },
       "block_order": [
-        "collection_atYeU",
         "collection_pFXw9",
-        "collection_bYUXL"
+        "collection_bYUXL",
+        "collection_atYeU"
       ]
     },
     "custom_liquid_JVU3p": {
