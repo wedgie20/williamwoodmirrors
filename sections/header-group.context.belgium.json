@@ -14,17 +14,27 @@
   },
   "sections": {
     "announcement-bar": {
+      "settings": {
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
+      },
       "blocks": {
         "3f097275-f772-44d9-b5f7-6d6999645314": {
+          "disabled": true,
           "settings": {
             "text": "Duties & Taxes Paid"
           }
         },
         "message_KN8hh": {
           "type": "message",
+          "disabled": false,
           "settings": {
             "text": "Black Friday: 27% off storewide with code BF27 (Ends Midnight Tonight)",
             "learn_more_text": "shop now",
+            "header-126f83dec91820a1d49a70113fab2873": null,
+            "image": null,
             "title": "",
             "content": "",
             "button_text": "SHOP NOW",
@@ -32,23 +42,29 @@
           }
         },
         "955bcd74-0608-4f78-afae-e87df09b9f88": {
+          "disabled": true,
           "settings": {
             "text": "Flexible payments, 0% interest."
           }
         },
         "c4b45150-0e14-460e-8c47-88fd9bd72b02": {
+          "disabled": true,
           "settings": {
             "text": "100% Insured Belgium Delivery"
-          }
-        },
-        "message_N4D9HB": {
-          "settings": {
-            "text": "90 Days Free Returns"
           }
         },
         "message_wc4BFE": {
           "settings": {
             "text": "700,000+ Satisfied Customers"
+          }
+        },
+        "countdown_timer_RNBHz": {
+          "type": "countdown_timer",
+          "disabled": false,
+          "settings": {
+            "label": "",
+            "start_time": "2025-11-24 00:00",
+            "end_time": "2025-11-28 23:59"
           }
         }
       },
@@ -57,22 +73,17 @@
         "message_KN8hh",
         "955bcd74-0608-4f78-afae-e87df09b9f88",
         "c4b45150-0e14-460e-8c47-88fd9bd72b02",
-        "message_N4D9HB",
         "message_wc4BFE",
-        "trustpilot_Q4xFtD"
-      ],
-      "settings": {
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      }
+        "trustpilot_Q4xFtD",
+        "countdown_timer_RNBHz"
+      ]
     },
     "header": {
       "settings": {
         "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
         "menu_normal_text": "Early Bird Offers"
-      }
+      },
+      "blocks": {}
     }
   }
 }
