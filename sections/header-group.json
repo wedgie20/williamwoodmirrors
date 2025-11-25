@@ -17,7 +17,7 @@
         "3f097275-f772-44d9-b5f7-6d6999645314": {
           "type": "message",
           "settings": {
-            "text": "20% Off Site-Wide | Ends Tomorrow",
+            "text": "Black Friday: 27% off storewide with code BF27 (Ends Midnight Tonight)",
             "learn_more_text": "",
             "title": "",
             "content": "",
@@ -27,6 +27,7 @@
         },
         "955bcd74-0608-4f78-afae-e87df09b9f88": {
           "type": "message",
+          "disabled": true,
           "settings": {
             "text": "Free UK Delivery + 90 Days Free Returns",
             "learn_more_text": "",
@@ -38,6 +39,7 @@
         },
         "c4b45150-0e14-460e-8c47-88fd9bd72b02": {
           "type": "message",
+          "disabled": true,
           "settings": {
             "text": "Klarna or Clearpay available at checkout",
             "learn_more_text": "",
@@ -49,6 +51,7 @@
         },
         "message_N4D9HB": {
           "type": "message",
+          "disabled": true,
           "settings": {
             "text": "100% Carbon Neutral Delivery",
             "learn_more_text": "",
@@ -76,6 +79,14 @@
           "settings": {
             "trustpilot": "<!-- TrustBox widget - Micro Combo -->\n<div class=\"trustpilot-widget\" data-locale=\"en-GB\" data-template-id=\"5419b6ffb0d04a076446a9af\" data-businessunit-id=\"5c1ad659b7fbfa000156daec\" data-style-height=\"20px\" data-style-width=\"100%\" data-theme=\"light\">\n  <a href=\"https://uk.trustpilot.com/review/www.williamwoodmirrors.co.uk\" target=\"_blank\" rel=\"noopener\">Trustpilot</a>\n</div>\n<!-- End TrustBox widget -->"
           }
+        },
+        "countdown_timer_LgY64t": {
+          "type": "countdown_timer",
+          "settings": {
+            "label": "",
+            "start_time": "2025-01-01 00:00",
+            "end_time": "2025-11-29 00:00"
+          }
         }
       },
       "block_order": [
@@ -84,15 +95,16 @@
         "c4b45150-0e14-460e-8c47-88fd9bd72b02",
         "message_N4D9HB",
         "message_wc4BFE",
-        "trustpilot_Q4xFtD"
+        "trustpilot_Q4xFtD",
+        "countdown_timer_LgY64t"
       ],
       "settings": {
         "announcement_bar_position": "sticky",
         "announcement_text_size": "small",
         "autoplay": true,
         "cycle_speed": 4,
-        "background": "#efefef",
-        "text_color": "#000000",
+        "background": "#000000",
+        "text_color": "#ffffff",
         "button_background": "#000000",
         "button_text_color": "#ffffff"
       }
@@ -169,6 +181,22 @@
         "header_layout": "drawer",
         "show_icons": true,
         "reduce_desktop_padding": true,
+        "highlighted_menu_item": "",
+        "menu_bold_text": "Up To 60% Off",
+        "menu_normal_text": "Early Bird Sale",
+        "highlighted_menu_bg_color": "#000000",
+        "highlighted_menu_text_color": "#ffffff",
+        "show_highlighted_menu_timer": false,
+        "highlighted_menu_timer_start": "2025-01-01 00:00",
+        "highlighted_menu_timer_end": "2025-12-31 23:59",
+        "second_highlighted_menu_item": "",
+        "second_menu_bold_text": "Up To 60% Off",
+        "second_menu_normal_text": "Early Bird Sale",
+        "second_highlighted_menu_bg_color": "#000000",
+        "second_highlighted_menu_text_color": "#ffffff",
+        "show_second_highlighted_menu_timer": false,
+        "second_highlighted_menu_timer_start": "2025-01-01 00:00",
+        "second_highlighted_menu_timer_end": "2025-12-31 23:59",
         "show_locale_selector": true,
         "show_country_selector": true,
         "enable_transparent_header": true,
