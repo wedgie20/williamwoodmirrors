@@ -176,7 +176,9 @@
 
         {%- if countdown_now >= countdown_start and countdown_now < countdown_end -%}
           <div class="announcement-bar-countdown" {{ block.shopify_attributes }}>
+            {% if block.settings.label %}
             <p class="announcement-bar-countdown__label">{{ block.settings.label }}</p>
+            {% endif %}
             <div id="announcement-countdown-{{ block.id }}" class="announcement-bar-countdown__timer" data-end="{{ block.settings.end_time }}">
               <span class="countdown-hours">00</span> :
               <span class="countdown-minutes">00</span> :
