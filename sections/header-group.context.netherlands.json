@@ -14,12 +14,21 @@
   },
   "sections": {
     "announcement-bar": {
+      "settings": {
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
+      },
       "blocks": {
         "message_67DEB": {
           "type": "message",
+          "disabled": false,
           "settings": {
             "text": "Black Friday: 27% off storewide with code BF27 (Ends Midnight Tonight)",
             "learn_more_text": "shop now",
+            "header-a3a119d91070002e335ba4f04138cfec": null,
+            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -37,9 +46,11 @@
           }
         },
         "trustpilot_Q4xFtD": {
-          "disabled": true
+          "disabled": true,
+          "settings": {}
         },
         "c4b45150-0e14-460e-8c47-88fd9bd72b02": {
+          "disabled": true,
           "settings": {
             "text": "Flexible payments, 0% interest.",
             "title": "",
@@ -49,6 +60,7 @@
           }
         },
         "955bcd74-0608-4f78-afae-e87df09b9f88": {
+          "disabled": true,
           "settings": {
             "text": "100% Insured Netherlands Delivery",
             "title": "",
@@ -58,6 +70,7 @@
           }
         },
         "3f097275-f772-44d9-b5f7-6d6999645314": {
+          "disabled": true,
           "settings": {
             "text": "90 Days Free Returns",
             "learn_more_text": "",
@@ -82,6 +95,8 @@
           "settings": {
             "text": "Boxing Day Sale - 22% off everything code BD22 - Ends Midnight Tonight",
             "learn_more_text": "Learn more",
+            "header-20eb55ad55b05f64485bf3f9c48b5d8a": null,
+            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -98,13 +113,7 @@
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "message_wc4BFE",
         "message_z4EP8"
-      ],
-      "settings": {
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      }
+      ]
     },
     "header": {
       "settings": {
@@ -113,7 +122,8 @@
         "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
         "menu_normal_text": "Early Bird Offers",
         "enable_transparent_header": true
-      }
+      },
+      "blocks": {}
     }
   },
   "order": [
