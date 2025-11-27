@@ -80,7 +80,7 @@
           {%- endcapture -%}
         {%- endif -%}
 
-        <li class="mobile-nav__item imhere" data-level="1">
+        <li class="mobile-nav__item imhere" data-level="1" link-handle="{{ link.url | handle }}">
           {%- if link.links.size > 0 or mega_menu_images != blank -%}
             <button
               is="toggle-button"
@@ -405,6 +405,10 @@
   margin-top: 30px;
   text-align: left;
   display: block;
+}
+
+.mobile-nav__item[link-handle="collections-black-friday-warm-up"]{
+display: none;
 }
   
 {% comment %} .mobile-nav__item a[href*="/collections/autumn-sale"]{              
