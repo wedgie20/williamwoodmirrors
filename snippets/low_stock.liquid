@@ -1,8 +1,8 @@
 {% if product.available %}
 {% if product.compare_at_price_max <= product.price_max %}
-    <span style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;">
+    {% comment %} <span style="margin-top: 5px; margin-bottom: 5px; margin-left: 5px;">
         <b>Exclusive Black Friday price</b> - offer ends midnight
-    </span>
+    </span> {% endcomment %}
 {% endif %}
 {% if product.tags contains '__label:RESTOCKED' %}
 <div style="margin-left: 5px;">
