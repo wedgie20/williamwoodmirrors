@@ -269,7 +269,7 @@
     font-family: GothamBlack;
     font-weight: 500;
     letter-spacing: 0; color:white" class="">BF27</span>
-<div class="dt-button" style="margin-top: 15px;">
+<div class="dt-button" style="margin-top: 15px; display: none;">
     <a href="{{ block.settings.button_1_link | escape }}" class="shop-now-summer" style="display: block;
     overflow: hidden;
     min-height: 70px;">
@@ -302,7 +302,7 @@
 </div>
 </div>
 
-<div class="MobileDown">
+<div class="MobileDown" style="display: none;">
 
     <style>
       </style>
@@ -427,7 +427,7 @@
   }
   @media screen and (max-width: 550px) {
    #shopify-section-{{ section.id }} .content-box--text-center{
-      margin-top: 40px;
+      {% comment %} margin-top: 40px; {% endcomment %}
   }
   }
 </style>
