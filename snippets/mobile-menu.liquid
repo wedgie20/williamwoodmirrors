@@ -29,7 +29,7 @@
       {%- for link in menu.links -%}
         {%- assign link_title_downcase = link.title | strip | downcase -%}
         {%- assign mega_menu_block = '' -%}
-        {%- assign mega_menu_images = '' -%} 
+        {%- assign mega_menu_images = '' -%}
 
         {%- for block in section.blocks -%}
           {%- assign menu_item_downcase = block.settings.menu_item | strip | downcase -%}
@@ -147,7 +147,7 @@
               class="makeit_highlighted mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
             
             >
-              <div class="highlighted_item" style="background: {{ section.settings.highlighted_menu_bg_color }}; color: {{ section.settings.highlighted_menu_text_color }}; background-image: url('{{ settings.speedsize_url_pfx_https -}}{{ section.settings.highlighted_menu_background_image | img_url: 'master' }}'); background-size: cover; background-position: center;">
+              <div class="highlighted_item" style="background: {{ section.settings.highlighted_menu_bg_color }}; color: {{ section.settings.highlighted_menu_text_color }};">
              <span class="highlighted_bold_text">
               {{ section.settings.menu_bold_text | default: link.title }}
              </span>
