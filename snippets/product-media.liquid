@@ -39,7 +39,7 @@
 
   <product-media form-id="product-form-{{ section.id }}-{{ product.id }}" {% if section.settings.enable_video_autoplay %}autoplay-video{% endif %} thumbnails-position="{{ section.settings.desktop_thumbnails_position }}" {% if settings.reveal_product_media %}reveal-on-scroll{% endif %} product-handle="{{ product.handle }}" class="product__media" style="--largest-image-aspect-ratio: {{ largest_image_aspect_ratio | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}">
     <div class="product__media-list-wrapper" style="max-width: {{ max_width }}px">
- {% comment %} {% render "aritize-3d-quick-ar" %} {% endcomment %}
+ {% render "aritize-3d-quick-ar" %}
 
       {%- capture flickity_config -%}
       {
