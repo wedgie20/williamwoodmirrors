@@ -278,11 +278,11 @@
                 </line-item-quantity>
 
                 {% if line_item.product.compare_at_price_max <= line_item.product.price_max %}
-                  <div class="general-message" style="width: 100%; margin-top: 7px;">
+                  {% comment %} <div class="general-message" style="width: 100%; margin-top: 7px;">
                     <span style="">
                       <b>Exclusive Black Friday price</b> - offer ends midnight
                     </span>
-                  </div>
+                  </div> {% endcomment %}
                 {% endif %}
                 {% if line_item.variant.inventory_management == 'shopify' and line_item.variant.inventory_quantity != null %}
                 {% if line_item.variant.inventory_quantity < 16 %}
