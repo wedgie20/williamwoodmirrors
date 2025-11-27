@@ -14,14 +14,14 @@
   },
   "sections": {
     "custom_liquid_pYpLMY": {
-      "disabled": false,
+      "disabled": true,
       "custom_css": [
         "form {max-width: 600px;}"
       ],
       "settings": {
         "subheading": "",
         "title": "",
-        "liquid": "<div class=\"klaviyo-form-Szzi3u\"></div>",
+        "liquid": "{% comment %}\n<div class=\"klaviyo-form-Szzi3u\"></div>\n{% endcomment %}",
         "text_color": "#ffffff"
       },
       "blocks": {}
