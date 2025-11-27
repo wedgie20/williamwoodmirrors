@@ -27,7 +27,7 @@
       position: relative;
     {%- endif -%}
 
-    top: {% if section.settings.enable_sticky_header %}calc(var(--enable-sticky-announcement-bar) * var(--announcement-bar-height, 0px)){% else %}0{% endif %};
+    top: {% if section.settings.enable_sticky_header %}calc(var(--enable-sticky-announcement-bar) * 58px){% else %}0{% endif %};
     z-index: 4;
   }
 
@@ -997,11 +997,6 @@ display: none !important;
       "default": "Early Bird Sale"
     },
     {
-      "type": "image_picker",
-      "id": "highlighted_menu_background_image",
-      "label": "Background image"
-    },
-    {
       "type": "color",
       "id": "highlighted_menu_bg_color",
       "label": "Background color",
@@ -1013,8 +1008,30 @@ display: none !important;
       "label": "Text color",
       "default": "#ffffff"
     },
+{
+  "type": "header",
+  "content": "Highlighted Menu Item Timer"
+},
+{
+  "type": "checkbox",
+  "id": "show_highlighted_menu_timer",
+  "label": "Show timer",
+  "default": false
+},
+{
+  "type": "text",
+  "id": "highlighted_menu_timer_start",
+  "label": "Start Time (YYYY-MM-DD HH:MM)",
+  "default": "2025-01-01 00:00"
+},
+{
+  "type": "text",
+  "id": "highlighted_menu_timer_end",
+  "label": "End Time (YYYY-MM-DD HH:MM)",
+  "default": "2025-12-31 23:59"
+},
 
-        {
+    {
       "type": "header",
       "content": "Second Highlighted Menu Item"
     },
@@ -1052,6 +1069,28 @@ display: none !important;
       "label": "Text color",
       "default": "#ffffff"
     },
+    {
+  "type": "header",
+  "content": "Second Highlighted Menu Item Timer"
+},
+{
+  "type": "checkbox",
+  "id": "show_second_highlighted_menu_timer",
+  "label": "Show timer",
+  "default": false
+},
+{
+  "type": "text",
+  "id": "second_highlighted_menu_timer_start",
+  "label": "Start Time (YYYY-MM-DD HH:MM)",
+  "default": "2025-01-01 00:00"
+},
+{
+  "type": "text",
+  "id": "second_highlighted_menu_timer_end",
+  "label": "End Time (YYYY-MM-DD HH:MM)",
+  "default": "2025-12-31 23:59"
+},
 
     {
       "type": "header",
