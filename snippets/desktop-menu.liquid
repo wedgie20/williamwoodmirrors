@@ -3,12 +3,12 @@
     {%- for link in menu.links -%}
       {%- assign link_title_downcase = link.title | strip | downcase -%}
       {%- assign mega_menu_block = '' -%}
-      {%- assign mega_menu_images = '' -%} 
+      {%- assign mega_menu_images = '' -%}
 
       {%- for block in section.blocks -%}
         {%- assign menu_item_downcase = block.settings.menu_item | strip | downcase -%}
 
-        {%- if menu_item_downcase == link_title_downcase -%}
+        {%- if menu_item_downcase == link_title_downcase -%} 
           {%- assign mega_menu_block = block -%}
           {%- break -%}
         {%- endif -%}
