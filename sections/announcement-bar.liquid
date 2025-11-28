@@ -40,7 +40,7 @@
     {% comment %} display: flex; {% endcomment %}
     align-items: center;
     justify-content: center;
-    gap: 16px;
+    gap: 5px;
     text-align: center;
     padding: 0 0 10px;
     max-height: 47px;
@@ -62,8 +62,12 @@
     font-family: var(--text-font-family);
     font-weight: var(--text-font-bold-weight);
     letter-spacing: 1px;
-        order: 0;
+        order: 2;
   }
+
+  p.seperating_line {
+    order: 1;
+}
 
   @media (max-width: 768px) {
     .announcement-bar-countdown__label {
@@ -181,6 +185,7 @@
           <div class="announcement-bar-countdown" {{ block.shopify_attributes }}>
             {% if block.settings.label != blank %}
             <p class="announcement-bar-countdown__label">{{ block.settings.label }}</p>
+            <p class="seperating_line">|</p>
             {% endif %}
             <div id="announcement-countdown-{{ block.id }}" class="announcement-bar-countdown__timer" data-end="{{ block.settings.end_time }}">
               <span class="countdown-hours">00</span> :
