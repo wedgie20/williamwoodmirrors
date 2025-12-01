@@ -397,6 +397,19 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
       {% endcomment %}
     </div>
+
+    <div class="guarantee-item" style="font-size: 13px;">
+            <span class="icon" style="display: none;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 18 13" fill="none">
+                <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </span>
+            {%- assign original_price = product.selected_or_first_available_variant.price -%}
+{%- assign discount_amount = original_price | times: 0.25 -%}
+{%- assign discounted_price = original_price | minus: discount_amount -%}
+<b>{{ discounted_price | money }}</b> with code <b>CYBER25</b>
+          </div>
+          
 </div>
 
 <div class="in-house" style="display: flex;">
