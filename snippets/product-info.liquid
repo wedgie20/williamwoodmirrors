@@ -405,10 +405,16 @@ document.addEventListener("DOMContentLoaded", function() {
               </svg>
             </span>
        {%- assign original_price = product.selected_or_first_available_variant.price -%}
+       {% assign pricewholenumber = original_price | times: 0.75 %}
 {%- assign discounted_price = original_price | times: 0.75 | divided_by: 100.0 -%}
 {%- assign discounted_formatted = discounted_price | round: 2 -%}
 <b>{{ cart.currency.symbol }}{{ discounted_formatted }}</b> with code <b>CYBER25</b>
           </div>
+          <p class="saved-price">
+  {% assign savedprice = original_price | minus: pricewholenumber %}
+  {% assign finalsaved = savedprice | divided_by: 100.0 %}
+  Save <b>{{ cart.currency.symbol }}{{ finalsaved }}</b>
+</p>
 
 </div>
 
@@ -1001,7 +1007,10 @@ Product Description
       top: -6px;
     }
   }
-
+p.saved-price {
+    margin: unset;
+    font-size: 15px;
+}
   
 </style> 
 
