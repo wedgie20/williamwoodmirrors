@@ -300,7 +300,10 @@
                 <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
             </span>
-            90 Day 100% Money Back Guarantee
+            {%- assign original_price = product.selected_or_first_available_variant.price -%}
+{%- assign discount_amount = original_price | times: 0.25 -%}
+{%- assign discounted_price = original_price | minus: discount_amount -%}
+{{ discounted_price | money }} with code CYBER25
           </div>
       </div>
 {% endif %}
