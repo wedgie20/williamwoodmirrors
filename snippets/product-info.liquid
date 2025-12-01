@@ -404,10 +404,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
             </span>
-            {%- assign original_price = product.selected_or_first_available_variant.price -%}
-{%- assign discount_amount = original_price | times: 0.25 -%}
-{%- assign discounted_price = original_price | minus: discount_amount -%}
-<b>{{ discounted_price | money }}</b> with code <b>CYBER25</b>
+       {%- assign original_price = product.selected_or_first_available_variant.price -%}
+{%- assign discounted_price = original_price | times: 0.75 | divided_by: 100.0 -%}
+{%- assign discounted_formatted = discounted_price | round: 2 -%}
+<b>{{ cart.currency.symbol }}{{ discounted_formatted }}</b> with code <b>CYBER25</b>
           </div>
 
 </div>
