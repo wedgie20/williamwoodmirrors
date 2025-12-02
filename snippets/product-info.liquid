@@ -404,17 +404,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
             </span>
-<<<<<<< HEAD
           {% if product.selected_or_first_available_variant.compare_at_price %}
               {%- assign compareat_price = product.selected_or_first_available_variant.compare_at_price -%}
             {% else %}
               {%- assign compareat_price = 0 -%}
           {% endif %}    
           {%- assign original_price = product.selected_or_first_available_variant.price -%}  
-=======
-
-   {%- assign original_price = product.selected_or_first_available_variant.price -%}
->>>>>>> 3d339c25bd400a70bb636822cb069346ff3c2327
 {%- assign pricewholenumber = original_price | times: 0.80 -%}
 {%- assign discounted_price = original_price | times: 0.80 | divided_by: 100.0 -%}
 {%- assign discounted_whole = discounted_price | floor -%}
