@@ -132,8 +132,8 @@
 
           {%- assign loading_attribute_value = 'eager' -%}
           {%- assign preload_image = false -%}
-
-        {%- capture slide_content -%}
+        
+          {%- capture slide_content -%}
           <div class="slideshow__image-wrapper {% if collection.handle == 'spring-sale' %} spring-sale-overlay{% endif %} {% if mobile_image != blank %}hidden-pocket{% endif %}" {% if section.settings.transition_type == 'reveal' %}reveal-visibility{% endif %}>
             {%- if image != blank -%}
               {%- capture sizes_attributes -%}{% if split_image != blank %}(min-width: 1000px) 50vw{% else %}100vw{% endif %}{%- endcapture -%}
