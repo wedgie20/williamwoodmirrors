@@ -410,7 +410,7 @@ document.addEventListener("DOMContentLoaded", function() {
     {%- assign discounted_formatted = discounted_price | round: 2 -%}
 <b>{{ cart.currency.symbol }}{{ discounted_formatted }}</b> with code <b>CYBER20</b>
           </div>
-          <p class="saved-price" style="font-size: 13px !important;>
+          <p class="saved-price" style="font-size: 13px !important;">
   {% assign savedprice = original_price | minus: pricewholenumber %}
   {% assign finalsaved = savedprice | divided_by: 100.0 %}
   Save <b>{{ cart.currency.symbol }}{{ finalsaved }}</b>
