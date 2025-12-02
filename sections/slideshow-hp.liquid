@@ -264,7 +264,7 @@
     font-family: GothamBlack;
     font-weight: 500;
     letter-spacing: 0; color:white" class="">CYBER20</span> {% endcomment %}
-<div class="dt-button" style="margin-top: 15px;">
+<div class="dt-button" style="margin-top: 15px; display: none;">
     <a href="{{ block.settings.button_1_link | escape }}" class="shop-now-summer" style="display: block;
     overflow: hidden;
     min-height: 70px;">
@@ -341,6 +341,22 @@
   }
   .MobileDown {
     transform: translateY(15px);
+  }
+}
+
+@media screen and (max-width: 999px) {
+.dt-button{
+display: block !important;
+        margin-left: -22px;
+}
+ #shopify-section-{{ section.id }} .content-box--text-center{
+      margin-top: 184px !important;
+  }
+}
+
+@media screen and (max-width: 860px) {
+ #shopify-section-{{ section.id }} .content-box--text-center{
+      margin-top: 250px !important;
   }
 }
 
