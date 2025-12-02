@@ -398,12 +398,13 @@ document.addEventListener("DOMContentLoaded", function() {
       {% endcomment %}
     </div>
 
-    <div class="guarantee-item" style="font-size: 15px !important;">
+    <div class="guarantee-item price-saved-discount" style="font-size: 13px">
             <span class="icon" style="display: none;">
               <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 18 13" fill="none">
                 <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
             </span>
+
    {%- assign original_price = product.selected_or_first_available_variant.price -%}
 {%- assign pricewholenumber = original_price | times: 0.80 -%}
 {%- assign discounted_price = original_price | times: 0.80 | divided_by: 100.0 -%}
@@ -987,6 +988,12 @@ Product Description
   .shopify_payment-terms {
     margin-bottom: 5px;
 }
+
+ @media (max-width: 768px) {
+ .price-saved-discount {
+    font-size: 15px !important;
+  }
+}
   @media (max-width: 768px) {
       .shopify_payment-terms {
        margin-bottom: 8px;
@@ -998,6 +1005,10 @@ Product Description
       align-items: flex-start; 
       width: 100%;
     } {% endcomment %}
+
+    .price-saved-discount {
+    font-size: 13px !important;
+  }
 
     .product-meta__title {
       width: 80%;
