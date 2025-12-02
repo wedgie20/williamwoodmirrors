@@ -300,16 +300,25 @@
                 <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
             </span>
-          {%- assign original_price = product.selected_or_first_available_variant.price -%}
-          {% assign pricewholenumber = original_price | times: 0.80 %}
+        {%- assign original_price = product.selected_or_first_available_variant.price -%}
+{%- assign pricewholenumber = original_price | times: 0.80 -%}
 {%- assign discounted_price = original_price | times: 0.80 | divided_by: 100.0 -%}
-{%- assign discounted_formatted = discounted_price | round: 2 -%}
-<b>{{ cart.currency.symbol }}{{ discounted_formatted }}</b> with code <b>CYBER20</b>
+{%- assign discounted_whole = discounted_price | floor -%}
+{%- assign discounted_decimal = discounted_price | minus: discounted_whole | times: 100 | round -%}
+{%- if discounted_decimal < 10 -%}
+  {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
+{%- endif -%}
+<b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b> with code <b>CYBER20</b>
           </div>
-          <p class="saved-price">
-  {% assign savedprice = original_price | minus: pricewholenumber %}
-  {% assign finalsaved = savedprice | divided_by: 100.0 %}
-  Save <b>{{ cart.currency.symbol }}{{ finalsaved }}</b>
+     <p class="saved-price">
+  {%- assign savedprice = original_price | minus: pricewholenumber -%}
+  {%- assign finalsaved = savedprice | divided_by: 100.0 -%}
+  {%- assign saved_whole = finalsaved | floor -%}
+  {%- assign saved_decimal = finalsaved | minus: saved_whole | times: 100 | round -%}
+  {%- if saved_decimal < 10 -%}
+    {%- assign saved_decimal = saved_decimal | prepend: '0' -%}
+  {%- endif -%}
+  Save <b>{{ cart.currency.symbol }}{{ saved_whole }}.{{ saved_decimal }}</b>
 </p>
       </div>
 {% endif %}
