@@ -312,9 +312,9 @@ document.addEventListener("DOMContentLoaded", function() {
   
   <div class="product-meta__price-list-container" role="region" aria-live="polite">
      {%- if product.tags contains 'sale' -%}
-        {% comment %} <p class="tp-mobile" style="color: #000000; margin-bottom: 0px; margin-top: 10px !important; font-weight: 700">Cyber Monday Offers</p> 
-          <p class="tp-desktop" style="color: #000000; margin-bottom: 0px; font-weight: 700">Cyber Monday Offers</p> 
-         {% endcomment %}
+        <p class="tp-mobile" style="color: #000000; margin-bottom: 0px; margin-top: 10px !important; font-weight: 700">Cyber Week Exclusive</p> 
+          <p class="tp-desktop" style="color: #000000; margin-bottom: 0px; font-weight: 700">Cyber Week Exclusive</p> 
+         
         {%- endif -%} 
       <div class="price-list price-list-update" data-product-price-list>
         {%- if product.selected_or_first_available_variant.compare_at_price
@@ -1006,7 +1006,7 @@ Product Description
 }
 
  @media (max-width: 768px) {
- .price-saved-discount, p.saved-price, .new-price-size {
+ .price-saved-discount, p.saved-price, new-price-size {
     font-size: 13px !important;
   }
 }
