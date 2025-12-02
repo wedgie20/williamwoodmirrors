@@ -2846,7 +2846,7 @@ var SafeSticky = class extends HTMLElement {
       entries.forEach((entry) => {
         if (entry.target === this) {
           const height = entry.borderBoxSize ? entry.borderBoxSize.length > 0 ? entry.borderBoxSize[0].blockSize : entry.borderBoxSize.blockSize : entry.target.clientHeight;
-          document.documentElement.style.setProperty("--announcement-bar-height", '58px');
+          document.documentElement.style.setProperty("--announcement-bar-height", '48px');
         }
       });
     }
