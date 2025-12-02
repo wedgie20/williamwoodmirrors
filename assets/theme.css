@@ -7421,7 +7421,7 @@ input:checked + .popover__choice-label::after,
 }
 
 #shopify-section-sections--25320825061755__header {
-    top: calc(var(--enable-sticky-announcement-bar) * var(--announcement-bar-height, 0px)) !important;
+    top: calc(var(--enable-sticky-announcement-bar) * var(--announcement-bar-height, 0px));
 }
 
 .announcement-bar__message-trustpilot {
