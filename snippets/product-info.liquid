@@ -320,7 +320,7 @@ document.addEventListener("DOMContentLoaded", function() {
         {%- if product.selected_or_first_available_variant.compare_at_price
             > product.selected_or_first_available_variant.price
         -%}
-          <span class="price price--highlight price--large">
+          <span class="price price--highlight price--large new-price-size">
             <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
 
             {%- if settings.currency_code_enabled -%}
@@ -330,7 +330,7 @@ document.addEventListener("DOMContentLoaded", function() {
             {%- endif -%}
           </span>
 
-          <span class="price price--compare">
+          <span class="price price--compare new-price-size">
             <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
 
             {%- if settings.currency_code_enabled -%}
@@ -1006,7 +1006,7 @@ Product Description
 }
 
  @media (max-width: 768px) {
- .price-saved-discount, p.saved-price {
+ .price-saved-discount, p.saved-price, .new-price-size {
     font-size: 13px !important;
   }
 }
