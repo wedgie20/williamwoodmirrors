@@ -108,7 +108,6 @@
   <slide-show reveal-on-scroll {% if section.settings.autoplay %}auto-play{% endif %} transition-type="{{ section.settings.transition_type | escape }}" class="slideshow slideshow--{{ section.settings.section_height }}">
     
     <div class="slideshow__slide-list ">
-      <a href="">
       {%- for block in section.blocks -%}
         {%- comment -%}
         ------------------------------------------------------------------------------------------------------------------
@@ -399,7 +398,6 @@
           {%- endif -%}
         </slide-show-item>
       {%- endfor -%}
-       </a>
     </div>
 
     {%- if section.blocks.size > 1 -%}
@@ -411,7 +409,6 @@
         {%- endfor -%}
       </page-dots>
     {%- endif -%}
- 
   </slide-show>
 </section>
 
