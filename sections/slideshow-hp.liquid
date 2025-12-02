@@ -106,6 +106,7 @@
 
 <section class="section section--flush">
   <slide-show reveal-on-scroll {% if section.settings.autoplay %}auto-play{% endif %} transition-type="{{ section.settings.transition_type | escape }}" class="slideshow slideshow--{{ section.settings.section_height }}">
+    
     <div class="slideshow__slide-list ">
       {%- for block in section.blocks -%}
         {%- comment -%}
@@ -131,8 +132,8 @@
 
           {%- assign loading_attribute_value = 'eager' -%}
           {%- assign preload_image = false -%}
-
-        {%- capture slide_content -%}
+        
+          {%- capture slide_content -%}
           <div class="slideshow__image-wrapper {% if collection.handle == 'spring-sale' %} spring-sale-overlay{% endif %} {% if mobile_image != blank %}hidden-pocket{% endif %}" {% if section.settings.transition_type == 'reveal' %}reveal-visibility{% endif %}>
             {%- if image != blank -%}
               {%- capture sizes_attributes -%}{% if split_image != blank %}(min-width: 1000px) 50vw{% else %}100vw{% endif %}{%- endcapture -%}
@@ -199,7 +200,7 @@
           {%- endcapture -%}
 
           {%- if section_content != blank -%}
-            <div class="container">
+            <div class="container container-new">
               {%- assign text_alignment = block.settings.text_position | split: '_' | first -%}
               {%- assign text_position = block.settings.text_position | split: '_' | last -%}
 
@@ -264,7 +265,9 @@
     font-family: GothamBlack;
     font-weight: 500;
     letter-spacing: 0; color:white" class="">CYBER20</span> {% endcomment %}
+
 <div class="dt-button" style="margin-top: 15px; display: none;">
+
     <a href="{{ block.settings.button_1_link | escape }}" class="shop-now-summer" style="display: block;
     overflow: hidden;
     min-height: 70px;">
@@ -429,6 +432,7 @@ display: block !important;
   </slide-show>
 </section>
 
+
 <style>
    #shopify-section-{{ section.id }} .content-box--text-center{
       margin-top: 155px;
@@ -437,12 +441,20 @@ display: block !important;
     #shopify-section-{{ section.id }} .content-box--text-center{
       margin-top: 100px;
   }
+
   }
   @media screen and (max-width: 550px) {
    #shopify-section-{{ section.id }} .content-box--text-center{
       {% comment %} margin-top: 200px; {% endcomment %}
        margin-top: -48px;
   }
+  }
+
+  }
+  @media screen and (min-width: 769px) {
+    .dt-button{
+      margin-top: 250px !important;
+    }
   }
 </style>
 
