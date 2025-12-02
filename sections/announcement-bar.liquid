@@ -9,7 +9,7 @@
     --primary-button-background: {{ section.settings.button_background.red }}, {{ section.settings.button_background.green }}, {{ section.settings.button_background.blue }};
     --primary-button-text-color: {{ section.settings.button_text_color.red }}, {{ section.settings.button_text_color.green }}, {{ section.settings.button_text_color.blue }};
     --section-background: {{ section.settings.background.red }}, {{ section.settings.background.green }}, {{ section.settings.background.blue }};
-    z-index: 15; /* Make sure it goes over header */
+    z-index: 5; /* Make sure it goes over header */
 
     {%- if section.settings.announcement_bar_position == 'sticky' or section.settings.announcement_bar_position == 'sticky_mobile' -%}
       position: -webkit-sticky;
@@ -35,47 +35,12 @@
       {%- endif -%}
     }
   }
-
-  .announcement-bar-countdown {
-    {% comment %} display: flex; {% endcomment %}
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    text-align: center;
-    padding: 0 0 3px;
-    max-height: 47px;
-    background-color: black;
-  }
-
-  .announcement-bar-countdown__label {
-    font-size: calc(var(--base-font-size) - 2px);
-    text-transform: capitalize;
-    font-family: var(--text-font-family);
-    letter-spacing: 0.5px;
-    margin-bottom: 0;
-  }
-
-  .announcement-bar-countdown__timer {
-    font-size: calc(var(--base-font-size) - 2px);
-    font-family: var(--text-font-family);
-    font-weight: var(--text-font-bold-weight);
-    letter-spacing: 1px;
-  }
-
-  @media (max-width: 768px) {
-    .announcement-bar-countdown__label {
-      font-size: 11px;
-    }
-    .announcement-bar-countdown__timer {
-      font-size: 11px;
-    }
-  }
 </style>
 
 {%- if section.blocks.size > 0 -%}
   <section>
-    <announcement-bar {% if section.blocks.size > 1 and section.settings.autoplay %}auto-play cycle-speed="{{ section.settings.cycle_speed | escape }}"{% endif %} class="announcement-bar {% if section.blocks.size > 1 %}announcement-bar--multiple{% endif %}" {%- if section.blocks.size < 3 -%}style="justify-content: center;"{%- endif -%}>
-      {%- if section.blocks.size > 2 -%}
+    <announcement-bar {% if section.blocks.size > 1 and section.settings.autoplay %}auto-play cycle-speed="{{ section.settings.cycle_speed | escape }}"{% endif %} class="announcement-bar {% if section.blocks.size > 1 %}announcement-bar--multiple{% endif %}">
+      {%- if section.blocks.size > 1 -%}
         <button data-action="prev" class="tap-area tap-area--large">
           <span class="visually-hidden">{{ 'general.accessibility.previous' | t }}</span>
           {% render 'icon' with 'nav-arrow-left-small', direction_aware: true %}
@@ -90,140 +55,85 @@
             {%- assign has_extra_content = true -%}
           {%- endif -%}
 
-          {%- if block.type == 'countdown_timer' -%}
-            
-          {%- else -%}
-            <announcement-bar-item {% unless forloop.first %}hidden{% endunless %} {% if has_extra_content %}has-content{% endif %} class="announcement-bar__item" {{ block.shopify_attributes }}>
-              {%- case section.settings.announcement_text_size -%}
-                {%- when 'small' -%}
-                  {%- assign text_size_class = 'text--xsmall' -%}
-                {%- when 'normal' -%}
-                  {%- assign text_size_class = 'text--small' -%}
-                {%- when 'large' -%}
-                  {%- assign text_size_class = '' -%}
-              {%- endcase -%}
+          
 
-              <div class="announcement-bar__message {{ text_size_class }} {% if block.settings.trustpilot != blank %}announcement-bar__message-trustpilot{% endif %}">
-                {%- if block.settings.content != blank or block.settings.image != blank -%}
-                  {%- if block.settings.learn_more_text != blank -%}
-                    <p>{{ block.settings.text | escape }} <button class="link" data-action="open-content">{{ block.settings.learn_more_text | escape }}</button></p>
-                  {%- else -%}
-                    <button class="link" data-action="open-content">{{ block.settings.text | escape }}</button>
-                  {%- endif -%}
-                {% elsif block.settings.trustpilot != blank %}
-                  {{ block.settings.trustpilot }}
-                {%- else -%}
-                  <p>{{ block.settings.text | escape }}</p>
-                {%- endif -%}
-              </div>
+          <announcement-bar-item {% unless forloop.first %}hidden{% endunless %} {% if has_extra_content %}has-content{% endif %} class="announcement-bar__item" {{ block.shopify_attributes }}>
+            {%- case section.settings.announcement_text_size -%}
+              {%- when 'small' -%}
+                {%- assign text_size_class = 'text--xsmall' -%}
+              {%- when 'normal' -%}
+                {%- assign text_size_class = 'text--small' -%}
+              {%- when 'large' -%}
+                {%- assign text_size_class = '' -%}
+            {%- endcase -%}
 
+            <div class="announcement-bar__message {{ text_size_class }} {% if block.settings.trustpilot != blank %}announcement-bar__message-trustpilot{% endif %}">
               {%- if block.settings.content != blank or block.settings.image != blank -%}
-                <div hidden class="announcement-bar__content {% if block.settings.image != blank %}has-image{% endif %}">
-                  <div class="announcement-bar__content-overlay"></div>
+                {%- if block.settings.learn_more_text != blank -%}
+                  <p>{{ block.settings.text | escape }} <button class="link" data-action="open-content">{{ block.settings.learn_more_text | escape }}</button></p>
+                {%- else -%}
+                  <button class="link" data-action="open-content">{{ block.settings.text | escape }}</button>
+                {%- endif -%}
+              {% elsif block.settings.trustpilot != blank %}
+                {{ block.settings.trustpilot }}
+              {%- else -%}
+                <p>{{ block.settings.text | escape }}</p>
+              {%- endif -%}
+            </div>
 
-                  <div class="announcement-bar__content-overflow">
-                    <div class="announcement-bar__content-inner">
-                      <button type="button" class="announcement-bar__close-button tap-area" data-action="close-content">
-                        <span class="visually-hidden">{{ 'general.accessibility.close' | t }}</span>
-                        {%- render 'icon' with 'close' -%}
-                      </button>
+            {%- if block.settings.content != blank or block.settings.image != blank -%}
+              <div hidden class="announcement-bar__content {% if block.settings.image != blank %}has-image{% endif %}">
+                <div class="announcement-bar__content-overlay"></div>
 
-                      {%- if block.settings.image != blank -%}
-                        <img class="announcement-bar__content-image" loading="lazy" sizes="{% if block.settings.content != blank %}50vw{% else %}100vw{% endif %}" {% render 'image-attributes', image: block.settings.image, sizes: '400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000' %}>
-                      {%- endif -%}
+                <div class="announcement-bar__content-overflow">
+                  <div class="announcement-bar__content-inner">
+                    <button type="button" class="announcement-bar__close-button tap-area" data-action="close-content">
+                      <span class="visually-hidden">{{ 'general.accessibility.close' | t }}</span>
+                      {%- render 'icon' with 'close' -%}
+                    </button>
 
-                      {%- if block.settings.content != blank -%}
-                        <div class="announcement-bar__content-text-wrapper">
-                          <div class="announcement-bar__content-text text-container">
-                            {%- if block.settings.title != blank -%}
-                              <h3 class="heading h5">{{ block.settings.title | escape }}</h3>
-                            {%- endif -%}
+                    {%- if block.settings.image != blank -%}
+                      <img class="announcement-bar__content-image" loading="lazy" sizes="{% if block.settings.content != blank %}50vw{% else %}100vw{% endif %}" {% render 'image-attributes', image: block.settings.image, sizes: '400,500,600,700,800,900,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000' %}>
+                    {%- endif -%}
 
-                            {%- if block.settings.content != blank -%}
-                              {{- block.settings.content -}}
-                            {%- endif -%}
+                    {%- if block.settings.content != blank -%}
+                      <div class="announcement-bar__content-text-wrapper">
+                        <div class="announcement-bar__content-text text-container">
+                          {%- if block.settings.title != blank -%}
+                            <h3 class="heading h5">{{ block.settings.title | escape }}</h3>
+                          {%- endif -%}
 
-                            {%- if block.settings.button_text != blank -%}
-                              <div class="button-wrapper">
-                                <a href="{{ block.settings.button_link  }}" class="button button--primary">{{ block.settings.button_text | escape }}</a>
-                              </div>
-                            {%- endif -%}
-                          </div>
+                          {%- if block.settings.content != blank -%}
+                            {{- block.settings.content -}}
+                          {%- endif -%}
+
+                          {%- if block.settings.button_text != blank -%}
+                            <div class="button-wrapper">
+                              <a href="{{ block.settings.button_link  }}" class="button button--primary">{{ block.settings.button_text | escape }}</a>
+                            </div>
+                          {%- endif -%}
                         </div>
-                      {%- endif -%}
-                    </div>
+                      </div>
+                    {%- endif -%}
                   </div>
                 </div>
-              {%- endif -%}
-            </announcement-bar-item>
-          {%- endif -%}
+              </div>
+            {%- endif -%}
+          </announcement-bar-item>
         {%- endfor -%}
       </div>
 
-      {%- if section.blocks.size > 2 -%}
+      {%- if section.blocks.size > 1 -%}
         <button data-action="next" class="tap-area tap-area--large">
           <span class="visually-hidden">{{ 'general.accessibility.next' | t }}</span>
           {% render 'icon' with 'nav-arrow-right-small', direction_aware: true %}
         </button>
       {%- endif -%}
     </announcement-bar>
-
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'countdown_timer' -%}
-        {%- assign countdown_start = block.settings.start_time | date: "%s" -%}
-        {%- assign countdown_end = block.settings.end_time | date: "%s" -%}
-        {%- assign countdown_now = 'now' | date: "%s" -%}
-
-        {%- if countdown_now >= countdown_start and countdown_now < countdown_end -%}
-          <div class="announcement-bar-countdown" {{ block.shopify_attributes }}>
-            {% if block.settings.label != blank %}
-            <p class="announcement-bar-countdown__label">{{ block.settings.label }}</p>
-            {% endif %}
-            <div id="announcement-countdown-{{ block.id }}" class="announcement-bar-countdown__timer" data-end="{{ block.settings.end_time }}">
-              <span class="countdown-hours">00</span> :
-              <span class="countdown-minutes">00</span> :
-              <span class="countdown-seconds">00</span>
-            </div>
-          </div>
-        {%- endif -%}
-      {%- endif -%}
-    {%- endfor -%}
   </section>
 
   <script>
     document.documentElement.style.setProperty('--announcement-bar-height', document.getElementById('shopify-section-{{ section.id }}').clientHeight + 'px');
-
-    // Announcement Bar Countdown Timer Script
-    document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('[id^="announcement-countdown-"]').forEach(function (timer) {
-        const endTimeStr = timer.getAttribute('data-end');
-        const endTime = new Date(endTimeStr.replace(' ', 'T'));
-        console.log('End time string:', endTimeStr);
-console.log('Parsed end time:', endTime);
-console.log('Is valid date:', !isNaN(endTime.getTime()));
-
-        function updateAnnouncementCountdown() {
-          const now = new Date();
-          const diff = endTime - now;
-
-          if (diff <= 0) {
-            timer.innerHTML = '00 : 00 : 00';
-            return;
-          }
-
-          const hours = String(Math.floor(diff / (1000 * 60 * 60))).padStart(2, '0');
-          const minutes = String(Math.floor((diff / (1000 * 60)) % 60)).padStart(2, '0');
-          const seconds = String(Math.floor((diff / 1000) % 60)).padStart(2, '0');
-
-          timer.querySelector('.countdown-hours').textContent = hours;
-          timer.querySelector('.countdown-minutes').textContent = minutes;
-          timer.querySelector('.countdown-seconds').textContent = seconds;
-        }
-
-        updateAnnouncementCountdown();
-        setInterval(updateAnnouncementCountdown, 1000);
-      });
-    });
   </script>
 {%- endif -%}
 
@@ -290,30 +200,6 @@ console.log('Is valid date:', !isNaN(endTime.getTime()));
           "type": "liquid",
           "id": "trustpilot",
           "label": "Trustpilot liquid"
-        }
-      ]
-    },
-    {
-      "type": "countdown_timer",
-      "name": "Countdown Timer",
-      "settings": [
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Timer Label",
-          "default": "Sale Ends in"
-        },
-        {
-          "type": "text",
-          "id": "start_time",
-          "label": "Start Time (YYYY-MM-DD HH:MM)",
-          "default": "2025-01-01 00:00"
-        },
-        {
-          "type": "text",
-          "id": "end_time",
-          "label": "End Time (YYYY-MM-DD HH:MM)",
-          "default": "2025-12-31 23:59"
         }
       ]
     }
