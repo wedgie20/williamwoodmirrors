@@ -24,7 +24,7 @@
           "type": "product_status",
           "disabled": false,
           "settings": {
-            "header-51a23811ce79afbe67783eedbf0e0168": null,
+            "header-63d6483aa3827b0a6497c12c360f8c7c": null,
             "margin_top": 0,
             "font_weight": "bold",
             "font_size": 12,
@@ -35,12 +35,12 @@
             "padding_vertical": 5,
             "padding_horizontal": 15,
             "background_image": "shopify://shop_images/Cyber_Homepage_Desktop_BG.jpg",
-            "header-99d71c78ef0a1c49e2ced41e4a96ca3c": null,
-            "promo_heading": "Cyber Monday",
-            "promo_text": "25% off storewide with code <b class=\"click-to-copy\">CYBER25</b> (Ends Midnight Tuesday)\n+\nFree Gift with your purchase worth up to €148,95 EUR when you spend €440 EUR or more\n+\n30% Off shipping code: SHIP30",
-            "sale_heading": "Cyber Monday",
-            "sale_text": "25% off storewide with code <b class=\"click-to-copy\">CYBER25</b> (Ends Midnight Tuesday)\n+\nFree Gift with your purchase worth up to €148,95 EUR when you spend €440 EUR or more",
-            "header-fc3e0188c6c830e2b34ed27ca724b800": null,
+            "header-e5cc304c5aa778dae7ea9d556187e50c": null,
+            "promo_heading": "Cyber Week Offers",
+            "promo_text": "20% off everything with code <b class=\"click-to-copy\">CYBER20</b>\nor\n35% off 2 full priced products (no code required)\nor\n40% off 3 or more full priced products (no code required)\n+\nFree Gift with your purchase worth up to €148,95 EUR when you spend €440 EUR or more\n+\n30% Off shipping code: SHIP30",
+            "sale_heading": "Cyber Week Offers",
+            "sale_text": "Extra 20% off sale with code <b class=\"click-to-copy\">CYBER20</b>\n+\nFree Gift with your purchase worth up to €148,95 EUR when you spend €440 EUR or more",
+            "header-a91055a624e456aae77b24f6f5051d47": null,
             "coming_soon_text": "Coming Soon",
             "back_soon_text": "Back in stock soon, sign up for restock notifications below",
             "black_friday_launch_text": "Launches 29.11.24",
@@ -48,9 +48,16 @@
             "black_friday_restock_text": "Restocks 29.11.24",
             "restock_text": "Restocks [DATE] 8PM",
             "out_of_stock_text": "Currently out of stock, join waitlist below.",
-            "header-38b6c8f1f4ad5b6b128f9978b13d8753": null,
+            "header-cce70867ffc165e26c0cb9c750a0300d": null,
             "show_hudson_message": true,
             "hudson_message": "Free cushion included with the Hudson Chair"
+          }
+        },
+        "liquid_YgcYy": {
+          "type": "liquid",
+          "disabled": false,
+          "settings": {
+            "liquid": "<div class=\"description-container\" style=\"margin-top: 10px;\">\n  <div class=\"short-description\">\n    {% if product.tags contains 'pre-order' %}\n      {% if current_path contains '/en-fr/' or current_path contains '/en-de/' or current_path contains '/en-nl/' or current_path contains '/en-be/' %}\n        {% assign short_description = product.description \n              | strip_html \n              | replace: 'between', 'from' \n              | split: 'and' \n              | first \n              | strip \n        %}\n      {% else %}\n          {% assign short_description = product.description\n            | strip_html\n            | split: ':' \n            | first \n            | strip \n          %}\n      {% endif %}\n\n      {% if block.settings.short_description != blank %}\n        <p><b>{{ block.settings.short_description }}</b></p>\n      {% else %}\n        <p><b>{{ short_description }}</b></p>\n      {% endif %}\n\n      <img \n        src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_QuestionMark-01_1.png?v=1737370952\" \n        alt=\"Question Mark Icon\" \n        class=\"info-icon\" \n        tabindex=\"0\" \n      />\n      <div class=\"tooltip\">This product is currently being crafted by our <br>expert manufacturers and is available for Pre Order.<br>We will contact you on the week below to arrange delivery.</div>\n\n    {% else %}\n      <p style=\"transform: translateY(-5px); padding-top: 5px; padding-bottom: 5px;\"><b>Usually dispatched in 10-14 Business Days</b></p>\n    {% endif %}\n  </div>\n</div>\n\n<style>\n  .short-description {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    text-align: center;\n    padding-bottom: 0px;\n    padding-top: 12px;\n    position: relative;\n  }\n  .description-container {\n    background-color: #efefef;\n    padding: 0px;\n    border-radius: 25px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n  .info-icon {\n    margin-left: 8px;\n    width: 15px;\n    height: 15px;\n    transform: translateY(-6px);\n    cursor: pointer;\n    position: relative;\n  }\n  .info-icon:hover + .tooltip,\n  .info-icon:focus + .tooltip {\n    display: block;\n  }\n  .tooltip {\n    display: none;\n    position: absolute;\n    bottom: 120%;\n    left: 50%;\n    transform: translateX(-50%);\n    background-color: #333;\n    color: #fff;\n    padding: 5px 10px;\n    border-radius: 4px;\n    font-size: 12px;\n    white-space: nowrap;\n    z-index: 1000;\n  }\n  .tooltip::after {\n    content: '';\n    position: absolute;\n    top: 100%;\n    left: 50%;\n    transform: translateX(-50%);\n    border-width: 5px;\n    border-style: solid;\n    border-color: #333 transparent transparent transparent;\n  }\n</style>"
           }
         },
         "customer_count_AEMDM": {
@@ -59,13 +66,6 @@
           "settings": {
             "show_banner": true,
             "banner_text": "1,000+ customers shopped today"
-          }
-        },
-        "liquid_YgcYy": {
-          "type": "liquid",
-          "disabled": false,
-          "settings": {
-            "liquid": "<div class=\"description-container\" style=\"margin-top: 10px;\">\n  <div class=\"short-description\">\n    {% if product.tags contains 'pre-order' %}\n      {% if current_path contains '/en-fr/' or current_path contains '/en-de/' or current_path contains '/en-nl/' or current_path contains '/en-be/' %}\n        {% assign short_description = product.description \n              | strip_html \n              | replace: 'between', 'from' \n              | split: 'and' \n              | first \n              | strip \n        %}\n      {% else %}\n          {% assign short_description = product.description\n            | strip_html\n            | split: ':' \n            | first \n            | strip \n          %}\n      {% endif %}\n\n      {% if block.settings.short_description != blank %}\n        <p><b>{{ block.settings.short_description }}</b></p>\n      {% else %}\n        <p><b>{{ short_description }}</b></p>\n      {% endif %}\n\n      <img \n        src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_QuestionMark-01_1.png?v=1737370952\" \n        alt=\"Question Mark Icon\" \n        class=\"info-icon\" \n        tabindex=\"0\" \n      />\n      <div class=\"tooltip\">This product is currently being crafted by our <br>expert manufacturers and is available for Pre Order.<br>We will contact you on the week below to arrange delivery.</div>\n\n    {% else %}\n      <p style=\"transform: translateY(-5px); padding-top: 5px; padding-bottom: 5px;\"><b>Usually dispatched in 10-14 Business Days</b></p>\n    {% endif %}\n  </div>\n</div>\n\n<style>\n  .short-description {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    text-align: center;\n    padding-bottom: 0px;\n    padding-top: 12px;\n    position: relative;\n  }\n  .description-container {\n    background-color: #efefef;\n    padding: 0px;\n    border-radius: 25px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n  .info-icon {\n    margin-left: 8px;\n    width: 15px;\n    height: 15px;\n    transform: translateY(-6px);\n    cursor: pointer;\n    position: relative;\n  }\n  .info-icon:hover + .tooltip,\n  .info-icon:focus + .tooltip {\n    display: block;\n  }\n  .tooltip {\n    display: none;\n    position: absolute;\n    bottom: 120%;\n    left: 50%;\n    transform: translateX(-50%);\n    background-color: #333;\n    color: #fff;\n    padding: 5px 10px;\n    border-radius: 4px;\n    font-size: 12px;\n    white-space: nowrap;\n    z-index: 1000;\n  }\n  .tooltip::after {\n    content: '';\n    position: absolute;\n    top: 100%;\n    left: 50%;\n    transform: translateX(-50%);\n    border-width: 5px;\n    border-style: solid;\n    border-color: #333 transparent transparent transparent;\n  }\n</style>"
           }
         }
       },
