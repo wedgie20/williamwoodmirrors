@@ -312,14 +312,15 @@ document.addEventListener("DOMContentLoaded", function() {
   
   <div class="product-meta__price-list-container" role="region" aria-live="polite">
      {%- if product.tags contains 'sale' -%}
-        <p class="tp-mobile" style="color: #000000; margin-bottom: 0px; margin-top: 10px !important; font-weight: 700">Cyber Monday Offers</p> 
-          <p class="tp-desktop" style="color: #000000; margin-bottom: 0px; font-weight: 700">Cyber Monday Offers</p> 
+        <p class="tp-mobile" style="color: #780606; margin-bottom: 0px; margin-top: 10px !important; font-weight: 700">Cyber Week Exclusive</p> 
+          <p class="tp-desktop" style="color: #780606; margin-bottom: 0px; font-weight: 700">Cyber Week Exclusive</p> 
+         
         {%- endif -%} 
       <div class="price-list price-list-update" data-product-price-list>
         {%- if product.selected_or_first_available_variant.compare_at_price
             > product.selected_or_first_available_variant.price
         -%}
-          <span class="price price--highlight price--large">
+          <span class="price price--highlight price--large new-price-size">
             <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
 
             {%- if settings.currency_code_enabled -%}
@@ -329,7 +330,7 @@ document.addEventListener("DOMContentLoaded", function() {
             {%- endif -%}
           </span>
 
-          <span class="price price--compare">
+          <span class="price price--compare new-price-size">
             <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
 
             {%- if settings.currency_code_enabled -%}
@@ -341,9 +342,9 @@ document.addEventListener("DOMContentLoaded", function() {
         
         {%- assign savings = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price -%}
         {%- if savings > 0 -%}
-          <span class="label label--highlight">
+          {% comment %} <span class="label label--highlight">
             Save {% if settings.currency_code_enabled %}{{ savings | money_with_currency }}{% else %}{{ savings | money }}{% endif %}
-          </span>
+          </span> {% endcomment %}
         {%- endif -%}
           
         {%- else -%}
@@ -398,7 +399,7 @@ document.addEventListener("DOMContentLoaded", function() {
       {% endcomment %}
     </div>
 
-    <div class="guarantee-item price-saved-discount" style="font-size: 13px">
+    <div class="guarantee-item price-saved-discount">
             <span class="icon" style="display: none;">
               <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 18 13" fill="none">
                 <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -718,6 +719,10 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
 
+.label--highlight {
+    display: none !important;
+  }
+
     
   </style>
 
@@ -1001,15 +1006,18 @@ Product Description
 }
 
  @media (max-width: 768px) {
- .price-saved-discount {
-    font-size: 15px !important;
+ .price-saved-discount, p.saved-price, new-price-size {
+    font-size: 13px !important;
   }
 }
+
   @media (max-width: 768px) {
       .shopify_payment-terms {
        margin-bottom: 8px;
     font-size: 10px !important;
 }
+
+
     {% comment %} .product-title-price {
       display: flex; 
       justify-content: space-between; 
@@ -1017,9 +1025,7 @@ Product Description
       width: 100%;
     } {% endcomment %}
 
-    .price-saved-discount {
-    font-size: 13px !important;
-  }
+   
 
     .product-meta__title {
       width: 80%;
@@ -1038,10 +1044,11 @@ Product Description
       top: -6px;
     }
   }
-p.saved-price {
+p.saved-price, .price-saved-discount {
     margin: unset;
     font-size: 15px;
 }
+
   
 </style> 
 
