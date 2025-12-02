@@ -405,6 +405,7 @@ display: block !important;
         {%- endcapture -%}
 
         <slide-show-item {% if section.settings.transition_type != 'reveal' %}reveal-visibility{% endif %} {{ slide_attributes }}>
+          <a href="/collections/black-friday-warm-up">
           {%- if block.settings.button_1_link != blank and block.settings.button_1_text == blank and block.settings.button_2_text == blank -%}
             <a class="slideshow__slide-inner" href="{{ block.settings.button_1_link  }}">
               {{- slide_content  -}}
@@ -414,6 +415,7 @@ display: block !important;
               {{- slide_content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
             </div>
           {%- endif -%}
+          </a>
         </slide-show-item>
       {%- endfor -%}
     </div>
