@@ -105,7 +105,6 @@
 
 
 <section class="section section--flush">
-  <a href="">
   <slide-show reveal-on-scroll {% if section.settings.autoplay %}auto-play{% endif %} transition-type="{{ section.settings.transition_type | escape }}" class="slideshow slideshow--{{ section.settings.section_height }}">
     <div class="slideshow__slide-list ">
       {%- for block in section.blocks -%}
@@ -410,7 +409,6 @@
       </page-dots>
     {%- endif -%}
   </slide-show>
-  </a>
 </section>
 
 
