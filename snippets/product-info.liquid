@@ -407,7 +407,7 @@ document.addEventListener("DOMContentLoaded", function() {
        {%- assign original_price = product.selected_or_first_available_variant.price -%}
        {% assign pricewholenumber = original_price | times: 0.80 %}
 {%- assign discounted_price = original_price | times: 0.80 | divided_by: 100.0 -%}
-{%- assign discounted_formatted = discounted_price | round: 3 -%}
+{%- assign discounted_formatted = discounted_price | round: 2 -%}
 <b>{{ cart.currency.symbol }}{{ discounted_formatted }}</b> with code <b>CYBER20</b>
           </div>
           <p class="saved-price">
