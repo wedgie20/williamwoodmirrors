@@ -7420,6 +7420,10 @@ input:checked + .popover__choice-label::after,
   text-align: center;
 }
 
+#shopify-section-sections--25320825061755__header {
+    top: calc(var(--enable-sticky-announcement-bar) * var(--announcement-bar-height, 0px)) !important;
+}
+
 .announcement-bar__message-trustpilot {
   padding-top: 13px;
   padding-bottom: 12px; 
