@@ -12,15 +12,18 @@
     font-size: {{ section.settings.heading_size }}px;
     font-weight: {{ section.settings.heading_weight }};
     color: {{ section.settings.text_color }};
+    letter-spacing: {{ section.settings.heading_letter_spacing }}px;
   }
 
-  #shopify-section-{{ section.id }} .collection-banner__subheading {
+ #shopify-section-{{ section.id }} .collection-banner__subheading p {
     {% if section.settings.custom_subheading_font != "Select Font" %}
       font-family: {{ section.settings.custom_subheading_font }};
     {% endif %}
     font-size: {{ section.settings.subheading_size }}px;
     font-weight: {{ section.settings.subheading_weight }};
     color: {{ section.settings.text_color }};
+    letter-spacing: {{ section.settings.subheading_letter_spacing }}px;
+        line-height: 14.7692px;
   }
 
   #shopify-section-{{ section.id }} .collection-banner__description {
@@ -30,6 +33,7 @@
     font-size: {{ section.settings.description_size }}px;
     font-weight: {{ section.settings.description_weight }};
     color: {{ section.settings.text_color }};
+    letter-spacing: {{ section.settings.description_letter_spacing }}px;
   }
 
   #shopify-section-{{ section.id }} .collection-banner__button {
@@ -40,6 +44,7 @@
     font-weight: {{ section.settings.button_weight }};
     background-color: {{ section.settings.button_background }};
     color: {{ section.settings.button_text_color }};
+    letter-spacing: {{ section.settings.button_letter_spacing }}px;
   }
 
   .collection-banner {
@@ -95,13 +100,11 @@
   .collection-banner__title {
     margin: 0 0 8px 0;
     text-transform: uppercase;
-    letter-spacing: 2px;
   }
 
-  .collection-banner__subheading {
+  .collection-banner__subheading p {
     margin: 0 0 12px 0;
     text-transform: uppercase;
-    letter-spacing: 1px;
   }
 
   .collection-banner__description {
@@ -116,7 +119,6 @@
     cursor: pointer;
     text-decoration: none;
     text-transform: uppercase;
-    letter-spacing: 1px;
     transition: opacity 0.3s ease;
   }
 
@@ -141,11 +143,11 @@
       font-size: {{ section.settings.heading_size_mobile }}px !important;
     }
 
-    .collection-banner__subheading {
+    .collection-banner__subheading p {
       font-size: {{ section.settings.subheading_size_mobile }}px !important;
     }
 
-    .collection-banner__description {
+    .collection-banner__description p {
       font-size: {{ section.settings.description_size_mobile }}px !important;
     }
     .collection-banner__text-wrapper {
@@ -164,7 +166,7 @@
     {%- if section.settings.image != blank -%}
       <img 
         class="collection-banner__image collection-banner__image--desktop" 
-        src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.image | image_url: width: 2000 }}" 
+        src="{{ section.settings.image | image_url: width: 2000 }}" 
         alt="{{ section.settings.title | escape }}"
         loading="eager"
         width="{{ section.settings.image.width }}"
@@ -177,7 +179,7 @@
     {%- if section.settings.mobile_image != blank -%}
       <img 
         class="collection-banner__image collection-banner__image--mobile" 
-        src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.mobile_image | image_url: width: 1000 }}" 
+        src="{{ section.settings.mobile_image | image_url: width: 1000 }}" 
         alt="{{ section.settings.title | escape }}"
         loading="eager"
         width="{{ section.settings.mobile_image.width }}"
@@ -186,7 +188,7 @@
     {%- elsif section.settings.image != blank -%}
       <img 
         class="collection-banner__image collection-banner__image--mobile" 
-        src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.image | image_url: width: 1000 }}" 
+        src="{{ section.settings.image | image_url: width: 1000 }}" 
         alt="{{ section.settings.title | escape }}"
         loading="eager"
       >
@@ -201,11 +203,11 @@
         {%- endif -%}
 
         {%- if section.settings.subheading != blank -%}
-          <p class="collection-banner__subheading">{{ section.settings.subheading }}</p>
+          <div class="collection-banner__subheading">{{ section.settings.subheading }}</div>
         {%- endif -%}
 
         {%- if section.settings.description != blank -%}
-          <p class="collection-banner__description">{{ section.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement }}</p>
+          <div class="collection-banner__description">{{ section.settings.description }}</div>
         {%- endif -%}
 
         {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
@@ -295,14 +297,23 @@
       "default": "700"
     },
     {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "label": "Heading Letter Spacing",
+      "min": 0,
+      "max": 10,
+      "step": 0.5,
+      "unit": "px",
+      "default": 2
+    },
+    {
       "type": "header",
       "content": "Subheading"
     },
     {
-      "type": "text",
+      "type": "richtext",
       "id": "subheading",
-      "label": "Subheading",
-      "default": "UP TO 70% OFF + EXTRA 20% OFF WITH CODE CYBER20"
+      "label": "Subheading"
     },
     {
       "type": "select",
@@ -350,14 +361,23 @@
       "default": "400"
     },
     {
+      "type": "range",
+      "id": "subheading_letter_spacing",
+      "label": "Subheading Letter Spacing",
+      "min": 0,
+      "max": 10,
+      "step": 0.5,
+      "unit": "px",
+      "default": 1
+    },
+    {
       "type": "header",
       "content": "Description"
     },
     {
-      "type": "textarea",
+      "type": "richtext",
       "id": "description",
-      "label": "Description",
-      "default": "Explore the iconic William Wood Cyber Week Sale, a curated collection of some of our most coveted products, available at the best price of 2025."
+      "label": "Description"
     },
     {
       "type": "select",
@@ -403,6 +423,16 @@
         { "value": "900", "label": "Extra Bold" }
       ],
       "default": "400"
+    },
+    {
+      "type": "range",
+      "id": "description_letter_spacing",
+      "label": "Description Letter Spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "px",
+      "default": 0
     },
     {
       "type": "header",
@@ -452,6 +482,16 @@
         { "value": "900", "label": "Extra Bold" }
       ],
       "default": "600"
+    },
+    {
+      "type": "range",
+      "id": "button_letter_spacing",
+      "label": "Button Letter Spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "px",
+      "default": 1
     },
     {
       "type": "header",
@@ -540,8 +580,8 @@
       "name": "Collection Banner",
       "settings": {
         "title": "CYBER WEEK SALE",
-        "subheading": "UP TO 70% OFF + EXTRA 20% OFF WITH CODE CYBER20",
-        "description": "Explore the iconic William Wood Cyber Week Sale, a curated collection of some of our most coveted products, available at the best price of 2025."
+        "subheading": "<p>UP TO 70% OFF + EXTRA 20% OFF WITH CODE CYBER20</p>",
+        "description": "<p>Explore the iconic William Wood Cyber Week Sale, a curated collection of some of our most coveted products, available at the best price of 2025.</p>"
       }
     }
   ]
