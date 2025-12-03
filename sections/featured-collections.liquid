@@ -176,7 +176,7 @@ translate: 0 -300%;
 
                 {%- for product in collection.products limit: section.settings.products_count -%}
                   {%- if product.featured_media -%}
-                    {%- assign smallest_image_aspect_ratio = smallest_image_aspect_ratio | at_least: product.featured_media.aspect_ratio | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  -%}
+                    {%- assign smallest_image_aspect_ratio = smallest_image_aspect_ratio | at_least: product.featured_media.aspect_ratio   -%}
                   {%- endif -%}
 
                   {%- render 'product-featured-item', product: product, collection: collection, show_cta: section.settings.show_cta, block: block, sizes_attribute: sizes_attribute, reveal: settings.stagger_products_apparition -%}

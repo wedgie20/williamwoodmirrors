@@ -134,7 +134,7 @@
 
             <a id="block-{{ section.id }}-{{ block.id }}" href="{{ block.settings.link_url | default: collection.url  }}" class="list-collections__item {% if is_highlighted %}list-collections__item--highlight {% if is_shifted %}list-collections__item--shift{% endif %}{% endif %} {% if collection_content != blank %}has-overlay{% endif %} image-zoom" {{ block.shopify_attributes }}>
               <div class="list-collections__item-image-wrapper">
-                {%- assign collection_image = block.settings.image | default: collection.featured_image | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  -%}
+                {%- assign collection_image = block.settings.image | default: collection.featured_image   -%}
 
                 {%- if collection_image != blank -%}
                   {%- case section.settings.layout -%}
@@ -158,16 +158,16 @@
                   {%- capture collection_image -%}collection-{% cycle '1', '2', '3', '4', '5', '6' %}{%- endcapture -%}
 
                   {%- if section.settings.reveal_on_scroll -%}
-                    {{- collection_image | placeholder_svg_tag: 'list-collections__item-image placeholder-background' | replace: '<svg', '<svg reveal' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+                    {{- collection_image | placeholder_svg_tag: 'list-collections__item-image placeholder-background' | replace: '<svg', '<svg reveal'    -}}
                   {%- else -%}
-                    {{- collection_image | placeholder_svg_tag: 'list-collections__item-image placeholder-background' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+                    {{- collection_image | placeholder_svg_tag: 'list-collections__item-image placeholder-background'    -}}
                   {%- endif -%}
                 {%- endif -%}
               </div>
 
               {%- if collection_content != blank -%}
                 <div class="list-collections__item-info text-container">
-                  {{- collection_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+                  {{- collection_content    -}}
                 </div>
               {%- endif -%}
             </a>
@@ -178,7 +178,7 @@
       {%- if section.settings.layout == 'grid' or section.settings.layout == 'collage' -%}
         <collection-list {% if section.settings.reveal_on_scroll %}reveal-on-scroll{% endif %} class="list-collections list-collections--{{ section.settings.layout }}">
           <div class="container">
-            {{- section_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+            {{- section_content    -}}
           </div>
         </collection-list>
       {%- elsif section.settings.layout == 'carousel' -%}

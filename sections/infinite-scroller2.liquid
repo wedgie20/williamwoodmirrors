@@ -69,7 +69,7 @@
     {% assign logo_count = 0 %}
     {% capture logo_slides %}
     {% for block in section.blocks %}
-      {% assign logo_image = block.settings.logo_image | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx %}
+      {% assign logo_image = block.settings.logo_image  %}
       {% if logo_image %}
         {% assign logo_count = logo_count | plus: 1 %}
         <div class="logo-slide">

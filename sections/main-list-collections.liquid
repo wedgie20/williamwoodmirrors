@@ -46,10 +46,10 @@
             {%- for item in object_to_iterate -%}
               {%- if section.settings.collections_to_show == 'all' -%}
                 {%- assign collection = item -%}
-                {%- assign collection_image = collection.featured_image | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -%}
+                {%- assign collection_image = collection.featured_image  -%}
               {%- else -%}
                 {%- assign collection = item.settings.collection -%}
-                {%- assign collection_image = item.settings.image | default: collection.featured_image | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -%}
+                {%- assign collection_image = item.settings.image | default: collection.featured_image  -%}
               {%- endif -%}
 
               <a href="{{ collection.url  }}" class="list-collections__item image-zoom {% if section.settings.show_collection_title %}has-overlay{% endif %}">
