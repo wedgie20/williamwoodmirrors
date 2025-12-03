@@ -37,7 +37,7 @@ Validate your Pinterest rich pins
 {%- endif -%}
 
 {%- if page_description -%}
-  <meta property="og:description" content="{{ page_description | escape | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}">
+  <meta property="og:description" content="{{ page_description | escape  }}">
 {%- endif -%}
 
 <meta property="og:url" content="{{ canonical_url }}">
@@ -58,16 +58,16 @@ More information:
 
 {%- if request.page_type == 'product' -%}
   <meta name="twitter:title" content="{{ product.title | escape }}">
-  <meta name="twitter:description" content="{{ product.description | strip_html | truncatewords: 140, '' | escape | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}">
+  <meta name="twitter:description" content="{{ product.description | strip_html | truncatewords: 140, '' | escape  }}">
 {%- elsif request.page_type == 'article' -%}
   <meta name="twitter:title" content="{{ article.title }}">
   <meta name="twitter:description" content="{{ article.excerpt_or_content | strip_html | truncatewords: 140, '' | escape }}">
 {%- elsif request.page_type == 'collection' -%}
   <meta name="twitter:title" content="{{ collection.title }}">
-  <meta name="twitter:description" content="{{ collection.description | strip_html | truncatewords: 140, '' | escape | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}">
+  <meta name="twitter:description" content="{{ collection.description | strip_html | truncatewords: 140, '' | escape  }}">
 {%- else -%}
   <meta name="twitter:title" content="{{ page_title | escape }}">
-  <meta name="twitter:description" content="{{ page_description | default: page_title | escape | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}">
+  <meta name="twitter:description" content="{{ page_description | default: page_title | escape  }}">
 {%- endif -%}
 
 {%- if page_image -%}
