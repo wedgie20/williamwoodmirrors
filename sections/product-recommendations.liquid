@@ -85,7 +85,7 @@
             <div class="product-list__inner product-list__inner--scroller hide-scrollbar">
               {%- if use_recommendations -%}
                 {%- for product in collections.free-gift -%}
-                  {%- assign smallest_image_aspect_ratio = smallest_image_aspect_ratio
+                  {%- assign smallest_image_aspect_ratio = smallest_image_aspect_ratio  | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
                     | at_least: product.featured_media.aspect_ratio
                   -%}
 
@@ -98,7 +98,7 @@
                 {%- endfor -%}
               {%- else -%}
                 {%- for product in section.settings.products -%}
-                  {%- assign smallest_image_aspect_ratio = smallest_image_aspect_ratio
+                  {%- assign smallest_image_aspect_ratio = smallest_image_aspect_ratio  | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
                     | at_least: product.featured_media.aspect_ratio
                   -%}
 
@@ -116,7 +116,7 @@
           {%- if recommendations.products_count > 4 or section.settings.products.count > 4 -%}
             <prev-next-buttons
               class="product-list__prev-next hidden-pocket"
-              style="--smallest-image-aspect-ratio: {{ smallest_image_aspect_ratio | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}"
+              style="--smallest-image-aspect-ratio: {{ smallest_image_aspect_ratio  }}"
             >
               <button class="product-list__arrow prev-next-button prev-next-button--prev" disabled data-action="prev">
                 <span class="visually-hidden">{{ 'general.accessibility.previous' | t }}</span>
