@@ -53,7 +53,7 @@
             poster="{% if section.settings.desktop_poster %}{{ settings.speedsize_url_pfx_https -}}{{ section.settings.desktop_poster | image_url }}{% endif %}"
             data-video-id="desktop-{{ section.id }}"
           >
-            <source src="{{ section.settings.desktop_video.sources[1].url | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}" type="video/mp4">
+            <source src="{{ section.settings.desktop_video.sources[1].url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         {% endif %}
@@ -70,7 +70,7 @@
             poster="{% if section.settings.mobile_poster %}{{ settings.speedsize_url_pfx_https -}}{{ section.settings.mobile_poster | image_url }}{% endif %}"
             data-video-id="mobile-{{ section.id }}"
           >
-            <source src="{{ section.settings.mobile_video.sources[1].url | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}" type="video/mp4">
+            <source src="{{ section.settings.mobile_video.sources[1].url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         {% elsif section.settings.desktop_video != blank %}
@@ -85,7 +85,7 @@
             poster="{% if section.settings.desktop_poster %}{{ settings.speedsize_url_pfx_https -}}{{ section.settings.desktop_poster | image_url }}{% endif %}"
             data-video-id="mobile-fallback-{{ section.id }}"
           >
-            <source src="{{ section.settings.desktop_video.sources[1].url | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}" type="video/mp4">
+            <source src="{{ section.settings.desktop_video.sources[1].url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         {% endif %}
