@@ -189,12 +189,12 @@
 
                   <collapsible-content  id="block-{{ section.id }}-{{ block.id }}-content" class="collapsible" {% if forloop.index0 == 0 %} open{% endif %}>
                     <div class="product-tabs__tab-item-content rte">
-                      {{- product.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  -}}
+                      {{- product.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
                     </div>
 
                     {%- if trust_content != blank and processed_blocks == 0 -%}
                       <div class="product-tabs__trust-list hidden-pocket">
-                        {{- trust_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  -}}
+                        {{- trust_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
                       </div>
                     {%- endif -%}
                   </collapsible-content>
@@ -239,12 +239,12 @@
 
                 <collapsible-content {% if processed_blocks == 0 %}open{% endif %} id="block-{{ section.id }}-{{ block.id }}-content" class="collapsible">
                   <div class="product-tabs__tab-item-content rte">
-                    {{- content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  -}}
+                    {{- content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
                   </div>
 
                   {%- if trust_content != blank and processed_blocks == 0 -%}
                     <div class="product-tabs__trust-list hidden-pocket">
-                      {{- trust_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  -}}
+                      {{- trust_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
                     </div>
                   {%- endif -%}
                 </collapsible-content>
@@ -268,7 +268,7 @@
 
                   {%- if trust_content != blank and processed_blocks == 0 -%}
                     <div class="product-tabs__trust-list hidden-pocket">
-                      {{- trust_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  -}}
+                      {{- trust_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
                     </div>
                   {%- endif -%}
                 </collapsible-content>
@@ -290,7 +290,7 @@
 
          {%- if trust_content != blank -%}
       <div class="product-tabs__trust-list container {% if product_tabs_nav_items != blank %}hidden-lap-and-up{% endif %}">
-        {{- trust_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  -}}
+        {{- trust_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
       </div>
     {%- endif -%}
 
@@ -331,7 +331,7 @@
 {%- if product_content != blank -%}
   <section class="container">
     <div id="product-{{ product.id }}-content" class="product-content anchor">
-      {{- product_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  -}}
+      {{- product_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
     </div>
   </section>
 {%- endif -%}
