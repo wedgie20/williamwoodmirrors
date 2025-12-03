@@ -86,7 +86,7 @@
             {%- for block in section.blocks -%}
               {%- if block.settings.image != blank -%}
                 <img id="block-{{ block.id }}-{{ block.settings.image.id }}" class="image-with-text__image" {% if section.settings.reveal_on_scroll %}reveal-visibility{% endif %} {% unless image_count == 0 %}hidden{% endunless %} sizes="(max-width: 740px) calc(100vw - 96px), (max-width: 999px) calc(100vw - 160px), 600px" loading="lazy" {% render 'image-attributes', image: block.settings.image, sizes: '600,700,800,1000,1200,1400' %}>
-                {%- assign image_count = image_count | plus: 1 -%}
+                {%- assign image_count = image_count | plus: 1 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  -%}
               {%- endif -%}
             {%- endfor -%}
 
