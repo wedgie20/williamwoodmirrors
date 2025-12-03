@@ -72,7 +72,7 @@
               {%- assign share_url = shop.url | append: article.url -%}
               {%- assign twitter_text = article.title | url_param_escape -%}
               {%- assign pinterest_description = article.excerpt_or_content | strip_html | truncatewords: 15 | url_param_escape -%}
-              {%- assign pinterest_image = article.image | img_url: '800x' | prepend: 'https:' | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -%}
+              {%- assign pinterest_image = article.image | img_url: '800x' | prepend: 'https:'   -%}
 
               <button type="button" is="share-toggle-button" share-url="{{ share_url | escape }}" share-title="{{ article.title | escape }}" class="article__share text--subdued link hidden-tablet-and-up" aria-controls="mobile-share-buttons-{{ section.id }}" aria-expanded="false">{{ 'article.general.share' | t }}</button>
 
@@ -138,7 +138,7 @@
 
           <div class="article__content">
             <div class="rte" {{ block.shopify_attributes }}>
-              {{- article.content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+              {{- article.content   -}}
             </div>
           </div>
         </div>

@@ -90,10 +90,10 @@
 
         if (isMobile){
         videoTag.poster = '{{ mobilePosterSrc }}';
-        videoTag.src = '{{ mobileVideoSrc | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}';
+        videoTag.src = '{{ mobileVideoSrc   }}';
         }else{
         videoTag.poster = '{{ desktopPosterSrc }}';
-        videoTag.src = '{{ desktopVideoSrc | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}';
+        videoTag.src = '{{ desktopVideoSrc   }}';
         }
     }
 
@@ -171,7 +171,7 @@
 
     const videoContainer = document.getElementById("tolstoy-hero-video-container-{{ publishId }}");
     videoContainer.addEventListener("click", async() => {
-    let videoLink = '{{ videoLink | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}';
+    let videoLink = '{{ videoLink   }}';
     if (!videoLink){
       return
     }
