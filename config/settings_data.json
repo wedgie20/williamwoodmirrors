@@ -92,6 +92,10 @@
     "speedsize_url_pfx_shopify_cdn_escaped": "https:\\/\\/sfycdn.speedsize.com\\/19bba31a-6c36-4510-aa4c-90e87768362d\\/cdn.shopify.com\\/",
     "speedsize_url_pfx_shop_domain_cdn": "https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/www.williamwoodmirrors.co.uk/cdn/",
     "speedsize_url_pfx_shop_domain_cdn_escaped": "https:\\/\\/sfycdn.speedsize.com\\/19bba31a-6c36-4510-aa4c-90e87768362d\\/www.williamwoodmirrors.co.uk\\/cdn\\/",
+    "speedsize_shopify_cdn_url": "//cdn.shopify.com/",
+    "speedsize_shopify_cdn_url_escaped": "\\/\\/cdn.shopify.com\\/",
+    "speedsize_duplicated_https_search": "https:https:",
+    "speedsize_duplicated_https_replacement": "https:",
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",
@@ -468,11 +472,6 @@
         "disabled": false,
         "settings": {}
       },
-      "4060363859408919298": {
-        "type": "shopify://apps/speedsize-ai-image-optimizer/blocks/speedsize-js-snippet/d1e4c36d-77bd-43c0-a26f-7fc233c0ebfc",
-        "disabled": true,
-        "settings": {}
-      },
       "1291562577487733835": {
         "type": "shopify://apps/black-crow-ai-that-delivers/blocks/blackcrow_ai_script/3e73f597-cb71-47a1-8a06-0c931482ecd2",
         "disabled": false,
@@ -545,12 +544,13 @@
         "type": "shopify://apps/xo-scroll-to-top/blocks/xo-scrolltop/ea52da47-6aa9-474c-8ff9-df181b3784b4",
         "disabled": false,
         "settings": {}
+      },
+      "4060363859408919298": {
+        "type": "shopify://apps/speedsize-ai-image-optimizer/blocks/speedsize-js-snippet/d1e4c36d-77bd-43c0-a26f-7fc233c0ebfc",
+        "disabled": false,
+        "settings": {}
       }
-    },
-    "speedsize_shopify_cdn_url": "//cdn.shopify.com/",
-    "speedsize_shopify_cdn_url_escaped": "\\/\\/cdn.shopify.com\\/",
-    "speedsize_duplicated_https_search": "https:https:",
-    "speedsize_duplicated_https_replacement": "https:"
+    }
   },
   "presets": {
     "Carbon": {
