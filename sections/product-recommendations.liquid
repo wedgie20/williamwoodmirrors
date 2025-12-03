@@ -85,7 +85,7 @@
             <div class="product-list__inner product-list__inner--scroller hide-scrollbar">
               {%- if use_recommendations -%}
                 {%- for product in collections.free-gift -%}
-                  {%- assign smallest_image_aspect_ratio = smallest_image_aspect_ratio  | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
+                  {%- assign smallest_image_aspect_ratio = smallest_image_aspect_ratio  
                     | at_least: product.featured_media.aspect_ratio
                   -%}
 
@@ -98,7 +98,7 @@
                 {%- endfor -%}
               {%- else -%}
                 {%- for product in section.settings.products -%}
-                  {%- assign smallest_image_aspect_ratio = smallest_image_aspect_ratio  | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
+                  {%- assign smallest_image_aspect_ratio = smallest_image_aspect_ratio  
                     | at_least: product.featured_media.aspect_ratio
                   -%}
 
