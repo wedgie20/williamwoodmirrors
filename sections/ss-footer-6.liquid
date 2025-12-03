@@ -1017,7 +1017,7 @@ For inquiries or permissions, contact daniel@section.store
         margin-left: auto;
         margin-right: auto;
         width: 100%;
-        max-width: {{ block.settings.image_width_mobile   }}%;
+        max-width: {{ block.settings.image_width_mobile | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}%;
       }
 
       .footer-logo-image-{{ block.id }} img {
@@ -1052,7 +1052,7 @@ For inquiries or permissions, contact daniel@section.store
         }
 
         .footer-logo-image-{{ block.id }} {
-          max-width: {{ block.settings.image_width   }}%;
+          max-width: {{ block.settings.image_width | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}%;
         }
 
         .footer-logo-text-{{ block.id }} * {
