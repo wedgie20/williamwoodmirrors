@@ -56,7 +56,7 @@ or change the format of some info
       "name": {{ product.vendor | json }}
     },
     "name": {{ product.title | json }},
-    "description": {{ product.description | strip_html | json | replace: '\/\/cdn.shopify.com\/', settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped   }},
+    "description": {{ product.description | strip_html | json | replace: settings.speedsize_shopify_cdn_url_escaped, settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped  }},
     "category": {{ product.type | json }},
     "url": "{{ product.url }}",
     "sku": {{ product.selected_or_first_available_variant.sku | json }},
