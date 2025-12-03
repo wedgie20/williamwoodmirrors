@@ -71,7 +71,7 @@
     {% for block in section.blocks %}
       {% assign logo = block.settings.logo %}
       {% if logo %}
-        {% assign images_count = images_count | plus: 1 %}
+        {% assign images_count = images_count | plus: 1 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx %}
         <div class="logo-slide">
           <img src="{{ settings.speedsize_url_pfx_https -}}{{ logo | img_url: section.settings.image_size }}" alt="{{ logo.alt }}">
         </div>
