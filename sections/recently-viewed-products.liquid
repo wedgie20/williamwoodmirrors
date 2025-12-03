@@ -138,7 +138,7 @@ translate: 0 -300%;
 
                 {%- for product in search.results -%}
                   {%- if product.id == id -%}
-                    {%- assign smallest_image_aspect_ratio = smallest_image_aspect_ratio | at_least: product.featured_media.aspect_ratio -%}
+                    {%- assign smallest_image_aspect_ratio = smallest_image_aspect_ratio | at_least: product.featured_media.aspect_ratio | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -%}
 
                     {%- capture sizes_attribute -%}(max-width: 740px) 75vw, min({{ 100.0 | divided_by: 4 | ceil }}vw, {{ 1520.0 | divided_by: 4 | ceil }}px){%- endcapture -%}
                     {%- render 'product-featured-item', product: product, sizes_attribute: sizes_attribute, show_cta: true, reveal: settings.stagger_products_apparition -%}
@@ -151,7 +151,7 @@ translate: 0 -300%;
           </div>
 
           {%- if search.results_count > 4 -%}
-            <prev-next-buttons class="product-list__prev-next hidden-pocket" style="--smallest-image-aspect-ratio: {{ smallest_image_aspect_ratio | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}">
+            <prev-next-buttons class="product-list__prev-next hidden-pocket" style="--smallest-image-aspect-ratio: {{ smallest_image_aspect_ratio  }}">
               <button class="product-list__arrow prev-next-button prev-next-button--prev" disabled data-action="prev">
                 <span class="visually-hidden">{{ 'general.accessibility.previous' | t }}</span>
                 {%- include 'icon' with 'nav-arrow-left', block: true, direction_aware: true -%}
