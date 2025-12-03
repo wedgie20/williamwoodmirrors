@@ -164,7 +164,7 @@
     {%- if section.settings.image != blank -%}
       <img 
         class="collection-banner__image collection-banner__image--desktop" 
-        src="{{ section.settings.image | image_url: width: 2000 }}" 
+        src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.image | image_url: width: 2000 }}" 
         alt="{{ section.settings.title | escape }}"
         loading="eager"
         width="{{ section.settings.image.width }}"
@@ -177,7 +177,7 @@
     {%- if section.settings.mobile_image != blank -%}
       <img 
         class="collection-banner__image collection-banner__image--mobile" 
-        src="{{ section.settings.mobile_image | image_url: width: 1000 }}" 
+        src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.mobile_image | image_url: width: 1000 }}" 
         alt="{{ section.settings.title | escape }}"
         loading="eager"
         width="{{ section.settings.mobile_image.width }}"
@@ -186,7 +186,7 @@
     {%- elsif section.settings.image != blank -%}
       <img 
         class="collection-banner__image collection-banner__image--mobile" 
-        src="{{ section.settings.image | image_url: width: 1000 }}" 
+        src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.image | image_url: width: 1000 }}" 
         alt="{{ section.settings.title | escape }}"
         loading="eager"
       >
@@ -205,7 +205,7 @@
         {%- endif -%}
 
         {%- if section.settings.description != blank -%}
-          <p class="collection-banner__description">{{ section.settings.description }}</p>
+          <p class="collection-banner__description">{{ section.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement }}</p>
         {%- endif -%}
 
         {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}
