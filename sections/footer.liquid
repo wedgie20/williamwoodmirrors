@@ -20,7 +20,7 @@
             {%- case block.type -%}
               {%- when 'image' -%}
                 {%- if block.settings.image != blank -%}
-                  <img style="width: {{ block.settings.image_width | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}px" loading="lazy" sizes="{{ block.settings.image_width | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}px" class="footer__image" {% render 'image-attributes', image: block.settings.image, sizes: '100, 200, 300, 400, 500, 600' %}>
+                  <img style="width: {{ block.settings.image_width  }}px" loading="lazy" sizes="{{ block.settings.image_width  }}px" class="footer__image" {% render 'image-attributes', image: block.settings.image, sizes: '100, 200, 300, 400, 500, 600' %}>
                 {%- endif -%}
 
               {%- when 'text' -%}
@@ -30,7 +30,7 @@
 
                 {%- if block.settings.content != blank -%}
                   <div class="footer__item-content">
-                    {{- block.settings.content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+                    {{- block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
                   </div>
                 {%- endif -%}
 
@@ -107,7 +107,7 @@
 
           {%- if block_content != blank -%}
             <div class="footer__item footer__item--{{ block.type | replace: '_', '-' }} {% if forloop.first %}is-first{% endif %}" {{ block.shopify_attributes }}>
-              {{- block_content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+              {{- block_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
             </div>
           {%- endif -%}
         {%- endfor -%}
@@ -223,9 +223,9 @@
 
 <br>
 <div style="display: flex; justify-content: center; align-items: center; gap: 10vw;">
-  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/images.png?v=1732012032" style="height: 80px; filter: grayscale(100%);" class="sustainabilityBadge">
-  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/5.png?v=1732011182" style="height: 80px; filter: grayscale(100%);" class="sustainabilityBadge">
-  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/planet.png?v=1732012181" style="height: 80px; filter: grayscale(100%);" class="sustainabilityBadge">
+  <img src="https://cdn.shopify.com/s/files/1/0780/3843/files/images.png?v=1732012032" style="height: 80px; filter: grayscale(100%);" class="sustainabilityBadge">
+  <img src="https://cdn.shopify.com/s/files/1/0780/3843/files/5.png?v=1732011182" style="height: 80px; filter: grayscale(100%);" class="sustainabilityBadge">
+  <img src="https://cdn.shopify.com/s/files/1/0780/3843/files/planet.png?v=1732012181" style="height: 80px; filter: grayscale(100%);" class="sustainabilityBadge">
 </div>
       <br>
 
