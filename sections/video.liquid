@@ -65,7 +65,7 @@
   {%- endcapture -%}
 
   {%- capture video_content -%}
-    <div class="video-section video-section--{% if section.settings.background_type == 'boxed' %}boxed{% else %}full{% endif %} video-section--{{ section.settings.video_size | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}">
+    <div class="video-section video-section--{% if section.settings.background_type == 'boxed' %}boxed{% else %}full{% endif %} video-section--{{ section.settings.video_size   }}">
       <external-video {% if section.settings.autoplay %}autoplay{% endif %} provider="{{ section.settings.video_url.type | escape }}" class="video-wrapper {% if section.settings.autoplay %}video-wrapper--inert{% endif %} {% if section.settings.background_type == 'full_width' and section.settings.video_size != 'auto' %}video-wrapper--cover{% endif %}">
         <div class="video-wrapper__poster">
           {%- if section.settings.image != blank -%}
@@ -103,12 +103,12 @@
       <div class="container">
         <div {% unless blends_with_background %}class="vertical-breather"{% endunless %}>
           {{- section_header -}}
-          {{- video_content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+          {{- video_content   -}}
         </div>
       </div>
     </div>
   {%- else -%}
-    {{- video_content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+    {{- video_content   -}}
   {%- endif -%}
 </section>
 

@@ -810,7 +810,7 @@ Product Description
           {%- assign share_url = shop.url | append: product.url -%}
           {%- assign twitter_text = product.title | url_param_escape -%}
           {%- assign pinterest_description = product.description | strip_html | truncatewords: 15 | url_param_escape -%}
-          {%- assign pinterest_image = product.featured_image | img_url: '800x' | prepend: 'https:' | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -%}
+          {%- assign pinterest_image = product.featured_image | img_url: '800x' | prepend: 'https:'   -%}
 
           <button
             is="share-toggle-button"
@@ -968,7 +968,7 @@ Product Description
 
       <div class="drawer__content drawer__content--padded-start">
         <div class="rte">
-          {{- help_page.content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+          {{- help_page.content   -}}
         </div>
       </div>
     </drawer-content>
@@ -992,7 +992,7 @@ Product Description
 
       <div class="popover__content">
         <div class="rte">
-          {{- help_page.content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+          {{- help_page.content   -}}
         </div>
       </div>
     </popover-content>

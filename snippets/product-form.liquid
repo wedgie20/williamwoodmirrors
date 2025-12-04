@@ -672,13 +672,13 @@ document.addEventListener('DOMContentLoaded', function () {
       {%- when 'image' -%}
         {% if block.settings.image != blank %}
           <div
-            class="product-form__image product-form__image--{{ block.settings.image_alignment | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}"
+            class="product-form__image product-form__image--{{ block.settings.image_alignment   }}"
             {{ block.shopify_attributes }}
           >
-            {%- capture image_sizes -%}{{ block.settings.image_width | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}, {{ block.settings.image_width | times: 2 | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}, {{ block.settings.image_width | times: 3 | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}{%- endcapture -%}
+            {%- capture image_sizes -%}{{ block.settings.image_width   }}, {{ block.settings.image_width | times: 2   }}, {{ block.settings.image_width | times: 3   }}{%- endcapture -%}
             <img
               loading="lazy"
-              style="max-width: {{ block.settings.image_width | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}px"
+              style="max-width: {{ block.settings.image_width   }}px"
               {% render 'image-attributes', image: block.settings.image, sizes: image_sizes %}
             >
           </div>
@@ -867,7 +867,7 @@ document.addEventListener('DOMContentLoaded', function () {
       {%- when 'description' -%}
         {%- if product.description != blank -%}
           <div class="product-form__description rte" {{ block.shopify_attributes }}>
-            {{- product.description | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+            {{- product.description   -}}
           </div>
         {%- endif -%}
 
@@ -1396,7 +1396,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <div class="drawer__content drawer__content--padded-start">
       <div class="rte">
-        {{- size_chart_page.content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+        {{- size_chart_page.content   -}}
       </div>
     </div>
   </drawer-content>
@@ -1420,7 +1420,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <div class="popover__content">
       <div class="rte">
-        {{- size_chart_page.content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+        {{- size_chart_page.content   -}}
       </div>
     </div>
   </popover-content>
@@ -1454,7 +1454,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <div class="drawer__content drawer__content--padded-start">
       <div class="rte">
-        {{- section.settings.question_mark_content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+        {{- section.settings.question_mark_content   -}}
       </div>
     </div>
   </drawer-content>
@@ -1481,7 +1481,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <div class="popover__content">
       <div class="rte">
-        {{- section.settings.question_mark_content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+        {{- section.settings.question_mark_content   -}}
       </div>
     </div>
   </popover-content>

@@ -18,7 +18,7 @@
     {%- if color_swatch_value contains '#' -%}
       {%- assign color_swatch_style = 'background-color: ' | append: color_swatch_value -%}
     {%- elsif images[color_swatch_value] != blank -%}
-      {%- assign color_swatch_image = images[color_swatch_value] | img_url: '72x72' | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -%}
+      {%- assign color_swatch_image = images[color_swatch_value] | img_url: '72x72'   -%}
       {%- assign color_swatch_style = 'background-image: url(' | append: color_swatch_image | append: ')' -%}
     {%- endif -%}
 

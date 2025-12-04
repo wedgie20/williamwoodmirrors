@@ -577,7 +577,7 @@ For inquiries or permissions, contact daniel@section.store
         {% for block in section.blocks %}
           <div class="tabs-item-{{ section.id }} {% if forloop.first %}active{% endif %}" data-id="{{ block.id }}">
             {% if block.settings.product_description %}
-              {{ product.content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}
+              {{ product.content   }}
             {% else %}
               {{ block.settings.content }}
             {% endif %}

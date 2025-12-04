@@ -150,24 +150,24 @@
 
                   {%- if section.settings.layout == 'grid' and collection_image.aspect_ratio > 2.5 -%}
                     {%- assign height_constraint = 800 | at_most: collection_image.height -%}
-                    <img class="list-collections__item-image" {% if section.settings.reveal_on_scroll %}reveal{% endif %} loading="lazy" sizes="{{ image_sizes | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}" {% render 'image-attributes', image: collection_image, sizes: '200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400', height_constraint: height_constraint, crop: 'center' %}>
+                    <img class="list-collections__item-image" {% if section.settings.reveal_on_scroll %}reveal{% endif %} loading="lazy" sizes="{{ image_sizes   }}" {% render 'image-attributes', image: collection_image, sizes: '200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400', height_constraint: height_constraint, crop: 'center' %}>
                   {%- else -%}
-                    <img class="list-collections__item-image" {% if section.settings.reveal_on_scroll %}reveal{% endif %} loading="lazy" sizes="{{ image_sizes | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}" {% render 'image-attributes', image: collection_image, sizes: '200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800' %}>
+                    <img class="list-collections__item-image" {% if section.settings.reveal_on_scroll %}reveal{% endif %} loading="lazy" sizes="{{ image_sizes   }}" {% render 'image-attributes', image: collection_image, sizes: '200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800' %}>
                   {%- endif -%}
                 {%- else -%}
                   {%- capture collection_image -%}collection-{% cycle '1', '2', '3', '4', '5', '6' %}{%- endcapture -%}
 
                   {%- if section.settings.reveal_on_scroll -%}
-                    {{- collection_image | placeholder_svg_tag: 'list-collections__item-image placeholder-background' | replace: '<svg', '<svg reveal' | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+                    {{- collection_image | placeholder_svg_tag: 'list-collections__item-image placeholder-background' | replace: '<svg', '<svg reveal'   -}}
                   {%- else -%}
-                    {{- collection_image | placeholder_svg_tag: 'list-collections__item-image placeholder-background' | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+                    {{- collection_image | placeholder_svg_tag: 'list-collections__item-image placeholder-background'   -}}
                   {%- endif -%}
                 {%- endif -%}
               </div>
 
               {%- if collection_content != blank -%}
                 <div class="list-collections__item-info text-container">
-                  {{- collection_content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+                  {{- collection_content   -}}
                 </div>
               {%- endif -%}
             </a>
@@ -178,7 +178,7 @@
       {%- if section.settings.layout == 'grid' or section.settings.layout == 'collage' -%}
         <collection-list {% if section.settings.reveal_on_scroll %}reveal-on-scroll{% endif %} class="list-collections list-collections--{{ section.settings.layout }}">
           <div class="container">
-            {{- section_content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+            {{- section_content   -}}
           </div>
         </collection-list>
       {%- elsif section.settings.layout == 'carousel' -%}

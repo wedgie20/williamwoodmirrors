@@ -207,7 +207,7 @@
             {%- if block.settings.image != blank -%}
               <img class="image-content__image"
                                 src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image | img_url: '300x300' }}"
-                                data-src="{{ img_url | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}"
+                                data-src="{{ img_url   }}"
                                 data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 1944, 2048]"
                                 data-aspectratio="{{ block.settings.image.aspect_ratio }}"
                                 data-sizes="auto"

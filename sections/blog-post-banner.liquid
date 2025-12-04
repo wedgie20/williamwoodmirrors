@@ -40,7 +40,7 @@
     {%- comment -%}Performance note: this image must not be lazyloaded as it contributes to the LCP{%- endcomment -%}
     <div class="article__image-wrapper {% if article.image.aspect_ratio >= 1 %}article__image-wrapper--square{% else %}article__image-wrapper--tall{% endif %}">
       {%- capture sizes -%}(max-width: 740px) 100vw, {% if article.image.aspect_ratio >= 1 %}50vw{% else %}37.5vw{% endif %}{%- endcapture -%}
-      {{ article.image | image_url: width: 1500 | image_tag: sizes: sizes, widths: '200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500', preload: true, class: 'article__image', reveal: true | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}
+      {{ article.image | image_url: width: 1500 | image_tag: sizes: sizes, widths: '200,300,400,500,600,700,800,900,1000,1100,1200,1300,1400,1500', preload: true, class: 'article__image', reveal: true   }}
     </div>
   {%- endif -%}
 
@@ -53,7 +53,7 @@
 
     {%- if article.excerpt != blank -%}
       <div class="article__excerpt text--large">
-        {{- article.excerpt | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+        {{- article.excerpt   -}}
       </div>
     {%- endif -%}
   </div>

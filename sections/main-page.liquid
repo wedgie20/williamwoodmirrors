@@ -19,14 +19,14 @@
         {%- endif -%}
 
         {%- if template.suffix contains 'contact' or template.suffix contains 'faq' -%}
-          {{- page.content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+          {{- page.content   -}}
         {%- endif -%}
       </div>
     </div>
 
     {%- unless template.suffix contains 'contact' or template.suffix contains 'faq' -%}
       <div class="page-content page-content--{{ section.settings.page_width }} rte">
-        {{- page.content | replace: '//cdn.shopify.com/', settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: 'https:https:', 'https:' | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
+        {{- page.content   -}}
       </div>
     {%- endunless -%}
   </div>
