@@ -13,20 +13,13 @@
     "market": "gb"
   },
   "sections": {
-    "header": {
-      "settings": {
-        "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
-        "menu_bold_text": "Ends Soon: Up to 70% off",
-        "menu_normal_text": "+ Up to an extra 30% off",
-        "highlighted_menu_background_image": "shopify://shop_images/Cyber_Homepage_Desktop_BG.jpg"
-      },
-      "blocks": {}
-    },
     "announcement-bar": {
       "settings": {
         "cycle_speed": 3,
         "button_background": "#ffffff",
-        "button_text_color": "#000000"
+        "button_text_color": "#000000",
+        "background": "#efefef",
+        "text_color": "#000000"
       },
       "blocks": {
         "3f097275-f772-44d9-b5f7-6d6999645314": {
@@ -68,6 +61,15 @@
           }
         }
       }
+    },
+    "header": {
+      "settings": {
+        "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
+        "menu_bold_text": "Ends Soon: Up to 70% off",
+        "menu_normal_text": "+ Up to an extra 30% off",
+        "highlighted_menu_background_image": "shopify://shop_images/Cyber_Homepage_Desktop_BG.jpg"
+      },
+      "blocks": {}
     }
   }
 }
