@@ -345,12 +345,7 @@
   .MobileDown {
     transform: translateY(15px);
   }
-
-  #shopify-section-{{ section.id }} .content-box--text-center{
-      {% comment %} margin-top: 300px !important; {% endcomment %}
-        position: relative;
-        bottom: -280px;
-  }
+  
 }
 
 @media screen and (max-width: 999px) {
@@ -364,7 +359,7 @@ display: block !important;
 #shopify-section-{{ section.id }} .content-box--text-center{
       {% comment %} margin-top: 300px !important; {% endcomment %}
         position: relative;
-        bottom: -294px;
+        bottom: -280px !important;
   }
 }
 
