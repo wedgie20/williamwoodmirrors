@@ -1,0 +1,203 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+  }
+
+  #shopify-section-{{ section.id }} .review-banner {
+    display: flex;
+    justify-content: {{ section.settings.alignment }};
+    align-items: center;
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .review-banner__image {
+    width: 100%;
+    max-width: {{ section.settings.max_width }}px;
+    height: {% if section.settings.height == 0 %}auto{% else %}{{ section.settings.height }}px{% endif %};
+    object-fit: contain;
+  }
+
+  @media screen and (max-width: 740px) {
+    #shopify-section-{{ section.id }} .review-banner {
+      margin-top: {{ section.settings.margin_top_mobile }}px;
+      margin-bottom: {{ section.settings.margin_bottom_mobile }}px;
+    }
+
+    #shopify-section-{{ section.id }} .review-banner__image {
+      max-width: {{ section.settings.max_width_mobile }}px;
+    }
+  }
+</style>
+
+<div class="review-banner">
+  {%- if section.settings.image != blank -%}
+    {%- if section.settings.link != blank -%}
+      <a href="{{ section.settings.link }}">
+    {%- endif -%}
+    
+    <img 
+      class="review-banner__image" 
+      src="{{ section.settings.image | image_url: width: 1200 }}" 
+      alt="{{ section.settings.alt_text | default: 'Review Banner' | escape }}"
+      loading="lazy"
+      width="{{ section.settings.image.width }}"
+      height="{{ section.settings.image.height }}"
+    >
+    
+    {%- if section.settings.link != blank -%}
+      </a>
+    {%- endif -%}
+  {%- else -%}
+    <p style="color: #999; text-align: center;">Upload a review banner image</p>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Review Banner",
+  "class": "shopify-section--review-banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "alt_text",
+      "label": "Alt Text",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Size - Desktop"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max Width (Desktop)",
+      "min": 200,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 800
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "label": "Height (Desktop)",
+      "min": 0,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "default": 0,
+      "info": "Set to 0 for auto height"
+    },
+    {
+      "type": "header",
+      "content": "Size - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "max_width_mobile",
+      "label": "Max Width (Mobile)",
+      "min": 150,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 350
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Desktop"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top (Desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom (Desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Spacing - Mobile"
+    },
+    {
+      "type": "range",
+      "id": "margin_top_mobile",
+      "label": "Margin Top (Mobile)",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom_mobile",
+      "label": "Margin Bottom (Mobile)",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "rgba(0,0,0,0)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Review Banner",
+      "settings": {
+        "max_width": 800,
+        "margin_top": 30,
+        "margin_bottom": 30
+      }
+    }
+  ]
+}
+{% endschema %}
