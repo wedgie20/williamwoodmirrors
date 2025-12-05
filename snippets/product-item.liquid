@@ -288,7 +288,7 @@
       <div class="ups-tag">
         {%- comment %} Show Summer Event only for products tagged with "sale" {%- endcomment -%}
          {%- if product.tags contains 'sale' -%}
-        <p style="color: #780606; margin-bottom: 0px; font-weight: 700">Cyber Week Exclusive</p> 
+        {% comment %} <p style="color: #780606; margin-bottom: 0px; font-weight: 700">Cyber Week Exclusive</p>  {% endcomment %}
         {%- endif -%} 
         <div class="guarantee-item" style="font-size: 13px;">
             <span class="icon" style="display: none;">
