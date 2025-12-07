@@ -109,7 +109,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-0595a1d127d2024561a63da3e5274279": null,
+        "header-0d6bf8effe994db8b91078caacd824d6": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -118,12 +118,6 @@
       "blocks": {},
       "block_order": [],
       "name": "Rich text"
-    },
-    "custom_liquid_NCfRNU": {
-      "settings": {
-        "liquid": "<div class=\"OTTP\" style=\"display: flex; align-items: center; gap: 8px; white-space: nowrap; justify-content: center;\">\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.png?v=1741099146\" style=\"height: 14px;\">\n    <span style=\"white-space: nowrap; font-size: 9px;\">4.7 / 5 Excellent • Based on 10,000+ reviews</span>\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_Logo__2022__svg.webp?v=1741089163\" style=\"height: 14px;\">\n</div>"
-      },
-      "blocks": {}
     },
     "main": {
       "custom_css": [
@@ -152,12 +146,96 @@
           }
         }
       }
+    },
+    "custom_collection_banner_Fmmcq": {
+      "type": "custom-collection-banner",
+      "disabled": false,
+      "settings": {
+        "header-d6f4afec9142a1ac1ec5d8a596f810de": null,
+        "image": "shopify://shop_images/XM25_CP_Desk.jpg",
+        "mobile_image": "shopify://shop_images/XM25_CP_Desk.jpg",
+        "header-cecf4ead806e486381799e229897eafc": null,
+        "title": "GIVE THEM SOMETHING THEY WILL NEVER FORGET",
+        "custom_heading_font": "GothamBlack",
+        "heading_size": 36,
+        "heading_size_mobile": 24,
+        "heading_weight": "700",
+        "heading_letter_spacing": -1,
+        "header-255183255d47f8fe165b4d211de5d66d": null,
+        "subheading": "",
+        "custom_subheading_font": "Zurich, sans-serif",
+        "subheading_size": 14,
+        "subheading_size_mobile": 12,
+        "subheading_weight": "400",
+        "subheading_letter_spacing": 0,
+        "header-ac79c324fff7d750d082df8bbf859205": null,
+        "description": "<p>Order by midnight Sunday 14th for Guaranteed Christmas Delivery.</p>",
+        "custom_description_font": "Zurich, sans-serif",
+        "description_size": 14,
+        "description_size_mobile": 12,
+        "description_weight": "700",
+        "description_letter_spacing": 0,
+        "header-1b9c5d7255d4a8b75de729cb1965fe39": null,
+        "button_text": "",
+        "button_link": "",
+        "custom_button_font": "Zurich, sans-serif",
+        "button_size": 14,
+        "button_weight": "600",
+        "button_letter_spacing": 1,
+        "header-81be5ee2a81a94bdb371f27517ba8a15": null,
+        "vertical_position": "center",
+        "horizontal_position": "flex-start",
+        "text_alignment": "left",
+        "header-35920e25774ee3980ea401affee21cd7": null,
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "background": "#0a1628"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Collection Banner"
+    },
+    "collection-banner": {
+      "disabled": true,
+      "settings": {},
+      "blocks": {}
+    },
+    "updated_review_hEPtm": {
+      "type": "updated-review",
+      "disabled": false,
+      "settings": {
+        "header-bc7d30ded3eb754e669984cbc0a8926a": null,
+        "image": "shopify://shop_images/700K_Thin_Banner_PNG_1_5401055f-f66e-417b-b242-1d9984191d37.png",
+        "alt_text": "Customer Reviews",
+        "link": "",
+        "header-1f3241c2a5d9f436ab6521fae2f53192": null,
+        "max_width": 530,
+        "height": 0,
+        "header-30b6c8126e950ddd08935803004df4fc": null,
+        "max_width_mobile": 600,
+        "header-12a78f6527de49c8fb80432e236193d6": null,
+        "margin_top": 30,
+        "margin_bottom": 0,
+        "header-d8920713cd254305a29c02351b9d62d0": null,
+        "margin_top_mobile": 20,
+        "margin_bottom_mobile": 20,
+        "header-28620539e69fff68b063cb434bfe7d57": null,
+        "alignment": "center",
+        "background_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Review Banner"
     }
   },
   "order": [
     "collection-banner",
+    "custom_collection_banner_Fmmcq",
     "infinite_scroller2_XKdnL",
-    "custom_liquid_NCfRNU",
+    "updated_review_hEPtm",
     "rich_text_rT6j8",
     "promotion_blocks_gLj7PN",
     "main",
