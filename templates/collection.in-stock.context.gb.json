@@ -12,5 +12,117 @@
   "context": {
     "market": "gb"
   },
-  "sections": {}
+  "sections": {
+    "custom_collection_banner_yGhNx": {
+      "type": "custom-collection-banner",
+      "disabled": false,
+      "settings": {
+        "header-d8996c328bfc0b4b223cd14008868de4": null,
+        "image": "shopify://shop_images/XM25_CP_Desk.jpg",
+        "mobile_image": "shopify://shop_images/XM25_CP_Desk.jpg",
+        "header-146d3ee9218c7d3ebe118fd1251e8742": null,
+        "title": "GIVE THEM SOMETHING THEY WILL NEVER FORGET",
+        "custom_heading_font": "GothamBlack",
+        "heading_size": 36,
+        "heading_size_mobile": 24,
+        "heading_weight": "700",
+        "heading_letter_spacing": -1,
+        "header-4e0a772e2c5cdd077526fc3ae3675bd4": null,
+        "subheading": "",
+        "custom_subheading_font": "Zurich, sans-serif",
+        "subheading_size": 14,
+        "subheading_size_mobile": 12,
+        "subheading_weight": "700",
+        "subheading_letter_spacing": 1,
+        "header-9f3511071d4569cd854ab833c92979e9": null,
+        "description": "<p>Order by midnight Sunday 14th for Guaranteed Christmas Delivery.</p>",
+        "custom_description_font": "Zurich, sans-serif",
+        "description_size": 14,
+        "description_size_mobile": 12,
+        "description_weight": "700",
+        "description_letter_spacing": 0,
+        "header-1cceee9ee7a11003b13649e46ee4ab9d": null,
+        "button_text": "",
+        "button_link": "",
+        "custom_button_font": "Zurich, sans-serif",
+        "button_size": 14,
+        "button_weight": "600",
+        "button_letter_spacing": 1,
+        "header-0c397d13f24414e9db1d82dfd60ddb5b": null,
+        "vertical_position": "center",
+        "horizontal_position": "flex-start",
+        "text_alignment": "left",
+        "header-318850d6bc5d669020df5e22f21fa57f": null,
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
+        "background": "#0a1628"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Collection Banner"
+    },
+    "collection-banner": {
+      "disabled": true,
+      "settings": {},
+      "blocks": {}
+    },
+    "updated_review_EcFzr": {
+      "type": "updated-review",
+      "disabled": false,
+      "settings": {
+        "header-b037ef78e109f5e81a7d305397fb0c41": null,
+        "image": "shopify://shop_images/IMG_1230.jpg",
+        "alt_text": "Customer Reviews",
+        "link": "",
+        "header-d6b84fc564bf0887e2008901a1c2a8a6": null,
+        "max_width": 530,
+        "height": 0,
+        "header-11eab560ed7d27d599299ad4eb552b3f": null,
+        "max_width_mobile": 600,
+        "header-b7627712c133a1d7297ce62d503d92eb": null,
+        "margin_top": 30,
+        "margin_bottom": 30,
+        "header-d7e413567916eed7a8735df8fa4297a5": null,
+        "margin_top_mobile": 20,
+        "margin_bottom_mobile": 20,
+        "header-ca7c25549f1446a3e030800213054d51": null,
+        "alignment": "center",
+        "background_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Review Banner"
+    },
+    "custom_liquid_NCfRNU": {
+      "disabled": true,
+      "settings": {},
+      "blocks": {}
+    },
+    "main": {
+      "custom_css": [
+        ".block-swatch-list {display: none !important;}",
+        "@supports (aspect-ratio: 1 / 1) {.aspect-ratio {aspect-ratio: 4.8 / 5; }}",
+        ".product-list {--product-list-column-gap: 4px; --container-gutter: 48px;}",
+        ".product-item__info {text-align: left;}",
+        ".product-item__label-list {justify-content: left;}",
+        "@media only screen and (max-width: 768px) {.product-item__info {padding-left: 5px; }}",
+        ".button--primary {color: black; background: #efefef; display: none;}"
+      ],
+      "settings": {},
+      "blocks": {}
+    }
+  },
+  "order": [
+    "collection-banner",
+    "custom_collection_banner_yGhNx",
+    "updated_review_EcFzr",
+    "custom_liquid_NCfRNU",
+    "promotion_blocks_gLj7PN",
+    "main",
+    "rich_text_Vb6xKb",
+    "multi_column_zWQVjj"
+  ]
 }
