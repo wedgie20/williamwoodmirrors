@@ -15,10 +15,10 @@
   "sections": {
     "announcement-bar": {
       "settings": {
-        "button_background": "#ffffff",
-        "button_text_color": "#000000",
         "background": "#f5f5f5",
-        "text_color": "#000000"
+        "text_color": "#000000",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
       },
       "blocks": {
         "3f097275-f772-44d9-b5f7-6d6999645314": {
@@ -36,12 +36,12 @@
           "disabled": false,
           "settings": {
             "text": "Build Your Bundle: Up to 30% off",
+            "learn_more_text": "shop now",
             "image": "shopify://shop_images/1080_40_OFF.jpg",
             "title": "Up to 30% off full price",
             "content": "<p>Purchase 2 full priced products, get <strong>30% off</strong>. No code required.<br/>or<br/>Purchase 3 or more full priced products, get <strong>30% off</strong>. No code required.</p>",
             "button_text": "SHOP NOW",
-            "button_link": "shopify://collections/best-sellers",
-            "learn_more_text": "shop now"
+            "button_link": "shopify://collections/best-sellers"
           }
         },
         "c4b45150-0e14-460e-8c47-88fd9bd72b02": {
@@ -54,10 +54,12 @@
     },
     "header": {
       "settings": {
-        "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
-        "menu_bold_text": "Cyber Week - Up to 70% off",
-        "menu_normal_text": "+ Extra 20% off - Shop now",
-        "highlighted_menu_background_image": "shopify://shop_images/Cyber_Homepage_Desktop_BG.jpg"
+        "highlighted_menu_item": "shopify://collections/in-stock-ready-to-ship",
+        "menu_bold_text": "Guaranteed Christmas Delivery",
+        "menu_normal_text": "Shop now",
+        "highlighted_menu_background_image": "shopify://shop_images/XM25_CP_Desk.jpg",
+        "second_menu_bold_text": "",
+        "second_menu_normal_text": ""
       },
       "blocks": {}
     }
