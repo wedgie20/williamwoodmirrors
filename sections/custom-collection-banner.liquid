@@ -161,6 +161,8 @@
 }
 </style>
 
+{% if collection.handle == 'in-stock-ready-to-ship' %}
+
 <section class="collection-banner">
   <div class="collection-banner__image-wrapper">
     {%- if section.settings.image != blank -%}
@@ -219,6 +221,8 @@
     </div>
   </div>
 </section>
+{% endif %}
+
 
 {% schema %}
 {
