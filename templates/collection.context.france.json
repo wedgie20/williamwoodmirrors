@@ -109,7 +109,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-997f59d4231695cd6a12eb8d4207663b": null,
+        "header-9ad5cb17be01aca923f4db2b0493a582": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -135,7 +135,7 @@
         "mobile_item_size": "small",
         "desktop_item_size": "medium",
         "spacing": "tight",
-        "header-1ee2df95bcc8ec87f1ea48bbe16b8bf3": null,
+        "header-764653ec6fd1b20e04f1f403976553e2": null,
         "background": "#efefef",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -298,6 +298,7 @@
       ]
     },
     "custom_liquid_NCfRNU": {
+      "disabled": true,
       "settings": {
         "liquid": "<div class=\"OTTP\" style=\"display: flex; align-items: center; gap: 8px; white-space: nowrap; justify-content: center;\">\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_ratings_5star-RGB-min.png?v=1741099146\" style=\"height: 14px;\">\n    <span style=\"white-space: nowrap; font-size: 9px;\">4.7 / 5 Excellent • Based on 10,000+ reviews</span>\n    <img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Trustpilot_Logo__2022__svg.webp?v=1741089163\" style=\"height: 14px;\">\n</div>"
       },
@@ -356,12 +357,40 @@
         "item_aTnwGA",
         "item_7rBD9x"
       ]
+    },
+    "updated_review_HWTzp": {
+      "type": "updated-review",
+      "disabled": false,
+      "settings": {
+        "header-bc7d30ded3eb754e669984cbc0a8926a": null,
+        "image": "shopify://shop_images/700K_Thin_Banner_PNG_1_5401055f-f66e-417b-b242-1d9984191d37.png",
+        "alt_text": "Customer Reviews",
+        "link": "",
+        "header-1f3241c2a5d9f436ab6521fae2f53192": null,
+        "max_width": 530,
+        "height": 0,
+        "header-30b6c8126e950ddd08935803004df4fc": null,
+        "max_width_mobile": 600,
+        "header-12a78f6527de49c8fb80432e236193d6": null,
+        "margin_top": 30,
+        "margin_bottom": 30,
+        "header-d8920713cd254305a29c02351b9d62d0": null,
+        "margin_top_mobile": 20,
+        "margin_bottom_mobile": 20,
+        "header-28620539e69fff68b063cb434bfe7d57": null,
+        "alignment": "center",
+        "background_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Review Banner"
     }
   },
   "order": [
     "collection-banner",
     "infinite_scroller2_f8ePh",
     "custom_liquid_NCfRNU",
+    "updated_review_HWTzp",
     "rich_text_aT9zT",
     "multi_column_6VrFM",
     "main",
