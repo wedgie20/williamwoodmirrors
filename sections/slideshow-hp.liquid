@@ -450,11 +450,9 @@ display: block !important;
 
   }
   @media screen and (max-width: 550px) {
-#shopify-section-{{ section.id }} .content-box--text-center{
-      margin-top: unset !important;
-  }
-  #shopify-section-{{ section.id }} .slideshow__slide-inner{
-      align-items: end !important;
+   #shopify-section-{{ section.id }} .content-box--text-center{
+      {% comment %} margin-top: 200px; {% endcomment %}
+       margin-top: -48px;
   }
   }
 
