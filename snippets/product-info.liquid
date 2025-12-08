@@ -343,9 +343,9 @@ document.addEventListener("DOMContentLoaded", function() {
         
         {%- assign savings = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price -%}
         {%- if savings > 0 -%}
-          {% comment %} <span class="label label--highlight">
+          <span class="label label--highlight">
             Save {% if settings.currency_code_enabled %}{{ savings | money_with_currency }}{% else %}{{ savings | money }}{% endif %}
-          </span> {% endcomment %}
+          </span> 
         {%- endif -%}
           
         {%- else -%}
