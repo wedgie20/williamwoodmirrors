@@ -19,7 +19,7 @@
       "settings": {
         "subheading": "",
         "title": "",
-        "liquid": "<div class=\"klaviyo-form-RiSKui\"></div>",
+        "liquid": "{% unless page.handle == 'members-sign-up' %}\n<div class=\"klaviyo-form-RiSKui\"></div>\n{% endunless %}",
         "add_vertical_spacing": true,
         "background_type": "full_width",
         "header-7a597b604957d85f47a21485c493cba1": null,
