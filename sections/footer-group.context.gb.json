@@ -21,7 +21,7 @@
       "settings": {
         "subheading": "",
         "title": "",
-        "liquid": "<div class=\"klaviyo-form-Szzi3u\"></div>",
+        "liquid": "{% unless page.handle == 'members-sign-up' %}\n<div class=\"klaviyo-form-Szzi3u\"></div>\n{% endunless %}",
         "text_color": "#ffffff"
       },
       "blocks": {}
