@@ -825,10 +825,16 @@ document.addEventListener('DOMContentLoaded', function () {
     {% if product.tags contains 'sale' %}
       <!-- 🎯 Sale block with background image + overlay and matching padding -->
       {% comment %} <h3>{{ block.settings.sale_heading }}</h3> {% endcomment %}
+       {% if block.settings.sale_heading != blank %}
+          <h3>{{ block.settings.sale_heading }}</h3>
+        {% endif %}
       {{ block.settings.sale_text | newline_to_br }}
     {% else %}
      {% comment %} <p style="font-family: var(--heading-font-family, Arial, sans-serif); font-size: 15px; text-transform: uppercase; margin: 0; margin-bottom: 5px">Bundle Offer</p> {% endcomment %}
     {% comment %} <h3>{{ block.settings.promo_heading }}</h3> {% endcomment %}
+     {% if block.settings.promo_heading != blank %}
+  <h3>{{ block.settings.promo_heading }}</h3>
+{% endif %}
      {{ block.settings.promo_text | newline_to_br }}
     {% endif %}
   {% endif %}
