@@ -101,7 +101,8 @@
       "type": "custom-collection-banner",
       "disabled": false,
       "custom_css": [
-        ".collection-banner__image{max-height: 350px;}"
+        ".collection-banner__image{max-height: 350px;}",
+        "@media screen and (max-width: 950px) {.collection-banner__image{object-fit: contain; min-height: auto;}}"
       ],
       "settings": {
         "header-9a307f70aa3ab42ea738d99a066c57e4": null,
