@@ -594,9 +594,9 @@ replaceLastPathSegment('blackfriday-signup');
         {%- section 'static-newsletter' -%}
       {%- endunless -%}
     </div>
- {% if request.path contains '/pages/members-sign-up' %}
+ {% comment %} {% if request.path contains '/pages/members-sign-up' %}
 <div class="klaviyo-form-UbfZHA"></div>
-  {% endif %}
+  {% endif %} {% endcomment %}
     {%- if request.page_type != 'gift_card' and request.page_type != 'password' -%}
       {%- sections 'footer-group' -%}
     {%- endif -%}
