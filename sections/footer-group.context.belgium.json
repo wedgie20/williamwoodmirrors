@@ -19,7 +19,7 @@
       "settings": {
         "subheading": "",
         "title": "",
-        "liquid": "<div class=\"klaviyo-form-VLedK6\"></div>",
+        "liquid": "{% unless page.handle == 'members-sign-up' %}\n<div class=\"klaviyo-form-VLedK6\"></div>\n{% endunless %}",
         "add_vertical_spacing": true,
         "background_type": "full_width",
         "header-ae903807c3c4ffb11fa94f3ed143afdc": null,
