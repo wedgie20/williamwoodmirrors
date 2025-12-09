@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!el) return false;
     const r = el.getBoundingClientRect();
     const vh = window.innerHeight || document.documentElement.clientHeight;
-    return r.top < vh && r.bottom > 0;
+    return r.bottom > 0;
   }
 
   // Set up smooth animations and GPU acceleration
