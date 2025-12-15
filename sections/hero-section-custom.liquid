@@ -433,7 +433,7 @@ p.hero-section__subtitle{
     {%- if section.settings.background_image_desktop != blank -%}
       <img 
         class="hero-section__image hero-section__image--desktop" 
-        src="{{ section.settings.background_image_desktop | image_url: width: 2400 }}" 
+        src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.background_image_desktop | image_url: width: 2400 }}" 
         alt="{{ section.settings.title | escape }}"
         loading="eager"
         width="{{ section.settings.background_image_desktop.width }}"
@@ -446,7 +446,7 @@ p.hero-section__subtitle{
     {%- if section.settings.background_image_mobile != blank -%}
       <img 
         class="hero-section__image hero-section__image--mobile" 
-        src="{{ section.settings.background_image_mobile | image_url: width: 1000 }}" 
+        src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.background_image_mobile | image_url: width: 1000 }}" 
         alt="{{ section.settings.title | escape }}"
         loading="eager"
         width="{{ section.settings.background_image_mobile.width }}"
@@ -455,7 +455,7 @@ p.hero-section__subtitle{
     {%- elsif section.settings.background_image_desktop != blank -%}
       <img 
         class="hero-section__image hero-section__image--mobile" 
-        src="{{ section.settings.background_image_desktop | image_url: width: 1000 }}" 
+        src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.background_image_desktop | image_url: width: 1000 }}" 
         alt="{{ section.settings.title | escape }}"
         loading="eager"
       >
@@ -570,7 +570,7 @@ p.hero-section__subtitle{
                   {%- if section.settings.review_icon != blank -%}
               <img 
                 class="hero-section__review-icon" 
-                src="{{ section.settings.review_icon | image_url: width: 200 }}" 
+                src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.review_icon | image_url: width: 200 }}" 
                 alt="Review icon"
               >
             {%- endif -%}
