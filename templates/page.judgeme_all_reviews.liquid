@@ -1,7 +1,7 @@
 <div id='judgeme_all_reviews_page' class="page clearfix jdgm-all-reviews-page">
   <div class="jdgm-all-reviews-page__wrapper">
     <h1 class="jdgm-all-reviews-page__title">{{ page.title }}</h1>
-    <div class='jdgm-all-reviews-page__description'>{{ page.content   }}</div>
+    <div class='jdgm-all-reviews-page__description'>{{ page.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}</div>
 
     {% render 'judgeme_all_reviews' %}
   </div>
