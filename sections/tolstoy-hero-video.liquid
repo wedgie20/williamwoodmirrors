@@ -90,10 +90,10 @@
 
         if (isMobile){
         videoTag.poster = '{{ mobilePosterSrc }}';
-        videoTag.src = '{{ mobileVideoSrc    }}';
+        videoTag.src = '{{ mobileVideoSrc | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx    }}';
         }else{
         videoTag.poster = '{{ desktopPosterSrc }}';
-        videoTag.src = '{{ desktopVideoSrc    }}';
+        videoTag.src = '{{ desktopVideoSrc | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx    }}';
         }
     }
 
@@ -171,7 +171,7 @@
 
     const videoContainer = document.getElementById("tolstoy-hero-video-container-{{ publishId }}");
     videoContainer.addEventListener("click", async() => {
-    let videoLink = '{{ videoLink    }}';
+    let videoLink = '{{ videoLink | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx    }}';
     if (!videoLink){
       return
     }
