@@ -60,7 +60,7 @@
 
   .hero-section__review {
     display: flex;
-    align-items: start;
+    align-items: center;
     gap: 0px;
     margin-bottom: 16px;
     font-size: 14px;
@@ -72,6 +72,8 @@
     {% else %}
       justify-content: flex-start;
     {% endif %}
+        order: 6;
+    margin-top: 20px;
   }
 
   .hero-section__review-icon {
@@ -150,6 +152,26 @@
   .hero-section__button:hover {
     opacity: 0.85;
   }
+
+  .titleplussubtitle {
+    display: flex;
+    place-items: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    place-content: center;
+}
+
+h1.hero-section__title {
+    margin: unset;
+}
+
+p.hero-section__subtitle{
+    font-family: altesse-std-24pt;
+    font-size: 42px;
+    font-weight: 400;
+    line-height: 1.2;
+}
 
   @media screen and (max-width: 740px) {
     .hero-section__image--desktop {
@@ -314,6 +336,10 @@
     .review_inner_part{
     font-size: 10px !important;
     }
+    .titleplussubtitle {
+    flex-direction: column;
+        gap: unset;
+}
   }
 
   .review_inner_part {
@@ -327,7 +353,7 @@
 
 @media screen and (max-width: 550px) {
     .hero-section__subtitle {
-        display: none;
+        {% comment %} display: none; {% endcomment %}
     }
         .hero-section__content {
         padding-top: 175px !important;
@@ -391,29 +417,8 @@
 
     <div class="hero-section__content container">
       <div class="hero-section__text-wrapper">
-        {%- if section.settings.review_first_line != blank or section.settings.review_second_line != blank -%}
-          <div class="hero-section__review">
-            <div class="review_inner_part">
-            {%- if section.settings.review_first_line != blank -%}
-              <span>{{ section.settings.review_first_line }}</span>
-            {%- endif -%}
-            </div>
-            
-            <div class="review_second_line">
-                  {%- if section.settings.review_icon != blank -%}
-              <img 
-                class="hero-section__review-icon" 
-                src="{{ section.settings.review_icon | image_url: width: 200 }}" 
-                alt="Review icon"
-              >
-            {%- endif -%}
-            {%- if section.settings.review_second_line != blank -%}
-              <span>{{ section.settings.review_second_line }}</span>
-            {%- endif -%}
-            </div>
-          </div>
-        {%- endif -%}
-
+        
+<div class="titleplussubtitle">
         {%- if section.settings.title != blank -%}
           <h1 class="hero-section__title">{{ section.settings.title }}</h1>
         {%- endif -%}
@@ -421,6 +426,7 @@
         {%- if section.settings.subtitle != blank -%}
           <p class="hero-section__subtitle">{{ section.settings.subtitle }}</p>
         {%- endif -%}
+</div>
 
         {%- assign has_bullet_points = false -%}
         {%- if section.settings.bullet_point_1 != blank or section.settings.bullet_point_2 != blank or section.settings.bullet_point_3 != blank or section.settings.bullet_point_4 != blank or section.settings.bullet_point_5 != blank -%}
@@ -481,6 +487,30 @@
             {{ section.settings.button_text }}
           </a>
         {%- endif -%}
+
+        {%- if section.settings.review_first_line != blank or section.settings.review_second_line != blank -%}
+          <div class="hero-section__review">
+            <div class="review_inner_part">
+            {%- if section.settings.review_first_line != blank -%}
+              <span>{{ section.settings.review_first_line }}</span>
+            {%- endif -%}
+            </div>
+            
+            <div class="review_second_line">
+                  {%- if section.settings.review_icon != blank -%}
+              <img 
+                class="hero-section__review-icon" 
+                src="{{ section.settings.review_icon | image_url: width: 200 }}" 
+                alt="Review icon"
+              >
+            {%- endif -%}
+            {%- if section.settings.review_second_line != blank -%}
+              <span>{{ section.settings.review_second_line }}</span>
+            {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+        
       </div>
     </div>
   </div>
