@@ -4,7 +4,7 @@
     --text-color: {{ section.settings.image_text_color.red }}, {{ section.settings.image_text_color.green }}, {{ section.settings.image_text_color.blue }};
     --section-items-alignment: center;
     --section-overlay-color: {{ section.settings.image_overlay_color.red }}, {{ section.settings.image_overlay_color.green }}, {{ section.settings.image_overlay_color.blue }};
-    --section-overlay-opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0   }};
+    --section-overlay-opacity: {{ section.settings.image_overlay_opacity | divided_by: 100.0 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }};
   }
 
 .aurelia-heading {
@@ -72,10 +72,10 @@
             {%- if section.settings.show_collection_description and collection.description != blank -%}
               <div class="image-overlay__text-container imhere" reveal contryname="{{ localization.country }}">
                 {% if localization.country == 'United Kingdom' %}
-                 {{- collection.description   -}}
+                 {{- collection.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
                 {% else %}
                   {% if localization.country == 'France' or localization.country == 'Germany' or localization.country == 'Netherlands' %}
-                    {{- collection.description | replace: '360', '299' | replace: 'Free UK &amp; Northern Ireland Delivery + 90 Days Free Returns.<br><br>', ''  | replace: 'January', 'November'   -}}
+                    {{- collection.description | replace: '360', '299' | replace: 'Free UK &amp; Northern Ireland Delivery + 90 Days Free Returns.<br><br>', ''  | replace: 'January', 'November' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
                   {% else %}
                            {{- collection.description | replace: '£299 GBP', '€360 EUR' | replace: '£99 GBP', '€120 EUR' | replace: '<strong>Note - <meta charset="utf-8">To receive your Free Gift, please ensure to add it to your bag before you purchase.', '' | replace: "If there's no Free Gift in your bag, it won't be included with your order.", '' | replace: 'Select Free Gifts are available only in December.', 'Select Free Gifts are available only in December, secure yours before they are gone.' | replace: 'Free UK &amp; Northern Ireland Delivery + 90 Days Free Returns.<br><br>', ''  | replace: 'Spend €360 EUR or more and select one Free Gift of your choice worth up to €120 EUR, courtesy of William Wood.', '<p data-mce-fragment="1">Spend <meta charset="utf-8"><span data-mce-fragment="1">€360</span>&nbsp;EUR&nbsp;<span data-mce-fragment="1">or more and select one complimentary Free Gift of your choice worth up to&nbsp;€120&nbsp;EUR</span>, courtesy of William Wood.</p>' | replace: '<br><br>', '<br>' -}}
                 {% endif %}
@@ -98,7 +98,7 @@
 
           {%- if section.settings.show_collection_description and collection.description != blank -%}
             <div>
-              {{- collection.description   -}}
+              {{- collection.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   -}}
             </div>
           {%- endif -%}
         </div>
