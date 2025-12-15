@@ -225,12 +225,32 @@ p.hero-section__subtitle{
         max-width: 300px;
         margin: 0 auto;
     }
+    p.hero-section__subtitle {
+    font-size: 46px;
+    }
+  }
+
+  .justfroormobile{
+  display: none;
   }
 
   @media screen and (max-width: 740px) {
     .hero-section__image--desktop {
       display: none;
     }
+     .justfroormobile .button--primary{
+  display: block;
+  }
+
+      .justfroormobile .button--primary{
+  display: block;
+   background-color: {{ section.settings.button_background }};
+    color: {{ section.settings.button_text_color }};
+  }
+
+  .hero-section__button{
+  display: none !important;
+  }
 
     .hero-section__bullet-points {
       font-weight: 100 !important;
@@ -486,6 +506,28 @@ p.hero-section__subtitle{
           <a href="{{ section.settings.button_link }}" class="hero-section__button">
             {{ section.settings.button_text }}
           </a>
+
+          <a href="{{ section.settings.button_link }}" class="justfroormobile shop-now-summer" style="display: block;
+    overflow: hidden;
+    min-height: 70px;">
+    <button class="button button--primary slideshow_txt clearance-text" style="display: inline-flex; align-items: center; justify-content: center; transform: translateY(10px);
+        width: 206px !important;
+    height: 49px !important;
+    gap: 10px;
+    opacity: 1;
+    border-radius: 1000px;
+    padding-top: 16px;
+    padding-right: 24px;
+    padding-bottom: 16px;
+    padding-left: 24px;">
+      <span class="button_1_text" style="white-space: nowrap; width: 100%;font-family: Zurich, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 100%;
+    letter-spacing: 0;">{{ section.settings.button_text }}</span>
+    </button>
+  </a>
+
         {%- endif -%}
 
         {%- if section.settings.review_first_line != blank or section.settings.review_second_line != blank -%}
@@ -510,7 +552,7 @@ p.hero-section__subtitle{
             </div>
           </div>
         {%- endif -%}
-        
+
       </div>
     </div>
   </div>
