@@ -42,6 +42,7 @@
     padding: {{ section.settings.padding_top_desktop }}px {{ section.settings.padding_right_desktop }}px {{ section.settings.padding_bottom_desktop }}px {{ section.settings.padding_left_desktop }}px;
     text-align: {{ section.settings.text_alignment_desktop }};
     color: {{ section.settings.text_color }};
+    z-index: 2;
   }
 
   .hero-section__text-wrapper {
@@ -172,6 +173,23 @@ p.hero-section__subtitle{
     font-weight: 400;
     line-height: 1.2;
 }
+
+ .hero-section__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: {{ section.settings.overlay_color }};
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    z-index: 1;
+  }
+
+    @media screen and (min-width: 741px) {
+    p.hero-section__subtitle{
+        margin-top: -8px;
+    }
+    }
 
   @media screen and (max-width: 740px) {
     .hero-section__image--desktop {
@@ -442,6 +460,8 @@ p.hero-section__subtitle{
         loading="eager"
       >
     {%- endif -%}
+
+    <div class="hero-section__overlay"></div>
 
     <div class="hero-section__content container">
       <div class="hero-section__text-wrapper">
@@ -1069,6 +1089,26 @@ p.hero-section__subtitle{
       "step": 50,
       "unit": "px",
       "default": 600
+    },
+     {
+      "type": "header",
+      "content": "Image Overlay"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay Opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 0
     }
   ],
   "presets": [
