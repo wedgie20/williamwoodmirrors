@@ -40,7 +40,7 @@
     
     <img 
       class="review-banner__image" 
-      src="{{ section.settings.image | image_url: width: 1200 }}" 
+      src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.image | image_url: width: 1200 }}" 
       alt="{{ section.settings.alt_text | default: 'Review Banner' | escape }}"
       loading="lazy"
       width="{{ section.settings.image.width }}"
