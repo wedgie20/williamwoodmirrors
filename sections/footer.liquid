@@ -30,7 +30,7 @@
 
                 {%- if block.settings.content != blank -%}
                   <div class="footer__item-content">
-                    {{- block.settings.content    -}}
+                    {{- block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx    -}}
                   </div>
                 {%- endif -%}
 
@@ -107,7 +107,7 @@
 
           {%- if block_content != blank -%}
             <div class="footer__item footer__item--{{ block.type | replace: '_', '-' }} {% if forloop.first %}is-first{% endif %}" {{ block.shopify_attributes }}>
-              {{- block_content    -}}
+              {{- block_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx    -}}
             </div>
           {%- endif -%}
         {%- endfor -%}
