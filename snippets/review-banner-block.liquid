@@ -14,7 +14,7 @@
             {%- endif -%}
             
             <img
-              src="{{ block.settings.image | image_url: width: 1200 }}"
+              src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image | image_url: width: 1200 }}"
               alt="{{ block.settings.alt_text | default: 'Review Banner' | escape }}"
               loading="lazy"
               style="
