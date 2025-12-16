@@ -14,20 +14,12 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      },
       "blocks": {
         "message_67DEB": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "Up 70% off + Extra 10% off everything",
             "learn_more_text": "shop now",
-            "header-c5f56d8ab32c64db86e8e80dbc0e3af6": null,
             "image": "shopify://shop_images/1080_BF_70.jpg",
             "title": "BLACK FRIDAY WARM UP",
             "content": "<p>Extra 10% off any spend code 'BFW10'</p>",
@@ -46,8 +38,7 @@
           }
         },
         "trustpilot_Q4xFtD": {
-          "disabled": true,
-          "settings": {}
+          "disabled": true
         },
         "c4b45150-0e14-460e-8c47-88fd9bd72b02": {
           "settings": {
@@ -92,8 +83,6 @@
           "settings": {
             "text": "Boxing Day Sale - 22% off everything code BD22 - Ends Midnight Tonight",
             "learn_more_text": "Learn more",
-            "header-a4e958a2b118b3f29f2e16fb307a1a50": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -110,13 +99,19 @@
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "message_wc4BFE",
         "message_z4EP8"
-      ]
+      ],
+      "settings": {
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
+      }
     },
     "header": {
       "settings": {
         "navigation_menu": "nav-menu-new",
         "header_layout": "drawer",
-        "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
+        "highlighted_menu_item": "shopify://collections/christmas-sale",
         "menu_bold_text": "Up To 70% Off",
         "menu_normal_text": "Black Friday Warm Up",
         "second_highlighted_menu_item": "https://www.williamwoodmirrors.co.uk/collections/black-friday-launches-1",
@@ -124,8 +119,7 @@
         "second_menu_normal_text": "Discover",
         "second_highlighted_menu_background_image": "shopify://shop_images/BF25_BANNER_DETAIL_SHOT.jpg",
         "enable_transparent_header": true
-      },
-      "blocks": {}
+      }
     }
   },
   "order": [

@@ -14,21 +14,12 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      },
       "blocks": {
         "message_67DEB": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "Duties & Taxes Paid",
             "learn_more_text": "",
-            "header-87eb082d85ea377bfea78d01b0a03f9f": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -89,8 +80,6 @@
           "settings": {
             "text": "Boxing Day Sale - 22% off everything code BD22 - Ends Midnight Tonight",
             "learn_more_text": "Learn more",
-            "header-954f0db87f4bbb4e42865bd2564d26ad": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -107,13 +96,19 @@
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "message_wc4BFE",
         "message_z4EP8"
-      ]
+      ],
+      "settings": {
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
+      }
     },
     "header": {
       "settings": {
         "navigation_menu": "nav-menu-new",
         "header_layout": "drawer",
-        "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
+        "highlighted_menu_item": "shopify://collections/christmas-sale",
         "menu_bold_text": "Up To 70% Off",
         "menu_normal_text": "Black Friday Warm Up",
         "second_highlighted_menu_item": "https://www.williamwoodmirrors.co.uk/collections/black-friday-launches-1",
@@ -121,8 +116,7 @@
         "second_menu_normal_text": "Discover",
         "second_highlighted_menu_background_image": "shopify://shop_images/BF25_BANNER_DETAIL_SHOT.jpg",
         "enable_transparent_header": true
-      },
-      "blocks": {}
+      }
     }
   },
   "order": [
