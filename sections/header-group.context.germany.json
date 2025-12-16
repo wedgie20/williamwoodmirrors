@@ -14,12 +14,6 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      },
       "blocks": {
         "message_67DEB": {
           "type": "message",
@@ -27,8 +21,6 @@
           "settings": {
             "text": "Duties & Taxes Paid",
             "learn_more_text": "",
-            "header-1ff4c72e687ccb8bb62d711b99544597": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -36,7 +28,6 @@
           }
         },
         "message_N4D9HB": {
-          "disabled": false,
           "settings": {
             "text": "Up to 70% off + Up to an extra 30% off",
             "learn_more_text": "shop now",
@@ -44,11 +35,10 @@
             "title": "Cyber Week - UP TO 70% OFF",
             "content": "<p>Extra <strong>20% off</strong> any spend code 'CYBER20'<br/>or<br/>Extra <strong>30% off</strong> €598 or more code 'CW30'</p>",
             "button_text": "SHOP NOW",
-            "button_link": "shopify://collections/black-friday-warm-up"
+            "button_link": "shopify://collections/christmas-sale"
           }
         },
         "c4b45150-0e14-460e-8c47-88fd9bd72b02": {
-          "disabled": false,
           "settings": {
             "text": "Full Price Bundle: Up to 40% off",
             "image": "shopify://shop_images/1080_40_OFF.jpg",
@@ -79,7 +69,6 @@
           }
         },
         "message_wc4BFE": {
-          "disabled": false,
           "settings": {
             "text": "700,000+ Satisfied Customers | 30,000+ 5 Star Reviews",
             "title": "",
@@ -97,25 +86,29 @@
         "trustpilot_Q4xFtD",
         "955bcd74-0608-4f78-afae-e87df09b9f88",
         "3f097275-f772-44d9-b5f7-6d6999645314"
-      ]
+      ],
+      "settings": {
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
+      }
     },
     "header": {
       "settings": {
         "navigation_menu": "nav-menu-new",
         "header_layout": "drawer",
-        "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
+        "highlighted_menu_item": "shopify://collections/christmas-sale",
         "menu_bold_text": "Cyber Week - Up to 70% off",
         "menu_normal_text": "+ Extra 20% off - Shop now",
         "highlighted_menu_background_image": "shopify://shop_images/Cyber_Homepage_Desktop_BG.jpg",
-        "show_highlighted_menu_timer": false,
         "highlighted_menu_timer_start": "2025-11-24 00:00",
         "highlighted_menu_timer_end": "2025-12-02 00:00",
         "second_highlighted_menu_item": "",
         "second_menu_bold_text": "",
         "second_menu_normal_text": "",
         "enable_transparent_header": true
-      },
-      "blocks": {}
+      }
     }
   },
   "order": [
