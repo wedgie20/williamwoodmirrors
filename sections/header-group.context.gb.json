@@ -15,26 +15,18 @@
   "sections": {
     "header": {
       "settings": {
-        "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
+        "highlighted_menu_item": "shopify://collections/christmas-sale",
         "menu_bold_text": "Ends Soon: Up to 70% off",
         "menu_normal_text": "+ Up to an extra 30% off",
         "highlighted_menu_background_image": "shopify://shop_images/Cyber_Homepage_Desktop_BG.jpg"
-      },
-      "blocks": {}
+      }
     },
     "announcement-bar": {
-      "settings": {
-        "cycle_speed": 3,
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      },
       "blocks": {
         "3f097275-f772-44d9-b5f7-6d6999645314": {
-          "disabled": true,
-          "settings": {}
+          "disabled": true
         },
         "955bcd74-0608-4f78-afae-e87df09b9f88": {
-          "disabled": false,
           "settings": {
             "text": "Up to 70% off + Up to an extra 30% off",
             "learn_more_text": "shop now",
@@ -46,7 +38,6 @@
           }
         },
         "c4b45150-0e14-460e-8c47-88fd9bd72b02": {
-          "disabled": false,
           "settings": {
             "text": "Full Price Bundle: Up to 40% off",
             "image": "shopify://shop_images/1080_40_OFF.jpg",
@@ -57,7 +48,6 @@
           }
         },
         "message_N4D9HB": {
-          "disabled": false,
           "settings": {
             "text": "700,000+ Satisfied Customers | 30,000+ 5 Star Reviews"
           }
@@ -67,6 +57,11 @@
             "text": "Free UK Delivery | 90 Days Free Returns"
           }
         }
+      },
+      "settings": {
+        "cycle_speed": 3,
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
       }
     }
   }
