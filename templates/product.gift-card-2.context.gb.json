@@ -13,6 +13,236 @@
     "market": "gb"
   },
   "sections": {
+    "custom_video_YAwN4": {
+      "type": "custom-video",
+      "disabled": false,
+      "settings": {
+        "header-7ecfcc48ace5be40ee8051488ddc159a": null,
+        "video": "shopify://files/videos/Website Video - Abandoned Cart v2.mp4",
+        "poster_image": "shopify://shop_images/Screenshot_2025-10-08_153408.png",
+        "autoplay": false,
+        "muted": false,
+        "loop": false,
+        "show_controls": true,
+        "show_controls_on_play": true,
+        "pause_on_scroll": true,
+        "header-cfa7ed8e13136b8925a1e9caf72958f7": null,
+        "use_aspect_ratio": false,
+        "video_aspect_ratio": "50",
+        "video_border_radius": 4,
+        "video_shadow": "0 4px 20px rgba(0,0,0,0.15)",
+        "header-e3fa026278140b5c18138e18755454aa": null,
+        "play_button_size": 80,
+        "play_button_background": "#ffffff",
+        "play_button_opacity": 90,
+        "play_button_icon_color": "#000000",
+        "header-bf39061a7c84d1a21589a1035d07a702": null,
+        "show_header": true,
+        "title": "",
+        "subtitle": "",
+        "description": "",
+        "text_alignment": "center",
+        "header-50c0825a999cf7ca7ec7e29b0c6bb0df": null,
+        "title_size": 36,
+        "title_weight": "600",
+        "subtitle_size": 18,
+        "description_size": 16,
+        "header-a5449edcb3a186d50658128708c51cb6": null,
+        "show_button": false,
+        "button_text": "Learn More",
+        "button_link": "",
+        "button_background": "#000000",
+        "button_text_color": "#ffffff",
+        "button_border_radius": 4,
+        "header-6ab6405fa876376330ee2221836b9c74": null,
+        "container_width": 550,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "content_spacing": 10,
+        "title_margin": 0,
+        "subtitle_margin": 0,
+        "header-1061f5d2d2d6faf7dc2cd204ae17530e": null,
+        "background_color": "#ffffff",
+        "text_color": "#000000"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Video Section"
+    },
+    "custom_liquid_em3hc": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "custom_css": [
+        ".Acontainer {display: flex; flex-direction: column; align-items: center; background-color: #efefef !important; padding: 20px;}",
+        ".Acontainer img {width: 30px; margin-bottom: 10px;}",
+        ".Acontainer p {margin: 0; font-size: 16px;}",
+        ".Acontainer .delmins {font-size: 20px;}",
+        "@media (min-width: 1024px) {.Acontainer {width: 50%; transform: translate(50%, 0%); }}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "{% if product.type == 'Table' or product.type == 'Chair' %}\n<br>\n{% if product.tags contains 'prebuilt' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n{% else %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">3-5 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives ready for quick and easy assembly.\n</span>\n</div>\n</body>\n</html>\n{% endif %}\n{% else %}\n{% if product.type == 'Furniture Set' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    All pieces of this furniture set arrive fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n\n{% endif %}\n{% endif %}\n{% if product.type == 'Mirror' %}\n<br>\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Can this mirror be wall mounted?</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\" style=\"font-size: 20px;\">Yes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This mirror can be wall mounted in{% assign description = product.description | downcase %}{% if description contains 'portrait' and description contains 'landscape' %} either{% endif %}{% if description contains 'portrait' %} portrait{% endif %}{% if description contains 'portrait' and description contains 'landscape' %} or{% endif %}{% if description contains 'landscape' %} landscape{% endif %} orientation.\n</span>\n</div>\n</body>\n</html>\n{% endif %}",
+        "add_vertical_spacing": false,
+        "background_type": "full_width",
+        "header-a268a59fd93b0210eba94bd58e986a45": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
+    },
+    "multi_column_Pfpza": {
+      "type": "multi-column",
+      "disabled": false,
+      "settings": {
+        "reveal_on_scroll": true,
+        "stack_items": true,
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "column_alignment": "center",
+        "mobile_item_size": "small",
+        "desktop_item_size": "medium",
+        "spacing": "normal",
+        "header-fd1e383eb617de386bac7575fd8c2e95": null,
+        "background": "#efefef",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {
+        "item_U4NDh": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/icons8-handshake_1.svg",
+            "image_width": 15,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "<p>700,000+ customers have trusted William Wood</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        },
+        "item_PpENp": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/icons8-magnetic-card-48.svg",
+            "image_width": 15,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "<p>Pay in 3-12 instalments at no extra cost</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        },
+        "item_9ggAz": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/icons8-delivery-time-48.svg",
+            "image_width": 15,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "<p>Hassle-Free 90 Days Free Returns & Instant Refunds</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        },
+        "item_PVU99": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/icons8-in-transit-48.svg",
+            "image_width": 15,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "<p>Free Mainland UK + Northern Ireland Delivery</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        }
+      },
+      "block_order": [
+        "item_U4NDh",
+        "item_PpENp",
+        "item_9ggAz",
+        "item_PVU99"
+      ],
+      "name": "Multi-column"
+    },
+    "rich_text_4hpXW": {
+      "type": "rich-text",
+      "disabled": false,
+      "settings": {
+        "subheading": "Precision & Elegance, Since 2010.",
+        "title": "",
+        "content": "<p>Discover Premium Home Design at William Wood. Each product in our collection has been meticulously chosen to meet the high demands of our customers, with countless hours dedicated to ensuring exceptional quality and craftsmanship.</p>",
+        "button_text": "",
+        "button_link": "",
+        "background_type": "full_width",
+        "text_width": "medium",
+        "text_position": "center",
+        "text_alignment": "center",
+        "header-2495ca8502c0e46ba14f4beab767f4e4": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "176587658356b612a2": {
+      "type": "apps",
+      "disabled": false,
+      "settings": {
+        "include_trustpilot": false,
+        "include_horizontal_margins": true,
+        "include_vertical_margins": true
+      },
+      "blocks": {
+        "rebuy_personalization_engine_rebuy_widget_mhDfF": {
+          "type": "shopify://apps/rebuy-personalization-engine/blocks/rebuy-widget/a26ae9b9-933b-40bf-bbc6-bf1220bbc4dc",
+          "disabled": false,
+          "settings": {
+            "enabled": true,
+            "id": "",
+            "product_id_enabled": true,
+            "collection_id_enabled": false
+          }
+        }
+      },
+      "block_order": [
+        "rebuy_personalization_engine_rebuy_widget_mhDfF"
+      ]
+    },
+    "main": {
+      "custom_css": [
+        "#BIS_trigger {background-color: black; color: white;}",
+        "@media only screen and (max-width: 768px) {.product__media-image-wrapper {padding: 0px !important; } .product__media-item {width: 115%; height: auto; overflow: hidden !important; } .product--thumbnails-bottom {margin-top: 0px; }}",
+        ".tp-widget-stars {display: none !important;}",
+        ".product-meta__share {display: none;}",
+        ".product__zoom-button {/* display: none; */}",
+        ".price--large {font-size: 15px !important;}",
+        "#AddToCart {box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);}"
+      ],
+      "settings": {},
+      "blocks": {}
+    },
     "infinite_scroller_PLWixJ": {
       "custom_css": [
         "@media (min-width: 767px) {.infinite-logo-scroller {display: none; }}"
@@ -139,256 +369,6 @@
         "item_GLi8JD",
         "item_W4qKkJ"
       ]
-    },
-    "main": {
-      "custom_css": [
-        "#BIS_trigger {background-color: black; color: white;}",
-        "@media only screen and (max-width: 768px) {.product__media-image-wrapper {padding: 0px !important; } .product__media-item {width: 115%; height: auto; overflow: hidden !important; } .product--thumbnails-bottom {margin-top: 0px; }}",
-        ".tp-widget-stars {display: none !important;}",
-        ".product-meta__share {display: none;}",
-        ".product__zoom-button {/* display: none; */}",
-        ".price--large {font-size: 15px !important;}",
-        "#AddToCart {box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);}"
-      ],
-      "settings": {},
-      "blocks": {}
-    },
-    "custom_video_YAwN4": {
-      "type": "custom-video",
-      "disabled": false,
-      "settings": {
-        "header-013b299ae49c007f014f38382e1b2b9f": null,
-        "video": "shopify://files/videos/Website Video - Abandoned Cart v2.mp4",
-        "poster_image": "shopify://shop_images/Screenshot_2025-10-08_153408.png",
-        "autoplay": false,
-        "muted": false,
-        "loop": false,
-        "show_controls": true,
-        "show_controls_on_play": true,
-        "pause_on_scroll": true,
-        "header-cf44cbbe5526903f53c64feb8208ad07": null,
-        "use_aspect_ratio": false,
-        "video_aspect_ratio": "50",
-        "video_border_radius": 4,
-        "video_shadow": "0 4px 20px rgba(0,0,0,0.15)",
-        "header-b1843aaeac6cd9aaddee40053020726b": null,
-        "play_button_size": 80,
-        "play_button_background": "#ffffff",
-        "play_button_opacity": 90,
-        "play_button_icon_color": "#000000",
-        "header-2b6ccc3f42e1dceaf8cdd132ca2b0262": null,
-        "show_header": true,
-        "title": "",
-        "subtitle": "",
-        "description": "",
-        "text_alignment": "center",
-        "header-6949691d7eda17a93310d5f6b8491caf": null,
-        "title_size": 36,
-        "title_weight": "600",
-        "subtitle_size": 18,
-        "description_size": 16,
-        "header-b88334d5b1f1006efaed742d384a4c54": null,
-        "show_button": false,
-        "button_text": "Learn More",
-        "button_link": "",
-        "button_background": "#000000",
-        "button_text_color": "#ffffff",
-        "button_border_radius": 4,
-        "header-4633e5c5a065593979de36d0c4b63e34": null,
-        "container_width": 550,
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "content_spacing": 10,
-        "title_margin": 0,
-        "subtitle_margin": 0,
-        "header-0e53128f9da9496a059e49654a590bf6": null,
-        "background_color": "#ffffff",
-        "text_color": "#000000"
-      },
-      "blocks": {},
-      "block_order": [],
-      "name": "Custom Video Section"
-    },
-    "custom_liquid_em3hc": {
-      "type": "custom-liquid",
-      "disabled": false,
-      "custom_css": [
-        ".Acontainer {display: flex; flex-direction: column; align-items: center; background-color: #efefef !important; padding: 20px;}",
-        ".Acontainer img {width: 30px; margin-bottom: 10px;}",
-        ".Acontainer p {margin: 0; font-size: 16px;}",
-        ".Acontainer .delmins {font-size: 20px;}",
-        "@media (min-width: 1024px) {.Acontainer {width: 50%; transform: translate(50%, 0%); }}"
-      ],
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "liquid": "{% if product.type == 'Table' or product.type == 'Chair' %}\n<br>\n{% if product.tags contains 'prebuilt' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n{% else %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">3-5 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives ready for quick and easy assembly.\n</span>\n</div>\n</body>\n</html>\n{% endif %}\n{% else %}\n{% if product.type == 'Furniture Set' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    All pieces of this furniture set arrive fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n\n{% endif %}\n{% endif %}\n{% if product.type == 'Mirror' %}\n<br>\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Can this mirror be wall mounted?</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\" style=\"font-size: 20px;\">Yes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This mirror can be wall mounted in{% assign description = product.description | downcase %}{% if description contains 'portrait' and description contains 'landscape' %} either{% endif %}{% if description contains 'portrait' %} portrait{% endif %}{% if description contains 'portrait' and description contains 'landscape' %} or{% endif %}{% if description contains 'landscape' %} landscape{% endif %} orientation.\n</span>\n</div>\n</body>\n</html>\n{% endif %}",
-        "add_vertical_spacing": false,
-        "background_type": "full_width",
-        "header-085369d3abcc11b1b89ef6118f999c4d": null,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": [],
-      "name": "Custom Liquid"
-    },
-    "multi_column_Pfpza": {
-      "type": "multi-column",
-      "disabled": false,
-      "settings": {
-        "reveal_on_scroll": true,
-        "stack_items": true,
-        "subheading": "",
-        "title": "",
-        "content": "",
-        "column_alignment": "center",
-        "mobile_item_size": "small",
-        "desktop_item_size": "medium",
-        "spacing": "normal",
-        "header-a069bfd948342565e5b0fa01f1595983": null,
-        "background": "#efefef",
-        "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {
-        "item_U4NDh": {
-          "type": "item",
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/icons8-handshake_1.svg",
-            "image_width": 15,
-            "image_border": "rgba(0,0,0,0)",
-            "title": "",
-            "content": "<p>700,000+ customers have trusted William Wood</p>",
-            "link_text": "",
-            "link_url": "",
-            "link_style": "link",
-            "text_alignment": "center",
-            "vertical_alignment": "start"
-          }
-        },
-        "item_PpENp": {
-          "type": "item",
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/icons8-magnetic-card-48.svg",
-            "image_width": 15,
-            "image_border": "rgba(0,0,0,0)",
-            "title": "",
-            "content": "<p>Pay in 3-12 instalments at no extra cost</p>",
-            "link_text": "",
-            "link_url": "",
-            "link_style": "link",
-            "text_alignment": "center",
-            "vertical_alignment": "start"
-          }
-        },
-        "item_9ggAz": {
-          "type": "item",
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/icons8-delivery-time-48.svg",
-            "image_width": 15,
-            "image_border": "rgba(0,0,0,0)",
-            "title": "",
-            "content": "<p>Hassle-Free 90 Days Free Returns & Instant Refunds</p>",
-            "link_text": "",
-            "link_url": "",
-            "link_style": "link",
-            "text_alignment": "center",
-            "vertical_alignment": "start"
-          }
-        },
-        "item_PVU99": {
-          "type": "item",
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/icons8-in-transit-48.svg",
-            "image_width": 15,
-            "image_border": "rgba(0,0,0,0)",
-            "title": "",
-            "content": "<p>Free Mainland UK + Northern Ireland Delivery</p>",
-            "link_text": "",
-            "link_url": "",
-            "link_style": "link",
-            "text_alignment": "center",
-            "vertical_alignment": "start"
-          }
-        }
-      },
-      "block_order": [
-        "item_U4NDh",
-        "item_PpENp",
-        "item_9ggAz",
-        "item_PVU99"
-      ],
-      "name": "Multi-column"
-    },
-    "rich_text_4hpXW": {
-      "type": "rich-text",
-      "disabled": false,
-      "settings": {
-        "subheading": "Precision & Elegance, Since 2010.",
-        "title": "",
-        "content": "<p>Discover Premium Home Design at William Wood. Each product in our collection has been meticulously chosen to meet the high demands of our customers, with countless hours dedicated to ensuring exceptional quality and craftsmanship.</p>",
-        "button_text": "",
-        "button_link": "",
-        "background_type": "full_width",
-        "text_width": "medium",
-        "text_position": "center",
-        "text_alignment": "center",
-        "header-25fe812d9bf5ff5acb9de8d73f44796f": null,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)",
-        "button_background": "rgba(0,0,0,0)",
-        "button_text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
-    },
-    "custom_liquid_W4AMm": {
-      "type": "custom-liquid",
-      "disabled": false,
-      "custom_css": [
-        "@media (min-width: 900px) {.container {display: none; }}",
-        "@media (max-width: 900px) {.container {padding-bottom: 30px; }}"
-      ],
-      "settings": {
-        "subheading": "",
-        "title": "",
-        "liquid": "<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_ElevateYourHome-02.jpg?v=1729592904\">",
-        "add_vertical_spacing": false,
-        "background_type": "full_width",
-        "header-601c6c8173e44db2aef9d26ec6f2a3c4": null,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
-    },
-    "176587658356b612a2": {
-      "type": "apps",
-      "disabled": false,
-      "settings": {
-        "include_trustpilot": false,
-        "include_horizontal_margins": true,
-        "include_vertical_margins": true
-      },
-      "blocks": {
-        "rebuy_personalization_engine_rebuy_widget_mhDfF": {
-          "type": "shopify://apps/rebuy-personalization-engine/blocks/rebuy-widget/a26ae9b9-933b-40bf-bbc6-bf1220bbc4dc",
-          "disabled": false,
-          "settings": {
-            "enabled": true,
-            "id": "",
-            "product_id_enabled": true,
-            "collection_id_enabled": false
-          }
-        }
-      },
-      "block_order": [
-        "rebuy_personalization_engine_rebuy_widget_mhDfF"
-      ]
     }
   },
   "order": [
@@ -398,13 +378,10 @@
     "custom_video_YAwN4",
     "custom_liquid_em3hc",
     "product-content",
-    "custom_liquid_NNFwRd",
     "multi_column_Pfpza",
     "rich_text_4hpXW",
-    "custom_liquid_W4AMm",
     "1662458800f72f357a",
     "1662736476a1d5736f",
-    "custom_liquid_iRdUBP",
     "1664500680eee3b37a",
     "product-recommendations",
     "6b54992e-523b-4b41-8ecd-2cfc0d04de3d",
