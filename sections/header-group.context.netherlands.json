@@ -14,21 +14,12 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      },
       "blocks": {
         "message_67DEB": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "Black Friday: 27% off storewide with code BF27 (Ends Midnight Tonight)",
             "learn_more_text": "shop now",
-            "header-4143093e7cf5454b48bfd03adfa7a76d": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -46,8 +37,7 @@
           }
         },
         "trustpilot_Q4xFtD": {
-          "disabled": true,
-          "settings": {}
+          "disabled": true
         },
         "c4b45150-0e14-460e-8c47-88fd9bd72b02": {
           "settings": {
@@ -80,7 +70,6 @@
         },
         "countdown_timer_XBcmN": {
           "type": "countdown_timer",
-          "disabled": false,
           "settings": {
             "label": "2000+ Customers Shopped Today",
             "start_time": "2025-01-01 00:00",
@@ -106,13 +95,19 @@
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "countdown_timer_XBcmN",
         "message_wc4BFE"
-      ]
+      ],
+      "settings": {
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
+      }
     },
     "header": {
       "settings": {
         "navigation_menu": "nav-menu-new",
         "header_layout": "drawer",
-        "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
+        "highlighted_menu_item": "shopify://collections/christmas-sale",
         "menu_bold_text": "Up To 70% Off",
         "menu_normal_text": "shop now",
         "show_highlighted_menu_timer": true,
@@ -123,8 +118,7 @@
         "second_menu_normal_text": "Shop Now",
         "second_highlighted_menu_background_image": "shopify://shop_images/BF25_BANNER_DETAIL_SHOT.jpg",
         "enable_transparent_header": true
-      },
-      "blocks": {}
+      }
     }
   },
   "order": [
