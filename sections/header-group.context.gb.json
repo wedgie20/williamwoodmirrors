@@ -14,16 +14,6 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "announcement_bar_position": "sticky",
-        "announcement_text_size": "small",
-        "autoplay": true,
-        "cycle_speed": 3,
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      },
       "blocks": {
         "message_N4D9HB": {
           "disabled": true,
@@ -33,16 +23,14 @@
             "title": "MYSTERY GIFT",
             "content": "<p>Receive a Mystery Gift with all orders, <strong>ends</strong> <strong>midnight tonight </strong>(no minimum spend).<br/>+<br/><strong>22% off</strong> storewide, enter code <strong>JUL22</strong> at checkout.</p>",
             "button_text": "SHOP NOW",
-            "button_link": "shopify://collections/black-friday-warm-up"
+            "button_link": "shopify://collections/christmas-sale"
           }
         },
         "message_yMjrK": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "Up to 70% off + Up to an extra 30% off",
             "learn_more_text": "shop now",
-            "header-47d7bcb75dc9a7d5ce396396c9590302": null,
             "image": "shopify://shop_images/CyberWeek_SQUARE.jpg",
             "title": "Cyber Week - UP TO 70% OFF",
             "content": "<p>Extra <strong>20% off</strong> any spend code 'CYBER20'<br/>or<br/>Extra <strong>30% off</strong> £499 GBP or more code 'CW30'</p>",
@@ -51,7 +39,6 @@
           }
         },
         "955bcd74-0608-4f78-afae-e87df09b9f88": {
-          "disabled": false,
           "settings": {
             "text": "Full Price Bundle: Up to 40% off",
             "learn_more_text": "",
@@ -64,12 +51,9 @@
         },
         "message_Pn9HN": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "700,000+ Satisfied Customers | 30,000+ 5 Star Reviews",
             "learn_more_text": "",
-            "header-7049252a52621a73b4a79cd5e9048638": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -78,12 +62,9 @@
         },
         "message_Nh4hB": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "Free UK Delivery | 90 Days Free Returns",
             "learn_more_text": "",
-            "header-753126351eb00bd1d31ec41390c23ae2": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -120,7 +101,17 @@
         "message_Nh4hB",
         "message_wc4BFE",
         "3f097275-f772-44d9-b5f7-6d6999645314"
-      ]
+      ],
+      "settings": {
+        "announcement_bar_position": "sticky",
+        "announcement_text_size": "small",
+        "autoplay": true,
+        "cycle_speed": 3,
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
+      }
     },
     "header": {
       "custom_css": [],
@@ -128,19 +119,17 @@
         "mobile_logo_max_width": 140,
         "navigation_menu": "nav-menu-new",
         "header_layout": "drawer",
-        "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
+        "highlighted_menu_item": "shopify://collections/christmas-sale",
         "menu_bold_text": "Ends Soon: Up to 70% off",
         "menu_normal_text": "+ Up to an extra 30% off",
         "highlighted_menu_background_image": "shopify://shop_images/Cyber_Homepage_Desktop_BG.jpg",
-        "show_highlighted_menu_timer": false,
         "highlighted_menu_timer_start": "2025-11-24 00:00",
         "highlighted_menu_timer_end": "2025-11-30 00:00",
         "second_highlighted_menu_item": "",
         "second_menu_bold_text": "",
         "second_menu_normal_text": "",
         "enable_transparent_header": true
-      },
-      "blocks": {}
+      }
     }
   },
   "order": [
