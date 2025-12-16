@@ -323,6 +323,72 @@
         "item_PVU99"
       ],
       "name": "Multi-column"
+    },
+    "rich_text_4hpXW": {
+      "type": "rich-text",
+      "disabled": false,
+      "settings": {
+        "subheading": "Precision & Elegance, Since 2010.",
+        "title": "",
+        "content": "<p>Discover Premium Home Design at William Wood. Each product in our collection has been meticulously chosen to meet the high demands of our customers, with countless hours dedicated to ensuring exceptional quality and craftsmanship.</p>",
+        "button_text": "",
+        "button_link": "",
+        "background_type": "full_width",
+        "text_width": "medium",
+        "text_position": "center",
+        "text_alignment": "center",
+        "header-25fe812d9bf5ff5acb9de8d73f44796f": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "custom_liquid_W4AMm": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "custom_css": [
+        "@media (min-width: 900px) {.container {display: none; }}",
+        "@media (max-width: 900px) {.container {padding-bottom: 30px; }}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_ElevateYourHome-02.jpg?v=1729592904\">",
+        "add_vertical_spacing": false,
+        "background_type": "full_width",
+        "header-601c6c8173e44db2aef9d26ec6f2a3c4": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "176587658356b612a2": {
+      "type": "apps",
+      "disabled": false,
+      "settings": {
+        "include_trustpilot": false,
+        "include_horizontal_margins": true,
+        "include_vertical_margins": true
+      },
+      "blocks": {
+        "rebuy_personalization_engine_rebuy_widget_mhDfF": {
+          "type": "shopify://apps/rebuy-personalization-engine/blocks/rebuy-widget/a26ae9b9-933b-40bf-bbc6-bf1220bbc4dc",
+          "disabled": false,
+          "settings": {
+            "enabled": true,
+            "id": "",
+            "product_id_enabled": true,
+            "collection_id_enabled": false
+          }
+        }
+      },
+      "block_order": [
+        "rebuy_personalization_engine_rebuy_widget_mhDfF"
+      ]
     }
   },
   "order": [
@@ -334,11 +400,14 @@
     "product-content",
     "custom_liquid_NNFwRd",
     "multi_column_Pfpza",
+    "rich_text_4hpXW",
+    "custom_liquid_W4AMm",
     "1662458800f72f357a",
     "1662736476a1d5736f",
     "custom_liquid_iRdUBP",
     "1664500680eee3b37a",
     "product-recommendations",
-    "6b54992e-523b-4b41-8ecd-2cfc0d04de3d"
+    "6b54992e-523b-4b41-8ecd-2cfc0d04de3d",
+    "176587658356b612a2"
   ]
 }
