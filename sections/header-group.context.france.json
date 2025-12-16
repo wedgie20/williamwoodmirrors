@@ -14,13 +14,6 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "announcement_bar_position": "sticky",
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      },
       "blocks": {
         "message_67DEB": {
           "type": "message",
@@ -28,8 +21,6 @@
           "settings": {
             "text": "Duties & Taxes Paid",
             "learn_more_text": "",
-            "header-98e74fe71357b074f47433360e94fb3d": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -37,7 +28,6 @@
           }
         },
         "message_N4D9HB": {
-          "disabled": false,
           "settings": {
             "text": "Cyber Monday: 25% off storewide with code CYBER25 (Ends Midnight Tuesday)",
             "learn_more_text": "shop now",
@@ -89,7 +79,6 @@
         },
         "countdown_timer_79mQy": {
           "type": "countdown_timer",
-          "disabled": false,
           "settings": {
             "label": "",
             "start_time": "2025-11-25 00:00",
@@ -106,26 +95,30 @@
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "message_wc4BFE",
         "countdown_timer_79mQy"
-      ]
+      ],
+      "settings": {
+        "announcement_bar_position": "sticky",
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
+      }
     },
     "header": {
       "settings": {
         "navigation_menu": "nav-menu-new",
         "header_layout": "drawer",
-        "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
+        "highlighted_menu_item": "shopify://collections/christmas-sale",
         "menu_bold_text": "Cyber Monday - Up To 70% Off",
         "menu_normal_text": "shop now",
         "highlighted_menu_background_image": "shopify://shop_images/Cyber_Homepage_Desktop_BG.jpg",
-        "show_highlighted_menu_timer": false,
         "highlighted_menu_timer_start": "2025-11-24 00:00",
         "highlighted_menu_timer_end": "2025-11-29 00:00",
         "second_highlighted_menu_item": "",
         "second_menu_bold_text": "",
         "second_menu_normal_text": "",
-        "second_highlighted_menu_background_image": null,
         "enable_transparent_header": true
-      },
-      "blocks": {}
+      }
     }
   },
   "order": [

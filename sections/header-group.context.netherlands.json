@@ -14,21 +14,12 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      },
       "blocks": {
         "message_67DEB": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "Cyber Monday: 25% off storewide with code CYBER25 (Ends Midnight Tuesday)",
             "learn_more_text": "shop now",
-            "header-ef3ce2ca5117435752c76338f8cba2c6": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -46,8 +37,7 @@
           }
         },
         "trustpilot_Q4xFtD": {
-          "disabled": true,
-          "settings": {}
+          "disabled": true
         },
         "c4b45150-0e14-460e-8c47-88fd9bd72b02": {
           "settings": {
@@ -80,7 +70,6 @@
         },
         "countdown_timer_XBcmN": {
           "type": "countdown_timer",
-          "disabled": false,
           "settings": {
             "label": "",
             "start_time": "2025-01-01 00:00",
@@ -106,26 +95,29 @@
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "countdown_timer_XBcmN",
         "message_wc4BFE"
-      ]
+      ],
+      "settings": {
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
+      }
     },
     "header": {
       "settings": {
         "navigation_menu": "nav-menu-new",
         "header_layout": "drawer",
-        "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
+        "highlighted_menu_item": "shopify://collections/christmas-sale",
         "menu_bold_text": "Cyber Sale - Up To 70% Off",
         "menu_normal_text": "shop now",
         "highlighted_menu_background_image": "shopify://shop_images/Cyber_Homepage_Desktop_BG.jpg",
-        "show_highlighted_menu_timer": false,
         "highlighted_menu_timer_start": "2025-11-24 00:00",
         "highlighted_menu_timer_end": "2025-12-02 00:00",
         "second_highlighted_menu_item": "",
         "second_menu_bold_text": "BLACK FRIDAY LAUNCHES",
         "second_menu_normal_text": "",
-        "second_highlighted_menu_background_image": null,
         "enable_transparent_header": true
-      },
-      "blocks": {}
+      }
     }
   },
   "order": [
