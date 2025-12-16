@@ -14,12 +14,6 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#ffffff"
-      },
       "blocks": {
         "message_67DEB": {
           "type": "message",
@@ -27,8 +21,6 @@
           "settings": {
             "text": "Duties & Taxes Paid",
             "learn_more_text": "",
-            "header-baf61a2823bc1302c4cbd5bbd689a610": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -36,7 +28,6 @@
           }
         },
         "message_N4D9HB": {
-          "disabled": false,
           "settings": {
             "text": "Black Friday Weekend: 22% off storewide with code BF22 (Ends Midnight Sunday)",
             "learn_more_text": "shop now",
@@ -86,7 +77,6 @@
         },
         "countdown_timer_yRU7i": {
           "type": "countdown_timer",
-          "disabled": false,
           "settings": {
             "label": "",
             "start_time": "2025-01-01 00:00",
@@ -103,13 +93,19 @@
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "message_wc4BFE",
         "countdown_timer_yRU7i"
-      ]
+      ],
+      "settings": {
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#ffffff"
+      }
     },
     "header": {
       "settings": {
         "navigation_menu": "nav-menu-new",
         "header_layout": "drawer",
-        "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
+        "highlighted_menu_item": "shopify://collections/christmas-sale",
         "menu_bold_text": "Up To 70% Off",
         "menu_normal_text": "shop now",
         "show_highlighted_menu_timer": true,
@@ -120,8 +116,7 @@
         "second_menu_normal_text": "Shop Now",
         "second_highlighted_menu_background_image": "shopify://shop_images/BF25_BANNER_DETAIL_SHOT.jpg",
         "enable_transparent_header": true
-      },
-      "blocks": {}
+      }
     }
   },
   "order": [

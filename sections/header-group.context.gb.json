@@ -14,16 +14,6 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "announcement_bar_position": "sticky",
-        "announcement_text_size": "normal",
-        "autoplay": true,
-        "cycle_speed": 3,
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      },
       "blocks": {
         "message_N4D9HB": {
           "disabled": true,
@@ -33,17 +23,14 @@
             "title": "MYSTERY GIFT",
             "content": "<p>Receive a Mystery Gift with all orders, <strong>ends</strong> <strong>midnight tonight </strong>(no minimum spend).<br/>+<br/><strong>22% off</strong> storewide, enter code <strong>JUL22</strong> at checkout.</p>",
             "button_text": "SHOP NOW",
-            "button_link": "shopify://collections/black-friday-warm-up"
+            "button_link": "shopify://collections/christmas-sale"
           }
         },
         "message_yMjrK": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "Black Friday Weekend: 22% off storewide  BF22 or 45% off 3 or more full priced products, no code required (Ends Midnight Tonight)",
             "learn_more_text": "",
-            "header-0c15365c45b8f0357644fc6c2c4af49f": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -68,8 +55,6 @@
           "settings": {
             "text": "700,000+ Satisfied Customers | 30,000+ 5 Star Reviews",
             "learn_more_text": "",
-            "header-942a0a223273f20358a7dc21e8efac70": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -82,8 +67,6 @@
           "settings": {
             "text": "Free UK Delivery | 90 Day 100% Money Back Guarantee",
             "learn_more_text": "",
-            "header-f14ad45aff05f3e0a99b783e26dccc57": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -113,7 +96,6 @@
         },
         "countdown_timer_M8jaT": {
           "type": "countdown_timer",
-          "disabled": false,
           "settings": {
             "label": "",
             "start_time": "2025-11-24 00:00",
@@ -130,14 +112,24 @@
         "message_wc4BFE",
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "countdown_timer_M8jaT"
-      ]
+      ],
+      "settings": {
+        "announcement_bar_position": "sticky",
+        "announcement_text_size": "normal",
+        "autoplay": true,
+        "cycle_speed": 3,
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
+      }
     },
     "header": {
       "settings": {
         "mobile_logo_max_width": 140,
         "navigation_menu": "nav-menu-new",
         "header_layout": "drawer",
-        "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
+        "highlighted_menu_item": "shopify://collections/christmas-sale",
         "menu_bold_text": "Up To 70% Off",
         "menu_normal_text": "shop now",
         "show_highlighted_menu_timer": true,
@@ -148,8 +140,7 @@
         "second_menu_normal_text": "Shop Now",
         "second_highlighted_menu_background_image": "shopify://shop_images/BF25_BANNER_DETAIL_SHOT.jpg",
         "enable_transparent_header": true
-      },
-      "blocks": {}
+      }
     }
   },
   "order": [
