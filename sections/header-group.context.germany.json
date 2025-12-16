@@ -14,12 +14,6 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#ffffff"
-      },
       "blocks": {
         "message_67DEB": {
           "type": "message",
@@ -27,8 +21,6 @@
           "settings": {
             "text": "Duties & Taxes Paid",
             "learn_more_text": "",
-            "header-c0af694e4eb118779dd5fa4abc6d8839": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -87,7 +79,6 @@
         },
         "countdown_timer_LeRPf": {
           "type": "countdown_timer",
-          "disabled": false,
           "settings": {
             "label": "",
             "start_time": "2025-01-01 00:00",
@@ -104,25 +95,29 @@
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "message_wc4BFE",
         "countdown_timer_LeRPf"
-      ]
+      ],
+      "settings": {
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#ffffff"
+      }
     },
     "header": {
       "settings": {
         "navigation_menu": "nav-menu-new",
         "header_layout": "drawer",
-        "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
+        "highlighted_menu_item": "shopify://collections/christmas-sale",
         "menu_bold_text": "Up To 70% Off",
         "menu_normal_text": "Black Friday Warm Up",
         "highlighted_menu_background_image": "shopify://shop_images/BF25_Warm_Up_Desktop_CL_0aee607e-69d6-48db-85b8-5fdd5d8246dd.jpg",
-        "show_highlighted_menu_timer": false,
         "highlighted_menu_timer_end": "2025-11-27 23:59",
         "second_highlighted_menu_item": "shopify://collections/black-friday-launches-1",
         "second_menu_bold_text": "LAUNCHING 28.11",
         "second_menu_normal_text": "Discover",
         "second_highlighted_menu_background_image": "shopify://shop_images/BF25_BANNER_DETAIL_SHOT.jpg",
         "enable_transparent_header": true
-      },
-      "blocks": {}
+      }
     }
   },
   "order": [

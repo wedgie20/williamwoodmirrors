@@ -15,25 +15,13 @@
   "sections": {
     "slideshow_hp_mNNPx": {
       "type": "slideshow-hp",
-      "disabled": false,
-      "settings": {
-        "section_height": "fit",
-        "transition_type": "sweep",
-        "autoplay": true,
-        "cycle_speed": 5,
-        "background": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "image_T3XVR": {
           "type": "image",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/BF25_Landing_Page_V2.svg",
-            "split_image": null,
             "mobile_image": "shopify://shop_images/BF25_Main_Event_Mob_BG_V1.jpg",
-            "header-c8b6a0a47d688b6b90b43350a309faec": null,
             "text_position": "middle_center",
-            "header-f3ec3fd131f2ec451f588977d321e947": null,
             "review_headline": "Join 700,000+ Satisfied Customers",
             "review_image": "shopify://shop_images/Trustpilot_ratings_5star-RGB-min_0a651061-7fb3-4d09-81b6-b7f887efdbe1.png",
             "review_text": "4.7 / 5 Excellent | 10,000+ Reviews",
@@ -41,31 +29,26 @@
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-7f83a9e0993622f270386a61685dca2a": null,
             "title": "",
             "heading_font": "system_ui_n4",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-4b6d9a101c5f9488bc2d86bb3e042b8d": null,
             "subheading": "",
             "subheading_font": "system_ui_n4",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-7155c8523f4e9e320c7c6f828fdd7a14": null,
             "slide_text": "",
             "slide_text_font": "system_ui_n4",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-d3aca54487f49e93a0ed6ce5912db86b": null,
             "above_text": "",
             "above_button_font": "system_ui_n4",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-bb9b97aae9107b425920a0d15d9fb89a": null,
             "button_1_text": "Access 37% Off",
             "button_1_link": "https://williamwoodmirrors.co.uk/pages/blackfriday-signup",
             "button_2_text": "",
@@ -74,13 +57,11 @@
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-a36e06a49be5701c00914c7f43b307c4": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
             "review_line_4": "",
             "review_line_5": "",
-            "header-b1ddc8b133654467b47b9440b67ae5f9": null,
             "start_time": "2025-11-17 00:00",
             "end_time": "2025-11-28 00:00",
             "label": "",
@@ -88,7 +69,6 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-789e2f2ff27ad20edd2dc4050c4b584a": null,
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
@@ -100,270 +80,230 @@
       "block_order": [
         "image_T3XVR"
       ],
-      "name": "Slideshow HP"
+      "name": "Slideshow HP",
+      "settings": {
+        "section_height": "fit",
+        "transition_type": "sweep",
+        "autoplay": true,
+        "cycle_speed": 5,
+        "background": "rgba(0,0,0,0)"
+      }
     },
     "infinite_scroller_LGnhM": {
       "type": "infinite-scroller",
-      "disabled": false,
-      "custom_css": [
-        "@media (min-width: 767px) {.infinite-logo-scroller {display: none; }}"
-      ],
-      "settings": {
-        "logos_shown": 3.5,
-        "logo_spacing": 10,
-        "animation_speed": 50,
-        "background_color": "#efefef",
-        "image_size": "200x200"
-      },
       "blocks": {
         "logo_aE9Rm": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-08_1.jpg"
           }
         },
         "logo_pNtbk": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-03.png"
           }
         },
         "logo_3g8Jp": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-05.png"
           }
         },
         "logo_E9Qiw": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-01.png"
           }
         },
         "logo_kyyqn": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-07.png"
           }
         },
         "logo_Jq8D7": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-06.png"
           }
         },
         "logo_9d3KE": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-02.png"
           }
         },
         "logo_KyVGz": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-09.png"
           }
         },
         "logo_qcijq": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-10.png"
           }
         },
         "logo_QwFdF": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-08_1.jpg"
           }
         },
         "logo_A6kYy": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-03.png"
           }
         },
         "logo_yGYdD": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-05.png"
           }
         },
         "logo_yVHG4": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-01.png"
           }
         },
         "logo_rE8yr": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-07.png"
           }
         },
         "logo_dkmgC": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-06.png"
           }
         },
         "logo_dBfyE": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-02.png"
           }
         },
         "logo_FnTLb": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-09.png"
           }
         },
         "logo_Fx6K4": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-10.png"
           }
         },
         "logo_wdhq7": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-08_1.jpg"
           }
         },
         "logo_fNFt7": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-03.png"
           }
         },
         "logo_VGrkf": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-05.png"
           }
         },
         "logo_ptUWx": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-01.png"
           }
         },
         "logo_xQffm": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-07.png"
           }
         },
         "logo_PErzU": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-06.png"
           }
         },
         "logo_zrAwN": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-02.png"
           }
         },
         "logo_3gDxh": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-09.png"
           }
         },
         "logo_TW6aW": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-10.png"
           }
         },
         "logo_iEVN7": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-08_1.jpg"
           }
         },
         "logo_PLDNV": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-03.png"
           }
         },
         "logo_rhyij": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-05.png"
           }
         },
         "logo_Yhi4M": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-01.png"
           }
         },
         "logo_TA67F": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-07.png"
           }
         },
         "logo_Vc66g": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-06.png"
           }
         },
         "logo_7exNz": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-02.png"
           }
         },
         "logo_nVeBr": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-09.png"
           }
         },
         "logo_Gz9Yr": {
           "type": "logo",
-          "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-10.png"
           }
@@ -406,32 +346,23 @@
         "logo_7exNz",
         "logo_nVeBr",
         "logo_Gz9Yr"
-      ]
+      ],
+      "custom_css": [
+        "@media (min-width: 767px) {.infinite-logo-scroller {display: none; }}"
+      ],
+      "settings": {
+        "logos_shown": 3.5,
+        "logo_spacing": 10,
+        "animation_speed": 50,
+        "background_color": "#efefef",
+        "image_size": "200x200"
+      }
     },
     "multi_column_b7wdF": {
       "type": "multi-column",
-      "disabled": false,
-      "custom_css": [
-        "@media (max-width: 767px) {.container {display: none; }}"
-      ],
-      "settings": {
-        "reveal_on_scroll": false,
-        "stack_items": false,
-        "subheading": "",
-        "title": "",
-        "content": "",
-        "column_alignment": "center",
-        "mobile_item_size": "small",
-        "desktop_item_size": "pico",
-        "spacing": "tight",
-        "header-8b21e9f15445c4a2d96b81cb07cdf48f": null,
-        "background": "#efefef",
-        "text_color": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "item_3H7WW": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Recommended_by_1.png",
             "image_width": 92,
@@ -447,7 +378,6 @@
         },
         "item_j6hJj": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/640px-VOGUE_LOGO_svg.png",
             "image_width": 70,
@@ -463,7 +393,6 @@
         },
         "item_ViYdR": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Feature_Logos-02.png",
             "image_width": 100,
@@ -479,7 +408,6 @@
         },
         "item_MbyTH": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/640px-Gentlemen_s-Quarterly-Logo__black__svg.png",
             "image_width": 50,
@@ -495,7 +423,6 @@
         },
         "item_cbt4c": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/interior_designer_1b4e789e-612a-4ab1-a3e0-a9e4c2bc0152.png",
             "image_width": 100,
@@ -511,7 +438,6 @@
         },
         "item_RYYcA": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Sheerluxe-logo-e1572805242856.png",
             "image_width": 100,
@@ -527,7 +453,6 @@
         },
         "item_fMgiD": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/logo-3-2.svg",
             "image_width": 85,
@@ -550,11 +475,27 @@
         "item_cbt4c",
         "item_RYYcA",
         "item_fMgiD"
-      ]
+      ],
+      "custom_css": [
+        "@media (max-width: 767px) {.container {display: none; }}"
+      ],
+      "settings": {
+        "reveal_on_scroll": false,
+        "stack_items": false,
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "column_alignment": "center",
+        "mobile_item_size": "small",
+        "desktop_item_size": "pico",
+        "spacing": "tight",
+        "background": "#efefef",
+        "text_color": "rgba(0,0,0,0)"
+      }
     },
     "rich_text_DXzhJ": {
       "type": "rich-text",
-      "disabled": false,
+      "name": "Rich text",
       "settings": {
         "subheading": "",
         "title": "DUTIES & TAXES PAID",
@@ -565,19 +506,15 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-6674d859fdcd849e5658e75fb61be245": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
         "button_text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": [],
-      "name": "Rich text"
+      }
     },
     "rich_text_QHBWn": {
       "type": "rich-text",
-      "disabled": false,
+      "name": "Rich text",
       "settings": {
         "subheading": "",
         "title": "Flexible payments, 0% interest.",
@@ -588,27 +525,17 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-e8573f69d730bb3bf47240030c5e3903": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
         "button_text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": [],
-      "name": "Rich text"
+      }
     },
     "text_with_icons_pmiLw": {
       "type": "text-with-icons",
-      "disabled": true,
-      "settings": {
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "item_TPN9Y": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "icon": "picto-love",
             "custom_icon": "shopify://shop_images/icons8-handshake_f1fb4875-2b65-468b-840b-e82b32aaf23d.svg",
@@ -619,10 +546,8 @@
         },
         "item_Tatrt": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "icon": "picto-return-box",
-            "custom_icon": null,
             "custom_icon_width": 50,
             "title": "100% Free Returns",
             "content": "<p>Unhappy with your purchase? No problem. Returns are 100% free. We’ll even handle the collection for you, making returning your William Wood purchase effortless. For more information on our returns process, tap <a href=\"https://www.williamwoodmirrors.co.uk/pages/deliveries\" title=\"https://www.williamwoodmirrors.co.uk/pages/deliveries\">here.</a> </p>"
@@ -630,10 +555,8 @@
         },
         "item_6fCMN": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "icon": "picto-warranty",
-            "custom_icon": null,
             "custom_icon_width": 50,
             "title": "Premium quality",
             "content": "<p>Discover Premium Home Design at William Wood. Each product is carefully chosen to satisfy our customers' high standards, guaranteeing outstanding quality and craftsmanship.</p>"
@@ -641,10 +564,8 @@
         },
         "item_RKQ6p": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "icon": "picto-worldwide",
-            "custom_icon": null,
             "custom_icon_width": 50,
             "title": "Sustainability",
             "content": "<p>We're committed to sustainability. Through our partnership with Ecodrive, we plant one tree for every order we receive. You can also choose to plant a tree of your own at checkout.</p>"
@@ -656,11 +577,49 @@
         "item_Tatrt",
         "item_6fCMN",
         "item_RKQ6p"
-      ]
+      ],
+      "disabled": true,
+      "settings": {
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      }
     },
     "featured_collections_meJ8d": {
       "type": "featured-collections",
-      "disabled": false,
+      "blocks": {
+        "collection_kmkz3": {
+          "type": "collection",
+          "settings": {
+            "collection": "christmas-sale",
+            "label": "Black Friday Offers",
+            "button_text": "Shop Up to 70% Off",
+            "button_url": "shopify://collections/christmas-sale"
+          }
+        },
+        "collection_pFXw9": {
+          "type": "collection",
+          "settings": {
+            "collection": "best-sellers",
+            "label": "Best Sellers",
+            "button_text": "Shop All",
+            "button_url": "shopify://collections/best-sellers-in-france"
+          }
+        },
+        "collection_yMQra": {
+          "type": "collection",
+          "settings": {
+            "collection": "new-in",
+            "label": "Latest Arrival",
+            "button_text": "Shop All",
+            "button_url": "shopify://collections/new-in"
+          }
+        }
+      },
+      "block_order": [
+        "collection_kmkz3",
+        "collection_pFXw9",
+        "collection_yMQra"
+      ],
       "custom_css": [
         "@supports (aspect-ratio: 1 / 1) {.aspect-ratio {aspect-ratio: 4.8 / 5; }}",
         ".product-list {--product-list-column-gap: 4px;}",
@@ -676,71 +635,17 @@
         "products_per_row": 4,
         "stack_products": false,
         "show_cta": false,
-        "header-2c6c5b1de0e56b093dcedd491269ffa6": null,
         "background": "#ffffff",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
         "button_text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {
-        "collection_kmkz3": {
-          "type": "collection",
-          "disabled": false,
-          "settings": {
-            "collection": "black-friday-warm-up",
-            "label": "Black Friday Offers",
-            "button_text": "Shop Up to 70% Off",
-            "button_url": "shopify://collections/black-friday-warm-up"
-          }
-        },
-        "collection_pFXw9": {
-          "type": "collection",
-          "disabled": false,
-          "settings": {
-            "collection": "best-sellers",
-            "label": "Best Sellers",
-            "button_text": "Shop All",
-            "button_url": "shopify://collections/best-sellers-in-france"
-          }
-        },
-        "collection_yMQra": {
-          "type": "collection",
-          "disabled": false,
-          "settings": {
-            "collection": "new-in",
-            "label": "Latest Arrival",
-            "button_text": "Shop All",
-            "button_url": "shopify://collections/new-in"
-          }
-        }
-      },
-      "block_order": [
-        "collection_kmkz3",
-        "collection_pFXw9",
-        "collection_yMQra"
-      ]
+      }
     },
     "featured_collections_BFPTb": {
       "type": "featured-collections",
-      "disabled": true,
-      "settings": {
-        "subheading": "New Releases",
-        "title": "",
-        "content": "",
-        "products_count": 8,
-        "products_per_row": 4,
-        "stack_products": false,
-        "show_cta": false,
-        "header-2a8d3f5f73a85c9cba597e6ed36bf172": null,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)",
-        "button_background": "rgba(0,0,0,0)",
-        "button_text_color": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "collection_GwiUt": {
           "type": "collection",
-          "disabled": false,
           "settings": {
             "collection": "francisco",
             "label": "",
@@ -750,7 +655,6 @@
         },
         "collection_LnBRU": {
           "type": "collection",
-          "disabled": false,
           "settings": {
             "collection": "elowyn",
             "label": "",
@@ -762,33 +666,42 @@
       "block_order": [
         "collection_GwiUt",
         "collection_LnBRU"
-      ]
+      ],
+      "disabled": true,
+      "settings": {
+        "subheading": "New Releases",
+        "title": "",
+        "content": "",
+        "products_count": 8,
+        "products_per_row": 4,
+        "stack_products": false,
+        "show_cta": false,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)"
+      }
     },
     "custom_liquid_X6AmD": {
       "type": "custom-liquid",
-      "disabled": false,
       "custom_css": [
         ".title_usp {text-align: center; margin-top: 4rem;}",
         ".title_usp span {font-size: 34px; font-weight: 300;}",
         ".title_usp ~ * {display: none !important;}"
       ],
+      "name": "Custom Liquid",
       "settings": {
         "subheading": "",
         "title": "",
         "liquid": "<div class=\"title_usp\">\n<span class=\"heading h1 slideshow_txt\" style=\"margin-top: 0;\"><span style=\"font-family: altesse-std-24pt; text-transform: lowercase;\"><span style=\"text-transform: capitalize;\">Join</span> our community of over 600,000 followers <br><span style=\"\n    margin-left: -22px;\n\">@williamwood</span></span></span>\n</div>",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-517617b6cb9b6291d83d2bba993148d9": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": [],
-      "name": "Custom Liquid"
+      }
     },
     "recently_viewed_products_EETTj": {
       "type": "recently-viewed-products",
-      "disabled": false,
       "custom_css": [
         "@supports (aspect-ratio: 1 / 1) {.aspect-ratio {aspect-ratio: 4.8 / 5; }}",
         ".product-list {--product-list-column-gap: 4px;}",
@@ -797,46 +710,24 @@
         "@media only screen and (max-width: 768px) {.product-item__info {padding-left: 5px; }}"
       ],
       "settings": {
-        "paragraph-a289c7e295b99f6839e459ae509b50ea": null,
         "subheading": "Your Recently viewed",
         "title": "",
         "products_count": 4,
-        "header-5365aff7b57adf12f0e56df967f4d220": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "collection_list_knf4t": {
       "type": "collection-list",
-      "disabled": false,
-      "custom_css": [
-        "@supports (aspect-ratio: 1 / 1) {.aspect-ratio {aspect-ratio: 4.8 / 5; }}",
-        ".product-list {--product-list-column-gap: 4px;}",
-        ".list-collections__item-list {gap: 4px;}"
-      ],
-      "settings": {
-        "reveal_on_scroll": false,
-        "layout": "carousel",
-        "subheading": "",
-        "title": "",
-        "header-82eb6fefcaac1a98ed9bea9898d472c1": null,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "collection_pFYeN": {
           "type": "collection",
-          "disabled": false,
           "settings": {
             "collection": "all-mirrors",
-            "image": null,
             "subheading": "",
             "title": "Mirrors",
             "link_text": "",
             "link_url": "shopify://collections/all-mirrors",
-            "header-c774ed1f75e7c1a9072a538952c52793": null,
             "text_color": "rgba(0,0,0,0)",
             "overlay_color": "#000000",
             "overlay_opacity": 30
@@ -844,15 +735,12 @@
         },
         "collection_J7ghA": {
           "type": "collection",
-          "disabled": false,
           "settings": {
             "collection": "coffee-tables",
-            "image": null,
             "subheading": "",
             "title": "Coffee Tables",
             "link_text": "",
             "link_url": "shopify://collections/coffee-tables",
-            "header-a8aa8179517f622e4e706f3b0394ef85": null,
             "text_color": "rgba(0,0,0,0)",
             "overlay_color": "#000000",
             "overlay_opacity": 30
@@ -860,15 +748,12 @@
         },
         "collection_EVCRH": {
           "type": "collection",
-          "disabled": false,
           "settings": {
             "collection": "side-tables",
-            "image": null,
             "subheading": "",
             "title": "Side Tables",
             "link_text": "",
             "link_url": "shopify://collections/side-tables",
-            "header-cbbefc12d680c482d0291a5b43a8979a": null,
             "text_color": "rgba(0,0,0,0)",
             "overlay_color": "#000000",
             "overlay_opacity": 30
@@ -876,15 +761,12 @@
         },
         "collection_7ci8H": {
           "type": "collection",
-          "disabled": false,
           "settings": {
             "collection": "accent-chairs",
-            "image": null,
             "subheading": "",
             "title": "Accent Chairs",
             "link_text": "",
             "link_url": "shopify://collections/accent-chairs",
-            "header-f64f7203ba036aa97f75aa932da7c32d": null,
             "text_color": "rgba(0,0,0,0)",
             "overlay_color": "#000000",
             "overlay_opacity": 30
@@ -892,15 +774,12 @@
         },
         "collection_AaYNx": {
           "type": "collection",
-          "disabled": false,
           "settings": {
             "collection": "ceramic-lamps",
-            "image": null,
             "subheading": "",
             "title": "",
             "link_text": "Lamps",
             "link_url": "shopify://collections/ceramic-lamps",
-            "header-67f685a83c3516f7354a7b4e8eef8c96": null,
             "text_color": "rgba(0,0,0,0)",
             "overlay_color": "#000000",
             "overlay_opacity": 30
@@ -908,15 +787,12 @@
         },
         "collection_QgH6A": {
           "type": "collection",
-          "disabled": false,
           "settings": {
             "collection": "accessories",
-            "image": null,
             "subheading": "",
             "title": "Accessories",
             "link_text": "",
             "link_url": "shopify://collections/accessories",
-            "header-27aad90b18652534249481b1ac5f0b74": null,
             "text_color": "rgba(0,0,0,0)",
             "overlay_color": "#000000",
             "overlay_opacity": 30
@@ -931,10 +807,84 @@
         "collection_AaYNx",
         "collection_QgH6A"
       ],
-      "name": "Collection list"
+      "custom_css": [
+        "@supports (aspect-ratio: 1 / 1) {.aspect-ratio {aspect-ratio: 4.8 / 5; }}",
+        ".product-list {--product-list-column-gap: 4px;}",
+        ".list-collections__item-list {gap: 4px;}"
+      ],
+      "name": "Collection list",
+      "settings": {
+        "reveal_on_scroll": false,
+        "layout": "carousel",
+        "subheading": "",
+        "title": "",
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      }
     },
     "slideshow_9Dep7": {
       "type": "slideshow",
+      "blocks": {
+        "image_PGJrx": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/WW_CONTENT_HAUS_27.117019_2-1.jpg",
+            "mobile_image": "shopify://shop_images/WW_CONTENT_HAUS_27.117019_1884.jpg",
+            "text_position": "bottom_left",
+            "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
+            "review_text_font": "assistant_n4",
+            "custom_review_font": "Zurich, sans-serif",
+            "review_text_size": 13,
+            "review_font_weight": "400",
+            "title": "LUCIANA",
+            "heading_font": "system_ui_n4",
+            "custom_heading_font": "Zurich, sans-serif",
+            "heading_text_size": 25,
+            "heading_font_weight": "400",
+            "subheading": "",
+            "subheading_font": "system_ui_n4",
+            "custom_subheading_font": "Zurich, sans-serif",
+            "subheading_text_size": 25,
+            "subheading_font_weight": "400",
+            "slide_text": "We help you create a space you’re proud to come home to, every single day.",
+            "slide_text_font": "system_ui_n4",
+            "custom_text_font": "Zurich, sans-serif",
+            "slide_text_size": 25,
+            "text_font_weight": "400",
+            "above_text": "Join Over 700,000+ Satisfied Customers",
+            "above_button_font": "system_ui_n4",
+            "custom_abovetext_font": "Zurich, sans-serif",
+            "above_button_text_size": 25,
+            "above_font_weight": "400",
+            "button_1_text": "SHOP NOW",
+            "button_1_link": "shopify://collections/luciana",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_font": "system_ui_n4",
+            "custom_button_font": "Zurich, sans-serif",
+            "button_text_size": 25,
+            "button_font_weight": "400",
+            "review_line_1": "",
+            "review_line_2": "",
+            "review_line_3": "",
+            "review_line_4": "",
+            "review_line_5": "",
+            "review_font": "system_ui_n4",
+            "custom_reviewline_font": "Zurich, sans-serif",
+            "review_lines_size": 25,
+            "lines_font_weight": "400",
+            "text_color": "#ffffff",
+            "button_background": "#ffffff",
+            "button_text_color": "#000000",
+            "overlay_color": "#000000",
+            "overlay_opacity": 0
+          }
+        }
+      },
+      "block_order": [
+        "image_PGJrx"
+      ],
       "disabled": true,
       "custom_css": [
         ".button--primary {background-color: white; color: black; text-align: center; text-decoration: none; padding: 0px 20px; margin-right: 0px; font-size: 10px;}",
@@ -946,58 +896,50 @@
         "autoplay": true,
         "cycle_speed": 5,
         "background": "rgba(0,0,0,0)"
-      },
+      }
+    },
+    "slideshow_KcPgh": {
+      "type": "slideshow",
       "blocks": {
-        "image_PGJrx": {
+        "image_x9xhh": {
           "type": "image",
-          "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/WW_CONTENT_HAUS_27.117019_2-1.jpg",
-            "split_image": null,
-            "mobile_image": "shopify://shop_images/WW_CONTENT_HAUS_27.117019_1884.jpg",
-            "header-f80c24c903b457bdfab2c73f91320c2d": null,
+            "image": "shopify://shop_images/WW_CONTENT_HAUS_9.109998_2-1.jpg",
+            "mobile_image": "shopify://shop_images/WW_CONTENT_HAUS_9.109998_1884.jpg",
             "text_position": "bottom_left",
-            "header-c7d137d4e513fe43b7177e7c304393fb": null,
-            "review_image": null,
             "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
             "review_text_font": "assistant_n4",
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-cea169c2f48c91fcee5a878e889a4a13": null,
-            "title": "LUCIANA",
+            "title": "TERRA",
             "heading_font": "system_ui_n4",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-7bcb2b6f74a23c3e3ca5e6268436250e": null,
             "subheading": "",
             "subheading_font": "system_ui_n4",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-59d4b585b2064dd84d6a700902a19015": null,
             "slide_text": "We help you create a space you’re proud to come home to, every single day.",
             "slide_text_font": "system_ui_n4",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-2071a13607e07950dca9a56f66833fd8": null,
             "above_text": "Join Over 700,000+ Satisfied Customers",
             "above_button_font": "system_ui_n4",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-b8c46a99789da447e75b70d47ccefe89": null,
             "button_1_text": "SHOP NOW",
-            "button_1_link": "shopify://collections/luciana",
+            "button_1_link": "shopify://collections/terra",
             "button_2_text": "",
             "button_2_link": "",
             "button_font": "system_ui_n4",
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-71141e6d7040595923c9607534bba19f": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
@@ -1007,21 +949,17 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-e12aa6e81639b6f7b69c309f7feff7c3": null,
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
             "overlay_color": "#000000",
-            "overlay_opacity": 0
+            "overlay_opacity": 4
           }
         }
       },
       "block_order": [
-        "image_PGJrx"
-      ]
-    },
-    "slideshow_KcPgh": {
-      "type": "slideshow",
+        "image_x9xhh"
+      ],
       "disabled": true,
       "custom_css": [
         ".button--primary {background-color: white; color: black; text-align: center; text-decoration: none; padding: 0px 20px; margin-right: 0px; font-size: 10px;}",
@@ -1033,136 +971,43 @@
         "autoplay": false,
         "cycle_speed": 5,
         "background": "rgba(0,0,0,0)"
-      },
-      "blocks": {
-        "image_x9xhh": {
-          "type": "image",
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/WW_CONTENT_HAUS_9.109998_2-1.jpg",
-            "split_image": null,
-            "mobile_image": "shopify://shop_images/WW_CONTENT_HAUS_9.109998_1884.jpg",
-            "header-424e8230083a7ff26c03c1e0199f856a": null,
-            "text_position": "bottom_left",
-            "header-a44854a42a849e8fb519dedfb337e6c2": null,
-            "review_image": null,
-            "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
-            "review_text_font": "assistant_n4",
-            "custom_review_font": "Zurich, sans-serif",
-            "review_text_size": 13,
-            "review_font_weight": "400",
-            "header-57fd1d9046e5cdce32f80ab70f5117cb": null,
-            "title": "TERRA",
-            "heading_font": "system_ui_n4",
-            "custom_heading_font": "Zurich, sans-serif",
-            "heading_text_size": 25,
-            "heading_font_weight": "400",
-            "header-7da05d3cf0f5f3640c30485364b72366": null,
-            "subheading": "",
-            "subheading_font": "system_ui_n4",
-            "custom_subheading_font": "Zurich, sans-serif",
-            "subheading_text_size": 25,
-            "subheading_font_weight": "400",
-            "header-8c35885636ead7cfb08c006bf651a46a": null,
-            "slide_text": "We help you create a space you’re proud to come home to, every single day.",
-            "slide_text_font": "system_ui_n4",
-            "custom_text_font": "Zurich, sans-serif",
-            "slide_text_size": 25,
-            "text_font_weight": "400",
-            "header-4e3fac3c3d1eb5eabb295ea84665d9b6": null,
-            "above_text": "Join Over 700,000+ Satisfied Customers",
-            "above_button_font": "system_ui_n4",
-            "custom_abovetext_font": "Zurich, sans-serif",
-            "above_button_text_size": 25,
-            "above_font_weight": "400",
-            "header-3227d09e828a6e9b7ff1e9b26238a792": null,
-            "button_1_text": "SHOP NOW",
-            "button_1_link": "shopify://collections/terra",
-            "button_2_text": "",
-            "button_2_link": "",
-            "button_font": "system_ui_n4",
-            "custom_button_font": "Zurich, sans-serif",
-            "button_text_size": 25,
-            "button_font_weight": "400",
-            "header-b81139b7a41f25eed17103f91cf721f4": null,
-            "review_line_1": "",
-            "review_line_2": "",
-            "review_line_3": "",
-            "review_line_4": "",
-            "review_line_5": "",
-            "review_font": "system_ui_n4",
-            "custom_reviewline_font": "Zurich, sans-serif",
-            "review_lines_size": 25,
-            "lines_font_weight": "400",
-            "header-fc2d0d4108baac93d96dead3541981aa": null,
-            "text_color": "#ffffff",
-            "button_background": "#ffffff",
-            "button_text_color": "#000000",
-            "overlay_color": "#000000",
-            "overlay_opacity": 4
-          }
-        }
-      },
-      "block_order": [
-        "image_x9xhh"
-      ]
+      }
     },
     "slideshow_A7JMV": {
       "type": "slideshow",
-      "disabled": true,
-      "custom_css": [
-        ".button--primary {background-color: white; color: black; text-align: center; text-decoration: none; padding: 0px 20px; margin-right: 0px; font-size: 10px;}",
-        "@media only screen and (max-width: 600px) {.heading--large {font-size: 28px; }}"
-      ],
-      "settings": {
-        "section_height": "auto",
-        "transition_type": "fade",
-        "autoplay": true,
-        "cycle_speed": 5,
-        "background": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "image_Frip4": {
           "type": "image",
           "disabled": true,
           "settings": {
             "image": "shopify://shop_images/WW_24_WWGC_2-1.jpg",
-            "split_image": null,
             "mobile_image": "shopify://shop_images/WW_24_WWGC_1884.jpg",
-            "header-e6145e4ab5a68bdfb807517e1ee0c77a": null,
             "text_position": "bottom_left",
-            "header-3f9847f901be46eb1c96f55aaa089f5f": null,
-            "review_image": null,
             "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
             "review_text_font": "assistant_n4",
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-b2770f8f5fdb545388f00f6f9c4fe40e": null,
             "title": "E-GIFT CARDS",
             "heading_font": "system_ui_n4",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-55a5024b02c473377ed0751b4fc1710e": null,
             "subheading": "",
             "subheading_font": "system_ui_n4",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-c5ec810db023e1b02e57ae4883c7dce0": null,
             "slide_text": "We help you create a space you’re proud to come home to, every single day.",
             "slide_text_font": "system_ui_n4",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-b9aa4757b35117ed726dee87751fc1c3": null,
             "above_text": "Join Over 700,000+ Satisfied Customers",
             "above_button_font": "system_ui_n4",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-6faf4834875d624247b0d879ba459318": null,
             "button_1_text": "SHOP NOW",
             "button_1_link": "shopify://products/gift-card",
             "button_2_text": "",
@@ -1171,7 +1016,6 @@
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-5ef649dab1893b309b7095033aaf10e9": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
@@ -1181,7 +1025,6 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-36777b1533979632a3554eb6e9d57a88": null,
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
@@ -1192,10 +1035,7 @@
       },
       "block_order": [
         "image_Frip4"
-      ]
-    },
-    "slideshow_JKi6b": {
-      "type": "slideshow",
+      ],
       "disabled": true,
       "custom_css": [
         ".button--primary {background-color: white; color: black; text-align: center; text-decoration: none; padding: 0px 20px; margin-right: 0px; font-size: 10px;}",
@@ -1207,49 +1047,42 @@
         "autoplay": true,
         "cycle_speed": 5,
         "background": "rgba(0,0,0,0)"
-      },
+      }
+    },
+    "slideshow_JKi6b": {
+      "type": "slideshow",
       "blocks": {
         "image_6MLzU": {
           "type": "image",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/WW_CONTENT_HAUS_17.100463_1__2-1.jpg",
-            "split_image": null,
             "mobile_image": "shopify://shop_images/WW_CONTENT_HAUS_17.100463_1__1884.jpg",
-            "header-fb75ddd6e4a6902eb090b561c27a562e": null,
             "text_position": "bottom_left",
-            "header-efe2acafddbaf67f8d48c413e7124a45": null,
-            "review_image": null,
             "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
             "review_text_font": "assistant_n4",
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-2fa8ad8835c75b2345bf0ce4e8acbb2c": null,
             "title": "WOODEN TONES",
             "heading_font": "system_ui_n4",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-9d00df26a65da6ced31df52b7d94ea89": null,
             "subheading": "",
             "subheading_font": "system_ui_n4",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-0a857feb3f8e72f9f6a4499c868f2390": null,
             "slide_text": "We help you create a space you’re proud to come home to, every single day.",
             "slide_text_font": "system_ui_n4",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-85b0b8c6a340e5539759ab057cc80c3f": null,
             "above_text": "Join Over 700,000+ Satisfied Customers",
             "above_button_font": "system_ui_n4",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-4d8210f06b046ae3adb18404c3a41a9e": null,
             "button_1_text": "SHOP NOW",
             "button_1_link": "shopify://collections/wooden-tones",
             "button_2_text": "",
@@ -1258,7 +1091,6 @@
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-8fb4460b933795c4770a017718b72916": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
@@ -1268,7 +1100,6 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-d2eb0425d64841551b9eb27527b26c4c": null,
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
@@ -1279,10 +1110,7 @@
       },
       "block_order": [
         "image_6MLzU"
-      ]
-    },
-    "slideshow_cFUXm": {
-      "type": "slideshow",
+      ],
       "disabled": true,
       "custom_css": [
         ".button--primary {background-color: white; color: black; text-align: center; text-decoration: none; padding: 0px 20px; margin-right: 0px; font-size: 10px;}",
@@ -1294,49 +1122,42 @@
         "autoplay": true,
         "cycle_speed": 5,
         "background": "rgba(0,0,0,0)"
-      },
+      }
+    },
+    "slideshow_cFUXm": {
+      "type": "slideshow",
       "blocks": {
         "image_3drDG": {
           "type": "image",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/WW_CONTENT_HAUS_27.117161_2-1.jpg",
-            "split_image": null,
             "mobile_image": "shopify://shop_images/WW_CONTENT_HAUS_27.117161_1884.jpg",
-            "header-9e076797bfdff198fd78ee5638f23d47": null,
             "text_position": "bottom_left",
-            "header-fbce368495559b8cbef03e93d2876856": null,
-            "review_image": null,
             "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
             "review_text_font": "assistant_n4",
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-681ae4de623de35a48ec7170a11ef065": null,
             "title": "FREE GIFTS",
             "heading_font": "system_ui_n4",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-dc44d3c5343da26345002fb26b8d9c68": null,
             "subheading": "",
             "subheading_font": "system_ui_n4",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-a876b4808f58c3da1079bf788fdb6784": null,
             "slide_text": "We help you create a space you’re proud to come home to, every single day.",
             "slide_text_font": "system_ui_n4",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-6361599576f68cde6c518cb10255fb92": null,
             "above_text": "Join Over 700,000+ Satisfied Customers",
             "above_button_font": "system_ui_n4",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-3ff305f8e193897a7ffb30eace251e5b": null,
             "button_1_text": "SHOP NOW",
             "button_1_link": "shopify://pages/free-gift",
             "button_2_text": "",
@@ -1345,7 +1166,6 @@
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-86db7d6289f0280bdd1eff665e9d856d": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
@@ -1355,7 +1175,6 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-d255c4ef29eb70b74add2aed4bbf6c31": null,
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
@@ -1366,44 +1185,45 @@
       },
       "block_order": [
         "image_3drDG"
-      ]
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".button--primary {background-color: white; color: black; text-align: center; text-decoration: none; padding: 0px 20px; margin-right: 0px; font-size: 10px;}",
+        "@media only screen and (max-width: 600px) {.heading--large {font-size: 28px; }}"
+      ],
+      "settings": {
+        "section_height": "auto",
+        "transition_type": "fade",
+        "autoplay": true,
+        "cycle_speed": 5,
+        "background": "rgba(0,0,0,0)"
+      }
     },
     "custom_liquid_gbXWY": {
       "type": "custom-liquid",
-      "disabled": false,
       "custom_css": [
         ".title_usp {text-align: center;}",
         ".title_usp span {font-size: 34px; font-weight: 300;}",
         ".title_usp ~ * {display: none !important;}"
       ],
+      "name": "Custom Liquid",
       "settings": {
         "subheading": "",
         "title": "",
         "liquid": "<div class=\"title_usp\">\n<span class=\"heading h1 slideshow_txt\" style=\"margin-top: 0;\"><span style=\"font-family: altesse-std-24pt; text-transform: lowercase;\"><span style=\"text-transform: capitalize;\">Why</span> shop with us?</span></span>\n</div>",
         "add_vertical_spacing": true,
         "background_type": "full_width",
-        "header-9e3aedcd92926bf97f28893515b44cb2": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": [],
-      "name": "Custom Liquid"
+      }
     },
     "text_with_icons_mf3TN": {
       "type": "text-with-icons",
-      "disabled": false,
-      "settings": {
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "item_7YHcm": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "icon": "picto-fast-delivery",
-            "custom_icon": null,
             "custom_icon_width": 50,
             "title": "100% insured delivery",
             "content": "<p>All deliveries are <strong>100% insured</strong>. If in the rare case damage occurs during transit, we promise to replace your order with the same product.</p>"
@@ -1411,10 +1231,8 @@
         },
         "item_bQjpV": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "icon": "picto-return-box",
-            "custom_icon": null,
             "custom_icon_width": 50,
             "title": "90 Days Free Returns",
             "content": "<p><strong>Returns are 100% free<br/><br/></strong>You have <strong>90 days</strong> to let us know if it's not to be<strong> </strong>from the day you receive your order. We’ll even handle the collection of your order for you, making returning your William Wood purchase an effortless process.</p>"
@@ -1422,10 +1240,8 @@
         },
         "item_QhqrU": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "icon": "picto-warranty",
-            "custom_icon": null,
             "custom_icon_width": 50,
             "title": "5 year warranty guarantee",
             "content": "<p><strong>Peace of mind with your purchase<br/></strong><br/>There are no shortcuts in our design process. Every William Wood product is built to stand the test of time and backed by our <strong>5 Year Warranty Guarantee</strong>.</p>"
@@ -1433,10 +1249,8 @@
         },
         "item_FEzDg": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "icon": "picto-worldwide",
-            "custom_icon": null,
             "custom_icon_width": 50,
             "title": "Sustainability",
             "content": "<p><strong>One tree planted with every order received<br/></strong><br/>We're committed to sustainability. Through our partnership with Ecodrive, we plant one tree for every order we receive.</p>"
@@ -1449,34 +1263,14 @@
         "item_QhqrU",
         "item_FEzDg"
       ],
-      "name": "Text with icons"
+      "name": "Text with icons",
+      "settings": {
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      }
     },
     "video_hero_jWUdy": {
       "type": "video-hero",
-      "disabled": false,
-      "settings": {
-        "header-e0998fb483f401fc76862f9f710def0d": null,
-        "desktop_video": "shopify://files/videos/Brand Hero Video Final.mp4",
-        "desktop_poster": null,
-        "mobile_video": "shopify://files/videos/Brand Hero Video - Portrait v3.mp4",
-        "mobile_poster": null,
-        "autoplay": true,
-        "loop": true,
-        "hide_controls": false,
-        "header-230786110b7558ad53c0e167c3604631": null,
-        "show_content": true,
-        "show_heading": true,
-        "show_text": true,
-        "show_button": false,
-        "header-60e50ce2540a38e785cb1676a8b8613f": null,
-        "section_height": 80,
-        "mobile_section_height": 60,
-        "header-7c90c5d25ba8478ae36b05d9273309a5": null,
-        "overlay_opacity": 30,
-        "text_color": "#ffffff",
-        "button_color": "#000000",
-        "start_muted": false
-      },
       "blocks": {
         "heading_qpVcn": {
           "type": "heading",
@@ -1495,7 +1289,6 @@
         },
         "button_G9A46": {
           "type": "button",
-          "disabled": false,
           "settings": {
             "button_label": "Shop Now",
             "button_link": "",
@@ -1508,49 +1301,55 @@
         "text_KVfbU",
         "button_G9A46"
       ],
-      "name": "Video Hero"
+      "name": "Video Hero",
+      "settings": {
+        "desktop_video": "shopify://files/videos/Brand Hero Video Final.mp4",
+        "mobile_video": "shopify://files/videos/Brand Hero Video - Portrait v3.mp4",
+        "autoplay": true,
+        "loop": true,
+        "hide_controls": false,
+        "show_content": true,
+        "show_heading": true,
+        "show_text": true,
+        "show_button": false,
+        "section_height": 80,
+        "mobile_section_height": 60,
+        "overlay_opacity": 30,
+        "text_color": "#ffffff",
+        "button_color": "#000000",
+        "start_muted": false
+      }
     },
     "custom_liquid_NEV77": {
       "type": "custom-liquid",
-      "disabled": false,
       "settings": {
         "subheading": "",
         "title": "",
         "liquid": "<span></span><br>",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-7e9d06d74766704c07a513664635258d": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "trustpilot_carousel_MVQ9A": {
       "type": "trustpilot-carousel",
-      "disabled": false,
       "settings": {
         "padding_top": 0,
         "padding_bottom": 0
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "custom_liquid_4FzLz": {
       "type": "custom-liquid",
-      "disabled": false,
       "settings": {
         "subheading": "",
         "title": "",
         "liquid": "",
         "add_vertical_spacing": true,
         "background_type": "full_width",
-        "header-818df61ecb689ffb0955a4786735d201": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     }
   },
   "order": [
