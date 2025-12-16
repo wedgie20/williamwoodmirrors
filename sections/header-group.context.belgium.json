@@ -14,12 +14,6 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      },
       "blocks": {
         "3f097275-f772-44d9-b5f7-6d6999645314": {
           "disabled": true,
@@ -29,12 +23,9 @@
         },
         "message_KN8hh": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "Black Friday: 27% off storewide with code BF27 (Ends Midnight Tonight)",
             "learn_more_text": "shop now",
-            "header-117e02e6019717e0ab153bbe1ef632cd": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "SHOP NOW",
@@ -73,19 +64,24 @@
         "message_N4D9HB",
         "message_wc4BFE",
         "trustpilot_Q4xFtD"
-      ]
+      ],
+      "settings": {
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
+      }
     },
     "header": {
       "settings": {
-        "highlighted_menu_item": "shopify://collections/black-friday-warm-up",
+        "highlighted_menu_item": "shopify://collections/christmas-sale",
         "menu_bold_text": "Up To 70% Off",
         "menu_normal_text": "Shop Now",
         "second_highlighted_menu_item": "shopify://collections/black-friday-launches-1",
         "second_menu_bold_text": "BLACK FRIDAY LAUNCHES",
         "second_menu_normal_text": "Shop Now",
         "second_highlighted_menu_background_image": "shopify://shop_images/BF25_BANNER_DETAIL_SHOT.jpg"
-      },
-      "blocks": {}
+      }
     }
   }
 }
