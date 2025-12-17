@@ -1053,10 +1053,22 @@ document.addEventListener('DOMContentLoaded', function () {
   
   {%- comment %} Format the extracted date {%- endcomment -%}
   {%- if raw_date != blank -%}
-    {%- assign shipping_date_formatted = raw_date | date: "%B %d, %Y" -%}
-    {%- comment %} If date formatting failed, use raw text {%- endcomment -%}
-    {%- if shipping_date_formatted == blank or shipping_date_formatted == raw_date -%}
-      {%- assign shipping_date_formatted = raw_date -%}
+  {%- assign raw_date_timestamp = raw_date | date: "%s" -%}
+    {%- assign current_timestamp = "now" | date: "%s" -%}
+
+    {%- comment %} Check if date is in the past and update to next year {%- endcomment -%}
+    {%- if raw_date_timestamp != blank and raw_date_timestamp < current_timestamp -%}
+      {%- assign current_year = "now" | date: "%Y" | plus: 0 -%}
+      {%- assign next_year = current_year | plus: 1 -%}
+      {%- assign date_month = raw_date | date: "%B" -%}
+      {%- assign date_day = raw_date | date: "%-d" -%}
+      {%- assign shipping_date_formatted = date_month | append: " " | append: date_day | append: ", " | append: next_year -%}
+    {%- else -%}
+      {%- assign shipping_date_formatted = raw_date | date: "%B %-d, %Y" -%}
+      {%- comment %} If date formatting failed, use raw text {%- endcomment -%}
+      {%- if shipping_date_formatted == blank or shipping_date_formatted == raw_date -%}
+        {%- assign shipping_date_formatted = raw_date -%}
+      {%- endif -%}
     {%- endif -%}
   {%- endif -%}
 {%- endif -%}
