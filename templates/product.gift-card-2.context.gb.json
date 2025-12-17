@@ -17,7 +17,7 @@
       "type": "custom-video",
       "disabled": false,
       "settings": {
-        "header-8c6804d8a3a573a98a6e5f03a5251f77": null,
+        "header-4891e4390f8525ab5e86476a109cd3a0": null,
         "video": "shopify://files/videos/Website Video - Abandoned Cart v2.mp4",
         "poster_image": "shopify://shop_images/Screenshot_2025-10-08_153408.png",
         "autoplay": false,
@@ -26,42 +26,42 @@
         "show_controls": true,
         "show_controls_on_play": true,
         "pause_on_scroll": true,
-        "header-1d903d0065c0d6df35333334db7e3067": null,
+        "header-de898e76bea7dc14944503072092e7ec": null,
         "use_aspect_ratio": false,
         "video_aspect_ratio": "50",
         "video_border_radius": 4,
         "video_shadow": "0 4px 20px rgba(0,0,0,0.15)",
-        "header-37622d72b49034e804d5d3dae52349c2": null,
+        "header-3eabb341de778a63e0e6ccb5eb66122b": null,
         "play_button_size": 80,
         "play_button_background": "#ffffff",
         "play_button_opacity": 90,
         "play_button_icon_color": "#000000",
-        "header-b1bc87c13800b69bf69fcef72d777f2a": null,
+        "header-3958147def134044ee7331213b232541": null,
         "show_header": true,
         "title": "",
         "subtitle": "",
         "description": "",
         "text_alignment": "center",
-        "header-ee15708b20c88968417362f58a753545": null,
+        "header-5183669f7303531763a4607faa0a39ed": null,
         "title_size": 36,
         "title_weight": "600",
         "subtitle_size": 18,
         "description_size": 16,
-        "header-90278c65c9397fb7fc689b2e02442061": null,
+        "header-da83ff32885b49caa0620ed31b1d5900": null,
         "show_button": false,
         "button_text": "Learn More",
         "button_link": "",
         "button_background": "#000000",
         "button_text_color": "#ffffff",
         "button_border_radius": 4,
-        "header-8746732e6a8584f71c9d40ef184b20e7": null,
+        "header-4472e3ef47451e9ef84c1cfe5dedaf99": null,
         "container_width": 550,
         "padding_top": 0,
         "padding_bottom": 0,
         "content_spacing": 10,
         "title_margin": 0,
         "subtitle_margin": 0,
-        "header-af3ba4a1c1be1eea1b54b23676513ba7": null,
+        "header-d27de88279ed976ba589db5e36ce8121": null,
         "background_color": "#ffffff",
         "text_color": "#000000"
       },
@@ -85,7 +85,7 @@
         "liquid": "{% if product.type == 'Table' or product.type == 'Chair' %}\n<br>\n{% if product.tags contains 'prebuilt' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n{% else %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">3-5 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives ready for quick and easy assembly.\n</span>\n</div>\n</body>\n</html>\n{% endif %}\n{% else %}\n{% if product.type == 'Furniture Set' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    All pieces of this furniture set arrive fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n\n{% endif %}\n{% endif %}\n{% if product.type == 'Mirror' %}\n<br>\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Can this mirror be wall mounted?</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\" style=\"font-size: 20px;\">Yes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This mirror can be wall mounted in{% assign description = product.description | downcase %}{% if description contains 'portrait' and description contains 'landscape' %} either{% endif %}{% if description contains 'portrait' %} portrait{% endif %}{% if description contains 'portrait' and description contains 'landscape' %} or{% endif %}{% if description contains 'landscape' %} landscape{% endif %} orientation.\n</span>\n</div>\n</body>\n</html>\n{% endif %}",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-eebeeaf04d7146a494e0771605d3d7b1": null,
+        "header-1c539e28618d6d761652e6b3b130705f": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -106,7 +106,7 @@
         "mobile_item_size": "small",
         "desktop_item_size": "medium",
         "spacing": "normal",
-        "header-410967422d48065a017a65cdf53ebea6": null,
+        "header-37f47b688e2fa0c85d1fd0c75ce2268b": null,
         "background": "#efefef",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -197,7 +197,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-6bdc11587af97f8b06ea73df2cfc24b0": null,
+        "header-4a00d0ab1c3631085854d7decc91c4e1": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -278,6 +278,10 @@
           "settings": {
             "marginTop": 1
           }
+        },
+        "liquid_DDqgU3": {
+          "disabled": true,
+          "settings": {}
         }
       },
       "block_order": [
@@ -305,7 +309,7 @@
     "infinite_scroller_PLWixJ": {
       "custom_css": [
         "@media (min-width: 767px) {.infinite-logo-scroller {display: none; }}",
-        "{margin-top: 25px; }"
+        " {margin-top: 25px;}"
       ],
       "settings": {
         "logos_shown": 3,
