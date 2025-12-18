@@ -371,7 +371,7 @@
 {%- if discounted_decimal < 10 -%}
   {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
 {%- endif -%}
-<b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b> with 30% discount
+<b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b> - Boxing Day Price (30% off)
           </div>
          <p class="saved-price" style="">
           {% if compareat_price > 0 %}
@@ -388,7 +388,7 @@
   {%- if saved_decimal < 10 -%}
     {%- assign saved_decimal = saved_decimal | prepend: '0' -%}
   {%- endif -%}
-  Save <b>{{ cart.currency.symbol }}{{ saved_whole }}.{{ saved_decimal }}</b> 
+  You save <b>{{ cart.currency.symbol }}{{ saved_whole }}.{{ saved_decimal }}</b> 
 </p>
       </div>
 {% endif %}
