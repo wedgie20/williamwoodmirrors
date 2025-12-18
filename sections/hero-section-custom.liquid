@@ -189,6 +189,9 @@ p.hero-section__subtitle{
     p.hero-section__subtitle{
         margin-top: -8px;
     }
+    .mini-sub-hero {
+    font-size: 17px;
+    }
     }
 
   @media screen and (max-width: 740px) {
@@ -470,7 +473,7 @@ p.hero-section__subtitle{
   {%- if section.settings.subtitle != blank -%}
           <p class="hero-section__subtitle">{{ section.settings.subtitle }}</p>
         {%- endif -%}
-        <p style="font-size: 17px;">Now It’s Time Treat Yourself...</p>
+        <p class="mini-sub-hero">Now It’s Time Treat Yourself...</p>
         {%- if section.settings.title != blank -%}
           <h1 class="hero-section__title">{{ section.settings.title }}</h1>
         {%- endif -%}
