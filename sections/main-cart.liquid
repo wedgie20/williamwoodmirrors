@@ -317,10 +317,10 @@
                           </line-item-quantity>
 
                             {% if line_item.variant.inventory_management == 'shopify' and line_item.variant.inventory_quantity != null %}
-                            {% if line_item.variant.inventory_quantity < 16 %}
+                            {% if line_item.variant.inventory_quantity > 15 %}
                               <div style="margin-top: 7px;" class="low-stock-alert">
                                 <span class="urgency-indicator"></span>
-                                Low stock, <b>only {{ line_item.variant.inventory_quantity }} left</b>
+                                Low stock
                               </div>
                             {% else %}
                               <div class="general-message">
