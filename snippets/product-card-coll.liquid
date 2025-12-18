@@ -371,7 +371,7 @@
 {%- if discounted_decimal < 10 -%}
   {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
 {%- endif -%}
-<b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b> with code <b>CYBER20</b>
+<b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b> with 30% discount
           </div>
          <p class="saved-price" style="">
           {% if compareat_price > 0 %}
