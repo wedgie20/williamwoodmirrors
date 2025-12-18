@@ -467,12 +467,11 @@ p.hero-section__subtitle{
       <div class="hero-section__text-wrapper">
         
 <div class="titleplussubtitle">
+  {%- if section.settings.subtitle != blank -%}
+          <p class="hero-section__subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
         {%- if section.settings.title != blank -%}
           <h1 class="hero-section__title">{{ section.settings.title }}</h1>
-        {%- endif -%}
-
-        {%- if section.settings.subtitle != blank -%}
-          <p class="hero-section__subtitle">{{ section.settings.subtitle }}</p>
         {%- endif -%}
 </div>
 
