@@ -9,13 +9,11 @@
 <b>{{ block.settings.restocked_text | default: "Recently restocked, don't miss out." }}</b>
 </div>
 {% endif %}
-{%- assign threshold = block.settings.low_stock_threshold | default: 15 -%}
+{%- assign threshold = block.settings.low_stock_threshold | default: 14 -%}
 {% if product.variants[0].inventory_quantity > threshold %}
 <span style="margin-left: 4px;"><span class="urgency-indicator"></span> {{ block.settings.low_stock_text | default: "Low stock" }}</span>
 {% else %}
-<div style="margin-left: 5px;">
-  <b>{{ block.settings.limited_availability_bold | default: "Availability is limited" }} </b>{{ block.settings.limited_availability_normal | default: " - secure yours before it's gone" }}
-</div>
+<span style="margin-left: 4px;"><span class="urgency-indicator"></span> {{ block.settings.low_stock_text | default: "Low stock, only" }} <b>{{ product.variants[0].inventory_quantity }} {{ block.settings.low_stock_suffix | default: "left" }}</b></span>
 {% endif %}
 {% endif %}
 
