@@ -344,7 +344,7 @@
   {%- if saved_decimal < 10 -%}
     {%- assign saved_decimal = saved_decimal | prepend: '0' -%}
   {%- endif -%}
-  You save <b>{{ cart.currency.symbol }}{{ saved_whole }}.{{ saved_decimal }}</b>
+  You save <span style="color: #780606;"><b >{{ cart.currency.symbol }}{{ saved_whole }}.{{ saved_decimal }}</b></span>
 </p>
       </div>
 {% endif %}
