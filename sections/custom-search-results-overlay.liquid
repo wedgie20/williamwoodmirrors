@@ -87,7 +87,7 @@
         {% endcomment %}
         {% for link in settings.help_links.links -%}
             <li>
-              {{ link.title | link_to: link.url }}
+              {{ link.title | link_to: link.url }} 
             </li>
         {%- endfor %}
       </ul>
