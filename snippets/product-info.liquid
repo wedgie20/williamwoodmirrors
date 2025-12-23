@@ -627,8 +627,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
-        // Use compare_at_price if it exists and is greater than price, otherwise use regular price
-        const price = {% if product.compare_at_price and product.compare_at_price > product.price %}{{ product.compare_at_price }}{% else %}{{ product.price }}{% endif %};
+        const price = {{ product.price }};
         const installmentsDropdown = document.getElementById('installments');
         const installmentDisplay = document.getElementById('installment');
         const disclaimerDisplay = document.getElementById('disclaimer');
