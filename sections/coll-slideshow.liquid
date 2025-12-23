@@ -375,7 +375,7 @@
                     
 {% elsif section_content contains 'Best Sellers' or section_content contains 'Most Loved' %}
                     <span class="heading h1" style="font-size: 25px;"><b>BEST SELLERS</b></span>
-                    <div class="heading heading--small">A selection of the best selling William Wood pieces, curated by you. <br><br>{%- if cart.currency.iso_code == 'GBP' -%}FREE PREMIUM UK DELIVERY + 90 DAYS FREE RETURNS <br><br>30% OFF EVERYTHING. OFFER AUTOMATICALLY APPLIED AT CHECKOUT. NO CODE NEEDED. ENDS TONIGHT{% else %}90 DAYS FREE RETURNS  <br><br>Join 700,000+ Satisfied Customers{%- endif -%}</div>
+                    <div class="heading heading--small">A selection of the best selling William Wood pieces, curated by you. <br><br>{%- if cart.currency.iso_code == 'GBP' -%}FREE PREMIUM UK DELIVERY + 90 DAYS FREE RETURNS <br>{% else %}90 DAYS FREE RETURNS  <br><br>Join 700,000+ Satisfied Customers{%- endif -%}</div>
 
                   {% elsif section_content contains 'Latest Arrivals' %}
                     <span class="heading h1" style="font-size: 25px;"><b>Latest Arrivals</b></span>
