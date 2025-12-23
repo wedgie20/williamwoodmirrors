@@ -735,7 +735,7 @@ Or in 3 instalments of <span id="installment"></span> with
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const price = {{ product.price }};
+            const price = {{ pricewholenumber }};
             const installment = (price / 3) / 100;
             const installmentDisplay = document.getElementById('installment');
 
