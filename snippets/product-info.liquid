@@ -457,7 +457,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <h2 class="product-meta__title heading h3">
         <a href="{{ product.url  }}">{{ product.title }}</a>
       </h2>
-    {% endunless %}
+    {% endunless %} 
      
 
     {% comment %} <div class="product-meta__price-list-container" role="region" aria-live="polite">
@@ -627,7 +627,8 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
-        const price = {{ product.price }};
+        // Use compare_at_price if it exists and is greater than price, otherwise use regular price
+        const price = {% if product.compare_at_price and product.compare_at_price > product.price %}{{ product.compare_at_price }}{% else %}{{ product.price }}{% endif %};
         const installmentsDropdown = document.getElementById('installments');
         const installmentDisplay = document.getElementById('installment');
         const disclaimerDisplay = document.getElementById('disclaimer');
