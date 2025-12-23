@@ -342,11 +342,11 @@ document.addEventListener("DOMContentLoaded", function() {
           </span>
         
         {%- assign savings = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price -%}
-        {%- if savings > 0 -%}
+        {% comment %} {%- if savings > 0 -%}
           <span class="label label--highlight">
             Save {% if settings.currency_code_enabled %}{{ savings | money_with_currency }}{% else %}{{ savings | money }}{% endif %}
           </span> 
-        {%- endif -%}
+        {%- endif -%} {% endcomment %}
           
         {%- else -%}
           <span class="price price--large">
