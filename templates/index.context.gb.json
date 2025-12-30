@@ -228,9 +228,16 @@
         "logo_spacing": 10,
         "animation_speed": 50,
         "background_color": "#efefef",
-        "image_size": "600x600"
+        "image_size": "200x200"
       },
       "blocks": {
+        "logo_Mc4xb": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/House_partner_roundel_3.png"
+          }
+        },
         "logo_aE9Rm": {
           "type": "logo",
           "disabled": false,
@@ -485,6 +492,7 @@
         }
       },
       "block_order": [
+        "logo_Mc4xb",
         "logo_aE9Rm",
         "logo_pNtbk",
         "logo_3g8Jp",
@@ -525,25 +533,18 @@
     },
     "infinite_scroller_AE36X": {
       "type": "infinite-scroller",
-      "disabled": false,
+      "disabled": true,
       "custom_css": [
         "@media (max-width: 767px) {.infinite-logo-scroller {display: none; }}"
       ],
       "settings": {
         "logos_shown": 8,
-        "logo_spacing": 20,
+        "logo_spacing": 10,
         "animation_speed": 10,
         "background_color": "#efefef",
         "image_size": "800x800"
       },
       "blocks": {
-        "logo_WYzNf": {
-          "type": "logo",
-          "disabled": false,
-          "settings": {
-            "logo": "shopify://shop_images/House_partner_roundel_3.png"
-          }
-        },
         "logo_A3BUn": {
           "type": "logo",
           "disabled": false,
@@ -602,7 +603,6 @@
         }
       },
       "block_order": [
-        "logo_WYzNf",
         "logo_A3BUn",
         "logo_NYdc9",
         "logo_QARPG",
@@ -615,7 +615,7 @@
     },
     "multi_column_b7wdF": {
       "type": "multi-column",
-      "disabled": true,
+      "disabled": false,
       "custom_css": [
         "@media (max-width: 767px) {.container {display: none; }}",
         ".vertical-breather {padding-top: 0px; padding-bottom: 0px;}"
