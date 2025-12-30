@@ -96,7 +96,7 @@
 </div>
 
 <style>
-   .infinite-logo-scroller {
+  .infinite-logo-scroller {
     overflow: hidden;
     width: 100%;
     position: relative;
@@ -105,13 +105,12 @@
   .logo-track {
     display: flex;
     animation: scroll {{ section.settings.animation_speed }}s linear infinite;
-    width: fit-content;
+    width: 200%;
     will-change: transform;
   }
   
   .logo-slide {
-    flex: 0 0 auto;
-    width: calc(100vw / {{ section.settings.logos_shown }} - {{ section.settings.logo_spacing }}px);
+    flex: 0 0 calc(50% / {{ section.settings.logos_shown }} - {{ section.settings.logo_spacing }}px);
     margin-right: {{ section.settings.logo_spacing }}px;
   }
   
@@ -126,7 +125,8 @@
       transform: translate3d(0, 0, 0);
     }
     100% {
-      transform: translate3d(-50%, 0, 0);
+      {%  assign animation_stop_at = 1.0 | times: images_count | divided_by: section.settings.logos_shown %}
+      transform: translate3d(calc(-50% * {{ animation_stop_at }}), 0, 0);
     }
   }
   
