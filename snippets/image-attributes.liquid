@@ -53,5 +53,5 @@ instead of lazysizes
 {%- if sizes_only -%}
   {{ src_list }}
 {%- else -%}
-  height="{{ image.height }}" width="{{ image.width }}" alt="{{ alt | default: image.alt | escape }}" {% unless ignore_src %}src="{{ settings.speedsize_url_pfx_https -}}{{ image | img_url: biggest_size_descriptor, crop: crop }}"{% endunless %} srcset="{{ src_list | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx   }}"
+  height="{{ image.height }}" width="{{ image.width }}" alt="{{ alt | default: image.alt | escape }}" {% unless ignore_src %}src="{{ settings.speedsize_url_pfx_https -}}{{ image | img_url: biggest_size_descriptor, crop: crop }}"{% endunless %} srcset="{{ src_list | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  }}"
 {%- endif -%}
