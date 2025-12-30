@@ -46,7 +46,7 @@
   {%- for block in section.blocks -%}
     {%- if block.settings.image_border != 'rgba(0,0,0,0)' -%}
       #block-{{ section.id }}-{{ block.id }} .multi-column__image-wrapper {
-        border: 1px solid {{ block.settings.image_border | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  }};
+        border: 1px solid {{ block.settings.image_border | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }};
       }
     {%- endif -%}
   {%- endfor -%}
@@ -181,7 +181,7 @@
 
                 {%- if block_content != blank -%}
                   <div id="block-{{ section.id }}-{{ block.id }}" class="multi-column__item multi-column__item--align-{{ block.settings.vertical_alignment }} {% if block.settings.link_url != blank %}image-zoom{% endif %}" {% if section.settings.reveal_on_scroll %}reveal{% endif %} {{ block.shopify_attributes }}>
-                    {{- block_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  -}}
+                    {{- block_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
                   </div>
                 {%- endif -%}
               {%- endfor -%}
