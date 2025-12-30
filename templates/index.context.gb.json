@@ -219,25 +219,18 @@
     },
     "infinite_scroller_LGnhM": {
       "type": "infinite-scroller",
-      "disabled": true,
+      "disabled": false,
       "custom_css": [
-        "@media (min-width: 767px) {.infinite-logo-scroller {display: none; } .logo-slide {flex: 0 0 calc(50% / 3.5 - 10px); margin-right: 10px !important;}}"
+        "@media (min-width: 767px) {.infinite-logo-scroller {display: none; }}"
       ],
       "settings": {
-        "logos_shown": 10,
+        "logos_shown": 3.5,
         "logo_spacing": 10,
         "animation_speed": 50,
         "background_color": "#efefef",
         "image_size": "200x200"
       },
       "blocks": {
-        "logo_Mc4xb": {
-          "type": "logo",
-          "disabled": false,
-          "settings": {
-            "logo": "shopify://shop_images/House_partner_roundel_3.png"
-          }
-        },
         "logo_aE9Rm": {
           "type": "logo",
           "disabled": false,
@@ -492,7 +485,6 @@
         }
       },
       "block_order": [
-        "logo_Mc4xb",
         "logo_aE9Rm",
         "logo_pNtbk",
         "logo_3g8Jp",
@@ -533,9 +525,9 @@
     },
     "infinite_scroller_AE36X": {
       "type": "infinite-scroller",
-      "disabled": false,
+      "disabled": true,
       "custom_css": [
-        "@media (max-width: 767px) {.infinite-logo-scroller {/* display: none; */ }.logo-slide {flex: 0 0 calc(50% / 3.5 - 10px); margin-right: 10px !important;}}"
+        "@media (max-width: 767px) {.infinite-logo-scroller {display: none; }}"
       ],
       "settings": {
         "logos_shown": 8,
@@ -615,7 +607,7 @@
     },
     "multi_column_b7wdF": {
       "type": "multi-column",
-      "disabled": true,
+      "disabled": false,
       "custom_css": [
         "@media (max-width: 767px) {.container {display: none; }}",
         ".vertical-breather {padding-top: 0px; padding-bottom: 0px;}"
@@ -657,22 +649,6 @@
           "settings": {
             "image": "shopify://shop_images/640px-VOGUE_LOGO_svg.png",
             "image_width": 70,
-            "image_border": "rgba(0,0,0,0)",
-            "title": "",
-            "content": "",
-            "link_text": "",
-            "link_url": "",
-            "link_style": "link",
-            "text_alignment": "center",
-            "vertical_alignment": "center"
-          }
-        },
-        "item_Ctk4D": {
-          "type": "item",
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/House_partner_roundel_3.png",
-            "image_width": 63,
             "image_border": "rgba(0,0,0,0)",
             "title": "",
             "content": "",
@@ -794,19 +770,35 @@
             "text_alignment": "center",
             "vertical_alignment": "center"
           }
+        },
+        "item_Ctk4D": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/House_partner_roundel_3.png",
+            "image_width": 63,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "center"
+          }
         }
       },
       "block_order": [
         "item_3H7WW",
         "item_j6hJj",
-        "item_Ctk4D",
         "item_ViYdR",
         "item_MbyTH",
         "item_cbt4c",
         "item_RYYcA",
         "item_hQkF9",
         "item_zNgXD",
-        "item_fMgiD"
+        "item_fMgiD",
+        "item_Ctk4D"
       ]
     },
     "featured_collections_meJ8d": {
