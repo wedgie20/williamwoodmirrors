@@ -43,6 +43,15 @@
       "step": 1
     },
     {
+      "type": "range",
+      "id": "animation_speed_mobile",
+      "label": "speed_ofAnimation_Mobile",
+      "default": 15,
+      "min": 1,
+      "max": 50,
+      "step": 1
+    },
+    {
       "type": "color",
       "id": "background_color",
       "label": "bgColour",
@@ -97,6 +106,7 @@
     display: flex;
     animation: scroll {{ section.settings.animation_speed }}s linear infinite;
     width: 200%;
+    will-change: transform;
   }
   
   .logo-slide {
@@ -107,14 +117,22 @@
   .logo-slide img {
     width: 100%;
     height: auto;
+    backface-visibility: hidden;
   }
+  
   @keyframes scroll {
     0% {
-      transform: translateX(0);
+      transform: translate3d(0, 0, 0);
     }
     100% {
       {%  assign animation_stop_at = 1.0 | times: images_count | divided_by: section.settings.logos_shown %}
-      transform: translateX(calc( -50% * {{ animation_stop_at }}));
+      transform: translate3d(calc(-50% * {{ animation_stop_at }}), 0, 0);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .logo-track {
+      animation: scroll {{ section.settings.animation_speed_mobile }}s linear infinite;
     }
   }
 </style>
