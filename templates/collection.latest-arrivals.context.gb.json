@@ -34,40 +34,40 @@
             "image": "shopify://shop_images/efefef_Desktop.jpg",
             "split_image": null,
             "mobile_image": "shopify://shop_images/efefef_Mobile.jpg",
-            "header-d2b70bcc2bf63d67e7cee536dcd9c97a": null,
+            "header-b3d9d765c889a45cd1888574cef8a27a": null,
             "text_position": "middle_left",
-            "header-74a96f17a806abe59fdac808be07f2ca": null,
+            "header-84a3a7b604a7fd3b10e090ca0623d814": null,
             "review_image": null,
             "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
             "review_text_font": "assistant_n4",
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-81e6d48d8743c9db062fd5f22f75dcb3": null,
+            "header-53d438a4d07e255720bc2069ef7df132": null,
             "title": "Latest Arrivals",
             "heading_font": "system_ui_n4",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-b570d530d25e4df2d8a8db1d3f11f42b": null,
+            "header-c19a8326a5f30ee126c8d2e6150aa35d": null,
             "subheading": "",
             "subheading_font": "system_ui_n4",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-831b1a7d532981545821ec6e2d85db10": null,
+            "header-2b44677343e0af2fde2561883c8b96e2": null,
             "slide_text": "We help you create a space you’re proud to come home to, every single day.",
             "slide_text_font": "system_ui_n4",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-c6cd3e55c5ee07c7ce27ecbfa6fa25ef": null,
+            "header-0a941f5b4a0df3ce826932522d5c67c0": null,
             "above_text": "Join Over 700,000+ Satisfied Customers",
             "above_button_font": "system_ui_n4",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-9fda3c1aaa66bdd2871c19387e454fe9": null,
+            "header-bf214fe4bc96ccb80a86fbd6af513529": null,
             "button_1_text": "",
             "button_1_link": "",
             "button_2_text": "",
@@ -76,7 +76,7 @@
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-db7b9dbfd279ca01d2d9f5993cbbf288": null,
+            "header-999c45d6bdfebb7b92552c781fda73b7": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
@@ -86,7 +86,7 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-8478d13a72785265c17534de5a00eb03": null,
+            "header-2e63344a04aa731ece25b8666ea6206a": null,
             "text_color": "#000000",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
@@ -114,6 +114,13 @@
         "logo_image_size": "200x200"
       },
       "blocks": {
+        "logo_zqhY4": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo_image": "shopify://shop_images/Grand_Designs_Logo-02.png"
+          }
+        },
         "logo_XQmdb": {
           "type": "logo",
           "disabled": false,
@@ -172,6 +179,7 @@
         }
       },
       "block_order": [
+        "logo_zqhY4",
         "logo_XQmdb",
         "logo_mkeBe",
         "logo_ANT8C",
@@ -182,6 +190,33 @@
         "logo_AbQgk"
       ],
       "name": "Social Proof Scroller"
+    },
+    "updated_review_HhLyX": {
+      "type": "updated-review",
+      "disabled": false,
+      "settings": {
+        "header-c446d288aee11fafece5fd6f002f9cd2": null,
+        "image": "shopify://shop_images/IMG_1230.jpg",
+        "alt_text": "Customer Reviews",
+        "link": "",
+        "header-4a14ec80889c28f41266801f30a3c58b": null,
+        "max_width": 530,
+        "height": 0,
+        "header-d8bd20ed57c05ba5ba99ca815ef472f7": null,
+        "max_width_mobile": 600,
+        "header-9e71e0438fadd983b008e55b0628b47c": null,
+        "margin_top": 30,
+        "margin_bottom": 30,
+        "header-297a3d08acb398dd85a060a0ad0a1beb": null,
+        "margin_top_mobile": 20,
+        "margin_bottom_mobile": 20,
+        "header-334d49cd4288099b2482ca9571af1dd3": null,
+        "alignment": "center",
+        "background_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Review Banner"
     },
     "rich_text_XNefW": {
       "type": "rich-text",
@@ -196,7 +231,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-17aa36f32d3a227aefc4da684992b9eb": null,
+        "header-138ee85831512d04264154d89a2babff": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -247,33 +282,6 @@
           }
         }
       }
-    },
-    "updated_review_HhLyX": {
-      "type": "updated-review",
-      "disabled": false,
-      "settings": {
-        "header-f781349c6f76043c53081e17c7154bf3": null,
-        "image": "shopify://shop_images/IMG_1230.jpg",
-        "alt_text": "Customer Reviews",
-        "link": "",
-        "header-f58df409b09710a80ad7f80960294b38": null,
-        "max_width": 530,
-        "height": 0,
-        "header-3af7a8518e0c908983f610cabebbb6d0": null,
-        "max_width_mobile": 600,
-        "header-807f29df62b3716f94b20b49e0216b8d": null,
-        "margin_top": 30,
-        "margin_bottom": 30,
-        "header-e25e8098bf506558bb8625cecc5f1945": null,
-        "margin_top_mobile": 20,
-        "margin_bottom_mobile": 20,
-        "header-6a063354a452af474b1716fa3162685e": null,
-        "alignment": "center",
-        "background_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": [],
-      "name": "Review Banner"
     }
   },
   "order": [
