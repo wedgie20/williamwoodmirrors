@@ -221,7 +221,7 @@
       "type": "infinite-scroller",
       "disabled": false,
       "custom_css": [
-        "@media (min-width: 767px) {.infinite-logo-scroller {display: none; }}"
+        "@media (min-width: 767px) {.infinite-logo-scroller {display: none; } .logo-slide {flex: 0 0 calc(50% / 3.5 - 10px); margin-right: 10px !important;}}"
       ],
       "settings": {
         "logos_shown": 10,
