@@ -224,25 +224,25 @@
         "@media (min-width: 767px) {.infinite-logo-scroller {display: none; }}"
       ],
       "settings": {
-        "logos_shown": 3.5,
+        "logos_shown": 10,
         "logo_spacing": 10,
         "animation_speed": 50,
         "background_color": "#efefef",
         "image_size": "200x200"
       },
       "blocks": {
-        "logo_Mc4xb": {
-          "type": "logo",
-          "disabled": false,
-          "settings": {
-            "logo": "shopify://shop_images/House_partner_roundel_3.png"
-          }
-        },
         "logo_aE9Rm": {
           "type": "logo",
           "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/Recommended_by_1.png"
+          }
+        },
+        "logo_Mc4xb": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/House_partner_roundel_3.png"
           }
         },
         "logo_pNtbk": {
@@ -492,8 +492,8 @@
         }
       },
       "block_order": [
-        "logo_Mc4xb",
         "logo_aE9Rm",
+        "logo_Mc4xb",
         "logo_pNtbk",
         "logo_3g8Jp",
         "logo_E9Qiw",
