@@ -102,7 +102,7 @@
     },
     "infinite_scroller2_HzVPj": {
       "type": "infinite-scroller2",
-      "disabled": false,
+      "disabled": true,
       "custom_css": [
         "@media (max-width: 767px) {.infinite-logo-scroller {} .logo-slide {flex: 0 0 calc(50% / 3.5 - 10px); margin-right: 10px; } /* .logo-slide:nth-child(2) img {height: 70px; width: 70px; align-items: center; margin-top: 15px;} */}",
         "@media (min-width: 767px) {.infinite-logo-scroller {} .logo-slide {flex: 0 0 calc(50% / 14 - 10px ) !important; margin-right: 10px; } }"
@@ -284,11 +284,105 @@
           }
         }
       }
+    },
+    "infinite_scroller_UWVLL": {
+      "type": "infinite-scroller",
+      "disabled": false,
+      "custom_css": [
+        "@media (max-width: 767px) {.infinite-logo-scroller {} .logo-slide {flex: 0 0 calc(50% / 3.5 - 10px); margin-right: 10px; } /* .logo-slide:nth-child(2) img {height: 70px; width: 70px; align-items: center; margin-top: 15px;} */}",
+        "@media (min-width: 767px) {.infinite-logo-scroller {} .logo-slide {flex: 0 0 calc(50% / 14 - 10px ) !important; margin-right: 10px; } }"
+      ],
+      "settings": {
+        "logos_shown": 10,
+        "logo_spacing": 10,
+        "animation_speed": 10,
+        "animation_speed_mobile": 15,
+        "background_color": "#f5f5f5",
+        "image_size": "200x200"
+      },
+      "blocks": {
+        "logo_K4maY": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/Recommended_by_1_02205230-6a9f-42da-8183-23016fe241e3.png"
+          }
+        },
+        "logo_c33H7": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/Grand_Designs_Logo-02.png"
+          }
+        },
+        "logo_zPLWJ": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-03.png"
+          }
+        },
+        "logo_MapDY": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-05.png"
+          }
+        },
+        "logo_A8fJy": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-01.png"
+          }
+        },
+        "logo_TyJLY": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-07.png"
+          }
+        },
+        "logo_TCmEb": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-06.png"
+          }
+        },
+        "logo_kjedj": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-02.png"
+          }
+        },
+        "logo_pTEM3": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-09.png"
+          }
+        }
+      },
+      "block_order": [
+        "logo_K4maY",
+        "logo_c33H7",
+        "logo_zPLWJ",
+        "logo_MapDY",
+        "logo_A8fJy",
+        "logo_TyJLY",
+        "logo_TCmEb",
+        "logo_kjedj",
+        "logo_pTEM3"
+      ],
+      "name": "Social Proof Scroller"
     }
   },
   "order": [
     "coll_slideshow_gFeHH",
     "collection-banner",
+    "infinite_scroller_UWVLL",
     "infinite_scroller2_HzVPj",
     "updated_review_HhLyX",
     "custom_liquid_NCfRNU",
