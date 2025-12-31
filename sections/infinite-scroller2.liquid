@@ -36,8 +36,17 @@
     {
       "type": "range",
       "id": "scroll_speed",
-      "label": "Scroll Speed",
+      "label": "Scroll Speed (Desktop)",
       "default": 10,
+      "min": 1,
+      "max": 50,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed_mobile",
+      "label": "Scroll Speed (Mobile)",
+      "default": 15,
       "min": 1,
       "max": 50,
       "step": 1
@@ -57,7 +66,7 @@
   ],
   "presets": [
     {
-      "name": "Social Proof Scroller",
+      "name": "Social Proof Scroller2",
       "category": "Custom"
     }
   ]
@@ -96,26 +105,34 @@
   .logo-track {
     display: flex;
     animation: scroll {{ section.settings.scroll_speed }}s linear infinite;
-    width: 200%;
+    width: fit-content;
+    will-change: transform;
   }
 
   .logo-slide {
-    flex: 0 0 calc(50% / {{ section.settings.number_of_logos }} - {{ section.settings.logo_spacing_px }}px);
+    flex: 0 0 auto;
+    width: calc(100vw / {{ section.settings.number_of_logos }} - {{ section.settings.logo_spacing_px }}px);
     margin-right: {{ section.settings.logo_spacing_px }}px;
   }
 
   .logo-slide img {
     width: 100%;
     height: auto;
+    backface-visibility: hidden;
   }
 
   @keyframes scroll {
     0% {
-      transform: translateX(0);
+      transform: translate3d(0, 0, 0);
     }
     100% {
-      {% assign animation_end = 1.0 | times: logo_count | divided_by: section.settings.number_of_logos %}
-      transform: translateX(calc(-50% * {{ animation_end }}));
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .logo-track {
+      animation: scroll {{ section.settings.scroll_speed_mobile }}s linear infinite;
     }
   }
 </style>
