@@ -116,14 +116,26 @@
 
 <div class="infinite-logo-scroller infinite-logo-scroller-{{ section.id }}" style="background-color: {{ section.settings.background_color }};">
   <div class="logo-track logo-track-{{ section.id }}">
-    {% for block in section.blocks %}
-      {% assign logo = block.settings.logo %}
-      {% if logo %}
-        <div class="logo-slide" {{ block.shopify_attributes }}>
-          <img src="{{ settings.speedsize_url_pfx_https -}}{{ logo | img_url: section.settings.image_size }}" alt="{{ logo.alt | escape }}">
-        </div>
-      {% endif %}
-    {% endfor %}
+    <div class="logo-set logo-set-original">
+      {% for block in section.blocks %}
+        {% assign logo = block.settings.logo %}
+        {% if logo %}
+          <div class="logo-slide" {{ block.shopify_attributes }}>
+            <img src="{{ settings.speedsize_url_pfx_https -}}{{ logo | img_url: section.settings.image_size }}" alt="{{ logo.alt | escape }}">
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="logo-set logo-set-clone" aria-hidden="true">
+      {% for block in section.blocks %}
+        {% assign logo = block.settings.logo %}
+        {% if logo %}
+          <div class="logo-slide">
+            <img src="{{ settings.speedsize_url_pfx_https -}}{{ logo | img_url: section.settings.image_size }}" alt="{{ logo.alt | escape }}">
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
   </div>
 </div>
 
@@ -132,13 +144,23 @@
     overflow: hidden;
     width: 100%;
     position: relative;
-    padding: 0;
+    padding: 20px 0;
   }
   
   .logo-track-{{ section.id }} {
     display: flex;
+    width: fit-content;
+    animation: scroll-{{ section.id }} {{ section.settings.animation_speed_mobile }}s linear infinite;
+  }
+  
+  .logo-track-{{ section.id }} .logo-set {
+    display: flex;
     gap: {{ section.settings.logo_spacing_mobile }}px;
-    animation: scroll-mobile-{{ section.id }} {{ section.settings.animation_speed_mobile }}s linear infinite;
+    flex-shrink: 0;
+  }
+  
+  .logo-track-{{ section.id }} .logo-set + .logo-set {
+    padding-left: {{ section.settings.logo_spacing_mobile }}px;
   }
   
   {% if section.settings.pause_on_hover %}
@@ -149,7 +171,7 @@
   
   .infinite-logo-scroller-{{ section.id }} .logo-slide {
     flex: 0 0 auto;
-    width: calc((100% - ({{ section.settings.logo_spacing_mobile }}px * ({{ section.settings.logos_shown_mobile }} - 1))) / {{ section.settings.logos_shown_mobile }});
+    width: calc((100vw - ({{ section.settings.logo_spacing_mobile }}px * ({{ section.settings.logos_shown_mobile }} - 1))) / {{ section.settings.logos_shown_mobile }});
     min-width: 80px;
   }
   
@@ -159,34 +181,32 @@
     object-fit: contain;
   }
   
-  @keyframes scroll-mobile-{{ section.id }} {
+  @keyframes scroll-{{ section.id }} {
     0% {
       transform: translateX(0);
     }
     100% {
-      transform: translateX(calc(-50%));
+      transform: translateX(-50%);
     }
   }
   
   /* Desktop Styles */
   @media (min-width: 768px) {
     .logo-track-{{ section.id }} {
+      animation-duration: {{ section.settings.animation_speed_desktop }}s;
+    }
+    
+    .logo-track-{{ section.id }} .logo-set {
       gap: {{ section.settings.logo_spacing_desktop }}px;
-      animation: scroll-desktop-{{ section.id }} {{ section.settings.animation_speed_desktop }}s linear infinite;
+    }
+    
+    .logo-track-{{ section.id }} .logo-set + .logo-set {
+      padding-left: {{ section.settings.logo_spacing_desktop }}px;
     }
     
     .infinite-logo-scroller-{{ section.id }} .logo-slide {
-      width: calc((100% - ({{ section.settings.logo_spacing_desktop }}px * ({{ section.settings.logos_shown_desktop }} - 1))) / {{ section.settings.logos_shown_desktop }});
+      width: calc((100vw - ({{ section.settings.logo_spacing_desktop }}px * ({{ section.settings.logos_shown_desktop }} - 1))) / {{ section.settings.logos_shown_desktop }});
       min-width: 100px;
-    }
-    
-    @keyframes scroll-desktop-{{ section.id }} {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(calc(-50%));
-      }
     }
   }
   
@@ -199,50 +219,5 @@
 </style>
 
 <script>
-(function() {
-  const scroller = document.querySelector('.infinite-logo-scroller-{{ section.id }}');
-  const track = document.querySelector('.logo-track-{{ section.id }}');
-  
-  if (!scroller || !track) return;
-  
-  // Clone slides three times for seamless infinite scroll (4x total content)
-  const slides = Array.from(track.children);
-  
-  // First clone
-  slides.forEach(slide => {
-    const clone = slide.cloneNode(true);
-    track.appendChild(clone);
-  });
-  
-  // Second clone
-  slides.forEach(slide => {
-    const clone = slide.cloneNode(true);
-    track.appendChild(clone);
-  });
-  
-  // Third clone
-  slides.forEach(slide => {
-    const clone = slide.cloneNode(true);
-    track.appendChild(clone);
-  });
-
-    // forth clone
-  slides.forEach(slide => {
-    const clone = slide.cloneNode(true);
-    track.appendChild(clone);
-  });
-
-    // Fifth clone
-  slides.forEach(slide => {
-    const clone = slide.cloneNode(true);
-    track.appendChild(clone);
-  });
-
-    // Sixth clone
-  slides.forEach(slide => {
-    const clone = slide.cloneNode(true);
-    track.appendChild(clone);
-  });
-
-})();
+// No additional JavaScript needed - pure CSS animation handles seamless looping
 </script>
