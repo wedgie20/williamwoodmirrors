@@ -1,0 +1,220 @@
+{% schema %}
+{
+  "name": "Social Proof Logos",
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Desktop Settings"
+    },
+    {
+      "type": "range",
+      "id": "logos_shown_desktop",
+      "label": "Number of Logos (Desktop)",
+      "default": 6,
+      "min": 1,
+      "max": 10,
+      "step": 0.5
+    },
+    {
+      "type": "range",
+      "id": "logo_spacing_desktop",
+      "label": "Logo Spacing (Desktop)",
+      "default": 40,
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "animation_speed_desktop",
+      "label": "Animation Speed (Desktop)",
+      "default": 30,
+      "min": 5,
+      "max": 100,
+      "step": 5,
+      "unit": "s"
+    },
+    {
+      "type": "header",
+      "content": "Mobile Settings"
+    },
+    {
+      "type": "range",
+      "id": "logos_shown_mobile",
+      "label": "Number of Logos (Mobile)",
+      "default": 3,
+      "min": 1,
+      "max": 6,
+      "step": 0.5
+    },
+    {
+      "type": "range",
+      "id": "logo_spacing_mobile",
+      "label": "Logo Spacing (Mobile)",
+      "default": 20,
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "animation_speed_mobile",
+      "label": "Animation Speed (Mobile)",
+      "default": 20,
+      "min": 5,
+      "max": 100,
+      "step": 5,
+      "unit": "s"
+    },
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "image_size",
+      "label": "Image Size",
+      "default": "200x200",
+      "info": "Format: widthxheight (e.g., 200x200)"
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on Hover",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Social Proof Logos",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="infinite-logo-scroller infinite-logo-scroller-{{ section.id }}" style="background-color: {{ section.settings.background_color }};">
+  <div class="logo-track logo-track-{{ section.id }}">
+    {% for block in section.blocks %}
+      {% assign logo = block.settings.logo %}
+      {% if logo %}
+        <div class="logo-slide" {{ block.shopify_attributes }}>
+          <img src="{{ settings.speedsize_url_pfx_https -}}{{ logo | img_url: section.settings.image_size }}" alt="{{ logo.alt | escape }}">
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .infinite-logo-scroller-{{ section.id }} {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    padding: 0;
+  }
+  
+  .logo-track-{{ section.id }} {
+    display: flex;
+    gap: {{ section.settings.logo_spacing_mobile }}px;
+    animation: scroll-mobile-{{ section.id }} {{ section.settings.animation_speed_mobile }}s linear infinite;
+  }
+  
+  {% if section.settings.pause_on_hover %}
+  .infinite-logo-scroller-{{ section.id }}:hover .logo-track-{{ section.id }} {
+    animation-play-state: paused;
+  }
+  {% endif %}
+  
+  .infinite-logo-scroller-{{ section.id }} .logo-slide {
+    flex: 0 0 auto;
+    width: calc((100% - ({{ section.settings.logo_spacing_mobile }}px * ({{ section.settings.logos_shown_mobile }} - 1))) / {{ section.settings.logos_shown_mobile }});
+    min-width: 80px;
+  }
+  
+  .infinite-logo-scroller-{{ section.id }} .logo-slide img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  
+  @keyframes scroll-mobile-{{ section.id }} {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-100% - {{ section.settings.logo_spacing_mobile }}px));
+    }
+  }
+  
+  /* Desktop Styles */
+  @media (min-width: 768px) {
+    .logo-track-{{ section.id }} {
+      gap: {{ section.settings.logo_spacing_desktop }}px;
+      animation: scroll-desktop-{{ section.id }} {{ section.settings.animation_speed_desktop }}s linear infinite;
+    }
+    
+    .infinite-logo-scroller-{{ section.id }} .logo-slide {
+      width: calc((100% - ({{ section.settings.logo_spacing_desktop }}px * ({{ section.settings.logos_shown_desktop }} - 1))) / {{ section.settings.logos_shown_desktop }});
+      min-width: 100px;
+    }
+    
+    @keyframes scroll-desktop-{{ section.id }} {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-100% - {{ section.settings.logo_spacing_desktop }}px));
+      }
+    }
+  }
+  
+  /* Reduced Motion Support */
+  @media (prefers-reduced-motion: reduce) {
+    .logo-track-{{ section.id }} {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+(function() {
+  const scroller = document.querySelector('.infinite-logo-scroller-{{ section.id }}');
+  const track = document.querySelector('.logo-track-{{ section.id }}');
+  
+  if (!scroller || !track) return;
+  
+  // Clone slides for seamless infinite scroll
+  const slides = Array.from(track.children);
+  slides.forEach(slide => {
+    const clone = slide.cloneNode(true);
+    track.appendChild(clone);
+  });
+  
+  // Reset animation when it completes for seamless loop
+  track.addEventListener('animationiteration', () => {
+    track.style.transform = 'translateX(0)';
+  });
+})();
+</script>
