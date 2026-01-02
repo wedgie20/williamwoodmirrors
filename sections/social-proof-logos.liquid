@@ -164,7 +164,7 @@
       transform: translateX(0);
     }
     100% {
-      transform: translateX(calc(-100% - {{ section.settings.logo_spacing_mobile }}px));
+      transform: translateX(calc(-50%));
     }
   }
   
@@ -185,7 +185,7 @@
         transform: translateX(0);
       }
       100% {
-        transform: translateX(calc(-100% - {{ section.settings.logo_spacing_desktop }}px));
+        transform: translateX(calc(-50%));
       }
     }
   }
@@ -205,16 +205,25 @@
   
   if (!scroller || !track) return;
   
-  // Clone slides for seamless infinite scroll
+  // Clone slides three times for seamless infinite scroll (4x total content)
   const slides = Array.from(track.children);
+  
+  // First clone
   slides.forEach(slide => {
     const clone = slide.cloneNode(true);
     track.appendChild(clone);
   });
   
-  // Reset animation when it completes for seamless loop
-  track.addEventListener('animationiteration', () => {
-    track.style.transform = 'translateX(0)';
+  // Second clone
+  slides.forEach(slide => {
+    const clone = slide.cloneNode(true);
+    track.appendChild(clone);
+  });
+  
+  // Third clone
+  slides.forEach(slide => {
+    const clone = slide.cloneNode(true);
+    track.appendChild(clone);
   });
 })();
 </script>
