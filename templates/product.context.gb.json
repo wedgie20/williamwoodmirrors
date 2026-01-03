@@ -23,6 +23,7 @@
         "logos_shown": 3.5,
         "logo_spacing": 10,
         "animation_speed": 40,
+        "animation_speed_mobile": 35,
         "background_color": "#efefef",
         "image_size": "200x200"
       },
@@ -32,6 +33,13 @@
           "disabled": false,
           "settings": {
             "logo": "shopify://shop_images/Recommended_by_1.png"
+          }
+        },
+        "logo_M6RJg": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/Grand_Designs_Logo-02.png"
           }
         },
         "logo_pNtbk": {
@@ -160,6 +168,13 @@
             "logo": "shopify://shop_images/Recommended_by_1.png"
           }
         },
+        "logo_BpG4k": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/Grand_Designs_Logo-02.png"
+          }
+        },
         "logo_fNFt7": {
           "type": "logo",
           "disabled": false,
@@ -282,6 +297,7 @@
       },
       "block_order": [
         "logo_aE9Rm",
+        "logo_M6RJg",
         "logo_pNtbk",
         "logo_3g8Jp",
         "logo_E9Qiw",
@@ -300,6 +316,7 @@
         "logo_h7UbM",
         "logo_dBfyE",
         "logo_wdhq7",
+        "logo_BpG4k",
         "logo_fNFt7",
         "logo_VGrkf",
         "logo_ptUWx",
@@ -335,7 +352,7 @@
         "mobile_item_size": "small",
         "desktop_item_size": "pico",
         "spacing": "tight",
-        "header-72b382251784dc80a7d938b3d422eb40": null,
+        "header-2ae572300f3b86477912d7aecd18f2fe": null,
         "background": "#efefef",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -484,7 +501,7 @@
       "type": "custom-video",
       "disabled": false,
       "settings": {
-        "header-53d72c9b227a73fef739f87aadc5063e": null,
+        "header-442994bf27c52393de7d27f10342dd8a": null,
         "video": "shopify://files/videos/Website Video - Abandoned Cart v2.mp4",
         "poster_image": "shopify://shop_images/Screenshot_2025-10-08_153408.png",
         "autoplay": false,
@@ -493,42 +510,42 @@
         "show_controls": true,
         "show_controls_on_play": true,
         "pause_on_scroll": true,
-        "header-797ad4adc43f1c4042c30641d783d310": null,
+        "header-bfdadc7643ad1c9fe2b38be90dfd9b97": null,
         "use_aspect_ratio": false,
         "video_aspect_ratio": "50",
         "video_border_radius": 4,
         "video_shadow": "0 4px 20px rgba(0,0,0,0.15)",
-        "header-90af0fdee5153a150b2bb0866d889573": null,
+        "header-b99ac7dabc9956933a2f84d0657a5727": null,
         "play_button_size": 80,
         "play_button_background": "#ffffff",
         "play_button_opacity": 90,
         "play_button_icon_color": "#000000",
-        "header-9078376209c20fc48f33feae417629d1": null,
+        "header-ef0578d7a2ac858a5a3a528732b7ef27": null,
         "show_header": false,
         "title": "",
         "subtitle": "",
         "description": "",
         "text_alignment": "center",
-        "header-bc4330b875f64d53e83d315a82d1e3a8": null,
+        "header-e9c4db18d0d574520e9d19ae8c1275aa": null,
         "title_size": 36,
         "title_weight": "600",
         "subtitle_size": 18,
         "description_size": 16,
-        "header-15cadf6253a00d962d75f09885eb4bdc": null,
+        "header-203bc82616f1a04e5b97f056bc4efa28": null,
         "show_button": false,
         "button_text": "Learn More",
         "button_link": "",
         "button_background": "#000000",
         "button_text_color": "#ffffff",
         "button_border_radius": 4,
-        "header-2de1c287b4bff0d77d354f16c6fde3d4": null,
+        "header-136ab33d0ef5a825919a6cebaec996f2": null,
         "container_width": 550,
         "padding_top": 0,
         "padding_bottom": 0,
         "content_spacing": 10,
         "title_margin": 0,
         "subtitle_margin": 0,
-        "header-4ceed6b3beb6f912603869c3a4d0ca1c": null,
+        "header-bfb0f9d4a8af397698c1d7fe5e0a6a28": null,
         "background_color": "#ffffff",
         "text_color": "#000000"
       },
@@ -616,7 +633,7 @@
         "liquid": "{% if product.type == 'Table' or product.type == 'Chair' %}\n<br>\n{% if product.tags contains 'prebuilt' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n{% else %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">3-5 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives ready for quick and easy assembly.\n</span>\n</div>\n</body>\n</html>\n{% endif %}\n{% else %}\n{% if product.type == 'Furniture Set' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    All pieces of this furniture set arrive fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n\n{% endif %}\n{% endif %}\n{% if product.type == 'Mirror' %}\n<br>\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Can this mirror be wall mounted?</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\" style=\"font-size: 20px;\">Yes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This mirror can be wall mounted in{% assign description = product.description | downcase %}{% if description contains 'portrait' and description contains 'landscape' %} either{% endif %}{% if description contains 'portrait' %} portrait{% endif %}{% if description contains 'portrait' and description contains 'landscape' %} or{% endif %}{% if description contains 'landscape' %} landscape{% endif %} orientation.\n</span>\n</div>\n</body>\n</html>\n{% endif %}",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-88c7c553953fbde15e69ce4d1ec5257e": null,
+        "header-06c8551345d60922ebf2ed8eda83ec84": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -637,7 +654,7 @@
         "liquid": "{% if product.type == 'Mirror' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_MakeSmallRoomsBig_v1.02.jpg?v=1729256817\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_MakeSmallRoomsBig_v1.0_2.jpg?v=1729595254\">\n{% elsif product.title contains 'Coffee Table' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_CoffeTables_v1.02_8875e8e7-b11c-4491-8427-803ef508469f.jpg?v=1729261477\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_CoffeTables_v1.0.jpg?v=1729260504\">\n{% elsif product.type == 'Lamp' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Lamps_v1.02.jpg?v=1729518322\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Lamps_v1.0_3.jpg?v=1730115270\">\n{% elsif product.type == 'vase' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Vases_v1.22.jpg?v=1730293344\">\n{% endif %}",
         "add_vertical_spacing": true,
         "background_type": "full_width",
-        "header-9fe6a7b23acc57c6f49098b8dedf8bc5": null,
+        "header-a7749eaf4e3e119e4f581626a856e0a0": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -657,7 +674,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-94b3c4de55038cd5945958eb20170a61": null,
+        "header-a4be320f75ab78ae5a473251da978651": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -679,7 +696,7 @@
         "liquid": "<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_ElevateYourHome-02.jpg?v=1729592904\">",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-73ca7e53318bdf1efc54ffd81d94f0fb": null,
+        "header-d3dc6f7b3bba19cf901a2b265b60f131": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -725,7 +742,7 @@
         "liquid": "<video src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/videos/c/o/v/d07d71b60fe9447c99bada59959df6a3.mp4\" controls \n  poster=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/A_sit_down_with_Jenna_final_edit_2_0-00-02-24.jpg?v=1728481189\">\n  Your browser does not support the video tag.\n</video>",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-b224ca9c2114dd9c9b2ff729c1e9780e": null,
+        "header-3a1bbc29ca479242a0d0d94f1002fd38": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -781,7 +798,7 @@
           "type": "product_status",
           "disabled": false,
           "settings": {
-            "header-16cdc2f6f5826a70b3b308f3fa5971ea": null,
+            "header-633acedf07849dd4ac3d21e42e1ddafb": null,
             "margin_top": 0,
             "font_weight": "bold",
             "font_size": 12,
@@ -792,12 +809,12 @@
             "padding_vertical": 5,
             "padding_horizontal": 15,
             "background_image": "shopify://shop_images/New_Year_PDP_Desk.jpg",
-            "header-af4afc27f1437bd2ecbb6a64d97865ed": null,
+            "header-c4267b333f1a805687e427f3ce331363": null,
             "promo_heading": "The Style Reset | Limited-Time-Only",
             "promo_text": "30% off when you purchase 2 full-priced products, no code needed.\nor\n40% off when you purchase 3 or more full-priced products, no code needed.\n+\nFree Gift with your purchase worth up to £99 GBP when you spend £299 GBP or more",
             "sale_heading": "",
             "sale_text": "Free Gift with your purchase worth up to £99 GBP when you spend £299 GBP or more",
-            "header-2b2676243e8f1ea412c4b60ad4b99835": null,
+            "header-ddc482755104a25a26beb7e6a199cde9": null,
             "coming_soon_text": "Coming Soon",
             "back_soon_text": "Back in stock soon, sign up for restock notifications below",
             "black_friday_launch_text": "Launches 29.11.24",
@@ -805,7 +822,7 @@
             "black_friday_restock_text": "Restocks 29.11.24",
             "restock_text": "Restocks [DATE] 8PM",
             "out_of_stock_text": "Currently out of stock, join waitlist below.",
-            "header-3db8e0bac1ddea309f16cb23fb8f29cc": null,
+            "header-ce96cad23b56d880688cbd876e15190d": null,
             "show_hudson_message": true,
             "hudson_message": "Free cushion included with the Hudson Chair"
           }
@@ -835,23 +852,23 @@
           "type": "low_stock",
           "disabled": false,
           "settings": {
-            "header-05d51a203e09796ecc1f67bdb0ba94c5": null,
+            "header-fb5bcc77b5adfd6bdc61e2e1038f9a6b": null,
             "restocked_text": "Recently restocked, don't miss out.",
             "low_stock_text": "Low stock",
             "low_stock_suffix": "left",
             "limited_availability_bold": "Availability is limited",
             "limited_availability_normal": "- secure yours before it's gone",
-            "header-a4d15286f00521b769db76becdd2e105": null,
+            "header-bbb2eb99d3e2c8cde48367e2d11cac6a": null,
             "last_chance_text": "Last chance to purchase, this product <b>won't be restocked</b>.",
             "limited_offer_prefix": "Exclusive offer",
             "limited_offer_suffix": ", returning to full price soon.",
-            "header-cb7c125e91c719b99690d71c4fda530a": null,
+            "header-c7ac1a2f9429d42f735aadd5caa83c88": null,
             "preorder_delivery_text": "Free UK Delivery: Available for pre order",
             "instock_delivery_bold_text": "Free & Fast UK Delivery, 100% Insured. <b>In stock & ready to ship</b>",
             "instock_delivery_regular_text": "Free & Fast UK Delivery: In stock & ready to ship",
-            "header-ae903087f72ef850d0103f784b933371": null,
+            "header-2992789298005332a06075f2ec1af586": null,
             "low_stock_threshold": 14,
-            "header-b03e6fb307b51a868fc2fb389758a9f4": null,
+            "header-42a534455ddc2b8dd8b147e7745ba6a0": null,
             "pulse_color": "#54c63a",
             "urgency_indicator_color": "#ffbf00",
             "enable_animations": true
@@ -968,7 +985,7 @@
           "type": "button",
           "disabled": false,
           "settings": {
-            "paragraph-975d40cb8c34522d7469039d818f0733": null,
+            "paragraph-a0715ffe91627c55f1013662c4f89491": null,
             "link": "",
             "text": "",
             "stretch": true,
