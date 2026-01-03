@@ -152,7 +152,7 @@
                       <button type="button" tabindex="-1" class="product__thumbnail-item {% unless section.settings.show_thumbnails_on_mobile %}hidden-pocket{% endunless %}" {% if forloop.first %}aria-current="true"{% endif %} aria-controls="product-{{ section.id }}-media-{{ forloop.index }}" data-media-id="media-{{ forloop.index }}" data-action="select">
                         <div class="product__thumbnail">
                           {%- capture image_placeholder -%}product-{{ i }}{%- endcapture -%}
-                          {{- image_placeholder | placeholder_svg_tag: 'placeholder-background' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  -}}
+                          {{- image_placeholder | placeholder_svg_tag: 'placeholder-background' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
                         </div>
                       </button>
                     {%- endfor -%}
