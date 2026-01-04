@@ -104,13 +104,13 @@
       "type": "infinite-scroller",
       "disabled": false,
       "custom_css": [
-        "@media (max-width: 767px) {.logo-slide {flex: 0 0 calc(50% / 3.5 - 10px); margin-right: 10px; }}"
+        "@media (max-width: 767px) {.infinite-logo-scroller {} .logo-slide {flex: 0 0 calc(50% / 3.5 - 10px); margin-right: 10px; }}"
       ],
       "settings": {
         "logos_shown": 10,
         "logo_spacing": 10,
-        "animation_speed": 50,
-        "animation_speed_mobile": 20,
+        "animation_speed": 40,
+        "animation_speed_mobile": 35,
         "background_color": "#efefef",
         "image_size": "200x200"
       },
@@ -324,6 +324,90 @@
           "settings": {
             "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-02.png"
           }
+        },
+        "logo_yHcRb": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/Recommended_by_1_02205230-6a9f-42da-8183-23016fe241e3.png"
+          }
+        },
+        "logo_eaWHV": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/Grand_Designs_Logo-02.png"
+          }
+        },
+        "logo_x4UbP": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-03.png"
+          }
+        },
+        "logo_rPrHz": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/Recommended_by_1_02205230-6a9f-42da-8183-23016fe241e3.png"
+          }
+        },
+        "logo_ax3wM": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-03.png"
+          }
+        },
+        "logo_EhDFN": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-05.png"
+          }
+        },
+        "logo_rbP4G": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-01.png"
+          }
+        },
+        "logo_nbWjU": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-07.png"
+          }
+        },
+        "logo_BEiK7": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-06.png"
+          }
+        },
+        "logo_Gi7Bq": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-09.png"
+          }
+        },
+        "logo_3PFxr": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-10.png"
+          }
+        },
+        "logo_BahFz": {
+          "type": "logo",
+          "disabled": false,
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-02.png"
+          }
         }
       },
       "block_order": [
@@ -356,7 +440,19 @@
         "logo_QbxLt",
         "logo_cDtMe",
         "logo_eccgd",
-        "logo_8UVaD"
+        "logo_8UVaD",
+        "logo_yHcRb",
+        "logo_eaWHV",
+        "logo_x4UbP",
+        "logo_rPrHz",
+        "logo_ax3wM",
+        "logo_EhDFN",
+        "logo_rbP4G",
+        "logo_nbWjU",
+        "logo_BEiK7",
+        "logo_Gi7Bq",
+        "logo_3PFxr",
+        "logo_BahFz"
       ],
       "name": "Social Proof Scroller"
     },
