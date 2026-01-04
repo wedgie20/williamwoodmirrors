@@ -1,6 +1,6 @@
 {% schema %}
 {
-  "name": "Social Proof Scroller",
+  "name": "Social Proof Scroller2",
   "blocks": [
     {
       "type": "logo",
@@ -8,8 +8,8 @@
       "settings": [
         {
           "type": "image_picker",
-          "id": "logo",
-          "label": "Logo"
+          "id": "logo_image",
+          "label": "Logo Image"
         }
       ]
     }
@@ -17,127 +17,122 @@
   "settings": [
     {
       "type": "range",
-      "id": "logo_width",
-      "label": "Logo width (px)",
-      "default": 140,
-      "min": 80,
-      "max": 300,
-      "step": 10
+      "id": "number_of_logos",
+      "label": "Number of Logos",
+      "default": 3,
+      "min": 1,
+      "max": 10,
+      "step": 0.5
     },
     {
       "type": "range",
-      "id": "logo_spacing",
-      "label": "Logo spacing (px)",
-      "default": 20,
+      "id": "logo_spacing_px",
+      "label": "Logo Spacing (px)",
+      "default": 10,
       "min": 0,
       "max": 50,
       "step": 5
     },
     {
       "type": "range",
-      "id": "animation_speed",
-      "label": "Animation speed (desktop)",
-      "default": 20,
-      "min": 5,
-      "max": 60,
+      "id": "scroll_speed",
+      "label": "Scroll Speed (Desktop)",
+      "default": 10,
+      "min": 1,
+      "max": 50,
       "step": 1
     },
     {
       "type": "range",
-      "id": "animation_speed_mobile",
-      "label": "Animation speed (mobile)",
-      "default": 30,
-      "min": 5,
-      "max": 60,
+      "id": "scroll_speed_mobile",
+      "label": "Scroll Speed (Mobile)",
+      "default": 15,
+      "min": 1,
+      "max": 50,
       "step": 1
     },
     {
       "type": "color",
-      "id": "background_color",
-      "label": "Background colour",
+      "id": "background_color_hex",
+      "label": "Background Color",
       "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "logo_image_size",
+      "label": "Logo Image Size",
+      "default": "200x200"
     }
   ],
   "presets": [
     {
-      "name": "Social Proof Scroller",
+      "name": "Social Proof Scroller2",
       "category": "Custom"
     }
   ]
 }
 {% endschema %}
 
-<div
-  class="infinite-logo-scroller"
-  style="background-color: {{ section.settings.background_color }};"
->
+<div class="infinite-logo-scroller" style="background-color: {{ section.settings.background_color_hex }};">
   <div class="logo-track">
-    {% capture slides %}
-      {% for block in section.blocks %}
-        {% if block.settings.logo %}
-          <div class="logo-slide">
-            <img
-              src="{{ block.settings.logo | img_url: '300x' }}"
-              alt="{{ block.settings.logo.alt | escape }}"
-              loading="lazy"
-            >
-          </div>
-        {% endif %}
-      {% endfor %}
-    {% endcapture %}
-
-    {{ slides }}
-    {{ slides }}
+    {% assign logo_count = 0 %}
+    {% capture logo_slides %}
+    {% for block in section.blocks %}
+      {% assign logo_image = block.settings.logo_image  %}
+      {% if logo_image %}
+        {% assign logo_count = logo_count | plus: 1 %}
+        <div class="logo-slide">
+          <img src="{{ settings.speedsize_url_pfx_https -}}{{ logo_image | img_url: section.settings.logo_image_size }}" alt="{{ logo_image.alt }}">
+        </div>
+      {% endif %}
+    {% endfor %}
+    {%  endcapture %}
+    {{ logo_slides }}
+    {{ logo_slides }}
+    {% if logo_count < section.settings.number_of_logos %}
+      {{ logo_slides }}
+    {% endif %}
   </div>
 </div>
 
 <style>
-.infinite-logo-scroller {
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-}
-
-.logo-track {
-  display: flex;
-  width: 200%;
-  gap: {{ section.settings.logo_spacing }}px;
-  animation: scroll {{ section.settings.animation_speed }}s linear infinite;
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-}
-
-.logo-slide {
-  flex: 0 0 auto;
-  width: {{ section.settings.logo_width }}px;
-}
-
-.logo-slide img {
-  width: 100%;
-  height: auto;
-  display: block;
-  backface-visibility: hidden;
-}
-
-@keyframes scroll {
-  from {
-    transform: translate3d(0, 0, 0);
+  .infinite-logo-scroller {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
   }
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
 
-@media (max-width: 768px) {
   .logo-track {
-    animation-duration: {{ section.settings.animation_speed_mobile }}s;
+    display: flex;
+    animation: scroll {{ section.settings.scroll_speed }}s linear infinite;
+    width: fit-content;
+    will-change: transform;
   }
-}
 
-/* Optional: accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .logo-track {
-    animation: none;
+  .logo-slide {
+    flex: 0 0 auto;
+    width: calc(100vw / {{ section.settings.number_of_logos }} - {{ section.settings.logo_spacing_px }}px);
+    margin-right: {{ section.settings.logo_spacing_px }}px;
   }
-}
+
+  .logo-slide img {
+    width: 100%;
+    height: auto;
+    backface-visibility: hidden;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .logo-track {
+      animation: scroll {{ section.settings.scroll_speed_mobile }}s linear infinite;
+    }
+  }
 </style>
