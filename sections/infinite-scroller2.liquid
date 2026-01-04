@@ -100,11 +100,11 @@
 
 .logo-track {
   display: flex;
+  width: 200%;
   gap: {{ section.settings.logo_spacing }}px;
-  width: max-content;
   animation: scroll {{ section.settings.animation_speed }}s linear infinite;
   will-change: transform;
-  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
 }
 
 .logo-slide {
@@ -131,6 +131,13 @@
 @media (max-width: 768px) {
   .logo-track {
     animation-duration: {{ section.settings.animation_speed_mobile }}s;
+  }
+}
+
+/* Optional: accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .logo-track {
+    animation: none;
   }
 }
 </style>
