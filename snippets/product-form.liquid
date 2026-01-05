@@ -1022,7 +1022,7 @@ document.addEventListener('DOMContentLoaded', function () {
             {%- form 'product', product, is: 'product-form', id: product_form_id -%}
               <input type="hidden" disabled name="id" value="{{ product.selected_or_first_available_variant.id }}">
 
-              <p>Test item</p>
+              
 <product-payment-container
   form-id="{{ product_form_id }}"
   {% if update_url %}
@@ -1053,6 +1053,7 @@ document.addEventListener('DOMContentLoaded', function () {
           | strip 
     -%}
   {%- endif -%}
+  <p>Test item</p>
   
   {%- comment %} Format the extracted date {%- endcomment -%}
   {%- if raw_date != blank -%}
