@@ -111,7 +111,7 @@
 
   .logo-slide {
     flex: 0 0 auto;
-    width: calc(100vw / {{ section.settings.number_of_logos }} - {{ section.settings.logo_spacing_px }}px);
+    {% comment %} width: calc(100vw / {{ section.settings.number_of_logos }} - {{ section.settings.logo_spacing_px }}px); {% endcomment %}
     margin-right: {{ section.settings.logo_spacing_px }}px;
   }
 
