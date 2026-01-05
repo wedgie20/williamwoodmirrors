@@ -73,7 +73,7 @@
 }
 {% endschema %}
 
-<div class="infinite-logo-scroller" style="background-color: {{ section.settings.background_color }};">
+<div class="infinite-logo-scroller" style="background-color: {{ section.settings.background_color }};" speed="{{ section.settings.animation_speed }}">
   <div class="logo-track">
     {% assign images_count = 0 %}
     {% capture slides %}
