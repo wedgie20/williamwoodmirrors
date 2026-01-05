@@ -1168,55 +1168,55 @@ document.addEventListener('DOMContentLoaded', function () {
               }
 
               .tooltip {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  margin-left: 6px;
-  border-radius: 50%;
-  border: 1px solid #000;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  line-height: 1;
-}
+                position: relative;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 18px;
+                height: 18px;
+                margin-left: 6px;
+                border-radius: 50%;
+                border: 1px solid #000;
+                font-size: 12px;
+                font-weight: 600;
+                cursor: pointer;
+                line-height: 1;
+              }
 
-.tooltip-content {
-  position: absolute;
-  bottom: 130%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 240px;
-  padding: 10px 12px;
-  background: #000;
-  color: #fff;
-  font-size: 12px;
-  line-height: 1.4;
-  border-radius: 6px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease;
-  z-index: 20;
-  text-align: center;
-}
+              .tooltip-content {
+                position: absolute;
+                bottom: 130%;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 240px;
+                padding: 10px 12px;
+                background: #000;
+                color: #fff;
+                font-size: 12px;
+                line-height: 1.4;
+                border-radius: 6px;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.2s ease;
+                z-index: 20;
+                text-align: center;
+              }
 
-.tooltip-content::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 6px;
-  border-style: solid;
-  border-color: #000 transparent transparent transparent;
-}
+              .tooltip-content::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                border-width: 6px;
+                border-style: solid;
+                border-color: #000 transparent transparent transparent;
+              }
 
-.tooltip:hover .tooltip-content {
-  opacity: 1;
-  visibility: visible;
-}
+              .tooltip:hover .tooltip-content {
+                opacity: 1;
+                visibility: visible;
+              }
 
             </style>
 
