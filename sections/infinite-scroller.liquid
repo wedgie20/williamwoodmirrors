@@ -81,7 +81,7 @@
       {% assign logo = block.settings.logo %}
       {% if logo %}
         {% assign images_count = images_count | plus: 1  %}
-        <div class="logo-slide">
+        <div class="logo-slide index_{{ forloop.index }}">
           <img src="{{ settings.speedsize_url_pfx_https -}}{{ logo | img_url: section.settings.image_size }}" alt="{{ logo.alt }}">
         </div>
       {% endif %}
