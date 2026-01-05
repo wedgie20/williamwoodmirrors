@@ -102,19 +102,19 @@
     position: relative;
   }
   
-  .logo-track {
+  .infinite-logo-scroller .logo-track {
     display: flex;
     animation: scroll {{ section.settings.animation_speed }}s linear infinite;
     width: 200%;
     will-change: transform;
   }
   
-  .logo-slide {
+  .infinite-logo-scroller .logo-slide {
     flex: 0 0 calc(50% / {{ section.settings.logos_shown }} - {{ section.settings.logo_spacing }}px);
     margin-right: {{ section.settings.logo_spacing }}px;
   }
   
-  .logo-slide img {
+  .infinite-logo-scroller .logo-slide img {
     width: 100%;
     height: auto;
     backface-visibility: hidden;
@@ -131,7 +131,7 @@
   }
   
   @media (max-width: 768px) {
-    .logo-track {
+    .infinite-logo-scroller .logo-track {
       animation: scroll {{ section.settings.animation_speed_mobile }}s linear infinite;
     }
   }
