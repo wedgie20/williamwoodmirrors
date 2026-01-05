@@ -62,9 +62,9 @@
               {%- capture collection_image -%}collection-{% cycle '1', '2', '3', '4', '5', '6' %}{%- endcapture -%}
               <div class="placeholder-image">
                 {%- if section.settings.reveal_on_scroll and forloop.first -%}
-                  {{- collection_image | placeholder_svg_tag: 'shop-the-look__image shop-the-look__image--placeholder' | replace: '<svg', '<svg reveal' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  -}}
+                  {{- collection_image | placeholder_svg_tag: 'shop-the-look__image shop-the-look__image--placeholder' | replace: '<svg', '<svg reveal' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
                 {%- else -%}
-                  {{- collection_image | placeholder_svg_tag: 'shop-the-look__image shop-the-look__image--placeholder' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  -}}
+                  {{- collection_image | placeholder_svg_tag: 'shop-the-look__image shop-the-look__image--placeholder' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
                 {%- endif -%}
               </div>
             {%- endif -%}
@@ -100,7 +100,7 @@
                 {%- capture product_image -%}product-{% cycle '1', '2', '3' %}{%- endcapture -%}
 
                 <openable-element id="{{ look_id }}-{{ forloop.index }}-product" class="shop-the-look__product {% if block.settings[product_horizontal_position_option] > 50 %}shop-the-look__product--reverse{% endif %} hidden-phone">
-                  {{- product_image | placeholder_svg_tag: 'shop-the-look__product-image' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  -}}
+                  {{- product_image | placeholder_svg_tag: 'shop-the-look__product-image' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
 
                   <div class="shop-the-look__product-info">
                     <span class="shop-the-look__product-vendor heading heading--xsmall">{{ 'general.onboarding.product_vendor' | t }}</span>
@@ -122,7 +122,7 @@
 
                   <header class="popover__header">
                     <div class="quick-buy-product">
-                      {{- product_image | placeholder_svg_tag: 'quick-buy-product__image' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  -}}
+                      {{- product_image | placeholder_svg_tag: 'quick-buy-product__image' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
 
                       <div class="quick-buy-product__info text--small">
                         <div class="product-item-meta">
