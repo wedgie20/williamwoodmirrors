@@ -1146,7 +1146,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             {%- endform -%}
 
-    <span class="info-text">
+    <span class="info-text assure-text">
   Designed to elevate your space. Free returns & free collection if it’s not right.
   <span class="ww-tooltip">
     ?
@@ -1156,12 +1156,7 @@ document.addEventListener('DOMContentLoaded', function () {
   </span>
 </span>
 
-
-    <div class="assure-text">
-      <p>Designed to elevate your space. Free returns & free collection if it’s not right.</p>
-    </div>
-
-            <style>
+<style>
               .assure-text {
                 text-align: center;
                 padding-top: 10px;
@@ -1169,58 +1164,58 @@ document.addEventListener('DOMContentLoaded', function () {
               }
 
              .ww-tooltip {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  margin-left: 6px;
-  border-radius: 50%;
-  border: 1px solid currentColor;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  line-height: 1;
-}
+              position: relative;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              width: 18px;
+              height: 18px;
+              margin-left: 6px;
+              border-radius: 50%;
+              border: 1px solid currentColor;
+              font-size: 12px;
+              font-weight: 600;
+              cursor: pointer;
+              line-height: 1;
+            }
 
-.ww-tooltip__content {
-  position: absolute;
-  bottom: 130%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 240px;
-  padding: 10px 12px;
-  background: #000;
-  color: #fff;
-  font-size: 12px;
-  line-height: 1.4;
-  border-radius: 6px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease;
-  z-index: 20;
-  text-align: center;
-}
+        .ww-tooltip__content {
+          position: absolute;
+          bottom: 130%;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 240px;
+          padding: 10px 12px;
+          background: #000;
+          color: #fff;
+          font-size: 12px;
+          line-height: 1.4;
+          border-radius: 6px;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.2s ease;
+          z-index: 20;
+          text-align: center;
+        }
 
-.ww-tooltip__content::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 6px;
-  border-style: solid;
-  border-color: #000 transparent transparent transparent;
-}
+        .ww-tooltip__content::after {
+          content: "";
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          border-width: 6px;
+          border-style: solid;
+          border-color: #000 transparent transparent transparent;
+        }
 
-.ww-tooltip:hover .ww-tooltip__content {
-  opacity: 1;
-  visibility: visible;
-}
+        .ww-tooltip:hover .ww-tooltip__content {
+          opacity: 1;
+          visibility: visible;
+        }
 
 
-            </style>
+  </style>
 
             {% comment %}
               {% if additional_checkout_buttons %}
