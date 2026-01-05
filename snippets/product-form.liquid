@@ -1147,14 +1147,15 @@ document.addEventListener('DOMContentLoaded', function () {
             {%- endform -%}
 
     <span class="info-text">
-      Designed to elevate your space. Free returns & free collection if it’s not right.
-      <span class="tooltip">
-        ?
-        <span class="tooltip-content">
-          If your item isn’t suitable, we offer free returns and arrange free collection for eligible orders. No hassle, no hidden fees.
-        </span>
-      </span>
+  Designed to elevate your space. Free returns & free collection if it’s not right.
+  <span class="ww-tooltip">
+    ?
+    <span class="ww-tooltip__content">
+      If your item isn’t suitable, we offer free returns and arrange free collection for eligible orders. No hassle, no hidden fees.
     </span>
+  </span>
+</span>
+
 
     <div class="assure-text">
       <p>Designed to elevate your space. Free returns & free collection if it’s not right.</p>
@@ -1167,56 +1168,57 @@ document.addEventListener('DOMContentLoaded', function () {
                 font-weight: 700;
               }
 
-              .tooltip {
-                position: relative;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                width: 18px;
-                height: 18px;
-                margin-left: 6px;
-                border-radius: 50%;
-                border: 1px solid #000;
-                font-size: 12px;
-                font-weight: 600;
-                cursor: pointer;
-                line-height: 1;
-              }
+             .ww-tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-left: 6px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  line-height: 1;
+}
 
-              .tooltip-content {
-                position: absolute;
-                bottom: 130%;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 240px;
-                padding: 10px 12px;
-                background: #000;
-                color: #fff;
-                font-size: 12px;
-                line-height: 1.4;
-                border-radius: 6px;
-                opacity: 0;
-                visibility: hidden;
-                transition: opacity 0.2s ease;
-                z-index: 20;
-                text-align: center;
-              }
+.ww-tooltip__content {
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px;
+  padding: 10px 12px;
+  background: #000;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.4;
+  border-radius: 6px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease;
+  z-index: 20;
+  text-align: center;
+}
 
-              .tooltip-content::after {
-                content: "";
-                position: absolute;
-                top: 100%;
-                left: 50%;
-                transform: translateX(-50%);
-                border-width: 6px;
-                border-style: solid;
-                border-color: #000 transparent transparent transparent;
-              }
+.ww-tooltip__content::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #000 transparent transparent transparent;
+}
 
-              .tooltip:hover .tooltip-content {
-                opacity: 1;
-                visibility: visible;
-              }
+.ww-tooltip:hover .ww-tooltip__content {
+  opacity: 1;
+  visibility: visible;
+}
+
 
             </style>
 
