@@ -1053,7 +1053,7 @@ document.addEventListener('DOMContentLoaded', function () {
           | strip 
     -%}
   {%- endif -%}
-  <p>Test item</p>
+  
   
   {%- comment %} Format the extracted date {%- endcomment -%}
   {%- if raw_date != blank -%}
@@ -1108,6 +1108,7 @@ document.addEventListener('DOMContentLoaded', function () {
     >
       {{ 'product.form.add_to_cart' | t }}
     </button>
+    <p>Test item</p>
     {% comment %} <div class="product-form__quantity" {{ block.shopify_attributes }}>
       <span class="product-form__quantity-label">{{ 'product.form.quantity' | t }}:</span>
 
