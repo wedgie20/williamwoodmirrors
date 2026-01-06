@@ -99,7 +99,7 @@
     },
     "custom_collection_banner_4Q3dt": {
       "type": "custom-collection-banner",
-      "disabled": false,
+      "disabled": true,
       "custom_css": [
         ".collection-banner__image {max-height: 350px;}",
         "@media screen and (max-width: 950px) {.collection-banner__image {min-height: 200px; }}"
@@ -315,11 +315,40 @@
       ],
       "settings": {},
       "blocks": {}
+    },
+    "image_text_updated_A7kki": {
+      "type": "image-text-updated",
+      "disabled": false,
+      "settings": {
+        "reveal_on_scroll": true,
+        "section_height": "auto",
+        "image": null,
+        "mobile_image": null,
+        "subheading": "Subheading",
+        "title": "Image with text overlay",
+        "content": "<p>Use overlay text to give your customers insight into your brand. Select imagery and text that relates to your style and story.</p>",
+        "button_text": "",
+        "button_link": "",
+        "link_style": "link",
+        "background_type": "full_width",
+        "text_width": "medium",
+        "text_position": "middle_center",
+        "header-a50a8931eca4330cf644f66321bdb8ee": null,
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Image with text updated"
     }
   },
   "order": [
     "coll_slideshow_eDWRr",
     "updated_review_fm8kg",
+    "image_text_updated_A7kki",
     "custom_collection_banner_4Q3dt",
     "collection-banner",
     "infinite_scroller2_VrqVN",
