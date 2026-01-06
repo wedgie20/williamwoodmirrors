@@ -15,7 +15,7 @@
   "sections": {
     "custom_collection_banner_tx9cK": {
       "type": "custom-collection-banner",
-      "disabled": false,
+      "disabled": true,
       "custom_css": [
         ".collection-banner__image {max-height: 350px;}",
         "@media screen and (max-width: 950px) {.collection-banner__image {min-height: 200px; }}"
@@ -337,12 +337,41 @@
       ],
       "settings": {},
       "blocks": {}
+    },
+    "image_text_updated_4pi9x": {
+      "type": "image-text-updated",
+      "disabled": false,
+      "settings": {
+        "reveal_on_scroll": true,
+        "section_height": "auto",
+        "image": "shopify://shop_images/2000_x_490_Banner_Close_up.jpg",
+        "mobile_image": "shopify://shop_images/Jan_Sale_Banner_2000x1500_069bc2a1-9afe-46ca-8d7f-ce355c6da109.jpg",
+        "subheading": "Subheading",
+        "title": "Image with text overlay",
+        "content": "<p>Use overlay text to give your customers insight into your brand. Select imagery and text that relates to your style and story.</p>",
+        "button_text": "",
+        "button_link": "",
+        "link_style": "link",
+        "background_type": "full_width",
+        "text_width": "medium",
+        "text_position": "middle_center",
+        "header-a50a8931eca4330cf644f66321bdb8ee": null,
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Image with text updated"
     }
   },
   "order": [
     "collection-banner",
     "updated_review_BRhH4",
     "custom_collection_banner_tx9cK",
+    "image_text_updated_4pi9x",
     "rich_text_C8MBJ",
     "coll_slideshow_yjzYh",
     "infinite_scroller2_8MD9x",
