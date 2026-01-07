@@ -405,7 +405,7 @@
         <ul class="mini-cart__discount-list list--unstyled" role="list">
           {%- for discount_application in cart.cart_level_discount_applications -%}
             <li class="mini-cart__discount">
-              <span class="mini-cart__discount-badge discount-badge">{%- render 'icon' with 'discount-badge' -%}{{ discount_application.title }}</span>
+              <span class="mini-cart__discount-badge discount-badge mini-cart-discount-custom">{%- render 'icon' with 'discount-badge' -%}{{ discount_application.title }}</span>
               <span class="mini-cart__discount-price text--xsmall text--subdued">-{{ discount_application.total_allocated_amount | money }}</span>
             </li>
           {%- endfor -%}
@@ -562,6 +562,10 @@
        {% endfor %}
 
      <style>
+
+      .mini-cart__discount .mini-cart-discount-custom {
+      border-radius: 30px;
+      }
        .order_info {
          display: flex; 
          justify-content: space-between; 
