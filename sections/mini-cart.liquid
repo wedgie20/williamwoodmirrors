@@ -440,7 +440,15 @@
     <span style="text-align: right;">
       {%- assign original_subtotal = 0 -%}
       {%- for line_item in cart.items -%}
-        {%- assign item_total = line_item.original_line_price -%}
+        
+        {%- if line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
+                {% if line_item.original_line_price > line_item.final_line_price %}
+               {%- assign item_total = line_item.original_line_price -%}
+                {% else %}
+                  {% assign item_total = line_item.variant.compare_at_price | times: line_item.quantity %}
+                {% endif %}
+                {%- endif -%}
+
         {%- assign original_subtotal = original_subtotal | plus: item_total -%}
       {%- endfor -%}
 
