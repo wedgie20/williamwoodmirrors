@@ -137,11 +137,11 @@
                   <span class="price price--compare">
                 <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
 
-                {% if line_item.original_line_price > line_item.final_line_price %}
-                  {% render 'format-money', amount: line_item.original_line_price %}
-                {% else %}
+               {% if line_item.variant.compare_at_price > line_item.variant.price %}
                   {% assign compare_price_total = line_item.variant.compare_at_price | times: line_item.quantity %}
                   {% render 'format-money', amount: compare_price_total %}
+                  {% else %}
+                  {% render 'format-money', amount: line_item.original_line_price %}
                 {% endif %}
               </span>
 
@@ -445,7 +445,15 @@
     <span style="text-align: right;">
       {%- assign original_subtotal = 0 -%}
       {%- for line_item in cart.items -%}
-        {%- assign item_total = line_item.original_line_price -%}
+    {%- if line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
+                {% if line_item.variant.compare_at_price > line_item.variant.price %}
+               {% assign item_total = line_item.variant.compare_at_price | times: line_item.quantity %}
+                {% else %}
+                  {%- assign item_total = line_item.original_line_price -%}
+                {% endif %}
+            {%- else -%}
+                {%- assign item_total = line_item.final_line_price -%}
+                {%- endif -%}
         {%- assign original_subtotal = original_subtotal | plus: item_total -%}
       {%- endfor -%}
 
