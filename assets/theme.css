@@ -13133,7 +13133,13 @@ shopify-payment-terms {
 }
 
 #xo-scroll2top {
-  transform: translateY(-8px) !important;
+  bottom: 92px !important;
+}
+
+@media screen and (max-width: 999px) {
+ #xo-scroll2top {
+  bottom: 109px !important;
+}
 }
 
 @media screen and (max-width: 999px) {
