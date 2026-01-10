@@ -777,7 +777,8 @@
       "type": "infinite-scroller",
       "disabled": false,
       "custom_css": [
-        "@media (max-width: 767px) {.infinite-logo-scroller {} .logo-slide {flex: 0 0 calc(50% / 3.5 - 10px); margin-right: 10px; }}"
+        "@media (max-width: 767px) {.infinite-logo-scroller {} .logo-slide {flex: 0 0 calc(50% / 3.5 - 10px); margin-right: 10px; }}",
+        " .infinite-logo-scroller {margin-bottom: 30px; }"
       ],
       "settings": {
         "logos_shown": 10,
@@ -1123,7 +1124,7 @@
     },
     "updated_review_QbQMf": {
       "type": "updated-review",
-      "disabled": false,
+      "disabled": true,
       "settings": {
         "header-454c3450c7398c91dbaccd54735242ab": null,
         "image": "shopify://shop_images/700K_Thin_Banner_PNG_1_5401055f-f66e-417b-b242-1d9984191d37.png",
