@@ -93,7 +93,7 @@ For inquiries or permissions, contact daniel@section.store
 
   if content_horizontal_position == "center"
     assign text_align = "center"
-  elsif content_horizontal_position == "right"
+  elsif content_horizontal_position == "end"
     assign text_align = "right"
   else
     assign text_align = "left"
@@ -103,11 +103,40 @@ For inquiries or permissions, contact daniel@section.store
 
   if content_horizontal_position_mobile == "center"
     assign text_align_mobile = "center"
-  elsif content_horizontal_position_mobile == "right"
+  elsif content_horizontal_position_mobile == "end"
     assign text_align_mobile = "right"
   else
     assign text_align_mobile = "left"
   endif
+
+  assign loading_attribute = 'eager'
+  if lazy
+    assign loading_attribute = 'lazy'
+  endif
+  
+  if card_ratio == "portrait"
+    assign aspect_ratio = 9.6 | divided_by: 12
+    assign calculated_width = 750
+    assign calculated_height = 750 | divided_by: aspect_ratio | round
+  elsif card_ratio == "landscape"
+    assign aspect_ratio = 12 | divided_by: 9
+    assign calculated_width = 750
+    assign calculated_height = 750 | divided_by: aspect_ratio | round
+  elsif card_ratio == "square"
+    assign calculated_width = 750
+    assign calculated_height = 750
+  else
+    # For original ratio, use default 4:3 aspect
+    assign calculated_width = 750
+    assign calculated_height = 750 | divided_by: 1.33 | round
+  endif
+  
+  # Set up responsive sizes attribute for better browser resource allocation
+  capture sizes
+    echo "(min-width: 1400px) 750px, "
+    echo "(min-width: 750px) calc(50vw - 100px), "
+    echo "calc(100vw - 30px)"
+  endcapture
   
 -%}
 
@@ -121,7 +150,7 @@ For inquiries or permissions, contact daniel@section.store
     border-bottom: solid {{ border_color }} {{ border_thickness }}px;
     margin-top: {{ margin_top | times: 0.75 | round: 0 }}px;
     margin-bottom: {{ margin_bottom | times: 0.75 | round: 0 }}px;
-    overflow: visible;
+    overflow: hidden;
   }
   
   .section-{{ section.id }}-settings {
@@ -138,7 +167,21 @@ For inquiries or permissions, contact daniel@section.store
     box-sizing: border-box !important;
     border-radius: {{ card_radius }}px;
     border: {{ card_border_thickness }}px solid {{ card_border_color }};
-    overflow: visible;
+    overflow: hidden;
+    text-decoration: none;
+    align-items: {{ content_horizontal_position_mobile }};   
+    padding: {{ card_padding_vertical_mobile }}px {{ card_padding_horizontal_mobile }}px;
+    width: 100%;
+  }
+
+  .slider-image-wrapper-{{ section.id }} {
+    display: flex !important; 
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
   }
 
   .slider-image-{{ section.id }} {
@@ -173,21 +216,15 @@ For inquiries or permissions, contact daniel@section.store
     background-color: #AEAEAE;
   }
 
-  .slider-content-{{ section.id }} {
-    display: flex !important;
-    box-sizing: border-box;
-    flex-direction: column;
-    align-items: {{ content_horizontal_position_mobile }};
-    justify-content: {{ content_vertical_position_mobile }};
-    padding: {{ card_padding_vertical_mobile }}px {{ card_padding_horizontal_mobile }}px;
-    height: 100%;
-    width: 100%;
-    position: relative;
-    z-index: 2;
+  .slider-slide-{{ section.id }} {
+     display: flex !important;
+     flex-direction: column;
+     justify-content: {{ content_vertical_position_mobile }};
   }
 
   .slider-title-{{ section.id }} {
     margin: 0;
+    z-index: 1;
     font-size: {{ title_size_mobile }}px;
     color: {{ title_color }};
     line-height: {{ title_height }}%;
@@ -199,6 +236,7 @@ For inquiries or permissions, contact daniel@section.store
   }
 
   .slider-button-{{ section.id }} {
+    z-index: 3;
     margin-top: {{ button_mt | times: 0.75 | round: 0 }}px;
     display: flex;
     align-items: center;
@@ -315,10 +353,11 @@ For inquiries or permissions, contact daniel@section.store
       padding-right: {{ padding_horizontal }}rem;
     }
     
-    .slider-content-{{ section.id }} {
-      align-items: {{ content_horizontal_position }};
-      justify-content: {{ content_vertical_position }};
-      padding: {{ card_padding_vertical }}px {{ card_padding_horizontal }}px;
+    .slider-slide-{{ section.id }} {
+        text-decoration: none;
+        align-items: {{ content_horizontal_position }};    
+        padding: {{ card_padding_vertical }}px {{ card_padding_horizontal }}px;
+       justify-content: {{ content_vertical_position }};
     }
 
     .slider-title-{{ section.id }} {
@@ -358,7 +397,7 @@ For inquiries or permissions, contact daniel@section.store
 {% unless full_width %}
   <style>
     .section-{{ section.id }}-settings {
-      max-width: {{ content_width }}rem;
+      max-width: {{ content_width }}px;
     }
   </style>
 {% endunless %}
@@ -493,7 +532,7 @@ For inquiries or permissions, contact daniel@section.store
     display: flex;
     align-items: center;
     justify-content: space-between;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .slider-slider-{{ section.id }}.preview .slider-slide-{{ section.id }} {
@@ -527,21 +566,31 @@ For inquiries or permissions, contact daniel@section.store
           {% for i in (1..4) %}
             {% for block in section.blocks %}
               <div class="swiper-slide slider-slide-{{ section.id }}">
-                <div class="slider-image-{{ section.id }}">
-                  {% if block.settings.image != blank %}
-                    <img src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image | image_url }}" alt="{{ block.settings.image.alt }}" {% if lazy %}loading="lazy"{% endif %}>
-                  {% else %}
-                    {{ 'image' | placeholder_svg_tag }}
-                  {% endif %}
-                </div>
-                <div class="slider-content-{{ section.id }}">
-                  {% if block.settings.title != blank %}
-                    <p class="heading heading--small">{{ block.settings.title }}</p>
-                  {% endif %}
-                  {% if block.settings.button != blank %}
-                    <a href="{{ block.settings.url  }}" class="button button--primary">Shop Now</a>
-                  {% endif %}
-                </div>
+                <{% if block.settings.url != blank %}a href="{{ block.settings.url }}"{% else %}div{% endif %} class="slider-image-wrapper-{{ section.id }}">
+                </{% if block.settings.url != blank %}a{% else %}div{% endif %}>        
+                  <div class="slider-image-{{ section.id }}">
+                    {% if block.settings.image != blank %}
+                      {%- liquid assign img_alt = block.settings.image.alt | escape -%}
+                      {%- capture sizes -%}  (min-width: 1200px) 428px, (min-width: 750px) calc((100vw - 130px) / 2), 100vw{%- endcapture -%}
+                      {{ block.settings.image | image_url: width: 1500 | image_tag:
+                        loading: loading_attribute,
+                        sizes: sizes,
+                        widths: '650, 860, 1000, 1200, 1500',
+                        alt: img_alt
+                      }}
+                    {% else %}
+                      {{ 'image' | placeholder_svg_tag }}
+                    {% endif %}  
+                  </div>                              
+             
+                {% if block.settings.title != blank %}
+                  <p class="slider-title-{{ section.id }}">{{ block.settings.title }}</p>
+                {% endif %}
+
+                {% if block.settings.button != blank %}
+                  <{% if block.settings.button_url != blank %}a href="{{ block.settings.button_url }}"{% elsif block.settings.url != blank %}a href="{{ block.settings.url }}"{% else %}div{% endif %} class="slider-button-{{ section.id }}">{{ block.settings.button }}</{% if block.settings.button_url != blank or block.settings.url != blank %}a{% else %}div{% endif %}>
+                {% endif %}            
+               
               </div>
             {% endfor %}
           {% endfor %}
@@ -609,7 +658,7 @@ For inquiries or permissions, contact daniel@section.store
     "settings": [
       {
         "type": "header",
-        "content": "Slider Settings"
+        "content": "Slider"
       },
       {
         "type": "range",
@@ -617,7 +666,7 @@ For inquiries or permissions, contact daniel@section.store
         "min": 2,
         "max": 6,
         "step": 1,
-        "label": "Slider Per View",
+        "label": "Slides per view",
         "default": 4
       },
       {
@@ -626,7 +675,7 @@ For inquiries or permissions, contact daniel@section.store
         "min": 1,
         "max": 3,
         "step": 0.1,
-        "label": "Slider Per View - Mobile",
+        "label": "Slides per view - mobile",
         "default": 1.5
       },
       {
@@ -636,12 +685,12 @@ For inquiries or permissions, contact daniel@section.store
         "max": 40,
         "step": 1,
         "unit": "deg",
-        "label": "Slides Rotate",
+        "label": "Rotate",
         "default": 0
       },
       {
         "type": "header",
-        "content": "Slide Settings"
+        "content": "Slide"
       },
       {
         "type": "range",
@@ -650,7 +699,7 @@ For inquiries or permissions, contact daniel@section.store
         "max": 100,
         "step": 2,
         "unit": "px",
-        "label": "Slide Padding Vertical",
+        "label": "Padding vertical",
         "default": 24
       },
       {
@@ -660,7 +709,7 @@ For inquiries or permissions, contact daniel@section.store
         "max": 100,
         "step": 2,
         "unit": "px",
-        "label": "Slide Padding Vertical - Mobile",
+        "label": "Padding vertical - mobile",
         "default": 24
       },
       {
@@ -670,7 +719,7 @@ For inquiries or permissions, contact daniel@section.store
          "max": 100,
          "step": 2,
          "unit": "px",
-         "label": "Slide Padding Horizontal",
+         "label": "Padding horizontal",
          "default": 40
       },
       {
@@ -680,7 +729,7 @@ For inquiries or permissions, contact daniel@section.store
          "max": 100,
          "step": 2,
          "unit": "px",
-         "label": "Slide Padding Horizontal - Mobile",
+         "label": "Padding horizontal - mobile",
          "default": 30
       },
       {
@@ -690,7 +739,7 @@ For inquiries or permissions, contact daniel@section.store
          "max": 100,
          "step": 2,
          "unit": "px",
-         "label": "Slide Border Radius",
+         "label": "Roundness",
          "default": 0
       },
       {
@@ -700,19 +749,19 @@ For inquiries or permissions, contact daniel@section.store
          "max": 10,
          "step": 1,
          "unit": "px",
-         "label": "Slide Border Thickness",
+         "label": "Border thickness",
          "default": 0
       },
       {
          "type": "checkbox",
          "id": "card_shadow",
-         "label": "Slide Box Shadow",
+         "label": "Use shadow",
          "default": true
       },
       {
         "type": "select",
         "id": "card_ratio",
-        "label": "Card Aspect Ratio",
+        "label": "Aspect ratio",
         "default": "portrait",
         "options": [
           {
@@ -736,7 +785,7 @@ For inquiries or permissions, contact daniel@section.store
       {
         "type": "select",
         "id": "card_ratio_mobile",
-        "label": "Card Aspect Ratio - Mobile",
+        "label": "Aspect ratio - mobile",
         "default": "portrait",
         "options": [
           {
@@ -763,17 +812,17 @@ For inquiries or permissions, contact daniel@section.store
         "min": 0,
         "max": 1,
         "step": 0.1,
-        "label": "Slide Overlay",
-        "default": 0.3
+        "label": "Overlay",
+        "default": 0.2
       },
       {
         "type": "header",
-        "content": "Content Settings"
+        "content": "Content"
       },
       {
         "type": "select",
         "id": "content_horizontal_position",
-        "label": "Content Horizontal Position",
+        "label": "Horizontal position",
         "default": "center",
         "options": [
           {
@@ -793,7 +842,7 @@ For inquiries or permissions, contact daniel@section.store
        {
         "type": "select",
         "id": "content_horizontal_position_mobile",
-        "label": "Content Horizontal Position - Mobile",
+        "label": "Horizontal position - mobile",
         "default": "center",
         "options": [
           {
@@ -813,7 +862,7 @@ For inquiries or permissions, contact daniel@section.store
       {
         "type": "select",
         "id": "content_vertical_position",
-        "label": "Content Vertical Position",
+        "label": "Vertical position",
         "default": "end",
         "options": [
           {
@@ -833,7 +882,7 @@ For inquiries or permissions, contact daniel@section.store
       {
         "type": "select",
         "id": "content_vertical_position_mobile",
-        "label": "Content Vertical Position - Mobile",
+        "label": "Vertical position - mobile",
         "default": "end",
         "options": [
           {
@@ -852,38 +901,38 @@ For inquiries or permissions, contact daniel@section.store
       },
       {
         "type": "header",
-        "content": "Slide Heading Settings"
+        "content": "Title"
       },
       {
         "type": "checkbox",
         "id": "title_custom",
-        "label": "Use Custom Font",
+        "label": "Use custom font",
         "default": false
       },
       {
         "type": "font_picker",
         "id": "title_font",
-        "label": "Slide Heading Font Family",
+        "label": "Font family",
         "default": "josefin_sans_n4"
       },
       {
         "type": "range",
         "id": "title_size",
         "min": 0,
-        "max": 100,
-        "step": 2,
+        "max": 40,
+        "step": 1,
         "unit": "px",
-        "label": "Slide Heading Size",
+        "label": "Font size",
         "default": 28
       },
       {
         "type": "range",
         "id": "title_size_mobile",
         "min": 0,
-        "max": 72,
-        "step": 2,
+        "max": 40,
+        "step": 1,
         "unit": "px",
-        "label": "Slide Heading Size - Mobile",
+        "label": "Font size - mobile",
         "default": 28
       },
       {
@@ -893,43 +942,43 @@ For inquiries or permissions, contact daniel@section.store
         "max": 200,
         "step": 10,
         "unit": "%",
-        "label": "Slide Heading Line Height",
-        "default": 100
+        "label": "Line height",
+        "default": 130
       },
       {
         "type": "header",
-        "content": "Button Settings"
+        "content": "Button"
       },
       {
         "type": "checkbox",
         "id": "button_custom",
-        "label": "Use Custom Font",
+        "label": "Use custom font",
         "default": false
       },
       {
         "type": "font_picker",
         "id": "button_font",
-        "label": "Button Font Family",
+        "label": "Font family",
         "default": "josefin_sans_n4"
       },
       {
         "type": "range",
         "id": "button_size",
         "min": 0,
-        "max": 72,
-        "step": 2,
+        "max": 40,
+        "step": 1,
         "unit": "px",
-        "label": "Button Size",
+        "label": "Font size",
         "default": 14
       },
       {
         "type": "range",
         "id": "button_size_mobile",
         "min": 0,
-        "max": 72,
-        "step": 2,
+        "max": 40,
+        "step": 1,
         "unit": "px",
-        "label": "Button Size - Mobile",
+        "label": "Font size - mobile",
         "default": 14
       },
       {
@@ -939,7 +988,7 @@ For inquiries or permissions, contact daniel@section.store
         "max": 200,
         "step": 10,
         "unit": "%",
-        "label": "Button Line Height",
+        "label": "Line height",
         "default": 100
       },
       {
@@ -949,7 +998,7 @@ For inquiries or permissions, contact daniel@section.store
         "max": 100,
         "step": 2,
         "unit": "px",
-        "label": "Button Margin Top",
+        "label": "Margin top",
         "default": 16
       },
       {
@@ -959,7 +1008,7 @@ For inquiries or permissions, contact daniel@section.store
         "max": 100,
         "step": 4,
         "unit": "px",
-        "label": "Button Padding Vertical",
+        "label": "Padding vertical",
         "default": 12
       },
       {
@@ -969,7 +1018,7 @@ For inquiries or permissions, contact daniel@section.store
          "max": 100,
          "step": 4,
          "unit": "px",
-         "label": "Button Padding Horizontal",
+         "label": "Padding horizontal",
          "default": 20
       },
       {
@@ -979,7 +1028,7 @@ For inquiries or permissions, contact daniel@section.store
          "max": 100,
          "step": 2,
          "unit": "px",
-         "label": "Button Border Radius",
+         "label": "Roundness",
          "default": 0
       },
       {
@@ -989,12 +1038,12 @@ For inquiries or permissions, contact daniel@section.store
          "max": 10,
          "step": 1,
          "unit": "px",
-         "label": "Button Border Thickness",
+         "label": "Border thickness",
          "default": 1
       },
       {
         "type": "header",
-        "content": "Arrow Settings"
+        "content": "Arrows"
       },
       {
         "type": "range",
@@ -1003,7 +1052,7 @@ For inquiries or permissions, contact daniel@section.store
         "max": 100,
         "step": 2,
         "unit": "px",
-        "label": "Arrow Size",
+        "label": "Size",
         "default": 50
       },
       {
@@ -1013,7 +1062,7 @@ For inquiries or permissions, contact daniel@section.store
         "max": 100,
         "step": 2,
         "unit": "px",
-        "label": "Arrow Size - Mobile",
+        "label": "Size - mobile",
         "default": 32
       },
       {
@@ -1023,7 +1072,7 @@ For inquiries or permissions, contact daniel@section.store
         "max": 50,
         "step": 2,
         "unit": "px",
-        "label": "Arrow Icon Size",
+        "label": "Icon size",
         "default": 20
       },
       {
@@ -1033,7 +1082,7 @@ For inquiries or permissions, contact daniel@section.store
         "max": 50,
         "step": 2,
         "unit": "px",
-        "label": "Arrow Icon Size - Mobile",
+        "label": "Icon size - mobile",
         "default": 12
       },
       {
@@ -1043,92 +1092,131 @@ For inquiries or permissions, contact daniel@section.store
         "max": 10,
         "step": 1,
         "unit": "px",
-        "label": "Arrow Border Thickness",
+        "label": "Border thickness",
         "default": 0
       },
       {
         "type": "checkbox",
         "id": "arrow_show_desktop",
-        "label": "Show on Desktop",
+        "label": "Show on desktop",
         "default": true
       },
       {
         "type": "checkbox",
         "id": "arrow_show_mobile",
-        "label": "Show on Mobile",
+        "label": "Show on mobile",
         "default": true
       },
       {
         "type": "header",
-        "content": "Slide Colors"
+        "content": "Slide colors"
       },
       {
         "type": "color",
-        "label": "Slide Border Color",
-        "id": "card_border_color",
-        "default": "#000000"
-      },
-      {
-        "type": "color",
-        "label": "Slide Shadow Color",
-        "id": "card_shadow_color",
-        "default": "#000000"
-      },
-      {
-        "type": "color",
-        "label": "Slide Overlay Color",
-        "id": "card_overlay_color",
-        "default": "#000000"
-      },
-      {
-        "type": "color",
-        "label": "Slide Title Color",
+        "label": "Title",
         "id": "title_color",
         "default": "#FFFFFF"
       },
       {
+        "type": "color",
+        "label": "Border",
+        "id": "card_border_color",
+        "default": "#121212"
+      },
+      {
+        "type": "color",
+        "label": "Shadow",
+        "id": "card_shadow_color",
+        "default": "#121212"
+      },
+      {
+        "type": "color",
+        "label": "Overlay",
+        "id": "card_overlay_color",
+        "default": "#121212"
+      },
+      {
         "type": "header",
-        "content": "Arrow Colors"
+        "content": "Button colors"
       },
       {
         "type": "color",
-        "label": "Arrow color",
+        "label": "Text",
+        "id": "button_color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "label": "Text hover",
+        "id": "button_hover_color",
+        "default": "#121212"
+      },
+      {
+        "type": "color",
+        "label": "Background",
+        "id": "button_bg_color"
+      },
+      {
+        "type": "color",
+        "label": "Background hover",
+        "id": "button_bg_hover_color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "label": "Border",
+        "id": "button_border_color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "label": "Border hover",
+        "id": "button_border_hover_color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "header",
+        "content": "Arrow colors"
+      },
+      {
+        "type": "color",
+        "label": "Arrow",
         "id": "arrow_color",
-        "default": "#000000"
+        "default": "#121212"
       },
       {
         "type": "color",
-        "label": "Arrow Hover color",
+        "label": "Arrow hover",
         "id": "arrow_hover_color",
         "default": "#FFFFFF"
       },
       {
         "type": "color",
-        "label": "Arrow Background color",
+        "label": "Background",
         "id": "arrow_bg_color",
         "default": "#FFFFFF"
       },
       {
         "type": "color",
-        "label": "Arrow Background Hover color",
+        "label": "Background hover",
         "id": "arrow_bg_hover_color",
-        "default": "#000000"
+        "default": "#121212"
       },
       {
         "type": "color",
-        "label": "Arrow Border color",
+        "label": "Border",
         "id": "arrow_border_color",
-        "default": "#000000"
+        "default": "#121212"
       },
       {
         "type": "color",
-        "label": "Arrow Border Hover color",
+        "label": "Border hover",
         "id": "arrow_border_hover_color",
         "default": "#454545"
       },
       {
         "type": "header",
-        "content": "Section Colors"
+        "content": "Section colors"
       },
       {
         "type": "color",
@@ -1139,13 +1227,14 @@ For inquiries or permissions, contact daniel@section.store
       {
         "type": "color_background",
         "id": "background_gradient",
-        "label": "Section background gradient"
+        "label": "Section background gradient",
+        "info": "Remove gradient to replace with solid colors"
       },
       {
         "type": "color",
         "label": "Border",
         "id": "border_color",
-        "default": "#000000"
+        "default": "#121212"
       },
       {
         "type": "header",
@@ -1217,23 +1306,23 @@ For inquiries or permissions, contact daniel@section.store
       },
       {
         "type": "header",
-        "content": "Section Settings"
+        "content": "Section settings"
       },
       {
         "type": "checkbox",
         "id": "full_width",
-        "label": "Full Width",
+        "label": "Full width",
         "default": true
       },
       {
         "type": "range",
         "id": "content_width",
-        "min": 0,
-        "max": 400,
-        "step": 10,
-        "unit": "rem",
+        "min": 800,
+        "max": 2000,
+        "step": 100,
+        "unit": "px",
         "label": "Section content width",
-        "default": 120
+        "default": 1200
       },
       {
         "type": "range",
@@ -1264,6 +1353,11 @@ For inquiries or permissions, contact daniel@section.store
             "label": "Image"
           },
           {
+            "type": "url",
+            "id": "url",
+            "label": "Image link"
+          },
+          {
             "type": "text",
             "id": "title",
             "label": "Title",
@@ -1272,13 +1366,14 @@ For inquiries or permissions, contact daniel@section.store
           {
             "type": "text",
             "id": "button",
-            "label": "Button Text",
-            "default": "Learn more"
-          },
+            "label": "Button label",
+            "default": "Learn more",
+            "info": "Leave the label blank to hide the button."
+          },          
           {
             "type": "url",
-            "id": "url",
-            "label": "Button URL"
+            "id": "button_url",
+            "label": "Button link"
           }
         ]
       }
