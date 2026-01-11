@@ -291,13 +291,7 @@ document.addEventListener("DOMContentLoaded", function() {
     {% unless product.title contains "E-Gift Card" %}
       
 <div style="" class="product-title-price">
-  <h1 class="product-meta__title heading h3" style="margin-top: none !important; padding-top: none !important; transform: translateY(-5px);">
-    <b>
-      <p class="cardo_title" style="text-transform: capitalize !important; font-size: 30px;">{{ first_word }}</p>
-    </b>
-    <p style="font-size: 13px; margin-top: 4px !important; text-transform: none !important; font-family: Zurich, sans-serif; font-weight: bold !important;">{{ title_words | join: ' ' | remove: '-' | remove: remove_first_word }}</p>
-  </h1>
- {%- if section.settings.show_product_rating -%}
+   {%- if section.settings.show_product_rating -%}
 
           
           <a href="#judgeme_product_reviews"
@@ -314,6 +308,13 @@ document.addEventListener("DOMContentLoaded", function() {
           </a>
 
         {%- endif -%}
+  <h1 class="product-meta__title heading h3" style="margin-top: none !important; padding-top: none !important; transform: translateY(-5px);">
+    <b>
+      <p class="cardo_title" style="text-transform: capitalize !important; font-size: 30px;">{{ first_word }}</p>
+    </b>
+    <p style="font-size: 13px; margin-top: 4px !important; text-transform: none !important; font-family: Zurich, sans-serif; font-weight: bold !important;">{{ title_words | join: ' ' | remove: '-' | remove: remove_first_word }}</p>
+  </h1>
+
   <style>
     @media screen and (max-width: 740px) {
   .tp-desktop {
