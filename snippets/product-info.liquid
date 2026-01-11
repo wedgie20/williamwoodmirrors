@@ -773,7 +773,8 @@ Or in 3 instalments of <span id="installment"></span> with
 
   {%- if section.settings.show_product_rating or section.settings.show_sku -%}
       <div class="product-meta__reference">
-        {%- if section.settings.show_product_rating -%}
+        
+        {% comment %} {%- if section.settings.show_product_rating -%}
 
           
           <a href="#judgeme_product_reviews"
@@ -789,8 +790,10 @@ Or in 3 instalments of <span id="installment"></span> with
              {%- render 'product-rating', product: product -%}
           </a>
 
-        {%- endif -%}
-
+        {%- endif -%} {% endcomment %}
+<a href="#product-{{ product.id }}-content" class="product-meta__accordion-toggle" data-action="toggle-accordion" aria-expanded="false" style="font-size: 10px !important; text-decoration: underline;font-weight: bold;">
+FAQ
+</a>
         
         {%- if section.settings.show_sku -%}
           <span
@@ -810,15 +813,9 @@ Or in 3 instalments of <span id="installment"></span> with
         <div class="swym-wishlist-button-bar"></div>
       </div>
     {%- endif -%}
-<div class="Flex-info">
 <a href="#product-{{ product.id }}-content" class="product-meta__accordion-toggle" data-action="toggle-accordion" aria-expanded="false" style="font-size: 10px !important; text-decoration: underline;font-weight: bold;">
 View Product Dimensions
 </a>
-
-<a href="#product-{{ product.id }}-content" class="product-meta__accordion-toggle" data-action="toggle-accordion" aria-expanded="false" style="font-size: 10px !important; text-decoration: underline;font-weight: bold;">
-FAQ
-</a>
-</div>
   </product-meta>
   <div style="padding: 16px 0; margin: 16px 0; padding-top: 0; margin-top: 0;">
   <p style="font-style: italic; margin-bottom: 12px; font-weight: bold">The verdict from our valued customers</p>
