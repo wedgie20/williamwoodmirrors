@@ -17,7 +17,8 @@
       "type": "infinite-scroller",
       "disabled": false,
       "custom_css": [
-        "@media (max-width: 767px) {.infinite-logo-scroller {} .logo-slide {flex: 0 0 calc(50% / 3.5 - 10px); margin-right: 10px; }}"
+        "@media (max-width: 767px) {.logo-slide {flex: 0 0 calc(50% / 3.5 - 10px); margin-right: 10px; }}",
+        ".infinite-logo-scroller {margin-bottom: 40px; }"
       ],
       "settings": {
         "logos_shown": 10,
@@ -360,7 +361,7 @@
         "mobile_item_size": "small",
         "desktop_item_size": "pico",
         "spacing": "tight",
-        "header-5cf08ad2a9ee7649832d33f15d9281ec": null,
+        "header-bab1a8a5ac05251b45c94827e7575592": null,
         "background": "#efefef",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -509,7 +510,7 @@
       "type": "custom-video",
       "disabled": false,
       "settings": {
-        "header-adb17a5385d364db1e3d7c64dd7b492e": null,
+        "header-7c8c3be3b53ec6e70121d53be0d7bbae": null,
         "video": "shopify://files/videos/Website Video - Abandoned Cart v2.mp4",
         "poster_image": "shopify://shop_images/Screenshot_2025-10-08_153408.png",
         "autoplay": false,
@@ -518,42 +519,42 @@
         "show_controls": true,
         "show_controls_on_play": true,
         "pause_on_scroll": true,
-        "header-65ecf5c375b3ad57cfe1ac5c0e6b3834": null,
+        "header-9fa19e2134a087e22948140d7c8295e6": null,
         "use_aspect_ratio": false,
         "video_aspect_ratio": "50",
         "video_border_radius": 4,
         "video_shadow": "0 4px 20px rgba(0,0,0,0.15)",
-        "header-893570243f1d758d3d4cbf3670eae178": null,
+        "header-808f6b531fa8bd06d7ba3a3300a2334b": null,
         "play_button_size": 80,
         "play_button_background": "#ffffff",
         "play_button_opacity": 90,
         "play_button_icon_color": "#000000",
-        "header-61fe12f27727bc84087a61d82364157c": null,
+        "header-7bbd713a753bfaae25866ce3b8746dc0": null,
         "show_header": false,
         "title": "",
         "subtitle": "",
         "description": "",
         "text_alignment": "center",
-        "header-3a902e6492b493cb0ba26d18eec64b14": null,
+        "header-42a4198792eb3e69ff9cf5aabd35c8a6": null,
         "title_size": 36,
         "title_weight": "600",
         "subtitle_size": 18,
         "description_size": 16,
-        "header-87d1b8d1b5cd169347a92075b8bc570d": null,
+        "header-ea1d7fcb97dddb1c157eac88504876f2": null,
         "show_button": false,
         "button_text": "Learn More",
         "button_link": "",
         "button_background": "#000000",
         "button_text_color": "#ffffff",
         "button_border_radius": 4,
-        "header-02a74e42cb8463ee5e5fd678749d34f4": null,
+        "header-e7e482b486729ed835e7ee0742e6e5f3": null,
         "container_width": 550,
         "padding_top": 0,
         "padding_bottom": 0,
         "content_spacing": 10,
         "title_margin": 0,
         "subtitle_margin": 0,
-        "header-d12fa4061923623c04f3c07246da666b": null,
+        "header-f4e39f30df2b7a671cb9e09e217f6ad1": null,
         "background_color": "#ffffff",
         "text_color": "#000000"
       },
@@ -641,7 +642,7 @@
         "liquid": "{% if product.type == 'Table' or product.type == 'Chair' %}\n<br>\n{% if product.tags contains 'prebuilt' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n{% else %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">3-5 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives ready for quick and easy assembly.\n</span>\n</div>\n</body>\n</html>\n{% endif %}\n{% else %}\n{% if product.type == 'Furniture Set' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    All pieces of this furniture set arrive fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n\n{% endif %}\n{% endif %}\n{% if product.type == 'Mirror' %}\n<br>\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Can this mirror be wall mounted?</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\" style=\"font-size: 20px;\">Yes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This mirror can be wall mounted in{% assign description = product.description | downcase %}{% if description contains 'portrait' and description contains 'landscape' %} either{% endif %}{% if description contains 'portrait' %} portrait{% endif %}{% if description contains 'portrait' and description contains 'landscape' %} or{% endif %}{% if description contains 'landscape' %} landscape{% endif %} orientation.\n</span>\n</div>\n</body>\n</html>\n{% endif %}",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-31d6aa9b818f7af23f1183afe3d7db1c": null,
+        "header-756201c5cc87adbe96b1809c9660b3ff": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -662,7 +663,7 @@
         "liquid": "{% if product.type == 'Mirror' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_MakeSmallRoomsBig_v1.02.jpg?v=1729256817\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_MakeSmallRoomsBig_v1.0_2.jpg?v=1729595254\">\n{% elsif product.title contains 'Coffee Table' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_CoffeTables_v1.02_8875e8e7-b11c-4491-8427-803ef508469f.jpg?v=1729261477\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_CoffeTables_v1.0.jpg?v=1729260504\">\n{% elsif product.type == 'Lamp' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Lamps_v1.02.jpg?v=1729518322\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Lamps_v1.0_3.jpg?v=1730115270\">\n{% elsif product.type == 'vase' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Vases_v1.22.jpg?v=1730293344\">\n{% endif %}",
         "add_vertical_spacing": true,
         "background_type": "full_width",
-        "header-d7c3241f127e0926e3c6f6edeeb2c39f": null,
+        "header-d1c48bcda15feee8d6f149e39e081660": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -682,7 +683,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-0e536139209f06720ab3b892d71a7f0b": null,
+        "header-b7cef219f91b053710c04b19b3407721": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -704,7 +705,7 @@
         "liquid": "<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_ElevateYourHome-02.jpg?v=1729592904\">",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-aacf4a8bf2ba91a24816f2e17b1a4e31": null,
+        "header-1dede1f8f86bbdf96a7940ad9517c477": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -750,7 +751,7 @@
         "liquid": "<video src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/videos/c/o/v/d07d71b60fe9447c99bada59959df6a3.mp4\" controls \n  poster=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/A_sit_down_with_Jenna_final_edit_2_0-00-02-24.jpg?v=1728481189\">\n  Your browser does not support the video tag.\n</video>",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-8c2dbae3babf2c92b3eb27f954c09f0c": null,
+        "header-9eaab3602abd534133d421cb760d07b5": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -806,7 +807,7 @@
           "type": "product_status",
           "disabled": false,
           "settings": {
-            "header-a4d58340a977e66117ff6a4a29519e35": null,
+            "header-d23623522f720450fdd633b838edf05d": null,
             "margin_top": 0,
             "font_weight": "bold",
             "font_size": 12,
@@ -817,12 +818,12 @@
             "padding_vertical": 5,
             "padding_horizontal": 15,
             "background_image": "shopify://shop_images/New_Year_PDP_Desk.jpg",
-            "header-824b1411fed607ea3d020c876ed0554b": null,
+            "header-68b9c9f2d36d66c74c7ace9b83650b5c": null,
             "promo_heading": "",
             "promo_text": "25% off when you purchase 2 full-priced products, no code needed.\nor\n30% off when you purchase 3 or more full-priced products, no code needed.\n+\nFree Gift with your purchase worth up to £99 GBP when you spend £299 GBP or more",
             "sale_heading": "January Sale",
             "sale_text": "Extra 10% off when you purchase 2 sale products, no code needed.\nor\nExtra 15% off when you purchase 3 or more sale products, no code needed.\n+\nFree Gift with your purchase worth up to £99 GBP when you spend £299 GBP or more",
-            "header-a2fab01a159cdba38612f2c168ad7f0f": null,
+            "header-5cb3a175572ba2fdbb5978c33b20af5c": null,
             "coming_soon_text": "Coming Soon",
             "back_soon_text": "Back in stock soon, sign up for restock notifications below",
             "black_friday_launch_text": "Launches 29.11.24",
@@ -830,7 +831,7 @@
             "black_friday_restock_text": "Restocks 29.11.24",
             "restock_text": "Restocks [DATE] 8PM",
             "out_of_stock_text": "Currently out of stock, join waitlist below.",
-            "header-60427697e51d6fd3521f1c327e549b4e": null,
+            "header-5dc5d9c0076d2b9122581b59a2eac639": null,
             "show_hudson_message": true,
             "hudson_message": "Free cushion included with the Hudson Chair"
           }
@@ -860,23 +861,23 @@
           "type": "low_stock",
           "disabled": false,
           "settings": {
-            "header-91134a2227be6105ca925f4f76c6fcf7": null,
+            "header-bff814944017618201df609412e1d581": null,
             "restocked_text": "Recently restocked, don't miss out.",
             "low_stock_text": "Low stock",
             "low_stock_suffix": "left",
             "limited_availability_bold": "Availability is limited",
             "limited_availability_normal": "- secure yours before it's gone",
-            "header-19d7a38ecadca847647bcf8641ac844c": null,
+            "header-7b71ebcf7c97766e16e6bd02f30cd7c1": null,
             "last_chance_text": "Last chance to purchase, this product <b>won't be restocked</b>.",
             "limited_offer_prefix": "Exclusive offer",
             "limited_offer_suffix": ", returning to full price soon.",
-            "header-1dcdbe631a8235385138b724a97d723d": null,
+            "header-879b447ebfaba6bc8e665611a5150f63": null,
             "preorder_delivery_text": "Free UK Delivery: Available for pre order",
             "instock_delivery_bold_text": "Free & Fast UK Delivery, 100% Insured. <b>In stock & ready to ship</b>",
             "instock_delivery_regular_text": "Free & Fast UK Delivery: In stock & ready to ship",
-            "header-0b2765316c14648a4b43cfd1b3014672": null,
+            "header-3cb86103a9cd4e876e6e4efb0a7cd312": null,
             "low_stock_threshold": 14,
-            "header-bc1937887c6c62234c213f2caecad5bc": null,
+            "header-d8cb62d97907db3b15cb3d77108cd901": null,
             "pulse_color": "#54c63a",
             "urgency_indicator_color": "#ffbf00",
             "enable_animations": true
@@ -993,7 +994,7 @@
           "type": "button",
           "disabled": false,
           "settings": {
-            "paragraph-48daa4b674be59dad1cc65210cec8bb7": null,
+            "paragraph-e59113b35066ad10c02d357f903a41a2": null,
             "link": "",
             "text": "",
             "stretch": true,
@@ -1132,11 +1133,340 @@
         "title2": "Follow @williamwood"
       },
       "blocks": {}
+    },
+    "ss_faq_10_U7NM4": {
+      "type": "ss-faq-10",
+      "disabled": false,
+      "settings": {
+        "header-ec2c3f6a2f3c33d5eb1c83146dff3b00": null,
+        "heading": "<h2>YOUR MOST COMMON QUESTIONS, ANSWERED.</h2>",
+        "heading_custom": false,
+        "heading_font": "josefin_sans_n4",
+        "heading_size": 56,
+        "heading_size_mobile": 40,
+        "heading_height": 130,
+        "heading_align": "left",
+        "heading_align_mobile": "center",
+        "header-82c07f5abcc2f5beacc511ee2fa6f1f6": null,
+        "body_gap": 16,
+        "body_gap_mobile": 24,
+        "body_mt": 56,
+        "body_mt_mobile": 40,
+        "header-de859cf1438bd0744f19a48ddc469eb0": null,
+        "toggles_gap": 20,
+        "toggles_gap_mobile": 16,
+        "toggles_horizontal_align": "start",
+        "header-9e868d4b84d067cf7d16803c7cfbb1eb": null,
+        "toggle_padding_vertical": 60,
+        "toggle_padding_vertical_mobile": 26,
+        "toggle_padding_horizontal": 40,
+        "toggle_padding_horizontal_mobile": 24,
+        "toggle_radius": 16,
+        "toggle_border_thickness": 0,
+        "toggle_custom": false,
+        "toggle_font": "josefin_sans_n4",
+        "toggle_size": 20,
+        "toggle_size_mobile": 16,
+        "toggle_height": 130,
+        "toggle_align": "center",
+        "toggle_align_mobile": "center",
+        "header-871464d3f0292834ce233f17c3581062": null,
+        "items_padding_vertical": 48,
+        "items_padding_vertical_mobile": 16,
+        "items_padding_horizontal": 52,
+        "items_padding_horizontal_mobile": 32,
+        "items_radius": 16,
+        "items_border_thickness": 0,
+        "header-6f247581986a3d81b419cd5b55653fd3": null,
+        "item_padding_vertical": 24,
+        "item_padding_vertical_mobile": 20,
+        "item_padding_horizontal": 0,
+        "item_padding_horizontal_mobile": 0,
+        "item_mt": 10,
+        "item_radius": 0,
+        "item_border_thickness": 1,
+        "item_border_bottom": true,
+        "item_shadow": false,
+        "header-8daa3c78dff781808540b2c3520e55f2": null,
+        "question_custom": false,
+        "question_font": "josefin_sans_n4",
+        "question_size": 20,
+        "question_size_mobile": 14,
+        "question_height": 150,
+        "header-c5bcea4eda6d53791bc247d6787d7352": null,
+        "arrow_size": 24,
+        "arrow_size_mobile": 24,
+        "arrow_border_thickness": 0,
+        "header-a4de25b1caa334decb0f1ba02c68a011": null,
+        "answer_custom": false,
+        "answer_font": "josefin_sans_n4",
+        "answer_size": 16,
+        "answer_size_mobile": 12,
+        "answer_height": 170,
+        "answer_padding_top": 24,
+        "header-8ce66dbbd86d0bae7ff85ab5581010bd": null,
+        "toggle_color": "#FFFFFF",
+        "toggle_hover_color": "#121212",
+        "toggle_active_color": "#121212",
+        "toggle_bg_color": "#FFFFFF",
+        "toggle_bg_hover_color": "#FFFFFF",
+        "toggle_bg_active_color": "#FFFFFF",
+        "toggle_border_color": "#000000",
+        "toggle_border_hover_color": "#000000",
+        "toggle_border_active_color": "#000000",
+        "header-9ac31fbef600bc25c64d6eb02d9265a2": null,
+        "items_bg_color": "#FFFFFF",
+        "items_border_color": "#000000",
+        "header-43b3ad6fc3e27713f5aeaa44d427be97": null,
+        "item_bg_color": "#FFFFFF",
+        "item_border_color": "#E7E7E8",
+        "question_color": "#121212",
+        "arrow_color": "#121212",
+        "arrow_border_color": "#121212",
+        "answer_color": "#121212",
+        "header-a377040f40d59df168301a3ead3a130f": null,
+        "heading_color": "#FFFFFF",
+        "background_color": "#333333",
+        "background_gradient": "",
+        "border_color": "#000000",
+        "header-af6b3a01cc27c006e4dcac6d5fc44d85": null,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_horizontal": 1,
+        "margin_horizontal_mobile": 0,
+        "header-70e642a96af3a82a5b159642c6891263": null,
+        "padding_top": 64,
+        "padding_bottom": 48,
+        "padding_horizontal": 8,
+        "padding_horizontal_mobile": 1.5,
+        "header-b8388dfd8c4b0b0536084c6d9aec8bb8": null,
+        "bg_image": null,
+        "full_width": true,
+        "content_width": 120,
+        "border_thickness": 0,
+        "section_radius": 32
+      },
+      "blocks": {
+        "tab_TJMrn": {
+          "type": "tab",
+          "disabled": false,
+          "settings": {
+            "tab_title": "Returns & Refunds"
+          }
+        },
+        "item_T9Xpa": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
+          }
+        },
+        "item_wNVRx": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
+          }
+        },
+        "item_gbn7U": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
+          }
+        },
+        "tab_PExMq": {
+          "type": "tab",
+          "disabled": false,
+          "settings": {
+            "tab_title": "Delivery"
+          }
+        },
+        "item_3kXJF": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
+          }
+        },
+        "item_X9BQn": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
+          }
+        },
+        "item_JyVEj": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
+          }
+        },
+        "tab_KN96z": {
+          "type": "tab",
+          "disabled": false,
+          "settings": {
+            "tab_title": "Order"
+          }
+        },
+        "item_YVFfj": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
+          }
+        },
+        "item_GjYfj": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
+          }
+        },
+        "item_eHy6F": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
+          }
+        },
+        "tab_6MpTY": {
+          "type": "tab",
+          "disabled": false,
+          "settings": {
+            "tab_title": "Store"
+          }
+        },
+        "item_pwMfV": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
+          }
+        },
+        "item_BDkpY": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
+          }
+        },
+        "item_kic3j": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
+          }
+        },
+        "tab_jyiYq": {
+          "type": "tab",
+          "disabled": false,
+          "settings": {
+            "tab_title": "Technical"
+          }
+        },
+        "item_NgeCY": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
+          }
+        },
+        "item_7D6Bq": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
+          }
+        },
+        "item_ggXQY": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
+          }
+        },
+        "tab_eG43j": {
+          "type": "tab",
+          "disabled": false,
+          "settings": {
+            "tab_title": "Partnerships"
+          }
+        },
+        "item_i9KVq": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
+          }
+        },
+        "item_9jwbM": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
+          }
+        },
+        "item_zaDbH": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Question",
+            "answer": "<p>Answer</p>"
+          }
+        }
+      },
+      "block_order": [
+        "tab_TJMrn",
+        "item_T9Xpa",
+        "item_wNVRx",
+        "item_gbn7U",
+        "tab_PExMq",
+        "item_3kXJF",
+        "item_X9BQn",
+        "item_JyVEj",
+        "tab_KN96z",
+        "item_YVFfj",
+        "item_GjYfj",
+        "item_eHy6F",
+        "tab_6MpTY",
+        "item_pwMfV",
+        "item_BDkpY",
+        "item_kic3j",
+        "tab_jyiYq",
+        "item_NgeCY",
+        "item_7D6Bq",
+        "item_ggXQY",
+        "tab_eG43j",
+        "item_i9KVq",
+        "item_9jwbM",
+        "item_zaDbH"
+      ],
+      "name": "SS - FAQ #10"
     }
   },
   "order": [
     "main",
     "infinite_scroller_LGnhM",
+    "ss_faq_10_U7NM4",
     "multi_column_cBCjX",
     "custom_video_LnMnj",
     "text_with_icons_jchib",
