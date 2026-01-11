@@ -2,6 +2,10 @@
  * NOTE: most of the CSS variables used are defined in the "css-variables.liquid" snippet file
  */
 
+ .tap-area {
+  display: none;
+ }
+
 @media (max-width: 768px) {
   [id^="shopify-section-sections--"][id$="__header"],
   [id^="shopify-section-sections--"][id$="__announcement-bar"],
