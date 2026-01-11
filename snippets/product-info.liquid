@@ -791,9 +791,24 @@ Or in 3 instalments of <span id="installment"></span> with
           </a>
 
         {%- endif -%} {% endcomment %}
-<a href="#product-{{ product.id }}-content" class="product-meta__accordion-toggle_faq" data-action="toggle-accordion" aria-expanded="false" style="font-size: 10px !important; text-decoration: underline;font-weight: bold;">
-FAQ
+<a href="#" 
+   class="product-meta__accordion-toggle_faq" 
+   data-action="toggle-accordion-faq" 
+   aria-expanded="false" 
+   style="font-size: 10px !important; text-decoration: underline; font-weight: bold;"
+   onclick="scrollToFaq(event)">
+   FAQ
 </a>
+
+<script>
+function scrollToFaq(e) {
+  e.preventDefault();
+  const target = document.querySelector('.section-template--25362442584443__ss_faq_10_U7NM4');
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+</script>
         
         {%- if section.settings.show_sku -%}
           <span
