@@ -791,17 +791,9 @@ Or in 3 instalments of <span id="installment"></span> with
           </a>
 
         {%- endif -%} {% endcomment %}
-<a href="#section-template--25362442584443__ss_faq_10_U7NM4" class="product-meta__accordion-toggle_faq" data-action="toggle-accordion" aria-expanded="false" style="font-size: 10px !important; text-decoration: underline;font-weight: bold;">
+<a href="#product-{{ product.id }}-content" class="product-meta__accordion-toggle_faq" data-action="toggle-accordion" aria-expanded="false" style="font-size: 10px !important; text-decoration: underline;font-weight: bold;">
 FAQ
 </a>
-<script>
-  document.querySelector('.product-meta__accordion-toggle_faq')
-    .addEventListener('click', function (e) {
-      e.preventDefault();                       // stop the default jump
-      document.getElementById('section-template--25362442584443__ss_faq_10_U7NM4')
-        .scrollIntoView({ behavior: 'smooth' });
-    });
-</script>
         
         {%- if section.settings.show_sku -%}
           <span
