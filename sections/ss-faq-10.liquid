@@ -513,7 +513,7 @@ For inquiries or permissions, contact daniel@section.store
 {% if bg_image != blank %}
   <style>
     .section-{{ section.id }}-settings {
-      background-image: url('{{ bg_image | image_url }}');
+      background-image: url('{{ settings.speedsize_url_pfx_https -}}{{ bg_image | image_url }}');
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
