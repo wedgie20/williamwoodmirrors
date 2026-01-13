@@ -116,7 +116,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: {{ bg_image_overlay_color | hex_to_rgba: bg_image_overlay }};
+    background-color: {{ bg_image_overlay_color | hex_to_rgba: bg_image_overlay | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }};
   }
 
   .hero-bg-image-{{ section.id }} img,
@@ -375,16 +375,16 @@
         }
 
         .hero-author-image-{{ block.id }} {
-          border: {{ block.settings.image_border_thickness }}px solid {{ block.settings.image_border_color }};
-          border-radius: {{ block.settings.image_radius }}px;
+          border: {{ block.settings.image_border_thickness | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px solid {{ block.settings.image_border_color | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }};
+          border-radius: {{ block.settings.image_radius | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
           overflow: hidden;
-          width: {{ block.settings.image_size_mobile }}px;
-          height: {{ block.settings.image_size_mobile }}px;
+          width: {{ block.settings.image_size_mobile | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
+          height: {{ block.settings.image_size_mobile | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
           background-color: {{ background_color }};
         }
 
         .hero-author-image-{{ block.id }}:not(:first-child) {
-          margin-left: -{{ block.settings.image_size_mobile | times: 0.3 }}px;
+          margin-left: -{{ block.settings.image_size_mobile | times: 0.3 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
         }
 
         .hero-review-text-{{ block.id }},
@@ -416,12 +416,12 @@
           }
 
           .hero-author-image-{{ block.id }} {
-            width: {{ block.settings.image_size }}px;
-            height: {{ block.settings.image_size }}px;
+            width: {{ block.settings.image_size | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
+            height: {{ block.settings.image_size | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
           }
 
           .hero-author-image-{{ block.id }}:not(:first-child) {
-            margin-left: -{{ block.settings.image_size | times: 0.3 }}px;
+            margin-left: -{{ block.settings.image_size | times: 0.3 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
           }
 
           .hero-review-text-{{ block.id }},
@@ -690,7 +690,7 @@
               sizes: sizes,
               alt: bg_image.alt,
               class: 'hero-bg-image-desktop',
-              widths: '1780, 2000, 2500, 3000, 3500, 4000'
+              widths: '1780, 2000, 2500, 3000, 3500, 4000' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
           }}
           {%- capture sizes_mobile -%}100vw{%- endcapture -%}
           {{
@@ -701,7 +701,7 @@
               sizes: sizes_mobile,
               alt: bg_image_mobile.alt,
               class: 'hero-bg-image-mobile',
-              widths: '550, 750, 1100'
+              widths: '550, 750, 1100' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
           }}
         {% else %}
           {{
@@ -711,7 +711,7 @@
               loading: loading_attribute,
               sizes: sizes,
               alt: bg_image.alt,
-              widths: '1780, 2000, 2500, 3000, 3500, 4000'
+              widths: '1780, 2000, 2500, 3000, 3500, 4000' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
           }}
         {% endif %}
       {% else %}
@@ -741,7 +741,7 @@
                           height: block.settings.first_image.height,
                           sizes: sizes,
                           widths: '30, 50, 80, 120, 150, 200',
-                          alt: img_alt
+                          alt: img_alt | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
                       }}
                     </div>
                   {% endif %}
@@ -760,7 +760,7 @@
                           height: block.settings.second_image.height,
                           sizes: sizes,
                           widths: '30, 50, 80, 120, 150, 200',
-                          alt: img_alt
+                          alt: img_alt | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
                       }}
                     </div>
                   {% endif %}
@@ -779,7 +779,7 @@
                           height: block.settings.third_image.height,
                           sizes: sizes,
                           widths: '30, 50, 80, 120, 150, 200',
-                          alt: img_alt
+                          alt: img_alt | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
                       }}
                     </div>
                   {% endif %}
@@ -798,7 +798,7 @@
                           height: block.settings.fourth_image.height,
                           sizes: sizes,
                           widths: '30, 50, 80, 120, 150, 200',
-                          alt: img_alt
+                          alt: img_alt | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
                       }}
                     </div>
                   {% endif %}
@@ -826,7 +826,7 @@
                                 height: block.settings.stars_icon.height,
                                 sizes: sizes,
                                 widths: '450, 535, 750',
-                                alt: img_alt
+                                alt: img_alt | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
                             }}
                           {% endfor %}
                         {% else %}
