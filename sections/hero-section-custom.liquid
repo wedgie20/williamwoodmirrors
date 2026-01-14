@@ -529,12 +529,12 @@ p.hero-section__subtitle{
           {% endcomment %}
         {%- if section.settings.title != blank -%}
           <h1 class="hero-section__title">{{ section.settings.title }}</h1>
-            <p class="mini-sub-hero"  style="margin-bottom: 0px;">EVERYTHING</p>or
-             <h1 class="hero-section__title">30% OFF</h1>
-              <p class="mini-sub-hero"  style="margin-bottom: 0px;">3 Or More Full-Priced Products </p>
+            <p class="mini-sub-hero"  style="margin-bottom: 0px;">EVERYTHING</p>+
+             {% comment %} <h1 class="hero-section__title">30% OFF</h1> {% endcomment %}
+              <p class="mini-sub-hero"  style="margin-bottom: 0px;">5% OF ALL SALES DONATED TO <b>MIND</b> WITH</p>
            {% comment %} <p class="mini-sub-hero-thin">EVERYTHING</p> {% endcomment %}
         {%- endif -%}
-        {% comment %} <p class="mini-sub-hero-v2"><b>Limited-Time-Only</b></p> {% endcomment %}
+        <p class="mini-sub-hero-v2">Offer automatically applied at checkout.<br><b>No Code Needed. Ends Tonight.</b></p>
 </div>
 
         {%- assign has_bullet_points = false -%}
