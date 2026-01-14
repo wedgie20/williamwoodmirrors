@@ -421,7 +421,7 @@ document.addEventListener("DOMContentLoaded", function() {
       {% endcomment %}
     </div>
 
-    <div class="guarantee-item price-saved-discount" style="display: none;">
+    <div class="guarantee-item price-saved-discount" style="">
             <span class="icon" style="display: none;">
               <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 18 13" fill="none">
                 <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -433,16 +433,16 @@ document.addEventListener("DOMContentLoaded", function() {
               {%- assign compareat_price = 0 -%}
           {% endif %}    
           {%- assign original_price = product.selected_or_first_available_variant.price -%}  
-{%- assign pricewholenumber = original_price | times: 0.70 -%}
-{%- assign discounted_price = original_price | times: 0.70 | divided_by: 100.0 -%}
+{%- assign pricewholenumber = original_price | times: 0.80 -%}
+{%- assign discounted_price = original_price | times: 0.80 | divided_by: 100.0 -%}
 {%- assign discounted_whole = discounted_price | floor -%}
 {%- assign discounted_decimal = discounted_price | minus: discounted_whole | times: 100 | round -%}
 {%- if discounted_decimal < 10 -%}
   {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
 {%- endif -%}
-<span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> - Boxing Day Price (30% off)
+<span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> - Blue Monday Price (20% off)
           </div>
-         <p class="saved-price" style="display: none;">
+         <p class="saved-price" style="">
           {% if compareat_price > 0 %}
             {%- assign original_saved = compareat_price | minus: original_price -%}
             {%- assign dissavedprice = original_price | minus: pricewholenumber -%}
