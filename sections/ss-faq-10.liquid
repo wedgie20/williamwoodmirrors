@@ -455,6 +455,14 @@ For inquiries or permissions, contact daniel@section.store
 {% if heading_custom %}
   <style>
     .faq-heading-{{ section.id }} * {
+      font-family: {{ section.settings.custom_heading_font }};
+      font-weight: {{ heading_font.weight }};
+      font-style: {{ heading_font.style }};
+    }
+  </style>
+{% else %}
+  <style>
+    .faq-heading-{{ section.id }} * {
       font-family: {{ heading_font.family }}, {{ heading_font.fallback_families }};
       font-weight: {{ heading_font.weight }};
       font-style: {{ heading_font.style }};
@@ -463,6 +471,14 @@ For inquiries or permissions, contact daniel@section.store
 {% endif %}
 
 {% if toggle_custom %}
+  <style>
+    .faq-tab-toggle-{{ section.id }} {
+      font-family: {{ section.settings.custom_toggle_font }};
+      font-weight: {{ toggle_font.weight }};
+      font-style: {{ toggle_font.style }};
+    }
+  </style>
+{% else %}
   <style>
     .faq-tab-toggle-{{ section.id }} {
       font-family: {{ toggle_font.family }}, {{ toggle_font.fallback_families }};
@@ -475,6 +491,14 @@ For inquiries or permissions, contact daniel@section.store
 {% if question_custom %}
   <style>
     .faq-question-{{ section.id }} {
+      font-family: {{ section.settings.custom_question_font }};
+      font-weight: {{ question_font.weight }};
+      font-style: {{ question_font.style }};
+    }
+  </style>
+{% else %}
+  <style>
+    .faq-question-{{ section.id }} {
       font-family: {{ question_font.family }}, {{ question_font.fallback_families }};
       font-weight: {{ question_font.weight }};
       font-style: {{ question_font.style }};
@@ -483,6 +507,14 @@ For inquiries or permissions, contact daniel@section.store
 {% endif %}
 
 {% if answer_custom %}
+  <style>
+    .faq-answer-{{ section.id }} * {
+      font-family: {{ section.settings.custom_answer_font }};
+      font-weight: {{ answer_font.weight }};
+      font-style: {{ answer_font.style }};
+    }
+  </style>
+{% else %}
   <style>
     .faq-answer-{{ section.id }} * {
       font-family: {{ answer_font.family }}, {{ answer_font.fallback_families }};
@@ -800,6 +832,18 @@ For inquiries or permissions, contact daniel@section.store
         "default": "josefin_sans_n4"
       },
       {
+        "type": "select",
+        "id": "custom_heading_font",
+        "label": "Custom Font",
+        "options": [
+          { "value": "Select Font", "label": "Select Font" },
+          { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+          { "value": "GothamBlack", "label": "GothamBlack" },
+          { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+        ],
+        "default": "Zurich, sans-serif"
+      },
+      {
         "type": "range",
         "id": "heading_size",
         "min": 0,
@@ -999,6 +1043,18 @@ For inquiries or permissions, contact daniel@section.store
         "id": "toggle_font",
         "label": "Toggle Font Family",
         "default": "josefin_sans_n4"
+      },
+      {
+        "type": "select",
+        "id": "custom_toggle_font",
+        "label": "Custom Font",
+        "options": [
+          { "value": "Select Font", "label": "Select Font" },
+          { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+          { "value": "GothamBlack", "label": "GothamBlack" },
+          { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+        ],
+        "default": "Zurich, sans-serif"
       },
       {
         "type": "range",
@@ -1209,6 +1265,18 @@ For inquiries or permissions, contact daniel@section.store
         "default": "josefin_sans_n4"
       },
       {
+        "type": "select",
+        "id": "custom_question_font",
+        "label": "Custom Font",
+        "options": [
+          { "value": "Select Font", "label": "Select Font" },
+          { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+          { "value": "GothamBlack", "label": "GothamBlack" },
+          { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+        ],
+        "default": "Zurich, sans-serif"
+      },
+      {
         "type": "range",
         "id": "question_size",
         "min": 0,
@@ -1287,6 +1355,18 @@ For inquiries or permissions, contact daniel@section.store
         "id": "answer_font",
         "label": "Answer Font Family",
         "default": "josefin_sans_n4"
+      },
+      {
+        "type": "select",
+        "id": "custom_answer_font",
+        "label": "Custom Font",
+        "options": [
+          { "value": "Select Font", "label": "Select Font" },
+          { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+          { "value": "GothamBlack", "label": "GothamBlack" },
+          { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+        ],
+        "default": "Zurich, sans-serif"
       },
       {
         "type": "range",
