@@ -523,8 +523,10 @@ p.hero-section__subtitle{
   {%- if section.settings.subtitle != blank -%}
           <p class="hero-section__subtitle">{{ section.settings.subtitle }}</p>
         {%- endif -%}
+        {% comment %}
         <p class="mini-sub-hero" style="margin-bottom: 0px;">New Year. New Style.</p>
          <p class="mini-sub-hero"  style="font-style: italic;">Better Value When You Bundle.</p>
+          {% endcomment %}
         {%- if section.settings.title != blank -%}
           <h1 class="hero-section__title">{{ section.settings.title }}</h1>
             <p class="mini-sub-hero"  style="margin-bottom: 0px;">2 Full-Priced Products </p>or
