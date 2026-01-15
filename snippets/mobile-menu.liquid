@@ -84,7 +84,7 @@
           {%- if link.links.size > 0 or mega_menu_images != blank -%}
             <button
               is="toggle-button"
-              class="mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
+              class="{{ localization.country.iso_code }} mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
               aria-controls="mobile-menu-{{ forloop.index }}"
               aria-expanded="false"
             >
@@ -144,7 +144,7 @@
 
               <a
               href="{{ link.url  }}"
-              class="makeit_highlighted mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
+              class="{{ localization.country.iso_code }} makeit_highlighted mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
             
             >
               <div class="highlighted_item" style="background: {{ section.settings.highlighted_menu_bg_color }}; color: {{ section.settings.highlighted_menu_text_color }};{% if section.settings.highlighted_menu_background_image != blank %} background-image: url('{{ settings.speedsize_url_pfx_https -}}{{ section.settings.highlighted_menu_background_image | img_url: 'master' }}'); background-size: cover; background-position: center; {% endif %}">
@@ -170,7 +170,7 @@
 
               <a
               href="{{ link.url  }}"
-              class="makeit_highlighted mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
+              class="{{ localization.country.iso_code }} makeit_highlighted mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
             
             >
               <div class="highlighted_item" style="background: {{ section.settings.second_highlighted_menu_bg_color }}; color: {{ section.settings.second_highlighted_menu_text_color }}; background-image: url('{{ settings.speedsize_url_pfx_https -}}{{ section.settings.second_highlighted_menu_background_image | img_url: 'master' }}'); background-size: cover; background-position: center;">
@@ -194,7 +194,12 @@
               href="{{ link.url  }}"
               class="mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
             >
-              {{- link.title -}}
+              {% if localization.country.iso_code != 'GB' %}
+                {{- link.title | replace: '£100 GBP', '€100'  -}}
+              {% else %}
+                {{- link.title -}}
+              {% endif %}
+              
             </a>
             {% endif %}
           {%- endif -%}
