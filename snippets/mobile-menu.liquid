@@ -194,7 +194,11 @@
               href="{{ link.url  }}"
               class="mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
             >
-              {{- link.title -}}
+             {% if localization.country.iso_code != 'GB' %}
+                {{- link.title | replace: '£100 GBP', '€120'  -}}
+              {% else %}
+                {{- link.title -}}
+              {% endif %}
             </a>
             {% endif %}
           {%- endif -%}
