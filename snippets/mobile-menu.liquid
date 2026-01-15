@@ -195,7 +195,7 @@
               class="mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
             >
               {% if localization.country.iso_code != 'GB' %}
-                {{- link.title | replace: '£100 GBP', '€100'  -}}
+                {{- link.title | replace: '£100 GBP', '€120'  -}}
               {% else %}
                 {{- link.title -}}
               {% endif %}
