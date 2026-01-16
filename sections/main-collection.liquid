@@ -196,10 +196,25 @@ ul.hookpoint-tags::-webkit-scrollbar {
     {% if collection.metafields.custom.hookpoint_tags %}
       <div class="collection-tags">
        {% assign hookpoint_tags = collection.metafields.custom.hookpoint_tags | split: ',' %}
+       {% assign facet_hookpoint_tags = '' %}
        <div class="hookpoint-scrollbar-container">
 <ul class="hookpoint-tags">
      {%- assign current_tag = request.path | split: '/' | last -%}
-     
+     {%- for filter in collection.filters -%}
+      
+      {% if filter.label contains 'Hookpoint Tag' %}
+        {%- for value in filter.values -%}
+          {%- assign active_tag = value.value | strip -%}
+
+          {%- if forloop.first -%}
+            {%- assign facet_hookpoint_tags = facet_hookpoint_tags | append: active_tag -%}
+          {%- else -%}
+            {%- assign facet_hookpoint_tags = facet_hookpoint_tags | append: ',' | append: active_tag -%}
+          {%- endif -%}
+
+        {%- endfor -%}
+      {% endif %}
+     {%- endfor -%}
      {%- comment -%} Check if any filters are active {%- endcomment -%}
      {%- assign has_filters = false -%}
      {%- if active_filters_count > 0 -%}
@@ -207,13 +222,18 @@ ul.hookpoint-tags::-webkit-scrollbar {
      {%- endif -%}
      
      {%- comment -%} All option - active when no filters are applied {%- endcomment -%}
-     <li class="custom-filter-tag custom-filter-all{% unless has_filters %} activetag{% endunless %}" data-tag="__all__">all</li>
+     <li alltags="{{ facet_hookpoint_tags }}" class="custom-filter-tag custom-filter-all{% unless has_filters %} activetag{% endunless %}" data-tag="__all__">all</li>
      
+
   {% for tag in hookpoint_tags %}
     {% assign tag_label = tag | strip | replace: '_', ' ' %}
       {% assign tag_value = tag | strip %}
+      {% if facet_hookpoint_tags contains tag_value %}
       <li class="custom-filter-tag{% if current_tag == tag_value %} activetag{% endif %}" data-tag="{{ tag_value }}">{{ tag_label }}</li>
-  {% endfor %}
+      {% else %} 
+    {% endif %}
+
+    {% endfor %}
 
 </ul>
  <div class="hookpoint-scrollbar-track">
