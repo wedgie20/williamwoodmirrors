@@ -15,14 +15,28 @@
   "sections": {
     "announcement-bar": {
       "settings": {
-        "background": "#f5f5f5",
+        "background": "#efefef",
         "text_color": "#000000",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
+        "button_background": "#000000",
+        "button_text_color": "#f5f5f5"
       },
       "blocks": {
-        "3f097275-f772-44d9-b5f7-6d6999645314": {
+        "message_iMdqi": {
+          "type": "message",
           "disabled": false,
+          "settings": {
+            "text": "20% off everything. No code Needed. Ends Tonight.",
+            "learn_more_text": "Learn more",
+            "header-9b47ab614b111a37aeb2b7af4c4e4613": null,
+            "image": null,
+            "title": "Blue Monday | Ends Tonight",
+            "content": "<p><strong>20% OFF EVERYTHING</strong><br/><br/>Automatically applied at checkout. No code needed.<br/>+<br/>5% of all sales donated to MIND with Work For Good</p>",
+            "button_text": "SHOP BLUE MONDAY",
+            "button_link": "https://www.williamwoodmirrors.co.uk/collections/best-sellers"
+          }
+        },
+        "3f097275-f772-44d9-b5f7-6d6999645314": {
+          "disabled": true,
           "settings": {
             "text": "Up to 50% off + Up to an extra 15% off",
             "learn_more_text": "",
@@ -51,7 +65,16 @@
             "text": "700,000+ Satisfied Customers | 30,000+ 5 Star Reviews"
           }
         }
-      }
+      },
+      "block_order": [
+        "message_iMdqi",
+        "3f097275-f772-44d9-b5f7-6d6999645314",
+        "955bcd74-0608-4f78-afae-e87df09b9f88",
+        "c4b45150-0e14-460e-8c47-88fd9bd72b02",
+        "message_N4D9HB",
+        "message_wc4BFE",
+        "trustpilot_Q4xFtD"
+      ]
     },
     "header": {
       "settings": {
