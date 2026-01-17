@@ -21,8 +21,22 @@
         "button_text_color": "#000000"
       },
       "blocks": {
-        "3f097275-f772-44d9-b5f7-6d6999645314": {
+        "message_YTHKx": {
+          "type": "message",
           "disabled": false,
+          "settings": {
+            "text": "20% off everything. No code Needed. Ends Tonight.",
+            "learn_more_text": "",
+            "header-7610db175a5d0c01d347988e3c19e00f": null,
+            "image": null,
+            "title": "Blue Monday | Ends Tonight",
+            "content": "",
+            "button_text": "",
+            "button_link": ""
+          }
+        },
+        "3f097275-f772-44d9-b5f7-6d6999645314": {
+          "disabled": true,
           "settings": {
             "text": "Up to 50% off + Up to an extra 15% off",
             "learn_more_text": "",
@@ -39,7 +53,7 @@
           "settings": {
             "text": "Build Your Bundle: Up to 30% off",
             "learn_more_text": "shop now",
-            "header-de77056bf07b3b5364c191320302075a": null,
+            "header-6fb430b66f6c73d71a791acf6d980f74": null,
             "image": "shopify://shop_images/1080_UP_TPO_30_off.jpg",
             "title": "Up to 30% off full price",
             "content": "<p>Purchase 2 full priced products, get <strong>25% off</strong>. No code required.<br/>or<br/>Purchase 3 or more full priced products, get <strong>30% off</strong>. No code required.</p>",
@@ -55,6 +69,7 @@
         }
       },
       "block_order": [
+        "message_YTHKx",
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "message_TpGWh",
         "955bcd74-0608-4f78-afae-e87df09b9f88",
