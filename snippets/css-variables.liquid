@@ -83,6 +83,13 @@
  {%  endif %}
 
      @font-face {
+    font-family: 'Gotham Book';
+    src: url('{{ 'gotham-book.otf' | asset_url }}') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+     @font-face {
     font-family: 'Halloween';
     src: url('{{ 'Copperplate_Halloween_25_Font.otf' | asset_url }}') format('opentype');
     font-weight: 600;
