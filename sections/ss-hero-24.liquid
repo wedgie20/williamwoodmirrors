@@ -440,15 +440,23 @@
       {% if block.settings.review_custom %}
         <style>
           .hero-review-text-{{ block.id }} {
-            font-family: {{ block.settings.review_font.family }}, {{ block.settings.review_font.fallback_families }};
-            font-weight: {{ block.settings.review_font.weight }};
-            font-style: {{ block.settings.review_font.style }};
+            {%  if block.settings.custom_review_font != "Select Font" %}
+              font-family: {{ block.settings.custom_review_font }};
+            {% else %}
+              font-family: {{ block.settings.review_font.family }}, {{ block.settings.review_font.fallback_families }};
+              font-weight: {{ block.settings.review_font.weight }};
+              font-style: {{ block.settings.review_font.style }};
+            {% endif %}
           }
 
           .hero-stars-count-{{ block.id }} {
-            font-family: {{ block.settings.review_font.family }}, {{ block.settings.review_font.fallback_families }};
-            font-weight: {{ block.settings.review_font.weight }};
-            font-style: {{ block.settings.review_font.style }};
+            {%  if block.settings.custom_review_font != "Select Font" %}
+              font-family: {{ block.settings.custom_review_font }};
+            {% else %}
+              font-family: {{ block.settings.review_font.family }}, {{ block.settings.review_font.fallback_families }};
+              font-weight: {{ block.settings.review_font.weight }};
+              font-style: {{ block.settings.review_font.style }};
+            {% endif %}
           }
         </style>
       {% endif %}
@@ -473,7 +481,12 @@
         }
 
         .hero-heading-{{ block.id }} * strong {
-          text-decoration: underline {{ block.settings.heading_border_color }};
+         font-family: altesse-std-24pt !important;
+    text-transform: lowercase;
+    font-size: 40px;
+    font-weight: 300;
+    border: unset !important;
+        display: block;
         }
 
         @media(min-width: 1024px) {
@@ -498,9 +511,13 @@
       {% if block.settings.heading_custom %}
         <style>
           .hero-heading-{{ block.id }} * {
-            font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
-            font-weight: {{ block.settings.heading_font.weight }};
-            font-style: {{ block.settings.heading_font.style }};
+            {%  if block.settings.custom_heading_font != "Select Font" %}
+              font-family: {{ block.settings.custom_heading_font }};
+            {% else %}
+              font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+              font-weight: {{ block.settings.heading_font.weight }};
+              font-style: {{ block.settings.heading_font.style }};
+            {% endif %}
           }
         </style>
       {% endif %}
@@ -541,9 +558,13 @@
       {% if block.settings.text_custom %}
         <style>
           .hero-text-{{ block.id }} * {
-            font-family: {{ block.settings.text_font.family }}, {{ block.settings.text_font.fallback_families }};
-            font-weight: {{ block.settings.text_font.weight }};
-            font-style: {{ block.settings.text_font.style }};
+            {%  if block.settings.custom_text_font != "Select Font" %}
+              font-family: {{ block.settings.custom_text_font }};
+            {% else %}
+              font-family: {{ block.settings.text_font.family }}, {{ block.settings.text_font.fallback_families }};
+              font-weight: {{ block.settings.text_font.weight }};
+              font-style: {{ block.settings.text_font.style }};
+            {% endif %}
           }
         </style>
       {% endif %}
@@ -627,9 +648,13 @@
       {% if block.settings.button_custom %}
         <style>
           .hero-button-{{ block.id }} {
-            font-family: {{ block.settings.button_font.family }}, {{ block.settings.button_font.fallback_families }};
-            font-weight: {{ block.settings.button_font.weight }};
-            font-style: {{ block.settings.button_font.style }};
+            {%  if block.settings.custom_button_font != "Select Font" %}
+              font-family: {{ block.settings.custom_button_font }};
+            {% else %}
+              font-family: {{ block.settings.button_font.family }}, {{ block.settings.button_font.fallback_families }};
+              font-weight: {{ block.settings.button_font.weight }};
+              font-style: {{ block.settings.button_font.style }};
+            {% endif %}
           }
         </style>
       {% endif %}
@@ -725,6 +750,7 @@
           {% when 'review' %}
             {% if block.settings.review != blank %}
               <div class="hero-review-{{ section.id }} hero-review-{{ block.id }}">
+                {% if block.settings.first_image != blank or block.settings.second_image != blank or block.settings.third_image != blank or block.settings.fourth_image != blank %}
                 <div class="hero-authors-{{ section.id }}">
                   {% if block.settings.first_image != blank %}
                     <div class="hero-author-image-{{ section.id }} hero-author-image-{{ block.id }}">
@@ -803,6 +829,7 @@
                     </div>
                   {% endif %}
                 </div>
+              {% endif %}
                 <div class="hero-review-content-{{ section.id }}">
                   {% if block.settings.review %}
                     <p class="hero-review-text-{{ block.id }}">{{ block.settings.review }}</p>
@@ -1473,6 +1500,18 @@
           "default": "josefin_sans_n4"
         },
         {
+          "type": "select",
+          "id": "custom_review_font",
+          "label": "Custom Font",
+          "options": [
+            { "value": "Select Font", "label": "Select Font" },
+            { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+            { "value": "GothamBlack", "label": "GothamBlack" },
+            { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+          ],
+          "default": "Select Font"
+        },
+        {
           "type": "range",
           "id": "review_size",
           "min": 0,
@@ -1589,6 +1628,18 @@
           "default": "josefin_sans_n4"
         },
         {
+          "type": "select",
+          "id": "custom_heading_font",
+          "label": "Custom Font",
+          "options": [
+            { "value": "Select Font", "label": "Select Font" },
+            { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+            { "value": "GothamBlack", "label": "GothamBlack" },
+            { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+          ],
+          "default": "Select Font"
+        },
+        {
           "type": "range",
           "id": "heading_size",
           "min": 0,
@@ -1680,6 +1731,18 @@
           "default": "josefin_sans_n4"
         },
         {
+          "type": "select",
+          "id": "custom_text_font",
+          "label": "Custom Font",
+          "options": [
+            { "value": "Select Font", "label": "Select Font" },
+            { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+            { "value": "GothamBlack", "label": "GothamBlack" },
+            { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+          ],
+          "default": "Select Font"
+        },
+        {
           "type": "range",
           "id": "text_size",
           "min": 0,
@@ -1765,6 +1828,18 @@
           "id": "button_font",
           "label": "Font family",
           "default": "josefin_sans_n4"
+        },
+        {
+          "type": "select",
+          "id": "custom_button_font",
+          "label": "Custom Font",
+          "options": [
+            { "value": "Select Font", "label": "Select Font" },
+            { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+            { "value": "GothamBlack", "label": "GothamBlack" },
+            { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+          ],
+          "default": "Select Font"
         },
         {
           "type": "range",
