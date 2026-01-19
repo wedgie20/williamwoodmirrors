@@ -331,7 +331,7 @@
 {%- if discounted_decimal < 10 -%}
   {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
 {%- endif -%}
-<span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> - Blue Monday Price (20% off)
+<span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> - Blue Monday (20% off)
           </div>
          <p class="saved-price" style="">
           {% if compareat_price > 0 %}
