@@ -851,6 +851,140 @@ document.addEventListener('DOMContentLoaded', function () {
     </div>
   {%- endif -%}
 
+{%- when 'benefit_section' -%}
+  {%- if block.settings.enable_benefits -%}
+    {%- assign exclude_title = block.settings.exclude_product_title | downcase -%}
+    {%- assign product_title_lower = product.title | downcase -%}
+    
+    {%- unless product_title_lower contains exclude_title -%}
+      {%- comment -%}Determine which product case to show based on original custom code conditions{%- endcomment -%}
+      {%- assign benefit_case = '' -%}
+      {%- assign case_heading = '' -%}
+      
+      {%- if product.type == 'Mirror' -%}
+        {%- assign benefit_case = 'mirror' -%}
+        {%- assign case_heading = block.settings.mirror_heading -%}
+      {%- elsif product.title contains 'Coffee Table' or product.title contains 'coffee table' -%}
+        {%- assign benefit_case = 'coffee_table' -%}
+        {%- assign case_heading = block.settings.coffee_table_heading -%}
+      {%- elsif product.type == 'Tray' -%}
+        {%- assign benefit_case = 'tray' -%}
+        {%- assign case_heading = block.settings.tray_heading -%}
+      {%- elsif product.type == 'Lamp' -%}
+        {%- assign benefit_case = 'lamp' -%}
+        {%- assign case_heading = block.settings.lamp_heading -%}
+      {%- elsif product.type == 'Vase' -%}
+        {%- assign benefit_case = 'vase' -%}
+        {%- assign case_heading = block.settings.vase_heading -%}
+      {%- elsif product.title contains 'Side Table' or product.title contains 'side table' -%}
+        {%- assign benefit_case = 'side_table' -%}
+        {%- assign case_heading = block.settings.side_table_heading -%}
+      {%- elsif product.type == 'Coaster' or product.tags contains 'Coaster' -%}
+        {%- assign benefit_case = 'coaster' -%}
+        {%- assign case_heading = block.settings.coaster_heading -%}
+      {%- elsif product.title contains 'Chair' or product.title contains 'chair' -%}
+        {%- assign benefit_case = 'chair' -%}
+        {%- assign case_heading = block.settings.chair_heading -%}
+      {%- endif -%}
+      
+      {%- if benefit_case != '' -%}
+        {%- comment -%}Check if this case has any benefits{%- endcomment -%}
+        {%- assign has_benefits = false -%}
+        {%- for i in (1..6) -%}
+          {%- assign icon_key = benefit_case | append: '_benefit_' | append: i | append: '_icon' -%}
+          {%- assign text_key = benefit_case | append: '_benefit_' | append: i | append: '_text' -%}
+          {%- assign benefit_icon = block.settings[icon_key] -%}
+          {%- assign benefit_text = block.settings[text_key] -%}
+          
+          {%- if benefit_icon != blank and benefit_text != blank -%}
+            {%- assign has_benefits = true -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+        
+        {%- if has_benefits -%}
+          <style>
+            .product-benefits-{{ block.id }} {
+              margin-top: {{ block.settings.margin_top }}px;
+            }
+            
+            .benefit-heading-{{ block.id }} {
+              font-size: {{ block.settings.heading_size_desktop }}px;
+              font-weight: 600;
+              margin-bottom: 15px;
+            }
+            
+            .benefit-list-{{ block.id }} {
+              display: flex;
+              flex-direction: {{ block.settings.layout_direction }};
+              flex-wrap: wrap;
+              gap: {{ block.settings.gap_between_items }}px;
+              align-items: flex-start;
+            }
+            
+            .benefit-item-{{ block.id }} {
+              display: flex;
+              flex-direction: {% if block.settings.icon_position == 'top' %}column{% else %}row{% endif %};
+              align-items: center;
+              gap: {% if block.settings.icon_position == 'top' %}8px{% else %}10px{% endif %};
+              {% if block.settings.layout_direction == 'vertical' %}width: 100%;{% endif %}
+            }
+            
+            .benefit-icon-{{ block.id }} {
+              width: {{ block.settings.icon_size_desktop }}px;
+              height: {{ block.settings.icon_size_desktop }}px;
+              object-fit: contain;
+              flex-shrink: 0;
+            }
+            
+            .benefit-text-{{ block.id }} {
+              font-size: {{ block.settings.text_size_desktop }}px;
+              line-height: 1.4;
+              text-align: {% if block.settings.icon_position == 'top' %}center{% else %}left{% endif %};
+            }
+            
+            @media only screen and (max-width: 768px) {
+              .benefit-heading-{{ block.id }} {
+                font-size: {{ block.settings.heading_size_mobile }}px;
+              }
+              
+              .benefit-icon-{{ block.id }} {
+                width: {{ block.settings.icon_size_mobile }}px;
+                height: {{ block.settings.icon_size_mobile }}px;
+              }
+              
+              .benefit-text-{{ block.id }} {
+                font-size: {{ block.settings.text_size_mobile }}px;
+              }
+            }
+          </style>
+          
+          <div class="product-benefits-{{ block.id }}" {{ block.shopify_attributes }}>
+            {%- if case_heading != blank -%}
+              <h3 class="benefit-heading-{{ block.id }}">{{ case_heading }}</h3>
+            {%- endif -%}
+            
+            <div class="benefit-list-{{ block.id }}">
+              {%- for i in (1..6) -%}
+                {%- assign icon_key = benefit_case | append: '_benefit_' | append: i | append: '_icon' -%}
+                {%- assign text_key = benefit_case | append: '_benefit_' | append: i | append: '_text' -%}
+                {%- assign benefit_icon = block.settings[icon_key] -%}
+                {%- assign benefit_text = block.settings[text_key] -%}
+                
+                {%- if benefit_icon != blank and benefit_text != blank -%}
+                  <div class="benefit-item-{{ block.id }}">
+                    <img class="benefit-icon-{{ block.id }}" src="{{ benefit_icon | img_url: 'master' }}" alt="{{ benefit_text | escape }}" loading="lazy">
+                    <span class="benefit-text-{{ block.id }}">{{ benefit_text }}</span>
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endunless -%}
+  {%- endif -%}
+
   
       {%- when 'liquid' -%}
         {% if block.settings.liquid != blank %}
