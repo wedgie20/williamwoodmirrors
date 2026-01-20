@@ -21,13 +21,19 @@
         "button_text_color": "#f5f5f5"
       },
       "blocks": {
+        "c4b45150-0e14-460e-8c47-88fd9bd72b02": {
+          "disabled": false,
+          "settings": {
+            "text": "700,000+ Satisfied Customers | 30,000+ 5 Star Reviews"
+          }
+        },
         "message_jpPpa": {
           "type": "message",
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "text": "20% off everything. No code Needed. Ends Tonight.",
             "learn_more_text": "",
-            "header-973e7cb55572e30f38c6d8ef340b6afd": null,
+            "header-5e2f7c0d22ec8b45e10153e319f16643": null,
             "image": null,
             "title": "Blue Monday | Ends Tonight",
             "content": "<p><strong>20% OFF EVERYTHING</strong><br/><br/>Automatically applied at checkout. No code needed.<br/>+<br/>5% of all sales donated to MIND with Work For Good</p>",
@@ -48,29 +54,23 @@
           }
         },
         "955bcd74-0608-4f78-afae-e87df09b9f88": {
-          "disabled": true,
+          "disabled": false,
           "settings": {
             "text": "Build Your Bundle: Up to 30% off",
             "learn_more_text": "shop now",
-            "image": "shopify://shop_images/1080_UP_TPO_30_off.jpg",
+            "image": null,
             "title": "Up to 30% off full price",
             "content": "<p>Purchase 2 full priced products, get <strong>25% off</strong>. No code required.<br/>or<br/>Purchase 3 or more full priced products, get <strong>30% off</strong>. No code required.</p>",
             "button_text": "SHOP NOW",
             "button_link": "shopify://collections/best-sellers"
           }
-        },
-        "c4b45150-0e14-460e-8c47-88fd9bd72b02": {
-          "disabled": false,
-          "settings": {
-            "text": "700,000+ Satisfied Customers | 30,000+ 5 Star Reviews"
-          }
         }
       },
       "block_order": [
         "c4b45150-0e14-460e-8c47-88fd9bd72b02",
+        "955bcd74-0608-4f78-afae-e87df09b9f88",
         "message_jpPpa",
         "3f097275-f772-44d9-b5f7-6d6999645314",
-        "955bcd74-0608-4f78-afae-e87df09b9f88",
         "message_N4D9HB",
         "message_wc4BFE",
         "trustpilot_Q4xFtD"
