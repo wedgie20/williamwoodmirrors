@@ -351,7 +351,7 @@
             </span>
             90-Day Money Back Guarantee
           </div>
-        <div class="guarantee-item" style="font-size: 13px;">
+        <div class="guarantee-item" style="font-size: 13px; display: none;">
           
             <span class="icon" style="display: none;">
               <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 18 13" fill="none">
@@ -373,7 +373,7 @@
 {%- endif -%}
 <span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> - Blue Monday (20% off)
           </div>
-         <p class="saved-price" style="">
+<p class="saved-price" style="display: none;">
           {% if compareat_price > 0 %}
             {%- assign original_saved = compareat_price | minus: original_price -%}
             {%- assign dissavedprice = original_price | minus: pricewholenumber -%}
