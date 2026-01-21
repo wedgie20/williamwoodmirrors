@@ -645,6 +645,7 @@ For inquiries or permissions, contact daniel@section.store
     const slider = new Swiper(".slider-slider-{{ section.id }}", {
       effect: "coverflow",
       centeredSlides: true,
+      initialSlide: 1,
       navigation: {
         nextEl: '.slider-btn-next-{{ section.id }}',
         prevEl: '.slider-btn-prev-{{ section.id }}'
@@ -661,7 +662,6 @@ For inquiries or permissions, contact daniel@section.store
         modifier: 1,
         slideShadows: false
       },
-      initialSlide: 1,
       breakpoints: {
         320: {
           slidesPerView: {{ slider_view_mobile }}
