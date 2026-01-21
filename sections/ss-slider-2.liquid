@@ -585,6 +585,18 @@ For inquiries or permissions, contact daniel@section.store
 
 </style>
 
+{% liquid
+  assign is_preorder = false
+  if product.tags contains 'pre-order'
+    assign is_preorder = true
+  endif
+  assign show_section = true
+  if product and product.available == false
+    assign show_section = false
+  endif
+%}
+
+{% if show_section %}
 <div class="section-{{ section.id }} slider-{{ section.id }}" style="background-color:{{ background_color }}; background-image: {{ background_gradient }};">
     <div class="section-{{ section.id }}-settings">
       <div class="slider-slider-{{ section.id }} preview">
@@ -636,6 +648,7 @@ For inquiries or permissions, contact daniel@section.store
       </div>
     </div>
 </div>
+{% endif %}
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
