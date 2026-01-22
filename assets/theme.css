@@ -12586,8 +12586,15 @@ input:checked + .popover__choice-label::after,
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 2px;
+  margin-top: 15px;
       margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+  .product-title-price .in-house{
+            top: unset;
+                margin-bottom: 10px;
+  }
 }
 
 .product-meta__sku {

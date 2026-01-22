@@ -28,6 +28,9 @@
   margin-top: 25px;
 }
 }
+.in-house {
+    margin-bottom: 20px;
+}
   </style>
 
     {% assign currency_code = localization.country.currency.iso_code %}
@@ -315,6 +318,13 @@ document.addEventListener("DOMContentLoaded", function() {
     <p style="font-size: 13px; margin-top: 4px !important; text-transform: none !important; font-family: Zurich, sans-serif; font-weight: bold !important;">{{ title_words | join: ' ' | remove: '-' | remove: remove_first_word }}</p>
   </h1>
 
+  <div class="in-house" style="display: flex;">
+  <p style="font-family: altesse-std-24pt; text-transform: lowercase; font-size: 20px; font-weight: 300; margin-bottom: 0px;">Designed in-house by </p>
+  <div class="" style="margin-top: 15px; margin-left: 5px;">
+    <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_LogosPackage_v1.0-07_06990ab2-9d06-4c80-846f-de0d7c989d0c.png?v=1717584248" alt="William Wood Logo" height="100px" width="100px">
+  </div>
+</div>
+
   <style>
     @media screen and (max-width: 740px) {
   .tp-desktop {
@@ -462,12 +472,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 </div>
 
-<div class="in-house" style="display: flex;">
-  <p style="font-family: altesse-std-24pt; text-transform: lowercase; font-size: 20px; font-weight: 300; margin-bottom: 0px;">Designed in-house by </p>
-  <div class="" style="margin-top: 15px; margin-left: 5px;">
-    <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_LogosPackage_v1.0-07_06990ab2-9d06-4c80-846f-de0d7c989d0c.png?v=1717584248" alt="William Wood Logo" height="100px" width="100px">
-  </div>
-</div>
 
 
   {% comment %} <h1 class="product-meta__title heading h3" style="margin-top: none !important; padding-top: none !important; transform: translateY(-5px);"><b><p class="cardo_title" style="text-transform: capitalize !important; font-size: 30px;">{{ first_word }}</p></b><p style="font-size: 13px; margin-top: 4px !important; text-transform: capitalize !important; font-family: zurich; font-weight: bold !important;">{{ title_words | join: ' ' | remove: '-' | remove: remove_first_word }}</p></h1> {% endcomment %}
