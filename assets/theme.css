@@ -12566,12 +12566,16 @@ input:checked + .popover__choice-label::after,
   padding-bottom: 8px;
   border-bottom: 1px solid rgb(var(--border-color));
 }
+#price-divider-container div#disclaimer {
+    margin-top: -12px;
+}
 
 .product-meta__price-list-container {
   display: flex;
   align-items: flex start;
   margin-top: -8px;
   flex-direction: column;
+  margin-bottom: 5px;
 }
 
 [dir="ltr"] .product-meta__label-list:not(:empty) {
@@ -12657,7 +12661,7 @@ input:checked + .popover__choice-label::after,
   }
 
   .product-meta__title {
-    margin-bottom: 12px;
+    margin-bottom: 2px;
   }
 }
 
