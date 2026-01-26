@@ -76,6 +76,18 @@
                 {%- endif -%}
               {% elsif block.settings.trustpilot != blank %}
                 {{ block.settings.trustpilot }}
+              {%- elsif block.type == 'review_slide' -%}
+                <div style="display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                  {%- if block.settings.text_before != blank -%}
+                    <span>{{ block.settings.text_before }}</span>
+                  {%- endif -%}
+                  {%- if block.settings.review_logo != blank -%}
+                    <img src="{{ block.settings.review_logo | image_url: width: 200 }}" alt="Review Logo" style="height: {{ block.settings.logo_height }}px; width: auto; display: inline-block; vertical-align: middle;" loading="lazy">
+                  {%- endif -%}
+                  {%- if block.settings.text_after != blank -%}
+                    <span>{{ block.settings.text_after }}</span>
+                  {%- endif -%}
+                </div>
               {%- else -%}
                 <p>{{ block.settings.text | escape }}</p>
               {%- endif -%}
@@ -200,6 +212,39 @@
           "type": "liquid",
           "id": "trustpilot",
           "label": "Trustpilot liquid"
+        }
+      ]
+    },
+    {
+      "type": "review_slide",
+      "name": "Review Slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text_before",
+          "label": "Text before logo",
+          "default": "700,000+ Satisfied Customers"
+        },
+        {
+          "type": "image_picker",
+          "id": "review_logo",
+          "label": "Logo"
+        },
+        {
+          "type": "range",
+          "id": "logo_height",
+          "min": 10,
+          "max": 50,
+          "step": 2,
+          "unit": "px",
+          "label": "Logo height",
+          "default": 20
+        },
+        {
+          "type": "text",
+          "id": "text_after",
+          "label": "Text after logo",
+          "default": "4.7 / 5 Excellent"
         }
       ]
     }

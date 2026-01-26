@@ -695,6 +695,28 @@
           }
         </style>
       {% endif %}
+
+    {% when 'star_rating_full' %}
+      <style>
+        .hero-star-image-{{ block.id }} {
+          margin-top: {{ block.settings.star_image_mt_mobile | times: 0.75 | round: 0 }}px;
+          width: {{ block.settings.star_image_width_mobile }}%;
+          max-width: 100%;
+        }
+
+        .hero-star-image-{{ block.id }} img {
+          display: block;
+          width: 100%;
+          height: auto;
+        }
+
+        @media(min-width: 1024px) {
+          .hero-star-image-{{ block.id }} {
+            margin-top: {{ block.settings.star_image_mt }}px;
+            width: {{ block.settings.star_image_width }}%;
+          }
+        }
+      </style>
   {% endcase %}
 {% endfor %}
 
@@ -1024,6 +1046,18 @@
             {% if block.settings.text != blank %}
               <div class="hero-text-{{ block.id }}">
                 {{ block.settings.text }}
+              </div>
+            {% endif %}
+          {% when 'star_rating_full' %}
+            {% if block.settings.star_rating_image != blank %}
+              <div class="hero-star-image-{{ block.id }}">
+                <img 
+                  src="{{ block.settings.star_rating_image | image_url: width: 800 }}" 
+                  alt="Star Rating"
+                  loading="{{ loading_attribute }}"
+                  width="{{ block.settings.star_rating_image.width }}"
+                  height="{{ block.settings.star_rating_image.height }}"
+                />
               </div>
             {% endif %}
           {% when 'button' %}
@@ -1800,6 +1834,58 @@
           "label": "Color",
           "id": "text_color",
           "default": "#000000"
+        }
+      ]
+    },
+    {
+      "type": "star_rating_full",
+      "name": "Star Rating Image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "star_rating_image",
+          "label": "Star Rating Image"
+        },
+        {
+          "type": "range",
+          "id": "star_image_width",
+          "min": 10,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "label": "Width",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "star_image_width_mobile",
+          "min": 10,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "label": "Width - mobile",
+          "default": 80
+        },
+        {
+          "type": "range",
+          "id": "star_image_mt",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Margin top",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "star_image_mt_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Margin top - mobile",
+          "default": 12
         }
       ]
     },
