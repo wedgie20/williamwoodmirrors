@@ -367,9 +367,7 @@
 {% for block in section.blocks %}
   {% case block.type %}
     {% when 'review' %}
-
-      <p>700,000+ Satisfied Customers</p>
-      {% comment %} <style>
+      <style>
         {{  block.settings.review_font | font_face: font_display: 'swap' }}
 
         .hero-review-{{ block.id }} {
@@ -437,9 +435,9 @@
             height: {{ block.settings.stars_size }}px;
           }
         }
-      </style> {% endcomment %}
+      </style>
 
-      {% comment %} {% if block.settings.review_custom %}
+      {% if block.settings.review_custom %}
         <style>
           .hero-review-text-{{ block.id }} {
             {%  if block.settings.custom_review_font != "Select Font" %}
@@ -461,7 +459,7 @@
             {% endif %}
           }
         </style>
-      {% endif %} {% endcomment %}
+      {% endif %}
 
     {% when 'heading' %}
       <style>
