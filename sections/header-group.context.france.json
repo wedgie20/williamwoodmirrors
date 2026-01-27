@@ -21,13 +21,23 @@
         "button_text_color": "#f5f5f5"
       },
       "blocks": {
+        "review_slide_HyQ6fF": {
+          "type": "review_slide",
+          "disabled": false,
+          "settings": {
+            "text_before": "Excellent",
+            "review_logo": "shopify://shop_images/Trustpilot_ratings_5star-RGB-min_0a651061-7fb3-4d09-81b6-b7f887efdbe1.png",
+            "logo_height": 12,
+            "text_after": ""
+          }
+        },
         "message_iMdqi": {
           "type": "message",
           "disabled": true,
           "settings": {
             "text": "20% off everything. No code Needed. Ends Tonight.",
             "learn_more_text": "",
-            "header-7eac7469913977af62c5b6bf338056d5": null,
+            "header-9be627d71d9e9812f32fddfa92ddd74c": null,
             "image": null,
             "title": "Blue Monday | Ends Tonight",
             "content": "<p><strong>20% OFF EVERYTHING</strong><br/><br/>Automatically applied at checkout. No code needed.<br/>+<br/>5% of all sales donated to MIND with Work For Good</p>",
@@ -67,6 +77,7 @@
         }
       },
       "block_order": [
+        "review_slide_HyQ6fF",
         "message_iMdqi",
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "955bcd74-0608-4f78-afae-e87df09b9f88",
