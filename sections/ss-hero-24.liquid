@@ -367,7 +367,7 @@
 {% for block in section.blocks %}
   {% case block.type %}
     {% when 'review' %}
-      {% comment %} <style>
+      <style>
         {{  block.settings.review_font | font_face: font_display: 'swap' }}
 
         .hero-review-{{ block.id }} {
@@ -435,7 +435,7 @@
             height: {{ block.settings.stars_size }}px;
           }
         }
-      </style> {% endcomment %}
+      </style>
 
       {% if block.settings.review_custom %}
         <style>
