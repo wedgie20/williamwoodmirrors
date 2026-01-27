@@ -367,14 +367,6 @@
 {% for block in section.blocks %}
   {% case block.type %}
     {% when 'review' %}
-      <p class="hero-review-text-{{ block.id }} hero-review-inline">
-  <span class="hero-review-number">700,000+</span>
-  <span class="hero-review-label">Satisfied Customers</span>
-  <span class="hero-review-separator">|</span>
-  <span class="hero-review-number">30,000+</span>
-  <span class="hero-review-label">5 Star Reviews</span>
-</p>
-
       <style>
         {{  block.settings.review_font | font_face: font_display: 'swap' }}
 
