@@ -725,14 +725,14 @@
       <style>
         .hero-review-text-line-{{ block.id }} {
           margin-top: {{ block.settings.margin_top_mobile }}px;
-          display: flex;
-          flex-direction: column;
+          {% comment %} display: flex;
+          flex-direction: column; {% endcomment %}
           gap: 0px;
           align-items: {{ content_horizontal_align_mobile }};
         }
 
         .hero-review-text-line-row-{{ block.id }} {
-          display: flex;
+          {% comment %} display: flex; {% endcomment %}
           align-items: center;
           gap: 10px;
           {% comment %} flex-wrap: wrap; {% endcomment %}
