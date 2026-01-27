@@ -773,6 +773,11 @@
 
         .hero-review-separator-{{ block.id }} {
           {% comment %} display: none; {% endcomment %}
+            display: block;
+            width: {{ block.settings.separator_thickness }}px;
+            height: {{ block.settings.separator_height }}px;
+            background-color: {{ block.settings.separator_color }};
+                    margin-bottom: -5px;
         }
 
         @media(min-width: 1024px) {
