@@ -82,7 +82,7 @@
                     <span>{{ block.settings.text_before }}</span>
                   {%- endif -%}
                   {%- if block.settings.review_logo != blank -%}
-                    <img src="{{ block.settings.review_logo | image_url: width: 200 }}" alt="Review Logo" style="height: {{ block.settings.logo_height }}px; width: auto; display: inline-block; vertical-align: middle;" loading="lazy">
+                    <img src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.review_logo | image_url: width: 200 }}" alt="Review Logo" style="height: {{ block.settings.logo_height }}px; width: auto; display: inline-block; vertical-align: middle;" loading="lazy">
                   {%- endif -%}
                   {%- if block.settings.text_after != blank -%}
                     <span>{{ block.settings.text_after }}</span>
