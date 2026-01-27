@@ -702,8 +702,8 @@
     {% when 'star_rating_full' %}
       <style>
         .hero-star-image-{{ block.id }} {
-          margin-top: {{ block.settings.star_image_mt_mobile | times: 0.75 | round: 0 }}px;
-          width: {{ block.settings.star_image_width_mobile }}%;
+          margin-top: {{ block.settings.star_image_mt_mobile | times: 0.75 | round: 0 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
+          width: {{ block.settings.star_image_width_mobile | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}%;
           max-width: 100%;
         }
 
@@ -715,8 +715,8 @@
 
         @media(min-width: 1024px) {
           .hero-star-image-{{ block.id }} {
-            margin-top: {{ block.settings.star_image_mt }}px;
-            width: {{ block.settings.star_image_width }}%;
+            margin-top: {{ block.settings.star_image_mt | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
+            width: {{ block.settings.star_image_width | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}%;
           }
         }
       </style>
@@ -1177,7 +1177,7 @@
             {% if block.settings.star_rating_image != blank %}
               <div class="hero-star-image-{{ block.id }}">
                 <img 
-                  src="{{ block.settings.star_rating_image | image_url: width: 800 }}" 
+                  src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.star_rating_image | image_url: width: 800 }}" 
                   alt="Star Rating"
                   loading="{{ loading_attribute }}"
                   width="{{ block.settings.star_rating_image.width }}"
