@@ -717,6 +717,97 @@
           }
         }
       </style>
+
+    {% when 'review_text_line' %}
+      <style>
+        .hero-review-text-line-{{ block.id }} {
+          margin-top: {{ block.settings.margin_top_mobile }}px;
+          display: flex;
+          flex-direction: row;
+          gap: 8px;
+          align-items: {{ content_horizontal_align_mobile }};
+        }
+
+        .hero-review-text-line-row-{{ block.id }} {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          {% comment %} flex-wrap: wrap; {% endcomment %}
+          justify-content: {{ content_horizontal_align_mobile }};
+        }
+
+        .hero-review-text-1-{{ block.id }} {
+          font-family: {{ block.settings.custom_font_1 }};
+          font-size: {{ block.settings.font_size_1_mobile }}px;
+          line-height: {{ block.settings.line_height_1 }}%;
+          color: {{ block.settings.text_color_1 }};
+        }
+
+        .hero-review-text-2-{{ block.id }} {
+          font-family: {{ block.settings.custom_font_2 }};
+          font-size: {{ block.settings.font_size_2_mobile }}px;
+          line-height: {{ block.settings.line_height_2 }}%;
+          color: {{ block.settings.text_color_2 }};
+        }
+
+        .hero-review-text-3-{{ block.id }} {
+          font-family: {{ block.settings.custom_font_3 }};
+          font-size: {{ block.settings.font_size_3_mobile }}px;
+          line-height: {{ block.settings.line_height_3 }}%;
+          color: {{ block.settings.text_color_3 }};
+        }
+
+        .hero-review-text-4-{{ block.id }} {
+          font-family: {{ block.settings.custom_font_4 }};
+          font-size: {{ block.settings.font_size_4_mobile }}px;
+          line-height: {{ block.settings.line_height_4 }}%;
+          color: {{ block.settings.text_color_4 }};
+        }
+
+        .hero-review-separator-{{ block.id }} {
+          display: none;
+        }
+
+        @media(min-width: 1024px) {
+          .hero-review-text-line-{{ block.id }} {
+            margin-top: {{ block.settings.margin_top }}px;
+            flex-direction: row;
+            gap: 15px;
+            align-items: center;
+            justify-content: {{ content_horizontal_align }};
+          }
+
+          .hero-review-text-line-row-{{ block.id }} {
+            justify-content: {{ content_horizontal_align }};
+          }
+
+          .hero-review-text-1-{{ block.id }} {
+            font-size: {{ block.settings.font_size_1 }}px;
+          }
+
+          .hero-review-text-2-{{ block.id }} {
+            font-size: {{ block.settings.font_size_2 }}px;
+                    margin-bottom: -7px;
+          }
+
+          .hero-review-text-3-{{ block.id }} {
+            font-size: {{ block.settings.font_size_3 }}px;
+          }
+
+          .hero-review-text-4-{{ block.id }} {
+            font-size: {{ block.settings.font_size_4 }}px;
+                    margin-bottom: -7px;
+          }
+
+          .hero-review-separator-{{ block.id }} {
+            display: block;
+            width: {{ block.settings.separator_thickness }}px;
+            height: {{ block.settings.separator_height }}px;
+            background-color: {{ block.settings.separator_color }};
+                    margin-bottom: -5px;
+          }
+        }
+      </style>
   {% endcase %}
 {% endfor %}
 
@@ -769,6 +860,26 @@
       {% assign button_open = false %}
       {% for block in section.blocks %}
         {% case block.type %}
+          {% when 'review_text_line' %}
+            <div class="hero-review-text-line-{{ block.id }}" {{ block.shopify_attributes }}>
+              <div class="hero-review-text-line-row-{{ block.id }}">
+                {%- if block.settings.text_1 != blank -%}
+                  <span class="hero-review-text-1-{{ block.id }}">{{ block.settings.text_1 }}</span>
+                {%- endif -%}
+                {%- if block.settings.text_2 != blank -%}
+                  <span class="hero-review-text-2-{{ block.id }}">{{ block.settings.text_2 }}</span>
+                {%- endif -%}
+              </div>
+              <div class="hero-review-separator-{{ block.id }}"></div>
+              <div class="hero-review-text-line-row-{{ block.id }}">
+                {%- if block.settings.text_3 != blank -%}
+                  <span class="hero-review-text-3-{{ block.id }}">{{ block.settings.text_3 }}</span>
+                {%- endif -%}
+                {%- if block.settings.text_4 != blank -%}
+                  <span class="hero-review-text-4-{{ block.id }}">{{ block.settings.text_4 }}</span>
+                {%- endif -%}
+              </div>
+            </div>
           {% when 'review' %}
             {% if block.settings.review != blank %}
               <div class="hero-review-{{ section.id }} hero-review-{{ block.id }}">
@@ -1886,6 +1997,303 @@
           "unit": "px",
           "label": "Margin top - mobile",
           "default": 12
+        }
+      ]
+    },
+    {
+      "type": "review_text_line",
+      "name": "Review Text Line",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "First Text Settings"
+        },
+        {
+          "type": "text",
+          "id": "text_1",
+          "label": "First text",
+          "default": "700,000+"
+        },
+        {
+          "type": "select",
+          "id": "custom_font_1",
+          "label": "Font",
+          "options": [
+            { "value": "Select Font", "label": "Select Font" },
+            { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+            { "value": "GothamBlack", "label": "GothamBlack" },
+            { "value": "Gotham Book", "label": "Gotham Book" },
+            { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+          ],
+          "default": "Select Font"
+        },
+        {
+          "type": "range",
+          "id": "font_size_1",
+          "min": 10,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "font_size_1_mobile",
+          "min": 10,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size - mobile",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "line_height_1",
+          "min": 100,
+          "max": 200,
+          "step": 10,
+          "unit": "%",
+          "label": "Line height",
+          "default": 130
+        },
+        {
+          "type": "color",
+          "id": "text_color_1",
+          "label": "Text color",
+          "default": "#000000"
+        },
+        {
+          "type": "header",
+          "content": "Second Text Settings"
+        },
+        {
+          "type": "text",
+          "id": "text_2",
+          "label": "Second text",
+          "default": "Satisfied Customers"
+        },
+        {
+          "type": "select",
+          "id": "custom_font_2",
+          "label": "Font",
+          "options": [
+            { "value": "Select Font", "label": "Select Font" },
+            { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+            { "value": "GothamBlack", "label": "GothamBlack" },
+            { "value": "Gotham Book", "label": "Gotham Book" },
+            { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+          ],
+          "default": "Select Font"
+        },
+        {
+          "type": "range",
+          "id": "font_size_2",
+          "min": 10,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "font_size_2_mobile",
+          "min": 10,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size - mobile",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "line_height_2",
+          "min": 100,
+          "max": 200,
+          "step": 10,
+          "unit": "%",
+          "label": "Line height",
+          "default": 130
+        },
+        {
+          "type": "color",
+          "id": "text_color_2",
+          "label": "Text color",
+          "default": "#000000"
+        },
+        {
+          "type": "header",
+          "content": "Separator Settings"
+        },
+        {
+          "type": "range",
+          "id": "separator_height",
+          "min": 10,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "label": "Separator height",
+          "default": 30
+        },
+        {
+          "type": "range",
+          "id": "separator_thickness",
+          "min": 1,
+          "max": 10,
+          "step": 1,
+          "unit": "px",
+          "label": "Separator thickness",
+          "default": 1
+        },
+        {
+          "type": "color",
+          "id": "separator_color",
+          "label": "Separator color",
+          "default": "#000000"
+        },
+        {
+          "type": "header",
+          "content": "Third Text Settings"
+        },
+        {
+          "type": "text",
+          "id": "text_3",
+          "label": "Third text",
+          "default": "30,000+"
+        },
+        {
+          "type": "select",
+          "id": "custom_font_3",
+          "label": "Font",
+          "options": [
+            { "value": "Select Font", "label": "Select Font" },
+            { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+            { "value": "GothamBlack", "label": "GothamBlack" },
+            { "value": "Gotham Book", "label": "Gotham Book" },
+            { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+          ],
+          "default": "Select Font"
+        },
+        {
+          "type": "range",
+          "id": "font_size_3",
+          "min": 10,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "font_size_3_mobile",
+          "min": 10,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size - mobile",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "line_height_3",
+          "min": 100,
+          "max": 200,
+          "step": 10,
+          "unit": "%",
+          "label": "Line height",
+          "default": 130
+        },
+        {
+          "type": "color",
+          "id": "text_color_3",
+          "label": "Text color",
+          "default": "#000000"
+        },
+        {
+          "type": "header",
+          "content": "Fourth Text Settings"
+        },
+        {
+          "type": "text",
+          "id": "text_4",
+          "label": "Fourth text",
+          "default": "5 Star Reviews"
+        },
+        {
+          "type": "select",
+          "id": "custom_font_4",
+          "label": "Font",
+          "options": [
+            { "value": "Select Font", "label": "Select Font" },
+            { "value": "Zurich, sans-serif", "label": "Zurich, sans-serif" },
+            { "value": "GothamBlack", "label": "GothamBlack" },
+            { "value": "Gotham Book", "label": "Gotham Book" },
+            { "value": "altesse-std-24pt", "label": "altesse-std-24pt" }
+          ],
+          "default": "Select Font"
+        },
+        {
+          "type": "range",
+          "id": "font_size_4",
+          "min": 10,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "font_size_4_mobile",
+          "min": 10,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "label": "Font size - mobile",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "line_height_4",
+          "min": 100,
+          "max": 200,
+          "step": 10,
+          "unit": "%",
+          "label": "Line height",
+          "default": 130
+        },
+        {
+          "type": "color",
+          "id": "text_color_4",
+          "label": "Text color",
+          "default": "#000000"
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Margin top",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "margin_top_mobile",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Margin top - mobile",
+          "default": 16
         }
       ]
     },
