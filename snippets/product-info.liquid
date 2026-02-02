@@ -40,6 +40,19 @@
     <div class="swipe-container" id="swipeContainer">
         <div class="swipe-content">
 
+          {% if currency_code == 'EUR' and country_code == 'BE' %}
+  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Insured_Delivery_Belgium.png?v=1754980228" alt="Free Delivery Belgium">
+{% elsif currency_code == 'EUR' and country_code == 'FR' %}
+  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Insured_Delivery_France.png?v=1754980227" alt="Livraison Gratuite France">
+{% elsif currency_code == 'EUR' and country_code == 'DE' %}
+  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Insured_Delivery_Germany.png?v=1754980227" alt="Kostenlose Lieferung Deutschland">
+{% elsif currency_code == 'EUR' and country_code == 'NL' %}
+  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Insured_Delivery_netherlands.png?v=1754980227" alt="Free Delivery Netherlands">
+{% else %}
+  <!-- Default image for other currencies or countries -->
+  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Free_Delivery_91d7d2fd-e98a-4d9f-9b1f-89f16f38bf97.png?v=1741268037" alt="Free Delivery">
+{% endif %}
+
         {% if product.tags contains "__label:20000+ SOLD" %}
         <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/20_000.png?v=1752567987" alt="Over 19,000 Sold">
         {% elsif product.tags contains "__label:15000+ SOLD" %}
@@ -72,18 +85,7 @@
             
           
 
-{% if currency_code == 'EUR' and country_code == 'BE' %}
-  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Insured_Delivery_Belgium.png?v=1754980228" alt="Free Delivery Belgium">
-{% elsif currency_code == 'EUR' and country_code == 'FR' %}
-  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Insured_Delivery_France.png?v=1754980227" alt="Livraison Gratuite France">
-{% elsif currency_code == 'EUR' and country_code == 'DE' %}
-  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Insured_Delivery_Germany.png?v=1754980227" alt="Kostenlose Lieferung Deutschland">
-{% elsif currency_code == 'EUR' and country_code == 'NL' %}
-  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Insured_Delivery_netherlands.png?v=1754980227" alt="Free Delivery Netherlands">
-{% else %}
-  <!-- Default image for other currencies or countries -->
-  <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Free_Delivery_91d7d2fd-e98a-4d9f-9b1f-89f16f38bf97.png?v=1741268037" alt="Free Delivery">
-{% endif %}
+
 
             {% comment %} <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Reviews_1.png?v=1744615763" alt="Reviews"> {% endcomment %}
 
