@@ -25,16 +25,48 @@
           </li>
         {%- endfor -%} {% endcomment %}
       {% comment %} {%- else -%} {% endcomment %}
-        {% assign serach_query_array = settings.suggested_search_terms | split: ',' %}
-        {%- for query in serach_query_array -%}
-          <li
-            data-suggested-query="{{ query }}"
-            class="suggested-search-term"
-            role="option"
-          >
-            {{ query }}
+        {%- if settings.search_term_1_label != blank and settings.search_term_1_url != blank -%}
+          <li class="suggested-search-term" role="option">
+            <a href="{{ settings.search_term_1_url }}" style="text-decoration: none; color: inherit; display: block;">
+              {{ settings.search_term_1_label }}
+            </a>
           </li>
-        {%- endfor -%}
+        {%- endif -%}
+        {%- if settings.search_term_2_label != blank and settings.search_term_2_url != blank -%}
+          <li class="suggested-search-term" role="option">
+            <a href="{{ settings.search_term_2_url }}" style="text-decoration: none; color: inherit; display: block;">
+              {{ settings.search_term_2_label }}
+            </a>
+          </li>
+        {%- endif -%}
+        {%- if settings.search_term_3_label != blank and settings.search_term_3_url != blank -%}
+          <li class="suggested-search-term" role="option">
+            <a href="{{ settings.search_term_3_url }}" style="text-decoration: none; color: inherit; display: block;">
+              {{ settings.search_term_3_label }}
+            </a>
+          </li>
+        {%- endif -%}
+        {%- if settings.search_term_4_label != blank and settings.search_term_4_url != blank -%}
+          <li class="suggested-search-term" role="option">
+            <a href="{{ settings.search_term_4_url }}" style="text-decoration: none; color: inherit; display: block;">
+              {{ settings.search_term_4_label }}
+            </a>
+          </li>
+        {%- endif -%}
+        {%- if settings.search_term_5_label != blank and settings.search_term_5_url != blank -%}
+          <li class="suggested-search-term" role="option">
+            <a href="{{ settings.search_term_5_url }}" style="text-decoration: none; color: inherit; display: block;">
+              {{ settings.search_term_5_label }}
+            </a>
+          </li>
+        {%- endif -%}
+        {%- if settings.search_term_6_label != blank and settings.search_term_6_url != blank -%}
+          <li class="suggested-search-term" role="option">
+            <a href="{{ settings.search_term_6_url }}" style="text-decoration: none; color: inherit; display: block;">
+              {{ settings.search_term_6_label }}
+            </a>
+          </li>
+        {%- endif -%}
       {% comment %} {%- endif -%} {% endcomment %}
     </ul>
   </div>
