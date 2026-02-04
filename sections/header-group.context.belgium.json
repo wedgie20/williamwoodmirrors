@@ -13,6 +13,15 @@
     "market": "belgium"
   },
   "sections": {
+    "header": {
+      "settings": {
+        "highlighted_menu_item": "shopify://collections/in-stock-ready-to-ship",
+        "menu_bold_text": "Guaranteed Christmas Delivery",
+        "menu_normal_text": "shop gifts",
+        "highlighted_menu_background_image": "shopify://shop_images/XM25_CP_Desk.jpg"
+      },
+      "blocks": {}
+    },
     "announcement-bar": {
       "settings": {
         "background": "#f5f5f5",
@@ -23,11 +32,11 @@
       "blocks": {
         "message_YnKrEj": {
           "type": "message",
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "text": "Month-End Event: 20% off everything. No Code Needed.",
             "learn_more_text": "",
-            "header-dd7006367c6d2bb22cad59535da46547": null,
+            "header-833ac1ba2b82c60e48ed0cc66afbf6b6": null,
             "image": null,
             "title": "Month-End Offer",
             "content": "<p>Enjoy <strong>20% off everything</strong> with our Month-End Offer. Offer auto applied at checkout. No Code Needed.<br/><strong><br/>Limited-Time-Only</strong></p>",
@@ -69,7 +78,7 @@
           "settings": {
             "text": "20% off everything. No code Needed. Ends Tonight.",
             "learn_more_text": "",
-            "header-ddadd8a43b672b208cc19b4b5c92bb99": null,
+            "header-753aeb7a22f48c09c30d0c1a2e03d5d9": null,
             "image": null,
             "title": "Blue Monday | Ends Tonight",
             "content": "<p><strong>20% OFF EVERYTHING</strong><br/><br/>Automatically applied at checkout. No code needed.<br/>+<br/>5% of all sales donated to MIND with Work For Good</p>",
@@ -88,27 +97,24 @@
             "button_text": "SHOP THE SALE",
             "button_link": "shopify://collections/january-sale"
           }
+        },
+        "message_wc4BFE": {
+          "disabled": false,
+          "settings": {
+            "text": "Valentines' Offer: 14% Off Everything. No Code Needed."
+          }
         }
       },
       "block_order": [
+        "message_wc4BFE",
         "message_YnKrEj",
         "review_slide_eUWQU9",
         "c4b45150-0e14-460e-8c47-88fd9bd72b02",
         "955bcd74-0608-4f78-afae-e87df09b9f88",
         "message_jpPpa",
         "3f097275-f772-44d9-b5f7-6d6999645314",
-        "message_N4D9HB",
-        "message_wc4BFE"
+        "message_N4D9HB"
       ]
-    },
-    "header": {
-      "settings": {
-        "highlighted_menu_item": "shopify://collections/in-stock-ready-to-ship",
-        "menu_bold_text": "Guaranteed Christmas Delivery",
-        "menu_normal_text": "shop gifts",
-        "highlighted_menu_background_image": "shopify://shop_images/XM25_CP_Desk.jpg"
-      },
-      "blocks": {}
     }
   }
 }
