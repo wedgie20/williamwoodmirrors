@@ -802,6 +802,7 @@ Or in 3 instalments of <span id="installment"></span> with
           </a>
 
         {%- endif -%} {% endcomment %}
+         {% if localization.country == 'United Kingdom' %}
 <a href="#" 
    class="product-meta__accordion-toggle_faq" 
    data-action="toggle-accordion-faq" 
@@ -810,6 +811,11 @@ Or in 3 instalments of <span id="installment"></span> with
    onclick="scrollToFaq(event)">
    Your Most Common Questions
 </a>
+{% else %}
+<a href="#product-{{ product.id }}-content" class="product-meta__accordion-toggle" data-action="toggle-accordion" aria-expanded="false" style="font-size: 10px !important; text-decoration: underline;font-weight: bold;">
+View Product Dimensions
+</a>
+{% endif %}
 
 <script>
 function scrollToFaq(e) {
@@ -839,9 +845,11 @@ function scrollToFaq(e) {
         <div class="swym-wishlist-button-bar"></div>
       </div>
     {%- endif -%}
+    {% if localization.country == 'United Kingdom' %}
 <a href="#product-{{ product.id }}-content" class="product-meta__accordion-toggle" data-action="toggle-accordion" aria-expanded="false" style="font-size: 10px !important; text-decoration: underline;font-weight: bold;">
 View Product Dimensions
 </a>
+{% endif %}
   </product-meta>
   <div style="padding: 16px 0; margin: 16px 0; padding-top: 0; margin-top: 0;">
   <p style="font-style: italic; margin-bottom: 12px; font-weight: bold">The verdict from our valued customers</p>
