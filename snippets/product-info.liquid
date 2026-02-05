@@ -433,14 +433,14 @@ document.addEventListener("DOMContentLoaded", function() {
       {% endcomment %}
 
       {% if localization.country == 'United Kingdom' %}
-<a href="#" 
+{% comment %} <a href="#" 
    class="product-meta__accordion-toggle_faq" 
    data-action="toggle-accordion-faq" 
    aria-expanded="false" 
    style="font-size: 10px !important; text-decoration: underline; font-weight: bold;"
    onclick="scrollToFaq(event)">
    Your Most Common Questions
-</a>
+</a> {% endcomment %}
 {% endif %}
     </div>
 
