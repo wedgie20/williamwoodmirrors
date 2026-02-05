@@ -342,6 +342,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 }
   </style>
+
   
   <div class="product-meta__price-list-container" role="region" aria-live="polite">
      {%- if product.tags contains 'sale' -%}
@@ -430,6 +431,17 @@ document.addEventListener("DOMContentLoaded", function() {
           {%- endunless -%}
         </div>
       {% endcomment %}
+
+      {% if localization.country == 'United Kingdom' %}
+<a href="#" 
+   class="product-meta__accordion-toggle_faq" 
+   data-action="toggle-accordion-faq" 
+   aria-expanded="false" 
+   style="font-size: 10px !important; text-decoration: underline; font-weight: bold;"
+   onclick="scrollToFaq(event)">
+   Your Most Common Questions
+</a>
+{% endif %}
     </div>
 
     <div class="guarantee-item price-saved-discount" style="">
@@ -803,17 +815,21 @@ Or in 3 instalments of <span id="installment"></span> with
 
         {%- endif -%} {% endcomment %}
          {% if localization.country == 'United Kingdom' %}
-<a href="#" 
+{% comment %} <a href="#" 
    class="product-meta__accordion-toggle_faq" 
    data-action="toggle-accordion-faq" 
    aria-expanded="false" 
    style="font-size: 10px !important; text-decoration: underline; font-weight: bold;"
    onclick="scrollToFaq(event)">
    Your Most Common Questions
+</a> {% endcomment %}
+
+<a href="#product-{{ product.id }}-content" class="product-meta__accordion-toggle" data-action="toggle-accordion" aria-expanded="false" style="font-size: 10px !important; text-decoration: underline;font-weight: bold;">
+View Product Information
 </a>
 {% else %}
 <a href="#product-{{ product.id }}-content" class="product-meta__accordion-toggle" data-action="toggle-accordion" aria-expanded="false" style="font-size: 10px !important; text-decoration: underline;font-weight: bold;">
-View Product Dimensions
+View Product Information
 </a>
 {% endif %}
 
@@ -845,11 +861,7 @@ function scrollToFaq(e) {
         <div class="swym-wishlist-button-bar"></div>
       </div>
     {%- endif -%}
-    {% if localization.country == 'United Kingdom' %}
-<a href="#product-{{ product.id }}-content" class="product-meta__accordion-toggle" data-action="toggle-accordion" aria-expanded="false" style="font-size: 10px !important; text-decoration: underline;font-weight: bold;">
-View Product Dimensions
-</a>
-{% endif %}
+    
   </product-meta>
   <div style="padding: 16px 0; margin: 16px 0; padding-top: 0; margin-top: 0;">
   {% comment %} <p style="font-style: italic; margin-bottom: 12px; font-weight: bold">The verdict from our valued customers</p> {% endcomment %}
@@ -1060,6 +1072,9 @@ View Product Dimensions
 {% render buy_buttons %}
 
 <style>
+  div#price-divider-container select#installments{
+      background-color: #EFEFEF;
+  }
   .shopify_payment-terms {
     margin-bottom: 5px;
 }
