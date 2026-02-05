@@ -12602,13 +12602,10 @@ input:checked + .popover__choice-label::after,
 }
 
 .product-meta__price-list-container {
-    display: flex;
+       display: flex;
     align-items: flex start;
     margin-top: -8px;
-    flex-direction: row;
-    margin-bottom: 5px;
-    place-content: space-between;
-    place-items: center;
+    flex-direction: column;
 }
 
 [dir="ltr"] .product-meta__label-list:not(:empty) {
