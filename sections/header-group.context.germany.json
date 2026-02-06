@@ -14,21 +14,12 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "background": "#efefef",
-        "text_color": "#000000",
-        "button_background": "#000000",
-        "button_text_color": "#f5f5f5"
-      },
       "blocks": {
         "message_YTHKx": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "20% off everything. No code Needed. Ends Tonight.",
             "learn_more_text": "",
-            "header-7610db175a5d0c01d347988e3c19e00f": null,
-            "image": null,
             "title": "Blue Monday | Ends Tonight",
             "content": "<p><strong>20% OFF EVERYTHING</strong><br/><br/>Automatically applied at checkout. No code needed.<br/>+<br/>5% of all sales donated to MIND with Work For Good</p>",
             "button_text": "SHOP BLUE MONDAY",
@@ -40,11 +31,10 @@
           "settings": {
             "text": "Up to 50% off + Up to an extra 15% off",
             "learn_more_text": "",
-            "image": null,
             "title": "January Sale",
             "content": "<p>Up to 50% off select products<br/><br/>Extra 10% off when you purchase 2 sale products, no code needed.<br/>or<br/>Extra 15% off when you purchase 3 or more sale products, no code needed.</p>",
             "button_text": "SHOP THE SALE",
-            "button_link": "shopify://collections/january-sale"
+            "button_link": "shopify://collections/winter-sale"
           }
         },
         "message_TpGWh": {
@@ -53,7 +43,6 @@
           "settings": {
             "text": "Build Your Bundle: Up to 30% off",
             "learn_more_text": "shop now",
-            "header-6fb430b66f6c73d71a791acf6d980f74": null,
             "image": "shopify://shop_images/1080_UP_TPO_30_off.jpg",
             "title": "Up to 30% off full price",
             "content": "<p>Purchase 2 full priced products, get <strong>25% off</strong>. No code required.<br/>or<br/>Purchase 3 or more full priced products, get <strong>30% off</strong>. No code required.</p>",
@@ -62,7 +51,6 @@
           }
         },
         "955bcd74-0608-4f78-afae-e87df09b9f88": {
-          "disabled": false,
           "settings": {
             "text": "700,000+ Satisfied Customers | 30,000+ 5 Star Reviews"
           }
@@ -77,7 +65,13 @@
         "message_N4D9HB",
         "message_wc4BFE",
         "trustpilot_Q4xFtD"
-      ]
+      ],
+      "settings": {
+        "background": "#efefef",
+        "text_color": "#000000",
+        "button_background": "#000000",
+        "button_text_color": "#f5f5f5"
+      }
     },
     "header": {
       "settings": {
@@ -87,8 +81,7 @@
         "highlighted_menu_background_image": "shopify://shop_images/XM25_CP_Desk.jpg",
         "second_menu_bold_text": "",
         "second_menu_normal_text": ""
-      },
-      "blocks": {}
+      }
     }
   }
 }
