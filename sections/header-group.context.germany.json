@@ -14,16 +14,9 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "background": "#efefef",
-        "text_color": "#000000",
-        "button_background": "#000000",
-        "button_text_color": "#f5f5f5"
-      },
       "blocks": {
         "review_slide_L9XgNA": {
           "type": "review_slide",
-          "disabled": false,
           "settings": {
             "text_before": "Excellent",
             "review_logo": "shopify://shop_images/Trustpilot_ratings_5star-RGB-min_0a651061-7fb3-4d09-81b6-b7f887efdbe1.png",
@@ -37,8 +30,6 @@
           "settings": {
             "text": "20% off everything. No code Needed. Ends Tonight.",
             "learn_more_text": "",
-            "header-c2530e18e2aa1b57a93a07551c1f60c9": null,
-            "image": null,
             "title": "Blue Monday | Ends Tonight",
             "content": "<p><strong>20% OFF EVERYTHING</strong><br/><br/>Automatically applied at checkout. No code needed.<br/>+<br/>5% of all sales donated to MIND with Work For Good</p>",
             "button_text": "SHOP BLUE MONDAY",
@@ -50,21 +41,17 @@
           "settings": {
             "text": "Up to 50% off + Up to an extra 15% off",
             "learn_more_text": "",
-            "image": null,
             "title": "January Sale",
             "content": "<p>Up to 50% off select products<br/><br/>Extra 10% off when you purchase 2 sale products, no code needed.<br/>or<br/>Extra 15% off when you purchase 3 or more sale products, no code needed.</p>",
             "button_text": "SHOP THE SALE",
-            "button_link": "shopify://collections/january-sale"
+            "button_link": "shopify://collections/winter-sale"
           }
         },
         "message_TpGWh": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "Month-End Event: 20% off everything. No Code Needed.",
             "learn_more_text": "",
-            "header-68123afe7e848c462838e72f2fb5044c": null,
-            "image": null,
             "title": "Month-End Offer",
             "content": "<p>Enjoy <strong>20% off everything</strong> with our Month-End Offer. Offer auto applied at checkout. No Code Needed.<br/><strong><br/>Limited-Time-Only</strong></p>",
             "button_text": "SHOP NOW",
@@ -87,7 +74,13 @@
         "c4b45150-0e14-460e-8c47-88fd9bd72b02",
         "message_N4D9HB",
         "message_wc4BFE"
-      ]
+      ],
+      "settings": {
+        "background": "#efefef",
+        "text_color": "#000000",
+        "button_background": "#000000",
+        "button_text_color": "#f5f5f5"
+      }
     },
     "header": {
       "settings": {
@@ -97,8 +90,7 @@
         "highlighted_menu_background_image": "shopify://shop_images/XM25_CP_Desk.jpg",
         "second_menu_bold_text": "",
         "second_menu_normal_text": ""
-      },
-      "blocks": {}
+      }
     }
   }
 }
