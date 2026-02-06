@@ -13,34 +13,53 @@
     "market": "netherlands"
   },
   "sections": {
-    "header": {
-      "settings": {
-        "highlighted_menu_item": "shopify://collections/in-stock-ready-to-ship",
-        "menu_bold_text": "Guaranteed Christmas Delivery",
-        "menu_normal_text": "Shop now",
-        "highlighted_menu_background_image": "shopify://shop_images/XM25_CP_Desk.jpg",
-        "second_menu_bold_text": "",
-        "second_menu_normal_text": ""
-      }
-    },
     "announcement-bar": {
+      "settings": {
+        "background": "#efefef",
+        "text_color": "#000000",
+        "button_background": "#000000",
+        "button_text_color": "#f5f5f5"
+      },
       "blocks": {
+        "message_BQiN4H": {
+          "type": "message",
+          "disabled": false,
+          "settings": {
+            "text": "700,000+ Satisfied Customers | 30,000+ 5 Star Reviews",
+            "learn_more_text": "",
+            "header-330a515c5a9fda7d3a6238ffb840d932": null,
+            "image": null,
+            "title": "Don't just take it from us.",
+            "content": "<p>30,000+ 5 Star Reviews from real customers.</p>",
+            "button_text": "READ CUSTOMER REVIEWS",
+            "button_link": "shopify://pages/what-our-customers-are-saying"
+          }
+        },
+        "message_wc4BFE": {
+          "disabled": false,
+          "settings": {
+            "text": "Valentine's Offer: 14% Off Everything. No Code Needed."
+          }
+        },
         "message_UtCTYe": {
           "type": "message",
-          "disabled": true,
+          "disabled": false,
           "settings": {
-            "text": "Month-End Event: 20% off everything. No Code Needed.",
+            "text": "Free UK Delivery | 90-Days Free Returns",
             "learn_more_text": "",
-            "title": "Month-End Offer",
-            "content": "<p>Enjoy <strong>20% off everything</strong> with our Month-End Offer. Offer auto applied at checkout. No Code Needed.<br/><strong><br/>Limited-Time-Only</strong></p>",
-            "button_text": "SHOP NOW",
-            "button_link": "shopify://collections/best-sellers"
+            "header-3c1f10de92deae2f6333b46baecf6fcc": null,
+            "image": null,
+            "title": "",
+            "content": "",
+            "button_text": "",
+            "button_link": ""
           }
         },
         "review_slide_abTybR": {
           "type": "review_slide",
+          "disabled": false,
           "settings": {
-            "text_before": "Excellent",
+            "text_before": "Excellent 4.7 / 5",
             "review_logo": "shopify://shop_images/Trustpilot_ratings_5star-RGB-min_0a651061-7fb3-4d09-81b6-b7f887efdbe1.png",
             "logo_height": 12,
             "text_after": ""
@@ -52,6 +71,8 @@
           "settings": {
             "text": "20% off everything. No code Needed. Ends Tonight.",
             "learn_more_text": "",
+            "header-89030451944d6f44aacfbfb4b815b2df": null,
+            "image": null,
             "title": "Blue Monday | Ends Tonight",
             "content": "<p><strong>20% OFF EVERYTHING</strong><br/><br/>Automatically applied at checkout. No code needed.<br/>+<br/>5% of all sales donated to MIND with Work For Good</p>",
             "button_text": "SHOP BLUE MONDAY",
@@ -84,29 +105,29 @@
           "settings": {
             "text": "700,000+ Satisfied Customers | 30,000+ 5 Star Reviews"
           }
-        },
-        "message_wc4BFE": {
-          "settings": {
-            "text": "Valentines' Offer: 14% Off Everything. No Code Needed."
-          }
         }
       },
       "block_order": [
         "message_wc4BFE",
         "message_UtCTYe",
         "review_slide_abTybR",
+        "message_BQiN4H",
         "message_qhcya",
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "955bcd74-0608-4f78-afae-e87df09b9f88",
-        "c4b45150-0e14-460e-8c47-88fd9bd72b02",
-        "message_N4D9HB"
-      ],
+        "c4b45150-0e14-460e-8c47-88fd9bd72b02"
+      ]
+    },
+    "header": {
       "settings": {
-        "background": "#efefef",
-        "text_color": "#000000",
-        "button_background": "#000000",
-        "button_text_color": "#f5f5f5"
-      }
+        "highlighted_menu_item": "shopify://collections/in-stock-ready-to-ship",
+        "menu_bold_text": "Guaranteed Christmas Delivery",
+        "menu_normal_text": "Shop now",
+        "highlighted_menu_background_image": "shopify://shop_images/XM25_CP_Desk.jpg",
+        "second_menu_bold_text": "",
+        "second_menu_normal_text": ""
+      },
+      "blocks": {}
     }
   }
 }
