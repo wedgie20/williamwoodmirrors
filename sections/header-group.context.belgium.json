@@ -13,37 +13,39 @@
     "market": "belgium"
   },
   "sections": {
-    "header": {
-      "settings": {
-        "highlighted_menu_item": "shopify://collections/in-stock-ready-to-ship",
-        "menu_bold_text": "Guaranteed Christmas Delivery",
-        "menu_normal_text": "shop gifts",
-        "highlighted_menu_background_image": "shopify://shop_images/XM25_CP_Desk.jpg"
-      }
-    },
     "announcement-bar": {
+      "settings": {
+        "background": "#f5f5f5",
+        "text_color": "#000000",
+        "button_background": "#000000",
+        "button_text_color": "#f5f5f5"
+      },
       "blocks": {
         "message_wc4BFE": {
+          "disabled": false,
           "settings": {
-            "text": "Valentines' Offer: 14% Off Everything. No Code Needed."
+            "text": "Valentine's Offer: 14% Off Everything. No Code Needed."
           }
         },
         "message_YnKrEj": {
           "type": "message",
-          "disabled": true,
+          "disabled": false,
           "settings": {
-            "text": "Month-End Event: 20% off everything. No Code Needed.",
+            "text": "Free UK Delivery | 90-Days Free Returns",
             "learn_more_text": "",
-            "title": "Month-End Offer",
-            "content": "<p>Enjoy <strong>20% off everything</strong> with our Month-End Offer. Offer auto applied at checkout. No Code Needed.<br/><strong><br/>Limited-Time-Only</strong></p>",
-            "button_text": "SHOP NOW",
-            "button_link": "shopify://collections/best-sellers"
+            "header-31d63dd3f36109fa7beeeae66f3d37cb": null,
+            "image": null,
+            "title": "",
+            "content": "",
+            "button_text": "",
+            "button_link": ""
           }
         },
         "review_slide_eUWQU9": {
           "type": "review_slide",
+          "disabled": false,
           "settings": {
-            "text_before": "Excellent",
+            "text_before": "Excellent 4.7 / 5",
             "review_logo": "shopify://shop_images/Trustpilot_ratings_5star-RGB-min_0a651061-7fb3-4d09-81b6-b7f887efdbe1.png",
             "logo_height": 12,
             "text_after": ""
@@ -72,6 +74,8 @@
           "settings": {
             "text": "20% off everything. No code Needed. Ends Tonight.",
             "learn_more_text": "",
+            "header-bcd4bb2505f05d7a07ffc96080fa10af": null,
+            "image": null,
             "title": "Blue Monday | Ends Tonight",
             "content": "<p><strong>20% OFF EVERYTHING</strong><br/><br/>Automatically applied at checkout. No code needed.<br/>+<br/>5% of all sales donated to MIND with Work For Good</p>",
             "button_text": "SHOP BLUE MONDAY",
@@ -99,13 +103,16 @@
         "message_jpPpa",
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "message_N4D9HB"
-      ],
+      ]
+    },
+    "header": {
       "settings": {
-        "background": "#f5f5f5",
-        "text_color": "#000000",
-        "button_background": "#000000",
-        "button_text_color": "#f5f5f5"
-      }
+        "highlighted_menu_item": "shopify://collections/in-stock-ready-to-ship",
+        "menu_bold_text": "Guaranteed Christmas Delivery",
+        "menu_normal_text": "shop gifts",
+        "highlighted_menu_background_image": "shopify://shop_images/XM25_CP_Desk.jpg"
+      },
+      "blocks": {}
     }
   }
 }
