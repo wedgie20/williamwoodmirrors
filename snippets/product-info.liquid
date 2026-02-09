@@ -296,6 +296,37 @@ document.addEventListener("DOMContentLoaded", function() {
     {% unless product.title contains "E-Gift Card" %}
       
 <div style="" class="product-title-price">
+
+    {%- for tag in product.tags -%}
+      {%- if tag contains '__label' -%}
+{% if tag contains "19000+ SOLD" %}
+    <span class="label_sold_items">19,000+ Sold</span>
+{% elsif tag contains "15000+ SOLD" %}
+    <span class="label_sold_items">15,000+ Sold</span>
+{% elsif tag contains "12000+ SOLD" %}
+    <span class="label_sold_items">12,000+ Sold</span>
+{% elsif tag contains "10000+ SOLD" %}
+    <span class="label_sold_items">10,000+ Sold</span>
+{% elsif tag contains "7000+ SOLD" %}
+    <span class="label_sold_items">7,000+ Sold</span>
+{% elsif tag contains "5000+ SOLD" %}
+    <span class="label_sold_items">5,000+ Sold</span>
+{% elsif tag contains "4000+ SOLD" %}
+    <span class="label_sold_items">4,000+ Sold</span>
+  {% elsif tag contains "3000+ SOLD" %}
+    <span class="label_sold_items">3,000+ Sold</span>
+  {% elsif tag contains "2500+ SOLD" %}
+    <span class="label_sold_items">2,500+ Sold</span>
+    {% elsif tag contains "2000+ SOLD" %}
+    <span class="label_sold_items">2,000+ Sold</span>
+    {% elsif tag contains "20000+ SOLD" %}
+    <span class="label_sold_items">20,000+ Sold</span>
+          {% elsif tag contains "SOLD" %}
+        <span class="label_sold_items{% if tag contains '__label2' %}2{% endif %}">{{ tag | split: ':' | last | replace: 'SOLD', 'Sold' }}</span>
+           {% endif %}
+      {%- endif -%}
+    {%- endfor -%}
+
    {%- if section.settings.show_product_rating -%}
 
           
@@ -313,38 +344,12 @@ document.addEventListener("DOMContentLoaded", function() {
           </a>
 
         {%- endif -%}
+
+        
+
   <h1 class="product-meta__title heading h3" style="margin-top: none !important; padding-top: none !important; transform: translateY(-5px);">
     <b>
       <p class="cardo_title" style="text-transform: capitalize !important; font-size: 30px;">{{ first_word }}
-           {%- for tag in product.tags -%}
-      {%- if tag contains '__label' -%}
-{% if tag contains "19000+ SOLD" %}
-    <span class="label label--custom">19,000+ SOLD</span>
-{% elsif tag contains "15000+ SOLD" %}
-    <span class="label label--custom">15,000+ SOLD</span>
-{% elsif tag contains "12000+ SOLD" %}
-    <span class="label label--custom">12,000+ SOLD</span>
-{% elsif tag contains "10000+ SOLD" %}
-    <span class="label label--custom">10,000+ SOLD</span>
-{% elsif tag contains "7000+ SOLD" %}
-    <span class="label label--custom">7,000+ SOLD</span>
-{% elsif tag contains "5000+ SOLD" %}
-    <span class="label label--custom">5,000+ SOLD</span>
-{% elsif tag contains "4000+ SOLD" %}
-    <span class="label label--custom">4,000+ SOLD</span>
-  {% elsif tag contains "3000+ SOLD" %}
-    <span class="label label--custom">3,000+ SOLD</span>
-  {% elsif tag contains "2500+ SOLD" %}
-    <span class="label label--custom">2,500+ SOLD</span>
-    {% elsif tag contains "2000+ SOLD" %}
-    <span class="label label--custom">2,000+ SOLD</span>
-    {% elsif tag contains "20000+ SOLD" %}
-    <span class="label label--custom">20,000+ SOLD</span>
-          {% elsif tag contains "SOLD" %}
-        <span class="label_sold_items{% if tag contains '__label2' %}2{% endif %}">{{ tag | split: ':' | last }}</span>
-           {% endif %}
-      {%- endif -%}
-    {%- endfor -%}
       </p>
     </b>
     <p style="font-size: 13px; margin-top: 4px !important; text-transform: none !important; font-family: Zurich, sans-serif; font-weight: bold !important;">{{ title_words | join: ' ' | remove: '-' | remove: remove_first_word }}</p>
@@ -363,6 +368,7 @@ document.addEventListener("DOMContentLoaded", function() {
     font-weight: 500 !important;
         letter-spacing: 0.5px;
     font-family: Zurich, sans-serif !important;
+    display: block !important;
     }
     .product-meta__title p.cardo_title {
     display: flex;
