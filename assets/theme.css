@@ -16006,6 +16006,14 @@ input[type="search"]::-webkit-search-decoration {
   font-size: 13px;
 }
 
+.product-form__custom-liquid .short-description p{
+margin: unset !important;
+    line-height: 1;
+}
+.product-form__custom-liquid .short-description .info-icon{
+  transform: unset;
+}
+
 .short-description a {
   text-decoration: underline;
   text-underline-offset: 4px;
