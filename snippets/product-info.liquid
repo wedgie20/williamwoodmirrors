@@ -322,7 +322,7 @@ document.addEventListener("DOMContentLoaded", function() {
     {% elsif tag contains "20000+ SOLD" %}
     <span class="label_sold_items">20,000+ Sold</span>
           {% elsif tag contains "SOLD" %}
-        <span class="label_sold_items{% if tag contains '__label2' %}2{% endif %}">{{ tag | split: ':' | last | replace: 'SOLD', 'Sold' }}</span>
+        <span class="label_sold_items tag_{{ tag | split: ':' | last | downcase | handle }} {% if tag contains '__label2' %}2{% endif %}">{{ tag | split: ':' | last | replace: 'SOLD', 'Sold' }}</span>
            {% endif %}
       {%- endif -%}
     {%- endfor -%}
@@ -369,6 +369,10 @@ document.addEventListener("DOMContentLoaded", function() {
         letter-spacing: 0.5px;
     font-family: Zurich, sans-serif !important;
     display: block !important;
+    }
+
+    .product-title-price span.label_sold_items.tag_sold-out{
+    display: none !important;
     }
     .product-meta__title p.cardo_title {
     display: flex;
