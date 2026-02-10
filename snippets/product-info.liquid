@@ -915,7 +915,7 @@ function scrollToFaq(e) {
     {%- endif -%}
     
   </product-meta>
-  <div style="padding: 16px 0; margin: 16px 0; padding-top: 0; margin-top: 0;">
+  <div class="desktop_review_lines" style="padding: 16px 0; margin: 16px 0; padding-top: 0; margin-top: 0;">
   {% comment %} <p style="font-style: italic; margin-bottom: 12px; font-weight: bold">The verdict from our valued customers</p> {% endcomment %}
   <p style="font-style: italic; margin-bottom: 12px;">"Impeccable quality, seamless delivery, and truly <b>worth the investment.</b> I was cautious about ordering online, but William Wood <b>surpassed every expectation.</b> Their products bring a real sense of elegance to the space." <br><span><b>Hannah R. United Kingdom</b></span></p>
   <p style="font-style: italic; margin-bottom: 0; font-weight: bold">Verified Review</p>
@@ -1183,6 +1183,25 @@ p.saved-price, .price-saved-discount {
     font-size: 15px;
 }
 
+.mobile_review_lines{
+display: none;
+}
+
+@media (max-width: 768px) {
+.desktop_review_lines {
+    display: none;
+}
+.mobile_review_lines {
+    display: block;
+}
+}
+
   
 </style> 
+
+ <div class="mobile_review_lines" style="padding: 16px 0; margin: 5px 0; padding-top: 0; margin-top: -15px;">
+  {% comment %} <p style="font-style: italic; margin-bottom: 12px; font-weight: bold">The verdict from our valued customers</p> {% endcomment %}
+  <p style="font-style: italic; margin-bottom: 12px;">"Impeccable quality, seamless delivery, and truly <b>worth the investment.</b> I was cautious about ordering online, but William Wood <b>surpassed every expectation.</b> Their products bring a real sense of elegance to the space." <br><span><b>Hannah R. United Kingdom</b></span></p>
+  <p style="font-style: italic; margin-bottom: 0; font-weight: bold">Verified Review</p>
+</div>
 
