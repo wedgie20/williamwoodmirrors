@@ -428,9 +428,9 @@ document.addEventListener("DOMContentLoaded", function() {
         
         {%- assign savings = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price -%}
         {%- if savings > 0 -%}
-         <span class="label label--highlight">
+         {% comment %} <span class="label label--highlight">
             Save {% if settings.currency_code_enabled %}{{ savings | money_with_currency }}{% else %}{{ savings | money }}{% endif %}
-          </span> 
+          </span>  {% endcomment %}
         {%- endif -%}
           
         {%- else -%}
@@ -723,7 +723,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
-        const price = {{ product.price }};
+        const price = {{ pricewholenumber }};
         const installmentsDropdown = document.getElementById('installments');
         const installmentDisplay = document.getElementById('installment');
         const disclaimerDisplay = document.getElementById('disclaimer');
