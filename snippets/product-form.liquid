@@ -940,8 +940,9 @@ document.addEventListener('DOMContentLoaded', function () {
             
             .benefit-text-{{ block.id }} {
               font-size: {{ block.settings.text_size_desktop }}px;
-              line-height: 1.4;
+              line-height: 1.2;
               text-align: {% if block.settings.icon_position == 'top' %}center{% else %}left{% endif %};
+                  max-width: 200px;
             }
             
             @media only screen and (max-width: 768px) {
