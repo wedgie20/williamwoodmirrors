@@ -625,6 +625,701 @@
   ]
 },
 
+{
+  "type": "benefit_section",
+  "name": "Product Benefits",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_benefits",
+      "label": "Enable Product Benefits",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "exclude_product_title",
+      "label": "Exclude if title contains",
+      "default": "bowl",
+      "info": "Product benefits won't show if the product title contains this text (case-insensitive)"
+    },
+    {
+      "type": "header",
+      "content": "Layout Options"
+    },
+    {
+      "type": "range",
+      "id": "icon_size_desktop",
+      "label": "Icon Size - Desktop",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "icon_size_mobile",
+      "label": "Icon Size - Mobile",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "text_size_desktop",
+      "label": "Text Size - Desktop",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "text_size_mobile",
+      "label": "Text Size - Mobile",
+      "min": 8,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "heading_size_desktop",
+      "label": "Heading Size - Desktop",
+      "min": 14,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Heading Size - Mobile",
+      "min": 12,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "gap_between_items",
+      "label": "Gap Between Benefits",
+      "min": 5,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "select",
+      "id": "layout_direction",
+      "label": "Layout Direction",
+      "options": [
+        { "value": "horizontal", "label": "Horizontal" },
+        { "value": "vertical", "label": "Vertical" }
+      ],
+      "default": "horizontal"
+    },
+    {
+      "type": "select",
+      "id": "icon_position",
+      "label": "Icon Position",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "left", "label": "Left" }
+      ],
+      "default": "top",
+      "info": "Position of icon relative to text"
+    },
+    {
+      "type": "header",
+      "content": "Mirror Benefits"
+    },
+    {
+      "type": "text",
+      "id": "mirror_heading",
+      "label": "Mirror Heading",
+      "default": "Mirror Benefits"
+    },
+    {
+      "type": "image_picker",
+      "id": "mirror_benefit_1_icon",
+      "label": "Benefit 1 Icon"
+    },
+    {
+      "type": "text",
+      "id": "mirror_benefit_1_text",
+      "label": "Benefit 1 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "mirror_benefit_2_icon",
+      "label": "Benefit 2 Icon"
+    },
+    {
+      "type": "text",
+      "id": "mirror_benefit_2_text",
+      "label": "Benefit 2 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "mirror_benefit_3_icon",
+      "label": "Benefit 3 Icon"
+    },
+    {
+      "type": "text",
+      "id": "mirror_benefit_3_text",
+      "label": "Benefit 3 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "mirror_benefit_4_icon",
+      "label": "Benefit 4 Icon"
+    },
+    {
+      "type": "text",
+      "id": "mirror_benefit_4_text",
+      "label": "Benefit 4 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "mirror_benefit_5_icon",
+      "label": "Benefit 5 Icon"
+    },
+    {
+      "type": "text",
+      "id": "mirror_benefit_5_text",
+      "label": "Benefit 5 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "mirror_benefit_6_icon",
+      "label": "Benefit 6 Icon"
+    },
+    {
+      "type": "text",
+      "id": "mirror_benefit_6_text",
+      "label": "Benefit 6 Text"
+    },
+    {
+      "type": "header",
+      "content": "Coffee Table Benefits"
+    },
+    {
+      "type": "text",
+      "id": "coffee_table_heading",
+      "label": "Coffee Table Heading",
+      "default": "Coffee Table Benefits"
+    },
+    {
+      "type": "image_picker",
+      "id": "coffee_table_benefit_1_icon",
+      "label": "Benefit 1 Icon"
+    },
+    {
+      "type": "text",
+      "id": "coffee_table_benefit_1_text",
+      "label": "Benefit 1 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "coffee_table_benefit_2_icon",
+      "label": "Benefit 2 Icon"
+    },
+    {
+      "type": "text",
+      "id": "coffee_table_benefit_2_text",
+      "label": "Benefit 2 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "coffee_table_benefit_3_icon",
+      "label": "Benefit 3 Icon"
+    },
+    {
+      "type": "text",
+      "id": "coffee_table_benefit_3_text",
+      "label": "Benefit 3 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "coffee_table_benefit_4_icon",
+      "label": "Benefit 4 Icon"
+    },
+    {
+      "type": "text",
+      "id": "coffee_table_benefit_4_text",
+      "label": "Benefit 4 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "coffee_table_benefit_5_icon",
+      "label": "Benefit 5 Icon"
+    },
+    {
+      "type": "text",
+      "id": "coffee_table_benefit_5_text",
+      "label": "Benefit 5 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "coffee_table_benefit_6_icon",
+      "label": "Benefit 6 Icon"
+    },
+    {
+      "type": "text",
+      "id": "coffee_table_benefit_6_text",
+      "label": "Benefit 6 Text"
+    },
+    {
+      "type": "header",
+      "content": "Tray Benefits"
+    },
+    {
+      "type": "text",
+      "id": "tray_heading",
+      "label": "Tray Heading",
+      "default": "Tray Benefits"
+    },
+    {
+      "type": "image_picker",
+      "id": "tray_benefit_1_icon",
+      "label": "Benefit 1 Icon"
+    },
+    {
+      "type": "text",
+      "id": "tray_benefit_1_text",
+      "label": "Benefit 1 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "tray_benefit_2_icon",
+      "label": "Benefit 2 Icon"
+    },
+    {
+      "type": "text",
+      "id": "tray_benefit_2_text",
+      "label": "Benefit 2 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "tray_benefit_3_icon",
+      "label": "Benefit 3 Icon"
+    },
+    {
+      "type": "text",
+      "id": "tray_benefit_3_text",
+      "label": "Benefit 3 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "tray_benefit_4_icon",
+      "label": "Benefit 4 Icon"
+    },
+    {
+      "type": "text",
+      "id": "tray_benefit_4_text",
+      "label": "Benefit 4 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "tray_benefit_5_icon",
+      "label": "Benefit 5 Icon"
+    },
+    {
+      "type": "text",
+      "id": "tray_benefit_5_text",
+      "label": "Benefit 5 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "tray_benefit_6_icon",
+      "label": "Benefit 6 Icon"
+    },
+    {
+      "type": "text",
+      "id": "tray_benefit_6_text",
+      "label": "Benefit 6 Text"
+    },
+    {
+      "type": "header",
+      "content": "Lamp Benefits"
+    },
+    {
+      "type": "text",
+      "id": "lamp_heading",
+      "label": "Lamp Heading",
+      "default": "Lamp Benefits"
+    },
+    {
+      "type": "image_picker",
+      "id": "lamp_benefit_1_icon",
+      "label": "Benefit 1 Icon"
+    },
+    {
+      "type": "text",
+      "id": "lamp_benefit_1_text",
+      "label": "Benefit 1 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "lamp_benefit_2_icon",
+      "label": "Benefit 2 Icon"
+    },
+    {
+      "type": "text",
+      "id": "lamp_benefit_2_text",
+      "label": "Benefit 2 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "lamp_benefit_3_icon",
+      "label": "Benefit 3 Icon"
+    },
+    {
+      "type": "text",
+      "id": "lamp_benefit_3_text",
+      "label": "Benefit 3 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "lamp_benefit_4_icon",
+      "label": "Benefit 4 Icon"
+    },
+    {
+      "type": "text",
+      "id": "lamp_benefit_4_text",
+      "label": "Benefit 4 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "lamp_benefit_5_icon",
+      "label": "Benefit 5 Icon"
+    },
+    {
+      "type": "text",
+      "id": "lamp_benefit_5_text",
+      "label": "Benefit 5 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "lamp_benefit_6_icon",
+      "label": "Benefit 6 Icon"
+    },
+    {
+      "type": "text",
+      "id": "lamp_benefit_6_text",
+      "label": "Benefit 6 Text"
+    },
+    {
+      "type": "header",
+      "content": "Vase Benefits"
+    },
+    {
+      "type": "text",
+      "id": "vase_heading",
+      "label": "Vase Heading",
+      "default": "Vase Benefits"
+    },
+    {
+      "type": "image_picker",
+      "id": "vase_benefit_1_icon",
+      "label": "Benefit 1 Icon"
+    },
+    {
+      "type": "text",
+      "id": "vase_benefit_1_text",
+      "label": "Benefit 1 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "vase_benefit_2_icon",
+      "label": "Benefit 2 Icon"
+    },
+    {
+      "type": "text",
+      "id": "vase_benefit_2_text",
+      "label": "Benefit 2 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "vase_benefit_3_icon",
+      "label": "Benefit 3 Icon"
+    },
+    {
+      "type": "text",
+      "id": "vase_benefit_3_text",
+      "label": "Benefit 3 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "vase_benefit_4_icon",
+      "label": "Benefit 4 Icon"
+    },
+    {
+      "type": "text",
+      "id": "vase_benefit_4_text",
+      "label": "Benefit 4 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "vase_benefit_5_icon",
+      "label": "Benefit 5 Icon"
+    },
+    {
+      "type": "text",
+      "id": "vase_benefit_5_text",
+      "label": "Benefit 5 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "vase_benefit_6_icon",
+      "label": "Benefit 6 Icon"
+    },
+    {
+      "type": "text",
+      "id": "vase_benefit_6_text",
+      "label": "Benefit 6 Text"
+    },
+    {
+      "type": "header",
+      "content": "Side Table Benefits"
+    },
+    {
+      "type": "text",
+      "id": "side_table_heading",
+      "label": "Side Table Heading",
+      "default": "Side Table Benefits"
+    },
+    {
+      "type": "image_picker",
+      "id": "side_table_benefit_1_icon",
+      "label": "Benefit 1 Icon"
+    },
+    {
+      "type": "text",
+      "id": "side_table_benefit_1_text",
+      "label": "Benefit 1 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "side_table_benefit_2_icon",
+      "label": "Benefit 2 Icon"
+    },
+    {
+      "type": "text",
+      "id": "side_table_benefit_2_text",
+      "label": "Benefit 2 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "side_table_benefit_3_icon",
+      "label": "Benefit 3 Icon"
+    },
+    {
+      "type": "text",
+      "id": "side_table_benefit_3_text",
+      "label": "Benefit 3 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "side_table_benefit_4_icon",
+      "label": "Benefit 4 Icon"
+    },
+    {
+      "type": "text",
+      "id": "side_table_benefit_4_text",
+      "label": "Benefit 4 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "side_table_benefit_5_icon",
+      "label": "Benefit 5 Icon"
+    },
+    {
+      "type": "text",
+      "id": "side_table_benefit_5_text",
+      "label": "Benefit 5 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "side_table_benefit_6_icon",
+      "label": "Benefit 6 Icon"
+    },
+    {
+      "type": "text",
+      "id": "side_table_benefit_6_text",
+      "label": "Benefit 6 Text"
+    },
+    {
+      "type": "header",
+      "content": "Coaster Benefits"
+    },
+    {
+      "type": "text",
+      "id": "coaster_heading",
+      "label": "Coaster Heading",
+      "default": "Coaster Benefits"
+    },
+    {
+      "type": "image_picker",
+      "id": "coaster_benefit_1_icon",
+      "label": "Benefit 1 Icon"
+    },
+    {
+      "type": "text",
+      "id": "coaster_benefit_1_text",
+      "label": "Benefit 1 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "coaster_benefit_2_icon",
+      "label": "Benefit 2 Icon"
+    },
+    {
+      "type": "text",
+      "id": "coaster_benefit_2_text",
+      "label": "Benefit 2 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "coaster_benefit_3_icon",
+      "label": "Benefit 3 Icon"
+    },
+    {
+      "type": "text",
+      "id": "coaster_benefit_3_text",
+      "label": "Benefit 3 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "coaster_benefit_4_icon",
+      "label": "Benefit 4 Icon"
+    },
+    {
+      "type": "text",
+      "id": "coaster_benefit_4_text",
+      "label": "Benefit 4 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "coaster_benefit_5_icon",
+      "label": "Benefit 5 Icon"
+    },
+    {
+      "type": "text",
+      "id": "coaster_benefit_5_text",
+      "label": "Benefit 5 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "coaster_benefit_6_icon",
+      "label": "Benefit 6 Icon"
+    },
+    {
+      "type": "text",
+      "id": "coaster_benefit_6_text",
+      "label": "Benefit 6 Text"
+    },
+    {
+      "type": "header",
+      "content": "Chair Benefits"
+    },
+    {
+      "type": "text",
+      "id": "chair_heading",
+      "label": "Chair Heading",
+      "default": "Chair Benefits"
+    },
+    {
+      "type": "image_picker",
+      "id": "chair_benefit_1_icon",
+      "label": "Benefit 1 Icon"
+    },
+    {
+      "type": "text",
+      "id": "chair_benefit_1_text",
+      "label": "Benefit 1 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "chair_benefit_2_icon",
+      "label": "Benefit 2 Icon"
+    },
+    {
+      "type": "text",
+      "id": "chair_benefit_2_text",
+      "label": "Benefit 2 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "chair_benefit_3_icon",
+      "label": "Benefit 3 Icon"
+    },
+    {
+      "type": "text",
+      "id": "chair_benefit_3_text",
+      "label": "Benefit 3 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "chair_benefit_4_icon",
+      "label": "Benefit 4 Icon"
+    },
+    {
+      "type": "text",
+      "id": "chair_benefit_4_text",
+      "label": "Benefit 4 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "chair_benefit_5_icon",
+      "label": "Benefit 5 Icon"
+    },
+    {
+      "type": "text",
+      "id": "chair_benefit_5_text",
+      "label": "Benefit 5 Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "chair_benefit_6_icon",
+      "label": "Benefit 6 Icon"
+    },
+    {
+      "type": "text",
+      "id": "chair_benefit_6_text",
+      "label": "Benefit 6 Text"
+    }
+  ]
+},
+
         {
       "type": "product_status",
       "name": "Product Status Banner",
