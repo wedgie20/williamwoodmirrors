@@ -975,7 +975,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 
                 {%- if benefit_icon != blank and benefit_text != blank -%}
                   <div class="benefit-item-{{ block.id }}">
-                    <img class="benefit-icon-{{ block.id }}" src="{{ benefit_icon | img_url: 'master' }}" alt="{{ benefit_text | escape }}" loading="lazy">
+                    <img class="benefit-icon-{{ block.id }}" src="{{ settings.speedsize_url_pfx_https -}}{{ benefit_icon | img_url: 'master' }}" alt="{{ benefit_text | escape }}" loading="lazy">
                     <span class="benefit-text-{{ block.id }}">{{ benefit_text }}</span>
                   </div>
                 {%- endif -%}
