@@ -795,11 +795,11 @@ document.addEventListener('DOMContentLoaded', function () {
   {% elsif black_friday_launch_date %}
     <p>{{ block.settings.black_friday_launch_text | escape | newline_to_br }}</p>
   {% elsif has_launch %}
-    <p>{{ block.settings.launch_text | escape | newline_to_br }}</p>
+    <p>{{ block.settings.launch_text | replace: '[DATE]', launch_date | escape | newline_to_br }}</p>
   {% elsif has_black_friday_restock %}
     <p>{{ block.settings.black_friday_restock_text | escape | newline_to_br }}</p>
   {% elsif has_restock %}
-    <p>{{ block.settings.restock_text | escape | newline_to_br }}</p>
+    <p>{{ block.settings.restock_text | replace: '[DATE]', restock_date | escape | newline_to_br }}</p>
   {% elsif product.available == false %}
     <p>{{ block.settings.out_of_stock_text | escape | newline_to_br }}</p>
   {% else %}
