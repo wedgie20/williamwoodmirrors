@@ -32,7 +32,7 @@
 <div style="margin-top: 10px; margin-bottom: 10px; margin-left: 5px;">{{ block.settings.last_chance_text | default: "Last chance to purchase, this product won't be restocked." }}</div>
 {% endif %}
 
-{% if product.tags contains '__label:LIMITED OFFER' %}
+{% if product.tags contains '__label:LIMITED TIME OFFER' %}
 <div style="margin-top: 10px; margin-bottom: 10px; margin-left: 5px;"><span style="font-weight: bold;">{{ block.settings.limited_offer_prefix | default: "Exclusive offer" }}</span>{{ block.settings.limited_offer_suffix | default: ", returning to full price soon." }}</div>
 {% endif %}
 
