@@ -73,7 +73,8 @@
           <div id="product-{{ section.id }}-{{ media.id }}" class="product__media-item {% if is_media_filtered %}is-filtered{% endif %} {% if selected_media.id == media.id %}is-initial-selected is-selected{% endif %}" data-media-type="{{ media.media_type }}" data-media-id="{{ media.id }}" data-original-position="{{ forloop.index0 }}">
             {%- case media.media_type -%}
               {%- when 'image' -%}
-                <div class="product__media-image-wrapper aspect-ratio aspect-ratio--natural" style="padding-bottom: {{ 100.0 | divided_by: media.aspect_ratio }}%; --aspect-ratio: {{ media.aspect_ratio }}">
+                {% if media.src != 'files/1080_700k_UGC_Graphic_V1_Gradient_c688d4a2-6b36-4f50-9c9d-4079dacfa10d.jpg' and media.src != 'files/1080_700k_UGC_Graphic_V1_Gradient_a1be5d62-3754-43a2-a09a-81e3c89b772c.jpg' %}
+                <div mediaid={{ media.src }} class="product__media-image-wrapper aspect-ratio aspect-ratio--natural" style="padding-bottom: {{ 100.0 | divided_by: media.aspect_ratio }}%; --aspect-ratio: {{ media.aspect_ratio }}">
                   <img {% if selected_media.id == media.id and settings.reveal_product_media %}reveal{% endif %} {% if selected_media.id != media.id or request.page_type != 'product' %}loading="lazy"{% endif %} sizes="(max-width: 999px) calc(100vw - 48px), 640px" {% render 'image-attributes', image: media, alt: alt, sizes: '400,500,600,700,800,900,1000,1100,1200,1300,1400,1500,1600,1700,1800' %}>
                 </div>
                                 <div class="medNum">{{ forloop.index0 | plus: 1 }} / {{ forloop.length }}</div>
@@ -89,6 +90,7 @@
 }
 }
               </style>
+                {% endif %}
               {%- when 'video' -%}
                 <native-video class="video-wrapper video-wrapper--native" style="--aspect-ratio: {{ media.aspect_ratio }}">
                   {%- unless section.settings.enable_video_autoplay -%}
@@ -213,7 +215,7 @@
                 {%- if filtered_media_ids contains media_id_as_string and media.alt != product.title -%}
                   {%- assign is_media_filtered = true -%}
                 {%- endif -%}
-
+{% if media.src != 'files/1080_700k_UGC_Graphic_V1_Gradient_c688d4a2-6b36-4f50-9c9d-4079dacfa10d.jpg' and media.src != 'files/1080_700k_UGC_Graphic_V1_Gradient_a1be5d62-3754-43a2-a09a-81e3c89b772c.jpg' %}
                 <button type="button" tabindex="-1" {% if settings.reveal_product_media and is_media_filtered == false %}reveal{% endif %} class="product__thumbnail-item {% if is_media_filtered %}is-filtered{% endif %} {% unless section.settings.show_thumbnails_on_mobile %}hidden-pocket{% endunless %}" {% if selected_media.id == media.id %}aria-current="true"{% endif %} aria-controls="product-{{ section.id }}-{{ media.id }}" data-media-id="{{ media.id }}" data-action="select">
                   <div class="product__thumbnail">
                     <img loading="lazy" sizes="(max-width: 999px) 72px, 60px" {% render 'image-attributes', image: media.preview_image, alt: alt, sizes: '60,72,120,144,180,216,240,288' %}>
@@ -227,6 +229,7 @@
                     {%- endcase -%}
                   </div>
                 </button>
+                {% endif %}
               {%- endfor -%}
             </div>
           </div>

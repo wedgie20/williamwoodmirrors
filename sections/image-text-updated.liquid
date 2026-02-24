@@ -104,9 +104,9 @@
         <div class="image-overlay__content-wrapper">
           <div class="image-overlay__content content-box content-box--{{ section.settings.text_width }} content-box--text-{{ text_alignment }} content-box--{{ text_alignment }} text-container">
             {%- if section.settings.subheading != blank -%}
-              <h2 class="heading heading--small">
+              <h1 class="heading heading--small">
                 <split-lines>{{ section.settings.subheading | escape }}</split-lines>
-              </h2>
+              </h1>
             {%- endif -%}
 
             {%- if section.settings.title != blank -%}
