@@ -376,7 +376,7 @@
                                 disabled
                               {% endif %}
                             >
-                            <label for="{{ filter_value.param_name | escape }}-{{ forloop.index }}" {% if filter_value.value == 'PRE ORDER' %} filter-tag={{ filter_value.value | escape }} {% endif %} label-value="{{ filter_value.value | escape }}">
+                            <label for="{{ filter_value.param_name | escape }}-{{ forloop.index }}" {% if filter_value.value == 'PRE ORDER' %} filter-tag="{{ filter_value.value | escape }}" {% endif %} label-value="{{ filter_value.value | escape }}">
                               {{- filter_value.label }} ({{ filter_value.count }})&lrm;</label
                             >
                           </div>
