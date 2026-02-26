@@ -509,7 +509,11 @@ document.addEventListener("DOMContentLoaded", function() {
               {%- assign compareat_price = 0 -%}
           {% endif %}    
           {%- assign original_price = product.selected_or_first_available_variant.price -%}  
+          {% if collectionhandles contains 'end-of-month-offers' %}
 {%- assign pricewholenumber = original_price | times: 0.80 -%}
+          {% else %}
+            {%- assign pricewholenumber = original_price | times: 1 -%}
+          {% endif %}
 {%- assign discounted_price = original_price | times: 0.80 | divided_by: 100.0 -%}
 {%- assign discounted_whole = discounted_price | floor -%}
 {%- assign discounted_decimal = discounted_price | minus: discounted_whole | times: 100 | round -%}
