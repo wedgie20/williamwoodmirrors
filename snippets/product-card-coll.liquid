@@ -372,7 +372,7 @@
 {%- if discounted_decimal < 10 -%}
   {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
 {%- endif -%}
-<span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> - End Of Month Offers
+<span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> <b>- End Of Month Offers</b>
           </div>
 <p class="saved-price" {% if collectionhandles contains 'end-of-month-offers' %}{% else %}style="display:none"{% endif %}>
           {% if compareat_price > 0 %}
