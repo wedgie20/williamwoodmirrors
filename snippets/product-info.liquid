@@ -510,7 +510,8 @@ document.addEventListener("DOMContentLoaded", function() {
           {% endif %}    
           {%- assign original_price = product.selected_or_first_available_variant.price -%}  
           {% if collectionhandles contains 'end-of-month-offe' %}
-{%- assign pricewholenumber = original_price | times: 0.80 -%}
+{% comment %} {%- assign pricewholenumber = original_price | times: 0.80 -%} {% endcomment %}
+{%- assign pricewholenumber = original_price | times: 1 -%}
           {% else %}
             {%- assign pricewholenumber = original_price | times: 1 -%}
           {% endif %}
