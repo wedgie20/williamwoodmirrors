@@ -170,7 +170,7 @@
             {%- endif -%}
 
             {%- if block.settings.title != blank -%}
-              <h3 class="heading heading--large">
+              <h3 class="heading heading--large imhere">
                 <split-lines {% if section.settings.transition_type != 'fade' %}reveal{% endif %}>{{ block.settings.title | escape }}</split-lines>
               </h3>
             {%- endif -%}
@@ -250,11 +250,11 @@
   <span class="review_text" style="display: inline-block; vertical-align: middle; color: white;">{{ block.settings.review_text }}</span>
   {% endif %}
 </div>
-<span class="heading h1 slideshow_txt tp-desktop title" style="margin-top: 12px; margin-bottom: 12px;"><b>{{ block.settings.title }}</b>
+<h1 class="heading h1 slideshow_txt tp-desktop title" style="margin-top: 12px; margin-bottom: 12px;"><b>{{ block.settings.title }}</b>
 {% if block.settings.subheading != blank %}
 <span class="subheading" style="text-transform: lowercase;"><br>{{ block.settings.subheading }}</span>
 {% endif %}
-{% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %}<br></b>{% endunless %}</span>
+{% unless request.path contains '/en-fr' or request.path contains '/en-de' or request.path contains '/en-nl' %}<br></b>{% endunless %}</h1>
 <span class="heading h1 slideshow_txt tp-mobile title" style="margin-top: 12px; margin-bottom: 12px;">{{ block.settings.title }}
 {% if block.settings.subheading != blank %}  
 <span class="subheading" style="text-transform: lowercase;"><br>{{ block.settings.subheading }}</span>
