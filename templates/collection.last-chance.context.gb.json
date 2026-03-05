@@ -13,26 +13,46 @@
   },
   "parent": "collection.last-chance.json",
   "sections": {
-    "slideshow_UzTyaG": {
-      "settings": {},
-      "blocks": {
-        "image_VUfAmB": {
-          "settings": {
-            "image": "shopify://shop_images/EOM_Collection.jpg",
-            "mobile_image": "shopify://shop_images/Landing.jpg",
-            "title": "LAst Chance",
-            "text_color": "#ffffff",
-            "text_position": "middle_center"
-          }
-        }
-      }
-    },
     "main": {
       "settings": {
         "show_sort_by": true,
         "filter_position": "always_visible"
       },
       "blocks": {}
+    },
+    "image_text_updated_AaG4W": {
+      "type": "image-text-updated",
+      "disabled": false,
+      "settings": {
+        "reveal_on_scroll": true,
+        "section_height": "auto",
+        "image": "shopify://shop_images/EOM_Collection.jpg",
+        "mobile_image": "shopify://shop_images/Landing.jpg",
+        "subheading": "Last Chance",
+        "title": "up to 60% off",
+        "content": "",
+        "button_text": "",
+        "button_link": "",
+        "link_style": "link",
+        "background_type": "full_width",
+        "text_width": "medium",
+        "text_position": "middle_left",
+        "header-d2e5e6542bda41866f43bd671f54ecd2": null,
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Image with text updated"
     }
-  }
+  },
+  "order": [
+    "image_text_updated_AaG4W",
+    "collection-banner",
+    "main",
+    "multi_column_zWQVjj"
+  ]
 }
