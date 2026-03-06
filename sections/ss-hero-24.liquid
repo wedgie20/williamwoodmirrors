@@ -241,6 +241,26 @@
       display: none !important;
     }
   }
+      .template-index{
+.hero-{{ section.id }} h1:first-child {
+        font-family: 'Figtree', sans-serif;
+    font-weight: 400;
+      }
+    }
+  @media (max-width: 749px) {
+    .template-index{
+.hero-{{ section.id }} h1:first-child {
+        font-family: 'Figtree', sans-serif;
+    font-weight: 400;
+      }
+      .hero-review-text-{{ block.id }}{
+        place-content: center;
+      }
+      .hero-buttons-{{ section.id }} { 
+        place-content: center;
+      }
+    }
+  }
 {%- endstyle -%}
 
 {% unless full_width %}
@@ -508,6 +528,11 @@
           .secondline_review {
     {% comment %} margin-top: -8px; {% endcomment %}
 }
+
+.template-index .hero-heading-{{ block.id }} {
+    text-align: center;
+}
+
         }
       </style>
 
@@ -556,6 +581,13 @@
           }
 
         }
+
+        @media(max-width: 749px) {
+       .template-index .hero-text-{{ block.id }} {
+          place-content: center;
+              text-align: center;
+        }
+      }
       </style>
 
       {% if block.settings.text_custom %}
@@ -823,6 +855,11 @@
                     margin-bottom: -5px;
           }
         }
+                  @media (max-width: 749px) {
+      .hero-review-text-line-{{ block.id }} {
+        place-content: center;
+      }
+  }
       </style>
   {% endcase %}
 {% endfor %}
