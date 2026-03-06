@@ -9957,10 +9957,17 @@ input:checked + .popover__choice-label::after,
 .header__icon-wrapper .close {
   color: black;
 }
+.header__icon-wrapper svg{
+  color: black;
+}
+.mobile-searchbar input::placeholder {
+  color: black !important;
+}
 .header__icon-wrapper .burger,
 .header__icon-wrapper .close {
   width: 18px;
   height: 14px;
+  color: black;
 }
 .header__icon-wrapper[aria-expanded="false"] .burger,
 .header__icon-wrapper[aria-expanded="true"] .close {
