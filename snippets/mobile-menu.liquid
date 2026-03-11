@@ -80,7 +80,7 @@
           {%- endcapture -%}
         {%- endif -%}
 
-        <li class="mobile-nav__item imhere" data-level="1">
+        <li class="mobile-nav__item" data-level="1">
           {%- if link.links.size > 0 or mega_menu_images != blank -%}
             <button
               is="toggle-button"
@@ -192,12 +192,25 @@
             {% else %}
             <a
               href="{{ link.url  }}"
-              class="mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
+              class="{% if link.title contains ' - ' %}have-two-parts{% endif %} mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
             >
             {% if localization.country.iso_code != 'GB' %}
-                {{- link.title | replace: '£100 GBP', '€120'  -}}
+              {%- if link.title contains ' - ' -%}
+  {%- assign title_parts = link.title | split: ' - ' -%}
+  <span class="title-part-1">{{ title_parts[0] | replace: '£100 GBP', '€120' }} - </span>
+  <span class="title-part-2">{{ title_parts[1] | replace: '£100 GBP', '€120' }}</span>
+{%- else -%}
+ {{- link.title | replace: '£100 GBP', '€120'  -}}
+{%- endif -%}
+               
               {% else %}
-                {{- link.title -}}
+               {%- if link.title contains ' - ' -%}
+  {%- assign title_parts = link.title | split: ' - ' -%}
+  <span class="title-part-1">{{ title_parts[0] }} - </span>
+  <span class="title-part-2">{{ title_parts[1] }}</span>
+{%- else -%}
+  {{- link.title -}}
+{%- endif -%}
               {% endif %}
             </a>
             {% endif %}
@@ -375,6 +388,15 @@
 </mobile-navigation>
 
 <style>
+
+  a.have-two-parts.mobile-nav__link {
+    place-content: flex-start;
+    gap: 5px;
+}
+
+a.have-two-parts.mobile-nav__link .title-part-2 {
+    color: #780606;
+}
 
   
 .mobile-nav__link {
