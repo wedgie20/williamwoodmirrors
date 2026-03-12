@@ -357,7 +357,7 @@
 {%- endif -%}
 <span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> <b>- Use Code: BEST </b>
           </div>
-<p class="saved-price" {% if product.tags contains 'MarchPush' %}{% else %}style="display:none"{% endif %}>
+<p class="saved-price" {% unless product.tags contains 'MarchPush' %}style="display:none"{% endunless %}>
           {% if compareat_price > 0 %}
             {%- assign original_saved = compareat_price | minus: original_price -%}
             {%- assign dissavedprice = original_price | minus: pricewholenumber -%}
