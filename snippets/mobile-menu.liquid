@@ -26,6 +26,7 @@
 
   <div class="drawer__content">
     <ul class="mobile-nav list--unstyled" role="list">
+      {%- assign custom_image_inserted = false -%}
       {%- for link in menu.links -%}
         {%- assign link_title_downcase = link.title | strip | downcase -%}
         {%- assign mega_menu_block = '' -%}
@@ -216,6 +217,44 @@
             {% endif %}
           {%- endif -%}
         </li>
+        
+        {%- comment -%} Insert custom image after first Instagram menu item only {%- endcomment -%}
+        {%- assign link_title_lower = link.title | downcase | strip -%}
+        {%- if link_title_lower == 'instagram' and custom_image_inserted == false -%}
+          {%- if section.settings.show_mobile_menu_custom_image and section.settings.mobile_menu_custom_image != blank -%}
+            {%- assign custom_image_inserted = true -%}
+            <li class="mobile-nav__item mobile-menu-custom-image-item" data-level="1">
+              <div class="mobile-menu-custom-image-wrapper">
+                {%- if section.settings.mobile_menu_custom_image_url != blank -%}
+                  <a href="{{ section.settings.mobile_menu_custom_image_url }}" class="mobile-menu-custom-image-link">
+                    <img 
+                      class="mobile-menu-custom-image" 
+                      src="{{ section.settings.mobile_menu_custom_image | img_url: '600x' }}"
+                      alt="{{ section.settings.mobile_menu_custom_image_title | escape }}"
+                      loading="lazy"
+                    >
+                    {%- if section.settings.mobile_menu_custom_image_title != blank -%}
+                      <p class="mobile-menu-custom-image-title">{{ section.settings.mobile_menu_custom_image_title }}</p>
+                    {%- endif -%}
+                  </a>
+                {%- else -%}
+                  <div class="mobile-menu-custom-image-link">
+                    <img 
+                      class="mobile-menu-custom-image" 
+                      src="{{ section.settings.mobile_menu_custom_image | img_url: '600x' }}"
+                      alt="{{ section.settings.mobile_menu_custom_image_title | escape }}"
+                      loading="lazy"
+                    >
+                    {%- if section.settings.mobile_menu_custom_image_title != blank -%}
+                      <p class="mobile-menu-custom-image-title">{{ section.settings.mobile_menu_custom_image_title }}</p>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              </div>
+            </li>
+          {%- endif -%}
+        {%- endif -%}
+        
       {%- endfor -%}
     </ul>
     
@@ -564,6 +603,52 @@ font-weight: bold;}
 @media (max-width: 741px) {
 .announcement-bar-countdown{
 max-height: 45px;}
+}
+
+/* Mobile Menu Custom Image Feature */
+.mobile-nav__item.mobile-menu-custom-image-item {
+     border: none;
+    margin-top: 13px;
+    padding: 5px 10px;
+        margin-bottom: -25px !important;
+}
+
+.mobile-menu-custom-image-wrapper {
+  margin: 0;
+  padding: 0;
+}
+
+.mobile-menu-custom-image-link {
+  display: block;
+  text-decoration: none;
+  border-radius: 8px;
+  overflow: visible;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mobile-menu-custom-image-link:hover {
+  {% comment %} transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); {% endcomment %}
+}
+
+.mobile-menu-custom-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  {% comment %} border-radius: 8px; {% endcomment %}
+}
+
+.mobile-menu-custom-image-title {
+  display: block;
+  color: #000;
+  padding: 12px 0;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: left;
+  line-height: 1.3;
 }
 
 </style>
