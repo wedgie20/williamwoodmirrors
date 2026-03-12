@@ -336,7 +336,7 @@
             </span>
             90-Day Money Back Guarantee
           </div>
-        <div class="guarantee-item" {% if product.tags contains 'MarchPush' %}style="font-size: 13px;"{% else %}style="font-size: 13px;"{% endif %}>
+        <div class="guarantee-item" {% unless product.tags contains 'MarchPush' %}style="font-size: 13px;"{% else %}style="font-size: 13px;"{% endunless %}>
             <span class="icon" style="display: none;">
               <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 18 13" fill="none">
                 <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
