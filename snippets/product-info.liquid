@@ -496,8 +496,8 @@ document.addEventListener("DOMContentLoaded", function() {
 {% endif %}
     </div>
 
-   
-    <div class="guarantee-item price-saved-discount endofmonth-offer" style="font-size: 13px;">
+    {% assign collectionhandles = product.collections | map: 'handle' | join: ',' %}
+    <div class="guarantee-item price-saved-discount endofmonth-offer" style="display: none" {% if product.tags contains 'MarchPush' %}style="font-size: 13px;"{% else %}style="font-size: 13px; display: none;"{% endif %}>
             <span class="icon" style="display: none;">
               <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 18 13" fill="none">
                 <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -509,16 +509,21 @@ document.addEventListener("DOMContentLoaded", function() {
               {%- assign compareat_price = 0 -%}
           {% endif %}    
           {%- assign original_price = product.selected_or_first_available_variant.price -%}  
-          {%- assign pricewholenumber = original_price | times: 0.83 -%}
-{%- assign discounted_price = original_price | times: 0.83 | divided_by: 100.0 -%}
+          {% if collectionhandles contains 'end-of-month-offe' %}
+{% comment %} {%- assign pricewholenumber = original_price | times: 0.80 -%} {% endcomment %}
+{%- assign pricewholenumber = original_price | times: 1 -%}
+          {% else %}
+            {%- assign pricewholenumber = original_price | times: 1 -%}
+          {% endif %}
+{%- assign discounted_price = original_price | times: 0.75 | divided_by: 100.0 -%}
 {%- assign discounted_whole = discounted_price | floor -%}
 {%- assign discounted_decimal = discounted_price | minus: discounted_whole | times: 100 | round -%}
 {%- if discounted_decimal < 10 -%}
   {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
 {%- endif -%}
-<span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> <b style="color: #780606;">- St. Patrick's Day Offer</b>
+<span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> <b style="color: #780606;">- Use Code: BEST (25% off)</b>
           </div>
-<p class="saved-price">
+<p class="saved-price" style="display: none" {% if product.tags contains 'MarchPush' %}{% else %}style="display:none"{% endif %}>
           {% if compareat_price > 0 %}
             {%- assign original_saved = compareat_price | minus: original_price -%}
             {%- assign dissavedprice = original_price | minus: pricewholenumber -%}
