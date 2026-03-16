@@ -8,7 +8,15 @@
   ---------------------------------------------------------
 {% endcomment %}
 
-<link href="https://db.onlinewebfonts.com/c/6cef0b5ea2c25f25100cbf5fb1bbaf15?family=JanaThorkPro-Bold" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: "JanaThorkPro-Bold";
+   src: url('{{ 'JanaThorkPro-Bold.ttf' | asset_url }}') format('truetype');
+    font-weight:normal;
+    font-style:normal;
+    font-display:swap;
+}
+</style>
 
 {%- liquid
   assign padding_horizontal = section.settings.padding_horizontal
