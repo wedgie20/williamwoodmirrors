@@ -332,12 +332,41 @@ ul.hookpoint-tags::-webkit-scrollbar {
                 </span>
 
                 <div class="popover-container">
-                  {%- for option in collection.sort_options -%}
-                    {%- if option.value == collection_sort_by -%}
-                      {%- assign collection_sort_by_name = option.name -%}
-                      {%- break -%}
-                    {%- endif -%}
-                  {%- endfor -%}
+                  <div class="popover__choice-list">
+  {%- assign has_best_selling = false -%}
+  {%- for sort_option in collection.sort_options -%}
+    {%- if sort_option.value == 'best-selling' -%}
+      {%- assign has_best_selling = true -%}
+    {%- endif -%}
+    <label class="popover__choice-item">
+      <input
+        type="radio"
+        data-bind-value="sort-by-selected-value"
+        class="visually-hidden"
+        {% if sort_option.value == collection_sort_by %}checked="checked"{% endif %}
+        name="sort_by"
+        value="{{ sort_option.value }}"
+        title="{{ sort_option.name }}"
+      >
+      <span class="popover__choice-label">{{ sort_option.name }}</span>
+    </label>
+  {%- endfor -%}
+
+  {%- unless has_best_selling -%}
+    <label class="popover__choice-item">
+      <input
+        type="radio"
+        data-bind-value="sort-by-selected-value"
+        class="visually-hidden"
+        {% if collection_sort_by == 'best-selling' %}checked="checked"{% endif %}
+        name="sort_by"
+        value="best-selling"
+        title="Best Selling"
+      >
+      <span class="popover__choice-label">Best Selling</span>
+    </label>
+  {%- endunless -%}
+</div>
 
                   <button
                     type="button"
