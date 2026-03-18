@@ -58,6 +58,18 @@
       }
     }
   {%- endif -%}
+
+  /* Dynamic sticky control for filter sidebar */
+  @media (min-width: 1000px) {
+    safe-sticky.sticky-disabled {
+      position: static !important;
+      top: auto !important;
+    }
+    
+    safe-sticky {
+      transition: position 0.2s ease-in-out;
+    }
+  }
 </style>
 
 <section>
@@ -298,6 +310,88 @@
     </div>
   {%- endif -%}
 </section>
+
+<script>
+// Dynamic sticky control for filter sidebar based on accordion state
+document.addEventListener('DOMContentLoaded', function() {
+  // Only run on desktop
+  function isDesktop() {
+    return window.matchMedia('(min-width: 1000px)').matches;
+  }
+
+  const stickyElement = document.querySelector('.product-facet__aside safe-sticky');
+  
+  if (!stickyElement || !isDesktop()) {
+    return;
+  }
+
+  // Function to check if any accordion is open
+  function checkAccordionState() {
+    if (!isDesktop()) {
+      return;
+    }
+
+    const toggleButtons = stickyElement.querySelectorAll('button[is="toggle-button"]');
+    let hasOpenAccordion = false;
+
+    toggleButtons.forEach(button => {
+      if (button.getAttribute('aria-expanded') === 'true') {
+        hasOpenAccordion = true;
+      }
+    });
+
+    // Disable sticky if any accordion is open, enable if all closed
+    const wasSticky = !stickyElement.classList.contains('sticky-disabled');
+    
+    if (hasOpenAccordion) {
+      if (wasSticky) {
+        // Scroll to top of filter section before disabling sticky
+        const filterSection = stickyElement.closest('.product-facet__aside');
+        if (filterSection) {
+          const offsetTop = filterSection.getBoundingClientRect().top + window.scrollY - 100;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      }
+      stickyElement.style.position = 'static';
+      stickyElement.style.top = 'auto';
+      stickyElement.classList.add('sticky-disabled');
+    } else {
+      stickyElement.style.position = '';
+      stickyElement.style.top = '';
+      stickyElement.classList.remove('sticky-disabled');
+    }
+  }
+
+  // Listen to aria-expanded changes on toggle buttons
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'aria-expanded') {
+        checkAccordionState();
+      }
+    });
+  });
+
+  // Observe all toggle buttons
+  const toggleButtons = stickyElement.querySelectorAll('button[is="toggle-button"]');
+  toggleButtons.forEach(button => {
+    observer.observe(button, {
+      attributes: true,
+      attributeFilter: ['aria-expanded']
+    });
+  });
+
+  // Initial check
+  checkAccordionState();
+
+  // Re-check on window resize (in case desktop/mobile switch)
+  window.addEventListener('resize', function() {
+    checkAccordionState();
+  });
+});
+</script>
 
 {% schema %}
 {
