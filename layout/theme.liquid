@@ -806,12 +806,22 @@ replaceLastPathSegment('blackfriday-signup');
       if (window.disableScrollHandler) return;
       const currentScroll = window.scrollY;
 
-      if (currentScroll > lastScrollTop && currentScroll > 50) {
+      // Always show header when at or near the top
+      if (currentScroll <= 50) {
+        if (header) header.classList.remove("hide-on-scroll");
+        if (announcement) announcement.classList.remove("hide-on-scroll");
+        if (facetToolbar) facetToolbar.classList.remove("hide-on-scroll");
+        if (mainbody) mainbody.classList.remove("enabled-scroll-handler");
+      } 
+      // Hide header when scrolling down
+      else if (currentScroll > lastScrollTop) {
         if (header) header.classList.add("hide-on-scroll");
         if (announcement) announcement.classList.add("hide-on-scroll");
         if (facetToolbar) facetToolbar.classList.add("hide-on-scroll");
         if (mainbody) mainbody.classList.add("enabled-scroll-handler");
-      } else {
+      } 
+      // Show header when scrolling up
+      else {
         if (header) header.classList.remove("hide-on-scroll");
         if (announcement) announcement.classList.remove("hide-on-scroll");
         if (facetToolbar) facetToolbar.classList.remove("hide-on-scroll");
