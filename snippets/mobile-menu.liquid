@@ -229,24 +229,24 @@
                   <a href="{{ section.settings.mobile_menu_custom_image_url }}" class="mobile-menu-custom-image-link">
                     <img 
                       class="mobile-menu-custom-image" 
-                      src="{{ section.settings.mobile_menu_custom_image | img_url: '600x' }}"
+                      src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.mobile_menu_custom_image | img_url: '600x' }}"
                       alt="{{ section.settings.mobile_menu_custom_image_title | escape }}"
                       loading="lazy"
                     >
                     {%- if section.settings.mobile_menu_custom_image_title != blank -%}
-                      <p class="mobile-menu-custom-image-title">{{ section.settings.mobile_menu_custom_image_title }}</p>
+                      <p class="mobile-menu-custom-image-title">{{ section.settings.mobile_menu_custom_image_title | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
                     {%- endif -%}
                   </a>
                 {%- else -%}
                   <div class="mobile-menu-custom-image-link">
                     <img 
                       class="mobile-menu-custom-image" 
-                      src="{{ section.settings.mobile_menu_custom_image | img_url: '600x' }}"
+                      src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.mobile_menu_custom_image | img_url: '600x' }}"
                       alt="{{ section.settings.mobile_menu_custom_image_title | escape }}"
                       loading="lazy"
                     >
                     {%- if section.settings.mobile_menu_custom_image_title != blank -%}
-                      <p class="mobile-menu-custom-image-title">{{ section.settings.mobile_menu_custom_image_title }}</p>
+                      <p class="mobile-menu-custom-image-title">{{ section.settings.mobile_menu_custom_image_title | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
                     {%- endif -%}
                   </div>
                 {%- endif -%}
