@@ -241,6 +241,11 @@
       display: none !important;
     }
   }
+  @media(max-width: 768px) {
+         .section-{{ section.id }}-settings {
+    padding-bottom: 40px !important;
+         }
+        }
 {%- endstyle -%}
 
 {% unless full_width %}
@@ -481,12 +486,18 @@
         }
 
         .hero-heading-{{ block.id }} * strong {
-         font-family: altesse-std-24pt !important;
-    text-transform: lowercase;
-    font-size: 40px;
+             font-family: altesse-std-24pt !important;
+    text-transform: capitalize;
+    font-size: 60px;
     font-weight: 300;
     border: unset !important;
-        display: block;
+    display: block;
+        }
+
+          @media(max-width: 768px) {
+         .hero-heading-{{ block.id }} * strong {
+    font-size: 40px !important;
+        }
         }
 
         @media(min-width: 1024px) {
