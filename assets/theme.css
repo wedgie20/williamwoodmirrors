@@ -10425,7 +10425,7 @@ input:checked + .popover__choice-label::after,
 }
 
 .mobile-nav .mobile-nav button.mobile-nav__link{
-      max-width: 200px;
+      max-width: calc(100% - 40px);
 }
 
 /* Level 3 */
