@@ -10424,6 +10424,10 @@ input:checked + .popover__choice-label::after,
   padding: 0;
 }
 
+.mobile-nav .mobile-nav button.mobile-nav__link{
+      max-width: 200px;
+}
+
 /* Level 3 */
 
 [dir="ltr"] .mobile-nav .mobile-nav .mobile-nav {
