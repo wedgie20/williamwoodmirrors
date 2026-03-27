@@ -12,5 +12,52 @@
     "market": "gb"
   },
   "parent": "collection.all-products.json",
-  "sections": {}
+  "sections": {
+    "slideshow_UzTyaG": {
+      "disabled": true,
+      "settings": {},
+      "blocks": {
+        "image_VUfAmB": {
+          "settings": {
+            "image": "shopify://shop_images/Website_Collection_Banner_3000x_1_04298875-bb25-4b9d-954a-bc9e76b2ac57.jpg"
+          }
+        }
+      }
+    },
+    "image_text_updated_8y4FP": {
+      "type": "image-text-updated",
+      "disabled": false,
+      "settings": {
+        "reveal_on_scroll": true,
+        "section_height": "auto",
+        "image": "shopify://shop_images/Website_Collection_Banner_3000x_1_04298875-bb25-4b9d-954a-bc9e76b2ac57.jpg",
+        "mobile_image": null,
+        "subheading": "",
+        "title": "16th Birthday Offers",
+        "content": "<p>30% off in-stock and ready to ship items</p>",
+        "button_text": "",
+        "button_link": "",
+        "link_style": "link",
+        "background_type": "full_width",
+        "text_width": "medium",
+        "text_position": "middle_center",
+        "header-8c43fd8df4268f11c886fe773a91f705": null,
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000",
+        "overlay_color": "#000000",
+        "overlay_opacity": 30
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Image with text updated"
+    }
+  },
+  "order": [
+    "image_text_updated_8y4FP",
+    "slideshow_UzTyaG",
+    "collection-banner",
+    "main",
+    "multi_column_zWQVjj"
+  ]
 }
