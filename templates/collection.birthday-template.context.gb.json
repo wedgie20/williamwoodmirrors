@@ -66,6 +66,20 @@
       "disabled": true,
       "settings": {},
       "blocks": {}
+    },
+    "main": {
+      "custom_css": [
+        ".collection-tags {margin-top: 30px;}",
+        ".block-swatch-list {display: none !important;}",
+        "@supports (aspect-ratio: 1 / 1) {.aspect-ratio {aspect-ratio: 4.8 / 5; }}",
+        ".product-list {--product-list-column-gap: 4px; --container-gutter: 48px;}",
+        ".product-item__info {text-align: left;}",
+        ".product-item__label-list {justify-content: left;}",
+        "@media only screen and (max-width: 768px) {.product-item__info {padding-left: 5px; }}",
+        ".button--primary {color: black; background: #efefef; display: none;}"
+      ],
+      "settings": {},
+      "blocks": {}
     }
   },
   "order": [
