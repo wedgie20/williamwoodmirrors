@@ -168,19 +168,19 @@
 {% elsif product.title contains 'Gift Card' %}
   <b>E-Gift Card</b>
 {% elsif product.title contains 'Arcurva Noir - Extra Large' %}
-<a href={{ product.url }}><b>Arcurva Noir</b><br>Extra Large Full Length Black Irregular Mirror 180cm x 116cm</a>
+<a href="{{ product.url }}"><strong style="display: block;">Arcurva Noir</strong><span style="display: block;">Extra Large Full Length Black Irregular Mirror 180cm x 116cm</span></a>
 {% elsif product.title contains 'Arcurva Noir - Large' %}
-<a href={{ product.url }}><b>Arcurva Noir</b><br>Large Full Length Black Irregular Mirror 170cm x 85cm</a>
+<a href="{{ product.url }}"><strong style="display: block;">Arcurva Noir</strong><span style="display: block;">Large Full Length Black Irregular Mirror 170cm x 85cm</span></a>
 {% elsif product.title contains 'Wabi-Sabi - Concrete' %}
-<a href={{ product.url }}><b>Wabi-Sabi</b><br>Concrete Irregular Wall Mirror 80cm x 72cm</a>
+<a href="{{ product.url }}"><strong style="display: block;">Wabi-Sabi</strong><span style="display: block;">Concrete Irregular Wall Mirror 80cm x 72cm</span></a>
 {% elsif product.title contains 'Wabi-Sabi - Large Concrete' %}
-<a href={{ product.url }}><b>Wabi-Sabi</b><br>Large Concrete Irregular Wall Mirror 119cm x 76cm</a>
+<a href="{{ product.url }}"><strong style="display: block;">Wabi-Sabi</strong><span style="display: block;">Large Concrete Irregular Wall Mirror 119cm x 76cm</span></a>
 {% elsif product.title contains 'Wabi-Sabi - Large Full Length' %}
-<a href={{ product.url }}><b>Wabi-Sabi</b><br>Large Full Length Concrete Irregular Mirror 170cm x 80cm</a>
+<a href="{{ product.url }}"><strong style="display: block;">Wabi-Sabi</strong><span style="display: block;">Large Full Length Concrete Irregular Mirror 170cm x 80cm</span></a>
 {% else %}
     {% assign title_words = product.title | split: ' ' %}
   {% assign first_word = title_words[0] | replace: '-', '' %}
-  <a href={{ product.url }}><b><p style="">{{ first_word }}</p></b><p style="text-transform: capitalize !important; margin-top: 2px;">{{ title_words | join: ' ' | remove: '-' | remove: first_word }}</p></a>
+  <a href="{{ product.url }}"><strong style="display: block;">{{ first_word }}</strong><span style="display: block; text-transform: inherit !important; margin-top: 2px;">{{ title_words | join: ' ' | remove: '-' | remove: first_word }}</span></a>
 {% endif %}
 {% if request.path != "/en-international" %}
       <div class="product-item-meta__price-list-container">
