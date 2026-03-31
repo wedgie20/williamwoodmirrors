@@ -14,21 +14,12 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "background": "#f5f5f5",
-        "text_color": "#000000",
-        "button_background": "#000000",
-        "button_text_color": "#f5f5f5"
-      },
       "blocks": {
         "message_jpPpa": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "20% off everything. No code Needed. Ends Tonight.",
             "learn_more_text": "",
-            "header-973e7cb55572e30f38c6d8ef340b6afd": null,
-            "image": null,
             "title": "Blue Monday | Ends Tonight",
             "content": "<p><strong>20% OFF EVERYTHING</strong><br/><br/>Automatically applied at checkout. No code needed.<br/>+<br/>5% of all sales donated to MIND with Work For Good</p>",
             "button_text": "SHOP BLUE MONDAY",
@@ -40,11 +31,10 @@
           "settings": {
             "text": "Up to 50% off + Up to an extra 15% off",
             "learn_more_text": "",
-            "image": null,
             "title": "January Sale",
             "content": "<p>Up to 50% off select products<br/><br/>Extra 10% off when you purchase 2 sale products, no code needed.<br/>or<br/>Extra 15% off when you purchase 3 or more sale products, no code needed.</p>",
             "button_text": "SHOP THE SALE",
-            "button_link": "shopify://collections/january-sale"
+            "button_link": "shopify://collections/spring-sale"
           }
         },
         "955bcd74-0608-4f78-afae-e87df09b9f88": {
@@ -60,7 +50,6 @@
           }
         },
         "c4b45150-0e14-460e-8c47-88fd9bd72b02": {
-          "disabled": false,
           "settings": {
             "text": "700,000+ Satisfied Customers | 30,000+ 5 Star Reviews"
           }
@@ -74,7 +63,13 @@
         "message_N4D9HB",
         "message_wc4BFE",
         "trustpilot_Q4xFtD"
-      ]
+      ],
+      "settings": {
+        "background": "#f5f5f5",
+        "text_color": "#000000",
+        "button_background": "#000000",
+        "button_text_color": "#f5f5f5"
+      }
     },
     "header": {
       "settings": {
@@ -82,8 +77,7 @@
         "menu_bold_text": "Guaranteed Christmas Delivery",
         "menu_normal_text": "shop gifts",
         "highlighted_menu_background_image": "shopify://shop_images/XM25_CP_Desk.jpg"
-      },
-      "blocks": {}
+      }
     }
   }
 }
