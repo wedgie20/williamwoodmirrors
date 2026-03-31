@@ -14,21 +14,12 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "background": "#efefef",
-        "text_color": "#000000",
-        "button_background": "#000000",
-        "button_text_color": "#f5f5f5"
-      },
       "blocks": {
         "message_NPtaTk": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "Up to 30% off bundles. No Code Needed.",
             "learn_more_text": "more info",
-            "header-f283448500f47ad4a37162fe06028f85": null,
-            "image": null,
             "title": "BETTER VALUE WHEN YOU BUNDLE",
             "content": "<p>Treat your home to the refresh it deserves. </p><p>25% off when you purchase 2 full-priced products, no code needed.<br/>or<br/>30% off when you purchase 3 or more full-priced products, no code needed.<br/></p>",
             "button_text": "BUILD YOUR BUNDLE",
@@ -37,12 +28,9 @@
         },
         "message_UtCTYe": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "Free UK Delivery | 90-Days Free Returns",
             "learn_more_text": "",
-            "header-4a1b1806b3d4b498da9f649311d95880": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -51,7 +39,6 @@
         },
         "review_slide_abTybR": {
           "type": "review_slide",
-          "disabled": false,
           "settings": {
             "text_before": "Excellent 4.7 / 5",
             "review_logo": "shopify://shop_images/Trustpilot_ratings_5star-RGB-min_0a651061-7fb3-4d09-81b6-b7f887efdbe1.png",
@@ -61,12 +48,9 @@
         },
         "message_BQiN4H": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "700,000+ Satisfied Customers | 30,000+ 5 Star Reviews",
             "learn_more_text": "",
-            "header-501de1e91b666f4e71dd6103c442680e": null,
-            "image": null,
             "title": "Don't just take it from us.",
             "content": "<p>30,000+ 5 Star Reviews from real customers.</p>",
             "button_text": "READ CUSTOMER REVIEWS",
@@ -79,8 +63,6 @@
           "settings": {
             "text": "20% off everything. No code Needed. Ends Tonight.",
             "learn_more_text": "",
-            "header-a559a18027df14bccf054a2baae2e68f": null,
-            "image": null,
             "title": "Blue Monday | Ends Tonight",
             "content": "<p><strong>20% OFF EVERYTHING</strong><br/><br/>Automatically applied at checkout. No code needed.<br/>+<br/>5% of all sales donated to MIND with Work For Good</p>",
             "button_text": "SHOP BLUE MONDAY",
@@ -95,7 +77,7 @@
             "title": "January Sale",
             "content": "<p>Up to 50% off select products<br/><br/>Extra 10% off when you purchase 2 sale products, no code needed.<br/>or<br/>Extra 15% off when you purchase 3 or more sale products, no code needed.</p>",
             "button_text": "SHOP THE SALE",
-            "button_link": "shopify://collections/winter-sale"
+            "button_link": "shopify://collections/spring-sale"
           }
         },
         "955bcd74-0608-4f78-afae-e87df09b9f88": {
@@ -124,7 +106,13 @@
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "955bcd74-0608-4f78-afae-e87df09b9f88",
         "c4b45150-0e14-460e-8c47-88fd9bd72b02"
-      ]
+      ],
+      "settings": {
+        "background": "#efefef",
+        "text_color": "#000000",
+        "button_background": "#000000",
+        "button_text_color": "#f5f5f5"
+      }
     },
     "header": {
       "settings": {
@@ -134,8 +122,7 @@
         "highlighted_menu_background_image": "shopify://shop_images/XM25_CP_Desk.jpg",
         "second_menu_bold_text": "",
         "second_menu_normal_text": ""
-      },
-      "blocks": {}
+      }
     }
   }
 }
