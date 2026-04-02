@@ -402,7 +402,7 @@ document.addEventListener("DOMContentLoaded", function() {
           <p class="tp-desktop" style="color: #780606; margin-bottom: 0px; font-weight: 700">Cyber Week Exclusive</p>  {% endcomment %}
          
         {%- endif -%} 
-      <div class="price-list price-list-update" data-product-price-list>
+      <div class="price-list price-list-update {% if product.tags contains 'sale' %}thisisdiscounted{% else %}{% if compareat_price > original_price %}{%  else %}thisisdiscounted{% endif %}{% endif %}" data-product-price-list>
         {%- if product.selected_or_first_available_variant.compare_at_price
             > product.selected_or_first_available_variant.price
         -%}

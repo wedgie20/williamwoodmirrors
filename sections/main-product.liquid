@@ -113,7 +113,7 @@
           <a href="{{ product.url  }}" class="product-item-meta__title">{{ product.title }}</a>
 
           <div class="product-item-meta__price-list-container" role="region" aria-live="polite">
-            <div class="price-list" data-product-price-list>
+            <div class="price-list {% if product.tags contains 'sale' %}thisisdiscounted{% else %}{% if compareat_price > original_price %}{%  else %}thisisdiscounted{% endif %}{% endif %}" data-product-price-list>
               {%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
                 <span class="price price--highlight">
                   <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>

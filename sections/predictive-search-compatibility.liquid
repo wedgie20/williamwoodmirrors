@@ -31,7 +31,7 @@ IMPORTANT NOTE: this section is not used for most stores. By default, when using
                   <span class="product-item-meta__title text--small">{{ product.title }}</span>
 
                   <div class="product-item-meta__price-list-container text--small">
-                    <div class="price-list">
+                    <div class="price-list {% if product.tags contains 'sale' %}thisisdiscounted{% else %}{% if compareat_price > original_price %}{%  else %}thisisdiscounted{% endif %}{% endif %}">
                       {%- if product.compare_at_price_min > product.price_min -%}
                         <span class="price price--highlight">{{ product.price_min | money }}</span>
                         <span class="price price--compare">{{ product.compare_at_price_min | money }}</span>

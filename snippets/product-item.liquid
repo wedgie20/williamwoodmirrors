@@ -56,7 +56,7 @@
       {%- else -%}
         {%- capture savings -%}{{ product.compare_at_price | minus: product.price | money }}{%- endcapture -%}
       {%- endif -%}
-    <span class="label label--highlight">{{ 'collection.product.discount_html' | t: savings: savings }}</span> 
+    <span class="label label--highlight {% if product.tags contains 'sale' %}thisishidden{% else %}{% if compareat_price > original_price %}{%  else %}thisishidden{% endif %}{% endif %}">{{ 'collection.product.discount_html' | t: savings: savings }}</span> 
     {%- endif -%}
   {%- endcapture -%}
     {% unless product.title contains 'PRM Hold' or product.title contains 'PRM BSLR' or product.title contains 'PRM BH' %}
@@ -184,7 +184,7 @@
 {% endif %}
 {% if request.path != "/en-international" %}
       <div class="product-item-meta__price-list-container">
-        <div class="price-list price-list--centered">
+        <div class="price-list price-list--centered {% if product.tags contains 'sale' %}thisisdiscounted{% else %}{% if compareat_price > original_price %}{%  else %}thisisdiscounted{% endif %}{% endif %}">
           {%- if product.price_varies and product.compare_at_price -%}
             {%- assign cheapest_variant = product.variants | sort: 'price' | first -%}
 
@@ -301,14 +301,14 @@
          {% comment %} {%- if product.tags contains 'sale' -%}
         <p style="color: #780606; margin-bottom: 0px; font-weight: 700">Cyber Week Exclusive</p> 
         {%- endif -%}  {% endcomment %}
-         <div class="guarantee-item">
-            <span class="icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 18 13" fill="none">
-                <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg>
-            </span>
-            90-Day Money Back Guarantee
-          </div>
+        
+          {% assign collectionexist = false %}
+          {% for coll in product.collections %}
+            {% if coll.handle == "best-sellers" or coll.handle == "christmas-delivery" or coll.handle == "cyber-week-event" %}
+              {% assign collectionexist = true %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
     {%- assign compareat_price = product.selected_or_first_available_variant.compare_at_price -%}
           {%- assign original_price = product.selected_or_first_available_variant.price -%}
         <div class="guarantee-item imhere_{{ product.selected_or_first_available_variant.compare_at_price }}" {% if product.tags contains 'sale' %}{% else %}{% if compareat_price > original_price %}style="display:none;"{%  else %}{% endif %}{% endif %}>
@@ -340,7 +340,8 @@
 {%- if discounted_decimal < 10 -%}
   {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
 {%- endif -%}
-<span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> <b>- Now</b>
+<span><b style="font-size: 13px;">Now - </b></span>
+<span style="color: #780606;"><b style="font-size: 13px;">{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span>
           </div>
 <p class="saved-price" {% if product.tags contains 'sale' %}{% else %}{% if compareat_price > original_price %}style="display:none;"{%  else %}{% endif %}{% endif %}>
           {% if compareat_price > 0 %}
@@ -361,6 +362,14 @@
 </p>
        </div>
 {% endif %}
+ <div class="guarantee-item">
+            <span class="icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 18 13" fill="none">
+                <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </span>
+            90-Day Money Back Guarantee
+          </div>
       {%- if settings.show_product_rating and reduced_content != true -%}
         {% comment %} <a class="product-item-meta__reviews-badge text--small" href="{{ product.url  }}">
           {%- render 'product-rating', product: product -%}
