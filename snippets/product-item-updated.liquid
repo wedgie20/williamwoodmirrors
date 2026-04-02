@@ -313,7 +313,7 @@
             </span>
             90-Day Money Back Guarantee
           </div>
-        <div class="guarantee-item imhere" style="display: none" {% if product.tags contains 'MarchPush' %}style="font-size: 13px;"{% else %}style="font-size: 13px; display: none;"{% endif %}>
+        <div class="guarantee-item imhere" style="" {% if product.tags contains 'sale' %}style="font-size: 13px;"{% else %}style="font-size: 13px; display: none;"{% endif %}>
           
             <span class="icon" style="display: none;">
               <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 18 13" fill="none">
@@ -326,8 +326,8 @@
               {%- assign compareat_price = 0 -%}
           {% endif %}    
           {%- assign original_price = product.selected_or_first_available_variant.price -%}  
-{%- assign pricewholenumber = original_price | times: 0.75 -%}
-{%- assign discounted_price = original_price | times: 0.75 | divided_by: 100.0 -%}
+{%- assign pricewholenumber = original_price | times: 0.90 -%}
+{%- assign discounted_price = original_price | times: 0.90 | divided_by: 100.0 -%}
 {%- assign discounted_whole = discounted_price | floor -%}
 {%- assign discounted_decimal = discounted_price | minus: discounted_whole | times: 100 | round -%}
 {%- if discounted_decimal < 10 -%}
@@ -335,7 +335,7 @@
 {%- endif -%}
 <span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> <b>- Use Code: BEST</b>
           </div>
-              <p class="saved-price" style="display: none" {% if product.tags contains 'MarchPush' %}{% else %}style="display:none"{% endif %}>
+              <p class="saved-price" style="" {% if product.tags contains 'sale' %}{% else %}style="display:none"{% endif %}>
           {% if compareat_price > 0 %}
             {%- assign original_saved = compareat_price | minus: original_price -%}
             {%- assign dissavedprice = original_price | minus: pricewholenumber -%}
