@@ -531,7 +531,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <span><b style="font-size: 13px;">Now - </b></span>
 <span style="color: #780606;"><b style="font-size: 13px;">{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span>
           </div>
-<p class="saved-price" {% if product.tags contains 'sale' %}{% else %}{% if compareat_price > original_price %}style="display:none;"{%  else %}{% endif %}{% endif %}>
+<p class="saved-price" {% if product.tags contains 'sale' %}style="margin-bottom: 5px !important;"{% else %}{% if compareat_price > original_price %}style="display:none;"{%  else %}style="margin-bottom: 5px !important;"{% endif %}{% endif %}>
           {% if compareat_price > 0 %}
             {%- assign original_saved = compareat_price | minus: original_price -%}
             {%- assign dissavedprice = original_price | minus: pricewholenumber -%}
