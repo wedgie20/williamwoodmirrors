@@ -331,7 +331,7 @@
 {%- assign discounted_whole = discounted_price | floor -%}
 {%- assign discounted_decimal = discounted_price | minus: discounted_whole | times: 100 | round -%}
 {%- if discounted_decimal < 10 -%}
-  Now {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
+  {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
 {%- endif -%}
 <span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> <b>- Use Code: BEST</b>
           </div>
