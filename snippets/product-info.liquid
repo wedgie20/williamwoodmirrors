@@ -428,7 +428,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
         {%- assign savings = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price -%}
         {%- if savings > 0 -%}
-          <span class="label label--highlight">
+          <span class="label label--highlight {% if product.tags contains 'sale' %}thisishidden{% else %}{% if compareat_price > original_price %}{%  else %}thisishidden{% endif %}{% endif %}">
             Save {% if settings.currency_code_enabled %}{{ savings | money_with_currency }}{% else %}{{ savings | money }}{% endif %}
           </span>  
         {%- endif -%}
@@ -497,33 +497,41 @@ document.addEventListener("DOMContentLoaded", function() {
     </div>
 
     {% assign collectionhandles = product.collections | map: 'handle' | join: ',' %}
-    <div class="guarantee-item price-saved-discount endofmonth-offer" style="display: none" {% if product.tags contains 'MarchPush' %}style="font-size: 13px;"{% else %}style="font-size: 13px; display: none;"{% endif %}>
+    {%- assign compareat_price = product.selected_or_first_available_variant.compare_at_price -%}
+          {%- assign original_price = product.selected_or_first_available_variant.price -%}
+        <div class="guarantee-item imhere_{{ product.selected_or_first_available_variant.compare_at_price }}" {% if product.tags contains 'sale' %}{% else %}{% if compareat_price > original_price %}style="display:none;"{%  else %}{% endif %}{% endif %}>
+          
             <span class="icon" style="display: none;">
               <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 18 13" fill="none">
                 <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
             </span>
-          {% if product.selected_or_first_available_variant.compare_at_price %}
-              {%- assign compareat_price = product.selected_or_first_available_variant.compare_at_price -%}
+            {% if product.selected_or_first_available_variant.compare_at_price %}
+              
             {% else %}
               {%- assign compareat_price = 0 -%}
           {% endif %}    
-          {%- assign original_price = product.selected_or_first_available_variant.price -%}  
-          {% if collectionhandles contains 'end-of-month-offe' %}
-{% comment %} {%- assign pricewholenumber = original_price | times: 0.80 -%} {% endcomment %}
-{%- assign pricewholenumber = original_price | times: 1 -%}
-          {% else %}
-            {%- assign pricewholenumber = original_price | times: 1 -%}
-          {% endif %}
-{%- assign discounted_price = original_price | times: 0.75 | divided_by: 100.0 -%}
+         
+
+          {% if product.selected_or_first_available_variant.compare_at_price %}
+            
+             {%- assign pricewholenumber = original_price | times: 0.90 -%}
+{%- assign discounted_price = original_price | times: 0.90 | divided_by: 100.0 -%}
+            {% else %}
+              
+            {%- assign pricewholenumber = original_price | times: 0.80 -%}
+{%- assign discounted_price = original_price | times: 0.80 | divided_by: 100.0 -%}
+          {% endif %} 
+
 {%- assign discounted_whole = discounted_price | floor -%}
 {%- assign discounted_decimal = discounted_price | minus: discounted_whole | times: 100 | round -%}
 {%- if discounted_decimal < 10 -%}
   {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
 {%- endif -%}
-<span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> <b style="color: #780606;">- Use Code: BEST (25% off)</b>
+<span><b style="font-size: 13px;">Now - </b></span>
+<span style="color: #780606;"><b style="font-size: 13px;">{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span>
           </div>
-<p class="saved-price" style="display: none" {% if product.tags contains 'MarchPush' %}{% else %}style="display:none"{% endif %}>
+<p class="saved-price" {% if product.tags contains 'sale' %}{% else %}{% if compareat_price > original_price %}style="display:none;"{%  else %}{% endif %}{% endif %}>
           {% if compareat_price > 0 %}
             {%- assign original_saved = compareat_price | minus: original_price -%}
             {%- assign dissavedprice = original_price | minus: pricewholenumber -%}
@@ -540,8 +548,7 @@ document.addEventListener("DOMContentLoaded", function() {
   {%- endif -%}
   You save <span style="color: #780606;"><b >{{ cart.currency.symbol }}{{ saved_whole }}.{{ saved_decimal }}</b></span>
 </p>
-
-</div>
+      </div>
 
 {% comment %} <div class="in-house" style="display: flex;">
   <p style="font-family: altesse-std-24pt; text-transform: lowercase; font-size: 20px; font-weight: 300; margin-bottom: 0px;">Designed in-house by </p>
