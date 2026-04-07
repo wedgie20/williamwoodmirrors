@@ -5,7 +5,7 @@
 
 
 {% if product.available %}
- <div class="floating-add-to-cart" id="floatingAddToCart" aria-hidden="true">
+ <div class="floating-add-to-cart" id="floatingAddToCart" aria-hidden="false">
   <div class="floating-add-to-cart-content">
     <!-- Price (Left) -->
     <div class="floating-product-price">
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!el) return false;
     const r = el.getBoundingClientRect();
     const vh = window.innerHeight || document.documentElement.clientHeight;
-    return r.bottom > 0;
+    return r.bottom == 0;
   }
 
   // Set up smooth animations and GPU acceleration
