@@ -144,7 +144,15 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!el) return false;
     const r = el.getBoundingClientRect();
     const vh = window.innerHeight || document.documentElement.clientHeight;
-    return r.bottom == 0;
+    const vw = window.innerWidth || document.documentElement.clientWidth;
+    console.log('Element r:', r, 'Viewport:', vw, vh);
+    if(r.top > 519.4375  && r.top < -80.5625 ){
+      hideFloating();
+    }
+    else{
+      showFloating();
+    } 
+    return r.bottom > 0 && r.top < vh && r.right > 0 && r.left < vw;
   }
 
   // Set up smooth animations and GPU acceleration
