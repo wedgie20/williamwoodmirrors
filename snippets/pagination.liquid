@@ -3,6 +3,7 @@
     <nav class="pagination__nav">
       {%- if paginate.previous -%}
         <a class="pagination__nav-item" rel="prev" aria-label="{{ 'general.pagination.previous_page' | t }}" data-page="{{ paginate.current_page | minus: 1 }}" href="{{ paginate.previous.url  }}{{ hash  }}">
+          <span class="visually-hidden">{{ 'general.pagination.previous_page' | t }}</span>
           {%- render 'icon' with 'nav-arrow-left', direction_aware: true -%}
         </a>
       {%- endif -%}
@@ -17,6 +18,7 @@
 
       {%- if paginate.next -%}
         <a class="pagination__nav-item" rel="next" aria-label="{{ 'general.pagination.next_page' | t }}" data-page="{{ paginate.current_page | plus: 1 }}" href="{{ paginate.next.url  }}{{ hash  }}">
+          <span class="visually-hidden">{{ 'general.pagination.next_page' | t }}</span>
           {%- render 'icon' with 'nav-arrow-right', direction_aware: true -%}
         </a>
       {%- endif -%}

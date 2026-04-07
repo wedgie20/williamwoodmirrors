@@ -145,7 +145,7 @@
       {%- if section.settings.enable_image_zoom -%}
         <button {% if selected_media.media_type != 'image' %} {% endif %} is="toggle-button" aria-controls="product-{{ section.id }}-{{ product.id }}-zoom" aria-expanded="false" class="tap-area product__zoom-button">
           <span class="visually-hidden">{{ 'product.general.zoom' | t }}</span>
-          {%- render 'icon' with 'plus-big' -%}
+          {%- render 'icon' with 'image-zoom' -%}
         </button>
       {%- endif -%}
     </div>

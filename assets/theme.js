@@ -6324,7 +6324,7 @@ var SafeSticky = class extends HTMLElement {
       this.imageElement.setAttribute("srcset", getMediaSrcset(featuredMedia, [55, 110, 165]));
     }
     _setupVisibilityObservers() {
-      const paymentContainerElement = document.getElementById("MainPaymentContainer"), footerElement = document.querySelector(".shopify-section--footer"), stickyHeaderOffset = getStickyHeaderOffset();
+      const paymentContainerElement = document.getElementById("MainPaymentContainer"), footerElement = document.querySelector(".shopify-section--footer");
       this._isFooterVisible = this._isPaymentContainerPassed = false;
       this.intersectionObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -6332,20 +6332,29 @@ var SafeSticky = class extends HTMLElement {
             this._isFooterVisible = entry.intersectionRatio > 0;
           }
           if (entry.target === paymentContainerElement) {
+            // Check if element is actually visible in the current viewport
+            // Don't use intersectionRatio alone as it can be affected by rootMargin
             const boundingRect = paymentContainerElement.getBoundingClientRect();
-            this._isPaymentContainerPassed = entry.intersectionRatio === 0 && boundingRect.top + boundingRect.height <= stickyHeaderOffset;
+            const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+            
+            // Element is visible if any part of it is within the viewport
+            const isVisible = boundingRect.top < viewportHeight && boundingRect.bottom > 0;
+            
+            if (isVisible) {
+              // Payment container is visible - sticky bar should be hidden
+              this._isPaymentContainerPassed = false;
+            } else if (boundingRect.bottom < 0) {
+              // Payment container is above viewport (scrolled past) - sticky bar should show
+              this._isPaymentContainerPassed = true;
+            } else {
+              // Payment container is below viewport - sticky bar should be hidden
+              this._isPaymentContainerPassed = false;
+            }
           }
         });
-        if (window.matchMedia(window.themeVariables.breakpoints.pocket).matches) {
-          if (this._isPaymentContainerPassed == false || this._isFooterVisible == true || this._isPaymentContainerPassed == true) {
-            this.removeAttribute('hidden', 'hidden')
-          } else {
-            this.hidden = true;
-          }
-        } else {
-          this.hidden = !this._isPaymentContainerPassed;
-        }
-      }, { rootMargin: `-${stickyHeaderOffset}px 0px 0px 0px` });
+        // Show sticky bar only when payment container is scrolled past AND footer is not visible
+        this.hidden = !this._isPaymentContainerPassed || this._isFooterVisible;
+      });
       this.intersectionObserver.observe(paymentContainerElement);
       this.intersectionObserver.observe(footerElement);
     }

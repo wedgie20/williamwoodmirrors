@@ -463,6 +463,7 @@
           </a>
           
             <a href="{{ routes.search_url  }}" is="toggle-link" class="cloud-search-mobile-open header__icon-wrapper tap-area {% unless section.settings.show_icons %}hidden-desk{% endunless %}" aria-label="{{ 'search.general.title' | t | escape }}" aria-controls="search-drawer" aria-expanded="false">
+              <span class="visually-hidden">{{ 'search.general.title' | t }}</span>
               {%- render 'icon' with 'header-search' -%}
             </a>
 
@@ -470,6 +471,7 @@
             href="/pages/swym-wishlist"
             class="header__icon-wrapper tap-area header__icon-wrapper--wishlist hidden-phone"
           >
+            <span class="visually-hidden">Wishlist</span>
             <svg
               fill="none"
               focusable="false"
@@ -489,6 +491,7 @@
               class="header__icon-wrapper tap-area hidden-phone {% unless section.settings.show_icons %}hidden-desk{% endunless %}"
               aria-label="{% if customer %}{{ 'header.general.account' | t | escape }}{% else %}{{ 'header.general.login' | t | escape }}{% endif %}"
             >
+              <span class="visually-hidden">{% if customer %}{{ 'header.general.account' | t }}{% else %}{{ 'header.general.login' | t }}{% endif %}</span>
               {%- render 'icon' with 'header-customer' -%}
             </a>
           {%- endif -%}
@@ -502,6 +505,7 @@
             aria-label="{{ 'header.general.cart' | t | escape }}"
             data-no-instant
           >
+            <span class="visually-hidden">{{ 'header.general.cart' | t }}</span>
             {%- case settings.cart_icon -%}
               {%- when 'shopping_bag' -%}
                 {%- render 'icon' with 'header-cart' -%}
