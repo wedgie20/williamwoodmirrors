@@ -1360,6 +1360,19 @@
             "liquid": "{% unless product.tags contains 'freegift' %}\n<div style=\"width: 100%; margin-top: 0px; font-weight: bold; font-size: 12px; background: #efefef; text-align: center; border-radius: 15px; padding-top: 5px; padding-bottom: 5px; padding-left: 15px; padding-right: 15px;\">\n{% assign has_coming_soon = false %}\n{% assign has_back_soon = false %}\n{% assign has_restock = false %}\n{% assign has_black_friday_restock = false %}\n{% assign has_last_chance = false %}\n{% assign has_launch = false %}\n{% assign restock_date = \"\" %}\n{% assign launch_date = \"\" %}\n{% assign black_friday_launch_date = false %}\n\n{% for tag in product.tags %}\n    {% if tag == \"__label:COMING SOON\" %}\n        {% assign has_coming_soon = true %}\n    {% elsif tag == \"__label:BACK SOON\" %}\n        {% assign has_back_soon = true %}\n    {% elsif tag == \"__label:RESTOCKS BLACK FRIDAY\" %}\n        {% assign has_black_friday_restock = true %}\n    {% elsif tag contains \"__label:RESTOCKS\" %}\n        {% assign has_restock = true %}\n        {% assign restock_date = tag | remove: \"__label:RESTOCKS \" %}\n    {% elsif tag == \"__label:LAUNCHES BLACK FRIDAY\" %}\n        {% assign black_friday_launch_date = true %}\n    {% elsif tag == \"__label:LAST CHANCE\" %}\n        {% assign has_last_chance = true %}\n    {% elsif tag contains \"__label:LAUNCHES\" %}\n        {% assign has_launch = true %}\n        {% assign launch_date = tag | remove: \"__label:LAUNCHES \" %}\n    {% endif %}\n{% endfor %}\n\n{% assign in_best_sellers = false %}\n{% for collection in product.collections %}\n    {% if collection.handle == 'best-sellers' %}\n        {% unless product.tags contains \"pre-order\" %}\n            {% assign in_best_sellers = true %}\n        {% endunless %}\n    {% endif %}\n{% endfor %}\n\n{% comment %} Handle special status messages first - regardless of stock status {% endcomment %}\n{% if has_coming_soon %}\n    <p>Coming Soon</p>\n{% elsif has_back_soon %}\n    <p>Back in stock soon, sign up for restock notifications below</p>\n{% elsif black_friday_launch_date %}\n    <p>Launches 29.11.24</p>\n{% elsif has_launch %}\n    <p>Launches {{ launch_date }}</p>\n{% elsif has_black_friday_restock %}\n    <p>Restocks 29.11.24</p>\n{% elsif has_restock %}\n    <p>Restocks {{ restock_date }} 8PM</p>\n{% elsif product.available == false %}\n    {% comment %} Product is out of stock but no special status {% endcomment %}\n    <p>Currently out of stock</p>\n{% else %}\n    {% comment %} Product is in stock - show promotional content {% endcomment %}\n    {% if has_last_chance or product.tags contains \"__label:LIMITED OFFER\" %}\n        {% unless in_best_sellers %}\n        {% endunless %}\n    {% endif %}\n\n    {% unless product.tags contains 'sale' %}\n        {% if product.tags contains 'pre-order' %}\n            {% unless product.tags contains 'NPRE28' %}\n                {% if product.available %}\n                {% endif %}\n            {% endunless %}\n        {% endif %}\n    {% endunless %}\n\n    {% if product.title contains \"Hudson\" %}\n        <p style=\"transform: translateY(-5px); !important;\">Free cushion included with the Hudson Chair</p>\n    {% endif %}\n\n    {% if product.tags contains 'sale' %}\n        Extra 20% off sale, enter code SE20 at checkout \n    {% else %}\n   Buy 2 items and receive 25% off, no code required<br>or<br>Buy 3 items or more and receive 30% off, no code required\n    {% endif %}\n    <br>+<br>Free Gift with your purchase worth up to £99 GBP when you spend £299 GBP or more\n{% endif %}\n</div>\n{% endunless %}"
           }
         },
+        "buy_buttons": {
+          "disabled": false,
+          "settings": {
+            "show_payment_button": false
+          }
+        },
+        "liquid_mEKpB": {
+          "type": "liquid",
+          "disabled": false,
+          "settings": {
+            "liquid": "<div class=\"description-container\" style=\"margin-top: 10px;\">\n<img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/Icons__Fast_Delivery.svg\" style=\"width: 24px; height: 30px; margin-right: 10px;\">\n  <div class=\"short-description\">\n    {% if product.tags contains 'pre-order' %}\n      {% if current_path contains '/en-fr/' or current_path contains '/en-de/' or current_path contains '/en-nl/' %}\n        {% assign short_description = product.description \n              | strip_html \n              | replace: 'between', 'from' \n              | split: 'and' \n              | first \n              | strip \n        %}\n      {% else %}\n          {% assign short_description = product.description\n            | strip_html\n            | split: ':' \n            | first \n            | strip \n          %}\n      {% endif %}\n\n      {% if block.settings.short_description != blank %}\n        <p><b>{{ block.settings.short_description }}</b></p>\n      {% else %}\n        <p><b>{{ short_description }}</b></p>\n      {% endif %}\n\n      <img \n        src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_QuestionMark-01_1.png?v=1737370952\" \n        alt=\"Question Mark Icon\" \n        class=\"info-icon\" \n        tabindex=\"0\" \n      />\n      <div class=\"tooltip\">This product is currently being crafted by our <br>expert manufacturers and is available for Pre Order.<br>We will contact you on the week below to arrange delivery.</div>\n\n    {% else %}\n      <p style=\"transform: translateY(1px); padding-top: 0px; padding-bottom: 0px;\"><b>\n{% if product.tags contains 'blackpin' or product.tags contains '2manonly' %}\nIn stock & ready to ship\n{% elsif product.tags contains 'madetoorder' %}\nIn stock & ready to ship\n{% else %}\nIn stock & ready to ship\n{% endif %}\n</b></p>\n    {% endif %}\n  </div>\n</div>\n\n<style>\n  .short-description {\n display: flex;\n    align-items: center;\n    justify-content: center;\n    text-align: center;\n    padding-bottom: 0px;\n    padding-top: unset;\n    position: relative;\n    place-content: center;\n    place-items: center;\n  }\n  .description-container {\n       background-color: #EFEFEF;\n    padding: 0px;\n    border-radius: 25px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    min-height: 46px;\n  }\n  .info-icon {\n    margin-left: 8px;\n    width: 15px;\n    height: 15px;\n    transform: translateY(-6px);\n    cursor: pointer;\n    position: relative;\n  }\n  .info-icon:hover + .tooltip,\n  .info-icon:focus + .tooltip {\n    display: block;\n  }\n  .tooltip {\n    display: none;\n    position: absolute;\n    bottom: 120%;\n    left: 50%;\n    transform: translateX(-50%);\n    background-color: #333;\n    color: #fff;\n    padding: 5px 10px;\n    border-radius: 4px;\n    font-size: 12px;\n    white-space: nowrap;\n    z-index: 1000;\n  }\n  .tooltip::after {\n    content: '';\n    position: absolute;\n    top: 100%;\n    left: 50%;\n    transform: translateX(-50%);\n    border-width: 5px;\n    border-style: solid;\n    border-color: #333 transparent transparent transparent;\n  }\n\n.description-container {\nmargin-bottom: 10px;\n}\n</style>"
+          }
+        },
         "product_status_krTJe": {
           "type": "product_status",
           "disabled": false,
@@ -1581,25 +1594,12 @@
             "label": "25% off storewide with code RIP - Offer Ends Midnight Tonight"
           }
         },
-        "buy_buttons": {
-          "disabled": false,
-          "settings": {
-            "show_payment_button": false
-          }
-        },
         "customer_count_M4kkB": {
           "type": "customer_count",
           "disabled": true,
           "settings": {
             "show_banner": true,
             "banner_text": "1,000+ customers shopped today"
-          }
-        },
-        "liquid_mEKpB": {
-          "type": "liquid",
-          "disabled": false,
-          "settings": {
-            "liquid": "<div class=\"description-container\" style=\"margin-top: 10px;\">\n<img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/Icons__Fast_Delivery.svg\" style=\"width: 24px; height: 30px; margin-right: 10px;\">\n  <div class=\"short-description\">\n    {% if product.tags contains 'pre-order' %}\n      {% if current_path contains '/en-fr/' or current_path contains '/en-de/' or current_path contains '/en-nl/' %}\n        {% assign short_description = product.description \n              | strip_html \n              | replace: 'between', 'from' \n              | split: 'and' \n              | first \n              | strip \n        %}\n      {% else %}\n          {% assign short_description = product.description\n            | strip_html\n            | split: ':' \n            | first \n            | strip \n          %}\n      {% endif %}\n\n      {% if block.settings.short_description != blank %}\n        <p><b>{{ block.settings.short_description }}</b></p>\n      {% else %}\n        <p><b>{{ short_description }}</b></p>\n      {% endif %}\n\n      <img \n        src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_QuestionMark-01_1.png?v=1737370952\" \n        alt=\"Question Mark Icon\" \n        class=\"info-icon\" \n        tabindex=\"0\" \n      />\n      <div class=\"tooltip\">This product is currently being crafted by our <br>expert manufacturers and is available for Pre Order.<br>We will contact you on the week below to arrange delivery.</div>\n\n    {% else %}\n      <p style=\"transform: translateY(1px); padding-top: 0px; padding-bottom: 0px;\"><b>\n{% if product.tags contains 'blackpin' or product.tags contains '2manonly' %}\nIn stock & ready to ship\n{% elsif product.tags contains 'madetoorder' %}\nIn stock & ready to ship\n{% else %}\nIn stock & ready to ship\n{% endif %}\n</b></p>\n    {% endif %}\n  </div>\n</div>\n\n<style>\n  .short-description {\n display: flex;\n    align-items: center;\n    justify-content: center;\n    text-align: center;\n    padding-bottom: 0px;\n    padding-top: unset;\n    position: relative;\n    place-content: center;\n    place-items: center;\n  }\n  .description-container {\n       background-color: #EFEFEF;\n    padding: 0px;\n    border-radius: 25px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    min-height: 46px;\n  }\n  .info-icon {\n    margin-left: 8px;\n    width: 15px;\n    height: 15px;\n    transform: translateY(-6px);\n    cursor: pointer;\n    position: relative;\n  }\n  .info-icon:hover + .tooltip,\n  .info-icon:focus + .tooltip {\n    display: block;\n  }\n  .tooltip {\n    display: none;\n    position: absolute;\n    bottom: 120%;\n    left: 50%;\n    transform: translateX(-50%);\n    background-color: #333;\n    color: #fff;\n    padding: 5px 10px;\n    border-radius: 4px;\n    font-size: 12px;\n    white-space: nowrap;\n    z-index: 1000;\n  }\n  .tooltip::after {\n    content: '';\n    position: absolute;\n    top: 100%;\n    left: 50%;\n    transform: translateX(-50%);\n    border-width: 5px;\n    border-style: solid;\n    border-color: #333 transparent transparent transparent;\n  }\n</style>"
           }
         },
         "liquid_JCa8t": {
@@ -1703,6 +1703,8 @@
       "block_order": [
         "review_banner_hEjf6",
         "liquid_DDqgU3",
+        "buy_buttons",
+        "liquid_mEKpB",
         "product_status_krTJe",
         "liquid_cCBTn",
         "benefit_section_T6ALJ8",
@@ -1710,9 +1712,7 @@
         "liquid_trRAH",
         "low_stock_tPEQa",
         "timer_6zhje",
-        "buy_buttons",
         "customer_count_M4kkB",
-        "liquid_mEKpB",
         "liquid_JCa8t",
         "trust_badges_bear_widget_YMkCzc",
         "liquid_cMUKY",
