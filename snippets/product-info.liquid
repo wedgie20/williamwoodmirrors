@@ -327,23 +327,7 @@ document.addEventListener("DOMContentLoaded", function() {
       {%- endif -%}
     {%- endfor -%}
 
-   {%- if section.settings.show_product_rating -%}
-
-          
-          <a href="#judgeme_product_reviews"
-             is="review-link"
-             data-smooth-scroll
-             class="product-meta__reviews-badge hidden-lap-and-up">
-             {%- render 'product-rating', product: product -%}
-          </a>
-          <a href="#judgeme_product_reviews"
-             is="review-link"
-             data-smooth-scroll
-             class="product-meta__reviews-badge hidden-pocket">
-             {%- render 'product-rating', product: product -%}
-          </a>
-
-        {%- endif -%}
+   
 
         
 
@@ -360,7 +344,23 @@ document.addEventListener("DOMContentLoaded", function() {
     <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_LogosPackage_v1.0-07_06990ab2-9d06-4c80-846f-de0d7c989d0c.png?v=1717584248" alt="William Wood Logo" height="100px" width="100px">
   </div>
 </div>
+{%- if section.settings.show_product_rating -%}
 
+          
+          <a href="#judgeme_product_reviews"
+             is="review-link"
+             data-smooth-scroll
+             class="product-meta__reviews-badge hidden-lap-and-up">
+             {%- render 'product-rating', product: product -%}
+          </a>
+          <a href="#judgeme_product_reviews"
+             is="review-link"
+             data-smooth-scroll
+             class="product-meta__reviews-badge hidden-pocket">
+             {%- render 'product-rating', product: product -%}
+          </a>
+
+        {%- endif -%}
   <style>
     .label_sold_items{
     text-transform: capitalize !important;
