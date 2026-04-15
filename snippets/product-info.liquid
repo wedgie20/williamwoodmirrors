@@ -416,6 +416,13 @@ document.addEventListener("DOMContentLoaded", function() {
         {%- if product.selected_or_first_available_variant.compare_at_price
             > product.selected_or_first_available_variant.price
         -%}
+
+        {%- assign savings = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price -%}
+        {%- if savings > 0 -%}
+          <span class="label label--highlight">
+            Save {% if settings.currency_code_enabled %}{{ savings | money_with_currency }}{% else %}{{ savings | money }}{% endif %}
+          </span>  
+        {%- endif -%}
           <span class="price price--highlight price--large new-price-size">
             <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
 
@@ -436,12 +443,7 @@ document.addEventListener("DOMContentLoaded", function() {
             {%- endif -%}
           </span>
         
-        {%- assign savings = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price -%}
-        {%- if savings > 0 -%}
-          <span class="label label--highlight">
-            Save {% if settings.currency_code_enabled %}{{ savings | money_with_currency }}{% else %}{{ savings | money }}{% endif %}
-          </span>  
-        {%- endif -%}
+        
           
         {%- else -%}
           <span class="price price--large">
