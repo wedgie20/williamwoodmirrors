@@ -151,6 +151,34 @@
   .mobile-search__show .close-icon {
     display: block;
   }
+
+  @media screen and (max-width: 740px) {
+    #shopify-section-{{ section.id }} .header__wrapper {
+      justify-content: space-between;
+    }
+
+    #shopify-section-{{ section.id }} .header__logo {
+      order: 1;
+      margin-right: auto;
+      flex: 0 1 auto;
+    }
+
+    #shopify-section-{{ section.id }} .header__secondary-links {
+      order: 2;
+      flex: 0 0 auto;
+      margin-left: auto;
+    }
+
+    #shopify-section-{{ section.id }} .header__inline-navigation {
+      order: 3;
+      flex: 0 0 auto;
+      margin-left: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .header__icon-list {
+      gap: 14px;
+    }
+  }
 </style>
 
 <store-header
