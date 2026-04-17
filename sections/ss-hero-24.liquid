@@ -1073,29 +1073,41 @@
     <div class="hero-content-{{ section.id }}">
       {% assign button_open = false %}
 
-      {%- comment -%} Capture block IDs for slideshow content panels {%- endcomment -%}
+      {%- comment -%} Capture block IDs and default content for slideshow content panels {%- endcomment -%}
       {% if layout_mode == 'slideshow' %}
         {% assign heading_block_id = '' %}
+        {% assign heading_block_content = '' %}
         {% assign text_block_id = '' %}
+        {% assign text_block_content = '' %}
         {% assign btn1_block_id = '' %}
+        {% assign btn1_block_label = '' %}
+        {% assign btn1_block_url = '' %}
         {% assign btn2_block_id = '' %}
+        {% assign btn2_block_label = '' %}
+        {% assign btn2_block_url = '' %}
         {% assign btn1_has_arrow = false %}
         {% assign btn2_has_arrow = false %}
         {% for block in section.blocks %}
           {% if block.type == 'heading' and heading_block_id == '' %}
             {% assign heading_block_id = block.id %}
+            {% assign heading_block_content = block.settings.heading %}
           {% endif %}
           {% if block.type == 'text' and text_block_id == '' %}
             {% assign text_block_id = block.id %}
+            {% assign text_block_content = block.settings.text %}
           {% endif %}
           {% if block.type == 'button' %}
             {% if btn1_block_id == '' %}
               {% assign btn1_block_id = block.id %}
+              {% assign btn1_block_label = block.settings.button %}
+              {% assign btn1_block_url = block.settings.url %}
               {% if block.settings.button_style == 'non_outline_arrow' or block.settings.button_style == 'outline_arrow' %}
                 {% assign btn1_has_arrow = true %}
               {% endif %}
             {% elsif btn2_block_id == '' %}
               {% assign btn2_block_id = block.id %}
+              {% assign btn2_block_label = block.settings.button %}
+              {% assign btn2_block_url = block.settings.url %}
               {% if block.settings.button_style == 'non_outline_arrow' or block.settings.button_style == 'outline_arrow' %}
                 {% assign btn2_has_arrow = true %}
               {% endif %}
@@ -1504,6 +1516,18 @@
                 {% assign s_btn2_label = section.settings.slide_btn2_label_5 %}
                 {% assign s_btn2_url = section.settings.slide_btn2_url_5 %}
             {% endcase %}
+
+            {%- comment -%} Fall back to block content when slide settings are blank {%- endcomment -%}
+            {% if s_heading == blank %}{% assign s_heading = heading_block_content %}{% endif %}
+            {% if s_text == blank %}{% assign s_text = text_block_content %}{% endif %}
+            {% if s_btn1_label == blank %}
+              {% assign s_btn1_label = btn1_block_label %}
+              {% assign s_btn1_url = btn1_block_url %}
+            {% endif %}
+            {% if s_btn2_label == blank %}
+              {% assign s_btn2_label = btn2_block_label %}
+              {% assign s_btn2_url = btn2_block_url %}
+            {% endif %}
 
             {% if slide_img != blank %}
               <div class="hero-slide-content-{{ section.id }}{% if content_idx == 0 %} is-active{% endif %}" data-slide-content-index="{{ content_idx }}">
