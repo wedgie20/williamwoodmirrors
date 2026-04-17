@@ -290,6 +290,7 @@
     display: flex;
     align-items: center;
     gap: 20px;
+    flex-wrap: wrap;
     justify-content: {{ content_horizontal_align_mobile }};
   }
 
@@ -1483,6 +1484,9 @@
                 {% assign s_btn1_url = section.settings.slide_btn1_url_1 %}
                 {% assign s_btn2_label = section.settings.slide_btn2_label_1 %}
                 {% assign s_btn2_url = section.settings.slide_btn2_url_1 %}
+                {% assign s_btn3_label = section.settings.slide_btn3_label_1 %}
+                {% assign s_btn3_url = section.settings.slide_btn3_url_1 %}
+                {% assign s_align = section.settings.slide_align_1 %}
               {% when 2 %}
                 {% assign slide_img = section.settings.bg_image_2 %}
                 {% assign s_heading = section.settings.slide_heading_2 %}
@@ -1491,6 +1495,9 @@
                 {% assign s_btn1_url = section.settings.slide_btn1_url_2 %}
                 {% assign s_btn2_label = section.settings.slide_btn2_label_2 %}
                 {% assign s_btn2_url = section.settings.slide_btn2_url_2 %}
+                {% assign s_btn3_label = section.settings.slide_btn3_label_2 %}
+                {% assign s_btn3_url = section.settings.slide_btn3_url_2 %}
+                {% assign s_align = section.settings.slide_align_2 %}
               {% when 3 %}
                 {% assign slide_img = section.settings.bg_image_3 %}
                 {% assign s_heading = section.settings.slide_heading_3 %}
@@ -1499,6 +1506,9 @@
                 {% assign s_btn1_url = section.settings.slide_btn1_url_3 %}
                 {% assign s_btn2_label = section.settings.slide_btn2_label_3 %}
                 {% assign s_btn2_url = section.settings.slide_btn2_url_3 %}
+                {% assign s_btn3_label = section.settings.slide_btn3_label_3 %}
+                {% assign s_btn3_url = section.settings.slide_btn3_url_3 %}
+                {% assign s_align = section.settings.slide_align_3 %}
               {% when 4 %}
                 {% assign slide_img = section.settings.bg_image_4 %}
                 {% assign s_heading = section.settings.slide_heading_4 %}
@@ -1507,6 +1517,9 @@
                 {% assign s_btn1_url = section.settings.slide_btn1_url_4 %}
                 {% assign s_btn2_label = section.settings.slide_btn2_label_4 %}
                 {% assign s_btn2_url = section.settings.slide_btn2_url_4 %}
+                {% assign s_btn3_label = section.settings.slide_btn3_label_4 %}
+                {% assign s_btn3_url = section.settings.slide_btn3_url_4 %}
+                {% assign s_align = section.settings.slide_align_4 %}
               {% when 5 %}
                 {% assign slide_img = section.settings.bg_image_5 %}
                 {% assign s_heading = section.settings.slide_heading_5 %}
@@ -1515,6 +1528,9 @@
                 {% assign s_btn1_url = section.settings.slide_btn1_url_5 %}
                 {% assign s_btn2_label = section.settings.slide_btn2_label_5 %}
                 {% assign s_btn2_url = section.settings.slide_btn2_url_5 %}
+                {% assign s_btn3_label = section.settings.slide_btn3_label_5 %}
+                {% assign s_btn3_url = section.settings.slide_btn3_url_5 %}
+                {% assign s_align = section.settings.slide_align_5 %}
             {% endcase %}
 
             {%- comment -%} Fall back to block content when slide settings are blank {%- endcomment -%}
@@ -1530,7 +1546,21 @@
             {% endif %}
 
             {% if slide_img != blank %}
-              <div class="hero-slide-content-{{ section.id }}{% if content_idx == 0 %} is-active{% endif %}" data-slide-content-index="{{ content_idx }}">
+              {%- liquid
+                assign slide_text_align = content_align
+                assign slide_justify = content_horizontal_align
+                if s_align != 'default' and s_align != blank
+                  assign slide_text_align = s_align
+                  if s_align == 'center'
+                    assign slide_justify = 'center'
+                  elsif s_align == 'right'
+                    assign slide_justify = 'end'
+                  else
+                    assign slide_justify = 'start'
+                  endif
+                endif
+              -%}
+              <div class="hero-slide-content-{{ section.id }}{% if content_idx == 0 %} is-active{% endif %}" data-slide-content-index="{{ content_idx }}" style="text-align: {{ slide_text_align }};">
                 {% if s_heading != blank and heading_block_id != '' %}
                   <div class="hero-heading-{{ heading_block_id }}">
                     {{ s_heading }}
@@ -1541,8 +1571,8 @@
                     {{ s_text }}
                   </div>
                 {% endif %}
-                {% if s_btn1_label != blank or s_btn2_label != blank %}
-                  <div class="hero-buttons-{{ section.id }}">
+                {% if s_btn1_label != blank or s_btn2_label != blank or s_btn3_label != blank %}
+                  <div class="hero-buttons-{{ section.id }}" style="justify-content: {{ slide_justify }};">
                     {% if s_btn1_label != blank and btn1_block_id != '' %}
                       <a href="{{ s_btn1_url }}" class="hero-button-{{ btn1_block_id }}">
                         <p class="hero-button-inner-{{ btn1_block_id }}">
@@ -1561,6 +1591,19 @@
                         <p class="hero-button-inner-{{ btn2_block_id }}">
                           {{ s_btn2_label }}
                           {% if btn2_has_arrow %}
+                            <svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M187.827 98.7858C188.123 98.4749 188.123 98.4749 188.123 98.1761C188.419 97.8652 188.419 97.5663 188.704 97.5663C189 96.9566 189 96.6458 189 96.0361C189 95.4263 189 94.8166 188.704 94.5058C188.704 94.195 188.408 93.8961 188.123 93.5852C188.123 93.2744 187.827 93.2744 187.827 92.9755L103.287 4.21945C102.41 3.29889 101.533 3 100.668 3C99.791 3 98.6295 3.31083 98.0488 4.21945C97.1719 5.14 96.8872 6.06058 96.8872 6.96919C96.8872 7.88974 97.1833 9.10918 98.0488 9.7189L175.587 92.0539H6.79206C4.75371 92.0539 3 93.895 3 96.0351C3 98.1751 4.75365 100.016 6.79206 100.016H175.575L97.7543 182.042C96.2967 183.572 96.2967 186.322 97.7543 187.852C99.2119 189.383 101.831 189.383 103.288 187.852L187.827 98.7858Z" fill="black"></path>
+                              <path d="M169.5 104L16.5 102.5V90H171L97.5 10.5V7L107.5 4.5C131.167 29.6667 180.2 81.5 187 87.5C193.8 93.5 191.5 99 189.5 101L105.5 184L94 181.5L169.5 104Z" fill="black"></path>
+                            </svg>
+                          {% endif %}
+                        </p>
+                      </a>
+                    {% endif %}
+                    {% if s_btn3_label != blank and btn1_block_id != '' %}
+                      <a href="{{ s_btn3_url }}" class="hero-button-{{ btn1_block_id }}">
+                        <p class="hero-button-inner-{{ btn1_block_id }}">
+                          {{ s_btn3_label }}
+                          {% if btn1_has_arrow %}
                             <svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M187.827 98.7858C188.123 98.4749 188.123 98.4749 188.123 98.1761C188.419 97.8652 188.419 97.5663 188.704 97.5663C189 96.9566 189 96.6458 189 96.0361C189 95.4263 189 94.8166 188.704 94.5058C188.704 94.195 188.408 93.8961 188.123 93.5852C188.123 93.2744 187.827 93.2744 187.827 92.9755L103.287 4.21945C102.41 3.29889 101.533 3 100.668 3C99.791 3 98.6295 3.31083 98.0488 4.21945C97.1719 5.14 96.8872 6.06058 96.8872 6.96919C96.8872 7.88974 97.1833 9.10918 98.0488 9.7189L175.587 92.0539H6.79206C4.75371 92.0539 3 93.895 3 96.0351C3 98.1751 4.75365 100.016 6.79206 100.016H175.575L97.7543 182.042C96.2967 183.572 96.2967 186.322 97.7543 187.852C99.2119 189.383 101.831 189.383 103.288 187.852L187.827 98.7858Z" fill="black"></path>
                               <path d="M169.5 104L16.5 102.5V90H171L97.5 10.5V7L107.5 4.5C131.167 29.6667 180.2 81.5 187 87.5C193.8 93.5 191.5 99 189.5 101L105.5 184L94 181.5L169.5 104Z" fill="black"></path>
@@ -1837,6 +1880,19 @@
       "content": "Slide 1 Content (Slideshow mode)"
     },
     {
+      "type": "select",
+      "id": "slide_align_1",
+      "label": "Content alignment",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Left", "value": "left" },
+        { "label": "Center", "value": "center" },
+        { "label": "Right", "value": "right" }
+      ],
+      "info": "Override content alignment for this slide only."
+    },
+    {
       "type": "richtext",
       "id": "slide_heading_1",
       "label": "Heading",
@@ -1871,8 +1927,31 @@
       "label": "Button 2 link"
     },
     {
+      "type": "text",
+      "id": "slide_btn3_label_1",
+      "label": "Button 3 label",
+      "info": "Uses first Button block styling. Leave blank to hide."
+    },
+    {
+      "type": "url",
+      "id": "slide_btn3_url_1",
+      "label": "Button 3 link"
+    },
+    {
       "type": "header",
       "content": "Slide 2 Content (Slideshow mode)"
+    },
+    {
+      "type": "select",
+      "id": "slide_align_2",
+      "label": "Content alignment",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Left", "value": "left" },
+        { "label": "Center", "value": "center" },
+        { "label": "Right", "value": "right" }
+      ]
     },
     {
       "type": "richtext",
@@ -1905,8 +1984,30 @@
       "label": "Button 2 link"
     },
     {
+      "type": "text",
+      "id": "slide_btn3_label_2",
+      "label": "Button 3 label"
+    },
+    {
+      "type": "url",
+      "id": "slide_btn3_url_2",
+      "label": "Button 3 link"
+    },
+    {
       "type": "header",
       "content": "Slide 3 Content (Slideshow mode)"
+    },
+    {
+      "type": "select",
+      "id": "slide_align_3",
+      "label": "Content alignment",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Left", "value": "left" },
+        { "label": "Center", "value": "center" },
+        { "label": "Right", "value": "right" }
+      ]
     },
     {
       "type": "richtext",
@@ -1939,8 +2040,30 @@
       "label": "Button 2 link"
     },
     {
+      "type": "text",
+      "id": "slide_btn3_label_3",
+      "label": "Button 3 label"
+    },
+    {
+      "type": "url",
+      "id": "slide_btn3_url_3",
+      "label": "Button 3 link"
+    },
+    {
       "type": "header",
       "content": "Slide 4 Content (Slideshow mode)"
+    },
+    {
+      "type": "select",
+      "id": "slide_align_4",
+      "label": "Content alignment",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Left", "value": "left" },
+        { "label": "Center", "value": "center" },
+        { "label": "Right", "value": "right" }
+      ]
     },
     {
       "type": "richtext",
@@ -1973,8 +2096,30 @@
       "label": "Button 2 link"
     },
     {
+      "type": "text",
+      "id": "slide_btn3_label_4",
+      "label": "Button 3 label"
+    },
+    {
+      "type": "url",
+      "id": "slide_btn3_url_4",
+      "label": "Button 3 link"
+    },
+    {
       "type": "header",
       "content": "Slide 5 Content (Slideshow mode)"
+    },
+    {
+      "type": "select",
+      "id": "slide_align_5",
+      "label": "Content alignment",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Left", "value": "left" },
+        { "label": "Center", "value": "center" },
+        { "label": "Right", "value": "right" }
+      ]
     },
     {
       "type": "richtext",
@@ -2005,6 +2150,16 @@
       "type": "url",
       "id": "slide_btn2_url_5",
       "label": "Button 2 link"
+    },
+    {
+      "type": "text",
+      "id": "slide_btn3_label_5",
+      "label": "Button 3 label"
+    },
+    {
+      "type": "url",
+      "id": "slide_btn3_url_5",
+      "label": "Button 3 link"
     },
     {
       "type": "header",
