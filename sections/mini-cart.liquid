@@ -526,19 +526,32 @@
 
 
 {% assign has_non_preorder = false %}
+{% assign has_blackpin = false %}
 {% for item in cart.items %}
   {% unless item.product.tags contains 'pre-order' %}
     {% assign has_non_preorder = true %}
+    {% assign has_blackpin1 = item.product.tags %}
     {% break %}
   {% endunless %}
+
 {% endfor %}
+
+{% for item in cart.items %}
+  {% if item.product.tags contains 'blackpin' or item.product.tags contains '2manonly' %}
+    {% assign has_blackpin = true %}
+  {% endif %}
+  {% endfor %}
 
 {% if has_non_preorder %}
 
   {%- if cart.currency.iso_code == 'GBP' -%}
   <p class="order_info hide-smaller-devices">
     <span style="color: black;">Dispatch Time:</span> 
-    <span style="text-align: right;">Usually 1-3 Business Days</span>
+    {% if has_blackpin %}
+    <span style="text-align: right;">In stock & ready to ship</span>
+    {% else %}
+      <span style="text-align: right;">In stock & ready to ship</span>
+    {% endif %}
   </p>
   {% else %}
     <p class="order_info hide-smaller-devices">

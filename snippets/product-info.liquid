@@ -29,13 +29,13 @@
 }
 }
 .in-house {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
   </style>
 
     {% assign currency_code = localization.country.currency.iso_code %}
 {% assign country_code = localization.country.iso_code %}
-<div class="swipe-container-wrapper">
+<div class="swipe-container-wrapper" style="display: none">
     <button class="nav-arrow left-arrow">&#10094;</button>
     <div class="swipe-container" id="swipeContainer">
         <div class="swipe-content">
@@ -295,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     {% unless product.title contains "E-Gift Card" %}
       
-<div style="" class="product-title-price">
+<div style="margin-top: 8px;" class="product-title-price">
 
     {%- for tag in product.tags -%}
       {%- if tag contains '__label' -%}
@@ -327,7 +327,18 @@ document.addEventListener("DOMContentLoaded", function() {
       {%- endif -%}
     {%- endfor -%}
 
-   {%- if section.settings.show_product_rating -%}
+   
+
+        
+
+  <h1 class="product-meta__title heading h3" style="margin-top: none !important; padding-top: none !important; transform: translateY(-5px);">
+    <b>
+      <p class="cardo_title" style="text-transform: capitalize !important; font-size: 30px;">{{ first_word }}
+      </p>
+    </b>
+    <p style="font-size: 13px; margin-top: 4px !important; text-transform: none !important; font-family: Zurich, sans-serif; font-weight: bold !important;">{{ title_words | join: ' ' | remove: '-' | remove: remove_first_word }}</p>
+  </h1>
+  {%- if section.settings.show_product_rating -%}
 
           
           <a href="#judgeme_product_reviews"
@@ -344,17 +355,7 @@ document.addEventListener("DOMContentLoaded", function() {
           </a>
 
         {%- endif -%}
-
-        
-
-  <h1 class="product-meta__title heading h3" style="margin-top: none !important; padding-top: none !important; transform: translateY(-5px);">
-    <b>
-      <p class="cardo_title" style="text-transform: capitalize !important; font-size: 30px;">{{ first_word }}
-      </p>
-    </b>
-    <p style="font-size: 13px; margin-top: 4px !important; text-transform: none !important; font-family: Zurich, sans-serif; font-weight: bold !important;">{{ title_words | join: ' ' | remove: '-' | remove: remove_first_word }}</p>
-  </h1>
-    <div class="in-house" style="display: flex;">
+    <div class="in-house" style="display: flex; margin-top: 10px;">
    <p style="font-family: altesse-std-24pt;     line-height: 18px; text-transform: lowercase; font-size: 20px; font-weight: 300; margin-bottom: 0px;">Designed in-house by </p>
   <div class="" style="margin-top: 5px; margin-left: 5px;">
     <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_LogosPackage_v1.0-07_06990ab2-9d06-4c80-846f-de0d7c989d0c.png?v=1717584248" alt="William Wood Logo" height="100px" width="100px">
@@ -386,6 +387,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
 }
 
+@media screen and (max-width: 768px) {
+  .price--compare {
+    font-size: 16px !important;
+  }
+}
+
+.price-list  {
+  font-weight: bold;
+}
 
 
 @media screen and (min-width: 741px) {
@@ -406,15 +416,7 @@ document.addEventListener("DOMContentLoaded", function() {
         {%- if product.selected_or_first_available_variant.compare_at_price
             > product.selected_or_first_available_variant.price
         -%}
-          <span class="price price--highlight price--large new-price-size">
-            <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
-
-            {%- if settings.currency_code_enabled -%}
-              {{- product.selected_or_first_available_variant.price | money_with_currency -}}
-            {%- else -%}
-              {{- product.selected_or_first_available_variant.price | money -}}
-            {%- endif -%}
-          </span>
+         
 
           <span class="price price--compare new-price-size">
             <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
@@ -423,6 +425,16 @@ document.addEventListener("DOMContentLoaded", function() {
               {{- product.selected_or_first_available_variant.compare_at_price | money_with_currency -}}
             {%- else -%}
               {{- product.selected_or_first_available_variant.compare_at_price | money -}}
+            {%- endif -%}
+          </span>
+
+           <span class="price price--highlight price--large new-price-size">
+            <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+
+            {%- if settings.currency_code_enabled -%}
+              {{- product.selected_or_first_available_variant.price | money_with_currency -}}
+            {%- else -%}
+              {{- product.selected_or_first_available_variant.price | money -}}
             {%- endif -%}
           </span>
         
@@ -921,11 +933,11 @@ function scrollToFaq(e) {
     {%- endif -%}
     
   </product-meta>
-  <div class="desktop_review_lines" style="padding: 16px 0; margin: 16px 0; padding-top: 0; margin-top: 0;">
+  {% comment %} <div class="desktop_review_lines" style="padding: 16px 0; margin: 16px 0; padding-top: 0; margin-top: 0;">
   {% comment %} <p style="font-style: italic; margin-bottom: 12px; font-weight: bold">The verdict from our valued customers</p> {% endcomment %}
   <p style="font-style: italic; margin-bottom: 12px;">"Impeccable quality, seamless delivery, and truly <b>worth the investment.</b> I was cautious about ordering online, but William Wood <b>surpassed every expectation.</b> Their products bring a real sense of elegance to the space." <br><span><b>Hannah R. United Kingdom</b></span></p>
   <p style="font-style: italic; margin-bottom: 0; font-weight: bold">Verified Review</p>
-</div>
+</div> {% endcomment %}
   
 
   {%- render 'product-form', product: product, update_url: update_url, section: section -%}
@@ -1213,9 +1225,9 @@ display: none;
   
 </style> 
 
- <div class="mobile_review_lines" style="padding: 16px 0; margin: 5px 0; padding-top: 0; margin-top: -15px;">
+ {% comment %} <div class="mobile_review_lines" style="padding: 16px 0; margin: 5px 0; padding-top: 0; margin-top: -15px;">
   {% comment %} <p style="font-style: italic; margin-bottom: 12px; font-weight: bold">The verdict from our valued customers</p> {% endcomment %}
   <p style="font-style: italic; margin-bottom: 12px;">"Impeccable quality, seamless delivery, and truly <b>worth the investment.</b> I was cautious about ordering online, but William Wood <b>surpassed every expectation.</b> Their products bring a real sense of elegance to the space." <br><span><b>Hannah R. United Kingdom</b></span></p>
   <p style="font-style: italic; margin-bottom: 0; font-weight: bold">Verified Review</p>
-</div>
+</div> {% endcomment %}
 

@@ -80,7 +80,7 @@ padding: 8px 1rem 8px !important;
 .product-meta {
   /* transform: translateY(-30px); */
       margin-top: -30px !important;
-          margin-bottom: 32px !important;
+          /* margin-bottom: 32px !important; */
 }
 
 .swym-wishlist-cta, .swym-fave-count {
@@ -2812,7 +2812,9 @@ p + .button-group,
 }
 
 .price--highlight {
-  color: rgb(var(--product-on-sale-accent));
+  /* color: rgb(var(--product-on-sale-accent)); */
+  font-weight: 800;
+  color: #780606;
 }
 
 .price--compare {
@@ -15964,8 +15966,8 @@ input[type="search"]::-webkit-search-decoration {
   #trustpilot-widget-trustbox-1-wrapper {
     min-height: 20px !important;
   }
-  .tolstoy-stories {
-    min-height: 151px !important;
+  /* .tolstoy-stories {
+    min-height: 151px !important; */
   }
   /* .product-form {
     min-height: 1337px !important;
@@ -15984,10 +15986,10 @@ input[type="search"]::-webkit-search-decoration {
   }
   
 }
-.tolstoy-stories {
+/* .tolstoy-stories {
     min-height: 126px !important;
     margin-top: 20px !important;
-  }
+  } */
 .drawer__content .trustpilot-widget {
   padding-top: 18px;
 }
