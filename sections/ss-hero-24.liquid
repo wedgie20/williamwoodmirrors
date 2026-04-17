@@ -1365,18 +1365,24 @@
             {% endif %}
           {% when 'heading' %}
             {% unless layout_mode == 'slideshow' %}
+            {% assign hero_slide = block.settings.slide_number | default: 'all' %}
+            {% if hero_slide == 'all' or hero_slide == '1' %}
             {% if block.settings.heading != blank %}
               <div class="hero-heading-{{ block.id }}">
                 {{ block.settings.heading }}
               </div>
             {% endif %}
+            {% endif %}
             {% endunless %}
           {% when 'text' %}
             {% unless layout_mode == 'slideshow' %}
+            {% assign hero_slide = block.settings.slide_number | default: 'all' %}
+            {% if hero_slide == 'all' or hero_slide == '1' %}
             {% if block.settings.text != blank %}
               <div class="hero-text-{{ block.id }}">
                 {{ block.settings.text }}
               </div>
+            {% endif %}
             {% endif %}
             {% endunless %}
           {% when 'star_rating_full' %}
@@ -1393,6 +1399,8 @@
             {% endif %}
           {% when 'button' %}
             {% unless layout_mode == 'slideshow' %}
+            {% assign hero_slide = block.settings.slide_number | default: 'all' %}
+            {% if hero_slide == 'all' or hero_slide == '1' %}
             {% assign next_index = forloop.index0 | plus: 1 %}
             {% assign next_block = section.blocks[next_index] %}
 
@@ -1422,6 +1430,7 @@
             {% if next_block.type != 'button' %}
               </div>
               {% assign button_open = false %}
+            {% endif %}
             {% endif %}
             {% endunless %}
         {% endcase %}
