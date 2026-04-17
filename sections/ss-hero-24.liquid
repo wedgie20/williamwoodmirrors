@@ -26,6 +26,10 @@
   assign lazy = section.settings.lazy
   assign section_radius = section.settings.section_radius
 
+  assign layout_mode = section.settings.layout_mode
+  assign slider_autoplay = section.settings.slider_autoplay
+  assign slider_speed = section.settings.slider_speed
+
   assign layout_height = section.settings.layout_height
   assign layout_fixed_height = section.settings.layout_fixed_height
   assign layout_fixed_height_mobile = section.settings.layout_fixed_height_mobile
@@ -125,6 +129,95 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  /* Slideshow Mode */
+  .hero-slide-{{ section.id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .hero-slide-{{ section.id }}.is-active {
+    opacity: 1;
+    z-index: 1;
+  }
+
+  .hero-slider-dots-{{ section.id }} {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    display: flex;
+    gap: 8px;
+  }
+
+  .hero-slider-dot-{{ section.id }} {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.7);
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.3s ease;
+  }
+
+  .hero-slider-dot-{{ section.id }}.is-active {
+    background: #fff;
+    border-color: #fff;
+  }
+
+  .hero-slider-arrow-{{ section.id }} {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+
+  .hero-slider-arrow-{{ section.id }}:hover {
+    background: rgba(255,255,255,0.3);
+  }
+
+  .hero-slider-arrow-prev-{{ section.id }} {
+    left: 16px;
+  }
+
+  .hero-slider-arrow-next-{{ section.id }} {
+    right: 16px;
+  }
+
+  .hero-slider-arrow-{{ section.id }} svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  @media screen and (max-width: 1023px) {
+    .hero-slider-arrow-{{ section.id }} {
+      display: none;
+    }
   }
 
   .hero-content-{{ section.id }} {
@@ -833,43 +926,61 @@
 >
   <div class="section-{{ section.id }}-settings">
     <div class="hero-bg-image-{{ section.id }}">
-      {% if bg_image != blank %}
-        {%- capture sizes -%}100vw{%- endcapture -%}
-        {% if bg_image_mobile != blank %}
-          {{
-            bg_image
-            | image_url: width: 3840
-            | image_tag:
-              loading: loading_attribute,
-              sizes: sizes,
-              alt: bg_image.alt,
-              class: 'hero-bg-image-desktop',
-              widths: '1780, 2000, 2500, 3000, 3500, 4000' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
-          }}
-          {%- capture sizes_mobile -%}100vw{%- endcapture -%}
-          {{
-            bg_image_mobile
-            | image_url: width: 1100
-            | image_tag:
-              loading: loading_attribute,
-              sizes: sizes_mobile,
-              alt: bg_image_mobile.alt,
-              class: 'hero-bg-image-mobile',
-              widths: '550, 750, 1100' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
-          }}
-        {% else %}
-          {{
-            bg_image
-            | image_url: width: 3840
-            | image_tag:
-              loading: loading_attribute,
-              sizes: sizes,
-              alt: bg_image.alt,
-              widths: '1780, 2000, 2500, 3000, 3500, 4000' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
-          }}
-        {% endif %}
+      {% if layout_mode == 'slideshow' %}
+        {%- assign slide_blocks = section.blocks | where: "type", "slide" -%}
+        {%- for slide in slide_blocks -%}
+          <div class="hero-slide-{{ section.id }} {% if forloop.first %}is-active{% endif %}" data-slide-index="{{ forloop.index0 }}" {{ slide.shopify_attributes }}>
+            {% if slide.settings.desktop_image != blank %}
+              {{ slide.settings.desktop_image | image_url: width: 3840 | image_tag: loading: loading_attribute, sizes: '100vw', alt: slide.settings.desktop_image.alt, class: 'hero-bg-image-desktop', widths: '1780, 2000, 2500, 3000, 3500, 4000' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+              {% if slide.settings.mobile_image != blank %}
+                {{ slide.settings.mobile_image | image_url: width: 1100 | image_tag: loading: loading_attribute, sizes: '100vw', alt: slide.settings.mobile_image.alt, class: 'hero-bg-image-mobile', widths: '550, 750, 1100' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+              {% else %}
+                {{ slide.settings.desktop_image | image_url: width: 1100 | image_tag: loading: loading_attribute, sizes: '100vw', alt: slide.settings.desktop_image.alt, class: 'hero-bg-image-mobile', widths: '550, 750, 1100' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+              {% endif %}
+            {% else %}
+              {{ 'image' | placeholder_svg_tag }}
+            {% endif %}
+          </div>
+        {%- endfor -%}
       {% else %}
-        {{ 'image' | placeholder_svg_tag }}
+        {% if bg_image != blank %}
+          {%- capture sizes -%}100vw{%- endcapture -%}
+          {% if bg_image_mobile != blank %}
+            {{
+              bg_image
+              | image_url: width: 3840
+              | image_tag:
+                loading: loading_attribute,
+                sizes: sizes,
+                alt: bg_image.alt,
+                class: 'hero-bg-image-desktop',
+                widths: '1780, 2000, 2500, 3000, 3500, 4000' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
+            }}
+            {%- capture sizes_mobile -%}100vw{%- endcapture -%}
+            {{
+              bg_image_mobile
+              | image_url: width: 1100
+              | image_tag:
+                loading: loading_attribute,
+                sizes: sizes_mobile,
+                alt: bg_image_mobile.alt,
+                class: 'hero-bg-image-mobile',
+                widths: '550, 750, 1100' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
+            }}
+          {% else %}
+            {{
+              bg_image
+              | image_url: width: 3840
+              | image_tag:
+                loading: loading_attribute,
+                sizes: sizes,
+                alt: bg_image.alt,
+                widths: '1780, 2000, 2500, 3000, 3500, 4000' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
+            }}
+          {% endif %}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag }}
+        {% endif %}
       {% endif %}
     </div>
     <div class="hero-content-{{ section.id }}">
@@ -1222,12 +1333,142 @@
       {% endfor %}
     </div>
   </div>
+
+  {% if layout_mode == 'slideshow' %}
+    {%- assign slide_blocks = section.blocks | where: "type", "slide" -%}
+    {% if slide_blocks.size > 1 %}
+      <button class="hero-slider-arrow-{{ section.id }} hero-slider-arrow-prev-{{ section.id }}" aria-label="Previous slide">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <button class="hero-slider-arrow-{{ section.id }} hero-slider-arrow-next-{{ section.id }}" aria-label="Next slide">
+        <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"></polyline></svg>
+      </button>
+      <div class="hero-slider-dots-{{ section.id }}">
+        {%- for slide in slide_blocks -%}
+          <button class="hero-slider-dot-{{ section.id }} {% if forloop.first %}is-active{% endif %}" data-dot-index="{{ forloop.index0 }}" aria-label="Go to slide {{ forloop.index }}"></button>
+        {%- endfor -%}
+      </div>
+    {% endif %}
+  {% endif %}
 </div>
+
+{% if layout_mode == 'slideshow' %}
+{%- assign slide_blocks_js = section.blocks | where: "type", "slide" -%}
+{% if slide_blocks_js.size > 1 %}
+<script>
+  (function() {
+    var container = document.querySelector('.section-{{ section.id }}');
+    if (!container) return;
+
+    var slides = container.querySelectorAll('.hero-slide-{{ section.id }}');
+    var dots = container.querySelectorAll('.hero-slider-dot-{{ section.id }}');
+    var prevBtn = container.querySelector('.hero-slider-arrow-prev-{{ section.id }}');
+    var nextBtn = container.querySelector('.hero-slider-arrow-next-{{ section.id }}');
+    var current = 0;
+    var total = slides.length;
+    var autoplay = {{ slider_autoplay | default: true }};
+    var speed = ({{ slider_speed | default: 5 }}) * 1000;
+    var timer = null;
+
+    if (total <= 1) return;
+
+    function goTo(index) {
+      if (index < 0) index = total - 1;
+      if (index >= total) index = 0;
+      slides[current].classList.remove('is-active');
+      if (dots[current]) dots[current].classList.remove('is-active');
+      current = index;
+      slides[current].classList.add('is-active');
+      if (dots[current]) dots[current].classList.add('is-active');
+    }
+
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    function startAutoplay() {
+      if (!autoplay) return;
+      stopAutoplay();
+      timer = setInterval(next, speed);
+    }
+
+    function stopAutoplay() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', function() { prev(); startAutoplay(); });
+    if (nextBtn) nextBtn.addEventListener('click', function() { next(); startAutoplay(); });
+
+    dots.forEach(function(dot) {
+      dot.addEventListener('click', function() {
+        goTo(parseInt(this.getAttribute('data-dot-index'), 10));
+        startAutoplay();
+      });
+    });
+
+    container.addEventListener('mouseenter', function() { stopAutoplay(); });
+    container.addEventListener('mouseleave', function() { startAutoplay(); });
+
+    var touchStartX = 0;
+    container.addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    container.addEventListener('touchend', function(e) {
+      var diff = touchStartX - e.changedTouches[0].screenX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) { next(); } else { prev(); }
+        startAutoplay();
+      }
+    }, { passive: true });
+
+    startAutoplay();
+  })();
+</script>
+{% endif %}
+{% endif %}
 
 {% schema %}
 {
   "name": "SS - Hero #24",
   "settings": [
+    {
+      "type": "header",
+      "content": "Display mode"
+    },
+    {
+      "type": "select",
+      "id": "layout_mode",
+      "label": "Layout mode",
+      "default": "hero",
+      "options": [
+        {
+          "label": "Hero (single image)",
+          "value": "hero"
+        },
+        {
+          "label": "Slideshow (multiple images)",
+          "value": "slideshow"
+        }
+      ],
+      "info": "Hero uses the background image below. Slideshow uses the Slide blocks."
+    },
+    {
+      "type": "checkbox",
+      "id": "slider_autoplay",
+      "label": "Slideshow auto rotate",
+      "default": true,
+      "info": "Only applies in Slideshow mode"
+    },
+    {
+      "type": "range",
+      "id": "slider_speed",
+      "min": 2,
+      "max": 15,
+      "step": 1,
+      "unit": "sec",
+      "label": "Slide duration",
+      "default": 5,
+      "info": "Only applies in Slideshow mode"
+    },
     {
       "type": "header",
       "content": "Layout settings"
@@ -1524,6 +1765,24 @@
     }
   ],
   "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "Desktop image",
+          "info": "2160 x 1080px .jpg recommended"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile image",
+          "info": "1000 x 1400px .jpg recommended. Falls back to desktop image if empty."
+        }
+      ]
+    },
     {
       "type": "review",
       "limit": 1,
