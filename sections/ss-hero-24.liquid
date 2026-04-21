@@ -373,6 +373,228 @@
   }
 {%- endstyle -%}
 
+  /* ================================================
+     Shop Scene — Button
+  ================================================ */
+  .hero-shop-scene-btn-{{ section.id }} {
+    position: absolute;
+    bottom: 28px;
+    left: 32px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: #fff;
+    font-family: inherit;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  }
+
+  .hero-shop-scene-btn-{{ section.id }}:hover {
+    opacity: 0.85;
+  }
+
+  .hero-shop-scene-btn-{{ section.id }} .ss-btn-arrow {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+  }
+
+  .hero-shop-scene-btn-{{ section.id }}:hover .ss-btn-arrow {
+    transform: translateX(3px);
+  }
+
+  /* ================================================
+     Shop Scene — Backdrop
+  ================================================ */
+  .hero-shop-scene-backdrop-{{ section.id }} {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  .hero-shop-scene-backdrop-{{ section.id }}.is-visible {
+    display: block;
+  }
+
+  /* ================================================
+     Shop Scene — Drawer
+  ================================================ */
+  .hero-shop-scene-drawer-{{ section.id }} {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 420px;
+    max-width: 100vw;
+    z-index: 1000;
+    background: #fff;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    flex-direction: column;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .hero-shop-scene-drawer-{{ section.id }}.is-open {
+    transform: translateX(0);
+  }
+
+  .hero-shop-scene-drawer-header-{{ section.id }} {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e5e5e5;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+
+  .hero-shop-scene-drawer-title-{{ section.id }} {
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #111;
+  }
+
+  .hero-shop-scene-drawer-close-{{ section.id }} {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #111;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+  }
+
+  .hero-shop-scene-drawer-close-{{ section.id }}:hover {
+    background: #f3f3f3;
+  }
+
+  .hero-shop-scene-drawer-close-{{ section.id }} svg {
+    width: 22px;
+    height: 22px;
+    display: block;
+  }
+
+  /* ================================================
+     Shop Scene — Product Grid
+  ================================================ */
+  .hero-shop-scene-drawer-products-{{ section.id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #e5e5e5;
+    flex: 1;
+  }
+
+  .hero-shop-scene-product-{{ section.id }} {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-shop-scene-product-image-link-{{ section.id }} {
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #f8f8f8;
+  }
+
+  .hero-shop-scene-product-image-link-{{ section.id }} img,
+  .hero-shop-scene-product-image-link-{{ section.id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .hero-shop-scene-product-image-link-{{ section.id }}:hover img {
+    transform: scale(1.04);
+  }
+
+  .hero-shop-scene-product-info-{{ section.id }} {
+    padding: 12px 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+  }
+
+  .hero-shop-scene-product-title-{{ section.id }} {
+    font-size: 13px;
+    color: #111;
+    text-decoration: none;
+    line-height: 1.4;
+    display: block;
+  }
+
+  .hero-shop-scene-product-title-{{ section.id }}:hover {
+    text-decoration: underline;
+  }
+
+  .hero-shop-scene-product-price-{{ section.id }} {
+    font-size: 13px;
+    color: #333;
+    margin: 0;
+  }
+
+  .hero-shop-scene-view-link-{{ section.id }} {
+    font-size: 11px;
+    color: #555;
+    text-decoration: underline;
+    letter-spacing: 0.05em;
+    margin-top: auto;
+    padding-top: 4px;
+  }
+
+  .hero-shop-scene-view-link-{{ section.id }}:hover {
+    color: #111;
+  }
+
+  /* ================================================
+     Shop Scene — Mobile Overrides
+  ================================================ */
+  @media screen and (max-width: 1023px) {
+    .hero-shop-scene-btn-{{ section.id }} {
+      bottom: 18px;
+      left: 20px;
+      font-size: 11px;
+    }
+
+    .hero-shop-scene-drawer-{{ section.id }} {
+      width: 100vw;
+      top: auto;
+      bottom: 0;
+      height: 80vh;
+      transform: translateY(100%);
+      border-radius: 16px 16px 0 0;
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.12);
+    }
+
+    .hero-shop-scene-drawer-{{ section.id }}.is-open {
+      transform: translateY(0);
+    }
+  }
+
 {% unless full_width %}
   <style>
     .section-{{ section.id }}-settings {
@@ -1477,16 +1699,9 @@
                 endif
               -%}
               <div class="hero-slide-content-{{ section.id }}{% if content_idx == 0 %} is-active{% endif %}" data-slide-content-index="{{ content_idx }}" style="text-align: {{ slide_text_align }};">
-                {% assign slide_btn_open = false %}
                 {% for block in section.blocks %}
                   {% assign block_slide = block.settings.slide_number | default: 'all' %}
                   {% if block_slide == slide_num_str or block_slide == 'all' %}
-                    {%- comment -%} Close buttons wrapper if the previous block was a button and this is not {%- endcomment -%}
-                    {% if block.type != 'button' and slide_btn_open %}
-                      </div>
-                      {% assign slide_btn_open = false %}
-                    {% endif %}
-
                     {% case block.type %}
                       {% when 'heading' %}
                         {% if block.settings.heading != blank %}
@@ -1500,18 +1715,31 @@
                             {{ block.settings.text }}
                           </div>
                         {% endif %}
-                      {% when 'button' %}
-                        {% unless slide_btn_open %}
-                          <div class="hero-buttons-{{ section.id }}" style="justify-content: {{ slide_justify }};">
-                          {% assign slide_btn_open = true %}
-                        {% endunless %}
-                        {% if block.settings.button != blank %}
+                    {% endcase %}
+                  {% endif %}
+                {% endfor %}
+
+                {% assign has_slide_buttons = false %}
+                {% for block in section.blocks %}
+                  {% assign block_slide = block.settings.slide_number | default: 'all' %}
+                  {% if block.type == 'button' and block.settings.button != blank %}
+                    {% if block_slide == slide_num_str or block_slide == 'all' %}
+                      {% assign has_slide_buttons = true %}
+                      {% break %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+
+                {% if has_slide_buttons %}
+                  <div class="hero-buttons-{{ section.id }}" style="justify-content: {{ slide_justify }};">
+                    {% for block in section.blocks %}
+                      {% assign block_slide = block.settings.slide_number | default: 'all' %}
+                      {% if block.type == 'button' and block.settings.button != blank %}
+                        {% if block_slide == slide_num_str or block_slide == 'all' %}
                           <a href="{{ block.settings.url }}" class="hero-button-{{ block.id }}">
                             <p class="hero-button-inner-{{ block.id }}">
                               {{ block.settings.button }}
-                              {% if block.settings.button_style == 'non_outline_arrow'
-                                or block.settings.button_style == 'outline_arrow'
-                              %}
+                              {% if block.settings.button_style == 'non_outline_arrow' or block.settings.button_style == 'outline_arrow' %}
                                 <svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
                                   <path d="M187.827 98.7858C188.123 98.4749 188.123 98.4749 188.123 98.1761C188.419 97.8652 188.419 97.5663 188.704 97.5663C189 96.9566 189 96.6458 189 96.0361C189 95.4263 189 94.8166 188.704 94.5058C188.704 94.195 188.408 93.8961 188.123 93.5852C188.123 93.2744 187.827 93.2744 187.827 92.9755L103.287 4.21945C102.41 3.29889 101.533 3 100.668 3C99.791 3 98.6295 3.31083 98.0488 4.21945C97.1719 5.14 96.8872 6.06058 96.8872 6.96919C96.8872 7.88974 97.1833 9.10918 98.0488 9.7189L175.587 92.0539H6.79206C4.75371 92.0539 3 93.895 3 96.0351C3 98.1751 4.75365 100.016 6.79206 100.016H175.575L97.7543 182.042C96.2967 183.572 96.2967 186.322 97.7543 187.852C99.2119 189.383 101.831 189.383 103.288 187.852L187.827 98.7858Z" fill="black"></path>
                                   <path d="M169.5 104L16.5 102.5V90H171L97.5 10.5V7L107.5 4.5C131.167 29.6667 180.2 81.5 187 87.5C193.8 93.5 191.5 99 189.5 101L105.5 184L94 181.5L169.5 104Z" fill="black"></path>
@@ -1520,10 +1748,8 @@
                             </p>
                           </a>
                         {% endif %}
-                    {% endcase %}
-                  {% endif %}
-                {% endfor %}
-                {% if slide_btn_open %}
+                      {% endif %}
+                    {% endfor %}
                   </div>
                 {% endif %}
               </div>
@@ -1557,7 +1783,81 @@
       </div>
     {% endif %}
   {% endif %}
+
+  {%- if section.settings.shop_scene_enable and section.settings.shop_scene_collection != blank -%}
+    {%- assign shop_scene_collection_obj = collections[section.settings.shop_scene_collection] -%}
+    {%- assign shop_scene_label = section.settings.shop_scene_button_label | default: 'Shop scene' -%}
+    <button
+      class="hero-shop-scene-btn-{{ section.id }}"
+      aria-label="{{ shop_scene_label }}"
+      aria-expanded="false"
+      data-shop-scene-open="{{ section.id }}"
+    >
+      <span>{{ shop_scene_label }} ({{ shop_scene_collection_obj.products_count }})</span>
+      <svg class="ss-btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M5 12H19M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  {%- endif -%}
 </div>
+
+{%- if section.settings.shop_scene_enable and section.settings.shop_scene_collection != blank -%}
+  {%- assign shop_scene_collection_obj = collections[section.settings.shop_scene_collection] -%}
+  {%- assign shop_scene_label = section.settings.shop_scene_button_label | default: 'Shop scene' -%}
+  {%- assign shop_scene_limit = section.settings.shop_scene_product_limit | default: 12 -%}
+
+  <div class="hero-shop-scene-backdrop-{{ section.id }}"
+       data-shop-scene-backdrop="{{ section.id }}"
+       aria-hidden="true"></div>
+
+  <div class="hero-shop-scene-drawer-{{ section.id }}"
+       data-shop-scene-drawer="{{ section.id }}"
+       role="dialog"
+       aria-modal="true"
+      aria-label="{{ shop_scene_label }}">
+
+    <div class="hero-shop-scene-drawer-header-{{ section.id }}">
+      <span class="hero-shop-scene-drawer-title-{{ section.id }}">
+        {{ section.settings.shop_scene_title | default: shop_scene_label }} ({{ shop_scene_collection_obj.products_count }})
+      </span>
+      <button class="hero-shop-scene-drawer-close-{{ section.id }}"
+              data-shop-scene-close="{{ section.id }}"
+              aria-label="Close">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M18 6L6 18M6 6l12 12"
+                stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="hero-shop-scene-drawer-products-{{ section.id }}">
+      {%- for product in shop_scene_collection_obj.products limit: shop_scene_limit -%}
+        <div class="hero-shop-scene-product-{{ section.id }}">
+          <a href="{{ product.url }}" class="hero-shop-scene-product-image-link-{{ section.id }}" tabindex="-1" aria-hidden="true">
+            {%- if product.featured_image -%}
+              {{ product.featured_image | image_url: width: 600
+                 | image_tag: loading: 'lazy',
+                              alt: product.featured_image.alt,
+                              widths: '300, 400, 600'
+                 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn
+                 | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn
+                 | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement
+                 | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag }}
+            {%- endif -%}
+          </a>
+          <div class="hero-shop-scene-product-info-{{ section.id }}">
+            <a href="{{ product.url }}" class="hero-shop-scene-product-title-{{ section.id }}">{{ product.title }}</a>
+            <p class="hero-shop-scene-product-price-{{ section.id }}">{{ product.price | money }}</p>
+            <a href="{{ product.url }}" class="hero-shop-scene-view-link-{{ section.id }}">View details &rarr;</a>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}
 
 {% if layout_mode == 'slideshow' %}
 <script>
@@ -1633,6 +1933,39 @@
 </script>
 {% endif %}
 
+{%- if section.settings.shop_scene_enable and section.settings.shop_scene_collection != blank -%}
+<script>
+  (function() {
+    var btn = document.querySelector('[data-shop-scene-open="{{ section.id }}"]');
+    var drawer = document.querySelector('[data-shop-scene-drawer="{{ section.id }}"]');
+    var backdrop = document.querySelector('[data-shop-scene-backdrop="{{ section.id }}"]');
+    var closeBtn = document.querySelector('[data-shop-scene-close="{{ section.id }}"]');
+    if (!btn || !drawer) return;
+
+    function openDrawer() {
+      drawer.classList.add('is-open');
+      if (backdrop) backdrop.classList.add('is-visible');
+      document.body.style.overflow = 'hidden';
+      btn.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('is-open');
+      if (backdrop) backdrop.classList.remove('is-visible');
+      document.body.style.overflow = '';
+      btn.setAttribute('aria-expanded', 'false');
+    }
+
+    btn.addEventListener('click', openDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (backdrop) backdrop.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && drawer.classList.contains('is-open')) closeDrawer();
+    });
+  })();
+</script>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "SS - Hero #24",
@@ -1675,6 +2008,42 @@
       "label": "Slide duration",
       "default": 5,
       "info": "Only applies in Slideshow mode"
+    },
+    {
+      "type": "header",
+      "content": "Shop Scene drawer"
+    },
+    {
+      "type": "checkbox",
+      "id": "shop_scene_enable",
+      "label": "Enable Shop Scene button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shop_scene_button_label",
+      "label": "Button label",
+      "default": "Shop scene"
+    },
+    {
+      "type": "text",
+      "id": "shop_scene_title",
+      "label": "Drawer title",
+      "default": "Shop scene"
+    },
+    {
+      "type": "collection",
+      "id": "shop_scene_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "shop_scene_product_limit",
+      "min": 2,
+      "max": 24,
+      "step": 1,
+      "label": "Products to show",
+      "default": 8
     },
     {
       "type": "header",
