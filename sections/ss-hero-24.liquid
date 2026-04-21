@@ -2110,10 +2110,18 @@
         submitBtn.disabled = true;
         submitBtn.textContent = 'Adding...';
 
-        fetch(form.action, {
+        var routes = (window.themeVariables && window.themeVariables.routes) || {};
+        var addUrl = routes.cartAddUrl ? routes.cartAddUrl + '.js' : (form.action || '/cart/add.js');
+        var cartUrl = routes.cartUrl ? routes.cartUrl + '.js' : '/cart.js';
+        var settings = (window.themeVariables && window.themeVariables.settings) || {};
+
+        var formData = new FormData(form);
+        formData.append('sections', ['mini-cart']);
+
+        fetch(addUrl, {
           method: 'POST',
-          body: new FormData(form),
-          headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+          body: formData,
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
         })
           .then(function(res) { return res.json().then(function(data) { return { ok: res.ok, data: data }; }); })
           .then(function(result) {
@@ -2126,18 +2134,36 @@
               }, 1800);
               return;
             }
-            submitBtn.textContent = 'Added \u2713';
-            // Notify theme to refresh cart drawer/count
-            document.dispatchEvent(new CustomEvent('cart:refresh'));
-            document.dispatchEvent(new CustomEvent('cart:build'));
-            if (window.theme && typeof window.theme.cart === 'object' && typeof window.theme.cart.getCart === 'function') {
-              try { window.theme.cart.getCart(); } catch (err) {}
-            }
-            setTimeout(function() {
-              submitBtn.textContent = originalLabel;
-              submitBtn.classList.remove('is-loading');
-              submitBtn.disabled = false;
-            }, 1800);
+
+            // Notify theme that a variant was added (for cart-notification etc.)
+            form.dispatchEvent(new CustomEvent('variant:added', {
+              bubbles: true,
+              detail: {
+                variant: result.data.hasOwnProperty('items') ? result.data.items[0] : result.data
+              }
+            }));
+
+            // Fetch fresh cart and dispatch refresh events the theme listens for
+            return fetch(cartUrl).then(function(r) { return r.json(); }).then(function(cartContent) {
+              document.documentElement.dispatchEvent(new CustomEvent('cart:updated', {
+                bubbles: true,
+                detail: { cart: cartContent }
+              }));
+              cartContent.sections = result.data.sections;
+              document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+                bubbles: true,
+                detail: {
+                  cart: cartContent,
+                  openMiniCart: settings.cartType === 'drawer'
+                }
+              }));
+              submitBtn.textContent = 'Added \u2713';
+              setTimeout(function() {
+                submitBtn.textContent = originalLabel;
+                submitBtn.classList.remove('is-loading');
+                submitBtn.disabled = false;
+              }, 1800);
+            });
           })
           .catch(function() {
             submitBtn.textContent = 'Try again';
