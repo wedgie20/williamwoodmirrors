@@ -375,11 +375,23 @@
   /* ================================================
      Shop Scene — Button
   ================================================ */
-  .hero-shop-scene-btn-{{ section.id }} {
+  .hero-shop-scene-btn-wrap-{{ section.id }} {
     position: absolute;
     bottom: 28px;
-    left: 32px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 8px 14px 8px 18px;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 999px;
+  }
+
+  .hero-shop-scene-btn-{{ section.id }} {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -392,7 +404,7 @@
     font-size: 12px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    line-height: 1;
   }
 
   .hero-shop-scene-btn-{{ section.id }}:hover {
@@ -400,14 +412,38 @@
   }
 
   .hero-shop-scene-btn-{{ section.id }} .ss-btn-arrow {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     flex-shrink: 0;
     transition: transform 0.25s ease;
   }
 
   .hero-shop-scene-btn-{{ section.id }}:hover .ss-btn-arrow {
     transform: translateX(3px);
+  }
+
+  .hero-shop-scene-btn-thumbs-{{ section.id }} {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+
+  .hero-shop-scene-btn-thumb-{{ section.id }} {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #f8f8f8;
+    flex-shrink: 0;
+  }
+
+  .hero-shop-scene-btn-thumb-{{ section.id }} img,
+  .hero-shop-scene-btn-thumb-{{ section.id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   /* ================================================
@@ -561,8 +597,10 @@
     color: #555;
     text-decoration: underline;
     letter-spacing: 0.05em;
-    margin-top: auto;
-    padding-top: 4px;
+    text-align: center;
+    display: block;
+    margin-top: 8px;
+    padding-top: 2px;
   }
 
   .hero-shop-scene-view-link-{{ section.id }}:hover {
@@ -570,13 +608,71 @@
   }
 
   /* ================================================
+     Shop Scene — Cart Action Buttons
+  ================================================ */
+  .hero-shop-scene-product-actions-{{ section.id }} {
+    margin-top: auto;
+    padding-top: 10px;
+  }
+
+  .hero-shop-scene-product-form-{{ section.id }} {
+    display: block;
+  }
+
+  .hero-shop-scene-add-btn-{{ section.id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 10px 12px;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    font-family: inherit;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s ease, opacity 0.2s ease;
+  }
+
+  .hero-shop-scene-add-btn-{{ section.id }}:hover {
+    background: #333;
+    color: #fff;
+  }
+
+  .hero-shop-scene-add-btn-{{ section.id }}[disabled],
+  .hero-shop-scene-add-btn-{{ section.id }}.is-loading {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .hero-shop-scene-add-btn-{{ section.id }} svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* ================================================
      Shop Scene — Mobile Overrides
   ================================================ */
   @media screen and (max-width: 1023px) {
-    .hero-shop-scene-btn-{{ section.id }} {
+    .hero-shop-scene-btn-wrap-{{ section.id }} {
       bottom: 18px;
-      left: 20px;
+      gap: 10px;
+      padding: 6px 12px 6px 14px;
+    }
+
+    .hero-shop-scene-btn-{{ section.id }} {
       font-size: 11px;
+    }
+
+    .hero-shop-scene-btn-thumb-{{ section.id }} {
+      width: 30px;
+      height: 30px;
     }
 
     .hero-shop-scene-drawer-{{ section.id }} {
@@ -1787,17 +1883,34 @@
   {%- if section.settings.shop_scene_enable and section.settings.shop_scene_collection != blank -%}
     {%- assign shop_scene_collection_obj = collections[section.settings.shop_scene_collection] -%}
     {%- assign shop_scene_label = section.settings.shop_scene_button_label | default: 'Shop scene' -%}
-    <button
-      class="hero-shop-scene-btn-{{ section.id }}"
-      aria-label="{{ shop_scene_label }}"
-      aria-expanded="false"
-      data-shop-scene-open="{{ section.id }}"
-    >
-      <span>{{ shop_scene_label }} ({{ shop_scene_collection_obj.products_count }})</span>
-      <svg class="ss-btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M5 12H19M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
+    {%- assign shop_scene_thumb_count = section.settings.shop_scene_thumb_count | default: 3 -%}
+    <div class="hero-shop-scene-btn-wrap-{{ section.id }}">
+      <button
+        class="hero-shop-scene-btn-{{ section.id }}"
+        aria-label="{{ shop_scene_label }}"
+        aria-expanded="false"
+        data-shop-scene-open="{{ section.id }}"
+        type="button"
+      >
+        <span>{{ shop_scene_label }} ({{ shop_scene_collection_obj.products_count }})</span>
+        <svg class="ss-btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 12H19M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      {%- if shop_scene_thumb_count > 0 -%}
+        <div class="hero-shop-scene-btn-thumbs-{{ section.id }}" data-shop-scene-open="{{ section.id }}" role="button" tabindex="0" aria-label="{{ shop_scene_label }}">
+          {%- for product in shop_scene_collection_obj.products limit: shop_scene_thumb_count -%}
+            <span class="hero-shop-scene-btn-thumb-{{ section.id }}">
+              {%- if product.featured_image -%}
+                {{ product.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: product.featured_image.alt, widths: '60,120' }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag }}
+              {%- endif -%}
+            </span>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
   {%- endif -%}
 </div>
 
@@ -1851,7 +1964,27 @@
           <div class="hero-shop-scene-product-info-{{ section.id }}">
             <a href="{{ product.url }}" class="hero-shop-scene-product-title-{{ section.id }}">{{ product.title }}</a>
             <p class="hero-shop-scene-product-price-{{ section.id }}">{{ product.price | money }}</p>
-            <a href="{{ product.url }}" class="hero-shop-scene-view-link-{{ section.id }}">View details &rarr;</a>
+            <div class="hero-shop-scene-product-actions-{{ section.id }}">
+              {%- if product.available == false -%}
+                <button class="hero-shop-scene-add-btn-{{ section.id }}" type="button" disabled>Sold out</button>
+              {%- elsif product.variants.size > 1 or product.has_only_default_variant == false -%}
+                <a href="{{ product.url }}" class="hero-shop-scene-add-btn-{{ section.id }}">View details &rarr;</a>
+              {%- else -%}
+                {%- assign first_variant = product.selected_or_first_available_variant -%}
+                {%- assign is_preorder = false -%}
+                {%- if product.tags contains 'preorder' or product.tags contains 'pre-order' -%}
+                  {%- assign is_preorder = true -%}
+                {%- endif -%}
+                <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="hero-shop-scene-product-form-{{ section.id }}" data-shop-scene-form>
+                  <input type="hidden" name="id" value="{{ first_variant.id }}">
+                  <input type="hidden" name="quantity" value="1">
+                  <button type="submit" class="hero-shop-scene-add-btn-{{ section.id }}" data-shop-scene-add>
+                    {%- if is_preorder -%}Pre-order{%- else -%}Add to cart{%- endif -%}
+                  </button>
+                </form>
+              {%- endif -%}
+              <a href="{{ product.url }}" class="hero-shop-scene-view-link-{{ section.id }}">View details &rarr;</a>
+            </div>
           </div>
         </div>
       {%- endfor -%}
@@ -1936,31 +2069,94 @@
 {%- if section.settings.shop_scene_enable and section.settings.shop_scene_collection != blank -%}
 <script>
   (function() {
-    var btn = document.querySelector('[data-shop-scene-open="{{ section.id }}"]');
+    var openers = document.querySelectorAll('[data-shop-scene-open="{{ section.id }}"]');
     var drawer = document.querySelector('[data-shop-scene-drawer="{{ section.id }}"]');
     var backdrop = document.querySelector('[data-shop-scene-backdrop="{{ section.id }}"]');
     var closeBtn = document.querySelector('[data-shop-scene-close="{{ section.id }}"]');
-    if (!btn || !drawer) return;
+    if (!openers.length || !drawer) return;
+
+    function setExpanded(value) {
+      openers.forEach(function(o) { o.setAttribute('aria-expanded', value); });
+    }
 
     function openDrawer() {
       drawer.classList.add('is-open');
       if (backdrop) backdrop.classList.add('is-visible');
       document.body.style.overflow = 'hidden';
-      btn.setAttribute('aria-expanded', 'true');
+      setExpanded('true');
     }
 
     function closeDrawer() {
       drawer.classList.remove('is-open');
       if (backdrop) backdrop.classList.remove('is-visible');
       document.body.style.overflow = '';
-      btn.setAttribute('aria-expanded', 'false');
+      setExpanded('false');
     }
 
-    btn.addEventListener('click', openDrawer);
+    openers.forEach(function(o) {
+      o.addEventListener('click', openDrawer);
+      if (o.getAttribute('role') === 'button') {
+        o.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDrawer(); }
+        });
+      }
+    });
     if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
     if (backdrop) backdrop.addEventListener('click', closeDrawer);
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && drawer.classList.contains('is-open')) closeDrawer();
+    });
+
+    // AJAX add to cart for product forms inside the drawer
+    var forms = drawer.querySelectorAll('[data-shop-scene-form]');
+    forms.forEach(function(form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var submitBtn = form.querySelector('[data-shop-scene-add]');
+        if (!submitBtn || submitBtn.classList.contains('is-loading')) return;
+        var originalLabel = submitBtn.textContent;
+        submitBtn.classList.add('is-loading');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Adding...';
+
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+        })
+          .then(function(res) { return res.json().then(function(data) { return { ok: res.ok, data: data }; }); })
+          .then(function(result) {
+            if (!result.ok) {
+              submitBtn.textContent = (result.data && result.data.description) || 'Unavailable';
+              setTimeout(function() {
+                submitBtn.textContent = originalLabel;
+                submitBtn.classList.remove('is-loading');
+                submitBtn.disabled = false;
+              }, 1800);
+              return;
+            }
+            submitBtn.textContent = 'Added \u2713';
+            // Notify theme to refresh cart drawer/count
+            document.dispatchEvent(new CustomEvent('cart:refresh'));
+            document.dispatchEvent(new CustomEvent('cart:build'));
+            if (window.theme && typeof window.theme.cart === 'object' && typeof window.theme.cart.getCart === 'function') {
+              try { window.theme.cart.getCart(); } catch (err) {}
+            }
+            setTimeout(function() {
+              submitBtn.textContent = originalLabel;
+              submitBtn.classList.remove('is-loading');
+              submitBtn.disabled = false;
+            }, 1800);
+          })
+          .catch(function() {
+            submitBtn.textContent = 'Try again';
+            setTimeout(function() {
+              submitBtn.textContent = originalLabel;
+              submitBtn.classList.remove('is-loading');
+              submitBtn.disabled = false;
+            }, 1800);
+          });
+      });
     });
   })();
 </script>
@@ -2044,6 +2240,16 @@
       "step": 1,
       "label": "Products to show",
       "default": 8
+    },
+    {
+      "type": "range",
+      "id": "shop_scene_thumb_count",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "label": "Button thumbnails count",
+      "info": "Number of small product thumbnails shown next to the button (0 to hide)",
+      "default": 3
     },
     {
       "type": "header",
