@@ -1888,30 +1888,36 @@
     {%- for ss_idx in (1..shop_scene_max_slides) -%}
       {%- assign ss_products = empty -%}
       {%- assign ss_count = 0 -%}
+      {%- assign ss_source = 'products' -%}
       {%- case ss_idx -%}
         {%- when 1 -%}
+          {%- assign ss_source = section.settings.shop_scene_source_1 | default: 'products' -%}
           {%- assign ss_picked = section.settings.shop_scene_products -%}
           {%- assign ss_handle = section.settings.shop_scene_collection -%}
         {%- when 2 -%}
+          {%- assign ss_source = section.settings.shop_scene_source_2 | default: 'products' -%}
           {%- assign ss_picked = section.settings.shop_scene_products_2 -%}
           {%- assign ss_handle = section.settings.shop_scene_collection_2 -%}
         {%- when 3 -%}
+          {%- assign ss_source = section.settings.shop_scene_source_3 | default: 'products' -%}
           {%- assign ss_picked = section.settings.shop_scene_products_3 -%}
           {%- assign ss_handle = section.settings.shop_scene_collection_3 -%}
         {%- when 4 -%}
+          {%- assign ss_source = section.settings.shop_scene_source_4 | default: 'products' -%}
           {%- assign ss_picked = section.settings.shop_scene_products_4 -%}
           {%- assign ss_handle = section.settings.shop_scene_collection_4 -%}
         {%- when 5 -%}
+          {%- assign ss_source = section.settings.shop_scene_source_5 | default: 'products' -%}
           {%- assign ss_picked = section.settings.shop_scene_products_5 -%}
           {%- assign ss_handle = section.settings.shop_scene_collection_5 -%}
       {%- endcase -%}
-      {%- if ss_picked != blank and ss_picked.size > 0 -%}
-        {%- assign ss_products = ss_picked -%}
-        {%- assign ss_count = ss_picked.size -%}
-      {%- elsif ss_handle != blank -%}
+      {%- if ss_source == 'collection' and ss_handle != blank -%}
         {%- assign ss_collection = collections[ss_handle] -%}
         {%- assign ss_products = ss_collection.products -%}
         {%- assign ss_count = ss_collection.products_count -%}
+      {%- elsif ss_source == 'products' and ss_picked != blank and ss_picked.size > 0 -%}
+        {%- assign ss_products = ss_picked -%}
+        {%- assign ss_count = ss_picked.size -%}
       {%- endif -%}
       {%- if ss_products != empty -%}
         <div class="hero-shop-scene-btn-wrap-{{ section.id }}{% if forloop.first %} is-active-slide{% endif %}"
@@ -1955,25 +1961,31 @@
 
   {%- assign ss_any = false -%}
   {%- for ss_idx in (1..shop_scene_max_slides) -%}
+    {%- assign ss_source = 'products' -%}
     {%- case ss_idx -%}
       {%- when 1 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_1 | default: 'products' -%}
         {%- assign ss_picked = section.settings.shop_scene_products -%}
         {%- assign ss_handle = section.settings.shop_scene_collection -%}
       {%- when 2 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_2 | default: 'products' -%}
         {%- assign ss_picked = section.settings.shop_scene_products_2 -%}
         {%- assign ss_handle = section.settings.shop_scene_collection_2 -%}
       {%- when 3 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_3 | default: 'products' -%}
         {%- assign ss_picked = section.settings.shop_scene_products_3 -%}
         {%- assign ss_handle = section.settings.shop_scene_collection_3 -%}
       {%- when 4 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_4 | default: 'products' -%}
         {%- assign ss_picked = section.settings.shop_scene_products_4 -%}
         {%- assign ss_handle = section.settings.shop_scene_collection_4 -%}
       {%- when 5 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_5 | default: 'products' -%}
         {%- assign ss_picked = section.settings.shop_scene_products_5 -%}
         {%- assign ss_handle = section.settings.shop_scene_collection_5 -%}
     {%- endcase -%}
-    {%- if ss_picked != blank and ss_picked.size > 0 -%}{%- assign ss_any = true -%}
-    {%- elsif ss_handle != blank -%}{%- assign ss_any = true -%}{%- endif -%}
+    {%- if ss_source == 'collection' and ss_handle != blank -%}{%- assign ss_any = true -%}
+    {%- elsif ss_source == 'products' and ss_picked != blank and ss_picked.size > 0 -%}{%- assign ss_any = true -%}{%- endif -%}
   {%- endfor -%}
 
   {%- if ss_any -%}
@@ -1985,30 +1997,36 @@
   {%- for ss_idx in (1..shop_scene_max_slides) -%}
     {%- assign ss_products = empty -%}
     {%- assign ss_count = 0 -%}
+    {%- assign ss_source = 'products' -%}
     {%- case ss_idx -%}
       {%- when 1 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_1 | default: 'products' -%}
         {%- assign ss_picked = section.settings.shop_scene_products -%}
         {%- assign ss_handle = section.settings.shop_scene_collection -%}
       {%- when 2 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_2 | default: 'products' -%}
         {%- assign ss_picked = section.settings.shop_scene_products_2 -%}
         {%- assign ss_handle = section.settings.shop_scene_collection_2 -%}
       {%- when 3 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_3 | default: 'products' -%}
         {%- assign ss_picked = section.settings.shop_scene_products_3 -%}
         {%- assign ss_handle = section.settings.shop_scene_collection_3 -%}
       {%- when 4 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_4 | default: 'products' -%}
         {%- assign ss_picked = section.settings.shop_scene_products_4 -%}
         {%- assign ss_handle = section.settings.shop_scene_collection_4 -%}
       {%- when 5 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_5 | default: 'products' -%}
         {%- assign ss_picked = section.settings.shop_scene_products_5 -%}
         {%- assign ss_handle = section.settings.shop_scene_collection_5 -%}
     {%- endcase -%}
-    {%- if ss_picked != blank and ss_picked.size > 0 -%}
-      {%- assign ss_products = ss_picked -%}
-      {%- assign ss_count = ss_picked.size -%}
-    {%- elsif ss_handle != blank -%}
+    {%- if ss_source == 'collection' and ss_handle != blank -%}
       {%- assign ss_collection = collections[ss_handle] -%}
       {%- assign ss_products = ss_collection.products -%}
       {%- assign ss_count = ss_collection.products_count -%}
+    {%- elsif ss_source == 'products' and ss_picked != blank and ss_picked.size > 0 -%}
+      {%- assign ss_products = ss_picked -%}
+      {%- assign ss_count = ss_picked.size -%}
     {%- endif -%}
     {%- if ss_products != empty -%}
 
@@ -2376,72 +2394,117 @@
     },
     {
       "type": "paragraph",
-      "content": "For each slide, pick specific products OR a collection. If both are set, products take priority."
+      "content": "For each slide, choose to show specific Products or a Collection."
+    },
+    {
+      "type": "select",
+      "id": "shop_scene_source_1",
+      "label": "Source (Slide 1)",
+      "options": [
+        { "value": "products", "label": "Products" },
+        { "value": "collection", "label": "Collection" }
+      ],
+      "default": "products",
+      "info": "Used for the single hero image, or for slide 1 in slideshow mode"
     },
     {
       "type": "product_list",
       "id": "shop_scene_products",
       "label": "Products (Slide 1)",
-      "limit": 24,
-      "info": "Used for the single hero image, or for slide 1 in slideshow mode"
+      "limit": 24
     },
     {
       "type": "collection",
       "id": "shop_scene_collection",
-      "label": "Collection (Slide 1)",
-      "info": "Fallback if no products are picked above"
+      "label": "Collection (Slide 1)"
+    },
+    {
+      "type": "select",
+      "id": "shop_scene_source_2",
+      "label": "Source (Slide 2)",
+      "options": [
+        { "value": "products", "label": "Products" },
+        { "value": "collection", "label": "Collection" }
+      ],
+      "default": "products",
+      "info": "Slideshow mode only"
     },
     {
       "type": "product_list",
       "id": "shop_scene_products_2",
       "label": "Products (Slide 2)",
-      "limit": 24,
-      "info": "Slideshow mode only"
+      "limit": 24
     },
     {
       "type": "collection",
       "id": "shop_scene_collection_2",
-      "label": "Collection (Slide 2)",
-      "info": "Fallback if no products are picked above"
+      "label": "Collection (Slide 2)"
+    },
+    {
+      "type": "select",
+      "id": "shop_scene_source_3",
+      "label": "Source (Slide 3)",
+      "options": [
+        { "value": "products", "label": "Products" },
+        { "value": "collection", "label": "Collection" }
+      ],
+      "default": "products",
+      "info": "Slideshow mode only"
     },
     {
       "type": "product_list",
       "id": "shop_scene_products_3",
       "label": "Products (Slide 3)",
-      "limit": 24,
-      "info": "Slideshow mode only"
+      "limit": 24
     },
     {
       "type": "collection",
       "id": "shop_scene_collection_3",
-      "label": "Collection (Slide 3)",
-      "info": "Fallback if no products are picked above"
+      "label": "Collection (Slide 3)"
+    },
+    {
+      "type": "select",
+      "id": "shop_scene_source_4",
+      "label": "Source (Slide 4)",
+      "options": [
+        { "value": "products", "label": "Products" },
+        { "value": "collection", "label": "Collection" }
+      ],
+      "default": "products",
+      "info": "Slideshow mode only"
     },
     {
       "type": "product_list",
       "id": "shop_scene_products_4",
       "label": "Products (Slide 4)",
-      "limit": 24,
-      "info": "Slideshow mode only"
+      "limit": 24
     },
     {
       "type": "collection",
       "id": "shop_scene_collection_4",
-      "label": "Collection (Slide 4)",
-      "info": "Fallback if no products are picked above"
+      "label": "Collection (Slide 4)"
+    },
+    {
+      "type": "select",
+      "id": "shop_scene_source_5",
+      "label": "Source (Slide 5)",
+      "options": [
+        { "value": "products", "label": "Products" },
+        { "value": "collection", "label": "Collection" }
+      ],
+      "default": "products",
+      "info": "Slideshow mode only"
     },
     {
       "type": "product_list",
       "id": "shop_scene_products_5",
       "label": "Products (Slide 5)",
-      "limit": 24,
-      "info": "Slideshow mode only"
+      "limit": 24
     },
     {
       "type": "collection",
       "id": "shop_scene_collection_5",
-      "label": "Collection (Slide 5)",
-      "info": "Fallback if no products are picked above"
+      "label": "Collection (Slide 5)"
     },
     {
       "type": "range",
