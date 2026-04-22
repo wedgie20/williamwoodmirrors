@@ -1939,7 +1939,7 @@
               {%- for product in ss_products limit: shop_scene_thumb_count -%}
                 <span class="hero-shop-scene-btn-thumb-{{ section.id }}">
                   {%- if product.featured_image -%}
-                    {{ product.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: product.featured_image.alt, widths: '60,120' }}
+                    {{ product.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: product.featured_image.alt, widths: '60,120' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
                   {%- else -%}
                     {{ 'product-1' | placeholder_svg_tag }}
                   {%- endif -%}
@@ -2059,11 +2059,11 @@
                   {{ product.featured_image | image_url: width: 600
                      | image_tag: loading: 'lazy',
                                   alt: product.featured_image.alt,
-                                  widths: '300, 400, 600'
-                     | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn
-                     | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn
-                     | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement
-                     | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                                  widths: '300, 400, 600' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
+                    
+                    
+                    
+                     }}
                 {%- else -%}
                   {{ 'product-1' | placeholder_svg_tag }}
                 {%- endif -%}
