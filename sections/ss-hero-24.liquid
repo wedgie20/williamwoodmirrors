@@ -371,6 +371,323 @@
       display: none !important;
     }
   }
+
+  /* ================================================
+     Shop Scene — Button
+  ================================================ */
+  .hero-shop-scene-btn-wrap-{{ section.id }} {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: none;
+    align-items: center;
+    gap: 14px;
+    padding: 8px 14px 8px 18px;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 999px;
+  }
+
+  .hero-shop-scene-btn-wrap-{{ section.id }}.is-active-slide {
+    display: flex;
+  }
+
+  .hero-shop-scene-btn-{{ section.id }} {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: #fff;
+    font-family: inherit;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .hero-shop-scene-btn-{{ section.id }}:hover {
+    opacity: 0.85;
+  }
+
+  .hero-shop-scene-btn-{{ section.id }} .ss-btn-arrow {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+  }
+
+  .hero-shop-scene-btn-{{ section.id }}:hover .ss-btn-arrow {
+    transform: translateX(3px);
+  }
+
+  .hero-shop-scene-btn-thumbs-{{ section.id }} {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+
+  .hero-shop-scene-btn-thumb-{{ section.id }} {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #f8f8f8;
+    flex-shrink: 0;
+  }
+
+  .hero-shop-scene-btn-thumb-{{ section.id }} img,
+  .hero-shop-scene-btn-thumb-{{ section.id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ================================================
+     Shop Scene — Backdrop
+  ================================================ */
+  .hero-shop-scene-backdrop-{{ section.id }} {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  .hero-shop-scene-backdrop-{{ section.id }}.is-visible {
+    display: block;
+  }
+
+  /* ================================================
+     Shop Scene — Drawer
+  ================================================ */
+  .hero-shop-scene-drawer-{{ section.id }} {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 420px;
+    max-width: 100vw;
+    z-index: 1000;
+    background: #fff;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    flex-direction: column;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .hero-shop-scene-drawer-{{ section.id }}.is-open {
+    transform: translateX(0);
+  }
+
+  .hero-shop-scene-drawer-header-{{ section.id }} {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e5e5e5;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+
+  .hero-shop-scene-drawer-title-{{ section.id }} {
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #111;
+  }
+
+  .hero-shop-scene-drawer-close-{{ section.id }} {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #111;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+  }
+
+  .hero-shop-scene-drawer-close-{{ section.id }}:hover {
+    background: #f3f3f3;
+  }
+
+  .hero-shop-scene-drawer-close-{{ section.id }} svg {
+    width: 22px;
+    height: 22px;
+    display: block;
+  }
+
+  /* ================================================
+     Shop Scene — Product Grid
+  ================================================ */
+  .hero-shop-scene-drawer-products-{{ section.id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #e5e5e5;
+    flex: 1;
+  }
+
+  .hero-shop-scene-product-{{ section.id }} {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-shop-scene-product-image-link-{{ section.id }} {
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #f8f8f8;
+  }
+
+  .hero-shop-scene-product-image-link-{{ section.id }} img,
+  .hero-shop-scene-product-image-link-{{ section.id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .hero-shop-scene-product-image-link-{{ section.id }}:hover img {
+    transform: scale(1.04);
+  }
+
+  .hero-shop-scene-product-info-{{ section.id }} {
+    padding: 12px 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+  }
+
+  .hero-shop-scene-product-title-{{ section.id }} {
+    font-size: 13px;
+    color: #111;
+    text-decoration: none;
+    line-height: 1.4;
+    display: block;
+  }
+
+  .hero-shop-scene-product-title-{{ section.id }}:hover {
+    text-decoration: underline;
+  }
+
+  .hero-shop-scene-product-price-{{ section.id }} {
+    font-size: 13px;
+    color: #333;
+    margin: 0;
+  }
+
+  .hero-shop-scene-view-link-{{ section.id }} {
+    font-size: 11px;
+    color: #555;
+    text-decoration: underline;
+    letter-spacing: 0.05em;
+    text-align: center;
+    display: block;
+    margin-top: 8px;
+    padding-top: 2px;
+  }
+
+  .hero-shop-scene-view-link-{{ section.id }}:hover {
+    color: #111;
+  }
+
+  /* ================================================
+     Shop Scene — Cart Action Buttons
+  ================================================ */
+  .hero-shop-scene-product-actions-{{ section.id }} {
+    margin-top: auto;
+    padding-top: 10px;
+  }
+
+  .hero-shop-scene-product-form-{{ section.id }} {
+    display: block;
+  }
+
+  .hero-shop-scene-add-btn-{{ section.id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 10px 12px;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    font-family: inherit;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s ease, opacity 0.2s ease;
+  }
+
+  .hero-shop-scene-add-btn-{{ section.id }}:hover {
+    background: #333;
+    color: #fff;
+  }
+
+  .hero-shop-scene-add-btn-{{ section.id }}[disabled],
+  .hero-shop-scene-add-btn-{{ section.id }}.is-loading {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .hero-shop-scene-add-btn-{{ section.id }} svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  /* ================================================
+     Shop Scene — Mobile Overrides
+  ================================================ */
+  @media screen and (max-width: 1023px) {
+    .hero-shop-scene-btn-wrap-{{ section.id }} {
+      bottom: 18px;
+      gap: 10px;
+      padding: 6px 12px 6px 14px;
+      margin-top: 24px;
+      width: max-content;
+      max-width: calc(100vw - 32px);
+    }
+
+    .hero-shop-scene-btn-{{ section.id }} {
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .hero-shop-scene-btn-thumb-{{ section.id }} {
+      width: 30px;
+      height: 30px;
+    }
+
+    .hero-shop-scene-drawer-{{ section.id }} {
+      width: 92vw;
+      max-width: 420px;
+    }
+  }
 {%- endstyle -%}
 
 {% unless full_width %}
@@ -1477,16 +1794,9 @@
                 endif
               -%}
               <div class="hero-slide-content-{{ section.id }}{% if content_idx == 0 %} is-active{% endif %}" data-slide-content-index="{{ content_idx }}" style="text-align: {{ slide_text_align }};">
-                {% assign slide_btn_open = false %}
                 {% for block in section.blocks %}
                   {% assign block_slide = block.settings.slide_number | default: 'all' %}
                   {% if block_slide == slide_num_str or block_slide == 'all' %}
-                    {%- comment -%} Close buttons wrapper if the previous block was a button and this is not {%- endcomment -%}
-                    {% if block.type != 'button' and slide_btn_open %}
-                      </div>
-                      {% assign slide_btn_open = false %}
-                    {% endif %}
-
                     {% case block.type %}
                       {% when 'heading' %}
                         {% if block.settings.heading != blank %}
@@ -1500,18 +1810,31 @@
                             {{ block.settings.text }}
                           </div>
                         {% endif %}
-                      {% when 'button' %}
-                        {% unless slide_btn_open %}
-                          <div class="hero-buttons-{{ section.id }}" style="justify-content: {{ slide_justify }};">
-                          {% assign slide_btn_open = true %}
-                        {% endunless %}
-                        {% if block.settings.button != blank %}
+                    {% endcase %}
+                  {% endif %}
+                {% endfor %}
+
+                {% assign has_slide_buttons = false %}
+                {% for block in section.blocks %}
+                  {% assign block_slide = block.settings.slide_number | default: 'all' %}
+                  {% if block.type == 'button' and block.settings.button != blank %}
+                    {% if block_slide == slide_num_str or block_slide == 'all' %}
+                      {% assign has_slide_buttons = true %}
+                      {% break %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+
+                {% if has_slide_buttons %}
+                  <div class="hero-buttons-{{ section.id }}" style="justify-content: {{ slide_justify }};">
+                    {% for block in section.blocks %}
+                      {% assign block_slide = block.settings.slide_number | default: 'all' %}
+                      {% if block.type == 'button' and block.settings.button != blank %}
+                        {% if block_slide == slide_num_str or block_slide == 'all' %}
                           <a href="{{ block.settings.url }}" class="hero-button-{{ block.id }}">
                             <p class="hero-button-inner-{{ block.id }}">
                               {{ block.settings.button }}
-                              {% if block.settings.button_style == 'non_outline_arrow'
-                                or block.settings.button_style == 'outline_arrow'
-                              %}
+                              {% if block.settings.button_style == 'non_outline_arrow' or block.settings.button_style == 'outline_arrow' %}
                                 <svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
                                   <path d="M187.827 98.7858C188.123 98.4749 188.123 98.4749 188.123 98.1761C188.419 97.8652 188.419 97.5663 188.704 97.5663C189 96.9566 189 96.6458 189 96.0361C189 95.4263 189 94.8166 188.704 94.5058C188.704 94.195 188.408 93.8961 188.123 93.5852C188.123 93.2744 187.827 93.2744 187.827 92.9755L103.287 4.21945C102.41 3.29889 101.533 3 100.668 3C99.791 3 98.6295 3.31083 98.0488 4.21945C97.1719 5.14 96.8872 6.06058 96.8872 6.96919C96.8872 7.88974 97.1833 9.10918 98.0488 9.7189L175.587 92.0539H6.79206C4.75371 92.0539 3 93.895 3 96.0351C3 98.1751 4.75365 100.016 6.79206 100.016H175.575L97.7543 182.042C96.2967 183.572 96.2967 186.322 97.7543 187.852C99.2119 189.383 101.831 189.383 103.288 187.852L187.827 98.7858Z" fill="black"></path>
                                   <path d="M169.5 104L16.5 102.5V90H171L97.5 10.5V7L107.5 4.5C131.167 29.6667 180.2 81.5 187 87.5C193.8 93.5 191.5 99 189.5 101L105.5 184L94 181.5L169.5 104Z" fill="black"></path>
@@ -1520,10 +1843,8 @@
                             </p>
                           </a>
                         {% endif %}
-                    {% endcase %}
-                  {% endif %}
-                {% endfor %}
-                {% if slide_btn_open %}
+                      {% endif %}
+                    {% endfor %}
                   </div>
                 {% endif %}
               </div>
@@ -1557,7 +1878,228 @@
       </div>
     {% endif %}
   {% endif %}
+
+  {%- if section.settings.shop_scene_enable -%}
+    {%- assign shop_scene_label = section.settings.shop_scene_button_label | default: 'Shop scene' -%}
+    {%- assign shop_scene_thumb_count = section.settings.shop_scene_thumb_count | default: 3 -%}
+    {%- assign shop_scene_max_slides = 5 -%}
+    {%- if layout_mode != 'slideshow' -%}{%- assign shop_scene_max_slides = 1 -%}{%- endif -%}
+
+    {%- for ss_idx in (1..shop_scene_max_slides) -%}
+      {%- assign ss_products = empty -%}
+      {%- assign ss_count = 0 -%}
+      {%- assign ss_source = 'products' -%}
+      {%- case ss_idx -%}
+        {%- when 1 -%}
+          {%- assign ss_source = section.settings.shop_scene_source_1 | default: 'products' -%}
+          {%- assign ss_picked = section.settings.shop_scene_products -%}
+          {%- assign ss_handle = section.settings.shop_scene_collection -%}
+        {%- when 2 -%}
+          {%- assign ss_source = section.settings.shop_scene_source_2 | default: 'products' -%}
+          {%- assign ss_picked = section.settings.shop_scene_products_2 -%}
+          {%- assign ss_handle = section.settings.shop_scene_collection_2 -%}
+        {%- when 3 -%}
+          {%- assign ss_source = section.settings.shop_scene_source_3 | default: 'products' -%}
+          {%- assign ss_picked = section.settings.shop_scene_products_3 -%}
+          {%- assign ss_handle = section.settings.shop_scene_collection_3 -%}
+        {%- when 4 -%}
+          {%- assign ss_source = section.settings.shop_scene_source_4 | default: 'products' -%}
+          {%- assign ss_picked = section.settings.shop_scene_products_4 -%}
+          {%- assign ss_handle = section.settings.shop_scene_collection_4 -%}
+        {%- when 5 -%}
+          {%- assign ss_source = section.settings.shop_scene_source_5 | default: 'products' -%}
+          {%- assign ss_picked = section.settings.shop_scene_products_5 -%}
+          {%- assign ss_handle = section.settings.shop_scene_collection_5 -%}
+      {%- endcase -%}
+      {%- if ss_source == 'collection' and ss_handle != blank -%}
+        {%- assign ss_collection = collections[ss_handle] -%}
+        {%- assign ss_products = ss_collection.products -%}
+        {%- assign ss_count = ss_collection.products_count -%}
+      {%- elsif ss_source == 'products' and ss_picked != blank and ss_picked.size > 0 -%}
+        {%- assign ss_products = ss_picked -%}
+        {%- assign ss_count = ss_picked.size -%}
+      {%- endif -%}
+      {%- if ss_products != empty -%}
+        <div class="hero-shop-scene-btn-wrap-{{ section.id }}{% if forloop.first %} is-active-slide{% endif %}"
+             data-shop-scene-slide-wrap="{{ section.id }}-{{ ss_idx }}">
+          <button
+            class="hero-shop-scene-btn-{{ section.id }}"
+            aria-label="{{ shop_scene_label }}"
+            aria-expanded="false"
+            data-shop-scene-open="{{ section.id }}-{{ ss_idx }}"
+            type="button"
+          >
+            <span>{{ shop_scene_label }} ({{ ss_count }})</span>
+            <svg class="ss-btn-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12H19M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          {%- if shop_scene_thumb_count > 0 -%}
+            <div class="hero-shop-scene-btn-thumbs-{{ section.id }}" data-shop-scene-open="{{ section.id }}-{{ ss_idx }}" role="button" tabindex="0" aria-label="{{ shop_scene_label }}">
+              {%- for product in ss_products limit: shop_scene_thumb_count -%}
+                <span class="hero-shop-scene-btn-thumb-{{ section.id }}">
+                  {%- if product.featured_image -%}
+                    {{ product.featured_image | image_url: width: 120 | image_tag: loading: 'lazy', alt: product.featured_image.alt, widths: '60,120' }}
+                  {%- else -%}
+                    {{ 'product-1' | placeholder_svg_tag }}
+                  {%- endif -%}
+                </span>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
 </div>
+
+{%- if section.settings.shop_scene_enable -%}
+  {%- assign shop_scene_label = section.settings.shop_scene_button_label | default: 'Shop scene' -%}
+  {%- assign shop_scene_limit = section.settings.shop_scene_product_limit | default: 12 -%}
+  {%- assign shop_scene_max_slides = 5 -%}
+  {%- if layout_mode != 'slideshow' -%}{%- assign shop_scene_max_slides = 1 -%}{%- endif -%}
+
+  {%- assign ss_any = false -%}
+  {%- for ss_idx in (1..shop_scene_max_slides) -%}
+    {%- assign ss_source = 'products' -%}
+    {%- case ss_idx -%}
+      {%- when 1 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_1 | default: 'products' -%}
+        {%- assign ss_picked = section.settings.shop_scene_products -%}
+        {%- assign ss_handle = section.settings.shop_scene_collection -%}
+      {%- when 2 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_2 | default: 'products' -%}
+        {%- assign ss_picked = section.settings.shop_scene_products_2 -%}
+        {%- assign ss_handle = section.settings.shop_scene_collection_2 -%}
+      {%- when 3 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_3 | default: 'products' -%}
+        {%- assign ss_picked = section.settings.shop_scene_products_3 -%}
+        {%- assign ss_handle = section.settings.shop_scene_collection_3 -%}
+      {%- when 4 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_4 | default: 'products' -%}
+        {%- assign ss_picked = section.settings.shop_scene_products_4 -%}
+        {%- assign ss_handle = section.settings.shop_scene_collection_4 -%}
+      {%- when 5 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_5 | default: 'products' -%}
+        {%- assign ss_picked = section.settings.shop_scene_products_5 -%}
+        {%- assign ss_handle = section.settings.shop_scene_collection_5 -%}
+    {%- endcase -%}
+    {%- if ss_source == 'collection' and ss_handle != blank -%}{%- assign ss_any = true -%}
+    {%- elsif ss_source == 'products' and ss_picked != blank and ss_picked.size > 0 -%}{%- assign ss_any = true -%}{%- endif -%}
+  {%- endfor -%}
+
+  {%- if ss_any -%}
+    <div class="hero-shop-scene-backdrop-{{ section.id }}"
+         data-shop-scene-backdrop="{{ section.id }}"
+         aria-hidden="true"></div>
+  {%- endif -%}
+
+  {%- for ss_idx in (1..shop_scene_max_slides) -%}
+    {%- assign ss_products = empty -%}
+    {%- assign ss_count = 0 -%}
+    {%- assign ss_source = 'products' -%}
+    {%- case ss_idx -%}
+      {%- when 1 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_1 | default: 'products' -%}
+        {%- assign ss_picked = section.settings.shop_scene_products -%}
+        {%- assign ss_handle = section.settings.shop_scene_collection -%}
+      {%- when 2 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_2 | default: 'products' -%}
+        {%- assign ss_picked = section.settings.shop_scene_products_2 -%}
+        {%- assign ss_handle = section.settings.shop_scene_collection_2 -%}
+      {%- when 3 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_3 | default: 'products' -%}
+        {%- assign ss_picked = section.settings.shop_scene_products_3 -%}
+        {%- assign ss_handle = section.settings.shop_scene_collection_3 -%}
+      {%- when 4 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_4 | default: 'products' -%}
+        {%- assign ss_picked = section.settings.shop_scene_products_4 -%}
+        {%- assign ss_handle = section.settings.shop_scene_collection_4 -%}
+      {%- when 5 -%}
+        {%- assign ss_source = section.settings.shop_scene_source_5 | default: 'products' -%}
+        {%- assign ss_picked = section.settings.shop_scene_products_5 -%}
+        {%- assign ss_handle = section.settings.shop_scene_collection_5 -%}
+    {%- endcase -%}
+    {%- if ss_source == 'collection' and ss_handle != blank -%}
+      {%- assign ss_collection = collections[ss_handle] -%}
+      {%- assign ss_products = ss_collection.products -%}
+      {%- assign ss_count = ss_collection.products_count -%}
+    {%- elsif ss_source == 'products' and ss_picked != blank and ss_picked.size > 0 -%}
+      {%- assign ss_products = ss_picked -%}
+      {%- assign ss_count = ss_picked.size -%}
+    {%- endif -%}
+    {%- if ss_products != empty -%}
+
+      <div class="hero-shop-scene-drawer-{{ section.id }}"
+           data-shop-scene-drawer="{{ section.id }}-{{ ss_idx }}"
+           role="dialog"
+           aria-modal="true"
+           aria-label="{{ shop_scene_label }}">
+
+        <div class="hero-shop-scene-drawer-header-{{ section.id }}">
+          <span class="hero-shop-scene-drawer-title-{{ section.id }}">
+            {{ section.settings.shop_scene_title | default: shop_scene_label }} ({{ ss_count }})
+          </span>
+          <button class="hero-shop-scene-drawer-close-{{ section.id }}"
+                  data-shop-scene-close="{{ section.id }}-{{ ss_idx }}"
+                  aria-label="Close">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M18 6L6 18M6 6l12 12"
+                    stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="hero-shop-scene-drawer-products-{{ section.id }}">
+          {%- for product in ss_products limit: shop_scene_limit -%}
+            <div class="hero-shop-scene-product-{{ section.id }}">
+              <a href="{{ product.url }}" class="hero-shop-scene-product-image-link-{{ section.id }}" tabindex="-1" aria-hidden="true">
+                {%- if product.featured_image -%}
+                  {{ product.featured_image | image_url: width: 600
+                     | image_tag: loading: 'lazy',
+                                  alt: product.featured_image.alt,
+                                  widths: '300, 400, 600'
+                     | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn
+                     | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn
+                     | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement
+                     | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag }}
+                {%- endif -%}
+              </a>
+              <div class="hero-shop-scene-product-info-{{ section.id }}">
+                <a href="{{ product.url }}" class="hero-shop-scene-product-title-{{ section.id }}">{{ product.title }}</a>
+                <p class="hero-shop-scene-product-price-{{ section.id }}">{{ product.price | money }}</p>
+                <div class="hero-shop-scene-product-actions-{{ section.id }}">
+                  {%- if product.available == false -%}
+                    <button class="hero-shop-scene-add-btn-{{ section.id }}" type="button" disabled>Sold out</button>
+                  {%- elsif product.variants.size > 1 or product.has_only_default_variant == false -%}
+                    <a href="{{ product.url }}" class="hero-shop-scene-add-btn-{{ section.id }}">View details &rarr;</a>
+                  {%- else -%}
+                    {%- assign first_variant = product.selected_or_first_available_variant -%}
+                    {%- assign is_preorder = false -%}
+                    {%- if product.tags contains 'preorder' or product.tags contains 'pre-order' -%}
+                      {%- assign is_preorder = true -%}
+                    {%- endif -%}
+                    <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="hero-shop-scene-product-form-{{ section.id }}" data-shop-scene-form>
+                      <input type="hidden" name="id" value="{{ first_variant.id }}">
+                      <input type="hidden" name="quantity" value="1">
+                      <button type="submit" class="hero-shop-scene-add-btn-{{ section.id }}" data-shop-scene-add>
+                        {%- if is_preorder -%}Pre-order{%- else -%}Add to cart{%- endif -%}
+                      </button>
+                    </form>
+                  {%- endif -%}
+                  <a href="{{ product.url }}" class="hero-shop-scene-view-link-{{ section.id }}">View details &rarr;</a>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
 
 {% if layout_mode == 'slideshow' %}
 <script>
@@ -1568,6 +2110,7 @@
     var slides = container.querySelectorAll('.hero-slide-{{ section.id }}');
     var dots = container.querySelectorAll('.hero-slider-dot-{{ section.id }}');
     var contentPanels = container.querySelectorAll('.hero-slide-content-{{ section.id }}');
+    var shopScenePanels = container.querySelectorAll('[data-shop-scene-slide-wrap^="{{ section.id }}-"]');
     var prevBtn = container.querySelector('.hero-slider-arrow-prev-{{ section.id }}');
     var nextBtn = container.querySelector('.hero-slider-arrow-next-{{ section.id }}');
     var current = 0;
@@ -1577,6 +2120,18 @@
     var timer = null;
 
     if (total <= 1) return;
+
+    function setActiveShopScene(slideIndex) {
+      if (!shopScenePanels.length) return;
+      var targetKey = '{{ section.id }}-' + (slideIndex + 1);
+      shopScenePanels.forEach(function(el) {
+        if (el.getAttribute('data-shop-scene-slide-wrap') === targetKey) {
+          el.classList.add('is-active-slide');
+        } else {
+          el.classList.remove('is-active-slide');
+        }
+      });
+    }
 
     function goTo(index) {
       if (index < 0) index = total - 1;
@@ -1588,6 +2143,7 @@
       slides[current].classList.add('is-active');
       if (dots[current]) dots[current].classList.add('is-active');
       if (contentPanels[current]) contentPanels[current].classList.add('is-active');
+      setActiveShopScene(current);
     }
 
     function next() { goTo(current + 1); }
@@ -1633,6 +2189,144 @@
 </script>
 {% endif %}
 
+{%- if section.settings.shop_scene_enable -%}
+<script>
+  (function() {
+    var sectionId = '{{ section.id }}';
+    var openers = document.querySelectorAll('[data-shop-scene-open^="' + sectionId + '-"]');
+    var drawers = document.querySelectorAll('[data-shop-scene-drawer^="' + sectionId + '-"]');
+    var closers = document.querySelectorAll('[data-shop-scene-close^="' + sectionId + '-"]');
+    var backdrop = document.querySelector('[data-shop-scene-backdrop="' + sectionId + '"]');
+    if (!openers.length || !drawers.length) return;
+
+    function getDrawer(key) {
+      return document.querySelector('[data-shop-scene-drawer="' + key + '"]');
+    }
+
+    function openersForKey(key) {
+      return document.querySelectorAll('[data-shop-scene-open="' + key + '"]');
+    }
+
+    function closeAllDrawers() {
+      drawers.forEach(function(d) { d.classList.remove('is-open'); });
+      if (backdrop) backdrop.classList.remove('is-visible');
+      document.body.style.overflow = '';
+      openers.forEach(function(o) { o.setAttribute('aria-expanded', 'false'); });
+    }
+
+    function openDrawerByKey(key) {
+      closeAllDrawers();
+      var drawer = getDrawer(key);
+      if (!drawer) return;
+      drawer.classList.add('is-open');
+      if (backdrop) backdrop.classList.add('is-visible');
+      document.body.style.overflow = 'hidden';
+      openersForKey(key).forEach(function(o) { o.setAttribute('aria-expanded', 'true'); });
+    }
+
+    openers.forEach(function(o) {
+      var key = o.getAttribute('data-shop-scene-open');
+      o.addEventListener('click', function() { openDrawerByKey(key); });
+      if (o.getAttribute('role') === 'button') {
+        o.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDrawerByKey(key); }
+        });
+      }
+    });
+
+    closers.forEach(function(c) {
+      c.addEventListener('click', closeAllDrawers);
+    });
+    if (backdrop) backdrop.addEventListener('click', closeAllDrawers);
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        var anyOpen = false;
+        drawers.forEach(function(d) { if (d.classList.contains('is-open')) anyOpen = true; });
+        if (anyOpen) closeAllDrawers();
+      }
+    });
+
+    // AJAX add to cart for product forms inside any drawer for this section
+    var forms = document.querySelectorAll('[data-shop-scene-drawer^="' + sectionId + '-"] [data-shop-scene-form]');
+    forms.forEach(function(form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var submitBtn = form.querySelector('[data-shop-scene-add]');
+        if (!submitBtn || submitBtn.classList.contains('is-loading')) return;
+        var originalLabel = submitBtn.textContent;
+        submitBtn.classList.add('is-loading');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Adding...';
+
+        var routes = (window.themeVariables && window.themeVariables.routes) || {};
+        var addUrl = routes.cartAddUrl ? routes.cartAddUrl + '.js' : (form.action || '/cart/add.js');
+        var cartUrl = routes.cartUrl ? routes.cartUrl + '.js' : '/cart.js';
+        var settings = (window.themeVariables && window.themeVariables.settings) || {};
+
+        var formData = new FormData(form);
+        formData.append('sections', ['mini-cart']);
+
+        fetch(addUrl, {
+          method: 'POST',
+          body: formData,
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+          .then(function(res) { return res.json().then(function(data) { return { ok: res.ok, data: data }; }); })
+          .then(function(result) {
+            if (!result.ok) {
+              submitBtn.textContent = (result.data && result.data.description) || 'Unavailable';
+              setTimeout(function() {
+                submitBtn.textContent = originalLabel;
+                submitBtn.classList.remove('is-loading');
+                submitBtn.disabled = false;
+              }, 1800);
+              return;
+            }
+
+            // Notify theme that a variant was added (for cart-notification etc.)
+            form.dispatchEvent(new CustomEvent('variant:added', {
+              bubbles: true,
+              detail: {
+                variant: result.data.hasOwnProperty('items') ? result.data.items[0] : result.data
+              }
+            }));
+
+            // Fetch fresh cart and dispatch refresh events the theme listens for
+            return fetch(cartUrl).then(function(r) { return r.json(); }).then(function(cartContent) {
+              document.documentElement.dispatchEvent(new CustomEvent('cart:updated', {
+                bubbles: true,
+                detail: { cart: cartContent }
+              }));
+              cartContent.sections = result.data.sections;
+              document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+                bubbles: true,
+                detail: {
+                  cart: cartContent,
+                  openMiniCart: settings.cartType === 'drawer'
+                }
+              }));
+              submitBtn.textContent = 'Added \u2713';
+              setTimeout(function() {
+                submitBtn.textContent = originalLabel;
+                submitBtn.classList.remove('is-loading');
+                submitBtn.disabled = false;
+              }, 1800);
+            });
+          })
+          .catch(function() {
+            submitBtn.textContent = 'Try again';
+            setTimeout(function() {
+              submitBtn.textContent = originalLabel;
+              submitBtn.classList.remove('is-loading');
+              submitBtn.disabled = false;
+            }, 1800);
+          });
+      });
+    });
+  })();
+</script>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "SS - Hero #24",
@@ -1675,6 +2369,161 @@
       "label": "Slide duration",
       "default": 5,
       "info": "Only applies in Slideshow mode"
+    },
+    {
+      "type": "header",
+      "content": "Shop Scene drawer"
+    },
+    {
+      "type": "checkbox",
+      "id": "shop_scene_enable",
+      "label": "Enable Shop Scene button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shop_scene_button_label",
+      "label": "Button label",
+      "default": "Shop scene"
+    },
+    {
+      "type": "text",
+      "id": "shop_scene_title",
+      "label": "Drawer title",
+      "default": "Shop scene"
+    },
+    {
+      "type": "paragraph",
+      "content": "For each slide, choose to show specific Products or a Collection."
+    },
+    {
+      "type": "select",
+      "id": "shop_scene_source_1",
+      "label": "Source (Slide 1)",
+      "options": [
+        { "value": "products", "label": "Products" },
+        { "value": "collection", "label": "Collection" }
+      ],
+      "default": "products",
+      "info": "Used for the single hero image, or for slide 1 in slideshow mode"
+    },
+    {
+      "type": "product_list",
+      "id": "shop_scene_products",
+      "label": "Products (Slide 1)",
+      "limit": 24
+    },
+    {
+      "type": "collection",
+      "id": "shop_scene_collection",
+      "label": "Collection (Slide 1)"
+    },
+    {
+      "type": "select",
+      "id": "shop_scene_source_2",
+      "label": "Source (Slide 2)",
+      "options": [
+        { "value": "products", "label": "Products" },
+        { "value": "collection", "label": "Collection" }
+      ],
+      "default": "products",
+      "info": "Slideshow mode only"
+    },
+    {
+      "type": "product_list",
+      "id": "shop_scene_products_2",
+      "label": "Products (Slide 2)",
+      "limit": 24
+    },
+    {
+      "type": "collection",
+      "id": "shop_scene_collection_2",
+      "label": "Collection (Slide 2)"
+    },
+    {
+      "type": "select",
+      "id": "shop_scene_source_3",
+      "label": "Source (Slide 3)",
+      "options": [
+        { "value": "products", "label": "Products" },
+        { "value": "collection", "label": "Collection" }
+      ],
+      "default": "products",
+      "info": "Slideshow mode only"
+    },
+    {
+      "type": "product_list",
+      "id": "shop_scene_products_3",
+      "label": "Products (Slide 3)",
+      "limit": 24
+    },
+    {
+      "type": "collection",
+      "id": "shop_scene_collection_3",
+      "label": "Collection (Slide 3)"
+    },
+    {
+      "type": "select",
+      "id": "shop_scene_source_4",
+      "label": "Source (Slide 4)",
+      "options": [
+        { "value": "products", "label": "Products" },
+        { "value": "collection", "label": "Collection" }
+      ],
+      "default": "products",
+      "info": "Slideshow mode only"
+    },
+    {
+      "type": "product_list",
+      "id": "shop_scene_products_4",
+      "label": "Products (Slide 4)",
+      "limit": 24
+    },
+    {
+      "type": "collection",
+      "id": "shop_scene_collection_4",
+      "label": "Collection (Slide 4)"
+    },
+    {
+      "type": "select",
+      "id": "shop_scene_source_5",
+      "label": "Source (Slide 5)",
+      "options": [
+        { "value": "products", "label": "Products" },
+        { "value": "collection", "label": "Collection" }
+      ],
+      "default": "products",
+      "info": "Slideshow mode only"
+    },
+    {
+      "type": "product_list",
+      "id": "shop_scene_products_5",
+      "label": "Products (Slide 5)",
+      "limit": 24
+    },
+    {
+      "type": "collection",
+      "id": "shop_scene_collection_5",
+      "label": "Collection (Slide 5)"
+    },
+    {
+      "type": "range",
+      "id": "shop_scene_product_limit",
+      "min": 2,
+      "max": 24,
+      "step": 1,
+      "label": "Products to show",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "shop_scene_thumb_count",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "label": "Button thumbnails count",
+      "info": "Number of small product thumbnails shown next to the button (0 to hide)",
+      "default": 3
     },
     {
       "type": "header",
