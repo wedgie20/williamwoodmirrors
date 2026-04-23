@@ -16,6 +16,9 @@
     "video_hero_RVqtH": {
       "type": "video-hero",
       "disabled": false,
+      "custom_css": [
+        ".video-hero-section {height: 100vh !important;}"
+      ],
       "settings": {
         "header-c646802bbfc3102ea84c24a3bd1475a7": null,
         "desktop_video": "shopify://files/videos/WILLIAM WOOD - ROOM 04 - 16x9 - NO LOGO.mp4",
@@ -37,7 +40,7 @@
         "overlay_opacity": 30,
         "text_color": "#ffffff",
         "button_color": "#000000",
-        "start_muted": false
+        "start_muted": true
       },
       "blocks": {
         "heading_YdWWY": {
