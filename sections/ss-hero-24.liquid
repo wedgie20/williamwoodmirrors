@@ -2237,14 +2237,34 @@
       });
     }
 
+    function playActiveSlideVideos(slide) {
+      if (!slide) return;
+      var vids = slide.querySelectorAll('video');
+      vids.forEach(function(v) {
+        try {
+          v.muted = true;
+          var p = v.play();
+          if (p && typeof p.catch === 'function') { p.catch(function(){}); }
+        } catch (e) {}
+      });
+    }
+
+    function pauseInactiveSlideVideos(slide) {
+      if (!slide) return;
+      var vids = slide.querySelectorAll('video');
+      vids.forEach(function(v) { try { v.pause(); } catch (e) {} });
+    }
+
     function goTo(index) {
       if (index < 0) index = total - 1;
       if (index >= total) index = 0;
       slides[current].classList.remove('is-active');
+      pauseInactiveSlideVideos(slides[current]);
       if (dots[current]) dots[current].classList.remove('is-active');
       if (contentPanels[current]) contentPanels[current].classList.remove('is-active');
       current = index;
       slides[current].classList.add('is-active');
+      playActiveSlideVideos(slides[current]);
       if (dots[current]) dots[current].classList.add('is-active');
       if (contentPanels[current]) contentPanels[current].classList.add('is-active');
       setActiveShopScene(current);
@@ -2288,6 +2308,7 @@
       }
     }, { passive: true });
 
+    playActiveSlideVideos(slides[current]);
     startAutoplay();
   })();
 </script>
