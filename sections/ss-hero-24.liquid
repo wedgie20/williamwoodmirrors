@@ -126,18 +126,25 @@
   }
 
   .hero-bg-image-{{ section.id }} img,
-  .hero-bg-image-{{ section.id }} svg  {
+  .hero-bg-image-{{ section.id }} svg,
+  .hero-bg-image-{{ section.id }} video  {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 
-  /* Force mobile/desktop visibility inside slides */
-  .hero-slide-{{ section.id }} .hero-bg-image-mobile {
+  .hero-bg-image-{{ section.id }} video {
     display: block;
   }
 
-  .hero-slide-{{ section.id }} .hero-bg-image-desktop {
+  /* Force mobile/desktop visibility inside slides */
+  .hero-slide-{{ section.id }} .hero-bg-image-mobile,
+  .hero-slide-{{ section.id }} .hero-bg-video-mobile {
+    display: block;
+  }
+
+  .hero-slide-{{ section.id }} .hero-bg-image-desktop,
+  .hero-slide-{{ section.id }} .hero-bg-video-desktop {
     display: none;
   }
 
@@ -338,11 +345,13 @@
       display: block;
     }
 
-    .hero-slide-{{ section.id }} .hero-bg-image-mobile {
+    .hero-slide-{{ section.id }} .hero-bg-image-mobile,
+    .hero-slide-{{ section.id }} .hero-bg-video-mobile {
       display: none;
     }
 
-    .hero-slide-{{ section.id }} .hero-bg-image-desktop {
+    .hero-slide-{{ section.id }} .hero-bg-image-desktop,
+    .hero-slide-{{ section.id }} .hero-bg-video-desktop {
       display: block;
     }
 
@@ -1281,74 +1290,123 @@
   <div class="section-{{ section.id }}-settings">
     <div class="hero-bg-image-{{ section.id }}">
       {% if layout_mode == 'slideshow' %}
-        {%- comment -%} Build slide array from background settings images {%- endcomment -%}
+        {%- comment -%} Build slide array from background settings (image or video per slide) {%- endcomment -%}
         {%- assign slide_count = 0 -%}
 
-        {% if bg_image != blank %}
-          {%- assign slide_count = slide_count | plus: 1 -%}
-          <div class="hero-slide-{{ section.id }} is-active" data-slide-index="0">
-            {{ bg_image | image_url: width: 3840 | image_tag: loading: loading_attribute, sizes: '100vw', alt: bg_image.alt, class: 'hero-bg-image-desktop', widths: '1780, 2000, 2500, 3000, 3500, 4000' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
-            {% if bg_image_mobile != blank %}
-              {{ bg_image_mobile | image_url: width: 1100 | image_tag: loading: loading_attribute, sizes: '100vw', alt: bg_image_mobile.alt, class: 'hero-bg-image-mobile', widths: '550, 750, 1100' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
-            {% else %}
-              {{ bg_image | image_url: width: 1100 | image_tag: loading: loading_attribute, sizes: '100vw', alt: bg_image.alt, class: 'hero-bg-image-mobile', widths: '550, 750, 1100' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
-            {% endif %}
-          </div>
-        {% endif %}
+        {%- for s_i in (1..5) -%}
+          {%- assign s_media_type = 'image' -%}
+          {%- assign s_video = blank -%}
+          {%- assign s_video_mobile = blank -%}
+          {%- assign s_image = blank -%}
+          {%- assign s_image_mobile = blank -%}
+          {%- case s_i -%}
+            {%- when 1 -%}
+              {%- assign s_media_type = section.settings.bg_media_type_1 | default: 'image' -%}
+              {%- assign s_video = section.settings.bg_video_1 -%}
+              {%- assign s_video_mobile = section.settings.bg_video_mobile_1 -%}
+              {%- assign s_image = bg_image -%}
+              {%- assign s_image_mobile = bg_image_mobile -%}
+            {%- when 2 -%}
+              {%- assign s_media_type = section.settings.bg_media_type_2 | default: 'image' -%}
+              {%- assign s_video = section.settings.bg_video_2 -%}
+              {%- assign s_video_mobile = section.settings.bg_video_mobile_2 -%}
+              {%- assign s_image = section.settings.bg_image_2 -%}
+              {%- assign s_image_mobile = section.settings.bg_image_mobile_2 -%}
+            {%- when 3 -%}
+              {%- assign s_media_type = section.settings.bg_media_type_3 | default: 'image' -%}
+              {%- assign s_video = section.settings.bg_video_3 -%}
+              {%- assign s_video_mobile = section.settings.bg_video_mobile_3 -%}
+              {%- assign s_image = section.settings.bg_image_3 -%}
+              {%- assign s_image_mobile = section.settings.bg_image_mobile_3 -%}
+            {%- when 4 -%}
+              {%- assign s_media_type = section.settings.bg_media_type_4 | default: 'image' -%}
+              {%- assign s_video = section.settings.bg_video_4 -%}
+              {%- assign s_video_mobile = section.settings.bg_video_mobile_4 -%}
+              {%- assign s_image = section.settings.bg_image_4 -%}
+              {%- assign s_image_mobile = section.settings.bg_image_mobile_4 -%}
+            {%- when 5 -%}
+              {%- assign s_media_type = section.settings.bg_media_type_5 | default: 'image' -%}
+              {%- assign s_video = section.settings.bg_video_5 -%}
+              {%- assign s_video_mobile = section.settings.bg_video_mobile_5 -%}
+              {%- assign s_image = section.settings.bg_image_5 -%}
+              {%- assign s_image_mobile = section.settings.bg_image_mobile_5 -%}
+          {%- endcase -%}
 
-        {% if section.settings.bg_image_2 != blank %}
-          {%- assign slide_count = slide_count | plus: 1 -%}
-          <div class="hero-slide-{{ section.id }}" data-slide-index="{{ slide_count | minus: 1 }}">
-            {{ section.settings.bg_image_2 | image_url: width: 3840 | image_tag: loading: 'lazy', sizes: '100vw', alt: section.settings.bg_image_2.alt, class: 'hero-bg-image-desktop', widths: '1780, 2000, 2500, 3000, 3500, 4000' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
-            {% if section.settings.bg_image_mobile_2 != blank %}
-              {{ section.settings.bg_image_mobile_2 | image_url: width: 1100 | image_tag: loading: 'lazy', sizes: '100vw', alt: section.settings.bg_image_mobile_2.alt, class: 'hero-bg-image-mobile', widths: '550, 750, 1100' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
-            {% else %}
-              {{ section.settings.bg_image_2 | image_url: width: 1100 | image_tag: loading: 'lazy', sizes: '100vw', alt: section.settings.bg_image_2.alt, class: 'hero-bg-image-mobile', widths: '550, 750, 1100' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
-            {% endif %}
-          </div>
-        {% endif %}
+          {%- assign s_use_video = false -%}
+          {%- if s_media_type == 'video' and s_video != blank -%}{%- assign s_use_video = true -%}{%- endif -%}
+          {%- assign s_has_media = false -%}
+          {%- if s_use_video -%}{%- assign s_has_media = true -%}
+          {%- elsif s_image != blank -%}{%- assign s_has_media = true -%}{%- endif -%}
 
-        {% if section.settings.bg_image_3 != blank %}
-          {%- assign slide_count = slide_count | plus: 1 -%}
-          <div class="hero-slide-{{ section.id }}" data-slide-index="{{ slide_count | minus: 1 }}">
-            {{ section.settings.bg_image_3 | image_url: width: 3840 | image_tag: loading: 'lazy', sizes: '100vw', alt: section.settings.bg_image_3.alt, class: 'hero-bg-image-desktop', widths: '1780, 2000, 2500, 3000, 3500, 4000' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
-            {% if section.settings.bg_image_mobile_3 != blank %}
-              {{ section.settings.bg_image_mobile_3 | image_url: width: 1100 | image_tag: loading: 'lazy', sizes: '100vw', alt: section.settings.bg_image_mobile_3.alt, class: 'hero-bg-image-mobile', widths: '550, 750, 1100' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
-            {% else %}
-              {{ section.settings.bg_image_3 | image_url: width: 1100 | image_tag: loading: 'lazy', sizes: '100vw', alt: section.settings.bg_image_3.alt, class: 'hero-bg-image-mobile', widths: '550, 750, 1100' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
-            {% endif %}
-          </div>
-        {% endif %}
-
-        {% if section.settings.bg_image_4 != blank %}
-          {%- assign slide_count = slide_count | plus: 1 -%}
-          <div class="hero-slide-{{ section.id }}" data-slide-index="{{ slide_count | minus: 1 }}">
-            {{ section.settings.bg_image_4 | image_url: width: 3840 | image_tag: loading: 'lazy', sizes: '100vw', alt: section.settings.bg_image_4.alt, class: 'hero-bg-image-desktop', widths: '1780, 2000, 2500, 3000, 3500, 4000' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
-            {% if section.settings.bg_image_mobile_4 != blank %}
-              {{ section.settings.bg_image_mobile_4 | image_url: width: 1100 | image_tag: loading: 'lazy', sizes: '100vw', alt: section.settings.bg_image_mobile_4.alt, class: 'hero-bg-image-mobile', widths: '550, 750, 1100' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
-            {% else %}
-              {{ section.settings.bg_image_4 | image_url: width: 1100 | image_tag: loading: 'lazy', sizes: '100vw', alt: section.settings.bg_image_4.alt, class: 'hero-bg-image-mobile', widths: '550, 750, 1100' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
-            {% endif %}
-          </div>
-        {% endif %}
-
-        {% if section.settings.bg_image_5 != blank %}
-          {%- assign slide_count = slide_count | plus: 1 -%}
-          <div class="hero-slide-{{ section.id }}" data-slide-index="{{ slide_count | minus: 1 }}">
-            {{ section.settings.bg_image_5 | image_url: width: 3840 | image_tag: loading: 'lazy', sizes: '100vw', alt: section.settings.bg_image_5.alt, class: 'hero-bg-image-desktop', widths: '1780, 2000, 2500, 3000, 3500, 4000' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
-            {% if section.settings.bg_image_mobile_5 != blank %}
-              {{ section.settings.bg_image_mobile_5 | image_url: width: 1100 | image_tag: loading: 'lazy', sizes: '100vw', alt: section.settings.bg_image_mobile_5.alt, class: 'hero-bg-image-mobile', widths: '550, 750, 1100' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
-            {% else %}
-              {{ section.settings.bg_image_5 | image_url: width: 1100 | image_tag: loading: 'lazy', sizes: '100vw', alt: section.settings.bg_image_5.alt, class: 'hero-bg-image-mobile', widths: '550, 750, 1100' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
-            {% endif %}
-          </div>
-        {% endif %}
+          {%- if s_has_media -%}
+            {%- assign s_loading = 'lazy' -%}
+            {%- if forloop.first -%}{%- assign s_loading = loading_attribute -%}{%- endif -%}
+            {%- assign slide_count = slide_count | plus: 1 -%}
+            <div class="hero-slide-{{ section.id }}{% if forloop.first %} is-active{% endif %}" data-slide-index="{{ slide_count | minus: 1 }}">
+              {%- if s_use_video -%}
+                {%- assign s_poster_desktop = '' -%}
+                {%- assign s_poster_mobile = '' -%}
+                {%- if s_image != blank -%}{%- assign s_poster_desktop = s_image | image_url: width: 1500 -%}{%- endif -%}
+                {%- if s_image_mobile != blank -%}
+                  {%- assign s_poster_mobile = s_image_mobile | image_url: width: 800 -%}
+                {%- elsif s_image != blank -%}
+                  {%- assign s_poster_mobile = s_image | image_url: width: 800 -%}
+                {%- endif -%}
+                {%- assign s_video_mobile_use = s_video -%}
+                {%- if s_video_mobile != blank -%}{%- assign s_video_mobile_use = s_video_mobile -%}{%- endif -%}
+                <video class="hero-bg-image-desktop hero-bg-video-desktop" autoplay muted loop playsinline preload="metadata"{% if s_poster_desktop != '' %} poster="{{ s_poster_desktop }}"{% endif %}>
+                  {%- for source in s_video.sources -%}
+                    <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                  {%- endfor -%}
+                </video>
+                <video class="hero-bg-image-mobile hero-bg-video-mobile" autoplay muted loop playsinline preload="metadata"{% if s_poster_mobile != '' %} poster="{{ s_poster_mobile }}"{% endif %}>
+                  {%- for source in s_video_mobile_use.sources -%}
+                    <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                  {%- endfor -%}
+                </video>
+              {%- else -%}
+                {{ s_image | image_url: width: 3840 | image_tag: loading: s_loading, sizes: '100vw', alt: s_image.alt, class: 'hero-bg-image-desktop', widths: '1780, 2000, 2500, 3000, 3500, 4000' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                {%- if s_image_mobile != blank -%}
+                  {{ s_image_mobile | image_url: width: 1100 | image_tag: loading: s_loading, sizes: '100vw', alt: s_image_mobile.alt, class: 'hero-bg-image-mobile', widths: '550, 750, 1100' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                {%- else -%}
+                  {{ s_image | image_url: width: 1100 | image_tag: loading: s_loading, sizes: '100vw', alt: s_image.alt, class: 'hero-bg-image-mobile', widths: '550, 750, 1100' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                {%- endif -%}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
 
         {% if slide_count == 0 %}
           {{ 'image' | placeholder_svg_tag }}
         {% endif %}
       {% else %}
-        {% if bg_image != blank %}
+        {%- assign single_media_type = section.settings.bg_media_type_1 | default: 'image' -%}
+        {%- assign single_video = section.settings.bg_video_1 -%}
+        {%- assign single_video_mobile = section.settings.bg_video_mobile_1 -%}
+        {%- assign single_use_video = false -%}
+        {%- if single_media_type == 'video' and single_video != blank -%}{%- assign single_use_video = true -%}{%- endif -%}
+        {%- if single_use_video -%}
+          {%- assign single_poster_desktop = '' -%}
+          {%- assign single_poster_mobile = '' -%}
+          {%- if bg_image != blank -%}{%- assign single_poster_desktop = bg_image | image_url: width: 1500 -%}{%- endif -%}
+          {%- if bg_image_mobile != blank -%}
+            {%- assign single_poster_mobile = bg_image_mobile | image_url: width: 800 -%}
+          {%- elsif bg_image != blank -%}
+            {%- assign single_poster_mobile = bg_image | image_url: width: 800 -%}
+          {%- endif -%}
+          {%- assign single_video_mobile_use = single_video -%}
+          {%- if single_video_mobile != blank -%}{%- assign single_video_mobile_use = single_video_mobile -%}{%- endif -%}
+          <video class="hero-bg-image-desktop hero-bg-video-desktop" autoplay muted loop playsinline preload="metadata"{% if single_poster_desktop != '' %} poster="{{ single_poster_desktop }}"{% endif %}>
+            {%- for source in single_video.sources -%}
+              <source src="{{ source.url }}" type="{{ source.mime_type }}">
+            {%- endfor -%}
+          </video>
+          <video class="hero-bg-image-mobile hero-bg-video-mobile" autoplay muted loop playsinline preload="metadata"{% if single_poster_mobile != '' %} poster="{{ single_poster_mobile }}"{% endif %}>
+            {%- for source in single_video_mobile_use.sources -%}
+              <source src="{{ source.url }}" type="{{ source.mime_type }}">
+            {%- endfor -%}
+          </video>
+        {%- elsif bg_image != blank -%}
           {%- capture sizes -%}100vw{%- endcapture -%}
           {% if bg_image_mobile != blank %}
             {{
@@ -1383,9 +1441,9 @@
                 widths: '1780, 2000, 2500, 3000, 3500, 4000' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
             }}
           {% endif %}
-        {% else %}
+        {%- else -%}
           {{ 'image' | placeholder_svg_tag }}
-        {% endif %}
+        {%- endif -%}
       {% endif %}
     </div>
     <div class="hero-content-{{ section.id }}">
@@ -1758,27 +1816,46 @@
         <div class="hero-slide-content-wrapper-{{ section.id }}">
           {% assign content_idx = 0 %}
           {% for i in (1..5) %}
+            {% assign slide_video = blank %}
+            {% assign slide_media_type = 'image' %}
             {% case i %}
               {% when 1 %}
                 {% assign slide_img = bg_image %}
+                {% assign slide_video = section.settings.bg_video_1 %}
+                {% assign slide_media_type = section.settings.bg_media_type_1 | default: 'image' %}
                 {% assign s_align = section.settings.slide_align_1 %}
               {% when 2 %}
                 {% assign slide_img = section.settings.bg_image_2 %}
+                {% assign slide_video = section.settings.bg_video_2 %}
+                {% assign slide_media_type = section.settings.bg_media_type_2 | default: 'image' %}
                 {% assign s_align = section.settings.slide_align_2 %}
               {% when 3 %}
                 {% assign slide_img = section.settings.bg_image_3 %}
+                {% assign slide_video = section.settings.bg_video_3 %}
+                {% assign slide_media_type = section.settings.bg_media_type_3 | default: 'image' %}
                 {% assign s_align = section.settings.slide_align_3 %}
               {% when 4 %}
                 {% assign slide_img = section.settings.bg_image_4 %}
+                {% assign slide_video = section.settings.bg_video_4 %}
+                {% assign slide_media_type = section.settings.bg_media_type_4 | default: 'image' %}
                 {% assign s_align = section.settings.slide_align_4 %}
               {% when 5 %}
                 {% assign slide_img = section.settings.bg_image_5 %}
+                {% assign slide_video = section.settings.bg_video_5 %}
+                {% assign slide_media_type = section.settings.bg_media_type_5 | default: 'image' %}
                 {% assign s_align = section.settings.slide_align_5 %}
             {% endcase %}
 
+            {% assign slide_has_media = false %}
+            {% if slide_media_type == 'video' and slide_video != blank %}
+              {% assign slide_has_media = true %}
+            {% elsif slide_img != blank %}
+              {% assign slide_has_media = true %}
+            {% endif %}
+
             {% assign slide_num_str = i | append: '' %}
 
-            {% if slide_img != blank %}
+            {% if slide_has_media %}
               {%- liquid
                 assign slide_text_align = content_align
                 assign slide_justify = content_horizontal_align
@@ -1858,11 +1935,38 @@
 
   {% if layout_mode == 'slideshow' %}
     {%- assign nav_slide_count = 0 -%}
-    {% if bg_image != blank %}{%- assign nav_slide_count = nav_slide_count | plus: 1 -%}{% endif %}
-    {% if section.settings.bg_image_2 != blank %}{%- assign nav_slide_count = nav_slide_count | plus: 1 -%}{% endif %}
-    {% if section.settings.bg_image_3 != blank %}{%- assign nav_slide_count = nav_slide_count | plus: 1 -%}{% endif %}
-    {% if section.settings.bg_image_4 != blank %}{%- assign nav_slide_count = nav_slide_count | plus: 1 -%}{% endif %}
-    {% if section.settings.bg_image_5 != blank %}{%- assign nav_slide_count = nav_slide_count | plus: 1 -%}{% endif %}
+    {%- for n_i in (1..5) -%}
+      {%- assign n_media_type = 'image' -%}
+      {%- assign n_video = blank -%}
+      {%- assign n_image = blank -%}
+      {%- case n_i -%}
+        {%- when 1 -%}
+          {%- assign n_media_type = section.settings.bg_media_type_1 | default: 'image' -%}
+          {%- assign n_video = section.settings.bg_video_1 -%}
+          {%- assign n_image = bg_image -%}
+        {%- when 2 -%}
+          {%- assign n_media_type = section.settings.bg_media_type_2 | default: 'image' -%}
+          {%- assign n_video = section.settings.bg_video_2 -%}
+          {%- assign n_image = section.settings.bg_image_2 -%}
+        {%- when 3 -%}
+          {%- assign n_media_type = section.settings.bg_media_type_3 | default: 'image' -%}
+          {%- assign n_video = section.settings.bg_video_3 -%}
+          {%- assign n_image = section.settings.bg_image_3 -%}
+        {%- when 4 -%}
+          {%- assign n_media_type = section.settings.bg_media_type_4 | default: 'image' -%}
+          {%- assign n_video = section.settings.bg_video_4 -%}
+          {%- assign n_image = section.settings.bg_image_4 -%}
+        {%- when 5 -%}
+          {%- assign n_media_type = section.settings.bg_media_type_5 | default: 'image' -%}
+          {%- assign n_video = section.settings.bg_video_5 -%}
+          {%- assign n_image = section.settings.bg_image_5 -%}
+      {%- endcase -%}
+      {%- if n_media_type == 'video' and n_video != blank -%}
+        {%- assign nav_slide_count = nav_slide_count | plus: 1 -%}
+      {%- elsif n_image != blank -%}
+        {%- assign nav_slide_count = nav_slide_count | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
     {% if nav_slide_count > 1 %}
       <button class="hero-slider-arrow-{{ section.id }} hero-slider-arrow-prev-{{ section.id }}" aria-label="Previous slide">
         <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -2133,14 +2237,34 @@
       });
     }
 
+    function playActiveSlideVideos(slide) {
+      if (!slide) return;
+      var vids = slide.querySelectorAll('video');
+      vids.forEach(function(v) {
+        try {
+          v.muted = true;
+          var p = v.play();
+          if (p && typeof p.catch === 'function') { p.catch(function(){}); }
+        } catch (e) {}
+      });
+    }
+
+    function pauseInactiveSlideVideos(slide) {
+      if (!slide) return;
+      var vids = slide.querySelectorAll('video');
+      vids.forEach(function(v) { try { v.pause(); } catch (e) {} });
+    }
+
     function goTo(index) {
       if (index < 0) index = total - 1;
       if (index >= total) index = 0;
       slides[current].classList.remove('is-active');
+      pauseInactiveSlideVideos(slides[current]);
       if (dots[current]) dots[current].classList.remove('is-active');
       if (contentPanels[current]) contentPanels[current].classList.remove('is-active');
       current = index;
       slides[current].classList.add('is-active');
+      playActiveSlideVideos(slides[current]);
       if (dots[current]) dots[current].classList.add('is-active');
       if (contentPanels[current]) contentPanels[current].classList.add('is-active');
       setActiveShopScene(current);
@@ -2184,6 +2308,7 @@
       }
     }, { passive: true });
 
+    playActiveSlideVideos(slides[current]);
     startAutoplay();
   })();
 </script>
@@ -2574,6 +2699,35 @@
       "content": "Background settings"
     },
     {
+      "type": "paragraph",
+      "content": "For each slide, choose Image or Video. Video uses the matching Image as poster (fallback). Images 2–5 only render in Slideshow mode."
+    },
+    {
+      "type": "header",
+      "content": "Slide 1"
+    },
+    {
+      "type": "select",
+      "id": "bg_media_type_1",
+      "label": "Media type (Slide 1)",
+      "options": [
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "video",
+      "id": "bg_video_1",
+      "label": "Video (Slide 1) - Desktop",
+      "info": "Shopify-hosted video. Autoplays muted on loop."
+    },
+    {
+      "type": "video",
+      "id": "bg_video_mobile_1",
+      "label": "Video (Slide 1) - Mobile (optional)"
+    },
+    {
       "type": "image_picker",
       "id": "bg_image",
       "label": "Image 1 (Desktop)"
@@ -2582,6 +2736,30 @@
       "type": "image_picker",
       "id": "bg_image_mobile",
       "label": "Image 1 - mobile (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Slide 2"
+    },
+    {
+      "type": "select",
+      "id": "bg_media_type_2",
+      "label": "Media type (Slide 2)",
+      "options": [
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "video",
+      "id": "bg_video_2",
+      "label": "Video (Slide 2) - Desktop"
+    },
+    {
+      "type": "video",
+      "id": "bg_video_mobile_2",
+      "label": "Video (Slide 2) - Mobile (optional)"
     },
     {
       "type": "image_picker",
@@ -2595,6 +2773,30 @@
       "label": "Image 2 - mobile (optional)"
     },
     {
+      "type": "header",
+      "content": "Slide 3"
+    },
+    {
+      "type": "select",
+      "id": "bg_media_type_3",
+      "label": "Media type (Slide 3)",
+      "options": [
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "video",
+      "id": "bg_video_3",
+      "label": "Video (Slide 3) - Desktop"
+    },
+    {
+      "type": "video",
+      "id": "bg_video_mobile_3",
+      "label": "Video (Slide 3) - Mobile (optional)"
+    },
+    {
       "type": "image_picker",
       "id": "bg_image_3",
       "label": "Image 3 (Desktop)",
@@ -2606,6 +2808,30 @@
       "label": "Image 3 - mobile (optional)"
     },
     {
+      "type": "header",
+      "content": "Slide 4"
+    },
+    {
+      "type": "select",
+      "id": "bg_media_type_4",
+      "label": "Media type (Slide 4)",
+      "options": [
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "video",
+      "id": "bg_video_4",
+      "label": "Video (Slide 4) - Desktop"
+    },
+    {
+      "type": "video",
+      "id": "bg_video_mobile_4",
+      "label": "Video (Slide 4) - Mobile (optional)"
+    },
+    {
       "type": "image_picker",
       "id": "bg_image_4",
       "label": "Image 4 (Desktop)",
@@ -2615,6 +2841,30 @@
       "type": "image_picker",
       "id": "bg_image_mobile_4",
       "label": "Image 4 - mobile (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Slide 5"
+    },
+    {
+      "type": "select",
+      "id": "bg_media_type_5",
+      "label": "Media type (Slide 5)",
+      "options": [
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "video",
+      "id": "bg_video_5",
+      "label": "Video (Slide 5) - Desktop"
+    },
+    {
+      "type": "video",
+      "id": "bg_video_mobile_5",
+      "label": "Video (Slide 5) - Mobile (optional)"
     },
     {
       "type": "image_picker",
