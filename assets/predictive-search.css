@@ -1,5 +1,5 @@
 #quick-search-content {
-height: calc(100vh - 164px);
+height: 100vh;
   transition: height 0.3s ease-out; 
   width: 100%;
   background-color: white;
@@ -18,7 +18,7 @@ height: calc(100vh - 164px);
     transform: translateY(-100%);
 }
 #quick-search-content.show {
-  height: calc(100vh - 164px);
+  height: 100vh;
 }
 @media (min-width: 741px) {
   #quick-search-content.show {
