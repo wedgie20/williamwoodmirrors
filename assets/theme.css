@@ -32,8 +32,17 @@ src:url("https://use.typekit.net/af/5f2949/00000000000000007735ec1a/31/l?primer=
 font-display:auto;font-style:normal;font-weight:400;font-stretch:normal;
 }
 
-.tk-altesse-std-24pt { font-family: "altesse-std-24pt",sans-serif; }
+@font-face {
+  font-family: 'Ambroise';
+  src: url('{{ "Ambroise-Regular.woff2" | asset_url }}') format('woff2'),
+       url('{{ "Ambroise-Regular.woff" | asset_url }}') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
+.tk-altesse-std-24pt { font-family: "altesse-std-24pt",sans-serif; }
+.tk-ambroise { font-family: "Ambroise",sans-serif; }
 
 .sb_edd_pincode_input,
 .search-input {
