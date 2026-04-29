@@ -32,8 +32,10 @@ src:url("https://use.typekit.net/af/5f2949/00000000000000007735ec1a/31/l?primer=
 font-display:auto;font-style:normal;font-weight:400;font-stretch:normal;
 }
 
-.tk-altesse-std-24pt { font-family: "altesse-std-24pt",sans-serif; }
+/* Ambroise @font-face is declared inline in layout/theme.liquid so Liquid asset_url resolves */
 
+.tk-altesse-std-24pt { font-family: "altesse-std-24pt",sans-serif; }
+.tk-ambroise { font-family: "Ambroise",sans-serif; }
 
 .sb_edd_pincode_input,
 .search-input {
