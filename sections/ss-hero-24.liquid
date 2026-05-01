@@ -938,12 +938,12 @@
         }
 
         .hero-heading-{{ block.id }} * strong {
-         font-family: Ambroise !important;
+         font-family: ambroise-std, serif;
     text-transform: lowercase;
-    font-size: 40px;
+    font-size: 75px;
     font-weight: 300;
     font-style: italic;
-    border: unset !important; 
+    border: unset !important;
         display: block;
         }
 
@@ -962,6 +962,7 @@
         @media(max-width: 768px) {
           .hero-heading-{{ block.id }} * strong {
             border-bottom: 1.75px solid {{ block.settings.heading_border_color }};
+            font-size:63px !important;
           }
           .secondline_review {
     {% comment %} margin-top: -8px; {% endcomment %}
