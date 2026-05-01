@@ -49,10 +49,10 @@
           {%- if block.settings.image != blank -%}
             <picture>
               {%- if block.settings.image_mobile != blank -%}
-                <source media="(max-width: 767px)" srcset="{{ block.settings.image_mobile | image_url: width: 800 }}">
+                <source media="(max-width: 767px)" srcset="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image_mobile | image_url: width: 800 }}">
               {%- endif -%}
               <img
-                src="{{ block.settings.image | image_url: width: 1400 }}"
+                src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image | image_url: width: 1400 }}"
                 alt="{{ block.settings.title | default: block.settings.image.alt | escape }}"
                 loading="lazy"
                 width="{{ block.settings.image.width }}"
