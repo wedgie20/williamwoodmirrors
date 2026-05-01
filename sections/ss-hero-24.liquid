@@ -940,7 +940,7 @@
         .hero-heading-{{ block.id }} * strong {
          font-family: Ambroise !important;
     text-transform: lowercase;
-    font-size: 40px;
+    font-size: 60px;
     font-weight: 300;
     font-style: italic;
     border: unset !important;
@@ -956,6 +956,10 @@
 
           .hero-heading-{{ block.id }} * {
             font-size: {{ block.settings.heading_size }}px;
+          }
+
+          .hero-heading-{{ block.id }} * strong {
+            font-size: 148px;
           }
         }
 
