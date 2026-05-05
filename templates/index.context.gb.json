@@ -1210,74 +1210,6 @@
         "overlay_opacity": 15
       },
       "blocks": {
-        "card_fxCt3": {
-          "type": "card",
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/Modern-Minimalism.jpg",
-            "image_mobile": "shopify://shop_images/Modern-Minimalism.jpg",
-            "title": "MODERN MINIMALIST",
-            "title_color": "#ffffff",
-            "link": "shopify://collections/all-modern-minimalist-products",
-            "desktop_span": "1",
-            "mobile_span": "2",
-            "min_height": 360,
-            "min_height_mobile": 280,
-            "show_overlay": true,
-            "show_arrow": true
-          }
-        },
-        "card_dbpyG": {
-          "type": "card",
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/Shabby-Chic.jpg",
-            "image_mobile": "shopify://shop_images/Shabby_Chic_Mobile.jpg",
-            "title": "SHABBY CHIC",
-            "title_color": "#ffffff",
-            "link": "shopify://collections/all-shabby-chic-products",
-            "desktop_span": "3",
-            "mobile_span": "1",
-            "min_height": 320,
-            "min_height_mobile": 220,
-            "show_overlay": true,
-            "show_arrow": true
-          }
-        },
-        "card_BrHMG": {
-          "type": "card",
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/Traditional.jpg",
-            "image_mobile": "shopify://shop_images/Traditional.jpg",
-            "title": "TRADITIONAL",
-            "title_color": "#ffffff",
-            "link": "shopify://collections/all-traditional-products",
-            "desktop_span": "2",
-            "mobile_span": "1",
-            "min_height": 320,
-            "min_height_mobile": 220,
-            "show_overlay": true,
-            "show_arrow": true
-          }
-        },
-        "card_Tc7JR": {
-          "type": "card",
-          "disabled": false,
-          "settings": {
-            "image": "shopify://shop_images/Organic.jpg",
-            "image_mobile": "shopify://shop_images/Organic.jpg",
-            "title": "ORGANIC",
-            "title_color": "#ffffff",
-            "link": "shopify://collections/all-organic-products",
-            "desktop_span": "2",
-            "mobile_span": "2",
-            "min_height": 320,
-            "min_height_mobile": 220,
-            "show_overlay": true,
-            "show_arrow": true
-          }
-        },
         "card_PfNaJ": {
           "type": "card",
           "disabled": false,
@@ -1312,6 +1244,57 @@
             "show_arrow": true
           }
         },
+        "card_Tc7JR": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Organic.jpg",
+            "image_mobile": "shopify://shop_images/Organic.jpg",
+            "title": "ORGANIC",
+            "title_color": "#ffffff",
+            "link": "shopify://collections/all-organic-products",
+            "desktop_span": "2",
+            "mobile_span": "2",
+            "min_height": 320,
+            "min_height_mobile": 220,
+            "show_overlay": true,
+            "show_arrow": true
+          }
+        },
+        "card_fxCt3": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Modern-Minimalism.jpg",
+            "image_mobile": "shopify://shop_images/Modern-Minimalism.jpg",
+            "title": "MODERN MINIMALIST",
+            "title_color": "#ffffff",
+            "link": "shopify://collections/all-modern-minimalist-products",
+            "desktop_span": "1",
+            "mobile_span": "1",
+            "min_height": 360,
+            "min_height_mobile": 280,
+            "show_overlay": true,
+            "show_arrow": true
+          }
+        },
+        "card_dbpyG": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Shabby-Chic.jpg",
+            "image_mobile": "shopify://shop_images/Shabby_Chic_Mobile.jpg",
+            "title": "SHABBY CHIC",
+            "title_color": "#ffffff",
+            "link": "shopify://collections/all-shabby-chic-products",
+            "desktop_span": "3",
+            "mobile_span": "1",
+            "min_height": 320,
+            "min_height_mobile": 220,
+            "show_overlay": true,
+            "show_arrow": true
+          }
+        },
         "card_BtzwT": {
           "type": "card",
           "disabled": false,
@@ -1323,6 +1306,23 @@
             "link": "shopify://collections/all-retro-products",
             "desktop_span": "3",
             "mobile_span": "2",
+            "min_height": 320,
+            "min_height_mobile": 220,
+            "show_overlay": true,
+            "show_arrow": true
+          }
+        },
+        "card_BrHMG": {
+          "type": "card",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Traditional.jpg",
+            "image_mobile": "shopify://shop_images/Traditional.jpg",
+            "title": "TRADITIONAL",
+            "title_color": "#ffffff",
+            "link": "shopify://collections/all-traditional-products",
+            "desktop_span": "2",
+            "mobile_span": "1",
             "min_height": 320,
             "min_height_mobile": 220,
             "show_overlay": true,
@@ -1348,13 +1348,13 @@
         }
       },
       "block_order": [
-        "card_fxCt3",
-        "card_dbpyG",
-        "card_BrHMG",
-        "card_Tc7JR",
         "card_PfNaJ",
         "card_JtrEN",
+        "card_Tc7JR",
+        "card_fxCt3",
+        "card_dbpyG",
         "card_BtzwT",
+        "card_BrHMG",
         "card_c6HPJ"
       ],
       "name": "Collection Grid 3-2-3"
