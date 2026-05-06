@@ -353,7 +353,7 @@
         },
         "text_BhinP": {
           "type": "text",
-          "disabled": true,
+          "disabled": false,
           "settings": {
             "slide_number": "1",
             "text": "<p>REIMAGINED</p>",
@@ -368,13 +368,30 @@
             "text_color": "#ffffff"
           }
         },
-        "button_JrjWq": {
-          "type": "button",
-          "disabled": true,
+        "text_pWmbr": {
+          "type": "text",
+          "disabled": false,
           "settings": {
             "slide_number": "1",
-            "button": "LATEST ARRIVALS",
-            "url": "shopify://collections/new-in",
+            "text": "<p>New shapes, new finishes.</p>",
+            "text_custom": false,
+            "text_font": "josefin_sans_n4",
+            "custom_text_font": "Select Font",
+            "text_size": 18,
+            "text_size_mobile": 18,
+            "text_height": 150,
+            "text_mt": 20,
+            "text_mt_mobile": 20,
+            "text_color": "#ffffff"
+          }
+        },
+        "button_JrjWq": {
+          "type": "button",
+          "disabled": false,
+          "settings": {
+            "slide_number": "1",
+            "button": "SHOP MELROSE",
+            "url": "shopify://collections/melrose",
             "button_custom": true,
             "button_font": "josefin_sans_n4",
             "custom_button_font": "Zurich, sans-serif",
@@ -524,6 +541,7 @@
         "text_3QTVi",
         "text_QNFa9",
         "text_BhinP",
+        "text_pWmbr",
         "button_JrjWq",
         "button_tBQ37",
         "button_DVGGU",
