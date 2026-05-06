@@ -174,12 +174,11 @@
   }
 
   .titleplussubtitle {
-    {% comment %} display: flex; {% endcomment %}
-    place-items: center;
-    align-items: center;
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
     margin-bottom: 20px;
-    place-content: center;
 }
 
 h1.hero-section__title {
@@ -190,7 +189,37 @@ p.hero-section__subtitle{
     font-family: Ambroise;
     font-size: 75px;
     font-weight: 400;
-    line-height: 1.2;
+    line-height: 1.0;
+    margin: 0 0 2px;
+}
+
+.hero__eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0 0 6px;
+    color: inherit;
+    font-family: 'GothamBook', sans-serif;
+}
+
+.hero__reimagined {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 0 0 20px;
+    color: inherit;
+    font-family: 'GothamBook', sans-serif;
+}
+
+.hero__tagline {
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0 0 28px;
+    color: inherit;
+    font-family: 'GothamBook', sans-serif;
+    line-height: 1.4;
 }
 
  .hero-section__overlay {
@@ -298,7 +327,21 @@ p.hero-section__subtitle{
         margin: 0 auto;
     }
     p.hero-section__subtitle {
-    font-size: 52px;
+      font-size: 52px;
+      margin: 0 0 2px;
+    }
+    .hero__eyebrow {
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+    .hero__reimagined {
+      font-size: 11px;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+    .hero__tagline {
+      font-size: 15px;
+      margin-bottom: 20px;
     }
   }
 
@@ -525,28 +568,18 @@ p.hero-section__subtitle{
       <div class="hero-section__text-wrapper">
         
 <div class="titleplussubtitle">
+  {%- if section.settings.eyebrow_text != blank -%}
+    <p class="hero__eyebrow">{{ section.settings.eyebrow_text }}</p>
+  {%- endif -%}
   {%- if section.settings.subtitle != blank -%}
-          <p class="hero-section__subtitle">{{ section.settings.subtitle }}</p>
-        {%- endif -%}
-        {% comment %}
-        <p class="mini-sub-hero" style="margin-bottom: 0px;">New Year. New Style.</p>
-         <p class="mini-sub-hero"  style="font-style: italic;">Better Value When You Bundle.</p>
-          {% endcomment %}
-        {%- if section.settings.title != blank -%}
-          <h1 class="hero-section__title">{{ section.settings.title }}</h1>
-            <p class="mini-sub-hero"  style="margin-bottom: 0px;">EVERYTHING</p>+
-             {% comment %} <h1 class="hero-section__title">30% OFF</h1> {% endcomment %}
-              <p class="mini-sub-hero"  style="margin-bottom: 0px;">5% OF ALL SALES DONATED TO <b>MIND</b> WITH</p>
-
-              <img 
-                class="hero-section__logo_under_title" 
-                src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WFG_Logo_Master_1_Col_RGB_2.png?v=1768405841" 
-                alt="william wood logo"
-              >
-
-           {% comment %} <p class="mini-sub-hero-thin">EVERYTHING</p> {% endcomment %}
-        {%- endif -%}
-        <p class="mini-sub-hero-v2">Offer automatically applied at checkout.<br><b>No Code Needed. Ends Tonight.</b></p>
+    <p class="hero-section__subtitle">{{ section.settings.subtitle }}</p>
+  {%- endif -%}
+  {%- if section.settings.title != blank -%}
+    <p class="hero__reimagined">{{ section.settings.title }}</p>
+  {%- endif -%}
+  {%- if section.settings.tagline != blank -%}
+    <p class="hero__tagline">{{ section.settings.tagline }}</p>
+  {%- endif -%}
 </div>
 
         {%- assign has_bullet_points = false -%}
@@ -713,13 +746,25 @@ p.hero-section__subtitle{
     },
     {
       "type": "header",
-      "content": "Title"
+      "content": "Hero Text"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow Label (e.g. NEW IN:)",
+      "default": "NEW IN:"
     },
     {
       "type": "text",
       "id": "title",
-      "label": "Title",
-      "default": "We Help You Feel More Proud Of Your Home, Without Worrying About Quality."
+      "label": "Sub-label / Reimagined Text (e.g. REIMAGINED)",
+      "default": "REIMAGINED"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline (e.g. New shapes, new finishes.)",
+      "default": "New shapes, new finishes."
     },
     {
       "type": "range",
@@ -771,8 +816,8 @@ p.hero-section__subtitle{
     {
       "type": "textarea",
       "id": "subtitle",
-      "label": "Subtitle",
-      "default": "Join 700,000+ Satisfied Customers already feeling instantly more proud of their homes, backed by our 90-Day Money Back Guarantee & 5 Year Warranty."
+      "label": "Large Italic Name (e.g. Melrose)",
+      "default": "Melrose"
     },
     {
       "type": "range",
@@ -1188,9 +1233,11 @@ p.hero-section__subtitle{
     {
       "name": "Hero Section",
       "settings": {
-        "title": "We Help You Feel More Proud Of Your Home, Without Worrying About Quality.",
-        "subtitle": "Join 700,000+ Satisfied Customers already feeling instantly more proud of their homes, backed by our 90-Day Money Back Guarantee & 5 Year Warranty.",
-        "button_text": "SHOP NOW"
+        "eyebrow_text": "NEW IN:",
+        "subtitle": "Melrose",
+        "title": "REIMAGINED",
+        "tagline": "New shapes, new finishes.",
+        "button_text": "SHOP MELROSE"
       }
     }
   ]
