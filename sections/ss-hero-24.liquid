@@ -672,59 +672,6 @@
   /* ================================================
      Shop Scene — Mobile Overrides
   ================================================ */
-  /* ================================================
-     Slide 1 — Melrose-style content
-  ================================================ */
-  .ss-slide1-eyebrow-{{ section.id }} {
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin: 0 0 6px;
-    color: {{ section.settings.slide1_text_color | default: '#ffffff' }};
-    font-family: inherit;
-    display: block;
-  }
-
-  .ss-slide1-name-{{ section.id }} {
-    font-family: ambroise-std, serif;
-    font-size: 75px;
-    font-weight: 300;
-    font-style: italic;
-    line-height: 1.0;
-    margin: 0 0 2px;
-    color: {{ section.settings.slide1_text_color | default: '#ffffff' }};
-    display: block;
-  }
-
-  .ss-slide1-sublabel-{{ section.id }} {
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    margin: 0 0 20px;
-    color: {{ section.settings.slide1_text_color | default: '#ffffff' }};
-    font-family: inherit;
-    display: block;
-  }
-
-  .ss-slide1-tagline-{{ section.id }} {
-    font-size: 18px;
-    font-weight: 400;
-    margin: 0 0 28px;
-    color: {{ section.settings.slide1_text_color | default: '#ffffff' }};
-    font-family: inherit;
-    line-height: 1.4;
-    display: block;
-  }
-
-  @media screen and (max-width: 767px) {
-    .ss-slide1-name-{{ section.id }} { font-size: 52px; }
-    .ss-slide1-eyebrow-{{ section.id }},
-    .ss-slide1-sublabel-{{ section.id }} { font-size: 11px; letter-spacing: 2px; }
-    .ss-slide1-tagline-{{ section.id }} { font-size: 15px; margin-bottom: 16px; }
-  }
-
   @media screen and (max-width: 1023px) {
     .hero-shop-scene-btn-wrap-{{ section.id }} {
       top: 175px;
@@ -1336,6 +1283,60 @@
           }
         }
       </style>
+
+    {% when 'melrose_hero' %}
+      <style>
+        .hero-melrose-{{ block.id }} {
+          display: block;
+          margin-top: {{ block.settings.margin_top | default: 0 }}px;
+        }
+        .hero-melrose-eyebrow-{{ block.id }} {
+          display: block;
+          font-size: {{ block.settings.eyebrow_size | default: 13 }}px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          margin: 0 0 6px;
+          color: {{ block.settings.text_color | default: '#ffffff' }};
+          font-family: inherit;
+        }
+        .hero-melrose-name-{{ block.id }} {
+          display: block;
+          font-family: ambroise-std, serif;
+          font-size: {{ block.settings.name_size | default: 75 }}px;
+          font-weight: 300;
+          font-style: italic;
+          line-height: 1.0;
+          margin: 0 0 2px;
+          color: {{ block.settings.text_color | default: '#ffffff' }};
+        }
+        .hero-melrose-sublabel-{{ block.id }} {
+          display: block;
+          font-size: {{ block.settings.sublabel_size | default: 13 }}px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 3px;
+          margin: 0 0 20px;
+          color: {{ block.settings.text_color | default: '#ffffff' }};
+          font-family: inherit;
+        }
+        .hero-melrose-tagline-{{ block.id }} {
+          display: block;
+          font-size: {{ block.settings.tagline_size | default: 18 }}px;
+          font-weight: 400;
+          margin: 0 0 28px;
+          color: {{ block.settings.text_color | default: '#ffffff' }};
+          font-family: inherit;
+          line-height: 1.4;
+        }
+        @media screen and (max-width: 767px) {
+          .hero-melrose-name-{{ block.id }} { font-size: {{ block.settings.name_size_mobile | default: 52 }}px; }
+          .hero-melrose-eyebrow-{{ block.id }},
+          .hero-melrose-sublabel-{{ block.id }} { font-size: 11px; letter-spacing: 2px; }
+          .hero-melrose-tagline-{{ block.id }} { font-size: 15px; margin-bottom: 16px; }
+        }
+      </style>
+
   {% endcase %}
 {% endfor %}
 
@@ -1814,6 +1815,25 @@
             {% endif %}
             {% endif %}
             {% endunless %}
+
+          {% when 'melrose_hero' %}
+            {% unless layout_mode == 'slideshow' %}
+              <div class="hero-melrose-{{ block.id }}" {{ block.shopify_attributes }}>
+                {%- if block.settings.eyebrow != blank -%}
+                  <span class="hero-melrose-eyebrow-{{ block.id }}">{{ block.settings.eyebrow }}</span>
+                {%- endif -%}
+                {%- if block.settings.name != blank -%}
+                  <span class="hero-melrose-name-{{ block.id }}">{{ block.settings.name }}</span>
+                {%- endif -%}
+                {%- if block.settings.sublabel != blank -%}
+                  <span class="hero-melrose-sublabel-{{ block.id }}">{{ block.settings.sublabel }}</span>
+                {%- endif -%}
+                {%- if block.settings.tagline != blank -%}
+                  <span class="hero-melrose-tagline-{{ block.id }}">{{ block.settings.tagline }}</span>
+                {%- endif -%}
+              </div>
+            {% endunless %}
+
         {% endcase %}
       {% endfor %}
 
@@ -1877,36 +1897,37 @@
                 endif
               -%}
               <div class="hero-slide-content-{{ section.id }}{% if content_idx == 0 %} is-active{% endif %}" data-slide-content-index="{{ content_idx }}" style="text-align: {{ slide_text_align }};">
-                {%- if content_idx == 0 -%}
-                  {%- if section.settings.slide1_eyebrow != blank -%}
-                    <span class="ss-slide1-eyebrow-{{ section.id }}">{{ section.settings.slide1_eyebrow }}</span>
-                  {%- endif -%}
-                  {%- if section.settings.slide1_name != blank -%}
-                    <span class="ss-slide1-name-{{ section.id }}">{{ section.settings.slide1_name }}</span>
-                  {%- endif -%}
-                  {%- if section.settings.slide1_sublabel != blank -%}
-                    <span class="ss-slide1-sublabel-{{ section.id }}">{{ section.settings.slide1_sublabel }}</span>
-                  {%- endif -%}
-                  {%- if section.settings.slide1_tagline != blank -%}
-                    <span class="ss-slide1-tagline-{{ section.id }}">{{ section.settings.slide1_tagline }}</span>
-                  {%- endif -%}
-                {%- endif -%}
                 {% for block in section.blocks %}
                   {% assign block_slide = block.settings.slide_number | default: 'all' %}
                   {% if block_slide == slide_num_str or block_slide == 'all' %}
                     {% case block.type %}
                       {% when 'heading' %}
                         {% if block.settings.heading != blank %}
-                          <div class="hero-heading-{{ block.id }}">
+                          <div class="hero-heading-{{ block.id }}" {{ block.shopify_attributes }}>
                             {{ block.settings.heading }}
                           </div>
                         {% endif %}
                       {% when 'text' %}
                         {% if block.settings.text != blank %}
-                          <div class="hero-text-{{ block.id }}">
+                          <div class="hero-text-{{ block.id }}" {{ block.shopify_attributes }}>
                             {{ block.settings.text }}
                           </div>
                         {% endif %}
+                      {% when 'melrose_hero' %}
+                        <div class="hero-melrose-{{ block.id }}" {{ block.shopify_attributes }}>
+                          {%- if block.settings.eyebrow != blank -%}
+                            <span class="hero-melrose-eyebrow-{{ block.id }}">{{ block.settings.eyebrow }}</span>
+                          {%- endif -%}
+                          {%- if block.settings.name != blank -%}
+                            <span class="hero-melrose-name-{{ block.id }}">{{ block.settings.name }}</span>
+                          {%- endif -%}
+                          {%- if block.settings.sublabel != blank -%}
+                            <span class="hero-melrose-sublabel-{{ block.id }}">{{ block.settings.sublabel }}</span>
+                          {%- endif -%}
+                          {%- if block.settings.tagline != blank -%}
+                            <span class="hero-melrose-tagline-{{ block.id }}">{{ block.settings.tagline }}</span>
+                          {%- endif -%}
+                        </div>
                     {% endcase %}
                   {% endif %}
                 {% endfor %}
@@ -2476,40 +2497,6 @@
 {
   "name": "SS - Hero #24",
   "settings": [
-    {
-      "type": "header",
-      "content": "Slide 1 — Hero Text (Melrose Style)"
-    },
-    {
-      "type": "text",
-      "id": "slide1_eyebrow",
-      "label": "Eyebrow label (e.g. NEW IN:)",
-      "default": "NEW IN:"
-    },
-    {
-      "type": "text",
-      "id": "slide1_name",
-      "label": "Large italic name (e.g. Melrose)",
-      "default": "Melrose"
-    },
-    {
-      "type": "text",
-      "id": "slide1_sublabel",
-      "label": "Sub-label (e.g. REIMAGINED)",
-      "default": "REIMAGINED"
-    },
-    {
-      "type": "text",
-      "id": "slide1_tagline",
-      "label": "Tagline (e.g. New shapes, new finishes.)",
-      "default": "New shapes, new finishes."
-    },
-    {
-      "type": "color",
-      "id": "slide1_text_color",
-      "label": "Slide 1 text color",
-      "default": "#ffffff"
-    },
     {
       "type": "header",
       "content": "Display mode"
@@ -4293,6 +4280,113 @@
           "label": "Border hover",
           "id": "button_border_hover_color",
           "default": "#17c87c"
+        }
+      ]
+    }
+    {
+      "type": "melrose_hero",
+      "name": "Melrose Hero Text",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow label",
+          "default": "NEW IN:"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Large italic name",
+          "default": "Melrose"
+        },
+        {
+          "type": "text",
+          "id": "sublabel",
+          "label": "Sub-label (e.g. REIMAGINED)",
+          "default": "REIMAGINED"
+        },
+        {
+          "type": "text",
+          "id": "tagline",
+          "label": "Tagline",
+          "default": "New shapes, new finishes."
+        },
+        {
+          "type": "header",
+          "content": "Style"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "range",
+          "id": "name_size",
+          "label": "Italic name size – desktop (px)",
+          "min": 40,
+          "max": 120,
+          "step": 2,
+          "default": 75
+        },
+        {
+          "type": "range",
+          "id": "name_size_mobile",
+          "label": "Italic name size – mobile (px)",
+          "min": 28,
+          "max": 80,
+          "step": 2,
+          "default": 52
+        },
+        {
+          "type": "range",
+          "id": "eyebrow_size",
+          "label": "Eyebrow / sub-label size (px)",
+          "min": 9,
+          "max": 20,
+          "step": 1,
+          "default": 13
+        },
+        {
+          "type": "range",
+          "id": "tagline_size",
+          "label": "Tagline size (px)",
+          "min": 12,
+          "max": 28,
+          "step": 1,
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "label": "Margin top (px)",
+          "min": 0,
+          "max": 80,
+          "step": 4,
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "Slide assignment"
+        },
+        {
+          "type": "select",
+          "id": "slide_number",
+          "label": "Show on slide",
+          "options": [
+            { "value": "all", "label": "All slides" },
+            { "value": "1", "label": "Slide 1" },
+            { "value": "2", "label": "Slide 2" },
+            { "value": "3", "label": "Slide 3" },
+            { "value": "4", "label": "Slide 4" },
+            { "value": "5", "label": "Slide 5" }
+          ],
+          "default": "1"
         }
       ]
     }
