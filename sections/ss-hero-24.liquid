@@ -1287,53 +1287,65 @@
     {% when 'melrose_hero' %}
       <style>
         .hero-melrose-{{ block.id }} {
-          display: block;
           margin-top: {{ block.settings.margin_top | default: 0 }}px;
         }
-        .hero-melrose-eyebrow-{{ block.id }} {
-          display: block;
-          font-size: {{ block.settings.eyebrow_size | default: 13 }}px;
+        /* Regular paragraphs = eyebrow label style */
+        .hero-melrose-{{ block.id }} p {
+          margin: 0 0 6px;
+          color: {{ block.settings.text_color | default: '#ffffff' }};
+          font-size: {{ block.settings.small_size | default: 13 }}px;
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 2px;
-          margin: 0 0 6px;
-          color: {{ block.settings.text_color | default: '#ffffff' }};
           font-family: inherit;
+          line-height: 1.3;
         }
-        .hero-melrose-name-{{ block.id }} {
-          display: block;
-          font-family: ambroise-std, serif;
+        /* Last paragraph = tagline (larger, normal weight) */
+        .hero-melrose-{{ block.id }} p:last-child {
+          font-size: {{ block.settings.tagline_size | default: 18 }}px;
+          font-weight: 400;
+          text-transform: none;
+          letter-spacing: normal;
+          line-height: 1.4;
+          margin: 0 0 28px;
+        }
+        /* Paragraph wrapping bold/italic — reset its own styles */
+        .hero-melrose-{{ block.id }} p:has(strong),
+        .hero-melrose-{{ block.id }} p:has(em) {
+          font-size: 0;
+          margin: 0;
+          letter-spacing: normal;
+          text-transform: none;
+        }
+        /* Bold = large Ambroise italic name */
+        .hero-melrose-{{ block.id }} strong {
+          font-family: {{ block.settings.name_font | default: 'ambroise-std, serif' }};
           font-size: {{ block.settings.name_size | default: 75 }}px;
           font-weight: 300;
           font-style: italic;
           line-height: 1.0;
+          display: block;
+          letter-spacing: normal;
+          text-transform: none;
+          color: {{ block.settings.text_color | default: '#ffffff' }};
           margin: 0 0 2px;
-          color: {{ block.settings.text_color | default: '#ffffff' }};
         }
-        .hero-melrose-sublabel-{{ block.id }} {
-          display: block;
-          font-size: {{ block.settings.sublabel_size | default: 13 }}px;
+        /* Italic = sub-label (e.g. REIMAGINED) */
+        .hero-melrose-{{ block.id }} em {
+          font-style: normal;
           font-weight: 700;
-          text-transform: uppercase;
+          font-size: {{ block.settings.small_size | default: 13 }}px;
           letter-spacing: 3px;
-          margin: 0 0 20px;
-          color: {{ block.settings.text_color | default: '#ffffff' }};
-          font-family: inherit;
-        }
-        .hero-melrose-tagline-{{ block.id }} {
+          text-transform: uppercase;
           display: block;
-          font-size: {{ block.settings.tagline_size | default: 18 }}px;
-          font-weight: 400;
-          margin: 0 0 28px;
           color: {{ block.settings.text_color | default: '#ffffff' }};
-          font-family: inherit;
-          line-height: 1.4;
+          margin: 0 0 20px;
         }
         @media screen and (max-width: 767px) {
-          .hero-melrose-name-{{ block.id }} { font-size: {{ block.settings.name_size_mobile | default: 52 }}px; }
-          .hero-melrose-eyebrow-{{ block.id }},
-          .hero-melrose-sublabel-{{ block.id }} { font-size: 11px; letter-spacing: 2px; }
-          .hero-melrose-tagline-{{ block.id }} { font-size: 15px; margin-bottom: 16px; }
+          .hero-melrose-{{ block.id }} strong { font-size: {{ block.settings.name_size_mobile | default: 52 }}px; }
+          .hero-melrose-{{ block.id }} p { font-size: 11px; }
+          .hero-melrose-{{ block.id }} p:last-child { font-size: 15px; margin-bottom: 16px; }
+          .hero-melrose-{{ block.id }} em { font-size: 11px; }
         }
       </style>
 
@@ -1819,18 +1831,7 @@
           {% when 'melrose_hero' %}
             {% unless layout_mode == 'slideshow' %}
               <div class="hero-melrose-{{ block.id }}" {{ block.shopify_attributes }}>
-                {%- if block.settings.eyebrow != blank -%}
-                  <span class="hero-melrose-eyebrow-{{ block.id }}">{{ block.settings.eyebrow }}</span>
-                {%- endif -%}
-                {%- if block.settings.name != blank -%}
-                  <span class="hero-melrose-name-{{ block.id }}">{{ block.settings.name }}</span>
-                {%- endif -%}
-                {%- if block.settings.sublabel != blank -%}
-                  <span class="hero-melrose-sublabel-{{ block.id }}">{{ block.settings.sublabel }}</span>
-                {%- endif -%}
-                {%- if block.settings.tagline != blank -%}
-                  <span class="hero-melrose-tagline-{{ block.id }}">{{ block.settings.tagline }}</span>
-                {%- endif -%}
+                {{ block.settings.content }}
               </div>
             {% endunless %}
 
@@ -1915,18 +1916,7 @@
                         {% endif %}
                       {% when 'melrose_hero' %}
                         <div class="hero-melrose-{{ block.id }}" {{ block.shopify_attributes }}>
-                          {%- if block.settings.eyebrow != blank -%}
-                            <span class="hero-melrose-eyebrow-{{ block.id }}">{{ block.settings.eyebrow }}</span>
-                          {%- endif -%}
-                          {%- if block.settings.name != blank -%}
-                            <span class="hero-melrose-name-{{ block.id }}">{{ block.settings.name }}</span>
-                          {%- endif -%}
-                          {%- if block.settings.sublabel != blank -%}
-                            <span class="hero-melrose-sublabel-{{ block.id }}">{{ block.settings.sublabel }}</span>
-                          {%- endif -%}
-                          {%- if block.settings.tagline != blank -%}
-                            <span class="hero-melrose-tagline-{{ block.id }}">{{ block.settings.tagline }}</span>
-                          {%- endif -%}
+                          {{ block.settings.content }}
                         </div>
                     {% endcase %}
                   {% endif %}
@@ -4282,7 +4272,7 @@
           "default": "#17c87c"
         }
       ]
-    }
+    },
     {
       "type": "melrose_hero",
       "name": "Melrose Hero Text",
@@ -4292,28 +4282,10 @@
           "content": "Content"
         },
         {
-          "type": "text",
-          "id": "eyebrow",
-          "label": "Eyebrow label",
-          "default": "NEW IN:"
-        },
-        {
-          "type": "text",
-          "id": "name",
-          "label": "Large italic name",
-          "default": "Melrose"
-        },
-        {
-          "type": "text",
-          "id": "sublabel",
-          "label": "Sub-label (e.g. REIMAGINED)",
-          "default": "REIMAGINED"
-        },
-        {
-          "type": "text",
-          "id": "tagline",
-          "label": "Tagline",
-          "default": "New shapes, new finishes."
+          "type": "richtext",
+          "id": "content",
+          "label": "Content (Bold = italic name, Italic = sub-label, Regular = eyebrow / tagline)",
+          "default": "<p>NEW IN:</p><p><strong>Melrose</strong></p><p><em>REIMAGINED</em></p><p>New shapes, new finishes.</p>"
         },
         {
           "type": "header",
@@ -4326,9 +4298,20 @@
           "default": "#ffffff"
         },
         {
+          "type": "select",
+          "id": "name_font",
+          "label": "Bold name font family",
+          "options": [
+            { "value": "ambroise-std, serif", "label": "Ambroise (serif italic)" },
+            { "value": "Georgia, serif", "label": "Georgia (serif)" },
+            { "value": "'GothamBook', sans-serif", "label": "Gotham (sans-serif)" }
+          ],
+          "default": "ambroise-std, serif"
+        },
+        {
           "type": "range",
           "id": "name_size",
-          "label": "Italic name size – desktop (px)",
+          "label": "Bold name size – desktop (px)",
           "min": 40,
           "max": 120,
           "step": 2,
@@ -4337,7 +4320,7 @@
         {
           "type": "range",
           "id": "name_size_mobile",
-          "label": "Italic name size – mobile (px)",
+          "label": "Bold name size – mobile (px)",
           "min": 28,
           "max": 80,
           "step": 2,
@@ -4345,7 +4328,7 @@
         },
         {
           "type": "range",
-          "id": "eyebrow_size",
+          "id": "small_size",
           "label": "Eyebrow / sub-label size (px)",
           "min": 9,
           "max": 20,
