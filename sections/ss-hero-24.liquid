@@ -1346,6 +1346,10 @@
           .hero-melrose-{{ block.id }} p { font-size: 11px; }
           .hero-melrose-{{ block.id }} p:last-child { font-size: 15px; margin-bottom: 16px; }
           .hero-melrose-{{ block.id }} em { font-size: 11px; }
+          /* Push hero content to top on mobile so text sits beneath the search bar */
+          .hero-content-{{ section.id }} {
+            justify-content: flex-start;
+          }
         }
       </style>
 
