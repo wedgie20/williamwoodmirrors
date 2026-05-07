@@ -717,7 +717,7 @@
     {% endunless %}
   {% endfor %} {% endcomment %}
 
-  {% assign excluded_payments = 'clearpay,discover,unionpay,mastercard,maestro' | split: ',' %}
+  {% assign excluded_payments = 'clearpay,discover,unionpay,mastercard,maestro,googlepay' | split: ',' %}
 {% for type in shop.enabled_payment_types %}
   {% unless excluded_payments contains type %}
     {% if type == 'ideal' %}
