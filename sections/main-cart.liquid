@@ -627,7 +627,7 @@
           Or in 3 <b>interest free</b> instalments of <strong>{% render 'format-money', amount: installment_amount %}</strong> with Klarna
         </div>
 
-        <div class="cart-free-return" style="text-align: center">
+        {% comment %} <div class="cart-free-return" style="text-align: center">
            <div class="guarantee-grid">
           <div class="guarantee-item">
             <span class="icon">
@@ -666,7 +666,7 @@
           </div>
         </div>
 
-      </div>
+      </div> {% endcomment %}
 
               {%- if section.settings.show_payment_methods and shop.enabled_payment_types.size > 0 -%}
                 <div class="cart__payment-methods">
