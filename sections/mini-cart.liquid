@@ -716,9 +716,9 @@
       {% endif %}
     {% endunless %}
   {% endfor %} {% endcomment %}
-   {% for type in shop.enabled_payment_types -%}
+   {% comment %} {% for type in shop.enabled_payment_types -%}
   {{ type | payment_type_svg_tag }}
-{% endfor %}
+{% endfor %} {% endcomment %}
 
   {% comment %} Show iDEAL ONLY for EU customers {% endcomment %}
   {% if is_eu %}
