@@ -52,7 +52,7 @@
   {%- else -%}
     <div class="drawer__content">
 
-<free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large" style="--progress: {{ cart.items_subtotal_price | times: 1.0 | divided_by: threshold_in_cents | at_most: 1 }}">
+{% comment %} <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large" style="--progress: {{ cart.items_subtotal_price | times: 1.0 | divided_by: threshold_in_cents | at_most: 1 }}">
   {%- assign free_gift_claimed = false -%}
   {%- for item in cart.items -%}
     {%- if item.final_price == 0 -%}
@@ -82,7 +82,7 @@
   <div class="shipping_threshold">
     {{ threshold_in_cents | money }}
   </div>
-</free-shipping-bar>
+</free-shipping-bar> {% endcomment %}
 
       <form id="mini-cart-form" action="{{ routes.cart_url }}" novalidate method="post">
         <input type="hidden" name="checkout">
