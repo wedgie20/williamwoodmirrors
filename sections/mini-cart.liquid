@@ -708,14 +708,17 @@
   {% endif %}
 
   {% comment %} Show all enabled payment types except clearpay for EU {% endcomment %}
-  {% for type in shop.enabled_payment_types %}
+  {% comment %} {% for type in shop.enabled_payment_types %}
     {% unless is_eu and type == 'clearpay' %}
 {% if type == 'ideal' %}
 {% else %}
     {{ type | payment_type_svg_tag }}
       {% endif %}
     {% endunless %}
-  {% endfor %}
+  {% endfor %} {% endcomment %}
+   {% for type in shop.enabled_payment_types -%}
+  {{ type | payment_type_svg_tag }}
+{% endfor %}
 
   {% comment %} Show iDEAL ONLY for EU customers {% endcomment %}
   {% if is_eu %}
