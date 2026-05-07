@@ -970,6 +970,11 @@
             border-bottom: 1.75px solid {{ block.settings.heading_border_color }};
             font-size:63px !important;
           }
+          .hero-heading-heading_qEAnV{
+            font-family: ambroise-std, serif;
+            font-weight: 300;
+            font-style: italic;
+          }
           .secondline_review {
     {% comment %} margin-top: -8px; {% endcomment %}
 }
@@ -1008,7 +1013,12 @@
           line-height: {{ block.settings.text_height }}%;
           text-transform: unset;
         }
-
+        @media(max-width: 768px) {
+          .hero-text-text_BhinP{
+            font-weight: 700;
+            letter-spacing: 1.5px;  
+          }
+        }
         @media(min-width: 1024px) {
 
           .hero-text-{{ block.id }} {
