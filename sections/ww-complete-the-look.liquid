@@ -1,5 +1,7 @@
 {%- assign ctl_products = product.metafields.custom.related_products.value -%}
-{%- if ctl_products != blank and ctl_products.size > 0 -%}
+{%- assign ctl_has_products = false -%}
+{%- for _ctl in ctl_products limit: 1 -%}{%- assign ctl_has_products = true -%}{%- endfor -%}
+{%- if ctl_has_products -%}
 
 <div class="ctl-section" id="ctl-{{ section.id }}">
   <div class="ctl-inner">
