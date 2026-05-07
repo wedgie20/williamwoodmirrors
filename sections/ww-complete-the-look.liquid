@@ -116,8 +116,6 @@
   .ctl-track {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: #d8d8d8;
   }
 
   .ctl-empty {
@@ -126,7 +124,6 @@
     text-align: center;
     font-size: 13px;
     color: #999;
-    background: #fff;
   }
 
   /* Card */
@@ -136,6 +133,16 @@
     align-items: flex-start;
     padding: 20px 24px;
     background: #fff;
+    border-top: 1px solid #d8d8d8;
+    border-left: 1px solid #d8d8d8;
+  }
+  .ctl-card:nth-child(even) {
+    border-right: 1px solid #d8d8d8;
+  }
+  /* Last card alone in a row spans full width — no empty gray cell */
+  .ctl-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    border-right: 1px solid #d8d8d8;
   }
   .ctl-card__img-wrap {
     flex-shrink: 0;
@@ -165,13 +172,13 @@
   .ctl-card__title {
     font-size: 13px;
     font-weight: 400;
-    color: #111;
-    text-decoration: none;
+    color: #111 !important;
+    text-decoration: none !important;
     line-height: 1.4;
     display: block;
     margin-bottom: 4px;
   }
-  .ctl-card__title:hover { text-decoration: underline; }
+  .ctl-card__title:hover { text-decoration: underline !important; }
   .ctl-card__price {
     font-size: 13px;
     color: #111;
@@ -272,7 +279,6 @@
 {
   "name": "Complete the Look",
   "tag": "div",
-  "templates": ["product"],
   "settings": [
     {
       "type": "text",
