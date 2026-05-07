@@ -741,7 +741,68 @@
 
 
   </style>
-  
+
+  {%- assign fg_collection = collections[settings.free_gift_collection] -%}
+  {%- assign fg_limit = settings.free_gift_product_limit | default: 24 -%}
+  {%- assign fg_title = settings.free_gift_title | default: 'Select Your Free Gift' -%}
+
+  <!-- Free Gift Drawer — inside cart-drawer so focus-trap treats clicks as "inside" -->
+  <div id="ww-fg-backdrop" data-ww-fg-backdrop aria-hidden="true"></div>
+
+  <div id="ww-fg-drawer" data-ww-fg-drawer role="dialog" aria-modal="true" aria-label="{{ fg_title }}">
+    <div class="ww-fg-drawer__header">
+      <span class="ww-fg-drawer__title">{{ fg_title }}{% if fg_collection != blank %} ({{ fg_collection.products_count | at_most: fg_limit }}){% endif %}</span>
+      <button class="ww-fg-drawer__close" data-ww-fg-close aria-label="Close">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="ww-fg-drawer__products">
+      {%- if fg_collection != blank and fg_collection.products_count > 0 -%}
+        {%- for product in fg_collection.products limit: fg_limit -%}
+          <div class="ww-fg-product">
+            <a href="{{ product.url }}" class="ww-fg-product__img-link" tabindex="-1" aria-hidden="true">
+              {%- if product.featured_image -%}
+                {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.featured_image.alt, widths: '300,400,600' }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag }}
+              {%- endif -%}
+            </a>
+            <div class="ww-fg-product__info">
+              <a href="{{ product.url }}" class="ww-fg-product__title">{{ product.title }}</a>
+              <p class="ww-fg-product__price">{{ product.price | money }}</p>
+              <div class="ww-fg-product__actions">
+                {%- if product.available == false -%}
+                  <button class="ww-fg-product__btn" type="button" disabled>Sold out</button>
+                {%- elsif product.variants.size > 1 or product.has_only_default_variant == false -%}
+                  <a href="{{ product.url }}" class="ww-fg-product__btn">View details &rarr;</a>
+                {%- else -%}
+                  {%- assign fv = product.selected_or_first_available_variant -%}
+                  <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" data-ww-fg-form>
+                    <input type="hidden" name="id" value="{{ fv.id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="ww-fg-product__btn" data-ww-fg-add>Add to cart</button>
+                  </form>
+                {%- endif -%}
+                <a href="{{ product.url }}" class="ww-fg-product__view-link">View details &rarr;</a>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <p style="padding:40px 24px;text-align:center;color:#888;">No free gift products found. Add a collection in the theme editor.</p>
+      {%- endif -%}
+    </div>
+
+    {%- if fg_collection != blank -%}
+    <div class="ww-fg-drawer__footer">
+      <a href="{{ fg_collection.url }}" class="ww-fg-drawer__all-link">View all gifts &rarr;</a>
+    </div>
+    {%- endif -%}
+  </div>
+
 </cart-drawer>
 <style>
   
@@ -986,80 +1047,18 @@ display: none;}
 
 
 
-{%- assign fg_collection = collections[settings.free_gift_collection] -%}
-{%- assign fg_limit = settings.free_gift_product_limit | default: 24 -%}
-{%- assign fg_title = settings.free_gift_title | default: 'Select Your Free Gift' -%}
-
-<!-- Free Gift Drawer — rendered server-side, moved to body via JS -->
-<div id="ww-fg-backdrop" data-ww-fg-backdrop aria-hidden="true"></div>
-
-<div id="ww-fg-drawer" data-ww-fg-drawer role="dialog" aria-modal="true" aria-label="{{ fg_title }}">
-  <div class="ww-fg-drawer__header">
-    <span class="ww-fg-drawer__title">{{ fg_title }}{% if fg_collection != blank %} ({{ fg_collection.products_count | at_most: fg_limit }}){% endif %}</span>
-    <button class="ww-fg-drawer__close" data-ww-fg-close aria-label="Close">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M18 6L6 18M6 6l12 12"/>
-      </svg>
-    </button>
-  </div>
-
-  <div class="ww-fg-drawer__products">
-    {%- if fg_collection != blank and fg_collection.products_count > 0 -%}
-      {%- for product in fg_collection.products limit: fg_limit -%}
-        <div class="ww-fg-product">
-          <a href="{{ product.url }}" class="ww-fg-product__img-link" tabindex="-1" aria-hidden="true">
-            {%- if product.featured_image -%}
-              {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.featured_image.alt, widths: '300,400,600' }}
-            {%- else -%}
-              {{ 'product-1' | placeholder_svg_tag }}
-            {%- endif -%}
-          </a>
-          <div class="ww-fg-product__info">
-            <a href="{{ product.url }}" class="ww-fg-product__title">{{ product.title }}</a>
-            <p class="ww-fg-product__price">{{ product.price | money }}</p>
-            <div class="ww-fg-product__actions">
-              {%- if product.available == false -%}
-                <button class="ww-fg-product__btn" type="button" disabled>Sold out</button>
-              {%- elsif product.variants.size > 1 or product.has_only_default_variant == false -%}
-                <a href="{{ product.url }}" class="ww-fg-product__btn">View details &rarr;</a>
-              {%- else -%}
-                {%- assign fv = product.selected_or_first_available_variant -%}
-                <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" data-ww-fg-form>
-                  <input type="hidden" name="id" value="{{ fv.id }}">
-                  <input type="hidden" name="quantity" value="1">
-                  <button type="submit" class="ww-fg-product__btn" data-ww-fg-add>Add to cart</button>
-                </form>
-              {%- endif -%}
-              <a href="{{ product.url }}" class="ww-fg-product__view-link">View details &rarr;</a>
-            </div>
-          </div>
-        </div>
-      {%- endfor -%}
-    {%- else -%}
-      <p style="padding:40px 24px;text-align:center;color:#888;">No free gift products found. Add a collection in the theme editor.</p>
-    {%- endif -%}
-  </div>
-
-  {%- if fg_collection != blank -%}
-  <div class="ww-fg-drawer__footer">
-    <a href="{{ fg_collection.url }}" class="ww-fg-drawer__all-link">View all gifts &rarr;</a>
-  </div>
-  {%- endif -%}
-</div>
-
 <style>
   /*
-   * Backdrop + Drawer stay INSIDE #mini-cart (the <cart-drawer> element).
-   * The cart drawer uses focus-trap with clickOutsideDeactivates — anything
-   * outside #mini-cart closes it. Keeping our elements inside avoids that.
+   * Backdrop + Drawer are inside #mini-cart (<cart-drawer>), so focus-trap
+   * treats all clicks as "inside" — the mini-cart won't close on X or backdrop click.
    *
-   * #mini-cart has a CSS transform which creates a stacking context.
-   * Inside that context `position:fixed` is relative to the mini-cart element.
-   * Since mini-cart sits at viewport right:0 top:0, using right:0 / width:100vw
-   * lets the backdrop cover the full viewport and the drawer sit at viewport right.
+   * #mini-cart has a CSS transform creating a local stacking context.
+   * position:fixed inside it is relative to #mini-cart's bounds.
+   * #mini-cart is right:0 top:0 full-height, so:
+   *   - backdrop: right:0 width:100vw → covers full viewport from right to left ✓
+   *   - drawer:   right:0 width:420px → sits at viewport right edge ✓
    */
 
-  /* Backdrop — full-viewport cover from inside mini-cart stacking context */
   #ww-fg-backdrop {
     display: none;
     position: fixed;
@@ -1070,7 +1069,6 @@ display: none;}
   }
   #ww-fg-backdrop.is-visible { display: block; }
 
-  /* Drawer */
   #ww-fg-drawer {
     position: fixed;
     top: 0; right: 0;
