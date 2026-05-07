@@ -1055,5 +1055,30 @@
         "info": "CSS selector for where to attach the icon on mobile view"
       }
     ]
+  },
+  {
+    "name": "Free Gift Drawer",
+    "settings": [
+      {
+        "type": "text",
+        "id": "free_gift_title",
+        "label": "Drawer Title",
+        "default": "Select Your Free Gift"
+      },
+      {
+        "type": "collection",
+        "id": "free_gift_collection",
+        "label": "Free Gift Collection"
+      },
+      {
+        "type": "range",
+        "id": "free_gift_product_limit",
+        "min": 4,
+        "max": 24,
+        "step": 4,
+        "label": "Max products to show",
+        "default": 12
+      }
+    ]
   }
 ]

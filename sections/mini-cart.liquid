@@ -986,9 +986,9 @@ display: none;}
 
 
 
-{%- assign fg_collection = collections[section.settings.free_gift_collection] -%}
-{%- assign fg_limit = section.settings.free_gift_product_limit | default: 12 -%}
-{%- assign fg_title = section.settings.free_gift_title | default: 'Select Your Free Gift' -%}
+{%- assign fg_collection = collections[settings.free_gift_collection] -%}
+{%- assign fg_limit = settings.free_gift_product_limit | default: 12 -%}
+{%- assign fg_title = settings.free_gift_title | default: 'Select Your Free Gift' -%}
 
 <!-- Free Gift Drawer — rendered server-side, moved to body via JS -->
 <div id="ww-fg-backdrop" data-ww-fg-backdrop aria-hidden="true"></div>
@@ -1313,30 +1313,6 @@ display: none;}
       "label": "Recommendations heading",
       "default": "You may also like"
     },
-    {
-      "type": "header",
-      "content": "Free Gift Drawer"
-    },
-    {
-      "type": "text",
-      "id": "free_gift_title",
-      "label": "Free Gift Drawer Title",
-      "default": "Select Your Free Gift"
-    },
-    {
-      "type": "collection",
-      "id": "free_gift_collection",
-      "label": "Free Gift Collection"
-    },
-    {
-      "type": "range",
-      "id": "free_gift_product_limit",
-      "min": 4,
-      "max": 24,
-      "step": 4,
-      "label": "Max products to show",
-      "default": 12
-    }
   ]
 }
   {% endschema %}
