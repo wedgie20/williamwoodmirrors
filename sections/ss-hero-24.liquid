@@ -1014,9 +1014,9 @@
           text-transform: unset;
         }
         @media(max-width: 768px) {
-          .hero-text-text_BhinP{
-            font-weight: 700;
-            letter-spacing: 1.5px;  
+          .hero-text-text_BhinP *{
+            font-weight: 700 !important;
+            letter-spacing: 1.5px !important;  
           }
         }
         @media(min-width: 1024px) {
@@ -1026,9 +1026,9 @@
             text-align: {{  content_horizontal_align }};
           }
 
-          .hero-text-text_BhinP{
-            font-weight: 700;
-            letter-spacing: 1.5px;  
+          .hero-text-text_BhinP *{
+            font-weight: 700 !important;
+            letter-spacing: 1.5px !important;  
           }
 
           .hero-text-{{ block.id }} * {
