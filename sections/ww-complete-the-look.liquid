@@ -1,65 +1,54 @@
-{%- assign related_products = product.metafields.custom.related_products.value -%}
-{%- if related_products != blank and related_products.size > 0 -%}
-
-{%- assign per_page = 4 -%}
-{%- assign total    = related_products.size -%}
-{%- assign pages    = total | minus: 1 | divided_by: per_page | floor | plus: 1 -%}
+{%- assign ctl_products = product.metafields.custom.related_products.value -%}
+{%- if ctl_products != blank and ctl_products.size > 0 -%}
 
 <div class="ctl-section" id="ctl-{{ section.id }}">
   <div class="ctl-inner">
 
     <div class="ctl-header">
       <h2 class="ctl-heading">{{ section.settings.title }}</h2>
-      <div class="ctl-arrows" {% if pages <= 1 %}hidden{% endif %}>
-        <button class="ctl-arrow ctl-arrow--prev" data-ctl="{{ section.id }}" data-dir="-1" aria-label="Previous" disabled>
+      <div class="ctl-arrows" id="ctl-arrows-{{ section.id }}" hidden>
+        <button class="ctl-arrow ctl-arrow--prev" id="ctl-prev-{{ section.id }}" aria-label="Previous" disabled>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
         </button>
-        <button class="ctl-arrow ctl-arrow--next" data-ctl="{{ section.id }}" data-dir="1" aria-label="Next">
+        <button class="ctl-arrow ctl-arrow--next" id="ctl-next-{{ section.id }}" aria-label="Next">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
         </button>
       </div>
     </div>
 
-    <div class="ctl-carousel" data-ctl-carousel="{{ section.id }}">
-      {%- for page_idx in (0..pages) -%}
-        {%- if page_idx < pages -%}
-          {%- assign page_start = page_idx | times: per_page -%}
-          <div class="ctl-page{% if page_idx == 0 %} is-active{% endif %}" data-page="{{ page_idx }}">
-            {%- for rp in related_products limit: per_page offset: page_start -%}
-              <div class="ctl-card">
-                <a href="{{ rp.url }}" class="ctl-card__img-wrap" tabindex="-1">
-                  {%- if rp.featured_image -%}
-                    {{ rp.featured_image | image_url: width: 300 | image_tag: loading: 'lazy', class: 'ctl-card__img', alt: rp.featured_image.alt, widths: '150,200,300' }}
-                  {%- else -%}
-                    {{ 'product-1' | placeholder_svg_tag: 'ctl-card__img ctl-card__img--placeholder' }}
-                  {%- endif -%}
+    <div class="ctl-track" id="ctl-track-{{ section.id }}">
+      {%- for rp in ctl_products -%}
+        <div class="ctl-card">
+          <a href="{{ rp.url }}" class="ctl-card__img-wrap" tabindex="-1">
+            {%- if rp.featured_image -%}
+              {{ rp.featured_image | image_url: width: 300 | image_tag: loading: 'lazy', class: 'ctl-card__img', alt: rp.featured_image.alt, widths: '150,200,300' }}
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'ctl-card__img ctl-card__img--placeholder' }}
+            {%- endif -%}
+          </a>
+          <div class="ctl-card__body">
+            <a href="{{ rp.url }}" class="ctl-card__title">{{ rp.title }}</a>
+            <span class="ctl-card__price">{{ rp.price | money }}</span>
+            <div class="ctl-card__footer">
+              {%- if rp.available and rp.has_only_default_variant -%}
+                <button
+                  class="ctl-card__atc"
+                  data-variant-id="{{ rp.selected_or_first_available_variant.id }}"
+                  aria-label="Add to cart">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                  </svg>
+                </button>
+              {%- else -%}
+                <a href="{{ rp.url }}" class="ctl-card__atc" aria-label="View product">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                  </svg>
                 </a>
-                <div class="ctl-card__body">
-                  <a href="{{ rp.url }}" class="ctl-card__title">{{ rp.title }}</a>
-                  <span class="ctl-card__price">{{ rp.price | money }}</span>
-                  <div class="ctl-card__footer">
-                    {%- if rp.available and rp.has_only_default_variant -%}
-                      <button
-                        class="ctl-card__atc"
-                        data-variant-id="{{ rp.selected_or_first_available_variant.id }}"
-                        aria-label="Add to cart">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
-                        </svg>
-                      </button>
-                    {%- else -%}
-                      <a href="{{ rp.url }}" class="ctl-card__atc" aria-label="View product">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
-                        </svg>
-                      </a>
-                    {%- endif -%}
-                  </div>
-                </div>
-              </div>
-            {%- endfor -%}
+              {%- endif -%}
+            </div>
           </div>
-        {%- endif -%}
+        </div>
       {%- endfor -%}
     </div>
 
@@ -77,7 +66,6 @@
     padding: 0 24px;
   }
 
-  /* Header */
   .ctl-header {
     display: flex;
     align-items: center;
@@ -113,18 +101,14 @@
   .ctl-arrow:hover:not([disabled]) { background: #111; color: #fff; border-color: #111; }
   .ctl-arrow[disabled] { opacity: 0.35; cursor: default; }
 
-  /* Carousel */
-  .ctl-carousel { position: relative; }
-  .ctl-page {
-    display: none;
+  .ctl-track {
+    display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1px;
     background: #e5e5e5;
     border: 1px solid #e5e5e5;
   }
-  .ctl-page.is-active { display: grid; }
 
-  /* Card */
   .ctl-card {
     display: flex;
     gap: 16px;
@@ -198,38 +182,43 @@
 
   @media screen and (max-width: 740px) {
     .ctl-section { padding: 32px 0; }
-    .ctl-page { grid-template-columns: 1fr; }
+    .ctl-track { grid-template-columns: 1fr; }
     .ctl-card__img-wrap { width: 80px; height: 80px; }
   }
 </style>
 
 <script>
 (function () {
-  var sectionId = {{ section.id | json }};
-  var carousel  = document.querySelector('[data-ctl-carousel="' + sectionId + '"]');
-  if (!carousel) return;
+  var PER_PAGE = 4;
+  var track    = document.getElementById('ctl-track-{{ section.id }}');
+  if (!track) return;
 
-  var pages   = Array.from(carousel.querySelectorAll('.ctl-page'));
-  var prevBtn = document.querySelector('[data-ctl="' + sectionId + '"][data-dir="-1"]');
-  var nextBtn = document.querySelector('[data-ctl="' + sectionId + '"][data-dir="1"]');
-  var current = 0;
+  var cards      = Array.from(track.querySelectorAll('.ctl-card'));
+  var totalPages = Math.ceil(cards.length / PER_PAGE);
+  var current    = 0;
 
-  function goTo(idx) {
-    pages[current].classList.remove('is-active');
-    current = idx;
-    pages[current].classList.add('is-active');
-    if (prevBtn) prevBtn.disabled = current === 0;
-    if (nextBtn) nextBtn.disabled = current === pages.length - 1;
+  var arrowsEl = document.getElementById('ctl-arrows-{{ section.id }}');
+  var prevBtn  = document.getElementById('ctl-prev-{{ section.id }}');
+  var nextBtn  = document.getElementById('ctl-next-{{ section.id }}');
+
+  function showPage(page) {
+    cards.forEach(function (card, idx) {
+      card.style.display = (idx >= page * PER_PAGE && idx < (page + 1) * PER_PAGE) ? '' : 'none';
+    });
+    current = page;
+    if (prevBtn) prevBtn.disabled = (page === 0);
+    if (nextBtn) nextBtn.disabled = (page >= totalPages - 1);
   }
 
-  if (prevBtn) prevBtn.addEventListener('click', function () { if (current > 0) goTo(current - 1); });
-  if (nextBtn) nextBtn.addEventListener('click', function () { if (current < pages.length - 1) goTo(current + 1); });
+  if (arrowsEl && totalPages > 1) arrowsEl.hidden = false;
+  showPage(0);
 
-  /* AJAX add-to-cart */
-  carousel.addEventListener('click', function (e) {
+  if (prevBtn) prevBtn.addEventListener('click', function () { if (current > 0) showPage(current - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { if (current < totalPages - 1) showPage(current + 1); });
+
+  track.addEventListener('click', function (e) {
     var btn = e.target.closest('.ctl-card__atc[data-variant-id]');
-    if (!btn) return;
-    if (btn.classList.contains('is-loading')) return;
+    if (!btn || btn.classList.contains('is-loading')) return;
 
     btn.classList.add('is-loading');
     fetch('/cart/add.js', {
