@@ -69,7 +69,6 @@
     {%- else -%}
       {%- assign remaining_amount = threshold_in_cents | minus: cart.items_subtotal_price | money -%}
       <div class="shipping-bar__text"><img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_GiftIcon.png?v=1734096314" width="20" height="20" alt="Gift Icon" style="margin-right: 5px;">You are <b>{{ remaining_amount }}</b> away from receiving a Free Gift with your purchase worth up to <b>{%- if cart.currency.iso_code == 'GBP' -%}£99 GBP {% else %} €149,95{% endif %}</b></div>
-      <div class="shipping-bar__text"><img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_GiftIcon.png?v=1734096314" width="20" height="20" alt="Gift Icon" style="margin-right: 5px;"><span style="color: green;">Free Gift Unlocked.</span> Please select your Free Gift of choice <button type="button" id="free-gift-drawer-trigger" style="background:none;border:none;padding:0;cursor:pointer;text-decoration:underline;color:inherit;font:inherit;"><u>here</u></button></div>
     {%- endif -%}
   {%- endif -%}
 
@@ -1048,19 +1047,19 @@ display: none;}
     display: none;
     position: fixed;
     inset: 0;
-    z-index: 1999;
+    z-index: 10000002;
     background: rgba(0, 0, 0, 0.45);
   }
   #ww-fg-backdrop.is-visible { display: block; }
 
-  /* Drawer */
+  /* Drawer — must beat cart drawer z-index of 10000001 */
   #ww-fg-drawer {
     position: fixed;
     top: 0; right: 0;
     height: 100%;
     width: 420px;
     max-width: 100vw;
-    z-index: 2000;
+    z-index: 10000003;
     background: #fff;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -1185,18 +1184,24 @@ display: none;}
 
 <script>
 (function () {
-  /* Move drawer & backdrop to <body> once so they survive section re-renders */
+  /* Move drawer & backdrop to <body> so they sit above the cart drawer (z-index 10000001) */
   function hoistToBody() {
     var d = document.getElementById('ww-fg-drawer');
     var b = document.getElementById('ww-fg-backdrop');
     if (d && d.parentElement !== document.body) document.body.appendChild(d);
     if (b && b.parentElement !== document.body) document.body.appendChild(b);
   }
-  hoistToBody();
 
-  /* Re-hoist if section is re-rendered by Shopify cart AJAX */
-  document.addEventListener('cart:refresh', hoistToBody);
-  document.addEventListener('cart:updated', hoistToBody);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', hoistToBody);
+  } else {
+    hoistToBody();
+  }
+
+  /* Re-hoist after cart section AJAX re-renders recreate the elements */
+  document.addEventListener('cart:refresh', function () { setTimeout(hoistToBody, 50); });
+  document.addEventListener('cart:updated', function () { setTimeout(hoistToBody, 50); });
+  document.addEventListener('sections:load', function () { setTimeout(hoistToBody, 50); });
 
   function getDrawer()   { return document.getElementById('ww-fg-drawer'); }
   function getBackdrop() { return document.getElementById('ww-fg-backdrop'); }
@@ -1206,14 +1211,12 @@ display: none;}
     if (!dr || !bd) return;
     dr.classList.add('is-open');
     bd.classList.add('is-visible');
-    document.body.style.overflow = 'hidden';
   }
 
   function closeDrawer() {
     var dr = getDrawer(), bd = getBackdrop();
     if (dr) dr.classList.remove('is-open');
     if (bd) bd.classList.remove('is-visible');
-    document.body.style.overflow = '';
   }
 
   /* Event delegation — survives cart re-renders that recreate the trigger */
