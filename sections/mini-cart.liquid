@@ -796,11 +796,9 @@
       {%- endif -%}
     </div>
 
-    {%- if fg_collection != blank -%}
     <div class="ww-fg-drawer__footer">
-      <a href="{{ fg_collection.url }}" class="ww-fg-drawer__all-link">View all gifts &rarr;</a>
+      <a href="{{ fg_collection.url | default: '/collections/all' }}" class="ww-fg-drawer__all-link">View All Gift Collection</a>
     </div>
-    {%- endif -%}
   </div>
 
 </cart-drawer>
@@ -1209,19 +1207,21 @@ display: none;}
   .ww-fg-drawer__all-link {
     display: block;
     width: 100%;
-    padding: 13px;
-    background: #fff;
-    color: #111;
-    border: 1px solid #111;
+    padding: 14px;
+    background: #111;
+    color: #fff;
+    border: none;
     border-radius: 2px;
     font-size: 11px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     text-decoration: none;
     text-align: center;
-    transition: background 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    font-family: inherit;
   }
-  .ww-fg-drawer__all-link:hover { background: #111; color: #fff; }
+  .ww-fg-drawer__all-link:hover { background: #333; color: #fff; }
 </style>
 
 <script>
