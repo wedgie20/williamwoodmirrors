@@ -995,7 +995,7 @@ display: none;}
 
 <div id="ww-fg-drawer" data-ww-fg-drawer role="dialog" aria-modal="true" aria-label="{{ fg_title }}">
   <div class="ww-fg-drawer__header">
-    <span class="ww-fg-drawer__title">{{ fg_title }}{% if fg_collection != blank %} ({{ fg_collection.products_count }}){% endif %}</span>
+    <span class="ww-fg-drawer__title">{{ fg_title }}{% if fg_collection != blank %} ({{ fg_collection.products_count | at_most: fg_limit }}){% endif %}</span>
     <button class="ww-fg-drawer__close" data-ww-fg-close aria-label="Close">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M18 6L6 18M6 6l12 12"/>
@@ -1039,6 +1039,12 @@ display: none;}
       <p style="padding:40px 24px;text-align:center;color:#888;">No free gift products found. Add a collection in the theme editor.</p>
     {%- endif -%}
   </div>
+
+  {%- if fg_collection != blank -%}
+  <div class="ww-fg-drawer__footer">
+    <a href="{{ fg_collection.url }}" class="ww-fg-drawer__all-link">View all gifts &rarr;</a>
+  </div>
+  {%- endif -%}
 </div>
 
 <style>
@@ -1180,31 +1186,38 @@ display: none;}
     margin-top: 8px;
   }
   .ww-fg-product__view-link:hover { color: #111; }
+
+  /* Footer */
+  .ww-fg-drawer__footer {
+    padding: 16px 20px;
+    border-top: 1px solid #e5e5e5;
+    flex-shrink: 0;
+    background: #fff;
+    position: sticky;
+    bottom: 0;
+  }
+  .ww-fg-drawer__all-link {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    background: #fff;
+    color: #111;
+    border: 1px solid #111;
+    border-radius: 2px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .ww-fg-drawer__all-link:hover { background: #111; color: #fff; }
 </style>
 
 <script>
 (function () {
-  /* Move drawer & backdrop to <body> so they sit above the cart drawer (z-index 10000001) */
-  function hoistToBody() {
-    var d = document.getElementById('ww-fg-drawer');
-    var b = document.getElementById('ww-fg-backdrop');
-    if (d && d.parentElement !== document.body) document.body.appendChild(d);
-    if (b && b.parentElement !== document.body) document.body.appendChild(b);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', hoistToBody);
-  } else {
-    hoistToBody();
-  }
-
-  /* Re-hoist after cart section AJAX re-renders recreate the elements */
-  document.addEventListener('cart:refresh', function () { setTimeout(hoistToBody, 50); });
-  document.addEventListener('cart:updated', function () { setTimeout(hoistToBody, 50); });
-  document.addEventListener('sections:load', function () { setTimeout(hoistToBody, 50); });
-
-  function getDrawer()   { return document.getElementById('ww-fg-drawer'); }
-  function getBackdrop() { return document.getElementById('ww-fg-backdrop'); }
+  function getDrawer()   { return document.body.querySelector('[data-ww-fg-drawer]'); }
+  function getBackdrop() { return document.body.querySelector('[data-ww-fg-backdrop]'); }
 
   function openDrawer() {
     var dr = getDrawer(), bd = getBackdrop();
@@ -1219,12 +1232,52 @@ display: none;}
     if (bd) bd.classList.remove('is-visible');
   }
 
-  /* Event delegation — survives cart re-renders that recreate the trigger */
+  /* Attach click listeners to the drawer and backdrop directly.
+     stopPropagation prevents clicks from bubbling up into the cart drawer's
+     "click outside" handler (theme.js line 4220: .drawer__overlay click). */
+  function attachListeners(d, b) {
+    d.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (e.target.closest('[data-ww-fg-close]')) closeDrawer();
+    });
+    b.addEventListener('click', function (e) {
+      e.stopPropagation();
+      closeDrawer();
+    });
+  }
+
+  /* Move drawer & backdrop to <body> so they sit above the cart drawer (z-index 10000001).
+     Remove stale body-level copies first so re-renders don't create duplicates. */
+  function hoistToBody() {
+    var mc = document.getElementById('mini-cart');
+    if (!mc) return;
+    var d = mc.querySelector('[data-ww-fg-drawer]');
+    var b = mc.querySelector('[data-ww-fg-backdrop]');
+
+    /* Remove previously hoisted copies */
+    var oldD = document.body.querySelector(':scope > [data-ww-fg-drawer]');
+    var oldB = document.body.querySelector(':scope > [data-ww-fg-backdrop]');
+    if (oldD) oldD.remove();
+    if (oldB) oldB.remove();
+
+    if (d) { document.body.appendChild(d); attachListeners(d, b || {}); }
+    if (b) { document.body.appendChild(b); }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', hoistToBody);
+  } else {
+    hoistToBody();
+  }
+
+  /* Re-hoist after Shopify re-renders the mini-cart section via AJAX */
+  document.addEventListener('cart:refresh', function () { setTimeout(hoistToBody, 80); });
+  document.addEventListener('cart:updated', function () { setTimeout(hoistToBody, 80); });
+  document.addEventListener('sections:load',  function () { setTimeout(hoistToBody, 80); });
+
+  /* Trigger button uses document delegation — survives cart re-renders */
   document.addEventListener('click', function (e) {
-    if (e.target.closest('#free-gift-drawer-trigger')) { openDrawer(); return; }
-    if (e.target.closest('[data-ww-fg-close]'))        { closeDrawer(); return; }
-    var bd = getBackdrop();
-    if (bd && e.target === bd)                          { closeDrawer(); return; }
+    if (e.target.closest('#free-gift-drawer-trigger')) { openDrawer(); }
   });
 
   document.addEventListener('keydown', function (e) {
