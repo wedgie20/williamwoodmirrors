@@ -987,74 +987,281 @@ display: none;}
 
 
 
-<!-- Free Gift Drawer -->
-<div id="free-gift-backdrop" style="display:none;position:fixed;inset:0;z-index:1999;background:rgba(0,0,0,0.45);"></div>
-<div id="free-gift-drawer" style="position:fixed;top:0;right:0;height:100%;width:460px;max-width:100vw;z-index:2000;background:#fff;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);display:flex;flex-direction:column;overflow:hidden;">
-  <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #e5e5e5;flex-shrink:0;">
-    <span style="font-size:15px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:#111;">Select Your Free Gift</span>
-    <button type="button" id="free-gift-drawer-close" style="background:none;border:none;cursor:pointer;padding:6px;display:flex;align-items:center;justify-content:center;color:#111;" aria-label="Close">
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+{%- assign fg_collection = collections[section.settings.free_gift_collection] -%}
+{%- assign fg_limit = section.settings.free_gift_product_limit | default: 12 -%}
+{%- assign fg_title = section.settings.free_gift_title | default: 'Select Your Free Gift' -%}
+
+<!-- Free Gift Drawer — rendered server-side, moved to body via JS -->
+<div id="ww-fg-backdrop" data-ww-fg-backdrop aria-hidden="true"></div>
+
+<div id="ww-fg-drawer" data-ww-fg-drawer role="dialog" aria-modal="true" aria-label="{{ fg_title }}">
+  <div class="ww-fg-drawer__header">
+    <span class="ww-fg-drawer__title">{{ fg_title }}{% if fg_collection != blank %} ({{ fg_collection.products_count }}){% endif %}</span>
+    <button class="ww-fg-drawer__close" data-ww-fg-close aria-label="Close">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
     </button>
   </div>
-  <div id="free-gift-drawer-content" style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;"></div>
+
+  <div class="ww-fg-drawer__products">
+    {%- if fg_collection != blank and fg_collection.products_count > 0 -%}
+      {%- for product in fg_collection.products limit: fg_limit -%}
+        <div class="ww-fg-product">
+          <a href="{{ product.url }}" class="ww-fg-product__img-link" tabindex="-1" aria-hidden="true">
+            {%- if product.featured_image -%}
+              {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.featured_image.alt, widths: '300,400,600' }}
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag }}
+            {%- endif -%}
+          </a>
+          <div class="ww-fg-product__info">
+            <a href="{{ product.url }}" class="ww-fg-product__title">{{ product.title }}</a>
+            <p class="ww-fg-product__price">{{ product.price | money }}</p>
+            <div class="ww-fg-product__actions">
+              {%- if product.available == false -%}
+                <button class="ww-fg-product__btn" type="button" disabled>Sold out</button>
+              {%- elsif product.variants.size > 1 or product.has_only_default_variant == false -%}
+                <a href="{{ product.url }}" class="ww-fg-product__btn">View details &rarr;</a>
+              {%- else -%}
+                {%- assign fv = product.selected_or_first_available_variant -%}
+                <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" data-ww-fg-form>
+                  <input type="hidden" name="id" value="{{ fv.id }}">
+                  <input type="hidden" name="quantity" value="1">
+                  <button type="submit" class="ww-fg-product__btn" data-ww-fg-add>Add to cart</button>
+                </form>
+              {%- endif -%}
+              <a href="{{ product.url }}" class="ww-fg-product__view-link">View details &rarr;</a>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      <p style="padding:40px 24px;text-align:center;color:#888;">No free gift products found. Add a collection in the theme editor.</p>
+    {%- endif -%}
+  </div>
 </div>
 
 <style>
-  #free-gift-drawer.is-open { transform: translateX(0); }
-  #free-gift-backdrop.is-visible { display: block !important; }
-  #free-gift-drawer-content .page-width,
-  #free-gift-drawer-content .container { max-width: 100% !important; padding: 0 16px !important; }
-  #free-gift-drawer-content header,
-  #free-gift-drawer-content footer,
-  #free-gift-drawer-content .announcement-bar,
-  #free-gift-drawer-content .header,
-  #free-gift-drawer-content nav { display: none !important; }
+  /* Backdrop */
+  #ww-fg-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1999;
+    background: rgba(0, 0, 0, 0.45);
+  }
+  #ww-fg-backdrop.is-visible { display: block; }
+
+  /* Drawer */
+  #ww-fg-drawer {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100%;
+    width: 420px;
+    max-width: 100vw;
+    z-index: 2000;
+    background: #fff;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    flex-direction: column;
+  }
+  #ww-fg-drawer.is-open { transform: translateX(0); }
+
+  /* Header */
+  .ww-fg-drawer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e5e5e5;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+  .ww-fg-drawer__title {
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #111;
+  }
+  .ww-fg-drawer__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #111;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+  }
+  .ww-fg-drawer__close:hover { background: #f3f3f3; }
+
+  /* Product grid */
+  .ww-fg-drawer__products {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #e5e5e5;
+    flex: 1;
+  }
+  .ww-fg-product {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+  .ww-fg-product__img-link {
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #f8f8f8;
+  }
+  .ww-fg-product__img-link img,
+  .ww-fg-product__img-link svg {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .ww-fg-product__img-link:hover img { transform: scale(1.04); }
+  .ww-fg-product__info {
+    padding: 12px 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+  }
+  .ww-fg-product__title {
+    font-size: 13px;
+    color: #111;
+    text-decoration: none;
+    line-height: 1.4;
+    display: block;
+  }
+  .ww-fg-product__title:hover { text-decoration: underline; }
+  .ww-fg-product__price { font-size: 13px; color: #333; margin: 0; }
+  .ww-fg-product__actions { margin-top: auto; padding-top: 10px; }
+  .ww-fg-product__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px 12px;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    font-family: inherit;
+  }
+  .ww-fg-product__btn:hover { background: #333; color: #fff; }
+  .ww-fg-product__btn[disabled] { opacity: 0.6; cursor: not-allowed; }
+  .ww-fg-product__btn.is-loading { opacity: 0.6; cursor: not-allowed; }
+  .ww-fg-product__view-link {
+    font-size: 11px;
+    color: #555;
+    text-decoration: underline;
+    letter-spacing: 0.05em;
+    text-align: center;
+    display: block;
+    margin-top: 8px;
+  }
+  .ww-fg-product__view-link:hover { color: #111; }
 </style>
 
 <script>
-(function() {
-  var trigger  = document.getElementById('free-gift-drawer-trigger');
-  var drawer   = document.getElementById('free-gift-drawer');
-  var backdrop = document.getElementById('free-gift-backdrop');
-  var content  = document.getElementById('free-gift-drawer-content');
-  var closeBtn = document.getElementById('free-gift-drawer-close');
-  var loaded   = false;
+(function () {
+  /* Move drawer & backdrop to <body> once so they survive section re-renders */
+  function hoistToBody() {
+    var d = document.getElementById('ww-fg-drawer');
+    var b = document.getElementById('ww-fg-backdrop');
+    if (d && d.parentElement !== document.body) document.body.appendChild(d);
+    if (b && b.parentElement !== document.body) document.body.appendChild(b);
+  }
+  hoistToBody();
+
+  /* Re-hoist if section is re-rendered by Shopify cart AJAX */
+  document.addEventListener('cart:refresh', hoistToBody);
+  document.addEventListener('cart:updated', hoistToBody);
+
+  function getDrawer()   { return document.getElementById('ww-fg-drawer'); }
+  function getBackdrop() { return document.getElementById('ww-fg-backdrop'); }
 
   function openDrawer() {
-    drawer.classList.add('is-open');
-    backdrop.classList.add('is-visible');
+    var dr = getDrawer(), bd = getBackdrop();
+    if (!dr || !bd) return;
+    dr.classList.add('is-open');
+    bd.classList.add('is-visible');
     document.body.style.overflow = 'hidden';
-
-    if (!loaded) {
-      content.innerHTML = '<div style="text-align:center;padding:60px 20px;"><svg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'#999\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><polyline points=\'23 4 23 10 17 10\'></polyline><polyline points=\'1 20 1 14 7 14\'></polyline><path d=\'M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15\'></path></svg><p style=\'margin-top:16px;color:#999;font-size:14px;\'>Loading...</p></div>';
-
-      fetch('/pages/free-gift')
-        .then(function(r) { return r.text(); })
-        .then(function(html) {
-          var parser = new DOMParser();
-          var doc    = parser.parseFromString(html, 'text/html');
-          var main   = doc.querySelector('main') || doc.querySelector('[role="main"]') || doc.querySelector('.page-content') || doc.body;
-          content.innerHTML = main ? main.innerHTML : html;
-          loaded = true;
-        })
-        .catch(function() {
-          content.innerHTML = '<div style="text-align:center;padding:40px 20px;"><p>Unable to load free gift page. <a href="/pages/free-gift" style="text-decoration:underline;">View here</a>.</p></div>';
-        });
-    }
   }
 
   function closeDrawer() {
-    drawer.classList.remove('is-open');
-    backdrop.classList.remove('is-visible');
+    var dr = getDrawer(), bd = getBackdrop();
+    if (dr) dr.classList.remove('is-open');
+    if (bd) bd.classList.remove('is-visible');
     document.body.style.overflow = '';
   }
 
-  if (trigger)  trigger.addEventListener('click',  openDrawer);
-  if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-  if (backdrop) backdrop.addEventListener('click', closeDrawer);
+  /* Event delegation — survives cart re-renders that recreate the trigger */
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('#free-gift-drawer-trigger')) { openDrawer(); return; }
+    if (e.target.closest('[data-ww-fg-close]'))        { closeDrawer(); return; }
+    var bd = getBackdrop();
+    if (bd && e.target === bd)                          { closeDrawer(); return; }
+  });
 
-  document.addEventListener('keydown', function(e) {
+  document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeDrawer();
+  });
+
+  /* AJAX add-to-cart for single-variant free gift products */
+  document.addEventListener('submit', function (e) {
+    var form = e.target.closest('[data-ww-fg-form]');
+    if (!form) return;
+    e.preventDefault();
+
+    var btn = form.querySelector('[data-ww-fg-add]');
+    if (!btn || btn.classList.contains('is-loading')) return;
+    var label = btn.textContent;
+    btn.classList.add('is-loading');
+    btn.disabled = true;
+    btn.textContent = 'Adding…';
+
+    var fd = new FormData(form);
+    fd.append('sections', 'mini-cart');
+
+    fetch('/cart/add.js', { method: 'POST', body: fd, headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        btn.textContent = 'Added ✓';
+        /* Notify theme to refresh mini-cart */
+        fetch('/cart.js')
+          .then(function (r) { return r.json(); })
+          .then(function (cart) {
+            cart.sections = data.sections;
+            document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true, detail: { cart: cart, openMiniCart: true } }));
+            document.documentElement.dispatchEvent(new CustomEvent('cart:updated', { bubbles: true, detail: { cart: cart } }));
+          });
+        setTimeout(function () { btn.textContent = label; btn.classList.remove('is-loading'); btn.disabled = false; }, 2000);
+      })
+      .catch(function () {
+        btn.textContent = 'Try again';
+        setTimeout(function () { btn.textContent = label; btn.classList.remove('is-loading'); btn.disabled = false; }, 2000);
+      });
   });
 })();
 </script>
@@ -1102,6 +1309,30 @@ display: none;}
       "id": "recommendations_title",
       "label": "Recommendations heading",
       "default": "You may also like"
+    },
+    {
+      "type": "header",
+      "content": "Free Gift Drawer"
+    },
+    {
+      "type": "text",
+      "id": "free_gift_title",
+      "label": "Free Gift Drawer Title",
+      "default": "Select Your Free Gift"
+    },
+    {
+      "type": "collection",
+      "id": "free_gift_collection",
+      "label": "Free Gift Collection"
+    },
+    {
+      "type": "range",
+      "id": "free_gift_product_limit",
+      "min": 4,
+      "max": 24,
+      "step": 4,
+      "label": "Max products to show",
+      "default": 12
     }
   ]
 }
