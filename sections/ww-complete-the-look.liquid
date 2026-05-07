@@ -1,7 +1,4 @@
 {%- assign ctl_products = product.metafields.custom.related_products.value -%}
-{%- assign ctl_has_products = false -%}
-{%- for _ctl in ctl_products limit: 1 -%}{%- assign ctl_has_products = true -%}{%- endfor -%}
-{%- if ctl_has_products -%}
 
 <div class="ctl-section" id="ctl-{{ section.id }}">
   <div class="ctl-inner">
@@ -19,39 +16,43 @@
     </div>
 
     <div class="ctl-track" id="ctl-track-{{ section.id }}">
-      {%- for rp in ctl_products -%}
-        <div class="ctl-card">
-          <a href="{{ rp.url }}" class="ctl-card__img-wrap" tabindex="-1">
-            {%- if rp.featured_image -%}
-              {{ rp.featured_image | image_url: width: 300 | image_tag: loading: 'lazy', class: 'ctl-card__img', alt: rp.featured_image.alt, widths: '150,200,300' }}
-            {%- else -%}
-              {{ 'product-1' | placeholder_svg_tag: 'ctl-card__img ctl-card__img--placeholder' }}
-            {%- endif -%}
-          </a>
-          <div class="ctl-card__body">
-            <a href="{{ rp.url }}" class="ctl-card__title">{{ rp.title }}</a>
-            <span class="ctl-card__price">{{ rp.price | money }}</span>
-            <div class="ctl-card__footer">
-              {%- if rp.available and rp.has_only_default_variant -%}
-                <button
-                  class="ctl-card__atc"
-                  data-variant-id="{{ rp.selected_or_first_available_variant.id }}"
-                  aria-label="Add to cart">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
-                  </svg>
-                </button>
+      {%- if ctl_products != blank -%}
+        {%- for rp in ctl_products -%}
+          <div class="ctl-card">
+            <a href="{{ rp.url }}" class="ctl-card__img-wrap" tabindex="-1">
+              {%- if rp.featured_image -%}
+                {{ rp.featured_image | image_url: width: 300 | image_tag: loading: 'lazy', class: 'ctl-card__img', alt: rp.featured_image.alt, widths: '150,200,300' }}
               {%- else -%}
-                <a href="{{ rp.url }}" class="ctl-card__atc" aria-label="View product">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
-                  </svg>
-                </a>
+                {{ 'product-1' | placeholder_svg_tag: 'ctl-card__img ctl-card__img--placeholder' }}
               {%- endif -%}
+            </a>
+            <div class="ctl-card__body">
+              <a href="{{ rp.url }}" class="ctl-card__title">{{ rp.title }}</a>
+              <span class="ctl-card__price">{{ rp.price | money }}</span>
+              <div class="ctl-card__footer">
+                {%- if rp.available and rp.has_only_default_variant -%}
+                  <button
+                    class="ctl-card__atc"
+                    data-variant-id="{{ rp.selected_or_first_available_variant.id }}"
+                    aria-label="Add to cart">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                  </button>
+                {%- else -%}
+                  <a href="{{ rp.url }}" class="ctl-card__atc" aria-label="View product">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                  </a>
+                {%- endif -%}
+              </div>
             </div>
           </div>
-        </div>
-      {%- endfor -%}
+        {%- endfor -%}
+      {%- else -%}
+        <div class="ctl-empty">No related products have been added yet.</div>
+      {%- endif -%}
     </div>
 
   </div>
@@ -109,6 +110,15 @@
     gap: 1px;
     background: #e5e5e5;
     border: 1px solid #e5e5e5;
+  }
+
+  .ctl-empty {
+    grid-column: 1 / -1;
+    padding: 32px;
+    text-align: center;
+    font-size: 13px;
+    color: #999;
+    background: #fff;
   }
 
   .ctl-card {
@@ -196,6 +206,8 @@
   if (!track) return;
 
   var cards      = Array.from(track.querySelectorAll('.ctl-card'));
+  if (!cards.length) return;
+
   var totalPages = Math.ceil(cards.length / PER_PAGE);
   var current    = 0;
 
@@ -243,8 +255,6 @@
   });
 })();
 </script>
-
-{%- endif -%}
 
 {% schema %}
 {
