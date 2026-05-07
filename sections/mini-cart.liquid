@@ -635,7 +635,7 @@
 
     </footer>
           {% endunless %}
-       <div class="cart-free-return" style="text-align: center">
+       {% comment %} <div class="cart-free-return" style="text-align: center">
            <div class="guarantee-grid">
           <div class="guarantee-item">
             <span class="icon">
@@ -674,7 +674,7 @@
           </div>
         </div>
 
-      </div>
+      </div> {% endcomment %}
                   {%- unless current_path contains '/en-fr' or current_path contains '/en-de' or current_path contains '/en-nl'-%}
 {% endunless %}
   {%- endif -%}
