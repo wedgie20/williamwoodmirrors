@@ -987,7 +987,7 @@ display: none;}
 
 
 {%- assign fg_collection = collections[settings.free_gift_collection] -%}
-{%- assign fg_limit = settings.free_gift_product_limit | default: 12 -%}
+{%- assign fg_limit = settings.free_gift_product_limit | default: 24 -%}
 {%- assign fg_title = settings.free_gift_title | default: 'Select Your Free Gift' -%}
 
 <!-- Free Gift Drawer — rendered server-side, moved to body via JS -->
@@ -1048,24 +1048,36 @@ display: none;}
 </div>
 
 <style>
-  /* Backdrop */
+  /*
+   * Backdrop + Drawer stay INSIDE #mini-cart (the <cart-drawer> element).
+   * The cart drawer uses focus-trap with clickOutsideDeactivates — anything
+   * outside #mini-cart closes it. Keeping our elements inside avoids that.
+   *
+   * #mini-cart has a CSS transform which creates a stacking context.
+   * Inside that context `position:fixed` is relative to the mini-cart element.
+   * Since mini-cart sits at viewport right:0 top:0, using right:0 / width:100vw
+   * lets the backdrop cover the full viewport and the drawer sit at viewport right.
+   */
+
+  /* Backdrop — full-viewport cover from inside mini-cart stacking context */
   #ww-fg-backdrop {
     display: none;
     position: fixed;
-    inset: 0;
-    z-index: 10000002;
+    top: 0; right: 0;
+    width: 100vw; height: 100vh;
+    z-index: 9000;
     background: rgba(0, 0, 0, 0.45);
   }
   #ww-fg-backdrop.is-visible { display: block; }
 
-  /* Drawer — must beat cart drawer z-index of 10000001 */
+  /* Drawer */
   #ww-fg-drawer {
     position: fixed;
     top: 0; right: 0;
-    height: 100%;
+    height: 100vh;
     width: 420px;
     max-width: 100vw;
-    z-index: 10000003;
+    z-index: 9001;
     background: #fff;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -1216,14 +1228,20 @@ display: none;}
 
 <script>
 (function () {
-  function getDrawer()   { return document.body.querySelector('[data-ww-fg-drawer]'); }
-  function getBackdrop() { return document.body.querySelector('[data-ww-fg-backdrop]'); }
+  /*
+   * Drawer and backdrop live INSIDE #mini-cart (never moved to body).
+   * This means focus-trap treats all clicks as "inside" the cart drawer,
+   * so clicking X or backdrop does NOT close the mini-cart.
+   * Elements are re-queried on every action so cart re-renders are handled automatically.
+   */
+  function getMC()      { return document.getElementById('mini-cart'); }
+  function getDrawer()  { var mc = getMC(); return mc && mc.querySelector('[data-ww-fg-drawer]'); }
+  function getBackdrop(){ var mc = getMC(); return mc && mc.querySelector('[data-ww-fg-backdrop]'); }
 
   function openDrawer() {
     var dr = getDrawer(), bd = getBackdrop();
-    if (!dr || !bd) return;
-    dr.classList.add('is-open');
-    bd.classList.add('is-visible');
+    if (dr) dr.classList.add('is-open');
+    if (bd) bd.classList.add('is-visible');
   }
 
   function closeDrawer() {
@@ -1232,52 +1250,16 @@ display: none;}
     if (bd) bd.classList.remove('is-visible');
   }
 
-  /* Attach click listeners to the drawer and backdrop directly.
-     stopPropagation prevents clicks from bubbling up into the cart drawer's
-     "click outside" handler (theme.js line 4220: .drawer__overlay click). */
-  function attachListeners(d, b) {
-    d.addEventListener('click', function (e) {
-      e.stopPropagation();
-      if (e.target.closest('[data-ww-fg-close]')) closeDrawer();
-    });
-    b.addEventListener('click', function (e) {
-      e.stopPropagation();
-      closeDrawer();
-    });
-  }
-
-  /* Move drawer & backdrop to <body> so they sit above the cart drawer (z-index 10000001).
-     Remove stale body-level copies first so re-renders don't create duplicates. */
-  function hoistToBody() {
-    var mc = document.getElementById('mini-cart');
-    if (!mc) return;
-    var d = mc.querySelector('[data-ww-fg-drawer]');
-    var b = mc.querySelector('[data-ww-fg-backdrop]');
-
-    /* Remove previously hoisted copies */
-    var oldD = document.body.querySelector(':scope > [data-ww-fg-drawer]');
-    var oldB = document.body.querySelector(':scope > [data-ww-fg-backdrop]');
-    if (oldD) oldD.remove();
-    if (oldB) oldB.remove();
-
-    if (d) { document.body.appendChild(d); attachListeners(d, b || {}); }
-    if (b) { document.body.appendChild(b); }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', hoistToBody);
-  } else {
-    hoistToBody();
-  }
-
-  /* Re-hoist after Shopify re-renders the mini-cart section via AJAX */
-  document.addEventListener('cart:refresh', function () { setTimeout(hoistToBody, 80); });
-  document.addEventListener('cart:updated', function () { setTimeout(hoistToBody, 80); });
-  document.addEventListener('sections:load',  function () { setTimeout(hoistToBody, 80); });
-
-  /* Trigger button uses document delegation — survives cart re-renders */
   document.addEventListener('click', function (e) {
-    if (e.target.closest('#free-gift-drawer-trigger')) { openDrawer(); }
+    /* Trigger — outside mini-cart, so delegated on document */
+    if (e.target.closest('#free-gift-drawer-trigger')) { openDrawer(); return; }
+
+    /* Close button — inside mini-cart */
+    if (e.target.closest('[data-ww-fg-close]')) { closeDrawer(); return; }
+
+    /* Backdrop click — compare against live element each time */
+    var bd = getBackdrop();
+    if (bd && e.target === bd) { closeDrawer(); return; }
   });
 
   document.addEventListener('keydown', function (e) {
@@ -1298,13 +1280,10 @@ display: none;}
     btn.textContent = 'Adding…';
 
     var fd = new FormData(form);
-    fd.append('sections', 'mini-cart');
-
     fetch('/cart/add.js', { method: 'POST', body: fd, headers: { 'X-Requested-With': 'XMLHttpRequest' } })
       .then(function (r) { return r.json(); })
       .then(function (data) {
         btn.textContent = 'Added ✓';
-        /* Notify theme to refresh mini-cart */
         fetch('/cart.js')
           .then(function (r) { return r.json(); })
           .then(function (cart) {
