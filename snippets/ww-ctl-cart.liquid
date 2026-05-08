@@ -1,22 +1,77 @@
 {%- if cart.item_count > 0 -%}
 
-{%- assign _ch = '' | split: '' -%}
+{%- comment -%} Build a string set of cart product IDs for dedup {%- endcomment -%}
+{%- assign _ctl_cpids = '' -%}
 {%- for _ci in cart.items -%}
-  {%- unless _ch contains _ci.product.handle -%}
-    {%- assign _ch = _ch | push: _ci.product.handle -%}
-  {%- endunless -%}
+  {%- assign _ctl_cpids = _ctl_cpids | append: ',' | append: _ci.product_id -%}
 {%- endfor -%}
 
-<ctl-cart-widget data-handles="{{ _ch | join: ',' }}" style="display:none">
+{%- comment -%} Collect related products, skip those already in cart or already seen {%- endcomment -%}
+{%- assign _ctl_seen = '' -%}
+{%- assign _ctl_count = 0 -%}
+
+{%- capture _ctl_cards -%}
+  {%- for _ci in cart.items -%}
+    {%- assign _rps = _ci.product.metafields.custom.related_products.value -%}
+    {%- if _rps != blank -%}
+      {%- for _rp in _rps limit: 6 -%}
+        {%- assign _rp_id_str = _rp.id | prepend: ',' | append: ',' -%}
+        {%- assign _cpids_check = _ctl_cpids | prepend: ',' | append: ',' -%}
+        {%- assign _seen_check  = _ctl_seen  | prepend: ',' | append: ',' -%}
+        {%- unless _cpids_check contains _rp_id_str or _seen_check contains _rp_id_str -%}
+          {%- assign _ctl_seen  = _ctl_seen | append: ',' | append: _rp.id -%}
+          {%- assign _ctl_count = _ctl_count | plus: 1 -%}
+          <div class="ctl-cart-card">
+            <a href="{{ _rp.url }}" class="ctl-cart-card__img-wrap">
+              {%- if _rp.featured_image -%}
+                {{ _rp.featured_image | image_url: width: 180 | image_tag: loading: 'lazy', class: 'ctl-cart-card__img', alt: _rp.title }}
+              {%- else -%}
+                <span class="ctl-cart-card__no-img"></span>
+              {%- endif -%}
+            </a>
+            <div class="ctl-cart-card__body">
+              <a href="{{ _rp.url }}" class="ctl-cart-card__title">{{ _rp.title }}</a>
+              <span class="ctl-cart-card__price">{{ _rp.price | money }}</span>
+              {%- if _rp.available and _rp.has_only_default_variant -%}
+                <button class="ctl-cart-card__atc" data-vid="{{ _rp.selected_or_first_available_variant.id }}" aria-label="Add to cart">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 6H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              {%- else -%}
+                <a href="{{ _rp.url }}" class="ctl-cart-card__atc" aria-label="View product">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                    <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 6H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endunless -%}
+      {%- endfor -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- if _ctl_count > 0 -%}
+<div class="ctl-cart-box">
   <div class="ctl-cart-header">
     <span class="ctl-cart-heading">COMPLETE THE LOOK</span>
   </div>
-  <div class="ctl-cart-list"></div>
-</ctl-cart-widget>
+  <div class="ctl-cart-list">
+    {{ _ctl_cards }}
+  </div>
+</div>
+{%- endif -%}
+
+{%- endif -%}
 
 <style>
-  ctl-cart-widget {
-    display: block;
+  .ctl-cart-box {
     border-top: 1px solid #e8e8e8;
     padding: 14px 20px 16px;
     background: #fff;
@@ -30,6 +85,7 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #111;
+    display: block;
   }
   .ctl-cart-list {
     display: flex;
@@ -43,7 +99,6 @@
   .ctl-cart-card {
     display: flex;
     flex-direction: column;
-    gap: 0;
     min-width: 90px;
     max-width: 90px;
     flex: 0 0 auto;
@@ -51,12 +106,18 @@
   .ctl-cart-card__img-wrap {
     width: 90px;
     height: 90px;
-    flex-shrink: 0;
     overflow: hidden;
     display: block;
     background: #f5f5f5;
     text-decoration: none;
     margin-bottom: 8px;
+    flex-shrink: 0;
+  }
+  .ctl-cart-card__no-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #f0f0f0;
   }
   .ctl-cart-card__img {
     width: 100%;
@@ -100,8 +161,8 @@
     justify-content: center;
     cursor: pointer;
     text-decoration: none;
-    transition: background .2s ease;
     flex-shrink: 0;
+    transition: background .2s ease;
   }
   .ctl-cart-card__atc:hover { background: #333; }
   .ctl-cart-card__atc.is-loading { opacity: .5; cursor: wait; pointer-events: none; }
@@ -109,98 +170,31 @@
 </style>
 
 <script>
-if (!customElements.get('ctl-cart-widget')) {
-  customElements.define('ctl-cart-widget', class extends HTMLElement {
-
-    connectedCallback() {
-      var self = this;
-      setTimeout(function() { self._load(); }, 0);
-    }
-
-    async _load() {
-      var self = this;
-      var handles = (this.dataset.handles || '').split(',').filter(Boolean);
-      if (!handles.length) return;
-
-      try {
-        var cart = await fetch('/cart.js').then(function(r){ return r.json(); });
-        var cartIds = new Set(cart.items.map(function(i){ return i.product_id; }));
-
-        var results = await Promise.all(handles.map(function(handle) {
-          return fetch('/products/' + handle + '?view=ctl-related')
-            .then(function(r){ return r.text(); })
-            .then(function(t){
-              try { return JSON.parse(t.trim()); }
-              catch(e){ return []; }
-            })
-            .catch(function(){ return []; });
-        }));
-
-        var seen = new Set();
-        var products = [];
-        results.forEach(function(arr) {
-          if (!Array.isArray(arr)) return;
-          arr.forEach(function(p) {
-            if (p && p.id && !seen.has(p.id) && !cartIds.has(p.id)) {
-              seen.add(p.id);
-              products.push(p);
-            }
-          });
-        });
-
-        if (!products.length) return;
-
-        var list = self.querySelector('.ctl-cart-list');
-        if (!list) return;
-
-        list.innerHTML = products.slice(0, 6).map(function(p) {
-          var imgHtml = p.image
-            ? '<img class="ctl-cart-card__img" src="' + p.image + '" alt="" loading="lazy">'
-            : '';
-          var atcHtml = (p.available && p.default_variant)
-            ? '<button class="ctl-cart-card__atc" data-vid="' + p.variant_id + '" aria-label="Add to cart"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 6H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'
-            : '<a class="ctl-cart-card__atc" href="' + p.url + '" aria-label="View product"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 6H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>';
-          return '<div class="ctl-cart-card">'
-            + '<a href="' + p.url + '" class="ctl-cart-card__img-wrap">' + imgHtml + '</a>'
-            + '<div class="ctl-cart-card__body">'
-            + '<a href="' + p.url + '" class="ctl-cart-card__title">' + p.title + '</a>'
-            + '<span class="ctl-cart-card__price">' + p.price + '</span>'
-            + atcHtml
-            + '</div></div>';
-        }).join('');
-
-        self.style.removeProperty('display');
-
-        list.addEventListener('click', function(e) {
-          var btn = e.target.closest('.ctl-cart-card__atc[data-vid]');
-          if (!btn || btn.classList.contains('is-loading')) return;
-          btn.classList.add('is-loading');
-          fetch('/cart/add.js', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
-            body: JSON.stringify({ id: btn.dataset.vid, quantity: 1 })
-          })
-          .then(function(r){ return r.json(); })
-          .then(function() {
-            btn.classList.remove('is-loading');
-            btn.classList.add('is-added');
-            fetch('/cart.js').then(function(r){ return r.json(); }).then(function(cart) {
-              document.documentElement.dispatchEvent(
-                new CustomEvent('cart:refresh', { bubbles: true, detail: { cart: cart, openMiniCart: true } })
-              );
-            });
-            setTimeout(function(){ btn.classList.remove('is-added'); }, 2000);
-          })
-          .catch(function(){ btn.classList.remove('is-loading'); });
-        });
-
-      } catch(e) {
-        /* silently fail */
-      }
-    }
-
+(function () {
+  if (window._wwCtlCartReady) return;
+  window._wwCtlCartReady = true;
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.ctl-cart-card__atc[data-vid]');
+    if (!btn || btn.classList.contains('is-loading')) return;
+    e.preventDefault();
+    btn.classList.add('is-loading');
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+      body: JSON.stringify({ id: btn.dataset.vid, quantity: 1 })
+    })
+    .then(function (r) { return r.json(); })
+    .then(function () {
+      btn.classList.remove('is-loading');
+      btn.classList.add('is-added');
+      fetch('/cart.js').then(function (r) { return r.json(); }).then(function (cart) {
+        document.documentElement.dispatchEvent(
+          new CustomEvent('cart:refresh', { bubbles: true, detail: { cart: cart, openMiniCart: true } })
+        );
+      });
+      setTimeout(function () { btn.classList.remove('is-added'); }, 2000);
+    })
+    .catch(function () { btn.classList.remove('is-loading'); });
   });
-}
+})();
 </script>
-
-{%- endif -%}
