@@ -1,0 +1,7 @@
+{%- layout none -%}
+{%- assign _rps = product.metafields.custom.related_products.value -%}
+[{%- if _rps != blank -%}
+  {%- for rp in _rps -%}
+    {"id":{{ rp.id }},"title":{{ rp.title | json }},"url":{{ rp.url | json }},"price":{{ rp.price | money | json }},"image":{%- if rp.featured_image -%}{{ rp.featured_image | image_url: width: 160 | json }}{%- else -%}null{%- endif -%},"available":{{ rp.available }},"default_variant":{{ rp.has_only_default_variant }},"variant_id":{{ rp.selected_or_first_available_variant.id }}}{% unless forloop.last %},{% endunless %}
+  {%- endfor -%}
+{%- endif -%}]

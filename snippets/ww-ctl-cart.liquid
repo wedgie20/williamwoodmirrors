@@ -1,94 +1,45 @@
-{%- comment -%} Collect unique related products from all cart items, excluding items already in cart {%- endcomment -%}
-{%- assign _ctl_products = '' | split: '' -%}
-{%- assign _ctl_seen = '' | split: '' -%}
-{%- assign _cart_pids = cart.items | map: 'product_id' -%}
+{%- if cart.item_count > 0 -%}
 
-{%- for _item in cart.items -%}
-  {%- assign _related = _item.product.metafields.custom.related_products.value -%}
-  {%- if _related != blank -%}
-    {%- for _rp in _related -%}
-      {%- unless _cart_pids contains _rp.id or _ctl_seen contains _rp.id -%}
-        {%- assign _ctl_products = _ctl_products | push: _rp -%}
-        {%- assign _ctl_seen = _ctl_seen | push: _rp.id -%}
-      {%- endunless -%}
-    {%- endfor -%}
-  {%- endif -%}
+{%- comment -%} Collect unique product handles from cart items {%- endcomment -%}
+{%- assign _ch = '' | split: '' -%}
+{%- for _ci in cart.items -%}
+  {%- unless _ch contains _ci.product.handle -%}
+    {%- assign _ch = _ch | push: _ci.product.handle -%}
+  {%- endunless -%}
 {%- endfor -%}
 
-{%- if _ctl_products.size > 0 -%}
-
-<div class="ctl-cart-box" id="ctl-cart-box">
+<ctl-cart-widget data-handles="{{ _ch | join: ',' }}" style="display:none">
   <div class="ctl-cart-header">
     <span class="ctl-cart-heading">COMPLETE THE LOOK</span>
-    <div class="ctl-cart-arrows" id="ctl-cart-arrows" hidden>
-      <button class="ctl-cart-arrow ctl-cart-arrow--prev" id="ctl-cart-prev" aria-label="Previous" disabled>
+    <div class="ctl-cart-nav" hidden>
+      <button class="ctl-cart-arrow" data-dir="prev" aria-label="Previous" disabled>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
           <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
-      <button class="ctl-cart-arrow ctl-cart-arrow--next" id="ctl-cart-next" aria-label="Next">
+      <button class="ctl-cart-arrow" data-dir="next" aria-label="Next">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
           <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
     </div>
   </div>
-
-  <div class="ctl-cart-list" id="ctl-cart-list">
-    {%- for _rp in _ctl_products -%}
-      <div class="ctl-cart-card">
-        <a href="{{ _rp.url }}" class="ctl-cart-card__img-wrap">
-          {%- if _rp.featured_image -%}
-            {{ _rp.featured_image | image_url: width: 160 | image_tag: loading: 'lazy', class: 'ctl-cart-card__img', alt: _rp.title }}
-          {%- else -%}
-            {{ 'product-1' | placeholder_svg_tag: 'ctl-cart-card__img ctl-cart-card__img--placeholder' }}
-          {%- endif -%}
-        </a>
-        <div class="ctl-cart-card__body">
-          <a href="{{ _rp.url }}" class="ctl-cart-card__title">{{ _rp.title }}</a>
-          <span class="ctl-cart-card__price">{{ _rp.price | money }}</span>
-          <div class="ctl-cart-card__footer">
-            {%- if _rp.available and _rp.has_only_default_variant -%}
-              <button
-                class="ctl-cart-card__atc"
-                data-variant-id="{{ _rp.selected_or_first_available_variant.id }}"
-                aria-label="Add to cart">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                  <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M3 6H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-            {%- else -%}
-              <a href="{{ _rp.url }}" class="ctl-cart-card__atc" aria-label="View product">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                  <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M3 6H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </a>
-            {%- endif -%}
-          </div>
-        </div>
-      </div>
-    {%- endfor -%}
-  </div>
-</div>
+  <div class="ctl-cart-list"></div>
+</ctl-cart-widget>
 
 <style>
-  .ctl-cart-box {
+  ctl-cart-widget {
+    display: block;
     border-top: 1px solid #e8e8e8;
     padding: 16px 20px 20px;
     background: #fff;
   }
-
   .ctl-cart-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 14px;
   }
-
   .ctl-cart-heading {
     font-size: 11px;
     font-weight: 700;
@@ -96,13 +47,11 @@
     text-transform: uppercase;
     color: #111;
   }
-
-  .ctl-cart-arrows {
+  .ctl-cart-nav {
     display: flex;
     align-items: center;
     gap: 2px;
   }
-
   .ctl-cart-arrow {
     width: 26px;
     height: 26px;
@@ -117,22 +66,18 @@
     opacity: 0.7;
     transition: opacity .2s ease;
   }
-
   .ctl-cart-arrow:hover:not([disabled]) { opacity: 1; }
   .ctl-cart-arrow[disabled] { opacity: .25; cursor: default; }
-
   .ctl-cart-list {
     display: flex;
     flex-direction: column;
     gap: 14px;
   }
-
   .ctl-cart-card {
     display: flex;
     align-items: flex-start;
     gap: 12px;
   }
-
   .ctl-cart-card__img-wrap {
     width: 72px;
     height: 72px;
@@ -140,8 +85,8 @@
     overflow: hidden;
     display: block;
     background: #f5f5f5;
+    text-decoration: none;
   }
-
   .ctl-cart-card__img {
     width: 100%;
     height: 100%;
@@ -149,9 +94,7 @@
     display: block;
     transition: transform .4s ease;
   }
-
   .ctl-cart-card__img-wrap:hover .ctl-cart-card__img { transform: scale(1.04); }
-
   .ctl-cart-card__body {
     display: flex;
     flex-direction: column;
@@ -159,7 +102,6 @@
     min-width: 0;
     min-height: 72px;
   }
-
   .ctl-cart-card__title {
     font-size: 13px;
     line-height: 1.4;
@@ -171,19 +113,9 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-
   .ctl-cart-card__title:hover { text-decoration: underline !important; }
-
-  .ctl-cart-card__price {
-    font-size: 12px;
-    color: #111;
-  }
-
-  .ctl-cart-card__footer {
-    margin-top: auto;
-    padding-top: 8px;
-  }
-
+  .ctl-cart-card__price { font-size: 12px; color: #111; }
+  .ctl-cart-card__footer { margin-top: auto; padding-top: 8px; }
   .ctl-cart-card__atc {
     width: 32px;
     height: 32px;
@@ -198,72 +130,128 @@
     text-decoration: none;
     transition: background .2s ease;
   }
-
   .ctl-cart-card__atc:hover { background: #333; }
-  .ctl-cart-card__atc.is-loading { opacity: .5; cursor: wait; }
+  .ctl-cart-card__atc.is-loading { opacity: .5; cursor: wait; pointer-events: none; }
   .ctl-cart-card__atc.is-added { background: #2e9e7b; }
 </style>
 
 <script>
-(function () {
-  var PER_PAGE = 3;
-  var list = document.getElementById('ctl-cart-list');
-  if (!list) return;
+if (!customElements.get('ctl-cart-widget')) {
+  customElements.define('ctl-cart-widget', class extends HTMLElement {
 
-  var cards = Array.from(list.querySelectorAll('.ctl-cart-card'));
-  if (!cards.length) return;
+    connectedCallback() {
+      this._load();
+    }
 
-  var totalPages = Math.ceil(cards.length / PER_PAGE);
-  var current = 0;
-  var arrowsEl = document.getElementById('ctl-cart-arrows');
-  var prevBtn = document.getElementById('ctl-cart-prev');
-  var nextBtn = document.getElementById('ctl-cart-next');
+    async _load() {
+      var handles = (this.dataset.handles || '').split(',').filter(Boolean);
+      if (!handles.length) return;
 
-  function showPage(page) {
-    cards.forEach(function (card, i) {
-      card.style.display = (i >= page * PER_PAGE && i < (page + 1) * PER_PAGE) ? 'flex' : 'none';
-    });
-    current = page;
-    if (prevBtn) prevBtn.disabled = current === 0;
-    if (nextBtn) nextBtn.disabled = current >= totalPages - 1;
-  }
+      try {
+        var cart = await fetch('/cart.js').then(function(r){ return r.json(); });
+        var cartIds = new Set(cart.items.map(function(i){ return i.product_id; }));
 
-  if (arrowsEl && totalPages > 1) arrowsEl.hidden = false;
-  showPage(0);
-
-  if (prevBtn) prevBtn.addEventListener('click', function () { if (current > 0) showPage(current - 1); });
-  if (nextBtn) nextBtn.addEventListener('click', function () { if (current < totalPages - 1) showPage(current + 1); });
-
-  list.addEventListener('click', function (e) {
-    var btn = e.target.closest('.ctl-cart-card__atc[data-variant-id]');
-    if (!btn || btn.classList.contains('is-loading')) return;
-
-    btn.classList.add('is-loading');
-
-    fetch('/cart/add.js', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
-      body: JSON.stringify({ id: btn.dataset.variantId, quantity: 1 })
-    })
-    .then(function (r) { return r.json(); })
-    .then(function () {
-      btn.classList.remove('is-loading');
-      btn.classList.add('is-added');
-      fetch('/cart.js')
-        .then(function (r) { return r.json(); })
-        .then(function (cart) {
-          document.documentElement.dispatchEvent(
-            new CustomEvent('cart:refresh', {
-              bubbles: true,
-              detail: { cart: cart, openMiniCart: true }
+        var results = await Promise.all(handles.map(function(handle) {
+          return fetch('/products/' + handle + '?view=ctl-related')
+            .then(function(r){ return r.text(); })
+            .then(function(t){
+              try { return JSON.parse(t.trim()); }
+              catch(e){ return []; }
             })
-          );
+            .catch(function(){ return []; });
+        }));
+
+        var seen = new Set();
+        var products = [];
+        results.forEach(function(arr) {
+          arr.forEach(function(p) {
+            if (!seen.has(p.id) && !cartIds.has(p.id)) {
+              seen.add(p.id);
+              products.push(p);
+            }
+          });
         });
-      setTimeout(function () { btn.classList.remove('is-added'); }, 2000);
-    })
-    .catch(function () { btn.classList.remove('is-loading'); });
+
+        if (!products.length) return;
+
+        this.style.removeProperty('display');
+
+        var list = this.querySelector('.ctl-cart-list');
+        list.innerHTML = products.map(function(p) {
+          var imgHtml = p.image
+            ? '<img class="ctl-cart-card__img" src="' + p.image + '" alt="" loading="lazy">'
+            : '';
+          var atcHtml = (p.available && p.default_variant)
+            ? '<button class="ctl-cart-card__atc" data-vid="' + p.variant_id + '" aria-label="Add to cart"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 6H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'
+            : '<a class="ctl-cart-card__atc" href="' + p.url + '" aria-label="View product"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 6H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>';
+          return '<div class="ctl-cart-card">'
+            + '<a href="' + p.url + '" class="ctl-cart-card__img-wrap">' + imgHtml + '</a>'
+            + '<div class="ctl-cart-card__body">'
+            + '<a href="' + p.url + '" class="ctl-cart-card__title">' + p.title + '</a>'
+            + '<span class="ctl-cart-card__price">' + p.price + '</span>'
+            + '<div class="ctl-cart-card__footer">' + atcHtml + '</div>'
+            + '</div></div>';
+        }).join('');
+
+        this._initPagination(list, products.length);
+        this._initATC(list);
+      } catch(e) {
+        /* silently fail */
+      }
+    }
+
+    _initPagination(list, total) {
+      var PER = 3;
+      if (total <= PER) return;
+      var cards = Array.from(list.querySelectorAll('.ctl-cart-card'));
+      var pages = Math.ceil(total / PER);
+      var cur = 0;
+      var nav = this.querySelector('.ctl-cart-nav');
+      var prev = this.querySelector('[data-dir="prev"]');
+      var next = this.querySelector('[data-dir="next"]');
+
+      function show(p) {
+        cards.forEach(function(c, i) {
+          c.style.display = (i >= p * PER && i < (p + 1) * PER) ? 'flex' : 'none';
+        });
+        cur = p;
+        if (prev) prev.disabled = cur === 0;
+        if (next) next.disabled = cur >= pages - 1;
+      }
+
+      if (nav) nav.hidden = false;
+      show(0);
+      if (prev) prev.addEventListener('click', function(){ if (cur > 0) show(cur - 1); });
+      if (next) next.addEventListener('click', function(){ if (cur < pages - 1) show(cur + 1); });
+    }
+
+    _initATC(list) {
+      list.addEventListener('click', function(e) {
+        var btn = e.target.closest('.ctl-cart-card__atc[data-vid]');
+        if (!btn || btn.classList.contains('is-loading')) return;
+        btn.classList.add('is-loading');
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+          body: JSON.stringify({ id: btn.dataset.vid, quantity: 1 })
+        })
+        .then(function(r){ return r.json(); })
+        .then(function() {
+          btn.classList.remove('is-loading');
+          btn.classList.add('is-added');
+          fetch('/cart.js').then(function(r){ return r.json(); }).then(function(cart) {
+            document.documentElement.dispatchEvent(
+              new CustomEvent('cart:refresh', { bubbles: true, detail: { cart: cart, openMiniCart: true } })
+            );
+          });
+          setTimeout(function(){ btn.classList.remove('is-added'); }, 2000);
+        })
+        .catch(function(){ btn.classList.remove('is-loading'); });
+      });
+    }
+
   });
-})();
+}
 </script>
 
 {%- endif -%}
