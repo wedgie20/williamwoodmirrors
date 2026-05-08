@@ -1,25 +1,23 @@
-{%- assign ctl_cart_seen_ids = '' -%}
-{%- assign ctl_cart_products = '' | split: '' -%}
-{%- assign cart_item_product_ids = cart.items | map: 'product_id' -%}
+{%- comment -%} Collect unique related products from all cart items, excluding items already in cart {%- endcomment -%}
+{%- assign _ctl_products = '' | split: '' -%}
+{%- assign _ctl_seen = '' | split: '' -%}
+{%- assign _cart_pids = cart.items | map: 'product_id' -%}
 
-{%- for item in cart.items -%}
-  {%- assign related = item.product.metafields.custom.related_products.value -%}
-  {%- if related != blank -%}
-    {%- for rp in related -%}
-      {%- assign rp_id_str = rp.id | append: '' -%}
-      {%- unless cart_item_product_ids contains rp.id -%}
-        {%- unless ctl_cart_seen_ids contains rp_id_str -%}
-          {%- assign ctl_cart_products = ctl_cart_products | push: rp -%}
-          {%- assign ctl_cart_seen_ids = ctl_cart_seen_ids | append: rp_id_str | append: ',' -%}
-        {%- endunless -%}
+{%- for _item in cart.items -%}
+  {%- assign _related = _item.product.metafields.custom.related_products.value -%}
+  {%- if _related != blank -%}
+    {%- for _rp in _related -%}
+      {%- unless _cart_pids contains _rp.id or _ctl_seen contains _rp.id -%}
+        {%- assign _ctl_products = _ctl_products | push: _rp -%}
+        {%- assign _ctl_seen = _ctl_seen | push: _rp.id -%}
       {%- endunless -%}
     {%- endfor -%}
   {%- endif -%}
 {%- endfor -%}
 
-{%- if ctl_cart_products.size > 0 -%}
+{%- if _ctl_products.size > 0 -%}
 
-<div class="ctl-cart-box">
+<div class="ctl-cart-box" id="ctl-cart-box">
   <div class="ctl-cart-header">
     <span class="ctl-cart-heading">COMPLETE THE LOOK</span>
     <div class="ctl-cart-arrows" id="ctl-cart-arrows" hidden>
@@ -37,23 +35,23 @@
   </div>
 
   <div class="ctl-cart-list" id="ctl-cart-list">
-    {%- for rp in ctl_cart_products -%}
+    {%- for _rp in _ctl_products -%}
       <div class="ctl-cart-card">
-        <a href="{{ rp.url }}" class="ctl-cart-card__img-wrap">
-          {%- if rp.featured_image -%}
-            {{ rp.featured_image | image_url: width: 160 | image_tag: loading: 'lazy', class: 'ctl-cart-card__img', alt: rp.title }}
+        <a href="{{ _rp.url }}" class="ctl-cart-card__img-wrap">
+          {%- if _rp.featured_image -%}
+            {{ _rp.featured_image | image_url: width: 160 | image_tag: loading: 'lazy', class: 'ctl-cart-card__img', alt: _rp.title }}
           {%- else -%}
             {{ 'product-1' | placeholder_svg_tag: 'ctl-cart-card__img ctl-cart-card__img--placeholder' }}
           {%- endif -%}
         </a>
         <div class="ctl-cart-card__body">
-          <a href="{{ rp.url }}" class="ctl-cart-card__title">{{ rp.title }}</a>
-          <span class="ctl-cart-card__price">{{ rp.price | money }}</span>
+          <a href="{{ _rp.url }}" class="ctl-cart-card__title">{{ _rp.title }}</a>
+          <span class="ctl-cart-card__price">{{ _rp.price | money }}</span>
           <div class="ctl-cart-card__footer">
-            {%- if rp.available and rp.has_only_default_variant -%}
+            {%- if _rp.available and _rp.has_only_default_variant -%}
               <button
                 class="ctl-cart-card__atc"
-                data-variant-id="{{ rp.selected_or_first_available_variant.id }}"
+                data-variant-id="{{ _rp.selected_or_first_available_variant.id }}"
                 aria-label="Add to cart">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                   <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
@@ -62,7 +60,7 @@
                 </svg>
               </button>
             {%- else -%}
-              <a href="{{ rp.url }}" class="ctl-cart-card__atc" aria-label="View product">
+              <a href="{{ _rp.url }}" class="ctl-cart-card__atc" aria-label="View product">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                   <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M3 6H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
@@ -121,11 +119,7 @@
   }
 
   .ctl-cart-arrow:hover:not([disabled]) { opacity: 1; }
-
-  .ctl-cart-arrow[disabled] {
-    opacity: .25;
-    cursor: default;
-  }
+  .ctl-cart-arrow[disabled] { opacity: .25; cursor: default; }
 
   .ctl-cart-list {
     display: flex;
@@ -206,12 +200,7 @@
   }
 
   .ctl-cart-card__atc:hover { background: #333; }
-
-  .ctl-cart-card__atc.is-loading {
-    opacity: .5;
-    cursor: wait;
-  }
-
+  .ctl-cart-card__atc.is-loading { opacity: .5; cursor: wait; }
   .ctl-cart-card__atc.is-added { background: #2e9e7b; }
 </style>
 
@@ -260,7 +249,6 @@
     .then(function () {
       btn.classList.remove('is-loading');
       btn.classList.add('is-added');
-
       fetch('/cart.js')
         .then(function (r) { return r.json(); })
         .then(function (cart) {
@@ -271,7 +259,6 @@
             })
           );
         });
-
       setTimeout(function () { btn.classList.remove('is-added'); }, 2000);
     })
     .catch(function () { btn.classList.remove('is-loading'); });
