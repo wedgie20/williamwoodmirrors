@@ -1,6 +1,5 @@
 {%- if cart.item_count > 0 -%}
 
-{%- comment -%} Build cart product IDs for dedupe {%- endcomment -%}
 {%- assign ctl_cart_ids = '' -%}
 {%- for item in cart.items -%}
   {%- assign ctl_cart_ids = ctl_cart_ids | append: ',' | append: item.product_id -%}
@@ -10,11 +9,14 @@
 {%- assign ctl_count = 0 -%}
 
 {%- capture ctl_cards -%}
+
   {%- for item in cart.items -%}
+
     {%- assign related_products = item.product.metafields.custom.related_products.value -%}
 
     {%- if related_products != blank -%}
-      {%- for product in related_products limit: 8 -%}
+
+      {%- for product in related_products limit: 4 -%}
 
         {%- assign product_check = ',' | append: product.id | append: ',' -%}
         {%- assign cart_check = ',' | append: ctl_cart_ids | append: ',' -%}
@@ -28,16 +30,20 @@
           <div class="ctl-look-card">
 
             <a href="{{ product.url }}" class="ctl-look-card__image">
+
               {%- if product.featured_image -%}
+
                 {{
                   product.featured_image
-                  | image_url: width: 180
+                  | image_url: width: 500
                   | image_tag:
                     loading: 'lazy',
                     class: 'ctl-look-card__img',
                     alt: product.title
                 }}
+
               {%- endif -%}
+
             </a>
 
             <div class="ctl-look-card__content">
@@ -59,11 +65,13 @@
                     data-variant-id="{{ product.selected_or_first_available_variant.id }}"
                     aria-label="Add to cart"
                   >
+
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                       <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                       <path d="M3 6H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                       <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
+
                   </button>
 
                 {%- else -%}
@@ -73,24 +81,31 @@
                     class="ctl-look-card__btn"
                     aria-label="View product"
                   >
+
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                       <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                       <path d="M3 6H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                       <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
+
                   </a>
 
                 {%- endif -%}
 
               </div>
+
             </div>
+
           </div>
 
         {%- endunless -%}
 
       {%- endfor -%}
+
     {%- endif -%}
+
   {%- endfor -%}
+
 {%- endcapture -%}
 
 {%- if ctl_count > 0 -%}
@@ -103,20 +118,12 @@
       COMPLETE THE LOOK
     </h3>
 
-    <div class="ctl-look-box__arrows">
-      <button class="ctl-look-arrow ctl-look-prev" type="button">
-        ‹
-      </button>
-
-      <button class="ctl-look-arrow ctl-look-next" type="button">
-        ›
-      </button>
-    </div>
-
   </div>
 
   <div class="ctl-look-slider">
+
     {{ ctl_cards }}
+
   </div>
 
 </div>
@@ -125,25 +132,22 @@
 {%- endif -%}
 
 <style>
+
 .ctl-look-box{
   background:#fff;
   border:1px solid #e7e7e7;
   border-radius:8px;
   padding:20px;
   margin-top:20px;
-  position:relative;
 }
 
 .ctl-look-box__top{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
   margin-bottom:18px;
 }
 
 .ctl-look-box__heading{
   margin:0;
-  font-size:12px;
+  font-size:11px;
   line-height:1;
   letter-spacing:.18em;
   font-weight:700;
@@ -151,55 +155,25 @@
   color:#111;
 }
 
-.ctl-look-box__arrows{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.ctl-look-arrow{
-  width:24px;
-  height:24px;
-  border:none;
-  background:transparent;
-  color:#999;
-  cursor:pointer;
-  font-size:18px;
-  line-height:1;
-  transition:all .2s ease;
-}
-
-.ctl-look-arrow:hover{
-  color:#111;
-}
-
 .ctl-look-slider{
-  display:flex;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
   gap:18px;
-  overflow-x:auto;
-  scroll-behavior:smooth;
-  -webkit-overflow-scrolling:touch;
-}
-
-.ctl-look-slider::-webkit-scrollbar{
-  display:none;
 }
 
 .ctl-look-card{
-  min-width:240px;
   display:flex;
-  align-items:flex-start;
-  gap:14px;
-  flex:0 0 auto;
+  flex-direction:column;
+  width:100%;
 }
 
 .ctl-look-card__image{
-  width:82px;
-  height:82px;
+  width:100%;
+  aspect-ratio:1/1;
   background:#f5f5f5;
   overflow:hidden;
-  flex-shrink:0;
   display:block;
+  margin-bottom:12px;
   text-decoration:none;
 }
 
@@ -212,23 +186,22 @@
 }
 
 .ctl-look-card__image:hover .ctl-look-card__img{
-  transform:scale(1.05);
+  transform:scale(1.04);
 }
 
 .ctl-look-card__content{
-  flex:1;
   display:flex;
   flex-direction:column;
-  justify-content:flex-start;
-  min-height:82px;
+  flex:1;
+  min-height:110px;
 }
 
 .ctl-look-card__title{
-  font-size:15px;
+  font-size:14px;
   line-height:1.45;
   color:#111;
   text-decoration:none;
-  margin-bottom:10px;
+  margin-bottom:auto;
 }
 
 .ctl-look-card__title:hover{
@@ -236,11 +209,11 @@
 }
 
 .ctl-look-card__bottom{
+  margin-top:14px;
   display:flex;
-  flex-direction:column;
-  align-items:flex-start;
+  align-items:flex-end;
+  justify-content:space-between;
   gap:10px;
-  margin-top:auto;
 }
 
 .ctl-look-card__price{
@@ -252,6 +225,7 @@
 .ctl-look-card__btn{
   width:36px;
   height:36px;
+  min-width:36px;
   border-radius:50%;
   border:none;
   background:#111;
@@ -267,7 +241,6 @@
 
 .ctl-look-card__btn:hover{
   background:#2c2c2c;
-  transform:scale(1.04);
 }
 
 .ctl-look-card__btn.loading{
@@ -285,18 +258,30 @@
     padding:16px;
   }
 
-  .ctl-look-card{
-    min-width:220px;
+  .ctl-look-slider{
+    gap:14px;
   }
 
   .ctl-look-card__title{
-    font-size:14px;
+    font-size:13px;
+  }
+
+  .ctl-look-card__price{
+    font-size:13px;
+  }
+
+  .ctl-look-card__btn{
+    width:34px;
+    height:34px;
+    min-width:34px;
   }
 
 }
+
 </style>
 
 <script>
+
 (function(){
 
   if(window.ctlCompleteLookInit) return;
@@ -312,39 +297,52 @@
 
     btn.classList.add('loading');
 
-    fetch('/cart/add.js', {
+    fetch('/cart/add.js',{
+
       method:'POST',
+
       headers:{
         'Content-Type':'application/json',
         'X-Requested-With':'XMLHttpRequest'
       },
+
       body:JSON.stringify({
         id:btn.dataset.variantId,
         quantity:1
       })
+
     })
-    .then(function(res){
-      return res.json();
+
+    .then(function(response){
+      return response.json();
     })
+
     .then(function(){
 
       btn.classList.remove('loading');
       btn.classList.add('added');
 
       fetch('/cart.js')
+
       .then(function(r){
         return r.json();
       })
+
       .then(function(cart){
 
         document.documentElement.dispatchEvent(
+
           new CustomEvent('cart:refresh',{
+
             bubbles:true,
+
             detail:{
               cart:cart,
               openMiniCart:true
             }
+
           })
+
         );
 
       });
@@ -354,33 +352,15 @@
       },2000);
 
     })
+
     .catch(function(){
+
       btn.classList.remove('loading');
+
     });
 
   });
 
-  var slider = document.querySelector('.ctl-look-slider');
-  var next = document.querySelector('.ctl-look-next');
-  var prev = document.querySelector('.ctl-look-prev');
-
-  if(slider && next && prev){
-
-    next.addEventListener('click', function(){
-      slider.scrollBy({
-        left:260,
-        behavior:'smooth'
-      });
-    });
-
-    prev.addEventListener('click', function(){
-      slider.scrollBy({
-        left:-260,
-        behavior:'smooth'
-      });
-    });
-
-  }
-
 })();
+
 </script>
