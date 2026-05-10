@@ -1853,7 +1853,7 @@
           {% when 'melrose_hero' %}
             {% unless layout_mode == 'slideshow' %}
               <div class="hero-melrose-{{ block.id }}" {{ block.shopify_attributes }}>
-                {{ block.settings.content }}
+                {{ block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
               </div>
             {% endunless %}
 
@@ -1938,7 +1938,7 @@
                         {% endif %}
                       {% when 'melrose_hero' %}
                         <div class="hero-melrose-{{ block.id }}" {{ block.shopify_attributes }}>
-                          {{ block.settings.content }}
+                          {{ block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
                         </div>
                     {% endcase %}
                   {% endif %}
