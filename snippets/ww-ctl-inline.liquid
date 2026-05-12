@@ -33,7 +33,7 @@
         </a>
         <div class="ctl-card__body">
           <a href="{{ rp.url }}" class="ctl-card__title">{{ rp.title }}</a>
-          <span class="ctl-card__price">{{  money }}</span>
+          <span class="ctl-card__price">{{ rp.price | money }}</span>
           <div class="ctl-card__footer">
             {%- if rp.available and rp.has_only_default_variant -%}
               <button class="ctl-card__atc" data-variant-id="{{ rp.selected_or_first_available_variant.id }}" aria-label="Add to cart">
