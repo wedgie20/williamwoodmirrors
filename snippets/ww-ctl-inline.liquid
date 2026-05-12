@@ -244,54 +244,92 @@
 
 <script>
 (function () {
+  if (window.ctlInlineInit) return;
+  window.ctlInlineInit = true;
+
   var PER_PAGE = 4;
-  var track = document.getElementById('ctl-track-{{ ctl_uid }}');
-  if (!track) return;
 
-  var cards = Array.from(track.querySelectorAll('.ctl-card'));
-  if (!cards.length) return;
-
-  var totalPages = Math.ceil(cards.length / PER_PAGE);
-  var current = 0;
-  var arrowsEl = document.getElementById('ctl-arrows-{{ ctl_uid }}');
-  var prevBtn  = document.getElementById('ctl-prev-{{ ctl_uid }}');
-  var nextBtn  = document.getElementById('ctl-next-{{ ctl_uid }}');
-
-  function showPage(page) {
-    cards.forEach(function (card, index) {
-      card.style.display = (index >= page * PER_PAGE && index < (page + 1) * PER_PAGE) ? 'flex' : 'none';
-    });
-    current = page;
-    if (prevBtn) prevBtn.disabled = current === 0;
-    if (nextBtn) nextBtn.disabled = current >= totalPages - 1;
+  function getCards(track) {
+    return Array.from(track.querySelectorAll('.ctl-card'));
   }
 
-  if (arrowsEl && totalPages > 1) arrowsEl.hidden = false;
-  showPage(0);
+  function showPage(track, page) {
+    var cards = getCards(track);
+    if (!cards.length) return;
+    var total = Math.max(1, Math.ceil(cards.length / PER_PAGE));
+    if (page < 0) page = 0;
+    if (page > total - 1) page = total - 1;
 
-  if (prevBtn) prevBtn.addEventListener('click', function () { if (current > 0) showPage(current - 1); });
-  if (nextBtn) nextBtn.addEventListener('click', function () { if (current < totalPages - 1) showPage(current + 1); });
+    cards.forEach(function (card, i) {
+      card.style.display = (i >= page * PER_PAGE && i < (page + 1) * PER_PAGE) ? 'flex' : 'none';
+    });
+    track.dataset.ctlPage = page;
 
-  track.addEventListener('click', function (e) {
-    var btn = e.target.closest('.ctl-card__atc[data-variant-id]');
-    if (!btn || btn.classList.contains('is-loading')) return;
-    btn.classList.add('is-loading');
-    fetch('/cart/add.js', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
-      body: JSON.stringify({ id: btn.dataset.variantId, quantity: 1 })
-    })
-    .then(function (r) { return r.json(); })
-    .then(function () {
-      btn.classList.remove('is-loading');
-      btn.classList.add('is-added');
-      fetch('/cart.js').then(function (r) { return r.json(); }).then(function (cart) {
-        document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true, detail: { cart: cart, openMiniCart: true } }));
-      });
-      setTimeout(function () { btn.classList.remove('is-added'); }, 2000);
-    })
-    .catch(function () { btn.classList.remove('is-loading'); });
+    var box = track.closest('.ctl-box');
+    if (box) {
+      var prevBtn = box.querySelector('.ctl-arrow--prev');
+      var nextBtn = box.querySelector('.ctl-arrow--next');
+      var arrowsEl = box.querySelector('.ctl-arrows');
+      if (arrowsEl) arrowsEl.hidden = total <= 1;
+      if (prevBtn) prevBtn.disabled = page === 0;
+      if (nextBtn) nextBtn.disabled = page >= total - 1;
+    }
+  }
+
+  function initTrack(track) {
+    if (!track || track.dataset.ctlInit === '1') return;
+    track.dataset.ctlInit = '1';
+    showPage(track, 0);
+  }
+
+  function initAll() {
+    document.querySelectorAll('.ctl-box--inline .ctl-track').forEach(initTrack);
+  }
+
+  document.addEventListener('click', function (e) {
+    var arrow = e.target.closest('.ctl-box--inline .ctl-arrow');
+    if (arrow && !arrow.disabled) {
+      var box = arrow.closest('.ctl-box');
+      if (!box) return;
+      var track = box.querySelector('.ctl-track');
+      if (!track) return;
+      initTrack(track);
+      var page = parseInt(track.dataset.ctlPage || '0', 10);
+      var dir = arrow.classList.contains('ctl-arrow--next') ? 1 : -1;
+      showPage(track, page + dir);
+      return;
+    }
+
+    var atc = e.target.closest('.ctl-box--inline .ctl-card__atc[data-variant-id]');
+    if (atc && !atc.classList.contains('is-loading')) {
+      e.preventDefault();
+      atc.classList.add('is-loading');
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+        body: JSON.stringify({ id: atc.dataset.variantId, quantity: 1 })
+      })
+      .then(function (r) { return r.json(); })
+      .then(function () {
+        atc.classList.remove('is-loading');
+        atc.classList.add('is-added');
+        fetch('/cart.js').then(function (r) { return r.json(); }).then(function (cart) {
+          document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true, detail: { cart: cart, openMiniCart: true } }));
+        });
+        setTimeout(function () { atc.classList.remove('is-added'); }, 2000);
+      })
+      .catch(function () { atc.classList.remove('is-loading'); });
+    }
   });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAll);
+  } else {
+    initAll();
+  }
+
+  document.addEventListener('shopify:section:load', initAll);
+  document.addEventListener('shopify:section:select', initAll);
 })();
 </script>
 
