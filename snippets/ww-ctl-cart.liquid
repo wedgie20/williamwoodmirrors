@@ -359,102 +359,125 @@
 
 <script>
 
-
 (function(){
 
   if(window.ctlCompleteLookInit) return;
   window.ctlCompleteLookInit = true;
 
-  function initCompleteLook(){
+  let isAnimating = false;
 
-    const slider = document.querySelector('.ctl-look-slider');
-    const nextBtn = document.querySelector('.ctl-look-nav--next');
-    const prevBtn = document.querySelector('.ctl-look-nav--prev');
-
-    if(!slider || !nextBtn || !prevBtn) return;
-
-    let isAnimating = false;
-
-    function getCardWidth(){
-
-      const card = slider.querySelector('.ctl-look-card');
-
-      if(!card) return 0;
-
-      const styles = window.getComputedStyle(slider);
-      const gap = parseInt(styles.columnGap || styles.gap || 18);
-
-      return card.offsetWidth + gap;
-
-    }
-
-    function updateButtons(){
-
-      const maxScroll = slider.scrollWidth - slider.clientWidth;
-
-      if(slider.scrollLeft <= 5){
-        prevBtn.classList.add('is-disabled');
-      } else {
-        prevBtn.classList.remove('is-disabled');
-      }
-
-      if(slider.scrollLeft >= maxScroll - 5){
-        nextBtn.classList.add('is-disabled');
-      } else {
-        nextBtn.classList.remove('is-disabled');
-      }
-
-    }
-
-    nextBtn.addEventListener('click', function(){
-
-      if(isAnimating) return;
-
-      const moveAmount = getCardWidth() * 2;
-
-      isAnimating = true;
-
-      slider.scrollTo({
-        left: slider.scrollLeft + moveAmount,
-        behavior:'smooth'
-      });
-
-      setTimeout(function(){
-        isAnimating = false;
-        updateButtons();
-      }, 500);
-
-    });
-
-    prevBtn.addEventListener('click', function(){
-
-      if(isAnimating) return;
-
-      const moveAmount = getCardWidth() * 2;
-
-      isAnimating = true;
-
-      slider.scrollTo({
-        left: slider.scrollLeft - moveAmount,
-        behavior:'smooth'
-      });
-
-      setTimeout(function(){
-        isAnimating = false;
-        updateButtons();
-      }, 500);
-
-    });
-
-    slider.addEventListener('scroll', updateButtons);
-
-    window.addEventListener('resize', updateButtons);
-
-    updateButtons();
-
+  function getCardWidth(slider){
+    const card = slider.querySelector('.ctl-look-card');
+    if(!card) return 0;
+    const styles = window.getComputedStyle(slider);
+    const gap = parseInt(styles.columnGap || styles.gap || 18);
+    return card.offsetWidth + gap;
   }
 
-  document.addEventListener('DOMContentLoaded', initCompleteLook);
+  function updateButtons(box){
+    if(!box) return;
+    const slider = box.querySelector('.ctl-look-slider');
+    const prevBtn = box.querySelector('.ctl-look-nav--prev');
+    const nextBtn = box.querySelector('.ctl-look-nav--next');
+    if(!slider || !prevBtn || !nextBtn) return;
+
+    const maxScroll = slider.scrollWidth - slider.clientWidth;
+
+    if(maxScroll <= 0){
+      prevBtn.classList.add('is-disabled');
+      nextBtn.classList.add('is-disabled');
+      return;
+    }
+
+    if(slider.scrollLeft <= 5){
+      prevBtn.classList.add('is-disabled');
+    } else {
+      prevBtn.classList.remove('is-disabled');
+    }
+
+    if(slider.scrollLeft >= maxScroll - 5){
+      nextBtn.classList.add('is-disabled');
+    } else {
+      nextBtn.classList.remove('is-disabled');
+    }
+  }
+
+  function enhanceBox(box){
+    if(!box || box.dataset.ctlEnhanced === '1') return;
+    box.dataset.ctlEnhanced = '1';
+    const slider = box.querySelector('.ctl-look-slider');
+    if(slider){
+      slider.addEventListener('scroll', function(){ updateButtons(box); });
+    }
+    updateButtons(box);
+  }
+
+  function enhanceAll(){
+    document.querySelectorAll('.ctl-look-box').forEach(enhanceBox);
+  }
+
+  document.addEventListener('click', function(e){
+    const btn = e.target.closest('.ctl-look-nav--next, .ctl-look-nav--prev');
+    if(!btn) return;
+    if(btn.classList.contains('is-disabled') || isAnimating) return;
+
+    const box = btn.closest('.ctl-look-box');
+    if(!box) return;
+    const slider = box.querySelector('.ctl-look-slider');
+    if(!slider) return;
+
+    const direction = btn.classList.contains('ctl-look-nav--next') ? 1 : -1;
+    const moveAmount = getCardWidth(slider) * 2 * direction;
+
+    isAnimating = true;
+    slider.scrollTo({
+      left: slider.scrollLeft + moveAmount,
+      behavior: 'smooth'
+    });
+
+    setTimeout(function(){
+      isAnimating = false;
+      updateButtons(box);
+    }, 500);
+  });
+
+  document.addEventListener('click', function(e){
+    const atc = e.target.closest('.ctl-look-card__btn[data-variant-id]');
+    if(!atc || atc.classList.contains('loading')) return;
+    e.preventDefault();
+    atc.classList.add('loading');
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+      body: JSON.stringify({ id: atc.dataset.variantId, quantity: 1 })
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(){
+      atc.classList.remove('loading');
+      atc.classList.add('added');
+      fetch('/cart.js').then(function(r){ return r.json(); }).then(function(cart){
+        document.documentElement.dispatchEvent(
+          new CustomEvent('cart:refresh', { bubbles: true, detail: { cart: cart, openMiniCart: true } })
+        );
+      });
+      setTimeout(function(){ atc.classList.remove('added'); }, 2000);
+    })
+    .catch(function(){ atc.classList.remove('loading'); });
+  });
+
+  document.documentElement.addEventListener('cart:refresh', function(){
+    setTimeout(enhanceAll, 600);
+  });
+
+  window.addEventListener('resize', function(){
+    document.querySelectorAll('.ctl-look-box').forEach(function(b){ updateButtons(b); });
+  });
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', enhanceAll);
+  } else {
+    enhanceAll();
+  }
 
 })();
 
