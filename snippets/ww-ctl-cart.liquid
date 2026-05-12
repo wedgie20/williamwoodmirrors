@@ -69,7 +69,7 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                       <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                       <path d="M3 6H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 13.5786 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
 
                   </button>
@@ -85,7 +85,7 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                       <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                       <path d="M3 6H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 13.5786 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
 
                   </a>
@@ -118,23 +118,23 @@
       COMPLETE THE LOOK
     </h3>
 
-  </div>
+    <div class="ctl-look-navs">
 
-  <div class="ctl-look-slider-wrap">
+      <button class="ctl-look-nav ctl-look-nav--prev" aria-label="Previous">
+        &#10094;
+      </button>
 
-    <button class="ctl-look-nav ctl-look-nav--prev" aria-label="Previous">
-      &#10094;
-    </button>
-
-    <div class="ctl-look-slider">
-
-      {{ ctl_cards }}
+      <button class="ctl-look-nav ctl-look-nav--next" aria-label="Next">
+        &#10095;
+      </button>
 
     </div>
 
-    <button class="ctl-look-nav ctl-look-nav--next" aria-label="Next">
-      &#10095;
-    </button>
+  </div>
+
+  <div class="ctl-look-slider">
+
+    {{ ctl_cards }}
 
   </div>
 
@@ -155,6 +155,9 @@
 }
 
 .ctl-look-box__top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   margin-bottom:18px;
 }
 
@@ -168,10 +171,29 @@
   color:#111;
 }
 
-.ctl-look-slider-wrap{
-  position:relative;
+.ctl-look-navs{
   display:flex;
   align-items:center;
+  gap:8px;
+}
+
+.ctl-look-nav{
+  width:34px;
+  height:34px;
+  border:none;
+  border-radius:50%;
+  background:#111;
+  color:#fff;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:16px;
+  transition:all .25s ease;
+}
+
+.ctl-look-nav:hover{
+  background:#2c2c2c;
 }
 
 .ctl-look-slider{
@@ -180,7 +202,6 @@
   overflow-x:auto;
   scroll-behavior:smooth;
   scrollbar-width:none;
-  width:100%;
 }
 
 .ctl-look-slider::-webkit-scrollbar{
@@ -268,37 +289,6 @@
   background:#2c2c2c;
 }
 
-.ctl-look-nav{
-  position:absolute;
-  top:35%;
-  transform:translateY(-50%);
-  width:38px;
-  height:38px;
-  border:none;
-  border-radius:50%;
-  background:#111;
-  color:#fff;
-  cursor:pointer;
-  z-index:5;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:18px;
-  transition:all .25s ease;
-}
-
-.ctl-look-nav:hover{
-  background:#2c2c2c;
-}
-
-.ctl-look-nav--prev{
-  left:10px;
-}
-
-.ctl-look-nav--next{
-  right:10px;
-}
-
 .ctl-look-card__btn.loading{
   opacity:.5;
   pointer-events:none;
@@ -335,12 +325,6 @@
     width:34px;
     height:34px;
     min-width:34px;
-  }
-
-  .ctl-look-nav{
-    width:34px;
-    height:34px;
-    font-size:16px;
   }
 
 }
@@ -438,21 +422,17 @@
 
     if(!slider || !nextBtn || !prevBtn) return;
 
+    const scrollAmount = slider.offsetWidth;
+
     nextBtn.addEventListener('click', function(){
 
-      slider.scrollBy({
-        left: slider.offsetWidth,
-        behavior: 'smooth'
-      });
+      slider.scrollLeft += scrollAmount;
 
     });
 
     prevBtn.addEventListener('click', function(){
 
-      slider.scrollBy({
-        left: -slider.offsetWidth,
-        behavior: 'smooth'
-      });
+      slider.scrollLeft -= scrollAmount;
 
     });
 
