@@ -120,7 +120,14 @@
     align-items: flex-start;
     gap: 46px;
     padding: 28px 24px 28px;
-    overflow: hidden;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .ctl-box--inline .ctl-track::-webkit-scrollbar {
+    display: none;
   }
 
   .ctl-box--inline .ctl-card {
@@ -247,39 +254,36 @@
   if (window.ctlInlineInit) return;
   window.ctlInlineInit = true;
 
-  var PER_PAGE = 4;
-
-  function getCards(track) {
-    return Array.from(track.querySelectorAll('.ctl-card'));
+  function getCardStep(track) {
+    var card = track.querySelector('.ctl-card');
+    if (!card) return 0;
+    var styles = window.getComputedStyle(track);
+    var gap = parseInt(styles.columnGap || styles.gap || 0, 10) || 0;
+    return card.offsetWidth + gap;
   }
 
-  function showPage(track, page) {
-    var cards = getCards(track);
-    if (!cards.length) return;
-    var total = Math.max(1, Math.ceil(cards.length / PER_PAGE));
-    if (page < 0) page = 0;
-    if (page > total - 1) page = total - 1;
+  function updateButtons(box) {
+    if (!box) return;
+    var track = box.querySelector('.ctl-track');
+    var prevBtn = box.querySelector('.ctl-arrow--prev');
+    var nextBtn = box.querySelector('.ctl-arrow--next');
+    var arrowsEl = box.querySelector('.ctl-arrows');
+    if (!track) return;
 
-    cards.forEach(function (card, i) {
-      card.style.display = (i >= page * PER_PAGE && i < (page + 1) * PER_PAGE) ? 'flex' : 'none';
-    });
-    track.dataset.ctlPage = page;
+    var maxScroll = track.scrollWidth - track.clientWidth;
 
-    var box = track.closest('.ctl-box');
-    if (box) {
-      var prevBtn = box.querySelector('.ctl-arrow--prev');
-      var nextBtn = box.querySelector('.ctl-arrow--next');
-      var arrowsEl = box.querySelector('.ctl-arrows');
-      if (arrowsEl) arrowsEl.hidden = total <= 1;
-      if (prevBtn) prevBtn.disabled = page === 0;
-      if (nextBtn) nextBtn.disabled = page >= total - 1;
-    }
+    if (arrowsEl) arrowsEl.hidden = maxScroll <= 5;
+
+    if (prevBtn) prevBtn.disabled = track.scrollLeft <= 5;
+    if (nextBtn) nextBtn.disabled = track.scrollLeft >= maxScroll - 5;
   }
 
   function initTrack(track) {
     if (!track || track.dataset.ctlInit === '1') return;
     track.dataset.ctlInit = '1';
-    showPage(track, 0);
+    var box = track.closest('.ctl-box');
+    track.addEventListener('scroll', function () { updateButtons(box); });
+    updateButtons(box);
   }
 
   function initAll() {
@@ -294,9 +298,14 @@
       var track = box.querySelector('.ctl-track');
       if (!track) return;
       initTrack(track);
-      var page = parseInt(track.dataset.ctlPage || '0', 10);
+      var step = getCardStep(track) * 2;
+      if (step <= 0) step = track.clientWidth;
       var dir = arrow.classList.contains('ctl-arrow--next') ? 1 : -1;
-      showPage(track, page + dir);
+      track.scrollTo({
+        left: track.scrollLeft + step * dir,
+        behavior: 'smooth'
+      });
+      setTimeout(function () { updateButtons(box); }, 500);
       return;
     }
 
