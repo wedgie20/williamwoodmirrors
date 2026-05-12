@@ -359,6 +359,8 @@
 
 <script>
 
+<script>
+
 (function(){
 
   if(window.ctlCompleteLookInit) return;
@@ -372,9 +374,24 @@
 
     if(!slider || !nextBtn || !prevBtn) return;
 
-    const updateButtons = function(){
+    let isAnimating = false;
 
-      const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
+    function getCardWidth(){
+
+      const card = slider.querySelector('.ctl-look-card');
+
+      if(!card) return 0;
+
+      const styles = window.getComputedStyle(slider);
+      const gap = parseInt(styles.columnGap || styles.gap || 18);
+
+      return card.offsetWidth + gap;
+
+    }
+
+    function updateButtons(){
+
+      const maxScroll = slider.scrollWidth - slider.clientWidth;
 
       if(slider.scrollLeft <= 5){
         prevBtn.classList.add('is-disabled');
@@ -382,43 +399,51 @@
         prevBtn.classList.remove('is-disabled');
       }
 
-      if(slider.scrollLeft >= maxScrollLeft - 5){
+      if(slider.scrollLeft >= maxScroll - 5){
         nextBtn.classList.add('is-disabled');
       } else {
         nextBtn.classList.remove('is-disabled');
       }
 
-    };
+    }
 
     nextBtn.addEventListener('click', function(){
 
-      const card = slider.querySelector('.ctl-look-card');
+      if(isAnimating) return;
 
-      if(!card) return;
+      const moveAmount = getCardWidth() * 2;
 
-      const gap = 18;
-      const scrollAmount = card.offsetWidth + gap;
+      isAnimating = true;
 
-      slider.scrollBy({
-        left: scrollAmount * 2,
+      slider.scrollTo({
+        left: slider.scrollLeft + moveAmount,
         behavior:'smooth'
       });
+
+      setTimeout(function(){
+        isAnimating = false;
+        updateButtons();
+      }, 500);
 
     });
 
     prevBtn.addEventListener('click', function(){
 
-      const card = slider.querySelector('.ctl-look-card');
+      if(isAnimating) return;
 
-      if(!card) return;
+      const moveAmount = getCardWidth() * 2;
 
-      const gap = 18;
-      const scrollAmount = card.offsetWidth + gap;
+      isAnimating = true;
 
-      slider.scrollBy({
-        left: -(scrollAmount * 2),
+      slider.scrollTo({
+        left: slider.scrollLeft - moveAmount,
         behavior:'smooth'
       });
+
+      setTimeout(function(){
+        isAnimating = false;
+        updateButtons();
+      }, 500);
 
     });
 
@@ -432,80 +457,8 @@
 
   document.addEventListener('DOMContentLoaded', initCompleteLook);
 
-  document.addEventListener('click', function(e){
-
-    var btn = e.target.closest('.ctl-look-card__btn[data-variant-id]');
-
-    if(!btn || btn.classList.contains('loading')) return;
-
-    e.preventDefault();
-
-    btn.classList.add('loading');
-
-    fetch('/cart/add.js',{
-
-      method:'POST',
-
-      headers:{
-        'Content-Type':'application/json',
-        'X-Requested-With':'XMLHttpRequest'
-      },
-
-      body:JSON.stringify({
-        id:btn.dataset.variantId,
-        quantity:1
-      })
-
-    })
-
-    .then(function(response){
-      return response.json();
-    })
-
-    .then(function(){
-
-      btn.classList.remove('loading');
-      btn.classList.add('added');
-
-      fetch('/cart.js')
-
-      .then(function(r){
-        return r.json();
-      })
-
-      .then(function(cart){
-
-        document.documentElement.dispatchEvent(
-
-          new CustomEvent('cart:refresh',{
-
-            bubbles:true,
-
-            detail:{
-              cart:cart,
-              openMiniCart:true
-            }
-
-          })
-
-        );
-
-      });
-
-      setTimeout(function(){
-        btn.classList.remove('added');
-      },2000);
-
-    })
-
-    .catch(function(){
-
-      btn.classList.remove('loading');
-
-    });
-
-  });
-
 })();
+
+</script>
 
 </script>
