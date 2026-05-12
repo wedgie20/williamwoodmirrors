@@ -69,7 +69,7 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                       <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                       <path d="M3 6H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 13.5786 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
 
                   </button>
@@ -85,7 +85,7 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                       <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                       <path d="M3 6H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 13.5786 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
 
                   </a>
@@ -114,13 +114,21 @@
 
   <div class="ctl-look-box__top">
 
-    <h3 class="ctl-look-box__heading">
-      COMPLETE THE LOOK
-    </h3>
+    <div class="ctl-look-box__heading-wrap">
+
+      <h3 class="ctl-look-box__heading">
+        COMPLETE THE LOOK
+      </h3>
+
+      <span class="ctl-look-count">
+        ({{ ctl_count }})
+      </span>
+
+    </div>
 
     <div class="ctl-look-navs">
 
-      <button class="ctl-look-nav ctl-look-nav--prev" aria-label="Previous">
+      <button class="ctl-look-nav ctl-look-nav--prev is-disabled" aria-label="Previous">
         &#10094;
       </button>
 
@@ -161,6 +169,12 @@
   margin-bottom:18px;
 }
 
+.ctl-look-box__heading-wrap{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
 .ctl-look-box__heading{
   margin:0;
   font-size:11px;
@@ -169,6 +183,11 @@
   font-weight:700;
   text-transform:uppercase;
   color:#111;
+}
+
+.ctl-look-count{
+  font-size:12px;
+  color:#777;
 }
 
 .ctl-look-navs{
@@ -196,12 +215,19 @@
   background:#2c2c2c;
 }
 
+.ctl-look-nav.is-disabled{
+  opacity:.35;
+  cursor:not-allowed;
+  pointer-events:none;
+}
+
 .ctl-look-slider{
   display:flex;
   gap:18px;
   overflow-x:auto;
   scroll-behavior:smooth;
   scrollbar-width:none;
+  -ms-overflow-style:none;
 }
 
 .ctl-look-slider::-webkit-scrollbar{
@@ -338,6 +364,74 @@
   if(window.ctlCompleteLookInit) return;
   window.ctlCompleteLookInit = true;
 
+  function initCompleteLook(){
+
+    const slider = document.querySelector('.ctl-look-slider');
+    const nextBtn = document.querySelector('.ctl-look-nav--next');
+    const prevBtn = document.querySelector('.ctl-look-nav--prev');
+
+    if(!slider || !nextBtn || !prevBtn) return;
+
+    const updateButtons = function(){
+
+      const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
+
+      if(slider.scrollLeft <= 5){
+        prevBtn.classList.add('is-disabled');
+      } else {
+        prevBtn.classList.remove('is-disabled');
+      }
+
+      if(slider.scrollLeft >= maxScrollLeft - 5){
+        nextBtn.classList.add('is-disabled');
+      } else {
+        nextBtn.classList.remove('is-disabled');
+      }
+
+    };
+
+    nextBtn.addEventListener('click', function(){
+
+      const card = slider.querySelector('.ctl-look-card');
+
+      if(!card) return;
+
+      const gap = 18;
+      const scrollAmount = card.offsetWidth + gap;
+
+      slider.scrollBy({
+        left: scrollAmount * 2,
+        behavior:'smooth'
+      });
+
+    });
+
+    prevBtn.addEventListener('click', function(){
+
+      const card = slider.querySelector('.ctl-look-card');
+
+      if(!card) return;
+
+      const gap = 18;
+      const scrollAmount = card.offsetWidth + gap;
+
+      slider.scrollBy({
+        left: -(scrollAmount * 2),
+        behavior:'smooth'
+      });
+
+    });
+
+    slider.addEventListener('scroll', updateButtons);
+
+    window.addEventListener('resize', updateButtons);
+
+    updateButtons();
+
+  }
+
+  document.addEventListener('DOMContentLoaded', initCompleteLook);
+
   document.addEventListener('click', function(e){
 
     var btn = e.target.closest('.ctl-look-card__btn[data-variant-id]');
@@ -407,32 +501,6 @@
     .catch(function(){
 
       btn.classList.remove('loading');
-
-    });
-
-  });
-
-  document.addEventListener('DOMContentLoaded', function(){
-
-    const slider = document.querySelector('.ctl-look-slider');
-
-    const nextBtn = document.querySelector('.ctl-look-nav--next');
-
-    const prevBtn = document.querySelector('.ctl-look-nav--prev');
-
-    if(!slider || !nextBtn || !prevBtn) return;
-
-    const scrollAmount = slider.offsetWidth;
-
-    nextBtn.addEventListener('click', function(){
-
-      slider.scrollLeft += scrollAmount;
-
-    });
-
-    prevBtn.addEventListener('click', function(){
-
-      slider.scrollLeft -= scrollAmount;
 
     });
 
