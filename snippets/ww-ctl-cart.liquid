@@ -11,12 +11,10 @@
 {%- capture ctl_cards -%}
 
   {%- for item in cart.items -%}
-
     {%- assign related_products = item.product.metafields.custom.related_products.value -%}
 
     {%- if related_products != blank -%}
-
-      {%- for product in related_products limit: 4 -%}
+      {%- for product in related_products limit: 6 -%}
 
         {%- assign product_check = ',' | append: product.id | append: ',' -%}
         {%- assign cart_check = ',' | append: ctl_cart_ids | append: ',' -%}
@@ -27,59 +25,27 @@
           {%- assign ctl_seen = ctl_seen | append: ',' | append: product.id -%}
           {%- assign ctl_count = ctl_count | plus: 1 -%}
 
-          <div class="ctl-look-card">
+          <div class="ctl-card">
 
-            <a href="{{ product.url }}" class="ctl-look-card__image">
-
+            <a href="{{ product.url }}" class="ctl-card__imgwrap">
               {%- if product.featured_image -%}
-
-                {{
-                  product.featured_image
-                  | image_url: width: 500
-                  | image_tag:
-                    loading: 'lazy',
-                    class: 'ctl-look-card__img',
-                    alt: product.title
-                }}
-
+                {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'ctl-card__img', alt: product.title }}
               {%- endif -%}
-
             </a>
 
-            <div class="ctl-look-card__content">
+            <div class="ctl-card__info">
 
-              <a href="{{ product.url }}" class="ctl-look-card__title">
+              <a href="{{ product.url }}" class="ctl-card__title">
                 {{ product.title }}
               </a>
 
-              <div class="ctl-look-card__bottom">
-
-                <span class="ctl-look-card__price">
-                  {{ product.price | money }}
-                </span>
+              <div class="ctl-card__bottom">
+                <span class="ctl-card__price">{{ product.price | money }}</span>
 
                 {%- if product.available and product.has_only_default_variant -%}
-
-                  <button
-                    class="ctl-look-card__btn"
-                    data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-                    aria-label="Add to cart"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                      <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7"/>
-                      <path d="M3 6H21" stroke="currentColor" stroke-width="1.7"/>
-                    </svg>
-                  </button>
-
+                  <button class="ctl-add" data-variant-id="{{ product.selected_or_first_available_variant.id }}">+</button>
                 {%- else -%}
-
-                  <a href="{{ product.url }}" class="ctl-look-card__btn" aria-label="View product">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                      <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7"/>
-                      <path d="M3 6H21" stroke="currentColor" stroke-width="1.7"/>
-                    </svg>
-                  </a>
-
+                  <a class="ctl-add" href="{{ product.url }}">→</a>
                 {%- endif -%}
 
               </div>
@@ -91,28 +57,25 @@
         {%- endunless -%}
 
       {%- endfor -%}
-
     {%- endif -%}
-
   {%- endfor -%}
 
 {%- endcapture -%}
 
 {%- if ctl_count > 0 -%}
 
-<div class="ctl-look-box">
+<div class="ctl-wrapper">
 
-  <div class="ctl-look-box__top">
-    <h3 class="ctl-look-box__heading">COMPLETE THE LOOK</h3>
+  <div class="ctl-header">
+    <h3>COMPLETE THE LOOK</h3>
 
-    <div class="ctl-nav">
-      <button class="ctl-prev" aria-label="Previous">&#10094;</button>
-      <button class="ctl-next" aria-label="Next">&#10095;</button>
+    <div class="ctl-arrows">
+      <button class="ctl-prev" type="button">‹</button>
+      <button class="ctl-next" type="button">›</button>
     </div>
-
   </div>
 
-  <div class="ctl-look-slider" id="ctlSlider">
+  <div class="ctl-slider">
     {{ ctl_cards }}
   </div>
 
@@ -122,118 +85,163 @@
 {%- endif -%}
 
 <style>
-.ctl-look-box{
+
+.ctl-wrapper{
+  border:1px solid #e8e8e8;
+  border-radius:10px;
+  padding:18px;
   background:#fff;
-  border:1px solid #e7e7e7;
-  border-radius:8px;
-  padding:20px;
   margin-top:40px;
 }
 
-.ctl-look-box__top{
+.ctl-header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:18px;
+  margin-bottom:14px;
 }
 
-.ctl-look-box__heading{
-  margin:0;
+.ctl-header h3{
   font-size:11px;
-  letter-spacing:.18em;
-  text-transform:uppercase;
+  letter-spacing:.2em;
+  margin:0;
 }
 
-.ctl-nav button{
+.ctl-arrows button{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  border:1px solid #ddd;
   background:#111;
   color:#fff;
-  border:none;
-  width:32px;
-  height:32px;
-  border-radius:50%;
   cursor:pointer;
-  margin-left:5px;
+  margin-left:6px;
 }
 
-.ctl-look-slider{
+.ctl-slider{
   display:flex;
-  overflow-x:auto;
+  overflow:hidden;
   scroll-behavior:smooth;
   gap:16px;
-  scrollbar-width:none;
 }
 
-.ctl-look-slider::-webkit-scrollbar{display:none;}
-
-.ctl-look-card{
-  flex:0 0 calc(50% - 10px);
+/* 2 PER ROW DESKTOP */
+.ctl-card{
+  flex:0 0 calc(50% - 8px);
   display:flex;
   flex-direction:column;
 }
 
-.ctl-look-card__image{
+.ctl-card__imgwrap{
   aspect-ratio:1/1;
   overflow:hidden;
   display:block;
-  margin-bottom:10px;
+  border-radius:8px;
+  background:#f6f6f6;
 }
 
-.ctl-look-card__img{
-  width:100%;height:100%;object-fit:cover;
+.ctl-card__img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.35s ease;
 }
 
-.ctl-look-card__title{font-size:14px;color:#111;text-decoration:none;}
+.ctl-card__imgwrap:hover .ctl-card__img{
+  transform:scale(1.05);
+}
 
-.ctl-look-card__bottom{
-  display:flex;
-  justify-content:space-between;
+.ctl-card__info{
   margin-top:10px;
 }
 
-.ctl-look-card__btn{
-  width:34px;height:34px;border-radius:50%;background:#111;color:#fff;border:none;
+.ctl-card__title{
+  font-size:14px;
+  color:#111;
+  text-decoration:none;
+  display:block;
+  line-height:1.4;
 }
 
-@media(max-width:749px){
-  .ctl-look-card{
-    flex:0 0 80%;
-  }
+.ctl-card__bottom{
+  display:flex;
+  justify-content:space-between;
+  margin-top:8px;
+  align-items:center;
 }
+
+.ctl-card__price{
+  font-size:14px;
+  font-weight:500;
+}
+
+.ctl-add{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  border:none;
+  background:#111;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  text-decoration:none;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .ctl-card{flex:0 0 80%;}
+}
+
 </style>
 
 <script>
-document.addEventListener('DOMContentLoaded',function(){
+(function(){
 
-  const slider=document.getElementById('ctlSlider');
-  const prev=document.querySelector('.ctl-prev');
-  const next=document.querySelector('.ctl-next');
+  document.querySelectorAll('.ctl-wrapper').forEach(function(wrapper){
 
-  const scrollAmount=slider.offsetWidth/2;
+    const slider = wrapper.querySelector('.ctl-slider');
+    const prev = wrapper.querySelector('.ctl-prev');
+    const next = wrapper.querySelector('.ctl-next');
 
-  prev.addEventListener('click',()=>{
-    slider.scrollBy({left:-scrollAmount,behavior:'smooth'});
+    if(!slider || !prev || !next) return;
+
+    function scrollAmount(){
+      return slider.querySelector('.ctl-card').offsetWidth + 16;
+    }
+
+    prev.addEventListener('click', function(){
+      slider.scrollBy({ left: -scrollAmount() * 2, behavior: 'smooth' });
+    });
+
+    next.addEventListener('click', function(){
+      slider.scrollBy({ left: scrollAmount() * 2, behavior: 'smooth' });
+    });
+
   });
 
-  next.addEventListener('click',()=>{
-    slider.scrollBy({left:scrollAmount,behavior:'smooth'});
-  });
+  document.addEventListener('click', function(e){
 
-  document.addEventListener('click',function(e){
-
-    const btn=e.target.closest('.ctl-look-card__btn[data-variant-id]');
+    const btn = e.target.closest('.ctl-add[data-variant-id]');
     if(!btn) return;
 
     btn.classList.add('loading');
 
-    fetch('/cart/add.js',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({id:btn.dataset.variantId,quantity:1})
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({id: btn.dataset.variantId, quantity: 1})
     })
-    .then(()=>btn.classList.add('added'))
-    .finally(()=>btn.classList.remove('loading'));
+    .then(r => r.json())
+    .then(() => {
+      btn.classList.add('added');
+      btn.classList.remove('loading');
+      setTimeout(()=>btn.classList.remove('added'), 1500);
+    })
+    .catch(()=>btn.classList.remove('loading'));
 
   });
 
-});
+})();
 </script>
