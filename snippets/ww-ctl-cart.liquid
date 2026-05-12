@@ -65,29 +65,19 @@
                     data-variant-id="{{ product.selected_or_first_available_variant.id }}"
                     aria-label="Add to cart"
                   >
-
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                      <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M3 6H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7"/>
+                      <path d="M3 6H21" stroke="currentColor" stroke-width="1.7"/>
                     </svg>
-
                   </button>
 
                 {%- else -%}
 
-                  <a
-                    href="{{ product.url }}"
-                    class="ctl-look-card__btn"
-                    aria-label="View product"
-                  >
-
+                  <a href="{{ product.url }}" class="ctl-look-card__btn" aria-label="View product">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                      <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M3 6H21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-                      <path d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z" stroke="currentColor" stroke-width="1.7"/>
+                      <path d="M3 6H21" stroke="currentColor" stroke-width="1.7"/>
                     </svg>
-
                   </a>
 
                 {%- endif -%}
@@ -113,17 +103,17 @@
 <div class="ctl-look-box">
 
   <div class="ctl-look-box__top">
+    <h3 class="ctl-look-box__heading">COMPLETE THE LOOK</h3>
 
-    <h3 class="ctl-look-box__heading">
-      COMPLETE THE LOOK
-    </h3>
+    <div class="ctl-nav">
+      <button class="ctl-prev" aria-label="Previous">&#10094;</button>
+      <button class="ctl-next" aria-label="Next">&#10095;</button>
+    </div>
 
   </div>
 
-  <div class="ctl-look-slider">
-
+  <div class="ctl-look-slider" id="ctlSlider">
     {{ ctl_cards }}
-
   </div>
 
 </div>
@@ -132,252 +122,118 @@
 {%- endif -%}
 
 <style>
-
 .ctl-look-box{
   background:#fff;
   border:1px solid #e7e7e7;
   border-radius:8px;
   padding:20px;
   margin-top:40px;
-  padding-bottom:0 !important;
 }
 
 .ctl-look-box__top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   margin-bottom:18px;
 }
 
 .ctl-look-box__heading{
   margin:0;
   font-size:11px;
-  line-height:1;
   letter-spacing:.18em;
-  font-weight:700;
   text-transform:uppercase;
-  color:#111;
 }
 
-/* CAROUSEL */
+.ctl-nav button{
+  background:#111;
+  color:#fff;
+  border:none;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  cursor:pointer;
+  margin-left:5px;
+}
 
 .ctl-look-slider{
   display:flex;
-  gap:18px;
   overflow-x:auto;
-  scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling:touch;
+  scroll-behavior:smooth;
+  gap:16px;
   scrollbar-width:none;
-  padding-bottom:10px;
 }
 
-.ctl-look-slider::-webkit-scrollbar{
-  display:none;
-}
+.ctl-look-slider::-webkit-scrollbar{display:none;}
 
 .ctl-look-card{
-  flex:0 0 calc(25% - 14px);
-  scroll-snap-align:start;
+  flex:0 0 calc(50% - 10px);
   display:flex;
   flex-direction:column;
-  min-width:0;
 }
 
 .ctl-look-card__image{
-  width:100%;
   aspect-ratio:1/1;
-  background:#f5f5f5;
   overflow:hidden;
   display:block;
-  margin-bottom:12px;
-  text-decoration:none;
+  margin-bottom:10px;
 }
 
 .ctl-look-card__img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-  transition:transform .4s ease;
+  width:100%;height:100%;object-fit:cover;
 }
 
-.ctl-look-card__image:hover .ctl-look-card__img{
-  transform:scale(1.04);
-}
-
-.ctl-look-card__content{
-  display:flex;
-  flex-direction:column;
-  flex:1;
-}
-
-.ctl-look-card__title{
-  font-size:14px;
-  line-height:1.45;
-  color:#111;
-  text-decoration:none;
-}
-
-.ctl-look-card__title:hover{
-  text-decoration:underline;
-}
+.ctl-look-card__title{font-size:14px;color:#111;text-decoration:none;}
 
 .ctl-look-card__bottom{
-  margin-top:14px;
   display:flex;
-  align-items:flex-end;
   justify-content:space-between;
-  gap:10px;
-}
-
-.ctl-look-card__price{
-  font-size:14px;
-  color:#111;
-  font-weight:500;
+  margin-top:10px;
 }
 
 .ctl-look-card__btn{
-  width:36px;
-  height:36px;
-  min-width:36px;
-  border-radius:50%;
-  border:none;
-  background:#111;
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  transition:all .25s ease;
-  text-decoration:none;
-  padding:0;
+  width:34px;height:34px;border-radius:50%;background:#111;color:#fff;border:none;
 }
 
-.ctl-look-card__btn:hover{
-  background:#2c2c2c;
-}
-
-.ctl-look-card__btn.loading{
-  opacity:.5;
-  pointer-events:none;
-}
-
-.ctl-look-card__btn.added{
-  background:#1f9d72;
-}
-
-/* MOBILE */
-
-@media screen and (max-width:749px){
-
-  .ctl-look-box{
-    padding:16px;
-  }
-
-  .ctl-look-slider{
-    gap:14px;
-  }
-
+@media(max-width:749px){
   .ctl-look-card{
-    flex:0 0 68%;
+    flex:0 0 80%;
   }
-
-  .ctl-look-card__title{
-    font-size:13px;
-  }
-
-  .ctl-look-card__price{
-    font-size:13px;
-  }
-
-  .ctl-look-card__btn{
-    width:34px;
-    height:34px;
-    min-width:34px;
-  }
-
 }
-
 </style>
 
 <script>
+document.addEventListener('DOMContentLoaded',function(){
 
-(function(){
+  const slider=document.getElementById('ctlSlider');
+  const prev=document.querySelector('.ctl-prev');
+  const next=document.querySelector('.ctl-next');
 
-  if(window.ctlCompleteLookInit) return;
-  window.ctlCompleteLookInit = true;
+  const scrollAmount=slider.offsetWidth/2;
 
-  document.addEventListener('click', function(e){
+  prev.addEventListener('click',()=>{
+    slider.scrollBy({left:-scrollAmount,behavior:'smooth'});
+  });
 
-    var btn = e.target.closest('.ctl-look-card__btn[data-variant-id]');
+  next.addEventListener('click',()=>{
+    slider.scrollBy({left:scrollAmount,behavior:'smooth'});
+  });
 
-    if(!btn || btn.classList.contains('loading')) return;
+  document.addEventListener('click',function(e){
 
-    e.preventDefault();
+    const btn=e.target.closest('.ctl-look-card__btn[data-variant-id]');
+    if(!btn) return;
 
     btn.classList.add('loading');
 
     fetch('/cart/add.js',{
-
       method:'POST',
-
-      headers:{
-        'Content-Type':'application/json',
-        'X-Requested-With':'XMLHttpRequest'
-      },
-
-      body:JSON.stringify({
-        id:btn.dataset.variantId,
-        quantity:1
-      })
-
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({id:btn.dataset.variantId,quantity:1})
     })
-
-    .then(function(response){
-      return response.json();
-    })
-
-    .then(function(){
-
-      btn.classList.remove('loading');
-      btn.classList.add('added');
-
-      fetch('/cart.js')
-
-      .then(function(r){
-        return r.json();
-      })
-
-      .then(function(cart){
-
-        document.documentElement.dispatchEvent(
-
-          new CustomEvent('cart:refresh',{
-
-            bubbles:true,
-
-            detail:{
-              cart:cart,
-              openMiniCart:true
-            }
-
-          })
-
-        );
-
-      });
-
-      setTimeout(function(){
-        btn.classList.remove('added');
-      },2000);
-
-    })
-
-    .catch(function(){
-
-      btn.classList.remove('loading');
-
-    });
+    .then(()=>btn.classList.add('added'))
+    .finally(()=>btn.classList.remove('loading'));
 
   });
 
-})();
-
+});
 </script>
