@@ -26,7 +26,7 @@
       <div class="ctl-card">
         <a href="{{ rp.url }}" class="ctl-card__img-wrap">
           {%- if rp.featured_image -%}
-            {{ rp.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', class: 'ctl-card__img', alt: rp.title }}
+            {{ rp.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', class: 'ctl-card__img', alt: rp.title | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
           {%- else -%}
             {{ 'product-1' | placeholder_svg_tag: 'ctl-card__img ctl-card__img--placeholder' }}
           {%- endif -%}
