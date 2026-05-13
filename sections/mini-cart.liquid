@@ -48,6 +48,13 @@
       <div class="button-wrapper">
         <a href="{{ section.settings.empty_button_link  }}" class="button button--primary">{{ 'cart.general.start_shopping' | t }}</a>
       </div>
+
+      {%- comment -%}
+        Keep the Complete The Look cart controller loaded even when the drawer starts empty.
+        When the first product is added, Shopify replaces the drawer HTML with innerHTML,
+        so script tags inside the injected CTL markup do not execute.
+      {%- endcomment -%}
+      {%- render 'ww-ctl-cart' -%}
     </div>
   {%- else -%}
     <div class="drawer__content">

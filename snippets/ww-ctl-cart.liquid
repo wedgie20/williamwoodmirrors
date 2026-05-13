@@ -61,6 +61,7 @@
                 {%- if product.available and product.has_only_default_variant -%}
 
                   <button
+                    type="button"
                     class="ctl-look-card__btn"
                     data-variant-id="{{ product.selected_or_first_available_variant.id }}"
                     aria-label="Add to cart"
@@ -128,11 +129,11 @@
 
     <div class="ctl-look-navs">
 
-      <button class="ctl-look-nav ctl-look-nav--prev is-disabled" aria-label="Previous">
+      <button type="button" class="ctl-look-nav ctl-look-nav--prev is-disabled" aria-label="Previous">
         &#10094;
       </button>
 
-      <button class="ctl-look-nav ctl-look-nav--next" aria-label="Next">
+      <button type="button" class="ctl-look-nav ctl-look-nav--next" aria-label="Next">
         &#10095;
       </button>
 
@@ -365,13 +366,13 @@
   if(window.ctlCompleteLookInit) return;
   window.ctlCompleteLookInit = true;
 
-  let isAnimating = false;
+  let observer = null;
 
   function getCardWidth(slider){
     const card = slider.querySelector('.ctl-look-card');
     if(!card) return 0;
     const styles = window.getComputedStyle(slider);
-    const gap = parseInt(styles.columnGap || styles.gap || 18);
+    const gap = parseInt(styles.columnGap || styles.gap || 18, 10) || 18;
     return card.offsetWidth + gap;
   }
 
@@ -417,68 +418,76 @@
     document.querySelectorAll('.ctl-look-box').forEach(enhanceBox);
   }
 
-  {% comment %} document.addEventListener('click', function(e){
+  function scheduleEnhance(delay){
+    window.setTimeout(function(){
+      enhanceAll();
+      document.querySelectorAll('.ctl-look-box').forEach(updateButtons);
+    }, delay || 0);
+  }
+
+  function observeCartDrawer(){
+    if(observer || !window.MutationObserver) return;
+
+    observer = new MutationObserver(function(mutations){
+      for(const mutation of mutations){
+        for(const node of mutation.addedNodes){
+          if(node.nodeType !== 1) continue;
+
+          if(
+            (node.matches && node.matches('.ctl-look-box, .ctl-look-slider')) ||
+            (node.querySelector && node.querySelector('.ctl-look-box'))
+          ){
+            scheduleEnhance(50);
+            scheduleEnhance(300);
+            return;
+          }
+        }
+      }
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  document.addEventListener('click', function(e){
     const btn = e.target.closest('.ctl-look-nav--next, .ctl-look-nav--prev');
-    if(!btn) return;
-    if(btn.classList.contains('is-disabled') || isAnimating) return;
+    if (!btn) return;
+
+    e.preventDefault();
+
+    if (btn.classList.contains('is-disabled')) return;
 
     const box = btn.closest('.ctl-look-box');
-    if(!box) return;
+    if (!box) return;
+
     const slider = box.querySelector('.ctl-look-slider');
-    if(!slider) return;
+    if (!slider) return;
+
+    if (slider.dataset.animating === 'true') return;
+
+    enhanceBox(box);
 
     const direction = btn.classList.contains('ctl-look-nav--next') ? 1 : -1;
-    const moveAmount = getCardWidth(slider) * 2 * direction;
+    let moveAmount = getCardWidth(slider) * 2;
 
-    isAnimating = true;
+    if (moveAmount <= 0) {
+      moveAmount = slider.clientWidth;
+    }
+
+    slider.dataset.animating = 'true';
+
     slider.scrollTo({
-      left: slider.scrollLeft + moveAmount,
+      left: slider.scrollLeft + moveAmount * direction,
       behavior: 'smooth'
     });
 
-    setTimeout(function(){
-      isAnimating = false;
+    setTimeout(function () {
+      slider.dataset.animating = 'false';
       updateButtons(box);
     }, 500);
-  }); {% endcomment %}
-
-document.addEventListener('click', handleLookNav);
-document.addEventListener('touchend', handleLookNav, { passive: false });
-
-function handleLookNav(e) {
-  const btn = e.target.closest('.ctl-look-nav--next, .ctl-look-nav--prev');
-  if (!btn) return;
-
-  e.preventDefault();
-
-  if (btn.classList.contains('is-disabled')) return;
-
-  const box = btn.closest('.ctl-look-box');
-  if (!box) return;
-
-  const slider = box.querySelector('.ctl-look-slider');
-  if (!slider) return;
-
-  if (slider.dataset.animating === 'true') return;
-
-  const direction = btn.classList.contains('ctl-look-nav--next') ? 1 : -1;
-  const moveAmount = getCardWidth(slider) * 2 * direction;
-
-  slider.dataset.animating = 'true';
-
-  slider.scrollTo({
-    left: slider.scrollLeft + moveAmount,
-    behavior: 'smooth'
   });
-
-  setTimeout(function () {
-    slider.dataset.animating = 'false';
-    updateButtons(box);
-  }, 500);
-}
-setTimeout(function () {
-  document.querySelectorAll('.ctl-look-box').forEach(updateButtons);
-}, 300);
 
   document.addEventListener('click', function(e){
     const atc = e.target.closest('.ctl-look-card__btn[data-variant-id]');
@@ -505,7 +514,9 @@ setTimeout(function () {
   });
 
   document.documentElement.addEventListener('cart:refresh', function(){
-    setTimeout(enhanceAll, 600);
+    scheduleEnhance(50);
+    scheduleEnhance(300);
+    scheduleEnhance(800);
   });
 
   window.addEventListener('resize', function(){
@@ -517,6 +528,16 @@ setTimeout(function () {
   } else {
     enhanceAll();
   }
+
+  window.WWCompleteLookCart = {
+    init: enhanceAll,
+    update: function(){
+      document.querySelectorAll('.ctl-look-box').forEach(updateButtons);
+    }
+  };
+
+  observeCartDrawer();
+  scheduleEnhance(300);
 
 })();
 
