@@ -69,7 +69,7 @@
               <div class="ctl-card__body">
 
                 <a href="{{ rp.url }}" class="ctl-card__title">
-                  {{ rp.title }}
+                  {{ rp.title|truncate: 20 }}
                 </a>
 
                 <span class="ctl-card__price">
