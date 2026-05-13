@@ -49,7 +49,7 @@
             <div class="ctl-look-card__content">
 
               <a href="{{ product.url }}" class="ctl-look-card__title">
-                {{ product.title }}
+                {{ product.title|truncate: 20 }}
               </a>
 
               <div class="ctl-look-card__bottom">
