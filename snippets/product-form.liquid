@@ -738,18 +738,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   {%- when 'product_status' -%}
 {% unless product.tags contains 'freegift' %}
-<div style="
-        background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), url('{{ settings.speedsize_url_pfx_https -}}{{ block.settings.background_image | img_url: 'master' }}');
-        background-size: cover;
-        background-position: center;
-        color: white;
-        padding: 15px;
-        border-radius: 10px;
-  text-align: center;
-  font-weight: 700;
-  font-size: 13px;
-      ">
-  
   {% assign has_coming_soon = false %}
   {% assign has_back_soon = false %}
   {% assign has_restock = false %}
@@ -789,6 +777,7 @@ document.addEventListener('DOMContentLoaded', function () {
     {% endif %}
   {% endfor %}
 
+  {%- capture product_status_content -%}
   {% if has_coming_soon %}
     <p>{{ block.settings.coming_soon_text | escape | newline_to_br }}</p>
   {% elsif has_back_soon %}
@@ -841,6 +830,23 @@ document.addEventListener('DOMContentLoaded', function () {
      {{ block.settings.promo_text | newline_to_br }}
     {% endif %}
   {% endif %}
+  {%- endcapture -%}
+
+  {%- assign product_status_has_content = product_status_content | strip_html | strip -%}
+
+<div style="
+        {% if product_status_has_content == blank %}display: none;{% endif %}
+        background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), url('{{ settings.speedsize_url_pfx_https -}}{{ block.settings.background_image | img_url: 'master' }}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 13px;
+      ">
+  {{ product_status_content }}
 </div>
 {% endunless %}
 
