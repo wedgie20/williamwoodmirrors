@@ -674,7 +674,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 {% assign excluded = false %}
 {% for col in product.collections %}
-  {% if col.handle == 'lighting' or col.handle == 'coffee-tables' or col.handle == 'spring-sale' %}
+  {% comment %} {% if col.handle == 'lighting' or col.handle == 'coffee-tables' or col.handle == 'spring-sale' %} {% endcomment %}
+     {% if col.handle == 'spring-sale' %}
+
     {% assign excluded = true %}
     {% break %}
   {% endif %}
