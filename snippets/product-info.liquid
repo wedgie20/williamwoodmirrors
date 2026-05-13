@@ -672,9 +672,62 @@ document.addEventListener("DOMContentLoaded", function() {
       {%- endif -%}
     {%- endif -%}
 
-{% if collection.handle != 'lighting' and collection.handle != 'coffee-tables' and collection.handle != 'sale' and collection.handle %}
-  <p>Get 15% off with code <b>TAKE15</b> at checkout</p>
+    {% if collection.handle != 'lighting' and collection.handle != 'coffee-tables' and collection.handle != 'sale' and collection.handle %}
+
+<div class="ww-promo-banner">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><path d="M9 12h6"/><path d="M9 16h4"/></svg>
+  <p>Save <strong>15% on this piece</strong> — apply code at checkout</p>
+  <span class="ww-code">TAKE15</span>
+</div>
+
+<style>
+  .ww-promo-banner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 0.5px solid #d4cfc8;
+    border-radius: 8px;
+    padding: 14px 20px;
+    margin: 16px 0;
+    background: #fff;
+    max-width: 560px;
+  }
+  .ww-promo-banner svg {
+    color: #8a7d6b;
+    flex-shrink: 0;
+  }
+  .ww-promo-banner p {
+    margin: 0;
+    font-size: 13.5px;
+    color: #6b6560;
+    line-height: 1.45;
+    flex: 1;
+  }
+  .ww-promo-banner strong {
+    color: #1a1a1a;
+    font-weight: 500;
+  }
+  .ww-code {
+    font-family: monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    background: #f4f0eb;
+    color: #5a4e3f;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 0.5px dashed #c4b9aa;
+    white-space: nowrap;
+    flex-shrink: 0;
+    user-select: all;
+    cursor: pointer;
+  }
+</style>
 {% endif %}
+
+{% comment %} {% if collection.handle != 'lighting' and collection.handle != 'coffee-tables' and collection.handle != 'sale' and collection.handle %}
+  <p>Get 15% off with code <b>TAKE15</b> at checkout</p>
+{% endif %} {% endcomment %}
 
     <product-payment-terms form-id="{{ product_form_id }}" id="installementsid-{{ product_form_id }}">
       {%- assign product_installment_form_id = 'product-installment-form-'
