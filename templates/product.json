@@ -1,1 +1,592 @@
-{"sections":{"main":{"type":"main-product","blocks":{"dividebuy_spread_the_cost_dividebuyproduct_jmcjW4":{"type":"shopify:\/\/apps\/dividebuy-spread-the-cost\/blocks\/dividebuyproduct\/3ea5bc0e-1a15-490b-b431-d3ea9a2cd3da","disabled":true,"settings":{"finproms_text":"or_from","include_cart_total":true,"alignment":"left","tooltip-alignment":"left","top_margin":0,"bottom_margin":0,"alignment-mobile":"center","top_margin_mobile":0,"bottom_margin_mobile":0,"price_dom_element_selector":""}},"klarna_on_site_messaging_app_block_XKGVqU":{"type":"shopify:\/\/apps\/klarna-on-site-messaging\/blocks\/app-block\/b95936a9-74b6-4a95-8103-6a1b6459c25e","settings":{"data_key":"credit-promotion-badge","theme":"custom","topPadding":"-10","bottomPadding":"0","messagePrefix":""}},"liquid_DDqgU3":{"type":"liquid","settings":{"liquid":"{% assign has_coming_soon = false %}\n{% assign has_back_soon = false %}\n{% assign has_restock = false %}\n{% assign has_black_friday_restock = false %}\n{% assign has_launch = false %}\n{% assign restock_date = \"\" %}\n{% assign launch_date = \"\" %}\n{% assign black_friday_launch_date = false %}\n\n{% for tag in product.tags %}\n    {% if tag == \"__label:COMING SOON\" %}\n        {% assign has_coming_soon = true %}\n    {% elsif tag == \"__label:BACK SOON\" %}\n        {% assign has_back_soon = true %}\n    {% elsif tag == \"__label:RESTOCKS BLACK FRIDAY\" %}\n        {% assign has_black_friday_restock = true %}\n    {% elsif tag contains \"__label:RESTOCKS\" %}\n        {% assign has_restock = true %}\n        {% assign restock_date = tag | remove: \"__label:RESTOCKS \" %}\n    {% elsif tag == \"__label:LAUNCHES BLACK FRIDAY\" %}\n        {% assign black_friday_launch_date = true %}\n    {% elsif tag contains \"__label:LAUNCHES\" %}\n        {% assign has_launch = true %}\n        {% assign launch_date = tag | remove: \"__label:LAUNCHES \" %}\n    {% endif %}\n{% endfor %}\n\n{% assign in_best_sellers = false %}\n{% for collection in product.collections %}\n    {% if collection.handle == 'best-sellers' %}\n        {% assign in_best_sellers = true %}\n    {% endif %}\n{% endfor %}\n\n{% unless has_back_soon or has_coming_soon or has_restock or has_launch or has_black_friday_restock or black_friday_launch_date %}\n    {% unless product.title contains \"Arcurva\" %}\n        {% if in_best_sellers %}\n            {% unless product.tags contains \"sale\" %}\n               <p><img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/icons8-price_09b4ad75-7e3d-4169-b74b-25d45d330242.svg?v=1721817633\">&nbsp;25% off two or more bestsellers code: BEST<\/p>                \n               <b>Early November Offer: 20% off this product code NOVFIND (Last Chance)<\/b>\n            {% endunless %}\n        {% else %}\n            {% unless product.tags contains \"sale\" %}\n                <b>Early November Offer: 20% off this product code NOVFIND (Last Chance)<\/b>\n            {% endunless %}\n        {% endif %}\n    {% endunless %}\n    \n    {% if product.tags contains 'sale' %}\n        <b>Extra 10% off sale code SALE10<\/b>\n    {% endif %}\n{% endunless %}\n\n{% if has_coming_soon %}\n    <b>Coming Soon<\/b>\n{% elsif has_back_soon %}\n    <b>Back in stock soon, sign up for restock notifications below <\/b>\n{% elsif black_friday_launch_date %}\n    <b>Launches 29.11.24 00:00 AM GMT<\/b>\n{% elsif has_launch %}\n    <b>Launches {{ launch_date }} 8PM<\/b>\n{% elsif has_black_friday_restock %}\n    <b>Restocks 29.11.24 00:00 AM GMT<\/b>\n{% elsif has_restock %}\n    <b>Restocks {{ restock_date }} 8PM<\/b>\n{% endif %}"}},"a21b4441-8344-4f3c-a015-2383ee7c6936":{"type":"text","settings":{"text":"<p><strong>{{ product.metafields.custom.valentina_launch_date.value }}<\/strong><\/p>"}},"7e08a5f6-44df-43df-aa3b-7fb09ccd9a9e":{"type":"text","settings":{"text":"<p><strong>{{ product.metafields.custom.arcus_restock.value }}<\/strong><\/p>"}},"e20c3c2f-bbc4-48e4-9134-f1d2fc45b462":{"type":"text","settings":{"text":"<p>{{ product.metafields.custom.parcel_force_delivery.value }}<\/p>"}},"82eb370e-19d1-499b-af7e-d4cee783596d":{"type":"text","settings":{"text":"<p>{{ product.metafields.custom.framed_art_description | metafield_tag }}<\/p>"}},"short_desc_86FAFb":{"type":"short_desc","settings":{"short_description":"","show_read_more":true,"read_more_text":"Read more"}},"liquid_mFBDNR":{"type":"liquid","settings":{"liquid":"{% if product.variants[0].inventory_quantity > 0 %}\n  {% for tag in product.tags %}\n    {% if tag == 'pre-order' and product.variants[0].inventory_quantity < 11 %}\n      <div class=\"instock-pulse\">\n        <span class=\"icon--pulsing\"><\/span>\n        <span>Available for pre order, {{ product.variants[0].inventory_quantity }} left <\/span>\n      <\/div>\n    {% elsif tag == 'pre-order' %}\n      <div class=\"instock-pulse\">\n        <span class=\"icon--pulsing\"><\/span>\n        <span>Available for pre order<\/span>\n      <\/div>\n    {% endif %}\n  {% endfor %}\n\n  {% unless product.tags contains 'pre-order' %}\n    {% if product.available and product.variants[0].inventory_quantity < 11 %}\n{% unless product.tags contains 'PF' %}\n      <div class=\"instock-pulse\">\n        <span class=\"icon--pulsing\"><\/span>\n        <span><b>In stock<\/b> and ready to ship, <b>{{ product.variants[0].inventory_quantity }} left <\/b><\/span>\n      <\/div>\n{% else %}\n<div class=\"instock-pulse\">\n        <span class=\"icon--pulsing\"><\/span>\n        <span>In stock and ready to ship, <b>{{ product.variants[0].inventory_quantity }} left <\/b><\/span>\n      <\/div>\n{% endunless %}\n    {% else %}\n{% unless product.tags contains 'PF' %}\n      <div class=\"instock-pulse\">\n        <span class=\"icon--pulsing\"><\/span>\n        <span><b>In stock<\/b> and ready to ship<\/span>\n{% else %}\n      <div class=\"instock-pulse\">\n        <span class=\"icon--pulsing\"><\/span>\n        <span><b>In stock<\/b> and ready to ship<\/span>\n{% endunless %}\n      <\/div>\n    {% endif %}\n  {% endunless %}\n\n  <style>\n    {% if product.available %}\n\n        .instock-pulse {\n          display: flex;\n          flex-wrap: nowrap;\n          align-items: center;          margin: 15px 0 0;\n        }\n\n        .icon--pulsing {\n          position: relative;\n          width: 20px;\n          height: 20px;\n          margin-right: 10px;\n        }\n\n        .icon--pulsing:after,\n        .icon--pulsing:before {\n            background: #54c63a;\n            width: 10px;\n            height: 10px;\n            border-radius: 10px;\n            position: absolute;\n            left: 0;\n            top: 0;\n            content: \"\";\n            margin: 5px;\n        }\n\n        @keyframes inventory-pulse{\n          0%{\n            opacity:0.5;\n          }\n          to{\n            transform:scale(2.5);\n            opacity:0;\n          }\n        }\n    {% endif %}\n    {% if product.variants[0].inventory_quantity >= 11 %}\n\n        .icon--pulsing:before {\n            animation: inventory-pulse 2.5s linear infinite;\n        }\n\n        {% elsif product.variants[0].inventory_quantity < 11 and product.variants[0].inventory_quantity > 1 %}\n\n        .icon--pulsing:before {\n            animation: inventory-pulse 1.5s linear infinite;\n        }\n{% else %}\n\n.icon--pulsing:before {\n            animation: inventory-pulse 1s linear infinite;\n        }\n    {% endif %}\n  <\/style>\n{% endif %}"}},"quantity_selector":{"type":"quantity_selector","settings":{}},"67334996-ee52-4157-a9a3-730178b33fa7":{"type":"variant_picker","settings":{"hide_sold_out_variants":false,"selector_mode":"block","color_mode":"color","size_chart_page":""}},"buy_buttons":{"type":"buy_buttons","settings":{"show_payment_button":true,"show_shipping_text":false,"atc_button_background":"#282828","atc_button_text_color":"#ffffff","buy_now_button_background":"#0052ff","buy_now_button_text_color":"#ffffff"}},"trust_badges_bear_widget_YMkCzc":{"type":"shopify:\/\/apps\/conversion-bear-trust-badges\/blocks\/widget\/163a9b59-0ec2-4cb7-bf5c-31408b4a9420","disabled":true,"settings":{}},"divider_TthBj9":{"type":"divider","disabled":true,"settings":{"padding_top":0,"padding_bottom":10}},"stories_z3hwyH":{"type":"stories","settings":{}},"usp_list_DD8pzP":{"type":"usp_list","settings":{}},"planet_shopify_planet_PVEqkE":{"type":"shopify:\/\/apps\/planet\/blocks\/shopify-planet\/12047591-3a2d-45cc-9dfd-2ce5eaa45dee","settings":{"badgeMode":"info","customText":"","showMoreInfo":"link","showLogo":true,"showStats":false,"showProjects":false,"backgroundColor":"#f1f8f5","textColor":"#1d4136","borderColor":"#95c9b4","fullWidth":true,"marginTop":0,"marginBottom":2,"borderRadius":4}},"spread_payments_ciptAV":{"type":"spread_payments","settings":{"text":"Klarna or Clearpay available at checkout \u2013 Tap for information","description":"Pay in 3 instalments at no extra cost"}}},"block_order":["dividebuy_spread_the_cost_dividebuyproduct_jmcjW4","klarna_on_site_messaging_app_block_XKGVqU","liquid_DDqgU3","a21b4441-8344-4f3c-a015-2383ee7c6936","7e08a5f6-44df-43df-aa3b-7fb09ccd9a9e","e20c3c2f-bbc4-48e4-9134-f1d2fc45b462","82eb370e-19d1-499b-af7e-d4cee783596d","short_desc_86FAFb","liquid_mFBDNR","quantity_selector","67334996-ee52-4157-a9a3-730178b33fa7","buy_buttons","trust_badges_bear_widget_YMkCzc","divider_TthBj9","stories_z3hwyH","usp_list_DD8pzP","planet_shopify_planet_PVEqkE","spread_payments_ciptAV"],"settings":{"question_mark_title":"WHY IS THERE A LONGER DELIVERY TIME?","question_mark_content":"<p>This item is being carefully crafted and refined by our expert manufacturer. Once your order is placed, your item will be delivered in line with the stated delivery week.<br\/><br\/>Require further assistance? Contact our Customer Support Team via\u00a0<strong>hello@williamwoodmirrors.co.uk<\/strong>\u00a0and an advisor will be pleased to assist you.<\/p>","show_vendor":false,"show_sku":false,"show_taxes_included":false,"show_product_rating":true,"show_sticky_add_to_cart":true,"show_share_buttons":true,"help_page":"","enable_video_autoplay":true,"enable_video_looping":false,"enable_image_zoom":true,"show_thumbnails_on_mobile":false,"desktop_thumbnails_position":"bottom","transition_effect":"fade"}},"infinite_scroller_PLWixJ":{"type":"infinite-scroller","blocks":{"logo_iGnHXt":{"type":"logo","settings":{"logo":"shopify:\/\/shop_images\/WW_24_AsSeenIn_Icons-08_1.jpg"}},"logo_zA6bNa":{"type":"logo","settings":{"logo":"shopify:\/\/shop_images\/WW_24_AsSeenIn_Icons-03.png"}},"logo_Gf33i7":{"type":"logo","settings":{"logo":"shopify:\/\/shop_images\/WW_24_AsSeenIn_Icons-05.png"}},"logo_HP3zeH":{"type":"logo","settings":{"logo":"shopify:\/\/shop_images\/WW_24_AsSeenIn_Icons-01.png"}},"logo_et7RRR":{"type":"logo","settings":{"logo":"shopify:\/\/shop_images\/WW_24_AsSeenIn_Icons-07.png"}},"logo_6LArXc":{"type":"logo","settings":{"logo":"shopify:\/\/shop_images\/WW_24_AsSeenIn_Icons-06.png"}},"logo_XX6XTj":{"type":"logo","settings":{"logo":"shopify:\/\/shop_images\/WW_24_AsSeenIn_Icons-09.png"}},"logo_W9p9gM":{"type":"logo","settings":{"logo":"shopify:\/\/shop_images\/WW_24_AsSeenIn_Icons-10.png"}},"logo_cHjFgH":{"type":"logo","settings":{"logo":"shopify:\/\/shop_images\/WW_24_AsSeenIn_Icons-02.png"}}},"block_order":["logo_iGnHXt","logo_zA6bNa","logo_Gf33i7","logo_HP3zeH","logo_et7RRR","logo_6LArXc","logo_XX6XTj","logo_W9p9gM","logo_cHjFgH"],"settings":{"logos_shown":3,"logo_spacing":10,"animation_speed":10,"background_color":"#efefef","image_size":"200x200"}},"multi_column_yFeQDG":{"type":"multi-column","blocks":{"item_UDdzRJ":{"type":"item","settings":{"image":"shopify:\/\/shop_images\/icons8-handshake_1.svg","image_width":15,"image_border":"rgba(0,0,0,0)","title":"","content":"<p>Over 600,000 customers have trusted William Wood<\/p>","link_text":"","link_url":"","link_style":"link","text_alignment":"center","vertical_alignment":"start"}},"item_Q6dQVC":{"type":"item","settings":{"image":"shopify:\/\/shop_images\/icons8-magnetic-card-48.svg","image_width":15,"image_border":"rgba(0,0,0,0)","title":"","content":"<p>Pay in 3-12 instalments at no extra cost<\/p>","link_text":"","link_url":"","link_style":"link","text_alignment":"center","vertical_alignment":"start"}},"item_yb9H76":{"type":"item","settings":{"image":"shopify:\/\/shop_images\/icons8-delivery-time-48.svg","image_width":15,"image_border":"rgba(0,0,0,0)","title":"","content":"<p>Hassle-Free 90 Days Free Returns & Instant Refunds<\/p>","link_text":"","link_url":"","link_style":"link","text_alignment":"center","vertical_alignment":"start"}},"item_fWNi8d":{"type":"item","settings":{"image":"shopify:\/\/shop_images\/icons8-in-transit-48.svg","image_width":15,"image_border":"rgba(0,0,0,0)","title":"","content":"<p>Free Mainland UK + Northern Ireland Delivery<\/p>","link_text":"","link_url":"","link_style":"link","text_alignment":"center","vertical_alignment":"start"}}},"block_order":["item_UDdzRJ","item_Q6dQVC","item_yb9H76","item_fWNi8d"],"settings":{"reveal_on_scroll":true,"stack_items":true,"subheading":"","title":"","content":"","column_alignment":"center","mobile_item_size":"small","desktop_item_size":"small","spacing":"tight","background":"#efefef","text_color":"rgba(0,0,0,0)"}},"product-content":{"type":"product-content","blocks":{"4e51a426-b5bc-43a8-a050-9f7693e73371":{"type":"trust","disabled":true,"settings":{"icon_1":"picto-fast-delivery","title_1":"Free Shipping + Free Returns","content_1":"<p><strong>Free Mainland UK Delivery<\/strong> within up to <strong>2-7 working days<\/strong>, delivered with care by our in-house William Wood Dedicated Delivery team + Peace of mind with <strong>Free Returns<\/strong> within <strong>90 Days<\/strong> of receiving your order. Northern Ireland delivery available within up to <strong>14-21 working days (\u00a330.00)<\/strong><\/p>","icon_2":"picto-love","title_2":"100% Plastic Neutral","content_2":"<p>Our partnership with CleanHub esnures the safe collection and recovery of 10,000kg of ocean bound plastic each year.<\/p>","icon_3":"picto-worldwide","title_3":"100% Carbon Neutral Deliveries","content_3":"<p>Fulfilment of your order is guaranteed Carbon Neutral through our partnership Shopify Planet.<\/p>"}},"description":{"type":"description","settings":{}},"liquid_GG3wbC":{"type":"liquid","settings":{"title":"HOW TO HANG MIRROR","liquid":"<iframe src=\"https:\/\/player.vimeo.com\/video\/910815842?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479\" width=\"1080\" height=\"1920\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture\" title=\"How to hang your William Wood mirror\"><\/iframe>"}},"e2f1d81f-1ae5-4e38-8dde-ffd4c4af1d44":{"type":"content","settings":{"title":"DELIVERY","content":"<p><strong>MAINLAND UK + NORTHERN IRELAND<br\/><br\/><\/strong>Free Mainland UK Delivery within 1-7 Business Days. We will contact you with advance notice to organise a delivery date.<br\/><br\/>Free Northern Ireland Delivery within 14-21 Business Days. We will contact you with advance notice to organise a delivery date.<strong><br\/><br\/><\/strong><\/p><p><strong>NORTH WEST<\/strong><br\/><br\/>Free Express 1-3 Business Days to the following post codes:<br\/><br\/><strong>BL, L, M, OL, SK, WA, WN.<\/strong><\/p><p><strong><br\/><br\/>LONDON<\/strong><br\/><br\/>Free Express 1-4 Business Days to the following post codes:<br\/><br\/><strong>NW, N, E, SE, SW, W, WC, EC, WD, EN, IG, BR, CR, SM, KT, TW, UB, HA.<\/strong><\/p><p><strong><br\/><br\/>Remainder of the UK<\/strong><br\/><br\/>Free UK Delivery within 1-9 Business Days to the following post codes:<\/strong>.<br\/><br\/><strong>AB, BA, CA, DD, DG,  DT, EX, FK, IP, IV1, IV2, IV3, IV5, IV8, IV9, IV10, IV12, IV13, IV30, IV31, IV32, IV36, KY, LA,  LD,  LL,  LN, NR, PE,  PH1-PH26,  PL, SA,  SY, TA, TQ,  TR<\/strong><\/p><p><br\/><br\/><br\/><strong>PRE ORDER ITEM(S) DELIVERY<br\/><br\/><\/strong>Your <strong>Pre Order <\/strong>item(s)<strong> <\/strong>will be delivered to you with the utmost urgency within the advised shipping week. You can easily locate the shipping week above the <strong>'ADD TO CART' <\/strong>button.<br\/><br\/>Our highly acclaimed Pre Order service is available for customers who wish to purchase and reserve in demand stock. <br\/><br\/>Cancel anytime. 100% refund guarantee.<br\/><br\/><br\/><br\/><strong>ORDERS OF IN STOCK AND PRE ORDER ITEM(S)<br\/><br\/><\/strong>In this case we will ship your in stock item(s) to you within the standard delivery time. Once your Pre Order item(s) arrive in stock, we'll deliver these to you as fast as possible.<\/p>","page":""}},"content_3dnH6D":{"type":"content","settings":{"title":"Returns","content":"<p>We offer\u00a0<strong>90<\/strong>\u00a0<strong>Days Free\u00a0Returns <\/strong>on all orders.\u00a0To start a return, head to your <strong>Customer Portal <\/strong>and select 'Request a return' or, simply email <strong>hello@williamwoodmirrors.co.uk<\/strong> with your order number. Our Customer Support Team will respond to your request as soon as possible and confirm the next steps.<\/p><p><br\/><strong>INDUSTRY LEADING REFUND TIMES<\/strong><br\/><br\/>Once returning item(s) have been collected by your William Wood Dedicated driver, your payment will be refunded back to your original payment method within <strong>1 working day <\/strong>- That's our promise.<br\/><br\/>For in depth information on Returns & Exchanges, tap <a href=\"https:\/\/www.williamwoodmirrors.co.uk\/pages\/returns\" title=\"https:\/\/www.williamwoodmirrors.co.uk\/pages\/returns\">here.<\/a><br\/><br\/>Require further assistance? Contact our Customer Support Team via <strong>hello@williamwoodmirrors.co.uk<\/strong> and an advisor will be pleased to assist you.<\/p>","page":""}},"8aee6622-1264-45f1-86c7-d7dcf187277f":{"type":"content","settings":{"title":"ROOM OF CHOICE DELIVERY","content":"<p><strong>DELIVERY TO FRONT ENTRANCE OF YOUR PROPERTY<\/strong><br\/><br\/>William Wood Dedicated Delivery service will hand deliver your item(s) with the utmost care to the front entrance of your property.<br\/><br\/><strong><br\/>DELIVERY TO SPECIFIC ROOM OF CHOICE WITHIN YOUR PROPERTY<br\/><br\/><\/strong>With a large majority of cases, William Wood Dedicated Delivery service will be able to deliver your item(s) to your room of choice. However, upon inspecting the path to your specific room of choice and whether this may be to difficult, this decision will be at the William Wood Dedicated Delivery drivers discretion.<br\/><br\/>Require further assistance? Contact our Customer Support Team via <strong>hello@williamwoodmirrors.co.uk<\/strong> and an advisor will be pleased to assist you.<\/p>","page":""}},"7388b98b-fb77-4c92-895d-9695c498307b":{"type":"content","settings":{"title":"Customer Support","content":"<p>Require assistance? Contact our Customer Support Team via <strong>hello@williamwoodmirrors.co.uk<\/strong> and an advisor will be pleased to assist you. Contact us here - <a href=\"\/pages\/contact-us\" title=\"CUSTOMER SUPPORT\">\/pages\/contact-us<\/a><\/p><p><strong><br\/>RESPONSE TIMES<\/strong><br\/><br\/>Most inquiries are handled within a matter of hours, however please allow up to 1-2 working days for a response during busy periods.<\/p>","page":""}},"eb76b6e2-38cb-49b6-a1d1-44a66dcc61f1":{"type":"content","disabled":true,"settings":{"title":"FAQ","content":"","page":"faq"}},"c6a799c5-42cf-4245-be7f-4657d4fc0494":{"type":"content","disabled":true,"settings":{"title":"","content":"","page":""}}},"block_order":["4e51a426-b5bc-43a8-a050-9f7693e73371","description","liquid_GG3wbC","e2f1d81f-1ae5-4e38-8dde-ffd4c4af1d44","content_3dnH6D","8aee6622-1264-45f1-86c7-d7dcf187277f","7388b98b-fb77-4c92-895d-9695c498307b","eb76b6e2-38cb-49b6-a1d1-44a66dcc61f1","c6a799c5-42cf-4245-be7f-4657d4fc0494"],"settings":{}},"custom_liquid_NNFwRd":{"type":"custom-liquid","settings":{"subheading":"","title":"","liquid":"<img src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_24_PlantTree-01_1.jpg?v=1733926932\">","add_vertical_spacing":true,"background_type":"full_width","background":"rgba(0,0,0,0)","text_color":"rgba(0,0,0,0)"}},"1662458800f72f357a":{"type":"faq","blocks":{"166245880048476ac8-0":{"type":"category","disabled":true,"settings":{"title":"Shipping"}},"166245880048476ac8-1":{"type":"question","disabled":true,"settings":{"title":"Do you ship overseas?","answer":"<p>Yes, we ship all over the world. Shipping costs will apply, and will be added at checkout. We run discounts and promotions all year, so stay tuned for exclusive deals.<\/p>"}},"166245880048476ac8-2":{"type":"question","disabled":true,"settings":{"title":"How long will it take to get my order?","answer":"<p>It depends on where you are. Orders processed here will take 5-7 business days to arrive. Overseas deliveries can take anywhere from 7-16 days. Delivery details will be provided in your confirmation email.<\/p>"}},"166245880048476ac8-3":{"type":"category","settings":{"title":"Other"}},"166245880048476ac8-4":{"type":"question","settings":{"title":"Any question?","answer":"<p>You can contact us through our contact page! We will be happy to assist you.<\/p>"}}},"block_order":["166245880048476ac8-0","166245880048476ac8-1","166245880048476ac8-2","166245880048476ac8-3","166245880048476ac8-4"],"disabled":true,"settings":{"show_navigation":false,"title":"FAQ","content":"","background":"rgba(0,0,0,0)","text_color":"rgba(0,0,0,0)"}},"1662736476a1d5736f":{"type":"foursixty-pdp","settings":{"title":"FOLLOW @WILLIAMWOOD VIA INSTAGRAM AND JOIN OUR","title2":"COMMUNITY OF OVER 550,000"}},"custom_liquid_iRdUBP":{"type":"custom-liquid","custom_css":["@media screen and (min-width: 576px) {.container {display: none; }}"],"settings":{"subheading":"","title":"","liquid":"<video src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/videos\/c\/o\/v\/d07d71b60fe9447c99bada59959df6a3.mp4\" controls \n  poster=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/A_sit_down_with_Jenna_final_edit_2_0-00-02-24.jpg?v=1728481189\">\n  Your browser does not support the video tag.\n<\/video>","add_vertical_spacing":true,"background_type":"full_width","background":"rgba(0,0,0,0)","text_color":"rgba(0,0,0,0)"}},"1664500680eee3b37a":{"type":"apps","blocks":{"88872f58-1e05-42d4-896f-c1ba92be5321":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","settings":{}}},"block_order":["88872f58-1e05-42d4-896f-c1ba92be5321"],"settings":{"include_trustpilot":false,"include_horizontal_margins":true,"include_vertical_margins":false}},"product-recommendations":{"type":"product-recommendations","settings":{"subheading":"","title":"Customers also purchased with","recommendations_count":4,"products":["arcus-black-industrial-arched-metal-mirror-67-x-32-170cm-x-80cm","large-vintage-black-rectangle-metal-outdoor-garden-window-mirror-brooklyn-72-x-36","bridgewater-black-industrial-arched-window-mirror-48-x-32-120cm-x-80cm-1","luciana-full-length-arched-concrete-mirror-71-x-44-179cm-x-110cm"],"background":"rgba(0,0,0,0)","text_color":"rgba(0,0,0,0)"}},"6b54992e-523b-4b41-8ecd-2cfc0d04de3d":{"type":"judgeme_carousel_section","disabled":true,"settings":{"maxwidth":1080}}},"order":["main","infinite_scroller_PLWixJ","multi_column_yFeQDG","product-content","custom_liquid_NNFwRd","1662458800f72f357a","1662736476a1d5736f","custom_liquid_iRdUBP","1664500680eee3b37a","product-recommendations","6b54992e-523b-4b41-8ecd-2cfc0d04de3d"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "dividebuy_spread_the_cost_dividebuyproduct_jmcjW4": {
+          "type": "shopify://apps/dividebuy-spread-the-cost/blocks/dividebuyproduct/3ea5bc0e-1a15-490b-b431-d3ea9a2cd3da",
+          "disabled": true,
+          "settings": {
+            "finproms_text": "or_from",
+            "include_cart_total": true,
+            "alignment": "left",
+            "tooltip-alignment": "left",
+            "top_margin": 0,
+            "bottom_margin": 0,
+            "alignment-mobile": "center",
+            "top_margin_mobile": 0,
+            "bottom_margin_mobile": 0,
+            "price_dom_element_selector": ""
+          }
+        },
+        "klarna_on_site_messaging_app_block_XKGVqU": {
+          "type": "shopify://apps/klarna-on-site-messaging/blocks/app-block/b95936a9-74b6-4a95-8103-6a1b6459c25e",
+          "settings": {
+            "data_key": "credit-promotion-badge",
+            "theme": "custom",
+            "topPadding": "-10",
+            "bottomPadding": "0",
+            "messagePrefix": ""
+          }
+        },
+        "liquid_DDqgU3": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "{% assign has_coming_soon = false %}\n{% assign has_back_soon = false %}\n{% assign has_restock = false %}\n{% assign has_black_friday_restock = false %}\n{% assign has_launch = false %}\n{% assign restock_date = \"\" %}\n{% assign launch_date = \"\" %}\n{% assign black_friday_launch_date = false %}\n\n{% for tag in product.tags %}\n    {% if tag == \"__label:COMING SOON\" %}\n        {% assign has_coming_soon = true %}\n    {% elsif tag == \"__label:BACK SOON\" %}\n        {% assign has_back_soon = true %}\n    {% elsif tag == \"__label:RESTOCKS BLACK FRIDAY\" %}\n        {% assign has_black_friday_restock = true %}\n    {% elsif tag contains \"__label:RESTOCKS\" %}\n        {% assign has_restock = true %}\n        {% assign restock_date = tag | remove: \"__label:RESTOCKS \" %}\n    {% elsif tag == \"__label:LAUNCHES BLACK FRIDAY\" %}\n        {% assign black_friday_launch_date = true %}\n    {% elsif tag contains \"__label:LAUNCHES\" %}\n        {% assign has_launch = true %}\n        {% assign launch_date = tag | remove: \"__label:LAUNCHES \" %}\n    {% endif %}\n{% endfor %}\n\n{% assign in_best_sellers = false %}\n{% for collection in product.collections %}\n    {% if collection.handle == 'best-sellers' %}\n        {% assign in_best_sellers = true %}\n    {% endif %}\n{% endfor %}\n\n{% unless has_back_soon or has_coming_soon or has_restock or has_launch or has_black_friday_restock or black_friday_launch_date %}\n    {% unless product.title contains \"Arcurva\" %}\n        {% if in_best_sellers %}\n            {% unless product.tags contains \"sale\" %}\n               <p><img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-price_09b4ad75-7e3d-4169-b74b-25d45d330242.svg?v=1721817633\">&nbsp;25% off two or more bestsellers code: BEST</p>                \n               <b>Early November Offer: 20% off this product code NOVFIND (Last Chance)</b>\n            {% endunless %}\n        {% else %}\n            {% unless product.tags contains \"sale\" %}\n                <b>Early November Offer: 20% off this product code NOVFIND (Last Chance)</b>\n            {% endunless %}\n        {% endif %}\n    {% endunless %}\n    \n    {% if product.tags contains 'sale' %}\n        <b>Extra 10% off sale code SALE10</b>\n    {% endif %}\n{% endunless %}\n\n{% if has_coming_soon %}\n    <b>Coming Soon</b>\n{% elsif has_back_soon %}\n    <b>Back in stock soon, sign up for restock notifications below </b>\n{% elsif black_friday_launch_date %}\n    <b>Launches 29.11.24 00:00 AM GMT</b>\n{% elsif has_launch %}\n    <b>Launches {{ launch_date }} 8PM</b>\n{% elsif has_black_friday_restock %}\n    <b>Restocks 29.11.24 00:00 AM GMT</b>\n{% elsif has_restock %}\n    <b>Restocks {{ restock_date }} 8PM</b>\n{% endif %}"
+          }
+        },
+        "a21b4441-8344-4f3c-a015-2383ee7c6936": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>{{ product.metafields.custom.valentina_launch_date.value }}</strong></p>"
+          }
+        },
+        "7e08a5f6-44df-43df-aa3b-7fb09ccd9a9e": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>{{ product.metafields.custom.arcus_restock.value }}</strong></p>"
+          }
+        },
+        "e20c3c2f-bbc4-48e4-9134-f1d2fc45b462": {
+          "type": "text",
+          "settings": {
+            "text": "<p>{{ product.metafields.custom.parcel_force_delivery.value }}</p>"
+          }
+        },
+        "82eb370e-19d1-499b-af7e-d4cee783596d": {
+          "type": "text",
+          "settings": {
+            "text": "<p>{{ product.metafields.custom.framed_art_description | metafield_tag }}</p>"
+          }
+        },
+        "short_desc_86FAFb": {
+          "type": "short_desc",
+          "settings": {
+            "short_description": "",
+            "show_read_more": true,
+            "read_more_text": "Read more"
+          }
+        },
+        "liquid_mFBDNR": {
+          "type": "liquid",
+          "settings": {
+            "liquid": "{% if product.variants[0].inventory_quantity > 0 %}\n  {% for tag in product.tags %}\n    {% if tag == 'pre-order' and product.variants[0].inventory_quantity < 11 %}\n      <div class=\"instock-pulse\">\n        <span class=\"icon--pulsing\"></span>\n        <span>Available for pre order, {{ product.variants[0].inventory_quantity }} left </span>\n      </div>\n    {% elsif tag == 'pre-order' %}\n      <div class=\"instock-pulse\">\n        <span class=\"icon--pulsing\"></span>\n        <span>Available for pre order</span>\n      </div>\n    {% endif %}\n  {% endfor %}\n\n  {% unless product.tags contains 'pre-order' %}\n    {% if product.available and product.variants[0].inventory_quantity < 11 %}\n{% unless product.tags contains 'PF' %}\n      <div class=\"instock-pulse\">\n        <span class=\"icon--pulsing\"></span>\n        <span><b>In stock</b> and ready to ship, <b>{{ product.variants[0].inventory_quantity }} left </b></span>\n      </div>\n{% else %}\n<div class=\"instock-pulse\">\n        <span class=\"icon--pulsing\"></span>\n        <span>In stock and ready to ship, <b>{{ product.variants[0].inventory_quantity }} left </b></span>\n      </div>\n{% endunless %}\n    {% else %}\n{% unless product.tags contains 'PF' %}\n      <div class=\"instock-pulse\">\n        <span class=\"icon--pulsing\"></span>\n        <span><b>In stock</b> and ready to ship</span>\n{% else %}\n      <div class=\"instock-pulse\">\n        <span class=\"icon--pulsing\"></span>\n        <span><b>In stock</b> and ready to ship</span>\n{% endunless %}\n      </div>\n    {% endif %}\n  {% endunless %}\n\n  <style>\n    {% if product.available %}\n\n        .instock-pulse {\n          display: flex;\n          flex-wrap: nowrap;\n          align-items: center;          margin: 15px 0 0;\n        }\n\n        .icon--pulsing {\n          position: relative;\n          width: 20px;\n          height: 20px;\n          margin-right: 10px;\n        }\n\n        .icon--pulsing:after,\n        .icon--pulsing:before {\n            background: #54c63a;\n            width: 10px;\n            height: 10px;\n            border-radius: 10px;\n            position: absolute;\n            left: 0;\n            top: 0;\n            content: \"\";\n            margin: 5px;\n        }\n\n        @keyframes inventory-pulse{\n          0%{\n            opacity:0.5;\n          }\n          to{\n            transform:scale(2.5);\n            opacity:0;\n          }\n        }\n    {% endif %}\n    {% if product.variants[0].inventory_quantity >= 11 %}\n\n        .icon--pulsing:before {\n            animation: inventory-pulse 2.5s linear infinite;\n        }\n\n        {% elsif product.variants[0].inventory_quantity < 11 and product.variants[0].inventory_quantity > 1 %}\n\n        .icon--pulsing:before {\n            animation: inventory-pulse 1.5s linear infinite;\n        }\n{% else %}\n\n.icon--pulsing:before {\n            animation: inventory-pulse 1s linear infinite;\n        }\n    {% endif %}\n  </style>\n{% endif %}"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "67334996-ee52-4157-a9a3-730178b33fa7": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "selector_mode": "block",
+            "color_mode": "color",
+            "size_chart_page": ""
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_payment_button": true,
+            "show_shipping_text": false,
+            "atc_button_background": "#282828",
+            "atc_button_text_color": "#ffffff",
+            "buy_now_button_background": "#0052ff",
+            "buy_now_button_text_color": "#ffffff"
+          }
+        },
+        "trust_badges_bear_widget_YMkCzc": {
+          "type": "shopify://apps/conversion-bear-trust-badges/blocks/widget/163a9b59-0ec2-4cb7-bf5c-31408b4a9420",
+          "disabled": true,
+          "settings": {}
+        },
+        "divider_TthBj9": {
+          "type": "divider",
+          "disabled": true,
+          "settings": {
+            "padding_top": 0,
+            "padding_bottom": 10
+          }
+        },
+        "stories_z3hwyH": {
+          "type": "stories",
+          "settings": {}
+        },
+        "usp_list_DD8pzP": {
+          "type": "usp_list",
+          "settings": {}
+        },
+        "planet_shopify_planet_PVEqkE": {
+          "type": "shopify://apps/planet/blocks/shopify-planet/12047591-3a2d-45cc-9dfd-2ce5eaa45dee",
+          "settings": {
+            "badgeMode": "info",
+            "customText": "",
+            "showMoreInfo": "link",
+            "showLogo": true,
+            "showStats": false,
+            "showProjects": false,
+            "backgroundColor": "#f1f8f5",
+            "textColor": "#1d4136",
+            "borderColor": "#95c9b4",
+            "fullWidth": true,
+            "marginTop": 0,
+            "marginBottom": 2,
+            "borderRadius": 4
+          }
+        },
+        "spread_payments_ciptAV": {
+          "type": "spread_payments",
+          "settings": {
+            "text": "Klarna or Clearpay available at checkout – Tap for information",
+            "description": "Pay in 3 instalments at no extra cost"
+          }
+        }
+      },
+      "block_order": [
+        "dividebuy_spread_the_cost_dividebuyproduct_jmcjW4",
+        "klarna_on_site_messaging_app_block_XKGVqU",
+        "liquid_DDqgU3",
+        "a21b4441-8344-4f3c-a015-2383ee7c6936",
+        "7e08a5f6-44df-43df-aa3b-7fb09ccd9a9e",
+        "e20c3c2f-bbc4-48e4-9134-f1d2fc45b462",
+        "82eb370e-19d1-499b-af7e-d4cee783596d",
+        "short_desc_86FAFb",
+        "liquid_mFBDNR",
+        "quantity_selector",
+        "67334996-ee52-4157-a9a3-730178b33fa7",
+        "buy_buttons",
+        "trust_badges_bear_widget_YMkCzc",
+        "divider_TthBj9",
+        "stories_z3hwyH",
+        "usp_list_DD8pzP",
+        "planet_shopify_planet_PVEqkE",
+        "spread_payments_ciptAV"
+      ],
+      "settings": {
+        "question_mark_title": "WHY IS THERE A LONGER DELIVERY TIME?",
+        "question_mark_content": "<p>This item is being carefully crafted and refined by our expert manufacturer. Once your order is placed, your item will be delivered in line with the stated delivery week.<br/><br/>Require further assistance? Contact our Customer Support Team via <strong>hello@williamwoodmirrors.co.uk</strong> and an advisor will be pleased to assist you.</p>",
+        "show_vendor": false,
+        "show_sku": false,
+        "show_taxes_included": false,
+        "show_product_rating": true,
+        "show_sticky_add_to_cart": true,
+        "show_share_buttons": true,
+        "help_page": "",
+        "enable_video_autoplay": true,
+        "enable_video_looping": false,
+        "enable_image_zoom": true,
+        "show_thumbnails_on_mobile": false,
+        "desktop_thumbnails_position": "bottom",
+        "transition_effect": "fade"
+      }
+    },
+    "infinite_scroller_PLWixJ": {
+      "type": "infinite-scroller",
+      "blocks": {
+        "logo_iGnHXt": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-08_1.jpg"
+          }
+        },
+        "logo_zA6bNa": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-03.png"
+          }
+        },
+        "logo_Gf33i7": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-05.png"
+          }
+        },
+        "logo_HP3zeH": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-01.png"
+          }
+        },
+        "logo_et7RRR": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-07.png"
+          }
+        },
+        "logo_6LArXc": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-06.png"
+          }
+        },
+        "logo_XX6XTj": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-09.png"
+          }
+        },
+        "logo_W9p9gM": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-10.png"
+          }
+        },
+        "logo_cHjFgH": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/WW_24_AsSeenIn_Icons-02.png"
+          }
+        }
+      },
+      "block_order": [
+        "logo_iGnHXt",
+        "logo_zA6bNa",
+        "logo_Gf33i7",
+        "logo_HP3zeH",
+        "logo_et7RRR",
+        "logo_6LArXc",
+        "logo_XX6XTj",
+        "logo_W9p9gM",
+        "logo_cHjFgH"
+      ],
+      "settings": {
+        "logos_shown": 3,
+        "logo_spacing": 10,
+        "animation_speed": 10,
+        "background_color": "#efefef",
+        "image_size": "200x200"
+      }
+    },
+    "multi_column_yFeQDG": {
+      "type": "multi-column",
+      "blocks": {
+        "item_UDdzRJ": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/icons8-handshake_1.svg",
+            "image_width": 15,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "<p>Over 600,000 customers have trusted William Wood</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        },
+        "item_Q6dQVC": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/icons8-magnetic-card-48.svg",
+            "image_width": 15,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "<p>Pay in 3-12 instalments at no extra cost</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        },
+        "item_yb9H76": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/icons8-delivery-time-48.svg",
+            "image_width": 15,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "<p>Hassle-Free 90 Days Free Returns & Instant Refunds</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        },
+        "item_fWNi8d": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/icons8-in-transit-48.svg",
+            "image_width": 15,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "<p>Free Mainland UK + Northern Ireland Delivery</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        }
+      },
+      "block_order": [
+        "item_UDdzRJ",
+        "item_Q6dQVC",
+        "item_yb9H76",
+        "item_fWNi8d"
+      ],
+      "settings": {
+        "reveal_on_scroll": true,
+        "stack_items": true,
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "column_alignment": "center",
+        "mobile_item_size": "small",
+        "desktop_item_size": "small",
+        "spacing": "tight",
+        "background": "#efefef",
+        "text_color": "rgba(0,0,0,0)"
+      }
+    },
+    "product-content": {
+      "type": "product-content",
+      "blocks": {
+        "4e51a426-b5bc-43a8-a050-9f7693e73371": {
+          "type": "trust",
+          "disabled": true,
+          "settings": {
+            "icon_1": "picto-fast-delivery",
+            "title_1": "Free Shipping + Free Returns",
+            "content_1": "<p><strong>Free Mainland UK Delivery</strong> within up to <strong>2-7 working days</strong>, delivered with care by our in-house William Wood Dedicated Delivery team + Peace of mind with <strong>Free Returns</strong> within <strong>90 Days</strong> of receiving your order. Northern Ireland delivery available within up to <strong>14-21 working days (£30.00)</strong></p>",
+            "icon_2": "picto-love",
+            "title_2": "100% Plastic Neutral",
+            "content_2": "<p>Our partnership with CleanHub esnures the safe collection and recovery of 10,000kg of ocean bound plastic each year.</p>",
+            "icon_3": "picto-worldwide",
+            "title_3": "100% Carbon Neutral Deliveries",
+            "content_3": "<p>Fulfilment of your order is guaranteed Carbon Neutral through our partnership Shopify Planet.</p>"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "liquid_GG3wbC": {
+          "type": "liquid",
+          "settings": {
+            "title": "HOW TO HANG MIRROR",
+            "liquid": "<iframe src=\"https://player.vimeo.com/video/910815842?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479\" width=\"1080\" height=\"1920\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture\" title=\"How to hang your William Wood mirror\"></iframe>"
+          }
+        },
+        "e2f1d81f-1ae5-4e38-8dde-ffd4c4af1d44": {
+          "type": "content",
+          "settings": {
+            "title": "DELIVERY",
+            "content": "<p><strong>MAINLAND UK + NORTHERN IRELAND<br/><br/></strong>Free Mainland UK Delivery within 1-7 Business Days. We will contact you with advance notice to organise a delivery date.<br/><br/>Free Northern Ireland Delivery within 14-21 Business Days. We will contact you with advance notice to organise a delivery date.<strong><br/><br/></strong></p><p><strong>NORTH WEST</strong><br/><br/>Free Express 1-3 Business Days to the following post codes:<br/><br/><strong>BL, L, M, OL, SK, WA, WN.</strong></p><p><strong><br/><br/>LONDON</strong><br/><br/>Free Express 1-4 Business Days to the following post codes:<br/><br/><strong>NW, N, E, SE, SW, W, WC, EC, WD, EN, IG, BR, CR, SM, KT, TW, UB, HA.</strong></p><p><strong><br/><br/>Remainder of the UK</strong><br/><br/>Free UK Delivery within 1-9 Business Days to the following post codes:</strong>.<br/><br/><strong>AB, BA, CA, DD, DG,  DT, EX, FK, IP, IV1, IV2, IV3, IV5, IV8, IV9, IV10, IV12, IV13, IV30, IV31, IV32, IV36, KY, LA,  LD,  LL,  LN, NR, PE,  PH1-PH26,  PL, SA,  SY, TA, TQ,  TR</strong></p><p><br/><br/><br/><strong>PRE ORDER ITEM(S) DELIVERY<br/><br/></strong>Your <strong>Pre Order </strong>item(s)<strong> </strong>will be delivered to you with the utmost urgency within the advised shipping week. You can easily locate the shipping week above the <strong>'ADD TO CART' </strong>button.<br/><br/>Our highly acclaimed Pre Order service is available for customers who wish to purchase and reserve in demand stock. <br/><br/>Cancel anytime. 100% refund guarantee.<br/><br/><br/><br/><strong>ORDERS OF IN STOCK AND PRE ORDER ITEM(S)<br/><br/></strong>In this case we will ship your in stock item(s) to you within the standard delivery time. Once your Pre Order item(s) arrive in stock, we'll deliver these to you as fast as possible.</p>",
+            "page": ""
+          }
+        },
+        "content_3dnH6D": {
+          "type": "content",
+          "settings": {
+            "title": "Returns",
+            "content": "<p>We offer <strong>90</strong> <strong>Days Free Returns </strong>on all orders. To start a return, head to your <strong>Customer Portal </strong>and select 'Request a return' or, simply email <strong>hello@williamwoodmirrors.co.uk</strong> with your order number. Our Customer Support Team will respond to your request as soon as possible and confirm the next steps.</p><p><br/><strong>INDUSTRY LEADING REFUND TIMES</strong><br/><br/>Once returning item(s) have been collected by your William Wood Dedicated driver, your payment will be refunded back to your original payment method within <strong>1 working day </strong>- That's our promise.<br/><br/>For in depth information on Returns & Exchanges, tap <a href=\"https://www.williamwoodmirrors.co.uk/pages/returns\" title=\"https://www.williamwoodmirrors.co.uk/pages/returns\">here.</a><br/><br/>Require further assistance? Contact our Customer Support Team via <strong>hello@williamwoodmirrors.co.uk</strong> and an advisor will be pleased to assist you.</p>",
+            "page": ""
+          }
+        },
+        "8aee6622-1264-45f1-86c7-d7dcf187277f": {
+          "type": "content",
+          "settings": {
+            "title": "ROOM OF CHOICE DELIVERY",
+            "content": "<p><strong>DELIVERY TO FRONT ENTRANCE OF YOUR PROPERTY</strong><br/><br/>William Wood Dedicated Delivery service will hand deliver your item(s) with the utmost care to the front entrance of your property.<br/><br/><strong><br/>DELIVERY TO SPECIFIC ROOM OF CHOICE WITHIN YOUR PROPERTY<br/><br/></strong>With a large majority of cases, William Wood Dedicated Delivery service will be able to deliver your item(s) to your room of choice. However, upon inspecting the path to your specific room of choice and whether this may be to difficult, this decision will be at the William Wood Dedicated Delivery drivers discretion.<br/><br/>Require further assistance? Contact our Customer Support Team via <strong>hello@williamwoodmirrors.co.uk</strong> and an advisor will be pleased to assist you.</p>",
+            "page": ""
+          }
+        },
+        "7388b98b-fb77-4c92-895d-9695c498307b": {
+          "type": "content",
+          "settings": {
+            "title": "Customer Support",
+            "content": "<p>Require assistance? Contact our Customer Support Team via <strong>hello@williamwoodmirrors.co.uk</strong> and an advisor will be pleased to assist you. Contact us here - <a href=\"/pages/contact-us\" title=\"CUSTOMER SUPPORT\">/pages/contact-us</a></p><p><strong><br/>RESPONSE TIMES</strong><br/><br/>Most inquiries are handled within a matter of hours, however please allow up to 1-2 working days for a response during busy periods.</p>",
+            "page": ""
+          }
+        },
+        "eb76b6e2-38cb-49b6-a1d1-44a66dcc61f1": {
+          "type": "content",
+          "disabled": true,
+          "settings": {
+            "title": "FAQ",
+            "content": "",
+            "page": "faq"
+          }
+        },
+        "c6a799c5-42cf-4245-be7f-4657d4fc0494": {
+          "type": "content",
+          "disabled": true,
+          "settings": {
+            "title": "",
+            "content": "",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "4e51a426-b5bc-43a8-a050-9f7693e73371",
+        "description",
+        "liquid_GG3wbC",
+        "e2f1d81f-1ae5-4e38-8dde-ffd4c4af1d44",
+        "content_3dnH6D",
+        "8aee6622-1264-45f1-86c7-d7dcf187277f",
+        "7388b98b-fb77-4c92-895d-9695c498307b",
+        "eb76b6e2-38cb-49b6-a1d1-44a66dcc61f1",
+        "c6a799c5-42cf-4245-be7f-4657d4fc0494"
+      ],
+      "settings": {}
+    },
+    "custom_liquid_NNFwRd": {
+      "type": "custom-liquid",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_PlantTree-01_1.jpg?v=1733926932\">",
+        "add_vertical_spacing": true,
+        "background_type": "full_width",
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      }
+    },
+    "1662458800f72f357a": {
+      "type": "faq",
+      "blocks": {
+        "166245880048476ac8-0": {
+          "type": "category",
+          "disabled": true,
+          "settings": {
+            "title": "Shipping"
+          }
+        },
+        "166245880048476ac8-1": {
+          "type": "question",
+          "disabled": true,
+          "settings": {
+            "title": "Do you ship overseas?",
+            "answer": "<p>Yes, we ship all over the world. Shipping costs will apply, and will be added at checkout. We run discounts and promotions all year, so stay tuned for exclusive deals.</p>"
+          }
+        },
+        "166245880048476ac8-2": {
+          "type": "question",
+          "disabled": true,
+          "settings": {
+            "title": "How long will it take to get my order?",
+            "answer": "<p>It depends on where you are. Orders processed here will take 5-7 business days to arrive. Overseas deliveries can take anywhere from 7-16 days. Delivery details will be provided in your confirmation email.</p>"
+          }
+        },
+        "166245880048476ac8-3": {
+          "type": "category",
+          "settings": {
+            "title": "Other"
+          }
+        },
+        "166245880048476ac8-4": {
+          "type": "question",
+          "settings": {
+            "title": "Any question?",
+            "answer": "<p>You can contact us through our contact page! We will be happy to assist you.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "166245880048476ac8-0",
+        "166245880048476ac8-1",
+        "166245880048476ac8-2",
+        "166245880048476ac8-3",
+        "166245880048476ac8-4"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_navigation": false,
+        "title": "FAQ",
+        "content": "",
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      }
+    },
+    "1662736476a1d5736f": {
+      "type": "foursixty-pdp",
+      "settings": {
+        "title": "FOLLOW @WILLIAMWOOD VIA INSTAGRAM AND JOIN OUR",
+        "title2": "COMMUNITY OF OVER 550,000"
+      }
+    },
+    "custom_liquid_iRdUBP": {
+      "type": "custom-liquid",
+      "custom_css": [
+        "@media screen and (min-width: 576px) {.container {display: none; }}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<video src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/videos/c/o/v/d07d71b60fe9447c99bada59959df6a3.mp4\" controls \n  poster=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/A_sit_down_with_Jenna_final_edit_2_0-00-02-24.jpg?v=1728481189\">\n  Your browser does not support the video tag.\n</video>",
+        "add_vertical_spacing": true,
+        "background_type": "full_width",
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      }
+    },
+    "1664500680eee3b37a": {
+      "type": "apps",
+      "blocks": {
+        "88872f58-1e05-42d4-896f-c1ba92be5321": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "88872f58-1e05-42d4-896f-c1ba92be5321"
+      ],
+      "settings": {
+        "include_trustpilot": false,
+        "include_horizontal_margins": true,
+        "include_vertical_margins": false
+      }
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "subheading": "",
+        "title": "Customers also purchased with",
+        "recommendations_count": 4,
+        "products": [
+          "arcus-black-industrial-arched-metal-mirror-67-x-32-170cm-x-80cm",
+          "large-vintage-black-rectangle-metal-outdoor-garden-window-mirror-brooklyn-72-x-36",
+          "bridgewater-black-industrial-arched-window-mirror-48-x-32-120cm-x-80cm-1",
+          "luciana-full-length-arched-concrete-mirror-71-x-44-179cm-x-110cm"
+        ],
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      }
+    },
+    "6b54992e-523b-4b41-8ecd-2cfc0d04de3d": {
+      "type": "judgeme_carousel_section",
+      "disabled": true,
+      "settings": {
+        "maxwidth": 1080
+      }
+    }
+  },
+  "order": [
+    "main",
+    "infinite_scroller_PLWixJ",
+    "multi_column_yFeQDG",
+    "product-content",
+    "custom_liquid_NNFwRd",
+    "1662458800f72f357a",
+    "1662736476a1d5736f",
+    "custom_liquid_iRdUBP",
+    "1664500680eee3b37a",
+    "product-recommendations",
+    "6b54992e-523b-4b41-8ecd-2cfc0d04de3d"
+  ]
+}

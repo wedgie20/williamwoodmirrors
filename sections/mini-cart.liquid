@@ -382,6 +382,7 @@
           </div>
         </div>
       </div>
+
     {%- endif -%}
   {%- else -%}
     <div class="mini-cart__recommendations-inner">
@@ -393,6 +394,8 @@
 </cart-drawer-recommendations>
 
       {%- endif -%}
+
+      {%- render 'ww-ctl-cart' -%}
     </div>
 
     <footer class="mini-cart__drawer-footer drawer__footer drawer__footer--tight drawer__footer--bordered">

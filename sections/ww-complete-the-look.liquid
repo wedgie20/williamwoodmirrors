@@ -1,0 +1,546 @@
+{%- assign ctl_products = product.metafields.custom.related_products.value -%}
+
+<div class="ctl-section" id="ctl-{{ section.id }}">
+  <div class="ctl-inner">
+    <div class="ctl-box">
+
+      <!-- Header -->
+      <div class="ctl-header">
+        <h2 class="ctl-heading">{{ section.settings.title }}</h2>
+
+        <div class="ctl-arrows" id="ctl-arrows-{{ section.id }}" hidden>
+          <button
+            class="ctl-arrow ctl-arrow--prev"
+            id="ctl-prev-{{ section.id }}"
+            aria-label="Previous"
+            disabled>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M15 18L9 12L15 6"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <button
+            class="ctl-arrow ctl-arrow--next"
+            id="ctl-next-{{ section.id }}"
+            aria-label="Next">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M9 18L15 12L9 6"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Products -->
+      <div class="ctl-track" id="ctl-track-{{ section.id }}">
+
+        {%- if ctl_products != blank -%}
+
+          {%- for rp in ctl_products -%}
+
+            <div class="ctl-card">
+
+              <!-- Image -->
+              <a href="{{ rp.url }}" class="ctl-card__img-wrap">
+
+                {%- if rp.featured_image -%}
+                  {{
+                    rp.featured_image
+                    | image_url: width: 400
+                    | image_tag:
+                      loading: 'lazy',
+                      class: 'ctl-card__img',
+                      alt: rp.title
+                  }}
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'ctl-card__img ctl-card__img--placeholder' }}
+                {%- endif -%}
+
+              </a>
+
+              <!-- Content -->
+              <div class="ctl-card__body">
+
+                <a href="{{ rp.url }}" class="ctl-card__title">
+                  {{ rp.title }}
+                </a>
+
+                <span class="ctl-card__price">
+                  {{ rp.price | money }}
+                </span>
+
+                <div class="ctl-card__footer">
+
+                  {%- if rp.available and rp.has_only_default_variant -%}
+
+                    <button
+                      class="ctl-card__atc"
+                      data-variant-id="{{ rp.selected_or_first_available_variant.id }}"
+                      aria-label="Add to cart">
+
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path
+                          d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"/>
+
+                        <path
+                          d="M3 6H21"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"/>
+
+                        <path
+                          d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                      </svg>
+
+                    </button>
+
+                  {%- else -%}
+
+                    <a
+                      href="{{ rp.url }}"
+                      class="ctl-card__atc"
+                      aria-label="View product">
+
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path
+                          d="M6 2L3 6V20C3 20.5304 3.21071 21.0391 3.58579 21.4142C3.96086 21.7893 4.46957 22 5 22H19C19.5304 22 20.0391 21.7893 20.4142 21.4142C20.7893 21.0391 21 20.5304 21 20V6L18 2H6Z"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"/>
+
+                        <path
+                          d="M3 6H21"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"/>
+
+                        <path
+                          d="M16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                      </svg>
+
+                    </a>
+
+                  {%- endif -%}
+
+                </div>
+              </div>
+            </div>
+
+          {%- endfor -%}
+
+        {%- else -%}
+
+          <div class="ctl-empty">
+            No related products have been added yet.
+          </div>
+
+        {%- endif -%}
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+
+  .ctl-section {
+    padding: 40px 0;
+  }
+
+  .ctl-inner {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .ctl-box {
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  /* Header */
+
+  .ctl-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 24px 0;
+  }
+
+  .ctl-heading {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #111;
+  }
+
+  /* Arrows */
+
+  .ctl-arrows {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .ctl-arrow {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    color: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    opacity: 0.7;
+    transition: opacity .2s ease;
+  }
+
+  .ctl-arrow:hover:not([disabled]) {
+    opacity: 1;
+  }
+
+  .ctl-arrow[disabled] {
+    opacity: .25;
+    cursor: default;
+  }
+
+  /* Track */
+
+  .ctl-track {
+    display: flex;
+    align-items: flex-start;
+    gap: 46px;
+    padding: 28px 24px 28px;
+    overflow: hidden;
+  }
+
+  /* Card */
+
+  .ctl-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    min-width: 260px;
+    flex: 0 0 auto;
+  }
+
+  /* Image */
+
+  .ctl-card__img-wrap {
+    width: 98px;
+    height: 98px;
+    overflow: hidden;
+    display: block;
+    background: #f5f5f5;
+    flex-shrink: 0;
+  }
+
+  .ctl-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .45s ease;
+  }
+
+  .ctl-card__img-wrap:hover .ctl-card__img {
+    transform: scale(1.04);
+  }
+
+  /* Body */
+
+  .ctl-card__body {
+    display: flex;
+    flex-direction: column;
+    min-height: 98px;
+    min-width: 0;
+  }
+
+  /* Title */
+
+  .ctl-card__title {
+    font-size: 15px;
+    line-height: 1.45;
+    color: #111 !important;
+    text-decoration: none !important;
+    margin-bottom: 5px;
+  }
+
+  .ctl-card__title:hover {
+    text-decoration: underline !important;
+  }
+
+  /* Price */
+
+  .ctl-card__price {
+    font-size: 13px;
+    color: #111;
+  }
+
+  /* Footer */
+
+  .ctl-card__footer {
+    margin-top: auto;
+    padding-top: 14px;
+  }
+
+  /* Button */
+
+  .ctl-card__atc {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #111;
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .2s ease;
+  }
+
+  .ctl-card__atc:hover {
+    background: #333;
+  }
+
+  .ctl-card__atc.is-loading {
+    opacity: .5;
+    cursor: wait;
+  }
+
+  .ctl-card__atc.is-added {
+    background: #2e9e7b;
+  }
+
+  .ctl-empty {
+    padding: 40px 0;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+  }
+
+  /* Mobile */
+
+  @media screen and (max-width: 740px) {
+
+    .ctl-section {
+      padding: 24px 0;
+    }
+
+    .ctl-inner {
+      padding: 0 16px;
+    }
+
+    .ctl-track {
+      overflow-x: auto;
+      gap: 22px;
+      padding: 22px 16px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .ctl-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ctl-card {
+      min-width: 220px;
+      scroll-snap-align: start;
+    }
+
+    .ctl-card__img-wrap {
+      width: 82px;
+      height: 82px;
+    }
+
+    .ctl-card__body {
+      min-height: 82px;
+    }
+
+    .ctl-card__title {
+      font-size: 14px;
+    }
+  }
+
+</style>
+
+<script>
+(function () {
+
+  var PER_PAGE = 4;
+
+  var track = document.getElementById('ctl-track-{{ section.id }}');
+
+  if (!track) return;
+
+  var cards = Array.from(track.querySelectorAll('.ctl-card'));
+
+  if (!cards.length) return;
+
+  var totalPages = Math.ceil(cards.length / PER_PAGE);
+
+  var current = 0;
+
+  var arrowsEl = document.getElementById('ctl-arrows-{{ section.id }}');
+
+  var prevBtn = document.getElementById('ctl-prev-{{ section.id }}');
+
+  var nextBtn = document.getElementById('ctl-next-{{ section.id }}');
+
+  function showPage(page) {
+
+    cards.forEach(function(card, index) {
+
+      if (index >= page * PER_PAGE && index < (page + 1) * PER_PAGE) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+
+    });
+
+    current = page;
+
+    if (prevBtn) {
+      prevBtn.disabled = current === 0;
+    }
+
+    if (nextBtn) {
+      nextBtn.disabled = current >= totalPages - 1;
+    }
+  }
+
+  if (arrowsEl && totalPages > 1) {
+    arrowsEl.hidden = false;
+  }
+
+  showPage(0);
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', function() {
+      if (current > 0) {
+        showPage(current - 1);
+      }
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function() {
+      if (current < totalPages - 1) {
+        showPage(current + 1);
+      }
+    });
+  }
+
+  /* Add To Cart */
+
+  track.addEventListener('click', function(e) {
+
+    var btn = e.target.closest('.ctl-card__atc[data-variant-id]');
+
+    if (!btn || btn.classList.contains('is-loading')) return;
+
+    btn.classList.add('is-loading');
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      body: JSON.stringify({
+        id: btn.dataset.variantId,
+        quantity: 1
+      })
+    })
+    .then(function(r) {
+      return r.json();
+    })
+    .then(function() {
+
+      btn.classList.remove('is-loading');
+
+      btn.classList.add('is-added');
+
+      fetch('/cart.js')
+      .then(function(r) {
+        return r.json();
+      })
+      .then(function(cart) {
+
+        document.documentElement.dispatchEvent(
+          new CustomEvent('cart:refresh', {
+            bubbles: true,
+            detail: {
+              cart: cart,
+              openMiniCart: true
+            }
+          })
+        );
+
+      });
+
+      setTimeout(function() {
+        btn.classList.remove('is-added');
+      }, 2000);
+
+    })
+    .catch(function() {
+      btn.classList.remove('is-loading');
+    });
+
+  });
+
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Complete the Look",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section heading",
+      "default": "COMPLETE THE LOOK"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Complete the Look"
+    }
+  ]
+}
+{% endschema %}

@@ -734,7 +734,8 @@ document.addEventListener('DOMContentLoaded', function () {
  {%- when 'low_stock' -%}
 
   {% render 'low_stock', block: block %}
-        
+  {%- render 'ww-ctl-inline' -%}
+
   {%- when 'product_status' -%}
 {% unless product.tags contains 'freegift' %}
 <div style="
