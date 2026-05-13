@@ -672,12 +672,20 @@ document.addEventListener("DOMContentLoaded", function() {
       {%- endif -%}
     {%- endif -%}
 
-{% if collection.handle != 'lighting' and collection.handle != 'coffee-tables' and collection.handle != 'sale' %}
+{% assign excluded = false %}
+{% for col in product.collections %}
+  {% if col.handle == 'lighting' or col.handle == 'coffee-tables' or col.handle == 'sale' %}
+    {% assign excluded = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% unless excluded %}
   <div class="ww-promo-banner">
     <p>Save <strong>15% on this item</strong>. Apply code at checkout</p>
     <span class="ww-code">TAKE15</span>
   </div>
-{% endif %}
+{% endunless %}
 
 <style>
     .ww-promo-banner {
