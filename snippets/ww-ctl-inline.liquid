@@ -217,10 +217,14 @@
   }
 
   @media screen and (max-width: 740px) {
+    .ctl-box--inline .ctl-header {
+      padding: 20px 22px 0;
+    }
+
     .ctl-box--inline .ctl-track {
       overflow-x: auto;
-      gap: 22px;
-      padding: 22px 16px;
+      gap: 18px;
+      padding: 24px 16px 26px;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
     }
@@ -230,23 +234,38 @@
     }
 
     .ctl-box--inline .ctl-card {
-        min-width: 145px;
-        scroll-snap-align: start;
-        display: grid;
-        padding-left: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: clamp(132px, calc((100vw - 88px) / 2), 180px);
+      min-width: clamp(132px, calc((100vw - 88px) / 2), 180px);
+      scroll-snap-align: start;
+      padding-left: 0;
     }
 
     .ctl-box--inline .ctl-card__img-wrap {
-      width: 82px;
-      height: 82px;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1 / 1;
     }
 
     .ctl-box--inline .ctl-card__body {
-      min-height: 82px;
+      min-height: 124px;
+      width: 100%;
     }
 
     .ctl-box--inline .ctl-card__title {
-      font-size: 14px;
+      font-size: 13px;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 35px;
+    }
+
+    .ctl-box--inline .ctl-card__footer {
+      padding-top: 12px;
     }
   }
 </style>
