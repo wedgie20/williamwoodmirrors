@@ -32,7 +32,7 @@
           {%- endif -%}
         </a>
         <div class="ctl-card__body">
-          {% comment %} <a href="{{ rp.url }}" class="ctl-card__title">{{ rp.title|truncatechars:35 }}</a> {% endcomment %}
+          <a href="{{ rp.url }}" class="ctl-card__title">{{ rp.title|truncatechars:3 }}</a>
           <span class="ctl-card__price">{{ rp.price | money }}</span>
           <div class="ctl-card__footer">
             {%- if rp.available and rp.has_only_default_variant -%}
