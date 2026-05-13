@@ -32,7 +32,7 @@
           {%- endif -%}
         </a>
         <div class="ctl-card__body">
-          <a href="{{ rp.url }}" class="ctl-card__title">{{ rp.title }}</a>
+          <a href="{{ rp.url }}" class="ctl-card__title">{{ rp.title|truncate: 20 }}</a>
           <span class="ctl-card__price">{{ rp.price | money }}</span>
           <div class="ctl-card__footer">
             {%- if rp.available and rp.has_only_default_variant -%}
@@ -118,7 +118,7 @@
   .ctl-box--inline .ctl-track {
     display: flex;
     align-items: flex-start;
-    gap: 46px;
+    gap: 35px;
     padding: 28px 24px 28px;
     overflow-x: auto;
     scroll-behavior: smooth;
@@ -133,8 +133,8 @@
   .ctl-box--inline .ctl-card {
     display: flex;
     align-items: flex-start;
-    gap: 14px;
-    min-width: 260px;
+    gap: 5px;
+    min-width: 250px;
     flex: 0 0 auto;
   }
 
@@ -230,8 +230,10 @@
     }
 
     .ctl-box--inline .ctl-card {
-      min-width: 220px;
-      scroll-snap-align: start;
+        min-width: 145px;
+        scroll-snap-align: start;
+        display: grid;
+        padding-left: 8px;
     }
 
     .ctl-box--inline .ctl-card__img-wrap {
