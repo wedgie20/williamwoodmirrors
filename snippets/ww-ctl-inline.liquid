@@ -216,7 +216,7 @@
     background: #2e9e7b;
   }
 
-  @media screen and (max-width: 740px) {
+  @media screen and (max-width: 999px) {
     .ctl-box--inline .ctl-header {
       padding: 20px 22px 0;
     }
@@ -237,8 +237,9 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      width: clamp(132px, calc((100vw - 88px) / 2), 180px);
-      min-width: clamp(132px, calc((100vw - 88px) / 2), 180px);
+      flex: 0 0 calc((100% - 18px) / 2);
+      width: calc((100% - 18px) / 2);
+      min-width: calc((100% - 18px) / 2);
       scroll-snap-align: start;
       padding-left: 0;
     }
