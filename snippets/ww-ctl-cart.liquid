@@ -39,7 +39,7 @@
                   | image_tag:
                     loading: 'lazy',
                     class: 'ctl-look-card__img',
-                    alt: product.title
+                    alt: product.title | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
                 }}
 
               {%- endif -%}
