@@ -572,6 +572,8 @@ document.addEventListener("DOMContentLoaded", function() {
         <a href="{{ product.url  }}">{{ product.title }}</a>
       </h2>
     {% endunless %}
+
+
      
 
     {% comment %} <div class="product-meta__price-list-container" role="region" aria-live="polite">
@@ -671,6 +673,66 @@ document.addEventListener("DOMContentLoaded", function() {
         </p>
       {%- endif -%}
     {%- endif -%}
+
+    {% assign excluded = false %}
+{% for col in product.collections %}
+  {% comment %} {% if col.handle == 'lighting' or col.handle == 'coffee-tables' or col.handle == 'spring-sale' %} {% endcomment %}
+     {% if col.handle == 'spring-sale' or col.handle == 'outlet' %}
+
+    {% assign excluded = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% unless excluded %}
+  <div class="ww-promo-banner">
+    <p>Save <strong>15% on this item</strong>. Apply code at checkout</p>
+    <span class="ww-code">TAKE15</span>
+  </div>
+{% endunless %}
+
+<style>
+    .ww-promo-banner {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border: 0.5px solid #d4cfc8;
+      border-radius: 8px;
+      padding: 9px 20px;
+      margin-bottom: 10px;
+      background: #fff;
+      max-width: 560px;
+    }
+    .ww-promo-banner svg {
+      color: #8a7d6b;
+      flex-shrink: 0;
+    }
+    .ww-promo-banner p {
+      margin: 0;
+      font-size: 13.5px;
+      color: #6b6560;
+      line-height: 1.45;
+      flex: 1;
+    }
+    .ww-promo-banner strong {
+      color: #1a1a1a;
+      font-weight: 700;
+    }
+    .ww-code {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      background: #780606cc;
+      color: #ffffff;
+      padding: 4px 10px;
+      border-radius: 18px;
+      border: 0.5px dashed #c4b9aa;
+      white-space: nowrap;
+      flex-shrink: 0;
+      user-select: all;
+      cursor: pointer;
+    }
+  </style>
 
     <product-payment-terms form-id="{{ product_form_id }}" id="installementsid-{{ product_form_id }}">
       {%- assign product_installment_form_id = 'product-installment-form-'
