@@ -699,9 +699,9 @@ document.addEventListener("DOMContentLoaded", function() {
 {% endfor %}
 
 {% if is_fal_promo_product %}
-  <div class="ww-promo-banner ww-promo-banner--fal">
+  {% comment %} <div class="ww-promo-banner ww-promo-banner--fal">
     <p><strong>30% off</strong>, code automatically applied at checkout</p>
-  </div>
+  </div> {% endcomment %}
 {% elsif excluded == false %}
   <div class="ww-promo-banner">
     <p>Save <strong>15% on this item</strong>. Apply code at checkout</p>

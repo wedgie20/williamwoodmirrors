@@ -821,7 +821,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     {% if is_fal_promo_product %}
-      <p>30% off, code automatically applied at checkout</p>
+      {% comment %} <p>30% off, code automatically applied at checkout</p> {% endcomment %}
     {% elsif product.tags contains 'sale' %}
       <!-- 🎯 Sale block with background image + overlay and matching padding -->
       {% comment %} <h3>{{ block.settings.sale_heading }}</h3> {% endcomment %}
