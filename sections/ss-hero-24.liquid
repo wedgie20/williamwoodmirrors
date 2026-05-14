@@ -1374,6 +1374,50 @@
   {% endcase %}
 {% endfor %}
 
+{% if section.settings.shop_scene_enable %}
+  <style>
+    @media screen and (max-width: 767px) {
+      .section-{{ section.id }} .hero-content-{{ section.id }} {
+        align-items: center;
+        justify-content: flex-start;
+        max-width: 100%;
+        padding-top: 230px;
+        padding-bottom: 18px;
+        text-align: center;
+        box-sizing: border-box;
+      }
+
+      .section-{{ section.id }} .hero-slide-content-wrapper-{{ section.id }},
+      .section-{{ section.id }} .hero-slide-content-{{ section.id }} {
+        width: 100%;
+        text-align: center !important;
+      }
+
+      .section-{{ section.id }} [class*="hero-heading-"],
+      .section-{{ section.id }} [class*="hero-heading-"] *,
+      .section-{{ section.id }} [class*="hero-text-"],
+      .section-{{ section.id }} [class*="hero-text-"] * {
+        text-align: center !important;
+      }
+
+      .section-{{ section.id }} [class*="hero-heading-"] * strong {
+        font-size: clamp(42px, 13.6vw, 58px) !important;
+        line-height: 1.08;
+      }
+
+      .section-{{ section.id }} .hero-buttons-{{ section.id }} {
+        justify-content: center !important;
+        width: 100%;
+      }
+
+      .section-{{ section.id }} .hero-buttons-{{ section.id }} > a {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  </style>
+{% endif %}
+
 <div
   class="section-{{ section.id }} hero-{{ section.id }}"
   style="background-color:{{ background_color }}; background-image: {{ background_gradient }};"
