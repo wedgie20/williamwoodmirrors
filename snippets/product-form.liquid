@@ -148,17 +148,73 @@ document.addEventListener('DOMContentLoaded', function () {
   const floatingPrice = document.querySelector('[data-floating-product-price]');
   const productForm = document.getElementById({{ product_form_id | json }});
   const moneySymbol = {{ cart.currency.symbol | json }};
+  const floatingMoneyFormat = {% if settings.currency_code_enabled %}{{ shop.money_with_currency_format | json }}{% else %}{{ shop.money_format | json }}{% endif %};
   const DESKTOP_BP = 1024;
   let isVisible = false;
   let lastVisibleState = null; // Prevent unnecessary updates
   
   function $(sel) { return document.querySelector(sel); }
 
-  function formatFloatingMoney(cents) {
-    const amount = cents / 100;
-    const formattedAmount = amount % 1 === 0 ? amount.toFixed(0) : amount.toFixed(2);
+  function formatFloatingMoneyWithDelimiters(number, precision, thousands, decimal) {
+    precision = precision == null ? 2 : precision;
+    thousands = thousands == null ? ',' : thousands;
+    decimal = decimal == null ? '.' : decimal;
 
-    return `${moneySymbol}${formattedAmount}`;
+    if (isNaN(number) || number == null) {
+      return 0;
+    }
+
+    const parts = (number / 100).toFixed(precision).split('.');
+    const amount = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + thousands);
+    const cents = parts[1] ? decimal + parts[1] : '';
+
+    return amount + cents;
+  }
+
+  function formatFloatingMoney(cents) {
+    const placeholderRegex = new RegExp('\\{\\{\\s*(\\w+)\\s*\\}\\}');
+    const match = floatingMoneyFormat ? floatingMoneyFormat.match(placeholderRegex) : null;
+
+    if (!match) {
+      const amount = cents / 100;
+      const formattedAmount = amount % 1 === 0 ? amount.toFixed(0) : amount.toFixed(2);
+
+      return `${moneySymbol}${formattedAmount}`;
+    }
+
+    let value = '';
+
+    switch (match[1]) {
+      case 'amount':
+        value = formatFloatingMoneyWithDelimiters(cents, 2);
+        break;
+      case 'amount_no_decimals':
+        value = formatFloatingMoneyWithDelimiters(cents, 0);
+        break;
+      case 'amount_with_space_separator':
+        value = formatFloatingMoneyWithDelimiters(cents, 2, ' ', '.');
+        break;
+      case 'amount_with_comma_separator':
+        value = formatFloatingMoneyWithDelimiters(cents, 2, '.', ',');
+        break;
+      case 'amount_with_apostrophe_separator':
+        value = formatFloatingMoneyWithDelimiters(cents, 2, "'", '.');
+        break;
+      case 'amount_no_decimals_with_comma_separator':
+        value = formatFloatingMoneyWithDelimiters(cents, 0, '.', ',');
+        break;
+      case 'amount_no_decimals_with_space_separator':
+        value = formatFloatingMoneyWithDelimiters(cents, 0, ' ');
+        break;
+      case 'amount_no_decimals_with_apostrophe_separator':
+        value = formatFloatingMoneyWithDelimiters(cents, 0, "'");
+        break;
+      default:
+        value = formatFloatingMoneyWithDelimiters(cents, 2);
+        break;
+    }
+
+    return floatingMoneyFormat.replace(placeholderRegex, value);
   }
 
   function updateFloatingPrice(variant) {

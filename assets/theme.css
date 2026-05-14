@@ -2772,9 +2772,9 @@ p + .button-group,
  */
 
 .price-list {
+  display: inline-block;
   flex-wrap: wrap;
   align-items: baseline;
-  font-size: 18px !important;
 }
 
 .price-list--centered {
@@ -2855,7 +2855,7 @@ p + .button-group,
   text-decoration: line-through;
   opacity: 0.75;
   font-weight: 400;
-  font-size: 0.9em;
+  font-size: 20px;
   line-height: 1.2;
   color: currentColor;
 }
@@ -2864,7 +2864,7 @@ p + .button-group,
   text-decoration: line-through;
   opacity: 0.75;
   font-weight: 400;
-  font-size: 0.9em;
+  font-size: 20px;
   line-height: 1.2;
   color: currentColor;
 }
@@ -2889,7 +2889,7 @@ p + .button-group,
 }
 
 .ww-fal-discount-price--pdp {
-  font-size: 19px;
+  font-size: 20px;
   line-height: 1;
 }
 
