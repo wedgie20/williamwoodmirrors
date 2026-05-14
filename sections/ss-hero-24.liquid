@@ -547,11 +547,12 @@
   ================================================ */
   .hero-shop-scene-drawer-products-{{ section.id }} {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1px;
     background: #e5e5e5;
     flex: 1;
-    grid-template-rows: repeat(2, 50%);
+    grid-auto-rows: 1fr;
+    height: 100vh;
   }
 
   .hero-shop-scene-product-{{ section.id }} {
