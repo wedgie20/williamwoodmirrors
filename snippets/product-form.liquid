@@ -2,14 +2,23 @@
 {%- assign color_white_label = 'general.label.white' | t | downcase -%}
 {%- assign size_label_list = 'general.label.size' | t | replace: ', ', ',' | downcase | split: ',' -%}
 {%- assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id -%}
+{%- assign fal_collection_handles = product.collections | map: 'handle' | join: ',' | prepend: ',' | append: ',' -%}
+{%- assign is_fal_promo_product = false -%}
+{%- if fal_collection_handles contains ',tables-chairs-and-lighting,' -%}
+  {%- assign is_fal_promo_product = true -%}
+{%- endif -%}
 
 
 {% if product.available %}
  <div class="floating-add-to-cart" id="floatingAddToCart" aria-hidden="false">
   <div class="floating-add-to-cart-content">
     <!-- Price (Left) -->
-    <div class="floating-product-price">
-      {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+    <div class="floating-product-price" data-floating-product-price {% if is_fal_promo_product %}data-fal-promo-product="true"{% endif %}>
+      {% if is_fal_promo_product %}
+        {%- assign floating_discounted_price = product.selected_or_first_available_variant.price | times: 70 | divided_by: 100 -%}
+        <span class="floating-price-sale floating-price-sale--promo">{{ floating_discounted_price | money }}</span>
+        <span class="floating-price-compare floating-price-compare--promo">{{ product.selected_or_first_available_variant.price | money }}</span>
+      {% elsif product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
         <span class="floating-price-sale">{{ product.selected_or_first_available_variant.price | money }}</span>
         <span class="floating-price-compare">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
       {% else %}
@@ -108,9 +117,11 @@
 }
 .floating-add-to-cart-content > * { flex: 1; display: flex; justify-content: center; align-items: center; }
 .floating-product-image img { border-radius: 30px; object-fit: cover; }
-.floating-product-price { display: flex; flex-direction: column; gap: 2px; font-size: 13px; font-weight: 600; }
+.floating-product-price { display: flex; flex-direction: column; gap: 3px; font-size: 13px; font-weight: 600; line-height: 1.15; }
 .floating-price-sale { color: #000; font-size: 13px; }
+.floating-price-sale--promo { font-size: 16px; font-weight: 700; }
 .floating-price-compare { color: #666; text-decoration: line-through; font-size: 13px; font-weight: 400; }
+.floating-price-compare--promo { color: #777; }
 .floating-price-regular { color: #333; font-size: 14px; }
 .floating-add-to-cart-button {
   background: #000; color: #fff; border: none; padding: 12px 20px; border-radius: 30px;
@@ -134,11 +145,43 @@
 document.addEventListener('DOMContentLoaded', function () {
   const floatingCart = document.getElementById('floatingAddToCart');
   const floatingButton = document.querySelector('.floating-add-to-cart-button');
+  const floatingPrice = document.querySelector('[data-floating-product-price]');
+  const productForm = document.getElementById({{ product_form_id | json }});
+  const moneySymbol = {{ cart.currency.symbol | json }};
   const DESKTOP_BP = 1024;
   let isVisible = false;
   let lastVisibleState = null; // Prevent unnecessary updates
   
   function $(sel) { return document.querySelector(sel); }
+
+  function formatFloatingMoney(cents) {
+    const amount = cents / 100;
+    const formattedAmount = amount % 1 === 0 ? amount.toFixed(0) : amount.toFixed(2);
+
+    return `${moneySymbol}${formattedAmount}`;
+  }
+
+  function updateFloatingPrice(variant) {
+    if (!floatingPrice || !variant) return;
+
+    const isFalPromoProduct = floatingPrice.hasAttribute('data-fal-promo-product');
+
+    if (isFalPromoProduct) {
+      const discountedPrice = Math.round(variant.price * 0.7);
+
+      floatingPrice.innerHTML = `
+        <span class="floating-price-sale floating-price-sale--promo">${formatFloatingMoney(discountedPrice)}</span>
+        <span class="floating-price-compare floating-price-compare--promo">${formatFloatingMoney(variant.price)}</span>
+      `;
+    } else if (variant.compare_at_price && variant.compare_at_price > variant.price) {
+      floatingPrice.innerHTML = `
+        <span class="floating-price-sale">${formatFloatingMoney(variant.price)}</span>
+        <span class="floating-price-compare">${formatFloatingMoney(variant.compare_at_price)}</span>
+      `;
+    } else {
+      floatingPrice.innerHTML = `<span class="floating-price-regular">${formatFloatingMoney(variant.price)}</span>`;
+    }
+  }
   
   function isElementInViewport(el) {
     if (!el) return false;
@@ -224,6 +267,12 @@ document.addEventListener('DOMContentLoaded', function () {
       const formId = this.dataset.formId;
       const form = document.getElementById(formId);
       if (form) form.requestSubmit();
+    });
+  }
+
+  if (productForm) {
+    productForm.addEventListener('variant:changed', function(event) {
+      updateFloatingPrice(event.detail.variant);
     });
   }
 
