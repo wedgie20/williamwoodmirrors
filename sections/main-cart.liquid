@@ -22,12 +22,20 @@
 
             {%- assign threshold_in_cents = free_shipping_calculated_threshold -%}
             {%- assign calculated_total_price = cart.total_price -%}
+            {%- assign ww_fal_cart_savings = 0 -%}
 
             {%- for line_item in cart.items -%}
               {%- unless line_item.requires_shipping -%}
                 {%- assign calculated_total_price = calculated_total_price | minus: line_item.final_line_price -%}
               {%- endunless -%}
+
+              {%- assign fal_collection_handles = line_item.product.collections | map: 'handle' | join: ',' | prepend: ',' | append: ',' -%}
+              {%- if fal_collection_handles contains ',tables-chairs-and-lighting,' and line_item.original_line_price <= line_item.final_line_price -%}
+                {%- assign ww_fal_line_saving = line_item.original_line_price | times: 30 | divided_by: 100 -%}
+                {%- assign ww_fal_cart_savings = ww_fal_cart_savings | plus: ww_fal_line_saving -%}
+              {%- endif -%}
             {%- endfor -%}
+            {%- assign ww_fal_cart_total = cart.total_price | minus: ww_fal_cart_savings -%}
            
 
     
@@ -169,26 +177,48 @@
                         {%- endcapture -%}
 
                         {%- capture line_price -%}
-                          <span class="price {% if line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price %}price--highlight{% endif %}">
-                            <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+                          {%- assign fal_collection_handles = line_item.product.collections | map: 'handle' | join: ',' | prepend: ',' | append: ',' -%}
+                          {%- assign is_fal_cart_line = false -%}
+                          {%- if fal_collection_handles contains ',tables-chairs-and-lighting,' and line_item.original_line_price <= line_item.final_line_price -%}
+                            {%- assign is_fal_cart_line = true -%}
+                            {%- assign fal_discounted_line_price = line_item.original_line_price | times: 70 | divided_by: 100 -%}
+                            {%- assign fal_line_saving = line_item.original_line_price | minus: fal_discounted_line_price -%}
+                          {%- endif -%}
 
-                            {%- if line_item.final_line_price == 0 -%}
-                              {{- 'cart.general.free' | t -}}
-                            {%- else -%}
-                              {{- line_item.final_line_price | money -}}
-                            {%- endif -%}
-                          </span>
+                          {%- if is_fal_cart_line -%}
+                            <span class="price price--highlight">
+                              <span class="visually-hidden">Price with 30% off automatically applied at checkout</span>
+                              {{- fal_discounted_line_price | money -}}
+                            </span>
 
-                          {%- if line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
                             <span class="price price--compare">
                               <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
+                              {{- line_item.original_line_price | money -}}
+                            </span>
 
-                              {%- if line_item.original_line_price > line_item.final_line_price -%}
-                                {{- line_item.original_line_price | money -}}
+                            <span class="ww-fal-cart-saving-badge">SAVE {{ fal_line_saving | money }}</span>
+                          {%- else -%}
+                            <span class="price {% if line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price %}price--highlight{% endif %}">
+                              <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+
+                              {%- if line_item.final_line_price == 0 -%}
+                                {{- 'cart.general.free' | t -}}
                               {%- else -%}
-                                {{- line_item.variant.compare_at_price | times: line_item.quantity | money -}}
+                                {{- line_item.final_line_price | money -}}
                               {%- endif -%}
                             </span>
+
+                            {%- if line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
+                              <span class="price price--compare">
+                                <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
+
+                                {%- if line_item.original_line_price > line_item.final_line_price -%}
+                                  {{- line_item.original_line_price | money -}}
+                                {%- else -%}
+                                  {{- line_item.variant.compare_at_price | times: line_item.quantity | money -}}
+                                {%- endif -%}
+                              </span>
+                            {%- endif -%}
                           {%- endif -%}
                         {%- endcapture -%}
 
@@ -427,7 +457,7 @@
                       <div class="cart__recap-block" {{ block.shopify_attributes }}>
                         <div class="cart__total-container">
                           <span class="heading h6">{{ 'cart.general.total' | t }}</span>
-                          <span class="heading h6">{{ cart.total_price | money_with_currency }}</span>
+                          <span class="heading h6">{{ ww_fal_cart_total | money_with_currency }}</span>
                         </div>
 
                         {%- if cart.cart_level_discount_applications != blank -%}
@@ -540,8 +570,14 @@
               {% if item.original_line_price > item.final_line_price %}
                 {% assign line_saving = item.original_line_price | minus: item.final_line_price %}
               {% endif %}
+
+              {% assign fal_saving = 0 %}
+              {% assign fal_collection_handles = item.product.collections | map: 'handle' | join: ',' | prepend: ',' | append: ',' %}
+              {% if fal_collection_handles contains ',tables-chairs-and-lighting,' and item.original_line_price <= item.final_line_price %}
+                {% assign fal_saving = item.original_line_price | times: 30 | divided_by: 100 %}
+              {% endif %}
               
-              {% assign item_total_saving = product_saving | plus: line_saving %}
+              {% assign item_total_saving = product_saving | plus: line_saving | plus: fal_saving %}
               {% assign total_saving = total_saving | plus: item_total_saving %}
             {% endfor %}
 
@@ -588,7 +624,7 @@
             {% endif %}
              {% endcomment %}
 
-              <p class="order_info" style="font-weight: bold;"><span style="color: black;">Final Order Total:</span> <span style="text-align: right;"> {% render 'format-money', amount: cart.total_price %}</span></p>
+              <p class="order_info" style="font-weight: bold;"><span style="color: black;">Final Order Total:</span> <span style="text-align: right;"> {% render 'format-money', amount: ww_fal_cart_total %}</span></p>
       
       {% assign eu_countries = "AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE" | split: "," %}
       {% if localization.country.iso_code != "GB" and eu_countries contains localization.country.iso_code %}
@@ -623,7 +659,7 @@
                 </button>
               </div>
  <div id="price-divider-container" class="" style="text-align: center !important; margin-top:  10px; margin-bottom:  7px;">
-          {% assign installment_amount = cart.total_price | divided_by: 3 %}
+          {% assign installment_amount = ww_fal_cart_total | divided_by: 3 %}
           Or in 3 <b>interest free</b> instalments of <strong>{% render 'format-money', amount: installment_amount %}</strong> with Klarna
         </div>
 
