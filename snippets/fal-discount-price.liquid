@@ -18,26 +18,28 @@
 -%}
 
 {%- if is_fal_promo_product -%}
-  <span class="price price--highlight ww-fal-discount-price ww-fal-discount-price--{{ fal_context }}">
-    <span class="visually-hidden">Price with 30% off automatically applied at checkout</span>
-    {%- if product.price_varies and variant == blank -%}
-      From
-    {%- endif -%}
-    {%- if settings.currency_code_enabled -%}
-      {{- fal_discounted_price | money_with_currency -}}
-    {%- else -%}
-      {{- fal_discounted_price | money -}}
-    {%- endif -%}
-  </span>
-  <span class="price price--block ww-fal-savings-badge ww-fal-savings-badge--{{ fal_context }}">
-    SAVE
-    {%- if product.price_varies and variant == blank -%}
-      UP TO
-    {%- endif -%}
-    {%- if settings.currency_code_enabled -%}
-      {{- fal_savings | money_with_currency -}}
-    {%- else -%}
-      {{- fal_savings | money -}}
-    {%- endif -%}
+  <span class="ww-fal-promo-price-group ww-fal-promo-price-group--{{ fal_context }}">
+    <span class="price price--highlight ww-fal-discount-price ww-fal-discount-price--{{ fal_context }}">
+      <span class="visually-hidden">Price with 30% off automatically applied at checkout</span>
+      {%- if product.price_varies and variant == blank -%}
+        From
+      {%- endif -%}
+      {%- if settings.currency_code_enabled -%}
+        {{- fal_discounted_price | money_with_currency -}}
+      {%- else -%}
+        {{- fal_discounted_price | money -}}
+      {%- endif -%}
+    </span>
+    <span class="ww-fal-savings-badge ww-fal-savings-badge--{{ fal_context }}">
+      SAVE
+      {%- if product.price_varies and variant == blank -%}
+        UP TO
+      {%- endif -%}
+      {%- if settings.currency_code_enabled -%}
+        {{- fal_savings | money_with_currency -}}
+      {%- else -%}
+        {{- fal_savings | money -}}
+      {%- endif -%}
+    </span>
   </span>
 {%- endif -%}

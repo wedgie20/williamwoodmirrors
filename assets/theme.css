@@ -2819,6 +2819,10 @@ p + .button-group,
   color: #780606;
 }
 
+.price-list:has(.ww-fal-promo-price-group) {
+  align-items: flex-start;
+}
+
 .ww-fal-discount-price {
   display: inline-block;
   flex-basis: auto;
@@ -2829,10 +2833,19 @@ p + .button-group,
   line-height: 1.25;
 }
 
-.price-list:has(.ww-fal-discount-price) > .price:first-child:not(.price--compare):not(.ww-fal-discount-price):not(.ww-fal-savings-badge) {
+.ww-fal-promo-price-group {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+.price-list:has(.ww-fal-promo-price-group) > .price:first-child:not(.price--compare):not(.ww-fal-discount-price):not(.ww-fal-savings-badge) {
   text-decoration: line-through;
   opacity: 0.75;
   font-weight: 400;
+  font-size: 0.9em;
+  line-height: 1.2;
   color: currentColor;
 }
 
@@ -2840,10 +2853,9 @@ p + .button-group,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex-basis: 100%;
   width: fit-content;
   max-width: max-content;
-  margin: 4px auto 0;
+  margin-top: 0;
   padding: 3px 8px 2px;
   border-radius: 14px;
   background: #9b2d2d;
@@ -2856,12 +2868,11 @@ p + .button-group,
 }
 
 .ww-fal-discount-price--pdp {
-  font-size: 15px;
+  font-size: 19px;
+  line-height: 1;
 }
 
 .ww-fal-savings-badge--pdp {
-  margin-right: 0;
-  margin-left: 0;
   font-size: 12px;
 }
 

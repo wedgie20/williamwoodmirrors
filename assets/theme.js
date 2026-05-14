@@ -5341,7 +5341,7 @@ var SafeSticky = class extends HTMLElement {
         if (this.hasAttribute("data-fal-promo-product")) {
           const falDiscountedPrice = Math.round(variant["price"] * 0.7);
           const falSavings = variant["price"] - falDiscountedPrice;
-          productPrices.innerHTML += `<span class="price price--highlight ww-fal-discount-price ww-fal-discount-price--pdp"><span class="visually-hidden">Price with 30% off automatically applied at checkout</span>${formatMoney(falDiscountedPrice, currencyFormat)}</span><span class="price price--block ww-fal-savings-badge ww-fal-savings-badge--pdp">SAVE ${formatMoney(falSavings, currencyFormat)}</span>`;
+          productPrices.innerHTML += `<span class="ww-fal-promo-price-group ww-fal-promo-price-group--pdp"><span class="price price--highlight ww-fal-discount-price ww-fal-discount-price--pdp"><span class="visually-hidden">Price with 30% off automatically applied at checkout</span>${formatMoney(falDiscountedPrice, currencyFormat)}</span><span class="ww-fal-savings-badge ww-fal-savings-badge--pdp">SAVE ${formatMoney(falSavings, currencyFormat)}</span></span>`;
         }
         productPrices.style.display = "";
       }
