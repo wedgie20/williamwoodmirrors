@@ -146,17 +146,17 @@
                 {%- endif -%}
 
                 {%- if is_fal_cart_line -%}
-                  <span class="price price--highlight">
-                    <span class="visually-hidden">Price with 30% off automatically applied at checkout</span>
-                    {% render 'format-money', amount: fal_discounted_line_price %}
-                  </span>
+                  <span class="ww-fal-mini-cart-price-stack">
+                    <span class="price price--highlight">
+                      <span class="visually-hidden">Price with 30% off automatically applied at checkout</span>
+                      {% render 'format-money', amount: fal_discounted_line_price %}
+                    </span>
 
-                  <span class="price price--compare">
-                    <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
-                    {% render 'format-money', amount: line_item.original_line_price %}
+                    <span class="price price--compare">
+                      <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
+                      {% render 'format-money', amount: line_item.original_line_price %}
+                    </span>
                   </span>
-
-                  <span class="ww-fal-cart-saving-badge">SAVE {% render 'format-money', amount: fal_line_saving %}</span>
                 {%- else -%}
                   <span class="price {% if line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price %}price--highlight{% endif %}">
                     <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>

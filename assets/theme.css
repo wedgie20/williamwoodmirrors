@@ -2845,6 +2845,12 @@ p + .button-group,
   gap: 3px;
 }
 
+.ww-fal-promo-price-group--pdp {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
 .price-list:has(.ww-fal-promo-price-group) > .price:first-child:not(.price--compare):not(.ww-fal-discount-price):not(.ww-fal-savings-badge) {
   text-decoration: line-through;
   opacity: 0.75;
@@ -2888,7 +2894,7 @@ p + .button-group,
 
 .ww-fal-savings-badge--pdp {
   display: inline-flex;
-  margin-top: 7px;
+  margin-top: 0;
   font-size: 12px;
 }
 
@@ -2913,6 +2919,25 @@ p + .button-group,
   font-weight: 800;
   line-height: 1.2;
   white-space: nowrap;
+}
+
+.mini-cart .ww-fal-mini-cart-price-stack {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.mini-cart .ww-fal-mini-cart-price-stack .price--highlight {
+  color: #780606;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.mini-cart .ww-fal-mini-cart-price-stack .price--compare {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.1;
 }
 
 .price--compare {
