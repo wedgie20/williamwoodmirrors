@@ -1,0 +1,26 @@
+{%- liquid
+  assign fal_collection_handles = product.collections | map: 'handle' | join: ',' | prepend: ',' | append: ','
+  assign is_fal_promo_product = false
+
+  if fal_collection_handles contains ',tables-chairs-and-lighting,'
+    assign is_fal_promo_product = true
+  endif
+
+  assign fal_base_price = product.price_min
+  assign fal_discounted_price = fal_base_price | times: 70 | divided_by: 100
+  assign fal_savings = fal_base_price | minus: fal_discounted_price
+-%}
+
+{%- if is_fal_promo_product -%}
+  <span class="label ww-fal-card-saving-badge">
+    SAVE
+    {%- if product.price_varies -%}
+      UP TO
+    {%- endif -%}
+    {%- if settings.currency_code_enabled -%}
+      {{- fal_savings | money_with_currency -}}
+    {%- else -%}
+      {{- fal_savings | money -}}
+    {%- endif -%}
+  </span>
+{%- endif -%}

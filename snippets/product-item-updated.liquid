@@ -365,9 +365,16 @@
         </span>
       {%- endif -%}
 
-      {%- if product_labels != blank and reduced_content != true -%}
+      {%- capture fal_savings_badge -%}{%- render 'fal-savings-badge', product: product -%}{%- endcapture -%}
+      {%- assign show_product_label_list = false -%}
+      {%- if product_labels != blank or fal_savings_badge != blank -%}
+        {%- assign show_product_label_list = true -%}
+      {%- endif -%}
+
+      {%- if show_product_label_list and reduced_content != true -%}
         <div class="product-item__label-list label-list">
           {{- product_labels -}}
+          {{- fal_savings_badge -}}
         </div>
       {%- endif -%}
 

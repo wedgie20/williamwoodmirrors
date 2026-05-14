@@ -30,16 +30,18 @@
         {{- fal_discounted_price | money -}}
       {%- endif -%}
     </span>
-    <span class="ww-fal-savings-badge ww-fal-savings-badge--{{ fal_context }}">
-      SAVE
-      {%- if product.price_varies and variant == blank -%}
-        UP TO
-      {%- endif -%}
-      {%- if settings.currency_code_enabled -%}
-        {{- fal_savings | money_with_currency -}}
-      {%- else -%}
-        {{- fal_savings | money -}}
-      {%- endif -%}
-    </span>
+    {%- unless fal_context == 'card' -%}
+      <span class="ww-fal-savings-badge ww-fal-savings-badge--{{ fal_context }}">
+        SAVE
+        {%- if product.price_varies and variant == blank -%}
+          UP TO
+        {%- endif -%}
+        {%- if settings.currency_code_enabled -%}
+          {{- fal_savings | money_with_currency -}}
+        {%- else -%}
+          {{- fal_savings | money -}}
+        {%- endif -%}
+      </span>
+    {%- endunless -%}
   </span>
 {%- endif -%}
