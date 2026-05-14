@@ -1,8 +1,16 @@
 {%- capture product_form_id -%}product-form-{{ section.id }}-{{ product.id }}{%- endcapture -%}
+{%- liquid
+  assign fal_collection_handles = product.collections | map: 'handle' | join: ',' | prepend: ',' | append: ','
+  assign is_fal_promo_product = false
+
+  if fal_collection_handles contains ',tables-chairs-and-lighting,'
+    assign is_fal_promo_product = true
+  endif
+-%}
 
 <div class="product__info">
   <!-- PRODUCT META -->
-  <product-meta form-id="{{ product_form_id }}" price-class="price--large" class="product-meta">
+  <product-meta form-id="{{ product_form_id }}" price-class="price--large" class="product-meta" {% if is_fal_promo_product %}data-fal-promo-product="true"{% endif %}>
     {%- if section.settings.show_vendor -%}
       <h2 class="product-meta__vendor heading heading--small">
         {%- assign vendor_handle = product.vendor | handle -%}
@@ -476,6 +484,12 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
           </div>
         {%- endif -%}
+
+        {%- render 'fal-discount-price',
+          product: product,
+          variant: product.selected_or_first_available_variant,
+          context: 'pdp'
+        -%}
       </div>
 
 
@@ -684,12 +698,16 @@ document.addEventListener("DOMContentLoaded", function() {
   {% endif %}
 {% endfor %}
 
-{% unless excluded %}
+{% if is_fal_promo_product %}
+  <div class="ww-promo-banner ww-promo-banner--fal">
+    <p><strong>30% off</strong>, code automatically applied at checkout</p>
+  </div>
+{% elsif excluded == false %}
   <div class="ww-promo-banner">
     <p>Save <strong>15% on this item</strong>. Apply code at checkout</p>
     <span class="ww-code">TAKE15</span>
   </div>
-{% endunless %}
+{% endif %}
 
 <style>
     .ww-promo-banner {

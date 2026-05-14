@@ -5338,6 +5338,9 @@ var SafeSticky = class extends HTMLElement {
           </div>
         `;
         }
+        if (this.hasAttribute("data-fal-promo-product")) {
+          productPrices.innerHTML += `<span class="price price--block ww-fal-discount-price ww-fal-discount-price--pdp"><span class="visually-hidden">Price with 30% off automatically applied at checkout</span>${formatMoney(Math.round(variant["price"] * 0.7), currencyFormat)}<span class="ww-fal-discount-price__note">with 30% off at checkout</span></span>`;
+        }
         productPrices.style.display = "";
       }
     }
@@ -6465,4 +6468,3 @@ document.addEventListener('tidioChat-ready', onTidioChatApiReady);
 * tabbable 5.2.1
 * @license MIT, https://github.com/focus-trap/tabbable/blob/master/LICENSE
 */
-

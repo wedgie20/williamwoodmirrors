@@ -777,6 +777,12 @@ document.addEventListener('DOMContentLoaded', function () {
     {% endif %}
   {% endfor %}
 
+  {% assign fal_collection_handles = product.collections | map: 'handle' | join: ',' | prepend: ',' | append: ',' %}
+  {% assign is_fal_promo_product = false %}
+  {% if fal_collection_handles contains ',tables-chairs-and-lighting,' %}
+    {% assign is_fal_promo_product = true %}
+  {% endif %}
+
   {%- capture product_status_content -%}
   {% if has_coming_soon %}
     <p>{{ block.settings.coming_soon_text | escape | newline_to_br }}</p>
@@ -814,7 +820,9 @@ document.addEventListener('DOMContentLoaded', function () {
     {% endif %}
 
 
-    {% if product.tags contains 'sale' %}
+    {% if is_fal_promo_product %}
+      <p>30% off, code automatically applied at checkout</p>
+    {% elsif product.tags contains 'sale' %}
       <!-- 🎯 Sale block with background image + overlay and matching padding -->
       {% comment %} <h3>{{ block.settings.sale_heading }}</h3> {% endcomment %}
        {% if block.settings.sale_heading != blank %}

@@ -310,6 +310,8 @@
               </div>
             </div>
           {%- endif -%}
+
+          {%- render 'fal-discount-price', product: product, context: 'card' -%}
         </div>
       </div>
        {% assign collectionhandles = product.collections | map: 'handle' | join: ',' %}
