@@ -37,9 +37,9 @@
           UP TO
         {%- endif -%}
         {%- if settings.currency_code_enabled -%}
-          {{- fal_savings | money_with_currency -}}
+          {{ fal_savings | money_with_currency }}
         {%- else -%}
-          {{- fal_savings | money -}}
+          {{ fal_savings | money }}
         {%- endif -%}
       </span>
     {%- endunless -%}
