@@ -32,9 +32,9 @@
     </span>
     {%- unless fal_context == 'card' -%}
       <span class="ww-fal-savings-badge ww-fal-savings-badge--{{ fal_context }}">
-        SAVE
+        SAVE&nbsp;
         {%- if product.price_varies and variant == blank -%}
-          UP TO
+          UP TO&nbsp;
         {%- endif -%}
         {%- if settings.currency_code_enabled -%}
           {{ fal_savings | money_with_currency }}

@@ -19,9 +19,9 @@
 
 {%- if is_fal_promo_product -%}
   <span class="{% if fal_context == 'card' %}label ww-fal-card-saving-badge{% else %}ww-fal-savings-badge ww-fal-savings-badge--{{ fal_context }}{% endif %}" {% if fal_context == 'pdp' %}data-fal-pdp-savings-badge{% endif %}>
-    SAVE
+    SAVE&nbsp;
     {%- if product.price_varies and variant == blank -%}
-      UP TO
+      UP TO&nbsp;
     {%- endif -%}
     {%- if settings.currency_code_enabled -%}
       {{ fal_savings | money_with_currency }}
