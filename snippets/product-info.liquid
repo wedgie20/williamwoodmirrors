@@ -889,10 +889,25 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
-        const price = {{ pricewholenumber }};
+        (function() {
+        {%- liquid
+          assign installment_base_price = pricewholenumber
+
+          if is_fal_promo_product
+            assign installment_base_price = product.selected_or_first_available_variant.price | times: 70 | divided_by: 100
+          endif
+        -%}
+
+        let price = {{ installment_base_price | json }};
+        const isFalPromoProduct = {{ is_fal_promo_product | json }};
+        const productForm = document.getElementById({{ product_form_id | json }});
         const installmentsDropdown = document.getElementById('installments');
         const installmentDisplay = document.getElementById('installment');
         const disclaimerDisplay = document.getElementById('disclaimer');
+
+        if (!installmentsDropdown || !installmentDisplay || !disclaimerDisplay) {
+            return;
+        }
 
         function updateInstallment() {
             const selectedValue = installmentsDropdown.value;
@@ -934,7 +949,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
         installmentsDropdown.addEventListener('change', updateInstallment);
 
+        if (productForm) {
+            productForm.addEventListener('variant:changed', function(event) {
+                if (!event.detail.variant) {
+                    return;
+                }
+
+                price = isFalPromoProduct ? Math.round(event.detail.variant.price * 0.7) : event.detail.variant.price;
+                updateInstallment();
+            });
+        }
+
         updateInstallment();
+        })();
     </script>
 </body>
   {% else %}
@@ -997,7 +1024,8 @@ Or in 3 instalments of <span id="installment"></span> with
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const price = {{ product.price }};
+            const isFalPromoProduct = {{ is_fal_promo_product | json }};
+            let price = isFalPromoProduct ? Math.round({{ product.price | json }} * 0.7) : {{ product.price | json }};
             const installment = (price / 3) / 100;
             const installmentDisplay = document.getElementById('installment');
 
