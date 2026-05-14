@@ -812,6 +812,11 @@ document.addEventListener("DOMContentLoaded", function() {
         </select>
         instalments of <span id="installment"></span>
         <div id="disclaimer"></div>
+        {%- render 'fal-savings-badge',
+          product: product,
+          variant: product.selected_or_first_available_variant,
+          context: 'pdp'
+        -%}
     </div>
 
     <script>
@@ -926,6 +931,11 @@ document.addEventListener("DOMContentLoaded", function() {
     <div id="price-divider-container" class="Kimg">
 Or in 3 instalments of <span id="installment"></span> with 
 <img src='https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Marketing_Badge_With_Clear_Space_1.png?v=1725885242'>
+      {%- render 'fal-savings-badge',
+        product: product,
+        variant: product.selected_or_first_available_variant,
+        context: 'pdp'
+      -%}
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {

@@ -30,7 +30,7 @@
         {{- fal_discounted_price | money -}}
       {%- endif -%}
     </span>
-    {%- unless fal_context == 'card' -%}
+    {%- unless fal_context == 'card' or fal_context == 'pdp' -%}
       <span class="ww-fal-savings-badge ww-fal-savings-badge--{{ fal_context }}">
         SAVE
         {%- if product.price_varies and variant == blank -%}

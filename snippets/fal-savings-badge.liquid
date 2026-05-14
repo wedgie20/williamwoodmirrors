@@ -6,15 +6,21 @@
     assign is_fal_promo_product = true
   endif
 
+  assign fal_context = context | default: 'card'
   assign fal_base_price = product.price_min
+
+  if variant != blank
+    assign fal_base_price = variant.price
+  endif
+
   assign fal_discounted_price = fal_base_price | times: 70 | divided_by: 100
   assign fal_savings = fal_base_price | minus: fal_discounted_price
 -%}
 
 {%- if is_fal_promo_product -%}
-  <span class="label ww-fal-card-saving-badge">
+  <span class="{% if fal_context == 'card' %}label ww-fal-card-saving-badge{% else %}ww-fal-savings-badge ww-fal-savings-badge--{{ fal_context }}{% endif %}" {% if fal_context == 'pdp' %}data-fal-pdp-savings-badge{% endif %}>
     SAVE
-    {%- if product.price_varies -%}
+    {%- if product.price_varies and variant == blank -%}
       UP TO
     {%- endif -%}
     {%- if settings.currency_code_enabled -%}
