@@ -2906,7 +2906,11 @@ p + .button-group,
 .ww-fal-savings-badge--pdp {
   display: inline-flex;
   margin-top: 0;
-  font-size: 12px;
+  min-height: 25px;
+  padding: 5px 9px 4px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.1;
 }
 
 .label.ww-fal-card-saving-badge {
