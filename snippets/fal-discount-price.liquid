@@ -13,11 +13,12 @@
   endif
 
   assign fal_discounted_price = fal_base_price | times: 70 | divided_by: 100
+  assign fal_savings = fal_base_price | minus: fal_discounted_price
   assign fal_context = context | default: 'card'
 -%}
 
 {%- if is_fal_promo_product -%}
-  <span class="price price--block ww-fal-discount-price ww-fal-discount-price--{{ fal_context }}">
+  <span class="price price--highlight ww-fal-discount-price ww-fal-discount-price--{{ fal_context }}">
     <span class="visually-hidden">Price with 30% off automatically applied at checkout</span>
     {%- if product.price_varies and variant == blank -%}
       From
@@ -27,6 +28,16 @@
     {%- else -%}
       {{- fal_discounted_price | money -}}
     {%- endif -%}
-    <span class="ww-fal-discount-price__note">with 30% off at checkout</span>
+  </span>
+  <span class="price price--block ww-fal-savings-badge ww-fal-savings-badge--{{ fal_context }}">
+    SAVE
+    {%- if product.price_varies and variant == blank -%}
+      UP TO
+    {%- endif -%}
+    {%- if settings.currency_code_enabled -%}
+      {{- fal_savings | money_with_currency -}}
+    {%- else -%}
+      {{- fal_savings | money -}}
+    {%- endif -%}
   </span>
 {%- endif -%}

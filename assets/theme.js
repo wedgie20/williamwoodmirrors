@@ -5339,7 +5339,9 @@ var SafeSticky = class extends HTMLElement {
         `;
         }
         if (this.hasAttribute("data-fal-promo-product")) {
-          productPrices.innerHTML += `<span class="price price--block ww-fal-discount-price ww-fal-discount-price--pdp"><span class="visually-hidden">Price with 30% off automatically applied at checkout</span>${formatMoney(Math.round(variant["price"] * 0.7), currencyFormat)}<span class="ww-fal-discount-price__note">with 30% off at checkout</span></span>`;
+          const falDiscountedPrice = Math.round(variant["price"] * 0.7);
+          const falSavings = variant["price"] - falDiscountedPrice;
+          productPrices.innerHTML += `<span class="price price--highlight ww-fal-discount-price ww-fal-discount-price--pdp"><span class="visually-hidden">Price with 30% off automatically applied at checkout</span>${formatMoney(falDiscountedPrice, currencyFormat)}</span><span class="price price--block ww-fal-savings-badge ww-fal-savings-badge--pdp">SAVE ${formatMoney(falSavings, currencyFormat)}</span>`;
         }
         productPrices.style.display = "";
       }

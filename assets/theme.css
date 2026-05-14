@@ -2820,29 +2820,48 @@ p + .button-group,
 }
 
 .ww-fal-discount-price {
-  display: block;
-  flex-basis: 100%;
-  width: 100%;
-  margin-top: 3px;
+  display: inline-block;
+  flex-basis: auto;
+  width: auto;
+  margin-top: 0;
   color: #780606;
   font-weight: 800;
   line-height: 1.25;
 }
 
-.ww-fal-discount-price__note {
-  display: block;
-  color: #4f4f4f;
+.price-list:has(.ww-fal-discount-price) > .price:first-child:not(.price--compare):not(.ww-fal-discount-price):not(.ww-fal-savings-badge) {
+  text-decoration: line-through;
+  opacity: 0.75;
+  font-weight: 400;
+  color: currentColor;
+}
+
+.ww-fal-savings-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-basis: 100%;
+  width: fit-content;
+  max-width: max-content;
+  margin: 4px auto 0;
+  padding: 3px 8px 2px;
+  border-radius: 14px;
+  background: #9b2d2d;
+  color: #ffffff;
   font-size: 11px;
-  font-weight: 600;
-  line-height: 1.25;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 
 .ww-fal-discount-price--pdp {
-  margin-top: 6px;
   font-size: 15px;
 }
 
-.ww-fal-discount-price--pdp .ww-fal-discount-price__note {
+.ww-fal-savings-badge--pdp {
+  margin-right: 0;
+  margin-left: 0;
   font-size: 12px;
 }
 
@@ -16268,5 +16287,3 @@ trust-badges {
   color: #000 !important;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
-
-
