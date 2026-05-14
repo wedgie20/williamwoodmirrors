@@ -50,7 +50,12 @@
     {%- endunless -%}
 
     {%- assign cheapest_variant = product.variants | sort: 'price' | first -%}
-    {%- if settings.show_discount and product.available and product.price < product.compare_at_price and cheapest_variant.compare_at_price != blank -%}
+    {%- assign fal_collection_handles = product.collections | map: 'handle' | join: ',' | prepend: ',' | append: ',' -%}
+    {%- assign is_fal_promo_product = false -%}
+    {%- if fal_collection_handles contains ',tables-chairs-and-lighting,' -%}
+      {%- assign is_fal_promo_product = true -%}
+    {%- endif -%}
+    {%- if settings.show_discount and is_fal_promo_product == false and product.available and product.price < product.compare_at_price and cheapest_variant.compare_at_price != blank -%}
       {%- if settings.discount_mode == 'percentage' -%}
         {%- assign savings = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round | append: '%' -%}
       {%- else -%}
