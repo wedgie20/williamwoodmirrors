@@ -59,7 +59,7 @@
     "search_enable_blog_posts": false,
     "close_id": "Close search",
     "suggested_search_terms": "accent chairs, coffee tables,black arched mirror,concrete mirror, side table",
-    "defualt_collection": "best-sellers",
+    "defualt_collection": "best-sellers-old",
     "help_links": "search-nav",
     "cart_type": "drawer",
     "cart_icon": "shopping_bag",
@@ -105,7 +105,7 @@
               "title": "",
               "content": "<p>Purchase two or more products from our best sellers collection and automatically receive 25% off your order.</p>",
               "button_text": "SHOP NOW",
-              "button_link": "shopify://collections/best-sellers"
+              "button_link": "shopify://collections/best-sellers-old"
             }
           },
           "3f097275-f772-44d9-b5f7-6d6999645314": {
@@ -324,7 +324,7 @@
         "settings": {
           "show_order_note": false,
           "show_checkout_button": true,
-          "empty_button_link": "shopify://collections/best-sellers",
+          "empty_button_link": "shopify://collections/best-sellers-old",
           "show_recommendations": false,
           "recommendations_title": "Customers also purchased"
         }
@@ -531,11 +531,6 @@
         "disabled": false,
         "settings": {}
       },
-      "7878088468538493966": {
-        "type": "shopify://apps/wisepops-ai-popups-push-cro/blocks/app-embed/e7d7a4f7-0df4-4073-9375-5f36db513952",
-        "disabled": false,
-        "settings": {}
-      },
       "319724205969189013": {
         "type": "shopify://apps/hulk-form-builder/blocks/app-embed/b6b8dd14-356b-4725-a4ed-77232212b3c3",
         "disabled": false,
@@ -619,6 +614,8 @@
             "header_layout": "logo_left_navigation_center",
             "show_icons": false,
             "reduce_desktop_padding": false,
+            "highlighted_menu_bg_color": "#000000",
+            "highlighted_menu_text_color": "#ffffff",
             "enable_transparent_header": false,
             "transparent_header_text_color": "#ffffff"
           }
@@ -724,6 +721,8 @@
             "header_layout": "logo_center_navigation_inline",
             "show_icons": false,
             "reduce_desktop_padding": false,
+            "highlighted_menu_bg_color": "#000000",
+            "highlighted_menu_text_color": "#ffffff",
             "enable_transparent_header": false,
             "transparent_header_text_color": "#ffffff"
           }
@@ -834,6 +833,8 @@
             "header_layout": "logo_center_navigation_inline",
             "show_icons": true,
             "reduce_desktop_padding": false,
+            "highlighted_menu_bg_color": "#000000",
+            "highlighted_menu_text_color": "#ffffff",
             "enable_transparent_header": true,
             "transparent_header_text_color": "#ffffff"
           }
@@ -941,6 +942,8 @@
             "header_layout": "logo_center_navigation_inline",
             "show_icons": true,
             "reduce_desktop_padding": false,
+            "highlighted_menu_bg_color": "#000000",
+            "highlighted_menu_text_color": "#ffffff",
             "enable_transparent_header": true,
             "transparent_header_text_color": "#ffffff"
           }
