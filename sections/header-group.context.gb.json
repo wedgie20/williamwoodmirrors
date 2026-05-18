@@ -14,29 +14,19 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "cycle_speed": 3,
-        "background": "#efefef",
-        "text_color": "#000000",
-        "button_background": "#000000",
-        "button_text_color": "#f5f5f5"
-      },
       "blocks": {
         "c4b45150-0e14-460e-8c47-88fd9bd72b02": {
-          "disabled": false,
           "settings": {
             "text": "Build Your Bundle: Up to 30% off",
             "learn_more_text": "",
-            "image": null,
             "title": "Up to 30% off full price",
             "content": "<p>Purchase 2 full priced products, get <strong>25% off</strong>. No code needed.<br/>or<br/>Purchase 3 or more full priced products, get <strong>30% off</strong>. No code needed.<br/></p>",
             "button_text": "SHOP NOW",
-            "button_link": "shopify://collections/best-sellers"
+            "button_link": "shopify://collections/best-sellers-old"
           }
         },
         "review_slide_JVr8p": {
           "type": "review_slide",
-          "disabled": false,
           "settings": {
             "text_before": "Excellent 4.7 / 5",
             "review_logo": "shopify://shop_images/Trustpilot_ratings_5star-RGB-min_0a651061-7fb3-4d09-81b6-b7f887efdbe1.png",
@@ -45,15 +35,13 @@
           }
         },
         "3f097275-f772-44d9-b5f7-6d6999645314": {
-          "disabled": true,
-          "settings": {}
+          "disabled": true
         },
         "955bcd74-0608-4f78-afae-e87df09b9f88": {
           "disabled": true,
           "settings": {
             "text": "20% off everything. No code Needed. Ends Tonight.",
             "learn_more_text": "",
-            "image": null,
             "title": "Blue Monday | Ends Tonight",
             "content": "<p><strong>20% OFF EVERYTHING</strong><br/><br/>Automatically applied at checkout. No code needed.<br/>+<br/>5% of all sales donated to MIND with Work For Good</p>",
             "button_text": "SHOP BLUE MONDAY",
@@ -61,7 +49,6 @@
           }
         },
         "message_N4D9HB": {
-          "disabled": false,
           "settings": {
             "text": "700,000+ Satisfied Customers | 30,000+ 5 Star Reviews",
             "title": "Don't just take it from us.",
@@ -71,7 +58,6 @@
           }
         },
         "message_wc4BFE": {
-          "disabled": false,
           "settings": {
             "text": "Free UK Delivery | 90 Days Free Returns"
           }
@@ -85,7 +71,14 @@
         "message_N4D9HB",
         "message_wc4BFE",
         "trustpilot_Q4xFtD"
-      ]
+      ],
+      "settings": {
+        "cycle_speed": 3,
+        "background": "#efefef",
+        "text_color": "#000000",
+        "button_background": "#000000",
+        "button_text_color": "#f5f5f5"
+      }
     },
     "header": {
       "settings": {
@@ -93,8 +86,7 @@
         "menu_bold_text": "",
         "menu_normal_text": "shop gifts",
         "highlighted_menu_background_image": "shopify://shop_images/XM25_CP_Desk.jpg"
-      },
-      "blocks": {}
+      }
     }
   }
 }
