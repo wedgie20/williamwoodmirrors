@@ -14,18 +14,12 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "announcement_bar_position": "sticky"
-      },
       "blocks": {
         "message_67DEB": {
           "type": "message",
-          "disabled": false,
           "settings": {
             "text": "Duties & Taxes Paid",
             "learn_more_text": "",
-            "header-e3b34bd7b3256a593da18626e2548dfc": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -35,7 +29,6 @@
         "c4b45150-0e14-460e-8c47-88fd9bd72b02": {
           "settings": {
             "text": "Flexible payments, 0% interest.",
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -45,7 +38,6 @@
         "955bcd74-0608-4f78-afae-e87df09b9f88": {
           "settings": {
             "text": "100% Insured France Delivery",
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -56,7 +48,6 @@
           "settings": {
             "text": "90 Days Free Returns",
             "learn_more_text": "",
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -64,7 +55,6 @@
           }
         },
         "message_wc4BFE": {
-          "disabled": false,
           "settings": {
             "text": "700,000+ Satisfied Customers",
             "title": "",
@@ -80,7 +70,7 @@
             "title": "",
             "content": "<p>Discover Premium Home Design at William Wood. Each product in our collection has been meticulously chosen to meet the high demands of our customers, with countless hours dedicated to ensuring exceptional quality and craftsmanship.<br/><br/>Enjoy peace of mind with our 10 Years Warranty Guarantee on all products.</p>",
             "button_text": "SHOP NOW",
-            "button_link": "shopify://collections/best-sellers"
+            "button_link": "shopify://collections/best-sellers-old"
           }
         },
         "message_z4EP8": {
@@ -89,8 +79,6 @@
           "settings": {
             "text": "Boxing Day Sale - 22% off everything code BD22 - Ends Midnight Tonight",
             "learn_more_text": "Learn more",
-            "header-f789a9b4f1ec0b2c06db3bdce1a15f51": null,
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -107,15 +95,17 @@
         "message_wc4BFE",
         "message_N4D9HB",
         "message_z4EP8"
-      ]
+      ],
+      "settings": {
+        "announcement_bar_position": "sticky"
+      }
     },
     "header": {
       "settings": {
         "navigation_menu": "nav-menu-new",
         "header_layout": "drawer",
         "enable_transparent_header": true
-      },
-      "blocks": {}
+      }
     }
   },
   "order": [
