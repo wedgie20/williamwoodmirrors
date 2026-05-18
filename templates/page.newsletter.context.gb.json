@@ -15,43 +15,23 @@
   "sections": {
     "custom_liquid_rewYR": {
       "type": "custom-liquid",
-      "disabled": false,
       "settings": {
         "subheading": "",
         "title": "",
         "liquid": "<div class=\"klaviyo-form-Szzi3u\"></div>",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-4f21d78e28a20051ab457d09db3eaf4c": null,
         "background": "#000000",
         "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "featured_collections_zUDiT": {
       "type": "featured-collections",
-      "disabled": false,
-      "settings": {
-        "subheading": "Discover",
-        "title": "Best sellers",
-        "content": "",
-        "products_count": 4,
-        "products_per_row": 4,
-        "stack_products": true,
-        "show_cta": false,
-        "header-d0642da5692ebbc77a266516cf68b436": null,
-        "background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)",
-        "button_background": "rgba(0,0,0,0)",
-        "button_text_color": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "collection_RbFVq": {
           "type": "collection",
-          "disabled": false,
           "settings": {
-            "collection": "best-sellers",
+            "collection": "best-sellers-old",
             "label": "",
             "button_text": "",
             "button_url": ""
@@ -60,72 +40,63 @@
       },
       "block_order": [
         "collection_RbFVq"
-      ]
+      ],
+      "settings": {
+        "subheading": "Discover",
+        "title": "Best sellers",
+        "content": "",
+        "products_count": 4,
+        "products_per_row": 4,
+        "stack_products": true,
+        "show_cta": false,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)"
+      }
     },
     "1662460824ad6e755b": {
       "disabled": true,
-      "settings": {},
-      "blocks": {}
+      "settings": {}
     },
     "main": {
       "disabled": true,
-      "settings": {
-        "show_title": false
-      },
-      "blocks": {}
+      "settings": {}
     },
     "coll_slideshow_AhUMH": {
       "type": "coll-slideshow",
-      "disabled": false,
-      "settings": {
-        "section_height": "auto",
-        "transition_type": "sweep",
-        "autoplay": true,
-        "cycle_speed": 5,
-        "background": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "image_t9xJ7": {
           "type": "image",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Liberty_Merge_v3.jpg",
-            "split_image": null,
             "mobile_image": "shopify://shop_images/Copy_of_Liberty_Black_xxl_and_Portera_thebuildingofus__4.jpg",
-            "header-18d9b5aefb0841c7ab26303a656a1451": null,
             "text_position": "middle_center",
-            "header-3c8c643c2d46da6f5b3ad77d7f15ed7f": null,
-            "review_image": null,
             "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
             "review_text_font": "assistant_n4",
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-23d200f09e521c0372733244c9c89b8b": null,
             "title": "Newsletter",
             "heading_font": "sans-serif",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-665385035b4a3d67521ede251de95f39": null,
             "subheading": "",
             "subheading_font": "sans-serif",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-a1e349f4b67c5cfda95b1514d1861bf3": null,
             "slide_text": "We help you create a space you’re proud to come home to, every single day.",
             "slide_text_font": "sans-serif",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-deb6c45d9572cd14435ed1b1348afed3": null,
             "above_text": "Join Over 700,000+ Satisfied Customers",
             "above_button_font": "sans-serif",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-3c04ad72a629611d0465dbd3a3a55970": null,
             "button_1_text": "",
             "button_1_link": "",
             "button_2_text": "",
@@ -134,7 +105,6 @@
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-cbdc02c640ab73b493cd444868a437a1": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
@@ -144,7 +114,6 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-6ffffc11b7c1a9947181186711dbb33a": null,
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
@@ -156,7 +125,14 @@
       "block_order": [
         "image_t9xJ7"
       ],
-      "name": "Slideshow For Collections"
+      "name": "Slideshow For Collections",
+      "settings": {
+        "section_height": "auto",
+        "transition_type": "sweep",
+        "autoplay": true,
+        "cycle_speed": 5,
+        "background": "rgba(0,0,0,0)"
+      }
     }
   },
   "order": [
