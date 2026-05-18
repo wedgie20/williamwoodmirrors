@@ -14,20 +14,11 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "cycle_speed": 3,
-        "background": "#efefef",
-        "text_color": "#000000",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      },
       "blocks": {
         "3f097275-f772-44d9-b5f7-6d6999645314": {
-          "disabled": true,
-          "settings": {}
+          "disabled": true
         },
         "955bcd74-0608-4f78-afae-e87df09b9f88": {
-          "disabled": false,
           "settings": {
             "text": "Guaranteed Christmas Delivery",
             "learn_more_text": "shop now",
@@ -39,7 +30,6 @@
           }
         },
         "c4b45150-0e14-460e-8c47-88fd9bd72b02": {
-          "disabled": false,
           "settings": {
             "text": "Build Your Bundle: Up to 30% off",
             "learn_more_text": "shop now",
@@ -47,21 +37,26 @@
             "title": "Up to 30% off full price",
             "content": "<p>Purchase 2 full priced products, get <strong>25% off</strong>. No code required.<br/>or<br/>Purchase 3 or more full priced products, get <strong>30% off</strong>. No code required.</p>",
             "button_text": "SHOP NOW",
-            "button_link": "shopify://collections/best-sellers"
+            "button_link": "shopify://collections/best-sellers-old"
           }
         },
         "message_N4D9HB": {
-          "disabled": false,
           "settings": {
             "text": "700,000+ Satisfied Customers | 30,000+ 5 Star Reviews"
           }
         },
         "message_wc4BFE": {
-          "disabled": false,
           "settings": {
             "text": "Free UK Delivery | 90 Days Free Returns"
           }
         }
+      },
+      "settings": {
+        "cycle_speed": 3,
+        "background": "#efefef",
+        "text_color": "#000000",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
       }
     },
     "header": {
@@ -70,8 +65,7 @@
         "menu_bold_text": "Guaranteed Christmas Delivery",
         "menu_normal_text": "shop gifts",
         "highlighted_menu_background_image": "shopify://shop_images/XM25_CP_Desk.jpg"
-      },
-      "blocks": {}
+      }
     }
   }
 }
