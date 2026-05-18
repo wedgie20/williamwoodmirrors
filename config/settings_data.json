@@ -66,7 +66,7 @@
     "search_term_3_url": "shopify://collections/side-tables",
     "search_term_4_label": "theo collection",
     "search_term_4_url": "shopify://collections/theo",
-    "defualt_collection": "best-sellers",
+    "defualt_collection": "best-sellers-old",
     "help_links": "search-nav",
     "cart_type": "drawer",
     "cart_icon": "shopping_bag",
@@ -104,6 +104,7 @@
     "speedsize_shopify_cdn_url_escaped": "\\/\\/cdn.shopify.com\\/",
     "speedsize_duplicated_https_search": "https:https:",
     "speedsize_duplicated_https_replacement": "https:",
+    "speedsize_replace_filter_allowed_domains": "williamwoodmirrors.co.uk",
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",
@@ -117,7 +118,7 @@
               "title": "",
               "content": "<p>Purchase two or more products from our best sellers collection and automatically receive 25% off your order.</p>",
               "button_text": "SHOP NOW",
-              "button_link": "shopify://collections/best-sellers"
+              "button_link": "shopify://collections/best-sellers-old"
             }
           },
           "3f097275-f772-44d9-b5f7-6d6999645314": {
@@ -336,7 +337,7 @@
         "settings": {
           "show_order_note": false,
           "show_checkout_button": true,
-          "empty_button_link": "shopify://collections/best-sellers",
+          "empty_button_link": "shopify://collections/best-sellers-old",
           "show_recommendations": false,
           "recommendations_title": "Customers also purchased"
         }
@@ -533,11 +534,6 @@
         "disabled": false,
         "settings": {}
       },
-      "7878088468538493966": {
-        "type": "shopify://apps/wisepops-ai-popups-push-cro/blocks/app-embed/e7d7a4f7-0df4-4073-9375-5f36db513952",
-        "disabled": false,
-        "settings": {}
-      },
       "319724205969189013": {
         "type": "shopify://apps/hulk-form-builder/blocks/app-embed/b6b8dd14-356b-4725-a4ed-77232212b3c3",
         "disabled": false,
@@ -558,8 +554,7 @@
         "disabled": false,
         "settings": {}
       }
-    },
-    "speedsize_replace_filter_allowed_domains": "williamwoodmirrors.co.uk"
+    }
   },
   "presets": {
     "Carbon": {
