@@ -14,19 +14,11 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "background": "#000000",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      },
       "blocks": {
         "3f097275-f772-44d9-b5f7-6d6999645314": {
-          "disabled": false,
           "settings": {
             "text": "30% off everything. No code needed. Ends Tonight",
             "learn_more_text": "",
-            "image": null,
             "title": "",
             "content": "",
             "button_text": "",
@@ -42,15 +34,20 @@
             "title": "Up to 30% off full price",
             "content": "<p>Purchase 2 full priced products, get <strong>25% off</strong>. No code required.<br/>or<br/>Purchase 3 or more full priced products, get <strong>30% off</strong>. No code required.</p>",
             "button_text": "SHOP NOW",
-            "button_link": "shopify://collections/best-sellers"
+            "button_link": "shopify://collections/best-sellers-old"
           }
         },
         "c4b45150-0e14-460e-8c47-88fd9bd72b02": {
-          "disabled": false,
           "settings": {
             "text": "700,000+ Satisfied Customers | 30,000+ 5 Star Reviews"
           }
         }
+      },
+      "settings": {
+        "background": "#000000",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
       }
     },
     "header": {
@@ -61,8 +58,7 @@
         "highlighted_menu_background_image": "shopify://shop_images/XM25_CP_Desk.jpg",
         "second_menu_bold_text": "",
         "second_menu_normal_text": ""
-      },
-      "blocks": {}
+      }
     }
   }
 }
