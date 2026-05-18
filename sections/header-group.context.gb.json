@@ -14,24 +14,14 @@
   },
   "sections": {
     "announcement-bar": {
-      "settings": {
-        "cycle_speed": 3,
-        "background": "#590001",
-        "text_color": "#ffffff",
-        "button_background": "#ffffff",
-        "button_text_color": "#000000"
-      },
       "blocks": {
         "3f097275-f772-44d9-b5f7-6d6999645314": {
-          "disabled": true,
-          "settings": {}
+          "disabled": true
         },
         "955bcd74-0608-4f78-afae-e87df09b9f88": {
-          "disabled": false,
           "settings": {
             "text": "Boxing Day: 30% off everything. No Code Needed. 26.12.25",
             "learn_more_text": "",
-            "image": null,
             "title": "Our Biggest Boxing Day",
             "content": "<p><strong>30% OFF EVERYTHING</strong><br/><br/>Offer automatically applied at checkout.<strong> No Code Needed</strong>. One Day Only<br/><br/><strong>Start Time</strong><br/><br/>26.12.25<br/><br/>8 AM GMT</p>",
             "button_text": "PREPARE YOUR BAG",
@@ -43,11 +33,10 @@
           "settings": {
             "text": "Build Your Bundle: Up to 30% off",
             "learn_more_text": "",
-            "image": null,
             "title": "Up to 30% off full price",
             "content": "<p>Purchase 2 full priced products, get <strong>25% off</strong>. No code required.<br/>or<br/>Purchase 3 or more full priced products, get <strong>30% off</strong>. No code required.</p>",
             "button_text": "SHOP NOW",
-            "button_link": "shopify://collections/best-sellers"
+            "button_link": "shopify://collections/best-sellers-old"
           }
         },
         "message_N4D9HB": {
@@ -62,6 +51,13 @@
             "text": "Free UK Delivery | 90 Days Free Returns"
           }
         }
+      },
+      "settings": {
+        "cycle_speed": 3,
+        "background": "#590001",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000"
       }
     },
     "header": {
@@ -70,8 +66,7 @@
         "menu_bold_text": "",
         "menu_normal_text": "shop gifts",
         "highlighted_menu_background_image": "shopify://shop_images/XM25_CP_Desk.jpg"
-      },
-      "blocks": {}
+      }
     }
   }
 }
