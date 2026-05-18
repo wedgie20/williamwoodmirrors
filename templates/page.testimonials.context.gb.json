@@ -15,56 +15,37 @@
   "sections": {
     "slideshow_mepdh": {
       "type": "slideshow",
-      "disabled": true,
-      "settings": {
-        "section_height": "auto",
-        "transition_type": "sweep",
-        "autoplay": true,
-        "cycle_speed": 5,
-        "background": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "image_xntqB": {
           "type": "image",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Liberty_Merge_copy.jpg",
-            "split_image": null,
-            "mobile_image": null,
-            "header-66e7db1890f6817e172f29db26998865": null,
             "text_position": "middle_center",
-            "header-1f5f68dffa220ebce78474279dd8c00a": null,
-            "review_image": null,
             "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
             "review_text_font": "assistant_n4",
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-b2dc11016e663b5f43c65ae3a18b63e2": null,
             "title": "Testimonials",
             "heading_font": "sans-serif",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-90d76692104d53c935090bdefcd43977": null,
             "subheading": "Let our customers speak for us",
             "subheading_font": "sans-serif",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-209c44405d1bf57f8919fae19d428aee": null,
             "slide_text": "We help you create a space you’re proud to come home to, every single day.",
             "slide_text_font": "sans-serif",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-366002789ea7482e376f0ca2c4327a94": null,
             "above_text": "Join Over 700,000+ Satisfied Customers",
             "above_button_font": "sans-serif",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-14551e3a49b2da83f3bc1363f108b3e9": null,
             "button_1_text": "",
             "button_1_link": "",
             "button_2_text": "",
@@ -73,7 +54,6 @@
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-82184cb3d8ad8d7dccce4f9dd680df5e": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
@@ -83,7 +63,6 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-13679f72839aa2a1cf63da8d69d04e9f": null,
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
@@ -94,11 +73,18 @@
       },
       "block_order": [
         "image_xntqB"
-      ]
+      ],
+      "disabled": true,
+      "settings": {
+        "section_height": "auto",
+        "transition_type": "sweep",
+        "autoplay": true,
+        "cycle_speed": 5,
+        "background": "rgba(0,0,0,0)"
+      }
     },
     "rich_text_6pXR9": {
       "type": "rich-text",
-      "disabled": false,
       "settings": {
         "subheading": "",
         "title": "",
@@ -109,18 +95,14 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-8c9e5db5c6c2d55c76f99e3ebcd8d5f3": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
         "button_text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "rich_text_EqbPN": {
       "type": "rich-text",
-      "disabled": false,
       "custom_css": [],
       "settings": {
         "subheading": "",
@@ -132,18 +114,14 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-390b2d6b9e67a175a473c3cf985fb133": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
         "button_text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "rich_text_AB98f": {
       "type": "rich-text",
-      "disabled": false,
       "custom_css": [
         "text {transform: translateY(-100%) !important;}"
       ],
@@ -152,23 +130,19 @@
         "title": "",
         "content": "",
         "button_text": "Shop Now",
-        "button_link": "shopify://collections/best-sellers",
+        "button_link": "shopify://collections/best-sellers-old",
         "background_type": "full_width",
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-c76c6a0c4b7c5f4ba87af3c0fb805ea5": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
         "button_text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "video_x3m7W": {
       "type": "video",
-      "disabled": false,
       "custom_css": [
         "video {display: none;}",
         "@media screen and (max-width: 1024px) {video {display: block; width: 100%; height: 100%; }}"
@@ -181,32 +155,15 @@
         "background_type": "full_width",
         "video_size": "large",
         "autoplay": false,
-        "header-ec75c095d5221a140ae2ff95861ce4ee": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "image_with_text_BckcL": {
       "type": "image-with-text",
-      "disabled": false,
-      "settings": {
-        "reveal_on_scroll": true,
-        "background_type": "full_width",
-        "background_overlap": "image",
-        "image_position": "left",
-        "text_alignment": "center",
-        "cycle_speed": 8,
-        "accent_background": "rgba(0,0,0,0)",
-        "text_color": "rgba(0,0,0,0)",
-        "button_background": "rgba(0,0,0,0)",
-        "button_text_color": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "item_8AmiH": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Raya_Plinth_Large_944c5615-7fd9-4df6-90be-91e6dd6688f7.jpg",
             "tab_label": "",
@@ -220,27 +177,25 @@
       },
       "block_order": [
         "item_8AmiH"
-      ]
-    },
-    "image_with_text_yAD7j": {
-      "type": "image-with-text",
-      "disabled": false,
+      ],
       "settings": {
         "reveal_on_scroll": true,
         "background_type": "full_width",
         "background_overlap": "image",
-        "image_position": "right",
+        "image_position": "left",
         "text_alignment": "center",
         "cycle_speed": 8,
         "accent_background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
         "button_text_color": "rgba(0,0,0,0)"
-      },
+      }
+    },
+    "image_with_text_yAD7j": {
+      "type": "image-with-text",
       "blocks": {
         "item_HByak": {
           "type": "item",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/TheoBlack76x48WEBUGC_f2b41417-2cfb-49a2-91ff-60483dee03f2.jpg",
             "tab_label": "Item",
@@ -254,64 +209,53 @@
       },
       "block_order": [
         "item_HByak"
-      ]
+      ],
+      "settings": {
+        "reveal_on_scroll": true,
+        "background_type": "full_width",
+        "background_overlap": "image",
+        "image_position": "right",
+        "text_alignment": "center",
+        "cycle_speed": 8,
+        "accent_background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)"
+      }
     },
     "slideshow_Rcz7E": {
       "type": "slideshow",
-      "disabled": false,
-      "custom_css": [
-        ".slideshow__progress-bar {opacity: 0; width: 0; height: 0; overflow: hidden;}",
-        "@media (max-width: 767px) {.slideshow {display: none; }}"
-      ],
-      "settings": {
-        "section_height": "auto",
-        "transition_type": "sweep",
-        "autoplay": true,
-        "cycle_speed": 4,
-        "background": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "image_WdUkt": {
           "type": "image",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Luciana_Merge.jpg",
-            "split_image": null,
-            "mobile_image": null,
-            "header-2c798ef7d24081e966f35eeb6a8733c3": null,
             "text_position": "middle_center",
-            "header-1022ef716a1a05f2333c656743708662": null,
-            "review_image": null,
             "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
             "review_text_font": "assistant_n4",
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-cd6b993589a6883b45863ea0d2db7e02": null,
             "title": "\"The product is just amazing\"",
             "heading_font": "sans-serif",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-211b4ac087ff3b332143876125c41406": null,
             "subheading": "Chloe says",
             "subheading_font": "sans-serif",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-387d4bf854cb841afb74518abbbca2ef": null,
             "slide_text": "We help you create a space you’re proud to come home to, every single day.",
             "slide_text_font": "sans-serif",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-221ae2691c35159dac3514017bc31e45": null,
             "above_text": "Join Over 700,000+ Satisfied Customers",
             "above_button_font": "sans-serif",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-20e70a87b2dce7d5959cdbdd7e93b493": null,
             "button_1_text": "",
             "button_1_link": "",
             "button_2_text": "",
@@ -320,7 +264,6 @@
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-08f9279bb73e9c990c4b4fe85dff88ee": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
@@ -330,7 +273,6 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-8be29b56b451489e501a23acec8234d3": null,
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
@@ -340,45 +282,34 @@
         },
         "image_Nc9fh": {
           "type": "image",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Astrid_Merge_v2_copy.jpg",
-            "split_image": null,
-            "mobile_image": null,
-            "header-b532697b699835abf00b9c3854fc6961": null,
             "text_position": "middle_center",
-            "header-57389478c587336e6b667252493cf5b1": null,
-            "review_image": null,
             "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
             "review_text_font": "assistant_n4",
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-45957d0a3760964f8d3910b588b4456c": null,
             "title": "\"Stunning Mirror and Excellent Service\"",
             "heading_font": "sans-serif",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-eef2fd94bbc4e0a661c6c4409fb565ba": null,
             "subheading": "Caitlin Says",
             "subheading_font": "sans-serif",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-59eb120c2c179fcbed0710068b8ffde8": null,
             "slide_text": "We help you create a space you’re proud to come home to, every single day.",
             "slide_text_font": "sans-serif",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-f8ba9ebfd2d637526e788a1fa6c9dd85": null,
             "above_text": "Join Over 700,000+ Satisfied Customers",
             "above_button_font": "sans-serif",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-f5f5290d6ba3292e8034108e739b73e0": null,
             "button_1_text": "",
             "button_1_link": "",
             "button_2_text": "",
@@ -387,7 +318,6 @@
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-b20c03d2a3c577e692a0891aaeb283e8": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
@@ -397,7 +327,6 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-3652a70a8263a926afe698d3cb2cb8e9": null,
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
@@ -407,45 +336,34 @@
         },
         "image_ji6x7": {
           "type": "image",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Luciana_Merge_copy.jpg",
-            "split_image": null,
-            "mobile_image": null,
-            "header-f2e26c3e193c90a420d2d3fbc69cf633": null,
             "text_position": "middle_center",
-            "header-6fd626ebb03f452d2fdd951d0fd3a395": null,
-            "review_image": null,
             "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
             "review_text_font": "assistant_n4",
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-22ffc22174cdfc33e2f51223a7bc4302": null,
             "title": "\"Excellent product and delivery service\"",
             "heading_font": "sans-serif",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-040bca24808b3a20ddcc01d3ec433188": null,
             "subheading": "Mrs. Grant says",
             "subheading_font": "sans-serif",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-fe444b764c8049df735c22ab805f009c": null,
             "slide_text": "We help you create a space you’re proud to come home to, every single day.",
             "slide_text_font": "sans-serif",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-b2d607028a2af9b96005d71e4c4b77f3": null,
             "above_text": "Join Over 700,000+ Satisfied Customers",
             "above_button_font": "sans-serif",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-3a906d80e764ecee77669d5e2e6b3e4a": null,
             "button_1_text": "",
             "button_1_link": "",
             "button_2_text": "",
@@ -454,7 +372,6 @@
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-7b6c297cbb0fb6ae30104a2c38bd3686": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
@@ -464,7 +381,6 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-ca180efb83a43cd066cf5fb7edd912dc": null,
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
@@ -477,64 +393,52 @@
         "image_WdUkt",
         "image_Nc9fh",
         "image_ji6x7"
-      ]
-    },
-    "slideshow_zVYmL": {
-      "type": "slideshow",
-      "disabled": false,
+      ],
       "custom_css": [
         ".slideshow__progress-bar {opacity: 0; width: 0; height: 0; overflow: hidden;}",
-        "@media (min-width: 767px) {.slideshow {display: none; }}"
+        "@media (max-width: 767px) {.slideshow {display: none; }}"
       ],
       "settings": {
         "section_height": "auto",
-        "transition_type": "fade",
+        "transition_type": "sweep",
         "autoplay": true,
         "cycle_speed": 4,
         "background": "rgba(0,0,0,0)"
-      },
+      }
+    },
+    "slideshow_zVYmL": {
+      "type": "slideshow",
       "blocks": {
         "image_8M8Y8": {
           "type": "image",
-          "disabled": false,
           "settings": {
-            "image": null,
-            "split_image": null,
             "mobile_image": "shopify://shop_images/Leonardo_concrete_new_homedesign.meadowview_4.jpg",
-            "header-6be7e9cc18fa4716911d10572a1f915a": null,
             "text_position": "middle_center",
-            "header-d0440d2218760e7155eb0ba66b991b97": null,
-            "review_image": null,
             "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
             "review_text_font": "assistant_n4",
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-3d0cdf06ff6b1fa0b2d05691ae4a44f7": null,
             "title": "\"The product is just amazing\"",
             "heading_font": "sans-serif",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-105d700dcb18cbc66a1518164cce0f7e": null,
             "subheading": "Chloe says",
             "subheading_font": "sans-serif",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-70493ebedf62461fe542e82fb82c78a8": null,
             "slide_text": "We help you create a space you’re proud to come home to, every single day.",
             "slide_text_font": "sans-serif",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-e66bdf83315ed0221c519a4eac40ca37": null,
             "above_text": "Join Over 700,000+ Satisfied Customers",
             "above_button_font": "sans-serif",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-5c4c60b0e569e90c68606340f6b4e305": null,
             "button_1_text": "",
             "button_1_link": "",
             "button_2_text": "",
@@ -543,7 +447,6 @@
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-24658c9eeb6e698e369a3c0d4fac591f": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
@@ -553,7 +456,6 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-ab646e00cc4a2e8c562148a7a0bb5c34": null,
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
@@ -563,45 +465,34 @@
         },
         "image_p6LM8": {
           "type": "image",
-          "disabled": false,
           "settings": {
-            "image": null,
-            "split_image": null,
             "mobile_image": "shopify://shop_images/Toledo_vase_homedesign.meadowview.jpg",
-            "header-3ab71710201f42420bacad2dc1081ce7": null,
             "text_position": "middle_center",
-            "header-e9134d2b63b373a76c664b44403e33c5": null,
-            "review_image": null,
             "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
             "review_text_font": "assistant_n4",
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-9edb78dbde70cd9ed1058685b58e2cc4": null,
             "title": "\"Stunning Mirror and Excellent Service\"",
             "heading_font": "sans-serif",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-82f09a21595241aaf0ceb7d52d6182d7": null,
             "subheading": "Caitlin says",
             "subheading_font": "sans-serif",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-240b74b7c4208b194006822e46ba433d": null,
             "slide_text": "We help you create a space you’re proud to come home to, every single day.",
             "slide_text_font": "sans-serif",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-224cf005577aa6620a8e5766b5f970bc": null,
             "above_text": "Join Over 700,000+ Satisfied Customers",
             "above_button_font": "sans-serif",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-f30c5abb5e79567a54bdcb8cc41780ed": null,
             "button_1_text": "",
             "button_1_link": "",
             "button_2_text": "",
@@ -610,7 +501,6 @@
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-f0b4a25621f21b8908eca951ed48bbb8": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
@@ -620,7 +510,6 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-602fcec634377d35a142cdf4e3c9992a": null,
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
@@ -630,45 +519,34 @@
         },
         "image_WaDCJ": {
           "type": "image",
-          "disabled": false,
           "settings": {
-            "image": null,
-            "split_image": null,
             "mobile_image": "shopify://shop_images/Alani_homedesign.meadowview.jpg",
-            "header-588871ba6d9b84480a7ba7043ac5983d": null,
             "text_position": "middle_center",
-            "header-a42cfbb0bcaf5ce432e3b9dc892afa1f": null,
-            "review_image": null,
             "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
             "review_text_font": "assistant_n4",
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-de94d8d77e268f433dfc16b8d7f7eb37": null,
             "title": "\"Excellent product and delivery service\"",
             "heading_font": "sans-serif",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-9ff4ab926f2621796c60620482771492": null,
             "subheading": "Mrs. Grant says",
             "subheading_font": "sans-serif",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-80f0c62a310268c1373b88bdffb288f7": null,
             "slide_text": "We help you create a space you’re proud to come home to, every single day.",
             "slide_text_font": "sans-serif",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-2c0b84714030b317ea13535293d33c0a": null,
             "above_text": "Join Over 700,000+ Satisfied Customers",
             "above_button_font": "sans-serif",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-1e3c5d69eb0f05898506dabaf626ce74": null,
             "button_1_text": "",
             "button_1_link": "",
             "button_2_text": "",
@@ -677,7 +555,6 @@
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-b1ec56b824a041669412b5a6c11e7d8a": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
@@ -687,7 +564,6 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-1ad93994e3eae2c9986aa3f19ece6ba7": null,
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
@@ -700,58 +576,70 @@
         "image_8M8Y8",
         "image_p6LM8",
         "image_WaDCJ"
-      ]
+      ],
+      "custom_css": [
+        ".slideshow__progress-bar {opacity: 0; width: 0; height: 0; overflow: hidden;}",
+        "@media (min-width: 767px) {.slideshow {display: none; }}"
+      ],
+      "settings": {
+        "section_height": "auto",
+        "transition_type": "fade",
+        "autoplay": true,
+        "cycle_speed": 4,
+        "background": "rgba(0,0,0,0)"
+      }
     },
     "rich_text_HiaDT": {
       "type": "rich-text",
-      "disabled": false,
       "settings": {
         "subheading": "",
         "title": "",
         "content": "<p>I have been working with William Wood for almost 2 years and truly value the partnership we have created. I am proud to showcase their products and watching them expand their product lines has been amazing. I can’t wait to see what’s next for the brand.  From Instagram collaborations, to location shoots and PR events, every encounter is fun, enjoyable and rewarding.  The team are always on hand to answer any queries and are flexible with timescales when I have to juggle work. William Wood are a wonderful company who truly value their customers and brand ambassadors. </p><p><strong>A pleasure to work with.</strong></p><p></p><p>@homedesign.meadowview</p>",
         "button_text": "Shop now",
-        "button_link": "shopify://collections/best-sellers",
+        "button_link": "shopify://collections/best-sellers-old",
         "background_type": "full_width",
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-276286d285675655b24ffbd03ef32313": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
         "button_text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "trustpilot_carousel_66bFP": {
       "type": "trustpilot-carousel",
-      "disabled": false,
       "settings": {
         "padding_top": 0,
         "padding_bottom": 10
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "recently_viewed_products_h7Fn4": {
       "type": "recently-viewed-products",
-      "disabled": false,
       "settings": {
-        "paragraph-c8ea5761d9faf393c053f0e06d2c7f9f": null,
         "subheading": "Your favourites",
         "title": "",
         "products_count": 4,
-        "header-e9a0284bb593bc5a72f8365f1072f4cd": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {},
-      "block_order": []
+      }
     },
     "featured_collections_zqnXi": {
       "type": "featured-collections",
-      "disabled": false,
+      "blocks": {
+        "collection_fdyBU": {
+          "type": "collection",
+          "settings": {
+            "collection": "best-sellers-old",
+            "label": "",
+            "button_text": "Shop now",
+            "button_url": "shopify://collections/best-sellers-old"
+          }
+        }
+      },
+      "block_order": [
+        "collection_fdyBU"
+      ],
       "settings": {
         "subheading": "Shop Best Sellers",
         "title": "",
@@ -760,90 +648,53 @@
         "products_per_row": 4,
         "stack_products": false,
         "show_cta": false,
-        "header-784cd7764943f4c93ff9a2fde6388dd2": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
         "button_text_color": "rgba(0,0,0,0)"
-      },
-      "blocks": {
-        "collection_fdyBU": {
-          "type": "collection",
-          "disabled": false,
-          "settings": {
-            "collection": "best-sellers",
-            "label": "",
-            "button_text": "Shop now",
-            "button_url": "shopify://collections/best-sellers"
-          }
-        }
-      },
-      "block_order": [
-        "collection_fdyBU"
-      ]
+      }
     },
     "1662460824ad6e755b": {
       "disabled": true,
-      "settings": {},
-      "blocks": {}
+      "settings": {}
     },
     "main": {
       "disabled": true,
-      "settings": {},
-      "blocks": {}
+      "settings": {}
     },
     "coll_slideshow_jNcRf": {
       "type": "coll-slideshow",
-      "disabled": false,
-      "settings": {
-        "section_height": "auto",
-        "transition_type": "sweep",
-        "autoplay": true,
-        "cycle_speed": 5,
-        "background": "rgba(0,0,0,0)"
-      },
       "blocks": {
         "image_DLzVt": {
           "type": "image",
-          "disabled": false,
           "settings": {
             "image": "shopify://shop_images/Liberty_Merge_v3.jpg",
-            "split_image": null,
-            "mobile_image": null,
-            "header-c72edd10e5d8a4f887ea7d4e0aec1087": null,
             "text_position": "middle_center",
-            "header-1d48be685547a5bc1867ded2be24c713": null,
-            "review_image": null,
             "review_text": "4.7 / 5 Excellent | 9,500+ reviews",
             "review_text_font": "assistant_n4",
             "custom_review_font": "Zurich, sans-serif",
             "review_text_size": 13,
             "review_font_weight": "400",
-            "header-eade6a5d481be2b82f1fa9d6d72f930f": null,
             "title": "Testimonials",
             "heading_font": "sans-serif",
             "custom_heading_font": "Zurich, sans-serif",
             "heading_text_size": 25,
             "heading_font_weight": "400",
-            "header-9cc7e080158ec92b0a61bd6c73122b6e": null,
             "subheading": "Let our customers speak for us",
             "subheading_font": "sans-serif",
             "custom_subheading_font": "Zurich, sans-serif",
             "subheading_text_size": 25,
             "subheading_font_weight": "400",
-            "header-9d4cc44948b8ae031f274e08e51ca66b": null,
             "slide_text": "We help you create a space you’re proud to come home to, every single day.",
             "slide_text_font": "sans-serif",
             "custom_text_font": "Zurich, sans-serif",
             "slide_text_size": 25,
             "text_font_weight": "400",
-            "header-da911d8fbe0abb39585eefafa8829517": null,
             "above_text": "Join Over 700,000+ Satisfied Customers",
             "above_button_font": "sans-serif",
             "custom_abovetext_font": "Zurich, sans-serif",
             "above_button_text_size": 25,
             "above_font_weight": "400",
-            "header-7caf3a939dbcb63f40fb1bc3ff5abcbe": null,
             "button_1_text": "",
             "button_1_link": "",
             "button_2_text": "",
@@ -852,7 +703,6 @@
             "custom_button_font": "Zurich, sans-serif",
             "button_text_size": 25,
             "button_font_weight": "400",
-            "header-e5ef9a73fa257675289c3ccf7127fbc6": null,
             "review_line_1": "",
             "review_line_2": "",
             "review_line_3": "",
@@ -862,7 +712,6 @@
             "custom_reviewline_font": "Zurich, sans-serif",
             "review_lines_size": 25,
             "lines_font_weight": "400",
-            "header-ca5191487836732d263425838689245e": null,
             "text_color": "#ffffff",
             "button_background": "#ffffff",
             "button_text_color": "#000000",
@@ -874,7 +723,14 @@
       "block_order": [
         "image_DLzVt"
       ],
-      "name": "Slideshow For Collections"
+      "name": "Slideshow For Collections",
+      "settings": {
+        "section_height": "auto",
+        "transition_type": "sweep",
+        "autoplay": true,
+        "cycle_speed": 5,
+        "background": "rgba(0,0,0,0)"
+      }
     }
   },
   "order": [
