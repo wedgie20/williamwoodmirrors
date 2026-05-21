@@ -528,8 +528,8 @@ document.addEventListener("DOMContentLoaded", function() {
             {%- assign pricewholenumber = original_price | times: 1 -%}
           {% endif %}
 {%- assign original_price = product.selected_or_first_available_variant.price -%}  
-          {%- assign pricewholenumber = original_price | times: 0.83 -%}
-{%- assign discounted_price = original_price | times: 0.83 | divided_by: 100.0 -%}
+          {%- assign pricewholenumber = original_price | times: 0.75 -%}
+{%- assign discounted_price = original_price | times: 0.75 | divided_by: 100.0 -%}
 {%- assign discounted_whole = discounted_price | floor -%}
 {%- assign discounted_decimal = discounted_price | minus: discounted_whole | times: 100 | round -%}
 {%- if discounted_decimal < 10 -%}
