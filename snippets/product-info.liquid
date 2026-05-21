@@ -515,22 +515,27 @@ document.addEventListener("DOMContentLoaded", function() {
                 <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
             </span>
-        {% if product.selected_or_first_available_variant.compare_at_price %}
+          {% if product.selected_or_first_available_variant.compare_at_price %}
               {%- assign compareat_price = product.selected_or_first_available_variant.compare_at_price -%}
             {% else %}
               {%- assign compareat_price = 0 -%}
           {% endif %}    
           {%- assign original_price = product.selected_or_first_available_variant.price -%}  
-          {%- assign pricewholenumber = original_price | times: 0.75 -%}
+          {% if collectionhandles contains 'end-of-month-offe' %}
+{% comment %} {%- assign pricewholenumber = original_price | times: 0.80 -%} {% endcomment %}
+{%- assign pricewholenumber = original_price | times: 1 -%}
+          {% else %}
+            {%- assign pricewholenumber = original_price | times: 1 -%}
+          {% endif %}
 {%- assign discounted_price = original_price | times: 0.75 | divided_by: 100.0 -%}
 {%- assign discounted_whole = discounted_price | floor -%}
 {%- assign discounted_decimal = discounted_price | minus: discounted_whole | times: 100 | round -%}
 {%- if discounted_decimal < 10 -%}
   {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
 {%- endif -%}
-<span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> <b style="color: #780606;">- St. Patrick's Day Offer</b>
+<span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> <b style="color: #780606;">- Use Code: BH25 (25% off)</b>
           </div>
-<p class="saved-price">
+<p class="saved-price" style="display: none" {% if product.tags contains 'MarchPush' %}{% else %}style="display:none"{% endif %}>
           {% if compareat_price > 0 %}
             {%- assign original_saved = compareat_price | minus: original_price -%}
             {%- assign dissavedprice = original_price | minus: pricewholenumber -%}
