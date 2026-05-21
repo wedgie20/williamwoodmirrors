@@ -2877,6 +2877,71 @@ p + .button-group,
   color: rgb(var(--product-custom-label-2-text-color));
 }
 
+.ww-bh25-card-promo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  margin: 8px 0 5px;
+  padding: 6px 8px;
+  border: 1px solid #efd8cf;
+  background: #fff8f4;
+  color: #4a403c;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.ww-bh25-card-promo__copy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 4px;
+  min-width: 0;
+}
+
+.ww-bh25-card-promo__copy strong,
+.ww-bh25-card-promo__price {
+  color: #9b2d2d;
+  font-weight: 800;
+}
+
+.ww-bh25-card-promo__price {
+  flex: none;
+  margin-left: auto;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.label.ww-bh25-save-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  max-width: max-content;
+  padding: 4px 9px 3px;
+  border-radius: 14px;
+  background: #9b2d2d;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 740px) {
+  .ww-bh25-card-promo {
+    gap: 5px;
+    padding: 5px 6px;
+    font-size: 11px;
+  }
+
+  .ww-bh25-card-promo__price {
+    font-size: 13px;
+  }
+}
+
 .label-list {
   display: flex;
   flex-direction: column;

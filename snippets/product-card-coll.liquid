@@ -1,6 +1,27 @@
 {%- assign color_label_list = 'general.label.color' | t | replace: ', ', ',' | downcase | split: ',' -%}
 {%- assign color_white_label = 'general.label.white' | t | downcase -%}
 {%- assign quick_buy_icon_name = 'quick-buy-' | append: settings.cart_icon | replace: '_', '-' -%}
+{%- liquid
+  assign product_collection_handles = product.collections | map: 'handle' | join: ',' | prepend: ',' | append: ','
+  assign is_bh25_full_price_collection = false
+
+  if product_collection_handles contains ',all-full-price-products,'
+    assign is_bh25_full_price_collection = true
+  elsif collection != blank and collection.handle == 'all-full-price-products'
+    assign is_bh25_full_price_collection = true
+  elsif request.path contains '/collections/all-full-price-products'
+    assign is_bh25_full_price_collection = true
+  endif
+
+  assign bh25_base_price = product.price
+
+  if product.price_varies
+    assign bh25_base_price = product.price_min
+  endif
+
+  assign bh25_discounted_price = bh25_base_price | times: 75 | divided_by: 100
+  assign bh25_savings = bh25_base_price | minus: bh25_discounted_price
+-%}
 
 {%- if product.url contains '?' -%}
   {%- assign product_url_contains_query = true -%}
@@ -328,6 +349,23 @@
           {%- endif -%}
         </div>
       </div>
+      {%- if is_bh25_full_price_collection -%}
+        <div class="ww-bh25-card-promo">
+          <span class="ww-bh25-card-promo__copy">
+            <strong>25% OFF</strong>
+            <span>|</span>
+            <span>Use code: <strong>BH25</strong></span>
+          </span>
+          <span class="ww-bh25-card-promo__price">
+            {%- if product.price_varies -%}From {% endif -%}
+            {%- if settings.currency_code_enabled -%}
+              {{- bh25_discounted_price | money_with_currency -}}
+            {%- else -%}
+              {{- bh25_discounted_price | money -}}
+            {%- endif -%}
+          </span>
+        </div>
+      {%- endif -%}
       <div class="ups-tag">
         {% assign collectionhandles = product.collections | map: 'handle' | join: ',' %}
         {% comment %} {% unless product.tags contains 'pre-order' %}
@@ -402,10 +440,32 @@
         </span>
       {%- endif -%}
 
-      {%- if product_labels != blank and reduced_content != true -%}
-        <div class="product-item__label-list label-list">
-          {{- product_labels -}}
-        </div>
+      {%- if reduced_content != true -%}
+        {%- capture bh25_save_label -%}
+          {%- if is_bh25_full_price_collection -%}
+            <span class="label ww-bh25-save-label">
+              SAVE
+              {%- if product.price_varies -%}
+                &nbsp;UP TO
+              {%- endif -%}
+              &nbsp;
+              {%- if settings.currency_code_enabled -%}
+                {{- bh25_savings | money_with_currency -}}
+              {%- else -%}
+                {{- bh25_savings | money -}}
+              {%- endif -%}
+            </span>
+          {%- endif -%}
+        {%- endcapture -%}
+      {%- endif -%}
+
+      {%- if reduced_content != true -%}
+        {%- if product_labels != blank or bh25_save_label != blank -%}
+          <div class="product-item__label-list label-list">
+            {{- product_labels -}}
+            {{- bh25_save_label -}}
+          </div>
+        {%- endif -%}
       {%- endif -%}
 
       {%- if settings.product_color_display != 'hide' and reduced_content != true -%}
