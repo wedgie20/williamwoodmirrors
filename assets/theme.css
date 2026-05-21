@@ -2942,11 +2942,11 @@ p + .button-group,
   justify-content: center;
   width: fit-content;
   max-width: max-content;
-  padding: 2px 6px;
-  border-radius: 12px;
+  padding: 3px 8px 2px;
+  border-radius: 14px;
   background: #9b2d2d;
   color: #ffffff;
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: 0;
@@ -2984,11 +2984,9 @@ p + .button-group,
     flex: 0 0 auto;
     font-size: 12px;
   }
-}
 
-@media screen and (min-width: 741px) {
   .label.ww-bh25-save-label {
-    padding: 3px 8px 2px;
+    padding: 2px 7px 1px;
     font-size: 10px;
     line-height: 1.2;
   }
