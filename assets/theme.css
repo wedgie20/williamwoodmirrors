@@ -2919,11 +2919,11 @@ p + .button-group,
   justify-content: center;
   width: fit-content;
   max-width: max-content;
-  padding: 4px 9px 3px;
+  padding: 1px 7px;
   border-radius: 14px;
   background: #9b2d2d;
   color: #ffffff;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: 0;
@@ -2933,27 +2933,27 @@ p + .button-group,
 @media screen and (max-width: 740px) {
   .ww-bh25-card-promo {
     flex-wrap: nowrap;
-    gap: 4px;
+    gap: 3px;
     padding: 5px 0;
-    font-size: 10.5px;
+    font-size: 10px;
   }
 
   .ww-bh25-card-promo__copy {
     flex: 1 1 auto;
     flex-wrap: nowrap;
-    gap: 3px;
+    gap: 2px;
     min-width: 0;
     white-space: nowrap;
   }
 
   .ww-bh25-card-promo__copy > span:last-child {
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: visible;
+    text-overflow: clip;
   }
 
   .ww-bh25-card-promo__price {
     flex: 0 0 auto;
-    font-size: 13px;
+    font-size: 12px;
   }
 }
 
