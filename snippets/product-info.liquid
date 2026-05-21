@@ -29,13 +29,13 @@
 }
 }
 .in-house {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
   </style>
 
     {% assign currency_code = localization.country.currency.iso_code %}
 {% assign country_code = localization.country.iso_code %}
-<div class="swipe-container-wrapper">
+<div class="swipe-container-wrapper" style="display: none">
     <button class="nav-arrow left-arrow">&#10094;</button>
     <div class="swipe-container" id="swipeContainer">
         <div class="swipe-content">
@@ -295,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     {% unless product.title contains "E-Gift Card" %}
       
-<div style="" class="product-title-price">
+<div style="margin-top: 8px;" class="product-title-price">
 
     {%- for tag in product.tags -%}
       {%- if tag contains '__label' -%}
@@ -327,7 +327,18 @@ document.addEventListener("DOMContentLoaded", function() {
       {%- endif -%}
     {%- endfor -%}
 
-   {%- if section.settings.show_product_rating -%}
+   
+
+        
+
+  <h1 class="product-meta__title heading h3" style="margin-top: none !important; padding-top: none !important; transform: translateY(-5px);">
+    <b>
+      <p class="cardo_title" style="text-transform: capitalize !important; font-size: 30px;">{{ first_word }}
+      </p>
+    </b>
+    <p style="font-size: 13px; margin-top: 4px !important; text-transform: none !important; font-family: Zurich, sans-serif; font-weight: bold !important;">{{ title_words | join: ' ' | remove: '-' | remove: remove_first_word }}</p>
+  </h1>
+  {%- if section.settings.show_product_rating -%}
 
           
           <a href="#judgeme_product_reviews"
@@ -344,18 +355,8 @@ document.addEventListener("DOMContentLoaded", function() {
           </a>
 
         {%- endif -%}
-
-        
-
-  <h1 class="product-meta__title heading h3" style="margin-top: none !important; padding-top: none !important; transform: translateY(-5px);">
-    <b>
-      <p class="cardo_title" style="text-transform: capitalize !important; font-size: 30px;">{{ first_word }}
-      </p>
-    </b>
-    <p style="font-size: 13px; margin-top: 4px !important; text-transform: none !important; font-family: Zurich, sans-serif; font-weight: bold !important;">{{ title_words | join: ' ' | remove: '-' | remove: remove_first_word }}</p>
-  </h1>
-    <div class="in-house" style="display: flex;">
-   <p style="font-family: altesse-std-24pt;     line-height: 18px; text-transform: lowercase; font-size: 20px; font-weight: 300; margin-bottom: 0px;">Designed in-house by </p>
+    <div class="in-house" style="display: flex; margin-top: 10px;">
+   <p style="font-family: Ambroise;     line-height: 18px; text-transform: lowercase; font-size: 20px; font-weight: 300; margin-bottom: 0px;">Designed in-house by </p>
   <div class="" style="margin-top: 5px; margin-left: 5px;">
     <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_LogosPackage_v1.0-07_06990ab2-9d06-4c80-846f-de0d7c989d0c.png?v=1717584248" alt="William Wood Logo" height="100px" width="100px">
   </div>
@@ -386,6 +387,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
 }
 
+@media screen and (max-width: 768px) {
+  .price--compare {
+    font-size: 16px !important;
+  }
+}
+
+.price-list  {
+  font-weight: bold;
+}
 
 
 @media screen and (min-width: 741px) {
@@ -406,15 +416,7 @@ document.addEventListener("DOMContentLoaded", function() {
         {%- if product.selected_or_first_available_variant.compare_at_price
             > product.selected_or_first_available_variant.price
         -%}
-          <span class="price price--highlight price--large new-price-size">
-            <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
-
-            {%- if settings.currency_code_enabled -%}
-              {{- product.selected_or_first_available_variant.price | money_with_currency -}}
-            {%- else -%}
-              {{- product.selected_or_first_available_variant.price | money -}}
-            {%- endif -%}
-          </span>
+         
 
           <span class="price price--compare new-price-size">
             <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
@@ -425,13 +427,23 @@ document.addEventListener("DOMContentLoaded", function() {
               {{- product.selected_or_first_available_variant.compare_at_price | money -}}
             {%- endif -%}
           </span>
+
+           <span class="price price--highlight price--large new-price-size">
+            <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+
+            {%- if settings.currency_code_enabled -%}
+              {{- product.selected_or_first_available_variant.price | money_with_currency -}}
+            {%- else -%}
+              {{- product.selected_or_first_available_variant.price | money -}}
+            {%- endif -%}
+          </span>
         
         {%- assign savings = product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price -%}
-        {% comment %} {%- if savings > 0 -%}
+        {%- if savings > 0 -%}
           <span class="label label--highlight">
             Save {% if settings.currency_code_enabled %}{{ savings | money_with_currency }}{% else %}{{ savings | money }}{% endif %}
           </span>  
-        {%- endif -%} {% endcomment %}
+        {%- endif -%}
           
         {%- else -%}
           <span class="price price--large">
@@ -496,8 +508,8 @@ document.addEventListener("DOMContentLoaded", function() {
 {% endif %}
     </div>
 
-   
-    <div class="guarantee-item price-saved-discount endofmonth-offer" style="font-size: 13px;">
+    {% assign collectionhandles = product.collections | map: 'handle' | join: ',' %}
+    <div class="guarantee-item price-saved-discount endofmonth-offer" style="display: none" {% if product.tags contains 'MarchPush' %}style="font-size: 13px;"{% else %}style="font-size: 13px; display: none;"{% endif %}>
             <span class="icon" style="display: none;">
               <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 18 13" fill="none">
                 <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -509,16 +521,21 @@ document.addEventListener("DOMContentLoaded", function() {
               {%- assign compareat_price = 0 -%}
           {% endif %}    
           {%- assign original_price = product.selected_or_first_available_variant.price -%}  
-          {%- assign pricewholenumber = original_price | times: 0.83 -%}
-{%- assign discounted_price = original_price | times: 0.83 | divided_by: 100.0 -%}
+          {% if collectionhandles contains 'end-of-month-offe' %}
+{% comment %} {%- assign pricewholenumber = original_price | times: 0.80 -%} {% endcomment %}
+{%- assign pricewholenumber = original_price | times: 1 -%}
+          {% else %}
+            {%- assign pricewholenumber = original_price | times: 1 -%}
+          {% endif %}
+{%- assign discounted_price = original_price | times: 0.75 | divided_by: 100.0 -%}
 {%- assign discounted_whole = discounted_price | floor -%}
 {%- assign discounted_decimal = discounted_price | minus: discounted_whole | times: 100 | round -%}
 {%- if discounted_decimal < 10 -%}
   {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
 {%- endif -%}
-<span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> <b style="color: #780606;">- St. Patrick's Day Offer</b>
+<span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> <b style="color: #780606;">- Use Code: BH25 (25% off)</b>
           </div>
-<p class="saved-price">
+<p class="saved-price" style="display: none" {% if product.tags contains 'MarchPush' %}{% else %}style="display:none"{% endif %}>
           {% if compareat_price > 0 %}
             {%- assign original_saved = compareat_price | minus: original_price -%}
             {%- assign dissavedprice = original_price | minus: pricewholenumber -%}
@@ -539,7 +556,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 {% comment %} <div class="in-house" style="display: flex;">
-  <p style="font-family: altesse-std-24pt; text-transform: lowercase; font-size: 20px; font-weight: 300; margin-bottom: 0px;">Designed in-house by </p>
+  <p style="font-family: Ambroise; text-transform: lowercase; font-size: 20px; font-weight: 300; margin-bottom: 0px;">Designed in-house by </p>
   <div class="" style="margin-top: 15px; margin-left: 5px;">
     <img src="https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_LogosPackage_v1.0-07_06990ab2-9d06-4c80-846f-de0d7c989d0c.png?v=1717584248" alt="William Wood Logo" height="100px" width="100px">
   </div>
@@ -555,6 +572,8 @@ document.addEventListener("DOMContentLoaded", function() {
         <a href="{{ product.url  }}">{{ product.title }}</a>
       </h2>
     {% endunless %}
+
+
      
 
     {% comment %} <div class="product-meta__price-list-container" role="region" aria-live="polite">
@@ -654,6 +673,152 @@ document.addEventListener("DOMContentLoaded", function() {
         </p>
       {%- endif -%}
     {%- endif -%}
+
+    {% assign excluded = false %}
+{% for col in product.collections %}
+  {% comment %} {% if col.handle == 'lighting' or col.handle == 'coffee-tables' or col.handle == 'spring-sale' %} {% endcomment %}
+     {% if col.handle == 'spring-sale' or col.handle == 'outlet' %}
+
+    {% assign excluded = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% unless excluded %}
+  <div class="ww-promo-banner">
+    <p><strong>25% off everything.</strong> Apply code at checkout.</p>
+    <button type="button" class="ww-code" data-copy-code="BH25" data-copy-feedback="COPIED" aria-label="Copy discount code BH25">
+       
+      BH25
+    <svg xmlns="http://www.w3.org/2000/svg"
+     width="15"
+     height="15"
+     viewBox="0 0 24 24"
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="2"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+
+  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+
+</svg>
+    </button>
+  </div>
+{% endunless %}
+
+<style>
+    .ww-promo-banner {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border: 0.5px solid #d4cfc8;
+      border-radius: 8px;
+      padding: 9px 20px;
+      margin-bottom: 10px;
+      background: #fff;
+      max-width: 560px;
+    }
+    .ww-promo-banner svg {
+      color: #ffffff;
+      flex-shrink: 0;
+      top: 2px;
+    position: relative;
+    }
+    .ww-promo-banner p {
+      margin: 0;
+      font-size: 13.5px;
+      color: #6b6560;
+      line-height: 1.45;
+      flex: 1;
+    }
+    .ww-promo-banner strong {
+      color: #1a1a1a;
+      font-weight: 700;
+    }
+    .ww-code {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      background: #780606cc;
+      color: #ffffff;
+      padding: 4px 10px;
+      border-radius: 18px;
+      border: 0.5px dashed #c4b9aa;
+      white-space: nowrap;
+      flex-shrink: 0;
+      user-select: all;
+      cursor: pointer;
+    }
+
+    .ww-code.is-copied {
+      background: #1f7a38;
+      border-color: #1f7a38;
+    }
+  </style>
+
+   <script>
+    if (!window.WWDiscountCodeCopyBound) {
+      window.WWDiscountCodeCopyBound = true;
+
+      document.addEventListener('click', function(event) {
+        var button = event.target.closest('[data-copy-code]');
+
+        if (!button) {
+          return;
+        }
+
+        var code = button.getAttribute('data-copy-code');
+        var feedback = button.getAttribute('data-copy-feedback') || 'COPIED';
+        var originalText = button.getAttribute('data-original-text') || button.textContent.trim();
+        var originalHtml = button.copyOriginalHtml || button.innerHTML;
+
+        button.setAttribute('data-original-text', originalText);
+        button.copyOriginalHtml = originalHtml;
+
+        var showCopiedState = function() {
+          button.textContent = feedback;
+          button.classList.add('is-copied');
+
+          window.clearTimeout(button.copyResetTimer);
+          button.copyResetTimer = window.setTimeout(function() {
+            button.innerHTML = originalHtml;
+            button.classList.remove('is-copied');
+          }, 1500);
+        };
+
+        var fallbackCopy = function() {
+          var textarea = document.createElement('textarea');
+
+          textarea.value = code;
+          textarea.setAttribute('readonly', '');
+          textarea.style.position = 'fixed';
+          textarea.style.top = '-9999px';
+          textarea.style.left = '-9999px';
+
+          document.body.appendChild(textarea);
+          textarea.select();
+
+          try {
+            if (document.execCommand('copy')) {
+              showCopiedState();
+            }
+          } catch (error) {
+            console.warn('Discount code copy failed', error);
+          }
+
+          document.body.removeChild(textarea);
+        };
+
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(code).then(showCopiedState).catch(fallbackCopy);
+        } else {
+          fallbackCopy();
+        }
+      });
+    }
+  </script>
 
     <product-payment-terms form-id="{{ product_form_id }}" id="installementsid-{{ product_form_id }}">
       {%- assign product_installment_form_id = 'product-installment-form-'
@@ -916,11 +1081,11 @@ function scrollToFaq(e) {
     {%- endif -%}
     
   </product-meta>
-  <div class="desktop_review_lines" style="padding: 16px 0; margin: 16px 0; padding-top: 0; margin-top: 0;">
+  {% comment %} <div class="desktop_review_lines" style="padding: 16px 0; margin: 16px 0; padding-top: 0; margin-top: 0;">
   {% comment %} <p style="font-style: italic; margin-bottom: 12px; font-weight: bold">The verdict from our valued customers</p> {% endcomment %}
   <p style="font-style: italic; margin-bottom: 12px;">"Impeccable quality, seamless delivery, and truly <b>worth the investment.</b> I was cautious about ordering online, but William Wood <b>surpassed every expectation.</b> Their products bring a real sense of elegance to the space." <br><span><b>Hannah R. United Kingdom</b></span></p>
   <p style="font-style: italic; margin-bottom: 0; font-weight: bold">Verified Review</p>
-</div>
+</div> {% endcomment %}
   
 
   {%- render 'product-form', product: product, update_url: update_url, section: section -%}
@@ -1208,9 +1373,9 @@ display: none;
   
 </style> 
 
- <div class="mobile_review_lines" style="padding: 16px 0; margin: 5px 0; padding-top: 0; margin-top: -15px;">
+ {% comment %} <div class="mobile_review_lines" style="padding: 16px 0; margin: 5px 0; padding-top: 0; margin-top: -15px;">
   {% comment %} <p style="font-style: italic; margin-bottom: 12px; font-weight: bold">The verdict from our valued customers</p> {% endcomment %}
   <p style="font-style: italic; margin-bottom: 12px;">"Impeccable quality, seamless delivery, and truly <b>worth the investment.</b> I was cautious about ordering online, but William Wood <b>surpassed every expectation.</b> Their products bring a real sense of elegance to the space." <br><span><b>Hannah R. United Kingdom</b></span></p>
   <p style="font-style: italic; margin-bottom: 0; font-weight: bold">Verified Review</p>
-</div>
+</div> {% endcomment %}
 
