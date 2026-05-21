@@ -359,19 +359,33 @@
       </div>
       {%- if is_bh25_full_price_collection -%}
         <div class="ww-bh25-card-promo">
-          <span class="ww-bh25-card-promo__copy">
+          <span class="ww-bh25-card-promo__top ww-bh25-card-promo__top--desktop">
+            <span class="ww-bh25-card-promo__copy">
+              <strong>25% OFF</strong>
+              <span>|</span>
+              <span>Use code: <strong>BH25</strong></span>
+            </span>
+            <span class="ww-bh25-card-promo__price">
+              {%- if product.price_varies -%}Up to {% endif -%}
+              {%- if settings.currency_code_enabled -%}
+                {{- bh25_savings | money_with_currency -}}
+              {%- else -%}
+                {{- bh25_savings | money -}}
+              {%- endif -%}
+            </span>
+          </span>
+          <span class="ww-bh25-card-promo__top ww-bh25-card-promo__top--mobile">
             <strong>25% OFF</strong>
-            <span>|</span>
-            <span>Use code: <strong>BH25</strong></span>
+            <span class="ww-bh25-card-promo__price">
+              {%- if product.price_varies -%}Up to {% endif -%}
+              {%- if settings.currency_code_enabled -%}
+                {{- bh25_savings | money_with_currency -}}
+              {%- else -%}
+                {{- bh25_savings | money -}}
+              {%- endif -%}
+            </span>
           </span>
-          <span class="ww-bh25-card-promo__price">
-            {%- if product.price_varies -%}Up to {% endif -%}
-            {%- if settings.currency_code_enabled -%}
-              {{- bh25_savings | money_with_currency -}}
-            {%- else -%}
-              {{- bh25_savings | money -}}
-            {%- endif -%}
-          </span>
+          <span class="ww-bh25-card-promo__code ww-bh25-card-promo__code--mobile">Use code: <strong>BH25</strong></span>
         </div>
       {%- endif -%}
       <div class="ups-tag">
