@@ -2942,11 +2942,11 @@ p + .button-group,
   justify-content: center;
   width: fit-content;
   max-width: max-content;
-  padding: 1px 7px;
+  padding: 2px 6px;
   border-radius: 14px;
   background: #9b2d2d;
   color: #ffffff;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: 0;
@@ -2983,6 +2983,14 @@ p + .button-group,
   .ww-bh25-card-promo__price {
     flex: 0 0 auto;
     font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 741px) {
+  .label.ww-bh25-save-label {
+    padding: 3px 8px 2px;
+    font-size: 11px;
+    line-height: 1.2;
   }
 }
 
