@@ -322,13 +322,21 @@
               {{- 'collection.product.from_price_html' | t: price_min: price_min, price_max: price_max -}}
             </span>
           {%- else -%}
-            <span class="price">
+            <span class="price{% if is_bh25_full_price_collection %} price--highlight{% endif %}">
               <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
 
               {%- if settings.currency_code_enabled -%}
-                {{- product.price | money_with_currency -}}
+                {%- if is_bh25_full_price_collection -%}
+                  {{- bh25_discounted_price | money_with_currency -}}
+                {%- else -%}
+                  {{- product.price | money_with_currency -}}
+                {%- endif -%}
               {%- else -%}
-                {{- product.price | money -}}
+                {%- if is_bh25_full_price_collection -%}
+                  {{- bh25_discounted_price | money -}}
+                {%- else -%}
+                  {{- product.price | money -}}
+                {%- endif -%}
               {%- endif -%}
             </span>
           {%- endif -%}
