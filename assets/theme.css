@@ -2956,24 +2956,29 @@ p + .button-group,
 
 @media screen and (max-width: 740px) {
   .ww-bh25-card-promo {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 3px;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
     padding: 5px 0;
     font-size: 10px;
   }
 
   .ww-bh25-card-promo__top--desktop {
-    display: none;
+    display: flex;
   }
 
   .ww-bh25-card-promo__top--mobile,
   .ww-bh25-card-promo__code--mobile {
-    display: flex;
+    display: none;
   }
 
   .ww-bh25-card-promo__top {
     gap: 2px;
+    white-space: nowrap;
+  }
+
+  .ww-bh25-card-promo__copy {
+    flex-wrap: nowrap;
     white-space: nowrap;
   }
 
