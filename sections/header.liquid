@@ -869,6 +869,22 @@ display: none !important;
     margin-right: auto;
       }
 
+      @media screen and (min-width: 1200px) {
+        .template-index .header--transparent {
+          position: relative;
+        }
+
+        .template-index .header--transparent .mobile-searchbar {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          margin: 0;
+          width: min(500px, 38vw);
+          z-index: 2;
+        }
+      }
+
       .template-index .header--transparent .mobile-searchbar, .template-product .header--transparent .mobile-searchbar {
       background-image: url('https://cdn.shopify.com/s/files/1/0780/3843/files/search-icon.svg?v=1756724687');
       opacity: 0.6;
