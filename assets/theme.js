@@ -4750,8 +4750,9 @@ var SafeSticky = class extends HTMLElement {
     _checkTransparentHeader(event) {
       const quickSearchContent = document.getElementById('quick-search-content');
       const hasShowClass = quickSearchContent && quickSearchContent.classList.contains('show');
+      const isHomepageHeaderHover = document.body.classList.contains('template-index') && event && event.type === "mouseenter";
     
-      if (this.isTransparencyDetectionLocked || window.scrollY > this.transparentHeaderThreshold || (event && event.type === "mouseenter") || hasShowClass) {
+      if (this.isTransparencyDetectionLocked || window.scrollY > this.transparentHeaderThreshold || ((event && event.type === "mouseenter") && !isHomepageHeaderHover) || hasShowClass) {
         this.classList.remove("header--transparent");
       } else {
         this.classList.add("header--transparent");
