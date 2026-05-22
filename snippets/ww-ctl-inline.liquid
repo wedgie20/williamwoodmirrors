@@ -33,6 +33,9 @@
         </a>
         <div class="ctl-card__body">
           <a href="{{ rp.url }}" class="ctl-card__title">{{ rp.title|truncate: 20 }}</a>
+          <div class="ctl-card__rating">
+            {%- render 'product-rating', product: rp -%}
+          </div>
           <span class="ctl-card__price">{{ rp.price | money }}</span>
           <div class="ctl-card__footer">
             {%- if rp.available and rp.has_only_default_variant -%}
@@ -182,6 +185,22 @@
     color: #111;
   }
 
+  .ctl-box--inline .ctl-card__rating {
+    margin: 4px 0 3px;
+    min-height: 14px;
+    line-height: 1;
+  }
+
+  .ctl-box--inline .ctl-card__rating .rating,
+  .ctl-box--inline .ctl-card__rating .jdgm-widget {
+    margin: 0;
+    line-height: 1;
+  }
+
+  .ctl-box--inline .ctl-card__rating .jdgm-prev-badge__text {
+    font-size: 11px;
+  }
+
   .ctl-box--inline .ctl-card__footer {
     margin-top: auto;
     padding-top: 14px;
@@ -245,6 +264,10 @@
 
     .ctl-box--inline .ctl-card__price {
       font-size: 14px;
+    }
+
+    .ctl-box--inline .ctl-card__rating {
+      margin: 3px 0 2px;
     }
 
     .ctl-box--inline .ctl-card__img-wrap {
