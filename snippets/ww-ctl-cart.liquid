@@ -52,6 +52,10 @@
                 {{ product.title|truncate: 20 }}
               </a>
 
+              <div class="ctl-look-card__rating">
+                {%- render 'product-rating', product: product -%}
+              </div>
+
               <div class="ctl-look-card__bottom">
 
                 <span class="ctl-look-card__price">
@@ -280,6 +284,22 @@
 
 .ctl-look-card__title:hover{
   text-decoration:underline;
+}
+
+.ctl-look-card__rating{
+  margin:4px 0 4px;
+  min-height:14px;
+  line-height:1;
+}
+
+.ctl-look-card__rating .rating,
+.ctl-look-card__rating .jdgm-widget{
+  margin:0;
+  line-height:1;
+}
+
+.ctl-look-card__rating .jdgm-prev-badge__text{
+  font-size:11px;
 }
 
 .ctl-look-card__bottom{

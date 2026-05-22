@@ -77,11 +77,31 @@
 
   @media screen and (min-width: 741px) {
     #shopify-section-{{ section.id }} .header__logo-image {
-      max-width: {{ section.settings.mobile_logo_max_width }}px;
+      max-width: {{ section.settings.logo_max_width | plus: 20 }}px;
     }
   }
   
   @media screen and (min-width: 1200px) {
+    #shopify-section-{{ section.id }} .header__wrapper {
+      position: relative;
+    }
+
+    #shopify-section-{{ section.id }} .header__inline-navigation {
+      flex: 0 0 auto;
+    }
+
+    #shopify-section-{{ section.id }} .header__wrapper > .header__logo:not(.desktop-only) {
+      margin-left: 42px;
+      margin-right: auto;
+    }
+
+    #shopify-section-{{ section.id }} .desktop-search {
+      left: 50%;
+      top: 50%;
+      margin-left: 0 !important;
+      transform: translate(-50%, -50%);
+    }
+
     {%- if section.settings.header_layout == 'logo_left_navigation_inline' -%}
       /* For this navigation we have to move the logo at the first and add a margin */
       [dir="rtl"] .header__logo {
@@ -847,6 +867,18 @@ display: none !important;
             max-width: 500px;
     margin-left: auto;
     margin-right: auto;
+      }
+
+      @media screen and (min-width: 1200px) {
+        .template-index:not(.no-scroll) .header .mobile-searchbar {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          margin: 0;
+          width: min(500px, 38vw);
+          z-index: 2;
+        }
       }
 
       .template-index .header--transparent .mobile-searchbar, .template-product .header--transparent .mobile-searchbar {

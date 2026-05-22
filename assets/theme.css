@@ -1963,6 +1963,13 @@ p + .button-group,
 
 }
 
+ @media screen and (min-width: 741px) {
+  .page-header__text-wrapper h1 {
+    font-size: 30px !important;
+  }
+
+}
+
 .page-header {
   position: relative;
   text-align: center;
@@ -1983,6 +1990,8 @@ p + .button-group,
   max-width: 850px;
   margin: 38px auto;
 }
+
+
 
 .page-header--small .page-header__text-wrapper {
   margin-top: 24px;
@@ -2016,6 +2025,8 @@ p + .button-group,
 
 @media screen and (min-width: 741px) {
   .page-header__text-wrapper {
+    /* margin-top: 68px;
+    margin-bottom: 68px; */
     /* margin-top: 68px;
     margin-bottom: 68px; */
   }

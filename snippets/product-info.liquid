@@ -533,7 +533,7 @@ document.addEventListener("DOMContentLoaded", function() {
 {%- if discounted_decimal < 10 -%}
   {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
 {%- endif -%}
-<span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> <b style="color: #780606;">- Use Code: BEST (25% off)</b>
+<span style="color: #780606;"><b>{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span> <b style="color: #780606;">- Use Code: BH25 (25% off)</b>
           </div>
 <p class="saved-price" style="display: none" {% if product.tags contains 'MarchPush' %}{% else %}style="display:none"{% endif %}>
           {% if compareat_price > 0 %}
@@ -674,22 +674,11 @@ document.addEventListener("DOMContentLoaded", function() {
       {%- endif -%}
     {%- endif -%}
 
-    {% assign excluded = false %}
-{% for col in product.collections %}
-  {% comment %} {% if col.handle == 'lighting' or col.handle == 'coffee-tables' or col.handle == 'spring-sale' %} {% endcomment %}
-     {% if col.handle == 'spring-sale' or col.handle == 'outlet' %}
-
-    {% assign excluded = true %}
-    {% break %}
-  {% endif %}
-{% endfor %}
-
-{% unless excluded %}
   <div class="ww-promo-banner">
-    <p>Save <strong>15% on this item</strong>. Apply code at checkout</p>
-    <button type="button" class="ww-code" data-copy-code="TAKE15" data-copy-feedback="COPIED" aria-label="Copy discount code TAKE15">
+    <p><strong>25% off everything.</strong> Apply code at checkout.</p>
+    <button type="button" class="ww-code" data-copy-code="BH25" data-copy-feedback="COPIED" aria-label="Copy discount code BH25">
        
-      TAKE15
+      BH25
     <svg xmlns="http://www.w3.org/2000/svg"
      width="15"
      height="15"
@@ -706,7 +695,6 @@ document.addEventListener("DOMContentLoaded", function() {
 </svg>
     </button>
   </div>
-{% endunless %}
 
 <style>
     .ww-promo-banner {
@@ -772,8 +760,10 @@ document.addEventListener("DOMContentLoaded", function() {
         var code = button.getAttribute('data-copy-code');
         var feedback = button.getAttribute('data-copy-feedback') || 'COPIED';
         var originalText = button.getAttribute('data-original-text') || button.textContent.trim();
+        var originalHtml = button.copyOriginalHtml || button.innerHTML;
 
         button.setAttribute('data-original-text', originalText);
+        button.copyOriginalHtml = originalHtml;
 
         var showCopiedState = function() {
           button.textContent = feedback;
@@ -781,7 +771,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
           window.clearTimeout(button.copyResetTimer);
           button.copyResetTimer = window.setTimeout(function() {
-            button.textContent = originalText;
+            button.innerHTML = originalHtml;
             button.classList.remove('is-copied');
           }, 1500);
         };
