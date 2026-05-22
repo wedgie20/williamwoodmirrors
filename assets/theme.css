@@ -1977,6 +1977,13 @@ p + .button-group,
   margin: 38px auto;
 }
 
+@media screen and (min-width: 741px) {
+  page-header__text-wrapper h1 {
+    font-size: 30px;
+  }
+
+}
+
 .page-header--small .page-header__text-wrapper {
   margin-top: 24px;
   margin-bottom: 24px;
