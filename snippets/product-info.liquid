@@ -674,6 +674,17 @@ document.addEventListener("DOMContentLoaded", function() {
       {%- endif -%}
     {%- endif -%}
 
+    {% assign excluded = false %}
+{% for col in product.collections %}
+  {% comment %} {% if col.handle == 'lighting' or col.handle == 'coffee-tables' or col.handle == 'spring-sale' %} {% endcomment %}
+     {% if col.handle == 'spring-sale' or col.handle == 'outlet' %}
+
+    {% assign excluded = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% unless excluded %}
   <div class="ww-promo-banner">
     <p><strong>15% off on this item.</strong> Apply code at checkout.</p>
     <button type="button" class="ww-code" data-copy-code="TAKE15" data-copy-feedback="COPIED" aria-label="Copy discount code TAKE15">
@@ -695,6 +706,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </svg>
     </button>
   </div>
+  {% endunless %}
 
 <style>
     .ww-promo-banner {
