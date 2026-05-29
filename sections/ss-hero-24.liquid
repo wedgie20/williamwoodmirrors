@@ -704,6 +704,15 @@
       max-width: 420px;
     }
   }
+
+  {%- if section.settings.shop_scene_enable -%}
+    @media screen and (max-width: 767px) {
+      .hero-content-{{ section.id }} {
+        justify-content: flex-start;
+        padding-top: 265px;
+      }
+    }
+  {%- endif -%}
 {%- endstyle -%}
 
 {% unless full_width %}
