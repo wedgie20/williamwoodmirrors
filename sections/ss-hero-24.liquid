@@ -1380,6 +1380,49 @@
   {% endcase %}
 {% endfor %}
 
+<style>
+  @media screen and (min-width: 1024px) {
+    .section-{{ section.id }} .hero-text-text_dUDDL * {
+      font-size: 64px !important;
+      line-height: 1 !important;
+    }
+
+    .section-{{ section.id }} .hero-heading-heading_qEAnV * strong {
+      font-size: 44px !important;
+      line-height: 1 !important;
+    }
+
+    .section-{{ section.id }} .hero-text-text_nxnfh * {
+      font-size: 16px !important;
+      line-height: 1.2 !important;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .section-{{ section.id }} .hero-text-text_dUDDL * {
+      font-size: 46px !important;
+      line-height: 1 !important;
+    }
+
+    .section-{{ section.id }} .hero-heading-heading_qEAnV,
+    .section-{{ section.id }} .hero-heading-heading_qEAnV * {
+      white-space: nowrap !important;
+      word-break: keep-all !important;
+    }
+
+    .section-{{ section.id }} .hero-heading-heading_qEAnV * strong {
+      font-size: 33px !important;
+      line-height: 1 !important;
+      white-space: nowrap !important;
+    }
+
+    .section-{{ section.id }} .hero-text-text_nxnfh * {
+      font-size: 14px !important;
+      line-height: 1.25 !important;
+    }
+  }
+</style>
+
 <div
   class="section-{{ section.id }} hero-{{ section.id }}"
   style="background-color:{{ background_color }}; background-image: {{ background_gradient }};"
