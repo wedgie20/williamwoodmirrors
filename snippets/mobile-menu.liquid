@@ -26,6 +26,11 @@
 
   <div class="drawer__content">
     <ul class="mobile-nav list--unstyled" role="list">
+      <li class="mobile-nav__item" data-level="1">
+        <a href="https://www.williamwoodmirrors.co.uk/collections/host-the-moment" class="mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}">
+          20% off hosting
+        </a>
+      </li>
       {%- assign custom_image_inserted = false -%}
       {%- for link in menu.links -%}
         {%- assign link_title_downcase = link.title | strip | downcase -%}
