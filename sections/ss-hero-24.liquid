@@ -708,8 +708,19 @@
   {%- if section.settings.shop_scene_enable -%}
     @media screen and (max-width: 767px) {
       .hero-content-{{ section.id }} {
+        align-items: center;
         justify-content: flex-start;
         padding-top: 265px;
+      }
+
+      .hero-slide-content-{{ section.id }},
+      .hero-content-{{ section.id }} [class^="hero-heading-"],
+      .hero-content-{{ section.id }} [class^="hero-text-"] {
+        text-align: center !important;
+      }
+
+      .hero-buttons-{{ section.id }} {
+        justify-content: center !important;
       }
     }
   {%- endif -%}
