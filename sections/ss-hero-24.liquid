@@ -706,6 +706,12 @@
   }
 
   {%- if section.settings.shop_scene_enable -%}
+    @media screen and (min-width: 1024px) {
+      .hero-text-text_dUDDL {
+        margin-top: 6px !important;
+      }
+    }
+
     @media screen and (max-width: 767px) {
       .hero-content-{{ section.id }} {
         align-items: center;
