@@ -16260,5 +16260,40 @@ trust-badges {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+@media screen and (min-width: 1024px) {
+  .hero-text-text_dUDDL * {
+    font-size: 64px !important;
+    line-height: 1 !important;
+  }
+
+  .hero-heading-heading_qEAnV * strong {
+    font-size: 44px !important;
+    line-height: 1 !important;
+  }
+
+  .hero-text-text_nxnfh * {
+    font-size: 16px !important;
+    line-height: 1.2 !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .hero-text-text_dUDDL * {
+    font-size: 46px !important;
+    line-height: 1 !important;
+  }
+
+  .hero-heading-heading_qEAnV * strong {
+    font-size: 33px !important;
+    line-height: 1 !important;
+    white-space: nowrap;
+  }
+
+  .hero-text-text_nxnfh * {
+    font-size: 14px !important;
+    line-height: 1.25 !important;
+  }
+}
+
 
 
