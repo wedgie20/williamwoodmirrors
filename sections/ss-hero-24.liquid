@@ -827,6 +827,30 @@
   </style>
 {% endif %}
 
+{% if layout_mode == 'slideshow' %}
+  <style>
+    .hero-content-{{ section.id }} {
+      max-width: 100%;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+
+    .hero-slide-content-{{ section.id }} {
+      width: 100%;
+    }
+
+    @media(min-width: 1024px) {
+      .hero-content-{{ section.id }} {
+        max-width: 100%;
+      }
+
+      .hero-slide-content-{{ section.id }} {
+        max-width: {{ content_max_width }}%;
+      }
+    }
+  </style>
+{% endif %}
+
 {% for block in section.blocks %}
   {% case block.type %}
     {% when 'review' %}
@@ -1394,7 +1418,7 @@
 
     .section-{{ section.id }} .hero-text-text_nxnfh * {
       font-size: 16px !important;
-      line-height: 2 !important;
+      line-height: 2.5 !important;
     }
   }
 
@@ -1418,7 +1442,7 @@
 
     .section-{{ section.id }} .hero-text-text_nxnfh * {
       font-size: 12px !important;
-      line-height: 2 !important;
+      line-height: 2.5 !important;
     }
   }
 </style>
@@ -1968,7 +1992,7 @@
                   endif
                 endif
               -%}
-              <div class="hero-slide-content-{{ section.id }}{% if content_idx == 0 %} is-active{% endif %}" data-slide-content-index="{{ content_idx }}" style="text-align: {{ slide_text_align }};">
+              <div class="hero-slide-content-{{ section.id }}{% if content_idx == 0 %} is-active{% endif %}" data-slide-content-index="{{ content_idx }}" style="text-align: {{ slide_text_align }}; justify-self: {{ slide_justify }};">
                 {% for block in section.blocks %}
                   {% assign block_slide = block.settings.slide_number | default: 'all' %}
                   {% if block_slide == slide_num_str or block_slide == 'all' %}
