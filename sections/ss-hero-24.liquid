@@ -246,10 +246,10 @@
 
   .hero-slide-content-{{ section.id }} {
     grid-area: 1 / 1;
-    align-self: var(--slide-vertical-mobile, {{ content_vertical_align_mobile }});
-    justify-self: var(--slide-justify-mobile, {{ content_horizontal_align_mobile }});
+    align-self: var(--slide-vertical-mobile, {{ content_vertical_align_mobile }}) !important;
+    justify-self: var(--slide-justify-mobile, {{ content_horizontal_align_mobile }}) !important;
     opacity: 0;
-    text-align: var(--slide-align-mobile, {{ content_align_mobile }});
+    text-align: var(--slide-align-mobile, {{ content_align_mobile }}) !important;
     transition: opacity 0.6s ease;
     pointer-events: none;
     width: 100%;
@@ -377,10 +377,10 @@
     }
 
     .hero-slide-content-{{ section.id }} {
-      align-self: var(--slide-vertical-desktop, {{ content_vertical_align }});
-      justify-self: var(--slide-justify-desktop, {{ content_horizontal_align }});
-      max-width: var(--slide-width-desktop, {{ content_max_width }}%);
-      text-align: var(--slide-align-desktop, {{ content_align }});
+      align-self: var(--slide-vertical-desktop, {{ content_vertical_align }}) !important;
+      justify-self: var(--slide-justify-desktop, {{ content_horizontal_align }}) !important;
+      max-width: var(--slide-width-desktop, {{ content_max_width }}%) !important;
+      text-align: var(--slide-align-desktop, {{ content_align }}) !important;
     }
 
     .hero-slide-content-{{ section.id }} .hero-buttons-{{ section.id }} {
@@ -1439,25 +1439,25 @@
 {% endfor %}
 
 <style>
-  .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] {
+  .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-number="1"] {
     align-self: center !important;
     justify-self: center !important;
     text-align: center !important;
   }
 
-  .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [class^="hero-heading-"],
-  .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [class^="hero-heading-"] *,
-  .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [class^="hero-text-"],
-  .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [class^="hero-text-"] * {
+  .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-number="1"] [class^="hero-heading-"],
+  .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-number="1"] [class^="hero-heading-"] *,
+  .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-number="1"] [class^="hero-text-"],
+  .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-number="1"] [class^="hero-text-"] * {
     text-align: center !important;
   }
 
-  .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] .hero-buttons-{{ section.id }} {
+  .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-number="1"] .hero-buttons-{{ section.id }} {
     justify-content: center !important;
   }
 
   @media screen and (min-width: 1024px) {
-    .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] {
+    .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-number="1"] {
       max-width: var(--slide-width-desktop, {{ content_max_width }}%);
     }
 
@@ -1484,7 +1484,7 @@
       line-height: 1.2 !important;
     }
 
-    .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] .hero-button-DVGGU {
+    .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-number="1"] .hero-button-DVGGU {
       min-width: 208px;
       min-height: 62px;
       font-size: 14px;
@@ -2114,6 +2114,7 @@
               <div
                 class="hero-slide-content-{{ section.id }}{% if content_idx == 0 %} is-active{% endif %}"
                 data-slide-content-index="{{ content_idx }}"
+                data-slide-number="{{ i }}"
                 style="--slide-width-desktop: {{ slide_width }}%; --slide-align-desktop: {{ slide_text_align }}; --slide-align-mobile: {{ slide_text_align_mobile }}; --slide-justify-desktop: {{ slide_justify }}; --slide-justify-mobile: {{ slide_justify_mobile }}; --slide-vertical-desktop: {{ slide_vertical }}; --slide-vertical-mobile: {{ slide_vertical_mobile }};"
               >
                 {% for block in section.blocks %}
