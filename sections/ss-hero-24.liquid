@@ -241,13 +241,22 @@
   .hero-slide-content-wrapper-{{ section.id }} {
     display: grid;
     width: 100%;
+    height: 100%;
   }
 
   .hero-slide-content-{{ section.id }} {
     grid-area: 1 / 1;
+    align-self: var(--slide-vertical-mobile, {{ content_vertical_align_mobile }});
+    justify-self: var(--slide-justify-mobile, {{ content_horizontal_align_mobile }});
     opacity: 0;
+    text-align: var(--slide-align-mobile, {{ content_align_mobile }});
     transition: opacity 0.6s ease;
     pointer-events: none;
+    width: 100%;
+  }
+
+  .hero-slide-content-{{ section.id }} .hero-buttons-{{ section.id }} {
+    justify-content: var(--slide-justify-mobile, {{ content_horizontal_align_mobile }});
   }
 
   .hero-slide-content-{{ section.id }}.is-active {
@@ -358,6 +367,17 @@
     .hero-content-{{ section.id }} {
       max-width: {{ content_max_width }}%;
       justify-content: {{ content_vertical_align }};
+    }
+
+    .hero-slide-content-{{ section.id }} {
+      align-self: var(--slide-vertical-desktop, {{ content_vertical_align }});
+      justify-self: var(--slide-justify-desktop, {{ content_horizontal_align }});
+      max-width: var(--slide-width-desktop, {{ content_max_width }}%);
+      text-align: var(--slide-align-desktop, {{ content_align }});
+    }
+
+    .hero-slide-content-{{ section.id }} .hero-buttons-{{ section.id }} {
+      justify-content: var(--slide-justify-desktop, {{ content_horizontal_align }});
     }
 
     .hero-review-{{ section.id }} {
@@ -845,7 +865,7 @@
       }
 
       .hero-slide-content-{{ section.id }} {
-        max-width: {{ content_max_width }}%;
+        max-width: var(--slide-width-desktop, {{ content_max_width }}%);
       }
     }
   </style>
@@ -1406,10 +1426,6 @@
 
 <style>
   @media screen and (min-width: 1024px) {
-    .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] {
-      text-align: center !important;
-    }
-
     .section-{{ section.id }} .hero-text-text_dUDDL * {
       font-size: 68px !important;
       line-height: 1 !important;
@@ -1431,11 +1447,6 @@
     .section-{{ section.id }} .hero-text-text_nxnfh * {
       font-size: 19px !important;
       line-height: 1.2 !important;
-    }
-
-    .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] .hero-buttons-{{ section.id }} {
-      justify-content: center !important;
-      margin-top: 18px !important;
     }
 
     .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] .hero-button-DVGGU {
@@ -1963,32 +1974,57 @@
           {% for i in (1..5) %}
             {% assign slide_video = blank %}
             {% assign slide_media_type = 'image' %}
+            {% assign s_align = 'default' %}
+            {% assign s_align_mobile = 'default' %}
+            {% assign s_width = content_max_width %}
+            {% assign s_vertical = 'default' %}
+            {% assign s_vertical_mobile = 'default' %}
             {% case i %}
               {% when 1 %}
                 {% assign slide_img = bg_image %}
                 {% assign slide_video = section.settings.bg_video_1 %}
                 {% assign slide_media_type = section.settings.bg_media_type_1 | default: 'image' %}
                 {% assign s_align = section.settings.slide_align_1 %}
+                {% assign s_align_mobile = section.settings.slide_align_mobile_1 %}
+                {% assign s_width = section.settings.slide_content_width_1 | default: content_max_width %}
+                {% assign s_vertical = section.settings.slide_vertical_align_1 %}
+                {% assign s_vertical_mobile = section.settings.slide_vertical_align_mobile_1 %}
               {% when 2 %}
                 {% assign slide_img = section.settings.bg_image_2 %}
                 {% assign slide_video = section.settings.bg_video_2 %}
                 {% assign slide_media_type = section.settings.bg_media_type_2 | default: 'image' %}
                 {% assign s_align = section.settings.slide_align_2 %}
+                {% assign s_align_mobile = section.settings.slide_align_mobile_2 %}
+                {% assign s_width = section.settings.slide_content_width_2 | default: content_max_width %}
+                {% assign s_vertical = section.settings.slide_vertical_align_2 %}
+                {% assign s_vertical_mobile = section.settings.slide_vertical_align_mobile_2 %}
               {% when 3 %}
                 {% assign slide_img = section.settings.bg_image_3 %}
                 {% assign slide_video = section.settings.bg_video_3 %}
                 {% assign slide_media_type = section.settings.bg_media_type_3 | default: 'image' %}
                 {% assign s_align = section.settings.slide_align_3 %}
+                {% assign s_align_mobile = section.settings.slide_align_mobile_3 %}
+                {% assign s_width = section.settings.slide_content_width_3 | default: content_max_width %}
+                {% assign s_vertical = section.settings.slide_vertical_align_3 %}
+                {% assign s_vertical_mobile = section.settings.slide_vertical_align_mobile_3 %}
               {% when 4 %}
                 {% assign slide_img = section.settings.bg_image_4 %}
                 {% assign slide_video = section.settings.bg_video_4 %}
                 {% assign slide_media_type = section.settings.bg_media_type_4 | default: 'image' %}
                 {% assign s_align = section.settings.slide_align_4 %}
+                {% assign s_align_mobile = section.settings.slide_align_mobile_4 %}
+                {% assign s_width = section.settings.slide_content_width_4 | default: content_max_width %}
+                {% assign s_vertical = section.settings.slide_vertical_align_4 %}
+                {% assign s_vertical_mobile = section.settings.slide_vertical_align_mobile_4 %}
               {% when 5 %}
                 {% assign slide_img = section.settings.bg_image_5 %}
                 {% assign slide_video = section.settings.bg_video_5 %}
                 {% assign slide_media_type = section.settings.bg_media_type_5 | default: 'image' %}
                 {% assign s_align = section.settings.slide_align_5 %}
+                {% assign s_align_mobile = section.settings.slide_align_mobile_5 %}
+                {% assign s_width = section.settings.slide_content_width_5 | default: content_max_width %}
+                {% assign s_vertical = section.settings.slide_vertical_align_5 %}
+                {% assign s_vertical_mobile = section.settings.slide_vertical_align_mobile_5 %}
             {% endcase %}
 
             {% assign slide_has_media = false %}
@@ -2004,6 +2040,15 @@
               {%- liquid
                 assign slide_text_align = content_align
                 assign slide_justify = content_horizontal_align
+                assign slide_text_align_mobile = content_align_mobile
+                assign slide_justify_mobile = content_horizontal_align_mobile
+                assign slide_vertical = content_vertical_align
+                assign slide_vertical_mobile = content_vertical_align_mobile
+                assign slide_width = content_max_width
+                assign slide_override_width = s_width | plus: 0
+                if slide_override_width > 0
+                  assign slide_width = slide_override_width
+                endif
                 if s_align != 'default' and s_align != blank
                   assign slide_text_align = s_align
                   if s_align == 'center'
@@ -2014,8 +2059,28 @@
                     assign slide_justify = 'start'
                   endif
                 endif
+                if s_align_mobile != 'default' and s_align_mobile != blank
+                  assign slide_text_align_mobile = s_align_mobile
+                  if s_align_mobile == 'center'
+                    assign slide_justify_mobile = 'center'
+                  elsif s_align_mobile == 'right'
+                    assign slide_justify_mobile = 'end'
+                  else
+                    assign slide_justify_mobile = 'start'
+                  endif
+                endif
+                if s_vertical != 'default' and s_vertical != blank
+                  assign slide_vertical = s_vertical
+                endif
+                if s_vertical_mobile != 'default' and s_vertical_mobile != blank
+                  assign slide_vertical_mobile = s_vertical_mobile
+                endif
               -%}
-              <div class="hero-slide-content-{{ section.id }}{% if content_idx == 0 %} is-active{% endif %}" data-slide-content-index="{{ content_idx }}" style="text-align: {{ slide_text_align }}; justify-self: {{ slide_justify }};">
+              <div
+                class="hero-slide-content-{{ section.id }}{% if content_idx == 0 %} is-active{% endif %}"
+                data-slide-content-index="{{ content_idx }}"
+                style="--slide-width-desktop: {{ slide_width }}%; --slide-align-desktop: {{ slide_text_align }}; --slide-align-mobile: {{ slide_text_align_mobile }}; --slide-justify-desktop: {{ slide_justify }}; --slide-justify-mobile: {{ slide_justify_mobile }}; --slide-vertical-desktop: {{ slide_vertical }}; --slide-vertical-mobile: {{ slide_vertical_mobile }};"
+              >
                 {% for block in section.blocks %}
                   {% assign block_slide = block.settings.slide_number | default: 'all' %}
                   {% if block_slide == slide_num_str or block_slide == 'all' %}
@@ -2052,7 +2117,7 @@
                 {% endfor %}
 
                 {% if has_slide_buttons %}
-                  <div class="hero-buttons-{{ section.id }}" style="justify-content: {{ slide_justify }};">
+                  <div class="hero-buttons-{{ section.id }}">
                     {% for block in section.blocks %}
                       {% assign block_slide = block.settings.slide_number | default: 'all' %}
                       {% if block.type == 'button' and block.settings.button != blank %}
@@ -3042,7 +3107,7 @@
     {
       "type": "select",
       "id": "slide_align_1",
-      "label": "Slide 1 alignment",
+      "label": "Slide 1 alignment - desktop",
       "default": "default",
       "options": [
         { "label": "Use section default", "value": "default" },
@@ -3054,32 +3119,173 @@
     },
     {
       "type": "select",
-      "id": "slide_align_2",
-      "label": "Slide 2 alignment",
+      "id": "slide_align_mobile_1",
+      "label": "Slide 1 alignment - mobile",
       "default": "default",
       "options": [
         { "label": "Use section default", "value": "default" },
         { "label": "Left", "value": "left" },
         { "label": "Center", "value": "center" },
         { "label": "Right", "value": "right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "slide_content_width_1",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "%",
+      "label": "Slide 1 max width - desktop",
+      "default": 0,
+      "info": "Set to 0 to use the section max width."
+    },
+    {
+      "type": "select",
+      "id": "slide_vertical_align_1",
+      "label": "Slide 1 vertical align - desktop",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Top", "value": "start" },
+        { "label": "Center", "value": "center" },
+        { "label": "Bottom", "value": "end" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "slide_vertical_align_mobile_1",
+      "label": "Slide 1 vertical align - mobile",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Top", "value": "start" },
+        { "label": "Center", "value": "center" },
+        { "label": "Bottom", "value": "end" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "slide_align_2",
+      "label": "Slide 2 alignment - desktop",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Left", "value": "left" },
+        { "label": "Center", "value": "center" },
+        { "label": "Right", "value": "right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "slide_align_mobile_2",
+      "label": "Slide 2 alignment - mobile",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Left", "value": "left" },
+        { "label": "Center", "value": "center" },
+        { "label": "Right", "value": "right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "slide_content_width_2",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "%",
+      "label": "Slide 2 max width - desktop",
+      "default": 0,
+      "info": "Set to 0 to use the section max width."
+    },
+    {
+      "type": "select",
+      "id": "slide_vertical_align_2",
+      "label": "Slide 2 vertical align - desktop",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Top", "value": "start" },
+        { "label": "Center", "value": "center" },
+        { "label": "Bottom", "value": "end" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "slide_vertical_align_mobile_2",
+      "label": "Slide 2 vertical align - mobile",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Top", "value": "start" },
+        { "label": "Center", "value": "center" },
+        { "label": "Bottom", "value": "end" }
       ]
     },
     {
       "type": "select",
       "id": "slide_align_3",
-      "label": "Slide 3 alignment",
+      "label": "Slide 3 alignment - desktop",
       "default": "default",
       "options": [
         { "label": "Use section default", "value": "default" },
         { "label": "Left", "value": "left" },
         { "label": "Center", "value": "center" },
         { "label": "Right", "value": "right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "slide_align_mobile_3",
+      "label": "Slide 3 alignment - mobile",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Left", "value": "left" },
+        { "label": "Center", "value": "center" },
+        { "label": "Right", "value": "right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "slide_content_width_3",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "%",
+      "label": "Slide 3 max width - desktop",
+      "default": 0,
+      "info": "Set to 0 to use the section max width."
+    },
+    {
+      "type": "select",
+      "id": "slide_vertical_align_3",
+      "label": "Slide 3 vertical align - desktop",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Top", "value": "start" },
+        { "label": "Center", "value": "center" },
+        { "label": "Bottom", "value": "end" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "slide_vertical_align_mobile_3",
+      "label": "Slide 3 vertical align - mobile",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Top", "value": "start" },
+        { "label": "Center", "value": "center" },
+        { "label": "Bottom", "value": "end" }
       ]
     },
     {
       "type": "select",
       "id": "slide_align_4",
-      "label": "Slide 4 alignment",
+      "label": "Slide 4 alignment - desktop",
       "default": "default",
       "options": [
         { "label": "Use section default", "value": "default" },
@@ -3090,14 +3296,108 @@
     },
     {
       "type": "select",
-      "id": "slide_align_5",
-      "label": "Slide 5 alignment",
+      "id": "slide_align_mobile_4",
+      "label": "Slide 4 alignment - mobile",
       "default": "default",
       "options": [
         { "label": "Use section default", "value": "default" },
         { "label": "Left", "value": "left" },
         { "label": "Center", "value": "center" },
         { "label": "Right", "value": "right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "slide_content_width_4",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "%",
+      "label": "Slide 4 max width - desktop",
+      "default": 0,
+      "info": "Set to 0 to use the section max width."
+    },
+    {
+      "type": "select",
+      "id": "slide_vertical_align_4",
+      "label": "Slide 4 vertical align - desktop",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Top", "value": "start" },
+        { "label": "Center", "value": "center" },
+        { "label": "Bottom", "value": "end" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "slide_vertical_align_mobile_4",
+      "label": "Slide 4 vertical align - mobile",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Top", "value": "start" },
+        { "label": "Center", "value": "center" },
+        { "label": "Bottom", "value": "end" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "slide_align_5",
+      "label": "Slide 5 alignment - desktop",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Left", "value": "left" },
+        { "label": "Center", "value": "center" },
+        { "label": "Right", "value": "right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "slide_align_mobile_5",
+      "label": "Slide 5 alignment - mobile",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Left", "value": "left" },
+        { "label": "Center", "value": "center" },
+        { "label": "Right", "value": "right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "slide_content_width_5",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "%",
+      "label": "Slide 5 max width - desktop",
+      "default": 0,
+      "info": "Set to 0 to use the section max width."
+    },
+    {
+      "type": "select",
+      "id": "slide_vertical_align_5",
+      "label": "Slide 5 vertical align - desktop",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Top", "value": "start" },
+        { "label": "Center", "value": "center" },
+        { "label": "Bottom", "value": "end" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "slide_vertical_align_mobile_5",
+      "label": "Slide 5 vertical align - mobile",
+      "default": "default",
+      "options": [
+        { "label": "Use section default", "value": "default" },
+        { "label": "Top", "value": "start" },
+        { "label": "Center", "value": "center" },
+        { "label": "Bottom", "value": "end" }
       ]
     },
     {
