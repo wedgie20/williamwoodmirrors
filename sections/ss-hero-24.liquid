@@ -1439,7 +1439,28 @@
 {% endfor %}
 
 <style>
+  .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] {
+    align-self: center !important;
+    justify-self: center !important;
+    text-align: center !important;
+  }
+
+  .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [class^="hero-heading-"],
+  .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [class^="hero-heading-"] *,
+  .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [class^="hero-text-"],
+  .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [class^="hero-text-"] * {
+    text-align: center !important;
+  }
+
+  .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] .hero-buttons-{{ section.id }} {
+    justify-content: center !important;
+  }
+
   @media screen and (min-width: 1024px) {
+    .section-{{ section.id }} .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] {
+      max-width: var(--slide-width-desktop, {{ content_max_width }}%);
+    }
+
     .section-{{ section.id }} .hero-text-text_dUDDL * {
       font-size: 68px !important;
       line-height: 1 !important;
