@@ -74,6 +74,11 @@
           assign shop_scene_products = shop_scene_collection.products
           assign shop_scene_count = shop_scene_collection.products_count
         endif
+
+        assign has_shop_scene = false
+        if shop_scene_enabled and shop_scene_products != empty
+          assign has_shop_scene = true
+        endif
       -%}
       {%- capture card_inner -%}
         <div class="cg323__card-media">
@@ -95,45 +100,51 @@
           {%- endif -%}
           {%- if overlay -%}<span class="cg323__overlay"></span>{%- endif -%}
         </div>
-        {%- if block.settings.title != blank -%}
-          <span class="cg323__card-title" style="color: {{ block.settings.title_color | default: section.settings.text_color }};">
-            {{- block.settings.title -}}
-          </span>
-        {%- endif -%}
-        {%- if block.settings.show_arrow -%}
-          <span class="cg323__card-arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-              <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
-        {%- endif -%}
-        {%- if shop_scene_enabled and shop_scene_products != empty -%}
-          <button
-            class="cg323__shop-scene"
-            type="button"
-            data-cg323-scene-toggle="{{ section.id }}-{{ block.id }}"
-            aria-expanded="false"
-            aria-controls="cg323-scene-{{ section.id }}-{{ block.id }}"
-          >
-            <span>{{ block.settings.shop_scene_label | default: 'Shop scene' }} ({{ shop_scene_count }})</span>
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="18" height="18">
-              <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            {%- if shop_scene_thumb_count > 0 -%}
-              <span class="cg323__shop-scene-thumbs" aria-hidden="true">
-                {%- for product in shop_scene_products limit: shop_scene_thumb_count -%}
-                  {%- if product.featured_image -%}
-                    {{ product.featured_image | image_url: width: 96 | image_tag: loading: 'lazy', alt: product.featured_image.alt, widths: '48, 72, 96' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated }}
-                  {%- endif -%}
-                {%- endfor -%}
+        {%- if block.settings.title != blank or has_shop_scene -%}
+          <div class="cg323__card-header{% if has_shop_scene %} cg323__card-header--has-scene{% endif %}">
+            {%- if block.settings.title != blank -%}
+              <span class="cg323__card-title" style="color: {{ block.settings.title_color | default: section.settings.text_color }};">
+                {{- block.settings.title -}}
               </span>
             {%- endif -%}
-          </button>
+            {%- if has_shop_scene -%}
+              <button
+                class="cg323__shop-scene"
+                type="button"
+                data-cg323-scene-toggle="{{ section.id }}-{{ block.id }}"
+                aria-expanded="false"
+                aria-controls="cg323-scene-{{ section.id }}-{{ block.id }}"
+              >
+                <span>{{ block.settings.shop_scene_label | default: 'Shop scene' }} ({{ shop_scene_count }})</span>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="18" height="18">
+                  <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {%- if shop_scene_thumb_count > 0 -%}
+                  <span class="cg323__shop-scene-thumbs" aria-hidden="true">
+                    {%- for product in shop_scene_products limit: shop_scene_thumb_count -%}
+                      {%- if product.featured_image -%}
+                        {{ product.featured_image | image_url: width: 96 | image_tag: loading: 'lazy', alt: product.featured_image.alt, widths: '48, 72, 96' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated }}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </span>
+                {%- endif -%}
+              </button>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+        {%- if block.settings.show_arrow -%}
+          {%- unless has_shop_scene -%}
+            <span class="cg323__card-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+                <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          {%- endunless -%}
         {%- endif -%}
       {%- endcapture -%}
 
       <div
-        class="cg323__card{% if block.settings.link == blank %} cg323__card--no-link{% endif %}"
+        class="cg323__card cg323__card--span-{{ d_span }} cg323__card--mobile-span-{{ m_span }}{% if has_shop_scene %} cg323__card--has-scene{% endif %}{% if block.settings.link == blank %} cg323__card--no-link{% endif %}"
         style="--d-span: {{ d_span }}; --m-span: {{ m_span }}; --min-h: {{ min_h }}px; --min-h-m: {{ min_h_m }}px;"
         {{ block.shopify_attributes }}
       >
@@ -264,11 +275,23 @@
     opacity: var(--cg323-overlay-opacity, 0.15);
     pointer-events: none;
   }
-  .cg323__card-title {
+  .cg323__card-header {
     position: relative;
-    z-index: 2;
-    display: inline-block;
     padding: 18px 22px;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 100%;
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+  .cg323__card-header--has-scene {
+    flex-wrap: wrap;
+  }
+  .cg323__card-title {
+    display: inline-block;
+    min-width: 0;
     font-family: var(--heading-font-family, inherit);
     font-size: var(--cg323-title-size, 28px);
     font-weight: 500;
@@ -300,14 +323,13 @@
     overflow: hidden;
   }
   .cg323__shop-scene {
-    position: absolute;
-    left: 18px;
-    bottom: 18px;
-    z-index: 3;
+    position: relative;
+    z-index: 4;
     display: inline-flex;
     align-items: center;
+    flex: 0 1 auto;
     gap: 12px;
-    max-width: calc(100% - 36px);
+    max-width: 100%;
     padding: 8px 12px 8px 18px;
     border: 0;
     border-radius: 999px;
@@ -321,6 +343,12 @@
     text-transform: uppercase;
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
+    pointer-events: auto;
+  }
+  .cg323__shop-scene > span:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .cg323__shop-scene svg {
     flex: 0 0 auto;
@@ -336,6 +364,31 @@
     border-radius: 4px;
     object-fit: cover;
     background: #fff;
+  }
+  .cg323__card--span-1 .cg323__card-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .cg323__card--span-1 .cg323__shop-scene {
+    gap: 8px;
+    padding: 7px 9px 7px 12px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+  .cg323__card--span-1 .cg323__shop-scene-thumbs img {
+    width: 26px;
+    height: 26px;
+  }
+  .cg323__card--span-2 .cg323__shop-scene {
+    gap: 9px;
+    padding: 7px 10px 7px 13px;
+    font-size: 11px;
+    letter-spacing: 0.09em;
+  }
+  .cg323__card--span-2 .cg323__shop-scene-thumbs img {
+    width: 30px;
+    height: 30px;
   }
   .cg323__scene-drawer {
     position: fixed;
@@ -468,9 +521,18 @@
       grid-column: span var(--m-span, 1);
       min-height: var(--min-h-m, 220px);
     }
+    .cg323__card-header {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 8px;
+      padding: 12px 14px;
+    }
+    .cg323__card--mobile-span-2 .cg323__card-header--has-scene {
+      align-items: center;
+      flex-direction: row;
+    }
     .cg323__card-title {
       font-size: var(--cg323-title-size-mobile, 18px);
-      padding: 12px 14px;
     }
     .cg323__card-arrow {
       width: 28px;
@@ -479,10 +541,7 @@
       bottom: 10px;
     }
     .cg323__shop-scene {
-      left: 10px;
-      bottom: 10px;
       gap: 8px;
-      max-width: calc(100% - 20px);
       padding: 7px 9px 7px 12px;
       font-size: 10px;
       letter-spacing: 0.08em;
