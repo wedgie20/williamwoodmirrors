@@ -1509,15 +1509,21 @@
                   {%- if s_video_mobile_mp4_url == '' -%}{%- assign s_video_mobile_mp4_url = s_video_mp4_url -%}{%- endif -%}
                   {%- assign s_video_poster_url = s_video_mp4_url -%}
                   {%- assign s_mobile_src_url = s_video_mobile_mp4_url -%}
+                  {%- assign s_mobile_uses_desktop_video = false -%}
+                  {%- if s_video_mobile == blank or s_video_mobile_mp4_url == s_video_mp4_url -%}
+                    {%- assign s_mobile_uses_desktop_video = true -%}
+                  {%- endif -%}
                   {%- if s_video_poster_url contains '?' -%}
                     {%- assign s_video_poster_url = s_video_poster_url | append: '&speedsize=pstr' -%}
                   {%- else -%}
                     {%- assign s_video_poster_url = s_video_poster_url | append: '?speedsize=pstr' -%}
                   {%- endif -%}
-                  {%- if s_mobile_src_url contains '?' -%}
-                    {%- assign s_mobile_src_url = s_mobile_src_url | append: '&speedsize=ar_1:1' -%}
-                  {%- else -%}
-                    {%- assign s_mobile_src_url = s_mobile_src_url | append: '?speedsize=ar_1:1' -%}
+                  {%- if s_mobile_uses_desktop_video -%}
+                    {%- if s_mobile_src_url contains '?' -%}
+                      {%- assign s_mobile_src_url = s_mobile_src_url | append: '&speedsize=ar_1:1' -%}
+                    {%- else -%}
+                      {%- assign s_mobile_src_url = s_mobile_src_url | append: '?speedsize=ar_1:1' -%}
+                    {%- endif -%}
                   {%- endif -%}
                   <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata" poster="{{ s_video_poster_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated }}">
                     <source media="(max-width: 768px)" src="{{ s_mobile_src_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated }}" type="video/mp4">
@@ -1574,15 +1580,21 @@
             {%- if single_video_mobile_mp4_url == '' -%}{%- assign single_video_mobile_mp4_url = single_video_mp4_url -%}{%- endif -%}
             {%- assign single_video_poster_url = single_video_mp4_url -%}
             {%- assign single_mobile_src_url = single_video_mobile_mp4_url -%}
+            {%- assign single_mobile_uses_desktop_video = false -%}
+            {%- if single_video_mobile == blank or single_video_mobile_mp4_url == single_video_mp4_url -%}
+              {%- assign single_mobile_uses_desktop_video = true -%}
+            {%- endif -%}
             {%- if single_video_poster_url contains '?' -%}
               {%- assign single_video_poster_url = single_video_poster_url | append: '&speedsize=pstr' -%}
             {%- else -%}
               {%- assign single_video_poster_url = single_video_poster_url | append: '?speedsize=pstr' -%}
             {%- endif -%}
-            {%- if single_mobile_src_url contains '?' -%}
-              {%- assign single_mobile_src_url = single_mobile_src_url | append: '&speedsize=ar_1:1' -%}
-            {%- else -%}
-              {%- assign single_mobile_src_url = single_mobile_src_url | append: '?speedsize=ar_1:1' -%}
+            {%- if single_mobile_uses_desktop_video -%}
+              {%- if single_mobile_src_url contains '?' -%}
+                {%- assign single_mobile_src_url = single_mobile_src_url | append: '&speedsize=ar_1:1' -%}
+              {%- else -%}
+                {%- assign single_mobile_src_url = single_mobile_src_url | append: '?speedsize=ar_1:1' -%}
+              {%- endif -%}
             {%- endif -%}
             <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata" poster="{{ single_video_poster_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated }}">
               <source media="(max-width: 768px)" src="{{ single_mobile_src_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated }}" type="video/mp4">
