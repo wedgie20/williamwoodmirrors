@@ -1491,16 +1491,39 @@
                 {%- endif -%}
                 {%- assign s_video_mobile_use = s_video -%}
                 {%- if s_video_mobile != blank -%}{%- assign s_video_mobile_use = s_video_mobile -%}{%- endif -%}
-                <video class="hero-bg-image-desktop hero-bg-video-desktop" autoplay muted loop playsinline preload="metadata"{% if s_poster_desktop != '' %} poster="{{ s_poster_desktop | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}"{% endif %}>
-                  {%- for source in s_video.sources -%}
-                    <source src="{{ source.url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}" type="{{ source.mime_type }}">
-                  {%- endfor -%}
-                </video>
-                <video class="hero-bg-image-mobile hero-bg-video-mobile" autoplay muted loop playsinline preload="metadata"{% if s_poster_mobile != '' %} poster="{{ s_poster_mobile | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}"{% endif %}>
-                  {%- for source in s_video_mobile_use.sources -%}
-                    <source src="{{ source.url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}" type="{{ source.mime_type }}">
-                  {%- endfor -%}
-                </video>
+                {%- assign s_video_mp4_url = '' -%}
+                {%- assign s_video_mobile_mp4_url = '' -%}
+                {%- for source in s_video.sources -%}
+                  {%- if source.mime_type contains 'mp4' -%}
+                    {%- assign s_video_mp4_url = source.url -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- for source in s_video_mobile_use.sources -%}
+                  {%- if source.mime_type contains 'mp4' -%}
+                    {%- assign s_video_mobile_mp4_url = source.url -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- if s_video_mp4_url != '' -%}
+                  {%- if s_video_mobile_mp4_url == '' -%}{%- assign s_video_mobile_mp4_url = s_video_mp4_url -%}{%- endif -%}
+                  {%- assign s_video_poster_url = s_video_mp4_url -%}
+                  {%- assign s_mobile_src_url = s_video_mobile_mp4_url -%}
+                  {%- if s_video_poster_url contains '?' -%}
+                    {%- assign s_video_poster_url = s_video_poster_url | append: '&speedsize=pstr' -%}
+                  {%- else -%}
+                    {%- assign s_video_poster_url = s_video_poster_url | append: '?speedsize=pstr' -%}
+                  {%- endif -%}
+                  {%- if s_mobile_src_url contains '?' -%}
+                    {%- assign s_mobile_src_url = s_mobile_src_url | append: '&speedsize=ar_1:1' -%}
+                  {%- else -%}
+                    {%- assign s_mobile_src_url = s_mobile_src_url | append: '?speedsize=ar_1:1' -%}
+                  {%- endif -%}
+                  <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata" poster="{{ s_video_poster_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated }}">
+                    <source media="(max-width: 768px)" src="{{ s_mobile_src_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated }}" type="video/mp4">
+                    <source media="(min-width: 769px)" src="{{ s_video_mp4_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated }}" type="video/mp4">
+                  </video>
+                {%- endif -%}
               {%- else -%}
                 {{ s_image | image_url: width: 3840 | image_tag: loading: s_loading, sizes: '100vw', alt: s_image.alt, class: 'hero-bg-image-desktop', widths: '1780, 2000, 2500, 3000, 3500, 4000' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
                 {%- if s_image_mobile != blank -%}
@@ -1533,16 +1556,39 @@
           {%- endif -%}
           {%- assign single_video_mobile_use = single_video -%}
           {%- if single_video_mobile != blank -%}{%- assign single_video_mobile_use = single_video_mobile -%}{%- endif -%}
-          <video class="hero-bg-image-desktop hero-bg-video-desktop" autoplay muted loop playsinline preload="metadata"{% if single_poster_desktop != '' %} poster="{{ single_poster_desktop | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}"{% endif %}>
-            {%- for source in single_video.sources -%}
-              <source src="{{ source.url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}" type="{{ source.mime_type }}">
-            {%- endfor -%}
-          </video>
-          <video class="hero-bg-image-mobile hero-bg-video-mobile" autoplay muted loop playsinline preload="metadata"{% if single_poster_mobile != '' %} poster="{{ single_poster_mobile | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}"{% endif %}>
-            {%- for source in single_video_mobile_use.sources -%}
-              <source src="{{ source.url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}" type="{{ source.mime_type }}">
-            {%- endfor -%}
-          </video>
+          {%- assign single_video_mp4_url = '' -%}
+          {%- assign single_video_mobile_mp4_url = '' -%}
+          {%- for source in single_video.sources -%}
+            {%- if source.mime_type contains 'mp4' -%}
+              {%- assign single_video_mp4_url = source.url -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {%- for source in single_video_mobile_use.sources -%}
+            {%- if source.mime_type contains 'mp4' -%}
+              {%- assign single_video_mobile_mp4_url = source.url -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if single_video_mp4_url != '' -%}
+            {%- if single_video_mobile_mp4_url == '' -%}{%- assign single_video_mobile_mp4_url = single_video_mp4_url -%}{%- endif -%}
+            {%- assign single_video_poster_url = single_video_mp4_url -%}
+            {%- assign single_mobile_src_url = single_video_mobile_mp4_url -%}
+            {%- if single_video_poster_url contains '?' -%}
+              {%- assign single_video_poster_url = single_video_poster_url | append: '&speedsize=pstr' -%}
+            {%- else -%}
+              {%- assign single_video_poster_url = single_video_poster_url | append: '?speedsize=pstr' -%}
+            {%- endif -%}
+            {%- if single_mobile_src_url contains '?' -%}
+              {%- assign single_mobile_src_url = single_mobile_src_url | append: '&speedsize=ar_1:1' -%}
+            {%- else -%}
+              {%- assign single_mobile_src_url = single_mobile_src_url | append: '?speedsize=ar_1:1' -%}
+            {%- endif -%}
+            <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata" poster="{{ single_video_poster_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated }}">
+              <source media="(max-width: 768px)" src="{{ single_mobile_src_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated }}" type="video/mp4">
+              <source media="(min-width: 769px)" src="{{ single_video_mp4_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated }}" type="video/mp4">
+            </video>
+          {%- endif -%}
         {%- elsif bg_image != blank -%}
           {%- capture sizes -%}100vw{%- endcapture -%}
           {% if bg_image_mobile != blank %}
