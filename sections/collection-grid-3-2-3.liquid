@@ -187,15 +187,16 @@
                     {%- if product.available == false -%}
                       <button class="cg323__scene-product-action" type="button" disabled>Sold out</button>
                     {%- elsif product.variants.size > 1 or product.has_only_default_variant == false -%}
-                      <a class="cg323__scene-product-action" href="{{ product.url }}">View details</a>
+                      <a class="cg323__scene-product-action" href="{{ product.url }}">Add to cart</a>
                     {%- else -%}
                       {%- assign first_variant = product.selected_or_first_available_variant -%}
                       <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="{{ first_variant.id }}">
                         <input type="hidden" name="quantity" value="1">
-                        <button class="cg323__scene-product-action" type="submit">Add to bag</button>
+                        <button class="cg323__scene-product-action" type="submit">Add to cart</button>
                       </form>
                     {%- endif -%}
+                    <a class="cg323__scene-product-detail-link" href="{{ product.url }}">View details &rarr;</a>
                   </div>
                 </div>
               {%- endfor -%}
@@ -430,7 +431,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: min(430px, 92vw);
+    width: min(380px, 100vw);
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -447,9 +448,11 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding: 18px 20px;
+    min-height: 70px;
+    padding: 18px 24px;
     border-bottom: 1px solid #e6e1dc;
-    font-size: 13px;
+    box-sizing: border-box;
+    font-size: 15px;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -462,22 +465,23 @@
     height: 36px;
     border: 0;
     border-radius: 50%;
-    background: #f1f1f1;
+    background: transparent;
     color: #111;
     cursor: pointer;
   }
   .cg323__scene-products {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 18px;
-    padding: 18px 20px 24px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    column-gap: 14px;
+    row-gap: 0;
+    padding: 0 12px 26px;
     overflow-y: auto;
   }
   .cg323__scene-product {
-    display: grid;
-    grid-template-columns: 112px 1fr;
-    gap: 14px;
-    align-items: start;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
   }
   .cg323__scene-product-image {
     display: block;
@@ -496,22 +500,33 @@
     display: block;
     color: inherit;
     font-size: 13px;
-    line-height: 1.35;
+    line-height: 1.25;
     text-decoration: none;
   }
+  .cg323__scene-product-info {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 0 22px;
+  }
   .cg323__scene-product-price {
-    margin: 6px 0 12px;
+    margin: 8px 0 20px;
     font-size: 13px;
     font-weight: 700;
+  }
+  .cg323__scene-product-info form {
+    width: 100%;
   }
   .cg323__scene-product-action {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 34px;
-    padding: 0 14px;
+    width: 100%;
+    min-height: 36px;
+    padding: 0 12px;
     border: 0;
-    border-radius: 999px;
+    border-radius: 2px;
     background: #111;
     color: #fff;
     cursor: pointer;
@@ -522,8 +537,18 @@
     text-transform: uppercase;
   }
   .cg323__scene-product-action:disabled {
+    background: #9d9d9d;
     cursor: not-allowed;
-    opacity: 0.45;
+    opacity: 1;
+  }
+  .cg323__scene-product-detail-link {
+    display: inline-block;
+    align-self: center;
+    margin-top: 10px;
+    color: inherit;
+    font-size: 11px;
+    line-height: 1.2;
+    text-decoration: underline;
   }
 
   @media (max-width: 767px) {
@@ -567,8 +592,19 @@
       width: 26px;
       height: 26px;
     }
-    .cg323__scene-product {
-      grid-template-columns: 92px 1fr;
+    .cg323__scene-panel {
+      width: 100vw;
+    }
+    .cg323__scene-header {
+      min-height: 64px;
+      padding: 16px 18px;
+    }
+    .cg323__scene-products {
+      column-gap: 10px;
+      padding: 0 10px 24px;
+    }
+    .cg323__scene-product-title {
+      font-size: 12px;
     }
   }
 {% endstylesheet %}
