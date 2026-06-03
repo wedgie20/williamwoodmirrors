@@ -54,6 +54,7 @@
         assign shop_scene_thumb_count = block.settings.shop_scene_thumb_count | default: 3
         assign shop_scene_collection_handle = ''
         assign shop_scene_collection = blank
+        assign shop_scene_footer_url = block.settings.link
 
         if shop_scene_source == 'card_link' and block.settings.link != blank
           assign card_link_url = block.settings.link | append: ''
@@ -73,6 +74,10 @@
         elsif shop_scene_collection != blank
           assign shop_scene_products = shop_scene_collection.products
           assign shop_scene_count = shop_scene_collection.products_count
+        endif
+
+        if shop_scene_collection != blank
+          assign shop_scene_footer_url = shop_scene_collection.url
         endif
 
         assign has_shop_scene = false
@@ -209,6 +214,13 @@
                 </div>
               {%- endfor -%}
             </div>
+            {%- if shop_scene_footer_url != blank -%}
+              <div class="cg323__scene-footer">
+                <a class="cg323__scene-footer-button" href="{{ shop_scene_footer_url }}">
+                  {{ block.settings.shop_scene_footer_label | default: 'Shop collection' }}
+                </a>
+              </div>
+            {%- endif -%}
           </div>
         </div>
       {%- endif -%}
@@ -589,6 +601,35 @@
   }
   .cg323__scene-product-detail-link:hover {
     color: #111;
+  }
+  .cg323__scene-footer {
+    flex-shrink: 0;
+    padding: 16px 24px;
+    border-top: 1px solid #e5e5e5;
+    background: #fff;
+  }
+  .cg323__scene-footer-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
+    padding: 12px 16px;
+    border-radius: 2px;
+    background: #111;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.2s ease;
+  }
+  .cg323__scene-footer-button:hover {
+    background: #333;
+    color: #fff;
   }
 
   @media (max-width: 767px) {
@@ -1006,6 +1047,12 @@
           "type": "text",
           "id": "shop_scene_title",
           "label": "Drawer title"
+        },
+        {
+          "type": "text",
+          "id": "shop_scene_footer_label",
+          "label": "Footer button label",
+          "default": "Shop collection"
         },
         {
           "type": "select",
