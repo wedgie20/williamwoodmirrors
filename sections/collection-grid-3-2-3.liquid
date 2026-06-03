@@ -176,7 +176,7 @@
                 <div class="cg323__scene-product">
                   <a href="{{ product.url }}" class="cg323__scene-product-image" tabindex="-1">
                     {%- if product.featured_image -%}
-                      {{ product.featured_image | image_url: width: 500 | image_tag: loading: 'lazy', alt: product.featured_image.alt, widths: '250, 360, 500' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated }}
+                      {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.featured_image.alt, widths: '300, 400, 600' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated }}
                     {%- else -%}
                       {{ 'product-1' | placeholder_svg_tag }}
                     {%- endif -%}
@@ -184,19 +184,27 @@
                   <div class="cg323__scene-product-info">
                     <a href="{{ product.url }}" class="cg323__scene-product-title">{{ product.title }}</a>
                     <p class="cg323__scene-product-price">{{ product.price | money }}</p>
-                    {%- if product.available == false -%}
-                      <button class="cg323__scene-product-action" type="button" disabled>Sold out</button>
-                    {%- elsif product.variants.size > 1 or product.has_only_default_variant == false -%}
-                      <a class="cg323__scene-product-action" href="{{ product.url }}">Add to cart</a>
-                    {%- else -%}
-                      {%- assign first_variant = product.selected_or_first_available_variant -%}
-                      <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="id" value="{{ first_variant.id }}">
-                        <input type="hidden" name="quantity" value="1">
-                        <button class="cg323__scene-product-action" type="submit">Add to cart</button>
-                      </form>
-                    {%- endif -%}
-                    <a class="cg323__scene-product-detail-link" href="{{ product.url }}">View details &rarr;</a>
+                    <div class="cg323__scene-product-actions">
+                      {%- if product.available == false -%}
+                        <button class="cg323__scene-product-action" type="button" disabled>Sold out</button>
+                      {%- elsif product.variants.size > 1 or product.has_only_default_variant == false -%}
+                        <a class="cg323__scene-product-action" href="{{ product.url }}">View details &rarr;</a>
+                      {%- else -%}
+                        {%- assign first_variant = product.selected_or_first_available_variant -%}
+                        {%- assign is_preorder = false -%}
+                        {%- if product.tags contains 'preorder' or product.tags contains 'pre-order' -%}
+                          {%- assign is_preorder = true -%}
+                        {%- endif -%}
+                        <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="cg323__scene-product-form">
+                          <input type="hidden" name="id" value="{{ first_variant.id }}">
+                          <input type="hidden" name="quantity" value="1">
+                          <button class="cg323__scene-product-action" type="submit">
+                            {%- if is_preorder -%}Pre-order{%- else -%}Add to cart{%- endif -%}
+                          </button>
+                        </form>
+                      {%- endif -%}
+                      <a class="cg323__scene-product-detail-link" href="{{ product.url }}">View details &rarr;</a>
+                    </div>
                   </div>
                 </div>
               {%- endfor -%}
@@ -431,14 +439,17 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: min(380px, 100vw);
+    width: 420px;
+    max-width: 100vw;
     height: 100%;
     display: flex;
     flex-direction: column;
     background: #fff;
     color: #111;
+    overflow-y: auto;
     transform: translateX(100%);
-    transition: transform 0.28s ease;
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    -webkit-overflow-scrolling: touch;
   }
   .cg323__scene-drawer.is-open .cg323__scene-panel {
     transform: translateX(0);
@@ -447,47 +458,55 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
-    min-height: 70px;
-    padding: 18px 24px;
-    border-bottom: 1px solid #e6e1dc;
-    box-sizing: border-box;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e5e5e5;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 1;
+    flex-shrink: 0;
     font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
+    font-weight: 600;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
   .cg323__scene-close {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    padding: 6px;
     border: 0;
-    border-radius: 50%;
-    background: transparent;
+    border-radius: 4px;
+    background: none;
     color: #111;
     cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .cg323__scene-close:hover {
+    background: #f3f3f3;
+  }
+  .cg323__scene-close svg {
+    width: 22px;
+    height: 22px;
+    display: block;
   }
   .cg323__scene-products {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
-    column-gap: 14px;
-    row-gap: 0;
-    padding: 0 12px 26px;
-    overflow-y: auto;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #e5e5e5;
+    flex: 1;
   }
   .cg323__scene-product {
+    background: #fff;
     display: flex;
-    min-width: 0;
     flex-direction: column;
   }
   .cg323__scene-product-image {
     display: block;
     aspect-ratio: 1 / 1;
     overflow: hidden;
-    background: #f4f1ed;
+    background: #f8f8f8;
   }
   .cg323__scene-product-image img,
   .cg323__scene-product-image svg {
@@ -495,60 +514,81 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.4s ease;
+  }
+  .cg323__scene-product-image:hover img {
+    transform: scale(1.04);
+  }
+  .cg323__scene-product-info {
+    padding: 12px 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
   }
   .cg323__scene-product-title {
     display: block;
     color: inherit;
     font-size: 13px;
-    line-height: 1.25;
+    line-height: 1.4;
     text-decoration: none;
   }
-  .cg323__scene-product-info {
-    display: flex;
-    min-width: 0;
-    flex-direction: column;
-    align-items: stretch;
-    padding: 12px 0 22px;
+  .cg323__scene-product-title:hover {
+    text-decoration: underline;
   }
   .cg323__scene-product-price {
-    margin: 8px 0 20px;
     font-size: 13px;
-    font-weight: 700;
+    color: #333;
+    margin: 0;
   }
-  .cg323__scene-product-info form {
-    width: 100%;
+  .cg323__scene-product-actions {
+    margin-top: auto;
+    padding-top: 10px;
+  }
+  .cg323__scene-product-form {
+    display: block;
   }
   .cg323__scene-product-action {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
+    gap: 6px;
     width: 100%;
-    min-height: 36px;
-    padding: 0 12px;
+    padding: 10px 12px;
     border: 0;
     border-radius: 2px;
     background: #111;
     color: #fff;
     cursor: pointer;
+    font-family: inherit;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-decoration: none;
+    text-align: center;
     text-transform: uppercase;
+    transition: background 0.2s ease, opacity 0.2s ease;
+  }
+  .cg323__scene-product-action:hover {
+    background: #333;
+    color: #fff;
   }
   .cg323__scene-product-action:disabled {
-    background: #9d9d9d;
     cursor: not-allowed;
-    opacity: 1;
+    opacity: 0.6;
   }
   .cg323__scene-product-detail-link {
-    display: inline-block;
-    align-self: center;
-    margin-top: 10px;
-    color: inherit;
     font-size: 11px;
-    line-height: 1.2;
+    color: #555;
     text-decoration: underline;
+    letter-spacing: 0.05em;
+    text-align: center;
+    display: block;
+    margin-top: 8px;
+    padding-top: 2px;
+  }
+  .cg323__scene-product-detail-link:hover {
+    color: #111;
   }
 
   @media (max-width: 767px) {
@@ -592,19 +632,11 @@
       width: 26px;
       height: 26px;
     }
+  }
+  @media screen and (max-width: 1023px) {
     .cg323__scene-panel {
-      width: 100vw;
-    }
-    .cg323__scene-header {
-      min-height: 64px;
-      padding: 16px 18px;
-    }
-    .cg323__scene-products {
-      column-gap: 10px;
-      padding: 0 10px 24px;
-    }
-    .cg323__scene-product-title {
-      font-size: 12px;
+      width: 92vw;
+      max-width: 420px;
     }
   }
 {% endstylesheet %}
