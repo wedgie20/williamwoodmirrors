@@ -195,10 +195,10 @@
                         {%- if product.tags contains 'preorder' or product.tags contains 'pre-order' -%}
                           {%- assign is_preorder = true -%}
                         {%- endif -%}
-                        <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="cg323__scene-product-form">
+                        <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="cg323__scene-product-form" data-cg323-scene-form>
                           <input type="hidden" name="id" value="{{ first_variant.id }}">
                           <input type="hidden" name="quantity" value="1">
-                          <button class="cg323__scene-product-action" type="submit">
+                          <button class="cg323__scene-product-action" type="submit" data-cg323-scene-add>
                             {%- if is_preorder -%}Pre-order{%- else -%}Add to cart{%- endif -%}
                           </button>
                         </form>
@@ -674,6 +674,85 @@
       if (event.key !== 'Escape') return;
       document.querySelectorAll('.cg323__scene-drawer.is-open').forEach((drawer) => {
         setDrawer(drawer.dataset.cg323SceneDrawer, false);
+      });
+    });
+
+    section.querySelectorAll('[data-cg323-scene-form]').forEach((form) => {
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const submitButton = form.querySelector('[data-cg323-scene-add]');
+        if (!submitButton || submitButton.classList.contains('is-loading')) return;
+
+        const originalLabel = submitButton.textContent;
+        const routes = (window.themeVariables && window.themeVariables.routes) || {};
+        const settings = (window.themeVariables && window.themeVariables.settings) || {};
+        const addUrl = routes.cartAddUrl ? `${routes.cartAddUrl}.js` : (form.action || '/cart/add.js');
+        const cartUrl = routes.cartUrl ? `${routes.cartUrl}.js` : '/cart.js';
+        const formData = new FormData(form);
+
+        formData.append('sections', ['mini-cart']);
+        submitButton.classList.add('is-loading');
+        submitButton.disabled = true;
+        submitButton.textContent = 'Adding...';
+
+        fetch(addUrl, {
+          method: 'POST',
+          body: formData,
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+          .then((response) => response.json().then((data) => ({ ok: response.ok, data })))
+          .then((result) => {
+            if (!result.ok) {
+              submitButton.textContent = (result.data && result.data.description) || 'Unavailable';
+              setTimeout(() => {
+                submitButton.textContent = originalLabel;
+                submitButton.classList.remove('is-loading');
+                submitButton.disabled = false;
+              }, 1800);
+              return null;
+            }
+
+            form.dispatchEvent(new CustomEvent('variant:added', {
+              bubbles: true,
+              detail: {
+                variant: Object.prototype.hasOwnProperty.call(result.data, 'items') ? result.data.items[0] : result.data
+              }
+            }));
+
+            return fetch(cartUrl)
+              .then((response) => response.json())
+              .then((cartContent) => {
+                document.documentElement.dispatchEvent(new CustomEvent('cart:updated', {
+                  bubbles: true,
+                  detail: { cart: cartContent }
+                }));
+
+                cartContent.sections = result.data.sections;
+                document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+                  bubbles: true,
+                  detail: {
+                    cart: cartContent,
+                    openMiniCart: settings.cartType === 'drawer'
+                  }
+                }));
+
+                submitButton.textContent = 'Added \u2713';
+                setTimeout(() => {
+                  submitButton.textContent = originalLabel;
+                  submitButton.classList.remove('is-loading');
+                  submitButton.disabled = false;
+                }, 1800);
+              });
+          })
+          .catch(() => {
+            submitButton.textContent = 'Try again';
+            setTimeout(() => {
+              submitButton.textContent = originalLabel;
+              submitButton.classList.remove('is-loading');
+              submitButton.disabled = false;
+            }, 1800);
+          });
       });
     });
   })();
