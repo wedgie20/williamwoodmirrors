@@ -1,4 +1,41 @@
 {%- assign cart_discount_context = context | default: 'cart' -%}
+{%- assign applied_discount_titles = '' -%}
+{%- capture applied_discount_pills -%}
+  {%- for discount_application in cart.cart_level_discount_applications -%}
+    {%- if discount_application.type == 'discount_code' -%}
+      {%- assign discount_title = discount_application.title | strip -%}
+      {%- assign discount_key = '|' | append: discount_title | append: '|' -%}
+
+      {%- unless applied_discount_titles contains discount_key -%}
+        {%- assign applied_discount_titles = applied_discount_titles | append: discount_key -%}
+        <span class="ww-cart-discount__pill">
+          {%- render 'icon' with 'discount-badge' -%}
+          <span>{{ discount_title }}</span>
+          <span class="ww-cart-discount__pill-remove" aria-hidden="true">&times;</span>
+        </span>
+      {%- endunless -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- for line_item in cart.items -%}
+    {%- for discount_allocation in line_item.line_level_discount_allocations -%}
+      {%- assign discount_application = discount_allocation.discount_application -%}
+      {%- if discount_application.type == 'discount_code' -%}
+        {%- assign discount_title = discount_application.title | strip -%}
+        {%- assign discount_key = '|' | append: discount_title | append: '|' -%}
+
+        {%- unless applied_discount_titles contains discount_key -%}
+          {%- assign applied_discount_titles = applied_discount_titles | append: discount_key -%}
+          <span class="ww-cart-discount__pill">
+            {%- render 'icon' with 'discount-badge' -%}
+            <span>{{ discount_title }}</span>
+            <span class="ww-cart-discount__pill-remove" aria-hidden="true">&times;</span>
+          </span>
+        {%- endunless -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endfor -%}
+{%- endcapture -%}
 
 <div class="ww-cart-discount ww-cart-discount--{{ cart_discount_context }}" data-cart-discount-code>
   <label class="ww-cart-discount__label" for="ww-cart-discount-code-{{ cart_discount_context }}">Discount code</label>
@@ -16,10 +53,16 @@
       data-cart-discount-input
     >
 
-    <button type="button" class="ww-cart-discount__button" data-cart-discount-apply>
+    <button type="button" class="ww-cart-discount__button" data-cart-discount-apply disabled>
       Apply
     </button>
   </div>
+
+  {%- if applied_discount_pills != blank -%}
+    <div class="ww-cart-discount__pills" aria-label="Applied discount codes">
+      {{- applied_discount_pills -}}
+    </div>
+  {%- endif -%}
 
   <p class="ww-cart-discount__message" data-cart-discount-message hidden></p>
 </div>
@@ -91,8 +134,44 @@
   }
 
   .ww-cart-discount__button[disabled] {
-    cursor: progress;
+    border-color: #e8e8e8;
+    background: #f5f5f5;
+    color: #777;
+    cursor: not-allowed;
     opacity: 0.65;
+  }
+
+  .ww-cart-discount__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .ww-cart-discount__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    max-width: 100%;
+    min-height: 30px;
+    padding: 5px 9px;
+    border-radius: 6px;
+    background: #f1f1f1;
+    color: #000;
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  .ww-cart-discount__pill svg {
+    width: 15px;
+    height: 15px;
+    flex: 0 0 auto;
+  }
+
+  .ww-cart-discount__pill-remove {
+    color: #777;
+    font-size: 20px;
+    line-height: 1;
   }
 
   .ww-cart-discount__message {
@@ -154,6 +233,17 @@
       messageEl.classList.toggle('is-error', Boolean(isError));
     }
 
+    function updateButtonState(form) {
+      var input = form.querySelector('[data-cart-discount-input]');
+      var button = form.querySelector('[data-cart-discount-apply]');
+
+      if (!input || !button || button.dataset.loading === 'true') {
+        return;
+      }
+
+      button.disabled = input.value.trim() === '';
+    }
+
     async function getCart() {
       var routes = getRoutes();
       var cartUrl = routes.cartUrl || '/cart';
@@ -211,6 +301,7 @@
       }
 
       if (button) {
+        button.dataset.loading = 'true';
         button.disabled = true;
         button.textContent = 'Applying';
       }
@@ -237,11 +328,24 @@
         showMessage(form, 'We could not apply that code. Please try again.', true);
       } finally {
         if (button) {
-          button.disabled = false;
+          button.dataset.loading = 'false';
           button.textContent = 'Apply';
+          updateButtonState(form);
         }
       }
     }
+
+    document.addEventListener('input', function(event) {
+      var input = event.target.closest('[data-cart-discount-input]');
+      if (!input) {
+        return;
+      }
+
+      var form = input.closest('[data-cart-discount-code]');
+      if (form) {
+        updateButtonState(form);
+      }
+    });
 
     document.addEventListener('click', function(event) {
       var button = event.target.closest('[data-cart-discount-apply]');
