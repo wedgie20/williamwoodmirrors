@@ -51,7 +51,7 @@
 
   .ww-cart-discount__row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 112px;
+    grid-template-columns: minmax(0, 1fr) 92px;
     gap: 12px;
     align-items: stretch;
   }
@@ -73,8 +73,11 @@
   }
 
   .ww-cart-discount__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     min-height: 46px;
-    padding: 0 16px;
+    padding: 0 12px;
     border: 1px solid #000;
     border-radius: 4px;
     background: #000;
@@ -83,6 +86,7 @@
     font-weight: 700;
     letter-spacing: 0.16em;
     line-height: 1;
+    text-align: center;
     text-transform: uppercase;
   }
 
@@ -112,7 +116,7 @@
     }
 
     .ww-cart-discount__row {
-      grid-template-columns: minmax(0, 1fr) 92px;
+      grid-template-columns: minmax(0, 1fr) 82px;
       gap: 10px;
     }
 
