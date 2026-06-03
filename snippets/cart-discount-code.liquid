@@ -28,7 +28,7 @@
   .ww-cart-discount {
     padding: 16px 20px;
     border-top: 1px solid rgb(var(--root-border-color));
-    border-bottom: 1px solid rgb(var(--root-border-color));
+    border-bottom: 0;
     background: #fff;
   }
 
@@ -51,14 +51,14 @@
 
   .ww-cart-discount__row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 140px;
+    grid-template-columns: minmax(0, 1fr) 112px;
     gap: 12px;
     align-items: stretch;
   }
 
   .ww-cart-discount__input {
     width: 100%;
-    min-height: 50px;
+    min-height: 46px;
     padding: 0 14px;
     border: 1px solid #d7d7d7;
     border-radius: 4px;
@@ -73,8 +73,8 @@
   }
 
   .ww-cart-discount__button {
-    min-height: 50px;
-    padding: 0 20px;
+    min-height: 46px;
+    padding: 0 16px;
     border: 1px solid #000;
     border-radius: 4px;
     background: #000;
@@ -92,7 +92,7 @@
   }
 
   .ww-cart-discount__message {
-    margin: 8px 0 0;
+    margin: 6px 0 0;
     color: #000;
     font-size: 12px;
     line-height: 1.4;
@@ -112,13 +112,13 @@
     }
 
     .ww-cart-discount__row {
-      grid-template-columns: minmax(0, 1fr) 112px;
+      grid-template-columns: minmax(0, 1fr) 92px;
       gap: 10px;
     }
 
     .ww-cart-discount__input,
     .ww-cart-discount__button {
-      min-height: 48px;
+      min-height: 44px;
     }
   }
 </style>
@@ -222,8 +222,6 @@
         });
 
         var cart = await getCart();
-
-        showMessage(form, 'Code applied. Discount will show when the cart qualifies.', false);
 
         if (isCartPage()) {
           window.location.reload();

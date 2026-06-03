@@ -116,7 +116,17 @@
                   <ul class="line-item__discount-list list--unstyled" role="list">
                     {%- for discount_allocation in line_item.line_level_discount_allocations -%}
                       <li class="line-item__discount-badge discount-badge">
-                        {%- render 'icon' with 'discount-badge' -%}{{ discount_allocation.discount_application.title }} (-{{ discount_allocation.amount | money }})
+                        {%- assign discount_badge_title = discount_allocation.discount_application.title -%}
+                        {%- if discount_badge_title == 'WWSAVE' -%}
+                          {%- if cart.item_count >= 3 -%}
+                            {%- assign discount_badge_title = '25% Off 3+' -%}
+                          {%- elsif cart.item_count >= 2 -%}
+                            {%- assign discount_badge_title = '20% Off 2' -%}
+                          {%- else -%}
+                            {%- assign discount_badge_title = '15% Off' -%}
+                          {%- endif -%}
+                        {%- endif -%}
+                        {%- render 'icon' with 'discount-badge' -%}{{ discount_badge_title }} (-{{ discount_allocation.amount | money }})
                       </li>
                     {%- endfor -%}
                   </ul>
