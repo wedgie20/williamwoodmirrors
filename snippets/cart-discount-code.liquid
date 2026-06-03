@@ -11,7 +11,15 @@
         <span class="ww-cart-discount__pill">
           {%- render 'icon' with 'discount-badge' -%}
           <span>{{ discount_title }}</span>
-          <span class="ww-cart-discount__pill-remove" aria-hidden="true">&times;</span>
+          <button
+            type="button"
+            class="ww-cart-discount__pill-remove"
+            aria-label="Remove discount code {{ discount_title | escape }}"
+            data-cart-discount-remove
+            data-discount-code="{{ discount_title | escape }}"
+          >
+            &times;
+          </button>
         </span>
       {%- endunless -%}
     {%- endif -%}
@@ -29,7 +37,15 @@
           <span class="ww-cart-discount__pill">
             {%- render 'icon' with 'discount-badge' -%}
             <span>{{ discount_title }}</span>
-            <span class="ww-cart-discount__pill-remove" aria-hidden="true">&times;</span>
+            <button
+              type="button"
+              class="ww-cart-discount__pill-remove"
+              aria-label="Remove discount code {{ discount_title | escape }}"
+              data-cart-discount-remove
+              data-discount-code="{{ discount_title | escape }}"
+            >
+              &times;
+            </button>
           </span>
         {%- endunless -%}
       {%- endif -%}
@@ -169,9 +185,22 @@
   }
 
   .ww-cart-discount__pill-remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    border: 0;
+    background: transparent;
     color: #777;
+    cursor: pointer;
     font-size: 20px;
     line-height: 1;
+  }
+
+  .ww-cart-discount__pill-remove:hover {
+    color: #000;
   }
 
   .ww-cart-discount__message {
@@ -259,6 +288,26 @@
       return response.json();
     }
 
+    async function updateCartDiscount(discount) {
+      var routes = getRoutes();
+      var cartUrl = routes.cartUrl || '/cart';
+      var updateUrl = cartUrl.replace(/\/$/, '') + '/update.js';
+      var response = await fetch(updateUrl, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ discount: discount })
+      });
+
+      if (!response.ok) {
+        throw new Error('Unable to update discount');
+      }
+
+      return response.json();
+    }
+
     function refreshDrawer(cart) {
       var settings = getSettings();
 
@@ -292,14 +341,6 @@
         return;
       }
 
-      var routes = getRoutes();
-      var rootUrl = routes.rootUrl || '/';
-      var cartUrl = routes.cartUrl || '/cart';
-
-      if (rootUrl.slice(-1) !== '/') {
-        rootUrl += '/';
-      }
-
       if (button) {
         button.dataset.loading = 'true';
         button.disabled = true;
@@ -309,14 +350,7 @@
       showMessage(form, 'Applying code...', false);
 
       try {
-        var discountUrl = rootUrl + 'discount/' + encodeURIComponent(code) + '?redirect=' + encodeURIComponent(cartUrl);
-
-        await fetch(discountUrl, {
-          credentials: 'same-origin',
-          cache: 'no-store'
-        });
-
-        var cart = await getCart();
+        var cart = await updateCartDiscount(code);
 
         if (isCartPage()) {
           window.location.reload();
@@ -335,6 +369,31 @@
       }
     }
 
+    async function removeDiscount(button) {
+      var form = button.closest('[data-cart-discount-code]');
+
+      if (!form) {
+        return;
+      }
+
+      button.disabled = true;
+      showMessage(form, 'Removing code...', false);
+
+      try {
+        var cart = await updateCartDiscount('');
+
+        if (isCartPage()) {
+          window.location.reload();
+          return;
+        }
+
+        refreshDrawer(cart);
+      } catch (error) {
+        button.disabled = false;
+        showMessage(form, 'We could not remove that code. Please try again.', true);
+      }
+    }
+
     document.addEventListener('input', function(event) {
       var input = event.target.closest('[data-cart-discount-input]');
       if (!input) {
@@ -348,6 +407,12 @@
     });
 
     document.addEventListener('click', function(event) {
+      var removeButton = event.target.closest('[data-cart-discount-remove]');
+      if (removeButton) {
+        removeDiscount(removeButton);
+        return;
+      }
+
       var button = event.target.closest('[data-cart-discount-apply]');
       if (!button) {
         return;
