@@ -421,6 +421,8 @@
           <div class="cart__aside">
             <safe-sticky offset="24" class="cart__aside-inner">
               <div class="cart__recap">
+                {%- render 'cart-discount-code', context: 'cart' -%}
+
                 {%- for block in section.blocks -%}
                   {%- case block.type -%}
                     {%- when 'totals' -%}

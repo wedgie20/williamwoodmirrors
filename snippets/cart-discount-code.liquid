@@ -1,0 +1,274 @@
+{%- assign cart_discount_context = context | default: 'cart' -%}
+
+<div class="ww-cart-discount ww-cart-discount--{{ cart_discount_context }}" data-cart-discount-code>
+  <label class="ww-cart-discount__label" for="ww-cart-discount-code-{{ cart_discount_context }}">Discount code</label>
+
+  <div class="ww-cart-discount__row">
+    <input
+      id="ww-cart-discount-code-{{ cart_discount_context }}"
+      class="ww-cart-discount__input"
+      type="text"
+      inputmode="text"
+      autocomplete="off"
+      autocapitalize="characters"
+      placeholder="Enter code here"
+      aria-label="Discount code"
+      data-cart-discount-input
+    >
+
+    <button type="button" class="ww-cart-discount__button" data-cart-discount-apply>
+      Apply
+    </button>
+  </div>
+
+  <p class="ww-cart-discount__message" data-cart-discount-message hidden></p>
+</div>
+
+<style>
+  .ww-cart-discount {
+    padding: 16px 20px;
+    border-top: 1px solid rgb(var(--root-border-color));
+    border-bottom: 1px solid rgb(var(--root-border-color));
+    background: #fff;
+  }
+
+  .ww-cart-discount--cart {
+    padding: 0 0 16px;
+    border-top: 0;
+    border-bottom: 0;
+  }
+
+  .ww-cart-discount__label {
+    display: block;
+    margin-bottom: 8px;
+    color: #000;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .ww-cart-discount__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 140px;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .ww-cart-discount__input {
+    width: 100%;
+    min-height: 50px;
+    padding: 0 14px;
+    border: 1px solid #d7d7d7;
+    border-radius: 4px;
+    color: #000;
+    font-size: 14px;
+    background: #fff;
+  }
+
+  .ww-cart-discount__input:focus {
+    border-color: #000;
+    outline: 0;
+  }
+
+  .ww-cart-discount__button {
+    min-height: 50px;
+    padding: 0 20px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    background: #000;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .ww-cart-discount__button[disabled] {
+    cursor: progress;
+    opacity: 0.65;
+  }
+
+  .ww-cart-discount__message {
+    margin: 8px 0 0;
+    color: #000;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .ww-cart-discount__message.is-error {
+    color: #9b1c1c;
+  }
+
+  @media (max-width: 740px) {
+    .ww-cart-discount {
+      padding: 14px 20px;
+    }
+
+    .ww-cart-discount--cart {
+      padding: 0 0 14px;
+    }
+
+    .ww-cart-discount__row {
+      grid-template-columns: minmax(0, 1fr) 112px;
+      gap: 10px;
+    }
+
+    .ww-cart-discount__input,
+    .ww-cart-discount__button {
+      min-height: 48px;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    if (window.WWCartDiscountCodeReady) {
+      return;
+    }
+
+    window.WWCartDiscountCodeReady = true;
+
+    function getRoutes() {
+      return window.themeVariables && window.themeVariables.routes ? window.themeVariables.routes : {};
+    }
+
+    function getSettings() {
+      return window.themeVariables && window.themeVariables.settings ? window.themeVariables.settings : {};
+    }
+
+    function showMessage(form, message, isError) {
+      var messageEl = form.querySelector('[data-cart-discount-message]');
+      if (!messageEl) {
+        return;
+      }
+
+      messageEl.textContent = message;
+      messageEl.hidden = false;
+      messageEl.classList.toggle('is-error', Boolean(isError));
+    }
+
+    async function getCart() {
+      var routes = getRoutes();
+      var cartUrl = routes.cartUrl || '/cart';
+      var response = await fetch(cartUrl + '.js', {
+        credentials: 'same-origin',
+        cache: 'reload'
+      });
+
+      if (!response.ok) {
+        throw new Error('Unable to refresh cart');
+      }
+
+      return response.json();
+    }
+
+    function refreshDrawer(cart) {
+      var settings = getSettings();
+
+      document.documentElement.dispatchEvent(new CustomEvent('cart:updated', {
+        bubbles: true,
+        detail: { cart: cart }
+      }));
+
+      document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+        bubbles: true,
+        detail: {
+          cart: cart,
+          openMiniCart: settings.cartType === 'drawer'
+        }
+      }));
+    }
+
+    function isCartPage() {
+      var routes = getRoutes();
+      var cartPath = routes.cartUrl || '/cart';
+      return window.location.pathname === cartPath || window.location.pathname.replace(/\/$/, '') === cartPath.replace(/\/$/, '');
+    }
+
+    async function applyDiscount(form) {
+      var input = form.querySelector('[data-cart-discount-input]');
+      var button = form.querySelector('[data-cart-discount-apply]');
+      var code = input ? input.value.trim() : '';
+
+      if (!code) {
+        showMessage(form, 'Enter a discount code to apply.', true);
+        return;
+      }
+
+      var routes = getRoutes();
+      var rootUrl = routes.rootUrl || '/';
+      var cartUrl = routes.cartUrl || '/cart';
+
+      if (rootUrl.slice(-1) !== '/') {
+        rootUrl += '/';
+      }
+
+      if (button) {
+        button.disabled = true;
+        button.textContent = 'Applying';
+      }
+
+      showMessage(form, 'Applying code...', false);
+
+      try {
+        var discountUrl = rootUrl + 'discount/' + encodeURIComponent(code) + '?redirect=' + encodeURIComponent(cartUrl);
+
+        await fetch(discountUrl, {
+          credentials: 'same-origin',
+          cache: 'no-store'
+        });
+
+        var cart = await getCart();
+
+        showMessage(form, 'Code applied. Discount will show when the cart qualifies.', false);
+
+        if (isCartPage()) {
+          window.location.reload();
+          return;
+        }
+
+        refreshDrawer(cart);
+      } catch (error) {
+        showMessage(form, 'We could not apply that code. Please try again.', true);
+      } finally {
+        if (button) {
+          button.disabled = false;
+          button.textContent = 'Apply';
+        }
+      }
+    }
+
+    document.addEventListener('click', function(event) {
+      var button = event.target.closest('[data-cart-discount-apply]');
+      if (!button) {
+        return;
+      }
+
+      var form = button.closest('[data-cart-discount-code]');
+      if (form) {
+        applyDiscount(form);
+      }
+    });
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key !== 'Enter') {
+        return;
+      }
+
+      var input = event.target.closest('[data-cart-discount-input]');
+      if (!input) {
+        return;
+      }
+
+      event.preventDefault();
+
+      var form = input.closest('[data-cart-discount-code]');
+      if (form) {
+        applyDiscount(form);
+      }
+    });
+  })();
+</script>
