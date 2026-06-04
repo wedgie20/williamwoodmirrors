@@ -169,9 +169,19 @@
         </div>
       {%- endform -%}
 
-      <div class="ww-pdp__payments">
-        <p>Pay in 3 interest-free payments of {{ payment_amount | money }} with <strong class="ww-pdp__paypal">PayPal</strong> <a href="/pages/payment">Learn More</a></p>
-        <p>Pay in <span>3</span> interest-free payments of {{ payment_amount | money }} with <strong>Klarna.</strong> <a href="/pages/payment">Learn More</a></p>
+      <div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ current_variant.price }}">
+        <p>Pay in <span data-ww-paypal-count>3</span> interest-free payments of <span data-ww-paypal-amount>{{ payment_amount | money }}</span> with <strong class="ww-pdp__paypal">PayPal</strong> <a href="/pages/payment">Learn More</a></p>
+        <p>
+          Pay in
+          <select class="ww-pdp__installment-select" data-ww-installment-select aria-label="Choose installment count">
+            <option value="3" selected>3</option>
+            <option value="4">4</option>
+            <option value="6">6</option>
+            <option value="9">9</option>
+            <option value="12">12</option>
+          </select>
+          interest-free payments of <span data-ww-klarna-amount>{{ payment_amount | money }}</span> with <strong>Klarna.</strong> <a href="/pages/payment">Learn More</a>
+        </p>
       </div>
 
       <div class="ww-pdp__ctl">
@@ -512,6 +522,10 @@
     cursor: pointer;
   }
 
+  .ww-pdp__code span {
+    color: #fff;
+  }
+
   .ww-pdp__code svg {
     width: 20px;
     height: 20px;
@@ -610,6 +624,26 @@
     font-size: 15px;
   }
 
+  .ww-pdp__summary > product-payment-terms,
+  .ww-pdp__summary > .shopify-payment-terms,
+  .ww-pdp__summary > .shopify-installments,
+  .ww-pdp__summary > [data-shopify-payment-terms],
+  .ww-pdp__summary > [data-pp-message],
+  .ww-pdp__summary > .paypal-messages {
+    display: none !important;
+  }
+
+  .ww-pdp__postcode-widget {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 0 14px !important;
+    box-sizing: border-box !important;
+  }
+
+  .ww-pdp__postcode-widget input {
+    max-width: none;
+  }
+
   .ww-pdp__payments p {
     margin: 0;
   }
@@ -625,15 +659,17 @@
     text-decoration: underline;
   }
 
-  .ww-pdp__payments span {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 48px;
+  .ww-pdp__installment-select {
+    min-width: 54px;
     height: 30px;
+    border: 0;
     border-radius: 999px;
+    padding: 0 23px 0 16px;
     background: #f1f1f1;
+    color: #111;
     font-size: 18px;
+    line-height: 30px;
+    cursor: pointer;
   }
 
   .ww-pdp__paypal {
@@ -980,5 +1016,80 @@
         }
       });
     });
+
+    function formatInstallmentMoney(cents) {
+      var rounded = Math.round(cents);
+      if (window.Shopify && typeof window.Shopify.formatMoney === 'function') {
+        return window.Shopify.formatMoney(rounded, {{ shop.money_format | json }});
+      }
+
+      var amount = rounded / 100;
+      return new Intl.NumberFormat('en-GB', {
+        style: 'currency',
+        currency: (window.Shopify && window.Shopify.currency && window.Shopify.currency.active) || 'GBP',
+        minimumFractionDigits: amount % 1 === 0 ? 0 : 2,
+        maximumFractionDigits: 2
+      }).format(amount);
+    }
+
+    root.querySelectorAll('[data-ww-installments]').forEach(function (box) {
+      var priceCents = parseInt(box.dataset.priceCents || '0', 10);
+      var select = box.querySelector('[data-ww-installment-select]');
+      var paypalCount = box.querySelector('[data-ww-paypal-count]');
+      var paypalAmount = box.querySelector('[data-ww-paypal-amount]');
+      var klarnaAmount = box.querySelector('[data-ww-klarna-amount]');
+      if (!priceCents || !select) return;
+
+      function updateInstallments() {
+        var count = parseInt(select.value || '3', 10);
+        var amount = formatInstallmentMoney(priceCents / count);
+        if (paypalCount) paypalCount.textContent = count;
+        if (paypalAmount) paypalAmount.textContent = amount;
+        if (klarnaAmount) klarnaAmount.textContent = amount;
+      }
+
+      select.addEventListener('change', updateInstallments);
+      updateInstallments();
+    });
+
+    function hideLoosePaymentLines() {
+      root.querySelectorAll('product-payment-terms, .shopify-payment-terms, .shopify-installments, [data-shopify-payment-terms], [data-pp-message], .paypal-messages, .ww-pdp__summary > p, .ww-pdp__summary > div:not([class^="ww-pdp__"])').forEach(function (node) {
+        if (node.closest('.ww-pdp__payments')) return;
+        var text = (node.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
+        if (node.matches('product-payment-terms, .shopify-payment-terms, .shopify-installments, [data-shopify-payment-terms], [data-pp-message], .paypal-messages') || (text.indexOf('pay in') !== -1 && text.indexOf('paypal') !== -1 && text.indexOf('interest-free') !== -1)) {
+          node.style.setProperty('display', 'none', 'important');
+        }
+      });
+    }
+
+    function alignPostcodeWidget() {
+      var summary = root.querySelector('.ww-pdp__summary');
+      if (!summary) return;
+
+      summary.querySelectorAll('input').forEach(function (input) {
+        var marker = ((input.getAttribute('placeholder') || '') + ' ' + (input.getAttribute('aria-label') || '') + ' ' + (input.name || '') + ' ' + (input.id || '')).toLowerCase();
+        if (marker.indexOf('postcode') === -1 && marker.indexOf('post code') === -1 && marker.indexOf('zip') === -1) return;
+
+        var target = input.closest('form') || input.parentElement;
+        var walker = target;
+        for (var i = 0; i < 6 && walker && walker !== summary; i += 1) {
+          if ((walker.textContent || '').toLowerCase().indexOf('postcode') !== -1) {
+            target = walker;
+          }
+          walker = walker.parentElement;
+        }
+
+        if (target && target !== summary) {
+          target.classList.add('ww-pdp__postcode-widget');
+        }
+      });
+    }
+
+    hideLoosePaymentLines();
+    alignPostcodeWidget();
+    new MutationObserver(function () {
+      hideLoosePaymentLines();
+      alignPostcodeWidget();
+    }).observe(root, { childList: true, subtree: true });
   })();
 </script>
