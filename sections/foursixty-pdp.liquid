@@ -2,7 +2,15 @@
 <div id="foursixty-hideable-container" style="display:none">
   <div class="foursixty-section">
     <header class="section__header text-container">
-      <h2 class="heading heading--small">{{ section.settings.title | escape }}<br/>{{ section.settings.title2 | escape }}</h2>
+      {%- assign fs_title = section.settings.title | escape -%}
+      {%- assign fs_title_2 = section.settings.title2 | escape -%}
+      <h2 class="heading heading--small">
+        {%- if template contains 'product' and fs_title_2 == blank and fs_title contains '610,000+' -%}
+          {{ fs_title | replace: '610,000+ discerning', '610,000+<br/>discerning' }}
+        {%- else -%}
+          {{ fs_title }}{% if fs_title_2 != blank %}<br/>{{ fs_title_2 }}{% endif %}
+        {%- endif -%}
+      </h2>
     </header>
 
     <script

@@ -32,7 +32,13 @@
           {%- endif -%}
         </a>
         <div class="ctl-card__body">
-          <a href="{{ rp.url }}" class="ctl-card__title">{{ rp.title|truncate: 20 }}</a>
+          <a href="{{ rp.url }}" class="ctl-card__title">
+            {%- if full_titles -%}
+              {{ rp.title }}
+            {%- else -%}
+              {{ rp.title | truncate: 20 }}
+            {%- endif -%}
+          </a>
           <div class="ctl-card__rating">
             {%- render 'product-rating', product: rp -%}
           </div>

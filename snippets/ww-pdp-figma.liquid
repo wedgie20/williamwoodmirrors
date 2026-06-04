@@ -196,7 +196,7 @@
       </div>
 
       <div class="ww-pdp__ctl">
-        {%- render 'ww-ctl-inline' -%}
+        {%- render 'ww-ctl-inline', full_titles: true -%}
       </div>
     </div>
   </div>
@@ -392,14 +392,14 @@
     border-radius: 2px;
     padding: 0 16px;
     margin-bottom: 58px;
-    font-family: Georgia, serif;
+    font-family: "Ambroise", "altesse-std-24pt", "Times New Roman", Georgia, serif;
     font-size: 18px;
     line-height: 1;
   }
 
   .ww-pdp__designed strong {
     margin-left: 7px;
-    font-family: inherit;
+    font-family: var(--heading-font-family, var(--text-font-family, Arial, sans-serif));
     font-size: 15px;
     font-weight: 800;
   }
@@ -777,9 +777,12 @@
     font-size: 18px;
     line-height: 1.12;
     font-weight: 700;
-    display: block;
-    min-height: 0;
-    -webkit-line-clamp: unset;
+    display: -webkit-box;
+    min-height: 40px;
+    overflow: hidden;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 
   .ww-pdp__ctl .ctl-box--inline .ctl-card__price {
@@ -849,6 +852,9 @@
   }
 
   .foursixty-section .section__header .heading {
+    max-width: 820px;
+    margin-left: auto;
+    margin-right: auto;
     font-size: 34px;
     line-height: 1.12;
     letter-spacing: 0;
@@ -861,7 +867,7 @@
     max-width: 1550px !important;
     margin: 0 auto !important;
     margin-left: 50% !important;
-    padding: 118px 0 86px !important;
+    padding: 50px 0 86px !important;
     transform: translateX(-50%) !important;
     background: #fff !important;
     color: #050505 !important;
@@ -881,7 +887,7 @@
   }
 
   .jdgm-review-widget .jdgm-rev-widg__title {
-    margin: 0 0 38px !important;
+    margin: 0 0 36px !important;
     padding: 0 !important;
     text-align: center !important;
     color: #050505 !important;
@@ -895,9 +901,9 @@
     display: grid !important;
     grid-template-columns: minmax(220px, 1fr) minmax(310px, 1.12fr) minmax(240px, 1fr) !important;
     align-items: center !important;
-    column-gap: 58px !important;
-    width: min(1080px, 100%) !important;
-    margin: 0 auto 58px !important;
+    column-gap: 68px !important;
+    width: min(1290px, 100%) !important;
+    margin: 0 auto 42px !important;
     padding: 0 !important;
   }
 
@@ -936,7 +942,7 @@
   .jdgm-review-widget .jdgm-histogram {
     width: 100% !important;
     margin: 0 !important;
-    padding: 0 58px !important;
+    padding: 0 70px !important;
     border-left: 1px solid #e6e6e6 !important;
     border-right: 1px solid #e6e6e6 !important;
   }
@@ -1045,7 +1051,7 @@
     line-height: 1.15 !important;
     font-weight: 400 !important;
     text-decoration: underline !important;
-    text-underline-offset: 2px !important;Please
+    text-underline-offset: 2px !important;
   }
 
   .jdgm-review-widget .jdgm-rev-widg__tab.jdgm-rev-widg__tab--active {
