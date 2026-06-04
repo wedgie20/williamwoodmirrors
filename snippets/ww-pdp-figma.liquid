@@ -239,6 +239,12 @@
     display: none;
   }
 
+  #shopify-section-{{ section.id }} ~ [id$="__rich_text_RWTB7"],
+  #shopify-section-{{ section.id }} ~ [id$="__product-recommendations"],
+  #shopify-section-{{ section.id }} ~ [id$="__17266470579eb0696b"] {
+    display: none !important;
+  }
+
   .ww-pdp,
   .ww-pdp * {
     letter-spacing: 0;
@@ -996,7 +1002,7 @@
     line-height: 1.15 !important;
     font-weight: 400 !important;
     text-decoration: underline !important;
-    text-underline-offset: 2px !important;
+    text-underline-offset: 2px !important;Please
   }
 
   .jdgm-review-widget .jdgm-rev-widg__tab.jdgm-rev-widg__tab--active {
@@ -1006,7 +1012,7 @@
 
   .jdgm-review-widget .jdgm-row-actions {
     display: flex !important;
-    align-items: center !important;
+    {% comment %} align-items: center !important; {% endcomment %}
     justify-content: flex-start !important;
     min-height: 70px !important;
     margin: 0 !important;
