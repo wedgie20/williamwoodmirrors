@@ -528,7 +528,7 @@
     align-items: center;
     gap: 22px;
     min-height: 80px;
-    padding: 12px 58px;
+    padding: 12px 50px;
     margin-bottom: 14px;
     font-size: 19px;
   }
@@ -551,7 +551,7 @@
     padding: 0 16px;
     background: #9f3934;
     color: #fff;
-    font-size: 18px;
+    font-size: 12px;
     font-weight: 700;
     cursor: pointer;
   }
@@ -668,6 +668,7 @@
   }
 
   .ww-pdp__postcode-widget {
+    display: none !important;
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 0 14px !important;
@@ -1616,7 +1617,7 @@
       });
     }
 
-    function alignPostcodeWidget() {
+    function hidePostcodeWidget() {
       var summary = root.querySelector('.ww-pdp__summary');
       if (!summary) return;
 
@@ -1635,15 +1636,16 @@
 
         if (target && target !== summary) {
           target.classList.add('ww-pdp__postcode-widget');
+          target.style.setProperty('display', 'none', 'important');
         }
       });
     }
 
     hideLoosePaymentLines();
-    alignPostcodeWidget();
+    hidePostcodeWidget();
     new MutationObserver(function () {
       hideLoosePaymentLines();
-      alignPostcodeWidget();
+      hidePostcodeWidget();
     }).observe(root, { childList: true, subtree: true });
 
     function normalizeJudgeMeReviews() {
