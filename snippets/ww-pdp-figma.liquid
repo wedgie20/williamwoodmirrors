@@ -270,7 +270,7 @@
   .ww-pdp__top {
     display: grid;
     grid-template-columns: minmax(0, 57%) minmax(420px, 43%);
-    min-height: 100vh;
+    min-height: calc(100vh - 92px);
     border-top: 1px solid #dedede;
     border-bottom: 1px solid #efefef;
   }
@@ -278,8 +278,8 @@
   .ww-pdp__media {
     position: sticky;
     top: 0;
-    height: 100vh;
-    min-height: 760px;
+    height: calc(100vh - 92px);
+    min-height: 640px;
   }
 
   .ww-pdp__media-frame,
@@ -596,7 +596,7 @@
   }
 
   .ww-pdp__quantity {
-    height: 74px;
+    height: 60px;
     border: 1px solid #e1e1e1;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -630,7 +630,7 @@
   }
 
   .ww-pdp__add {
-    height: 74px;
+    height: 60px;
     border: 1px solid #000;
     border-radius: 0;
     background: #000;
@@ -1341,8 +1341,8 @@
 
   @media screen and (min-width: 1000px) {
     .ww-pdp__media-frame {
-      margin-left: 24px;
-      width: calc(100% - 24px);
+      margin-left: 0;
+      width: 100%;
     }
   }
 
@@ -1411,7 +1411,7 @@
 
     .ww-pdp__quantity,
     .ww-pdp__add {
-      height: 58px;
+      height: 50px;
     }
 
     .ww-pdp__add {
