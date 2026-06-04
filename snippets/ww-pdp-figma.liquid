@@ -25,6 +25,10 @@
   if current_variant.compare_at_price != blank and current_variant.compare_at_price > current_variant.price
     assign is_full_price = false
   endif
+  assign has_variant_discount = false
+  if current_variant.compare_at_price != blank and current_variant.compare_at_price > current_variant.price
+    assign has_variant_discount = true
+  endif
 
   assign promo_code = ''
   assign promo_text = ''
@@ -113,7 +117,14 @@
       <h1 class="ww-pdp__title">{{ product_heading }}</h1>
 
       <div class="ww-pdp__price-row">
-        <span class="ww-pdp__price">{{ current_variant.price | money }}</span>
+        <span class="ww-pdp__price-group {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
+          {%- if has_variant_discount -%}
+            <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.compare_at_price | money }}</span>
+            <span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
+          {%- else -%}
+            <span class="ww-pdp__price" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
+          {%- endif -%}
+        </span>
         <span class="ww-pdp__pill ww-pdp__pill--stock"><span></span>{% if current_variant.available %}In stock{% else %}Sold out{% endif %}</span>
         <span class="ww-pdp__pill">Free UK Delivery</span>
         <span class="ww-pdp__pill">Crafted in limited quantities</span>
@@ -150,7 +161,7 @@
             <label for="{{ product_form_id }}-id">Choose option</label>
             <select id="{{ product_form_id }}-id" name="id">
               {%- for variant in product.variants -%}
-                <option value="{{ variant.id }}" {% if variant.id == current_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
+                <option value="{{ variant.id }}" data-price="{{ variant.price }}" data-compare-at="{{ variant.compare_at_price | default: 0 }}" data-available="{{ variant.available }}" {% if variant.id == current_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
                   {{ variant.title }}{% unless variant.available %} - Sold out{% endunless %}
                 </option>
               {%- endfor -%}
@@ -417,11 +428,28 @@
     margin-bottom: 22px;
   }
 
-  .ww-pdp__price {
+  .ww-pdp__price-group {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
     margin-right: 10px;
+  }
+
+  .ww-pdp__price {
     font-size: 26px;
     line-height: 1;
     font-weight: 400;
+  }
+
+  .ww-pdp__price--compare {
+    color: #5b5b5b;
+    text-decoration: line-through;
+    text-decoration-thickness: 1.5px;
+    text-decoration-color: currentColor;
+  }
+
+  .ww-pdp__price--sale {
+    color: #ff4b4b;
   }
 
   .ww-pdp__pill {
@@ -1470,15 +1498,59 @@
       }).format(amount);
     }
 
+    var variantSelect = root.querySelector('.ww-pdp__variant select[name="id"]');
+    var priceGroup = root.querySelector('[data-ww-pdp-price-group]');
+    var stockPill = root.querySelector('.ww-pdp__pill--stock');
+    var addButton = root.querySelector('.ww-pdp__add');
+
+    function updateSelectedVariantDisplay(option) {
+      if (!option) return;
+      var price = parseInt(option.dataset.price || '0', 10);
+      var compareAt = parseInt(option.dataset.compareAt || '0', 10);
+      var available = option.dataset.available === 'true';
+
+      if (priceGroup && price) {
+        if (compareAt > price) {
+          priceGroup.classList.add('is-discounted');
+          priceGroup.innerHTML = '<span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>' + formatInstallmentMoney(compareAt) + '</span><span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>' + formatInstallmentMoney(price) + '</span>';
+        } else {
+          priceGroup.classList.remove('is-discounted');
+          priceGroup.innerHTML = '<span class="ww-pdp__price" data-ww-pdp-current-price>' + formatInstallmentMoney(price) + '</span>';
+        }
+      }
+
+      if (stockPill) {
+        stockPill.innerHTML = '<span></span>' + (available ? 'In stock' : 'Sold out');
+      }
+
+      if (addButton) {
+        addButton.disabled = !available;
+        addButton.textContent = available ? 'Add to bag' : 'Sold out';
+      }
+
+      root.querySelectorAll('[data-ww-installments]').forEach(function (box) {
+        box.dataset.priceCents = price || box.dataset.priceCents;
+        var select = box.querySelector('[data-ww-installment-select]');
+        if (select) select.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+    }
+
+    if (variantSelect) {
+      variantSelect.addEventListener('change', function () {
+        updateSelectedVariantDisplay(variantSelect.options[variantSelect.selectedIndex]);
+      });
+    }
+
     root.querySelectorAll('[data-ww-installments]').forEach(function (box) {
-      var priceCents = parseInt(box.dataset.priceCents || '0', 10);
       var select = box.querySelector('[data-ww-installment-select]');
       var paypalCount = box.querySelector('[data-ww-paypal-count]');
       var paypalAmount = box.querySelector('[data-ww-paypal-amount]');
       var klarnaAmount = box.querySelector('[data-ww-klarna-amount]');
-      if (!priceCents || !select) return;
+      if (!select) return;
 
       function updateInstallments() {
+        var priceCents = parseInt(box.dataset.priceCents || '0', 10);
+        if (!priceCents) return;
         var count = parseInt(select.value || '3', 10);
         var amount = formatInstallmentMoney(priceCents / count);
         if (paypalCount) paypalCount.textContent = count;
