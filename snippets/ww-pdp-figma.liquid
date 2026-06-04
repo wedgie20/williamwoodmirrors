@@ -1,0 +1,973 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign featured_media = current_variant.featured_media | default: product.featured_media
+  assign title_parts = product.title | split: ' - '
+
+  if title_parts.size > 1
+    assign product_label = title_parts.first | strip
+    assign product_heading = product.title | remove_first: product_label | remove_first: ' - ' | strip
+  else
+    assign product_label = product.title | split: ' ' | first | strip
+    assign product_heading = product.title
+  endif
+
+  assign review_count = product.metafields.reviews.rating_count.value | default: 0
+  assign short_description = product.metafields.custom.short_description.value | default: product.metafields.custom.short_description | default: product.description | strip_html | truncate: 150
+  assign has_host_promo = false
+
+  for product_collection in product.collections
+    if product_collection.handle == 'host-the-moment'
+      assign has_host_promo = true
+    endif
+  endfor
+
+  assign is_full_price = true
+  if current_variant.compare_at_price != blank and current_variant.compare_at_price > current_variant.price
+    assign is_full_price = false
+  endif
+
+  assign promo_code = ''
+  assign promo_text = ''
+  assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id
+
+  if has_host_promo
+    assign promo_code = 'HOST20'
+    assign promo_text = '20% off this item'
+  elsif is_full_price
+    assign promo_code = 'TAKE15'
+    assign promo_text = '15% off on this item'
+  endif
+
+  assign payment_amount = current_variant.price | divided_by: 3
+
+  assign detail_height = product.metafields.custom.height.value | default: product.metafields.custom.height
+  assign detail_width = product.metafields.custom.width.value | default: product.metafields.custom.width
+  assign detail_depth = product.metafields.custom.depth.value | default: product.metafields.custom.depth
+  assign detail_colour = product.metafields.custom.colour.value | default: product.metafields.custom.colour | default: product.metafields.custom.color.value | default: product.metafields.custom.color
+  assign detail_material = product.metafields.custom.material.value | default: product.metafields.custom.material
+  assign detail_weight = product.metafields.custom.weight.value | default: product.metafields.custom.weight
+  assign detail_capacity = product.metafields.custom.weight_capacity.value | default: product.metafields.custom.weight_capacity
+  assign detail_outdoor = product.metafields.custom.outdoor_suitable.value | default: product.metafields.custom.outdoor_suitable
+  assign detail_assembly = product.metafields.custom.assembly.value | default: product.metafields.custom.assembly
+  assign detail_care = product.metafields.custom.product_care_information.value | default: product.metafields.custom.product_care_information | default: product.metafields.custom.care.value | default: product.metafields.custom.care
+  assign detail_assembly_time = product.metafields.custom.assembly_time.value | default: product.metafields.custom.assembly_time
+-%}
+
+{%- capture overall_size -%}
+  {%- if detail_height != blank -%}{{ detail_height }} Height{%- endif -%}
+  {%- if detail_width != blank -%}{% if detail_height != blank %} x {% endif %}{{ detail_width }} Width{%- endif -%}
+  {%- if detail_depth != blank -%}{% if detail_height != blank or detail_width != blank %} x {% endif %}{{ detail_depth }} Depth{%- endif -%}
+{%- endcapture -%}
+{%- assign overall_size_clean = overall_size | strip -%}
+
+{%- assign second_media = blank -%}
+{%- for media in product.media -%}
+  {%- if forloop.index == 2 -%}
+    {%- assign second_media = media -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign detail_media = second_media | default: featured_media -%}
+
+<section class="ww-pdp" data-ww-pdp>
+  <div class="ww-pdp__top">
+    <div class="ww-pdp__media" data-ww-pdp-gallery>
+      <div class="ww-pdp__media-frame">
+        {%- if featured_media != blank -%}
+          <img class="ww-pdp__main-image" data-ww-pdp-main-image loading="eager" sizes="(min-width: 1000px) 57vw, 100vw" {% render 'image-attributes', image: featured_media.preview_image, sizes: '800,1000,1200,1400,1600,1800,2200' %}>
+        {%- endif -%}
+
+        <div class="ww-pdp__thumbs" aria-label="Product media thumbnails">
+          {%- for media in product.media limit: 7 -%}
+            {%- if media.preview_image != blank -%}
+              <button type="button" class="ww-pdp__thumb {% if media.id == featured_media.id %}is-active{% endif %}" data-ww-pdp-thumb data-src="{{ settings.speedsize_url_pfx_https -}}{{ media.preview_image | img_url: '1800x' }}" data-alt="{{ media.alt | default: product.title | escape }}" aria-label="Show image {{ forloop.index }}">
+                <img loading="lazy" sizes="78px" {% render 'image-attributes', image: media.preview_image, sizes: '90,140,180' %}>
+              </button>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        <div class="ww-pdp__media-controls">
+          <button type="button" class="ww-pdp__media-btn" data-ww-pdp-zoom aria-label="Zoom product image">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 18a7.5 7.5 0 1 1 5.3-12.8 7.5 7.5 0 0 1-5.3 12.8Zm0-1.5a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm4.7-.2 4.2 4.2-1.1 1.1-4.2-4.2 1.1-1.1ZM9.8 7h1.5v2.8H14v1.5h-2.7V14H9.8v-2.7H7V9.8h2.8V7Z"/></svg>
+          </button>
+          <button type="button" class="ww-pdp__media-btn" data-ww-pdp-prev aria-label="Previous product image">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.7 5.3 1.1 1.1L10.2 12l5.6 5.6-1.1 1.1L8 12l6.7-6.7Z"/></svg>
+          </button>
+          <button type="button" class="ww-pdp__media-btn" data-ww-pdp-next aria-label="Next product image">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.3 18.7-1.1-1.1 5.6-5.6-5.6-5.6 1.1-1.1L16 12l-6.7 6.7Z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ww-pdp__summary">
+      <nav class="ww-pdp__breadcrumb" aria-label="{{ 'general.breadcrumb.title' | t }}">
+        <a href="{{ routes.root_url }}">Home</a>
+        <span>/</span>
+        <span>{{ product.title }}</span>
+      </nav>
+
+      <div class="ww-pdp__designed">Designed in-house by <strong>WILLIAM WOOD</strong></div>
+
+      <p class="ww-pdp__label">{{ product_label }}</p>
+      <h1 class="ww-pdp__title">{{ product_heading }}</h1>
+
+      <div class="ww-pdp__price-row">
+        <span class="ww-pdp__price">{{ current_variant.price | money }}</span>
+        <span class="ww-pdp__pill ww-pdp__pill--stock"><span></span>{% if current_variant.available %}In stock{% else %}Sold out{% endif %}</span>
+        <span class="ww-pdp__pill">Free UK Delivery</span>
+        <span class="ww-pdp__pill">Crafted in limited quantities</span>
+      </div>
+
+      <a class="ww-pdp__reviews" href="#judgeme_product_reviews">
+        <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span>{{ review_count }} reviews</span>
+      </a>
+
+      {%- if short_description != blank -%}
+        <div class="ww-pdp__excerpt">
+          {{ short_description }}
+          <a href="#product-{{ product.id }}-details">Read more</a>
+        </div>
+      {%- endif -%}
+
+      {%- if promo_code != blank -%}
+        <div class="ww-pdp__promo">
+          <strong>{{ promo_text }}</strong>
+          <span>Apply code at checkout.</span>
+          <button type="button" class="ww-pdp__code" data-ww-copy-code="{{ promo_code }}">
+            <span>{{ promo_code | replace: 'TAKE15', 'TAKE 15' }}</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7V5.5A2.5 2.5 0 0 1 10.5 3h7A2.5 2.5 0 0 1 20 5.5v7a2.5 2.5 0 0 1-2.5 2.5H16v1.5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 4 16.5v-7A2.5 2.5 0 0 1 6.5 7H8Zm1.5 0h4A2.5 2.5 0 0 1 16 9.5v4h1.5a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1V7Zm-3 1.5a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-7Z"/></svg>
+          </button>
+        </div>
+      {%- endif -%}
+
+      {%- form 'product', product, id: product_form_id, is: 'product-form', class: 'ww-pdp__form' -%}
+        {%- if product.has_only_default_variant -%}
+          <input type="hidden" disabled name="id" value="{{ current_variant.id }}">
+        {%- else -%}
+          <div class="ww-pdp__variant">
+            <label for="{{ product_form_id }}-id">Choose option</label>
+            <select id="{{ product_form_id }}-id" name="id">
+              {%- for variant in product.variants -%}
+                <option value="{{ variant.id }}" {% if variant.id == current_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
+                  {{ variant.title }}{% unless variant.available %} - Sold out{% endunless %}
+                </option>
+              {%- endfor -%}
+            </select>
+          </div>
+        {%- endif -%}
+        <div class="ww-pdp__buy-row">
+          <div class="ww-pdp__quantity" data-ww-quantity>
+            <button type="button" data-ww-quantity-minus aria-label="Decrease quantity">-</button>
+            <input type="number" name="quantity" min="1" value="1" inputmode="numeric" aria-label="Quantity">
+            <button type="button" data-ww-quantity-plus aria-label="Increase quantity">+</button>
+          </div>
+          <button type="submit" class="ww-pdp__add" {% unless current_variant.available %}disabled{% endunless %}>
+            {%- if current_variant.available -%}Add to bag{%- else -%}Sold out{%- endif -%}
+          </button>
+        </div>
+      {%- endform -%}
+
+      <div class="ww-pdp__payments">
+        <p>Pay in 3 interest-free payments of {{ payment_amount | money }} with <strong class="ww-pdp__paypal">PayPal</strong> <a href="/pages/payment">Learn More</a></p>
+        <p>Pay in <span>3</span> interest-free payments of {{ payment_amount | money }} with <strong>Klarna.</strong> <a href="/pages/payment">Learn More</a></p>
+      </div>
+
+      <div class="ww-pdp__ctl">
+        {%- render 'ww-ctl-inline' -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="ww-pdp__details" id="product-{{ product.id }}-details">
+    <div class="ww-pdp__detail-image">
+      {%- if detail_media.preview_image != blank -%}
+        <img loading="lazy" sizes="(min-width: 1000px) 58vw, 100vw" {% render 'image-attributes', image: detail_media.preview_image, sizes: '800,1000,1200,1400,1600,1800,2200' %}>
+      {%- endif -%}
+    </div>
+
+    <div class="ww-pdp__detail-copy">
+      <h2>Key Details</h2>
+      {%- if overall_size_clean != blank -%}
+        <div class="ww-pdp__detail-item"><strong>Overall Size</strong><p>{{ overall_size_clean }}</p></div>
+      {%- endif -%}
+      {%- if detail_colour != blank -%}
+        <div class="ww-pdp__detail-item"><strong>Colour</strong><p>{{ detail_colour }}</p></div>
+      {%- endif -%}
+      {%- if detail_material != blank -%}
+        <div class="ww-pdp__detail-item"><strong>Material</strong><p>{{ detail_material }}</p></div>
+      {%- endif -%}
+      {%- if detail_weight != blank -%}
+        <div class="ww-pdp__detail-item"><strong>Weight - {{ detail_weight }}</strong>{% if detail_material != blank %}<p>{{ detail_material }}</p>{% endif %}</div>
+      {%- endif -%}
+      {%- if detail_capacity != blank -%}
+        <div class="ww-pdp__detail-item"><strong>Weight Capacity- {{ detail_capacity }}</strong>{% if detail_material != blank %}<p>{{ detail_material }}</p>{% endif %}</div>
+      {%- endif -%}
+      {%- if detail_outdoor != blank -%}
+        <div class="ww-pdp__detail-item"><strong>Outdoor suitable</strong><p>{{ detail_outdoor }}</p></div>
+      {%- endif -%}
+      {%- if detail_assembly != blank -%}
+        <div class="ww-pdp__detail-item"><strong>Assembly</strong><p>{{ detail_assembly }}</p></div>
+      {%- endif -%}
+      {%- if detail_care != blank -%}
+        <div class="ww-pdp__detail-item"><strong>Product Care Information</strong><p>{{ detail_care }}</p></div>
+      {%- endif -%}
+      {%- if detail_assembly_time != blank -%}
+        <div class="ww-pdp__detail-item"><strong>Assembly Time</strong><p>{{ detail_assembly_time }}</p><em>This piece of furniture arrives ready for quick and easy assembly.</em></div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} ~ .shopify-section--product-content {
+    display: none;
+  }
+
+  .ww-pdp,
+  .ww-pdp * {
+    letter-spacing: 0;
+  }
+
+  .ww-pdp {
+    color: #050505;
+    font-size: 16px;
+    line-height: 1.35;
+  }
+
+  .ww-pdp__top {
+    display: grid;
+    grid-template-columns: minmax(0, 57%) minmax(420px, 43%);
+    min-height: 100vh;
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #efefef;
+  }
+
+  .ww-pdp__media {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    min-height: 760px;
+  }
+
+  .ww-pdp__media-frame,
+  .ww-pdp__detail-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #f3efe6;
+  }
+
+  .ww-pdp__main-image,
+  .ww-pdp__detail-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .ww-pdp__thumbs {
+    position: absolute;
+    left: 30px;
+    right: 180px;
+    bottom: 28px;
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .ww-pdp__thumbs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ww-pdp__thumb {
+    width: 80px;
+    height: 80px;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    opacity: .82;
+    cursor: pointer;
+    flex: 0 0 auto;
+  }
+
+  .ww-pdp__thumb.is-active {
+    outline: 3px solid #fff;
+    opacity: 1;
+  }
+
+  .ww-pdp__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ww-pdp__media-controls {
+    position: absolute;
+    right: 30px;
+    bottom: 28px;
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+  }
+
+  .ww-pdp__media-btn {
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 9px;
+    background: #fff;
+    color: #111;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+
+  .ww-pdp__media-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+  }
+
+  .ww-pdp__summary {
+    padding: 32px 50px 54px;
+    overflow: hidden;
+  }
+
+  .ww-pdp__breadcrumb {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-bottom: 18px;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .ww-pdp__breadcrumb a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .ww-pdp__designed {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    padding: 0 16px;
+    margin-bottom: 58px;
+    font-family: Georgia, serif;
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .ww-pdp__designed strong {
+    margin-left: 7px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 800;
+  }
+
+  .ww-pdp__label {
+    margin: 0 0 18px;
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 700;
+    color: #4b4b4b;
+  }
+
+  .ww-pdp__title {
+    max-width: 620px;
+    margin: 0 0 24px;
+    font-size: 32px;
+    line-height: 1.08;
+    font-weight: 700;
+  }
+
+  .ww-pdp__price-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+
+  .ww-pdp__price {
+    margin-right: 10px;
+    font-size: 26px;
+    line-height: 1;
+    font-weight: 400;
+  }
+
+  .ww-pdp__pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 30px;
+    border: 1.5px solid #111;
+    border-radius: 999px;
+    padding: 0 15px;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .ww-pdp__pill--stock {
+    border-color: #00a233;
+    color: #00a233;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+
+  .ww-pdp__pill--stock span {
+    width: 10px;
+    height: 10px;
+    margin-right: 9px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .ww-pdp__reviews {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 34px;
+    color: #111;
+    text-decoration: none;
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .ww-pdp__reviews span:last-child {
+    font-size: 15px;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .ww-pdp__excerpt {
+    max-width: 650px;
+    margin-bottom: 38px;
+    font-size: 19px;
+    line-height: 1.35;
+  }
+
+  .ww-pdp__excerpt a {
+    display: block;
+    width: fit-content;
+    margin-top: 2px;
+    color: inherit;
+    text-transform: uppercase;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .ww-pdp__promo,
+  .ww-pdp__payments {
+    border: 1px solid #dedede;
+    border-radius: 0;
+    background: #fff;
+  }
+
+  .ww-pdp__promo {
+    display: grid;
+    grid-template-columns: max-content 1fr max-content;
+    align-items: center;
+    gap: 22px;
+    min-height: 80px;
+    padding: 12px 58px;
+    margin-bottom: 14px;
+    font-size: 19px;
+  }
+
+  .ww-pdp__promo strong {
+    font-weight: 700;
+  }
+
+  .ww-pdp__promo span {
+    color: #444;
+  }
+
+  .ww-pdp__code {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 42px;
+    border: 0;
+    border-radius: 999px;
+    padding: 0 16px;
+    background: #9f3934;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .ww-pdp__code svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
+  .ww-pdp__buy-row {
+    display: grid;
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .ww-pdp__variant {
+    margin-bottom: 14px;
+  }
+
+  .ww-pdp__variant label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .ww-pdp__variant select {
+    width: 100%;
+    height: 54px;
+    border: 1px solid #dedede;
+    border-radius: 0;
+    padding: 0 16px;
+    background: #fff;
+    font-size: 16px;
+  }
+
+  .ww-pdp__quantity {
+    height: 74px;
+    border: 1px solid #e1e1e1;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+  }
+
+  .ww-pdp__quantity button,
+  .ww-pdp__quantity input {
+    height: 100%;
+    border: 0;
+    background: transparent;
+    text-align: center;
+    font-size: 24px;
+    color: #111;
+  }
+
+  .ww-pdp__quantity input {
+    width: 100%;
+    font-size: 19px;
+    -moz-appearance: textfield;
+  }
+
+  .ww-pdp__quantity input::-webkit-outer-spin-button,
+  .ww-pdp__quantity input::-webkit-inner-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+  }
+
+  .ww-pdp__quantity button {
+    cursor: pointer;
+  }
+
+  .ww-pdp__add {
+    height: 74px;
+    border: 1px solid #000;
+    border-radius: 0;
+    background: #000;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .ww-pdp__add[disabled] {
+    background: #9a9a9a;
+    border-color: #9a9a9a;
+    cursor: not-allowed;
+  }
+
+  .ww-pdp__payments {
+    padding: 16px 22px;
+    margin-bottom: 54px;
+    text-align: center;
+    font-size: 15px;
+  }
+
+  .ww-pdp__payments p {
+    margin: 0;
+  }
+
+  .ww-pdp__payments p + p {
+    margin-top: 8px;
+  }
+
+  .ww-pdp__payments a {
+    margin-left: 10px;
+    color: inherit;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+  .ww-pdp__payments span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    height: 30px;
+    border-radius: 999px;
+    background: #f1f1f1;
+    font-size: 18px;
+  }
+
+  .ww-pdp__paypal {
+    color: #005ea6;
+    font-style: italic;
+  }
+
+  .ww-pdp__ctl .ctl-box--inline {
+    border: 0;
+    border-radius: 0;
+    margin-top: 0;
+    overflow: visible;
+  }
+
+  .ww-pdp__ctl .ctl-box--inline .ctl-header {
+    padding: 0 0 18px;
+  }
+
+  .ww-pdp__ctl .ctl-box--inline .ctl-heading {
+    font-size: 22px;
+    line-height: 1.15;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .ww-pdp__ctl .ctl-box--inline .ctl-arrow {
+    width: 30px;
+    height: 30px;
+    color: #111;
+  }
+
+  .ww-pdp__ctl .ctl-box--inline .ctl-track {
+    gap: 12px;
+    padding: 0;
+  }
+
+  .ww-pdp__ctl .ctl-box--inline .ctl-card {
+    display: block;
+    position: relative;
+    min-width: calc((100% - 24px) / 3);
+    width: calc((100% - 24px) / 3);
+  }
+
+  .ww-pdp__ctl .ctl-box--inline .ctl-card__img-wrap {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .ww-pdp__ctl .ctl-box--inline .ctl-card__body {
+    min-height: 0;
+    padding-top: 14px;
+  }
+
+  .ww-pdp__ctl .ctl-box--inline .ctl-card__title {
+    font-size: 18px;
+    line-height: 1.12;
+    font-weight: 700;
+    display: block;
+    min-height: 0;
+    -webkit-line-clamp: unset;
+  }
+
+  .ww-pdp__ctl .ctl-box--inline .ctl-card__price {
+    margin-top: 8px;
+    display: block;
+    font-size: 15px;
+  }
+
+  .ww-pdp__ctl .ctl-box--inline .ctl-card__rating {
+    margin-top: 18px;
+  }
+
+  .ww-pdp__ctl .ctl-box--inline .ctl-card__footer {
+    align-self: flex-end;
+    position: relative;
+    z-index: 2;
+    margin: -52px 10px 14px 0;
+    padding: 0 !important;
+  }
+
+  .ww-pdp__details {
+    display: grid;
+    grid-template-columns: minmax(0, 59%) minmax(0, 41%);
+    gap: 50px;
+    padding: 112px 52px 52px;
+  }
+
+  .ww-pdp__detail-image {
+    min-height: 820px;
+    height: auto;
+  }
+
+  .ww-pdp__detail-copy {
+    max-width: 620px;
+    padding-top: 80px;
+    font-size: 19px;
+    line-height: 1.32;
+  }
+
+  .ww-pdp__detail-copy h2 {
+    margin: 0 0 55px;
+    font-size: 34px;
+    line-height: 1.05;
+    font-weight: 700;
+  }
+
+  .ww-pdp__detail-item {
+    margin-bottom: 32px;
+  }
+
+  .ww-pdp__detail-item strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 19px;
+    line-height: 1.2;
+  }
+
+  .ww-pdp__detail-item p,
+  .ww-pdp__detail-item em {
+    display: block;
+    margin: 0;
+  }
+
+  .ww-pdp__detail-item em {
+    margin-top: 12px;
+    font-style: italic;
+  }
+
+  .foursixty-section .section__header .heading {
+    font-size: 34px;
+    line-height: 1.12;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  @media screen and (max-width: 1199px) {
+    .ww-pdp__summary {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+
+    .ww-pdp__promo {
+      padding-left: 28px;
+      padding-right: 28px;
+      grid-template-columns: 1fr max-content;
+      gap: 10px 18px;
+    }
+
+    .ww-pdp__promo span {
+      grid-column: 1;
+    }
+
+    .ww-pdp__code {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+    }
+  }
+
+  @media screen and (max-width: 999px) {
+    .ww-pdp__top,
+    .ww-pdp__details {
+      display: block;
+    }
+
+    .ww-pdp__media {
+      position: relative;
+      height: auto;
+      min-height: 0;
+    }
+
+    .ww-pdp__media-frame {
+      aspect-ratio: 1 / 1.18;
+      height: auto;
+    }
+
+    .ww-pdp__summary {
+      padding: 24px 18px 36px;
+    }
+
+    .ww-pdp__breadcrumb,
+    .ww-pdp__designed {
+      display: none;
+    }
+
+    .ww-pdp__label {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .ww-pdp__title {
+      font-size: 28px;
+    }
+
+    .ww-pdp__price {
+      font-size: 22px;
+    }
+
+    .ww-pdp__excerpt {
+      font-size: 16px;
+      margin-bottom: 26px;
+    }
+
+    .ww-pdp__promo {
+      display: flex;
+      min-height: 68px;
+      padding: 12px 14px;
+      font-size: 15px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .ww-pdp__code {
+      margin-left: auto;
+      min-height: 38px;
+      font-size: 15px;
+    }
+
+    .ww-pdp__buy-row {
+      grid-template-columns: 122px minmax(0, 1fr);
+    }
+
+    .ww-pdp__quantity,
+    .ww-pdp__add {
+      height: 58px;
+    }
+
+    .ww-pdp__add {
+      font-size: 16px;
+    }
+
+    .ww-pdp__payments {
+      margin-bottom: 34px;
+      font-size: 13px;
+    }
+
+    .ww-pdp__ctl .ctl-box--inline .ctl-card {
+      min-width: calc((100% - 14px) / 2);
+      width: calc((100% - 14px) / 2);
+      flex-basis: calc((100% - 14px) / 2);
+    }
+
+    .ww-pdp__details {
+      padding: 48px 18px;
+    }
+
+    .ww-pdp__detail-image {
+      min-height: 0;
+      aspect-ratio: 1 / 1.15;
+      margin-bottom: 40px;
+    }
+
+    .ww-pdp__detail-copy {
+      padding-top: 0;
+      font-size: 16px;
+    }
+
+    .ww-pdp__detail-copy h2 {
+      margin-bottom: 32px;
+      font-size: 28px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    var root = document.querySelector('#shopify-section-{{ section.id }} [data-ww-pdp]');
+    if (!root || root.dataset.ready === 'true') return;
+    root.dataset.ready = 'true';
+
+    var gallery = root.querySelector('[data-ww-pdp-gallery]');
+    var mainImage = root.querySelector('[data-ww-pdp-main-image]');
+    var thumbs = gallery ? Array.prototype.slice.call(gallery.querySelectorAll('[data-ww-pdp-thumb]')) : [];
+    var currentIndex = thumbs.findIndex(function (thumb) { return thumb.classList.contains('is-active'); });
+    if (currentIndex < 0) currentIndex = 0;
+
+    function showImage(index) {
+      if (!mainImage || !thumbs.length) return;
+      currentIndex = (index + thumbs.length) % thumbs.length;
+      var thumb = thumbs[currentIndex];
+      mainImage.src = thumb.dataset.src;
+      mainImage.removeAttribute('srcset');
+      mainImage.alt = thumb.dataset.alt || '';
+      thumbs.forEach(function (item) { item.classList.remove('is-active'); });
+      thumb.classList.add('is-active');
+    }
+
+    thumbs.forEach(function (thumb, index) {
+      thumb.addEventListener('click', function () { showImage(index); });
+    });
+
+    var prev = root.querySelector('[data-ww-pdp-prev]');
+    var next = root.querySelector('[data-ww-pdp-next]');
+    var zoom = root.querySelector('[data-ww-pdp-zoom]');
+    if (prev) prev.addEventListener('click', function () { showImage(currentIndex - 1); });
+    if (next) next.addEventListener('click', function () { showImage(currentIndex + 1); });
+    if (zoom) {
+      zoom.addEventListener('click', function () {
+        if (mainImage && mainImage.src) window.open(mainImage.src, '_blank', 'noopener');
+      });
+    }
+
+    root.querySelectorAll('[data-ww-quantity]').forEach(function (quantity) {
+      var input = quantity.querySelector('input');
+      var minus = quantity.querySelector('[data-ww-quantity-minus]');
+      var plus = quantity.querySelector('[data-ww-quantity-plus]');
+      if (!input) return;
+      if (minus) {
+        minus.addEventListener('click', function () {
+          input.value = Math.max(1, parseInt(input.value || '1', 10) - 1);
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+      }
+      if (plus) {
+        plus.addEventListener('click', function () {
+          input.value = Math.max(1, parseInt(input.value || '1', 10) + 1);
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+      }
+    });
+
+    root.querySelectorAll('[data-ww-copy-code]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var code = button.dataset.wwCopyCode;
+        if (!code) return;
+        var done = function () {
+          var label = button.querySelector('span');
+          if (!label) return;
+          var original = label.textContent;
+          label.textContent = 'Copied';
+          setTimeout(function () { label.textContent = original; }, 1400);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(code).then(done).catch(done);
+        } else {
+          done();
+        }
+      });
+    });
+  })();
+</script>
