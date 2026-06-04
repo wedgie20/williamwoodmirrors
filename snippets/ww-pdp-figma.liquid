@@ -12,6 +12,7 @@
   endif
 
   assign review_count = product.metafields.reviews.rating_count.value | default: 0
+  assign full_description = product.description | strip_html | strip
   assign short_description = product.metafields.custom.short_description.value | default: product.metafields.custom.short_description | default: product.description | strip_html | truncate: 150
   assign has_host_promo = false
 
@@ -137,8 +138,9 @@
 
       {%- if short_description != blank -%}
         <div class="ww-pdp__excerpt">
-          {{ short_description }}
-          <a href="#product-{{ product.id }}-details">Read more</a>
+          <span data-ww-excerpt-preview>{{ short_description }}</span>
+          <span data-ww-excerpt-full hidden>{{ full_description | default: short_description }}</span>
+          <button type="button" data-ww-read-more>Read more</button>
         </div>
       {%- endif -%}
 
@@ -505,14 +507,19 @@
     line-height: 1.35;
   }
 
-  .ww-pdp__excerpt a {
+  .ww-pdp__excerpt button {
     display: block;
     width: fit-content;
     margin-top: 2px;
+    padding: 0;
+    border: 0;
+    background: transparent;
     color: inherit;
     text-transform: uppercase;
     text-decoration: underline;
     text-underline-offset: 3px;
+    font: inherit;
+    cursor: pointer;
   }
 
   .ww-pdp__promo,
@@ -652,8 +659,8 @@
   }
 
   .ww-pdp__payments {
-    padding: 12px 22px;
-    margin-bottom: 30px;
+    padding: 16px 22px;
+    margin-bottom: 54px;
     text-align: center;
     font-size: 15px;
   }
@@ -1525,6 +1532,18 @@
         } else {
           done();
         }
+      });
+    });
+
+    root.querySelectorAll('[data-ww-read-more]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var excerpt = button.closest('.ww-pdp__excerpt');
+        if (!excerpt) return;
+        var preview = excerpt.querySelector('[data-ww-excerpt-preview]');
+        var full = excerpt.querySelector('[data-ww-excerpt-full]');
+        if (!preview || !full) return;
+        preview.textContent = full.textContent.trim();
+        button.hidden = true;
       });
     });
 
