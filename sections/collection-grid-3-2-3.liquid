@@ -43,6 +43,47 @@
         assign min_h_m = block.settings.min_height_mobile | default: 220
         assign overlay = block.settings.show_overlay
         assign mobile_image = block.settings.image_mobile | default: block.settings.image
+        assign shop_scene_enabled = true
+        if block.settings.shop_scene_enable == false
+          assign shop_scene_enabled = false
+        endif
+        assign shop_scene_source = block.settings.shop_scene_source | default: 'card_link'
+        assign shop_scene_products = empty
+        assign shop_scene_count = 0
+        assign shop_scene_limit = block.settings.shop_scene_product_limit | default: 12
+        assign shop_scene_thumb_count = block.settings.shop_scene_thumb_count | default: 3
+        assign shop_scene_collection_handle = ''
+        assign shop_scene_collection = blank
+        assign shop_scene_footer_url = block.settings.link
+
+        if shop_scene_source == 'card_link' and block.settings.link != blank
+          assign card_link_url = block.settings.link | append: ''
+          if card_link_url contains '/collections/'
+            assign shop_scene_collection_handle = card_link_url | split: '/collections/' | last | split: '?' | first | split: '#' | first
+          endif
+          if shop_scene_collection_handle != blank
+            assign shop_scene_collection = collections[shop_scene_collection_handle]
+          endif
+        elsif shop_scene_source == 'collection' and block.settings.shop_scene_collection != blank
+          assign shop_scene_collection = block.settings.shop_scene_collection
+        endif
+
+        if shop_scene_source == 'products' and block.settings.shop_scene_products != blank and block.settings.shop_scene_products.size > 0
+          assign shop_scene_products = block.settings.shop_scene_products
+          assign shop_scene_count = block.settings.shop_scene_products.size
+        elsif shop_scene_collection != blank
+          assign shop_scene_products = shop_scene_collection.products
+          assign shop_scene_count = shop_scene_collection.products_count
+        endif
+
+        if shop_scene_collection != blank
+          assign shop_scene_footer_url = shop_scene_collection.url
+        endif
+
+        assign has_shop_scene = false
+        if shop_scene_enabled and shop_scene_products != empty
+          assign has_shop_scene = true
+        endif
       -%}
       {%- capture card_inner -%}
         <div class="cg323__card-media">
@@ -64,37 +105,123 @@
           {%- endif -%}
           {%- if overlay -%}<span class="cg323__overlay"></span>{%- endif -%}
         </div>
-        {%- if block.settings.title != blank -%}
-          <span class="cg323__card-title" style="color: {{ block.settings.title_color | default: section.settings.text_color }};">
-            {{- block.settings.title -}}
-          </span>
+        {%- if block.settings.title != blank or has_shop_scene -%}
+          <div class="cg323__card-header{% if has_shop_scene %} cg323__card-header--has-scene{% endif %}">
+            {%- if block.settings.title != blank -%}
+              <span class="cg323__card-title" style="color: {{ block.settings.title_color | default: section.settings.text_color }};">
+                {{- block.settings.title -}}
+              </span>
+            {%- endif -%}
+            {%- if has_shop_scene -%}
+              <button
+                class="cg323__shop-scene"
+                type="button"
+                data-cg323-scene-toggle="{{ section.id }}-{{ block.id }}"
+                aria-expanded="false"
+                aria-controls="cg323-scene-{{ section.id }}-{{ block.id }}"
+              >
+                <span>{{ block.settings.shop_scene_label | default: 'Shop scene' }} ({{ shop_scene_count }})</span>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="18" height="18">
+                  <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {%- if shop_scene_thumb_count > 0 -%}
+                  <span class="cg323__shop-scene-thumbs" aria-hidden="true">
+                    {%- for product in shop_scene_products limit: shop_scene_thumb_count -%}
+                      {%- if product.featured_image -%}
+                        {{ product.featured_image | image_url: width: 96 | image_tag: loading: 'lazy', alt: product.featured_image.alt, widths: '48, 72, 96' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated }}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </span>
+                {%- endif -%}
+              </button>
+            {%- endif -%}
+          </div>
         {%- endif -%}
         {%- if block.settings.show_arrow -%}
-          <span class="cg323__card-arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
-              <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
+          {%- unless has_shop_scene -%}
+            <span class="cg323__card-arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18">
+                <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          {%- endunless -%}
         {%- endif -%}
       {%- endcapture -%}
 
-      {%- if block.settings.link != blank -%}
-        <a
-          href="{{ block.settings.link }}"
-          class="cg323__card"
-          style="--d-span: {{ d_span }}; --m-span: {{ m_span }}; --min-h: {{ min_h }}px; --min-h-m: {{ min_h_m }}px;"
-          {{ block.shopify_attributes }}
-          aria-label="{{ block.settings.title | escape }}"
-        >
-          {{ card_inner }}
-        </a>
-      {%- else -%}
+      <div
+        class="cg323__card cg323__card--span-{{ d_span }} cg323__card--mobile-span-{{ m_span }}{% if has_shop_scene %} cg323__card--has-scene{% endif %}{% if block.settings.link == blank %} cg323__card--no-link{% endif %}"
+        style="--d-span: {{ d_span }}; --m-span: {{ m_span }}; --min-h: {{ min_h }}px; --min-h-m: {{ min_h_m }}px;"
+        {{ block.shopify_attributes }}
+      >
+        {{ card_inner }}
+        {%- if block.settings.link != blank -%}
+          <a class="cg323__card-link" href="{{ block.settings.link }}" aria-label="{{ block.settings.title | escape }}"></a>
+        {%- endif -%}
+      </div>
+
+      {%- if shop_scene_enabled and shop_scene_products != empty -%}
         <div
-          class="cg323__card cg323__card--no-link"
-          style="--d-span: {{ d_span }}; --m-span: {{ m_span }}; --min-h: {{ min_h }}px; --min-h-m: {{ min_h_m }}px;"
-          {{ block.shopify_attributes }}
+          id="cg323-scene-{{ section.id }}-{{ block.id }}"
+          class="cg323__scene-drawer"
+          data-cg323-scene-drawer="{{ section.id }}-{{ block.id }}"
+          aria-hidden="true"
         >
-          {{ card_inner }}
+          <button class="cg323__scene-backdrop" type="button" data-cg323-scene-close="{{ section.id }}-{{ block.id }}" aria-label="Close shop scene"></button>
+          <div class="cg323__scene-panel" role="dialog" aria-modal="true" aria-label="{{ block.settings.shop_scene_title | default: block.settings.title | escape }}">
+            <div class="cg323__scene-header">
+              <span>{{ block.settings.shop_scene_title | default: block.settings.title }} ({{ shop_scene_count }})</span>
+              <button class="cg323__scene-close" type="button" data-cg323-scene-close="{{ section.id }}-{{ block.id }}" aria-label="Close">
+                <svg viewBox="0 0 24 24" fill="none" width="22" height="22" aria-hidden="true">
+                  <path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+            <div class="cg323__scene-products">
+              {%- for product in shop_scene_products limit: shop_scene_limit -%}
+                <div class="cg323__scene-product">
+                  <a href="{{ product.url }}" class="cg323__scene-product-image" tabindex="-1">
+                    {%- if product.featured_image -%}
+                      {{ product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: product.featured_image.alt, widths: '300, 400, 600' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated }}
+                    {%- else -%}
+                      {{ 'product-1' | placeholder_svg_tag }}
+                    {%- endif -%}
+                  </a>
+                  <div class="cg323__scene-product-info">
+                    <a href="{{ product.url }}" class="cg323__scene-product-title">{{ product.title }}</a>
+                    <p class="cg323__scene-product-price">{{ product.price | money }}</p>
+                    <div class="cg323__scene-product-actions">
+                      {%- if product.available == false -%}
+                        <button class="cg323__scene-product-action" type="button" disabled>Sold out</button>
+                      {%- elsif product.variants.size > 1 or product.has_only_default_variant == false -%}
+                        <a class="cg323__scene-product-action" href="{{ product.url }}">View details &rarr;</a>
+                      {%- else -%}
+                        {%- assign first_variant = product.selected_or_first_available_variant -%}
+                        {%- assign is_preorder = false -%}
+                        {%- if product.tags contains 'preorder' or product.tags contains 'pre-order' -%}
+                          {%- assign is_preorder = true -%}
+                        {%- endif -%}
+                        <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="cg323__scene-product-form" data-cg323-scene-form>
+                          <input type="hidden" name="id" value="{{ first_variant.id }}">
+                          <input type="hidden" name="quantity" value="1">
+                          <button class="cg323__scene-product-action" type="submit" data-cg323-scene-add>
+                            {%- if is_preorder -%}Pre-order{%- else -%}Add to cart{%- endif -%}
+                          </button>
+                        </form>
+                      {%- endif -%}
+                      <a class="cg323__scene-product-detail-link" href="{{ product.url }}">View details &rarr;</a>
+                    </div>
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+            {%- if shop_scene_footer_url != blank -%}
+              <div class="cg323__scene-footer">
+                <a class="cg323__scene-footer-button" href="{{ shop_scene_footer_url }}">
+                  {{ block.settings.shop_scene_footer_label | default: 'Shop collection' }}
+                </a>
+              </div>
+            {%- endif -%}
+          </div>
         </div>
       {%- endif -%}
     {%- endfor -%}
@@ -143,6 +270,11 @@
     transition: transform 0.4s ease;
   }
   .cg323__card:hover { transform: translateY(-2px); }
+  .cg323__card-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
   .cg323__card-media {
     position: absolute;
     inset: 0;
@@ -164,11 +296,24 @@
     opacity: var(--cg323-overlay-opacity, 0.15);
     pointer-events: none;
   }
-  .cg323__card-title {
+  .cg323__card-header {
     position: relative;
-    z-index: 2;
-    display: inline-block;
     padding: 18px 22px;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 100%;
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+  .cg323__card-header--has-scene {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .cg323__card-title {
+    display: inline-block;
+    min-width: 0;
     font-family: var(--heading-font-family, inherit);
     font-size: var(--cg323-title-size, 28px);
     font-weight: 500;
@@ -177,6 +322,7 @@
     line-height: 1.1;
     color: #fff;
     text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
   }
   .cg323__card-arrow {
     position: absolute;
@@ -192,8 +338,299 @@
     align-items: center;
     justify-content: center;
     transition: background 0.2s ease;
+    pointer-events: none;
   }
   .cg323__card:hover .cg323__card-arrow { background: #fff; }
+  .cg323-scene-open {
+    overflow: hidden;
+  }
+  .cg323__shop-scene {
+    position: relative;
+    z-index: 4;
+    display: inline-flex;
+    align-items: center;
+    flex: 0 1 auto;
+    gap: 12px;
+    margin-left: auto;
+    max-width: 100%;
+    padding: 8px 12px 8px 18px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.48);
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1;
+    text-transform: uppercase;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    pointer-events: auto;
+  }
+  .cg323__shop-scene > span:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cg323__shop-scene svg {
+    flex: 0 0 auto;
+  }
+  .cg323__shop-scene-thumbs {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .cg323__shop-scene-thumbs img {
+    width: 34px;
+    height: 34px;
+    border-radius: 4px;
+    object-fit: cover;
+    background: #fff;
+  }
+  .cg323__card--span-1 .cg323__card-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: flex-start;
+    position: static;
+  }
+  .cg323__card--span-1 .cg323__card-title {
+    position: relative;
+    z-index: 3;
+  }
+  .cg323__card--span-1 .cg323__shop-scene {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    gap: 8px;
+    margin-left: 0;
+    max-width: calc(100% - 36px);
+    padding: 7px 9px 7px 12px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+  .cg323__card--span-1 .cg323__shop-scene > span:first-child {
+    max-width: 76px;
+    white-space: normal;
+  }
+  .cg323__card--span-1 .cg323__shop-scene-thumbs img {
+    width: 26px;
+    height: 26px;
+  }
+  .cg323__card--span-2 .cg323__shop-scene {
+    gap: 9px;
+    padding: 7px 10px 7px 13px;
+    font-size: 11px;
+    letter-spacing: 0.09em;
+  }
+  .cg323__card--span-2 .cg323__shop-scene-thumbs img {
+    width: 30px;
+    height: 30px;
+  }
+  .cg323__scene-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .cg323__scene-drawer.is-open {
+    pointer-events: auto;
+    opacity: 1;
+  }
+  .cg323__scene-backdrop {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    background: rgba(0, 0, 0, 0.45);
+    cursor: pointer;
+  }
+  .cg323__scene-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 420px;
+    max-width: 100vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    color: #111;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    -webkit-overflow-scrolling: touch;
+  }
+  .cg323__scene-drawer.is-open .cg323__scene-panel {
+    transform: translateX(0);
+  }
+  .cg323__scene-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e5e5e5;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 1;
+    flex-shrink: 0;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .cg323__scene-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border: 0;
+    border-radius: 4px;
+    background: none;
+    color: #111;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .cg323__scene-close:hover {
+    background: #f3f3f3;
+  }
+  .cg323__scene-close svg {
+    width: 22px;
+    height: 22px;
+    display: block;
+  }
+  .cg323__scene-products {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: #e5e5e5;
+    flex: 1;
+  }
+  .cg323__scene-product {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+  }
+  .cg323__scene-product-image {
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #f8f8f8;
+  }
+  .cg323__scene-product-image img,
+  .cg323__scene-product-image svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .cg323__scene-product-image:hover img {
+    transform: scale(1.04);
+  }
+  .cg323__scene-product-info {
+    padding: 12px 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+  }
+  .cg323__scene-product-title {
+    display: block;
+    color: inherit;
+    font-size: 13px;
+    line-height: 1.4;
+    text-decoration: none;
+  }
+  .cg323__scene-product-title:hover {
+    text-decoration: underline;
+  }
+  .cg323__scene-product-price {
+    font-size: 13px;
+    color: #333;
+    margin: 0;
+  }
+  .cg323__scene-product-actions {
+    margin-top: auto;
+    padding-top: 10px;
+  }
+  .cg323__scene-product-form {
+    display: block;
+  }
+  .cg323__scene-product-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 10px 12px;
+    border: 0;
+    border-radius: 2px;
+    background: #111;
+    color: #fff;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    transition: background 0.2s ease, opacity 0.2s ease;
+  }
+  .cg323__scene-product-action:hover {
+    background: #333;
+    color: #fff;
+  }
+  .cg323__scene-product-action:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  .cg323__scene-product-detail-link {
+    font-size: 11px;
+    color: #555;
+    text-decoration: underline;
+    letter-spacing: 0.05em;
+    text-align: center;
+    display: block;
+    margin-top: 8px;
+    padding-top: 2px;
+  }
+  .cg323__scene-product-detail-link:hover {
+    color: #111;
+  }
+  .cg323__scene-footer {
+    flex-shrink: 0;
+    padding: 16px 24px;
+    border-top: 1px solid #e5e5e5;
+    background: #fff;
+  }
+  .cg323__scene-footer-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
+    padding: 12px 16px;
+    border-radius: 2px;
+    background: #111;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.2s ease;
+  }
+  .cg323__scene-footer-button:hover {
+    background: #333;
+    color: #fff;
+  }
 
   @media (max-width: 767px) {
     .cg323 {
@@ -207,9 +644,18 @@
       grid-column: span var(--m-span, 1);
       min-height: var(--min-h-m, 220px);
     }
+    .cg323__card-header {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 8px;
+      padding: 12px 14px;
+    }
+    .cg323__card--mobile-span-2 .cg323__card-header--has-scene {
+      align-items: center;
+      flex-direction: row;
+    }
     .cg323__card-title {
       font-size: var(--cg323-title-size-mobile, 18px);
-      padding: 12px 14px;
     }
     .cg323__card-arrow {
       width: 28px;
@@ -217,8 +663,141 @@
       right: 10px;
       bottom: 10px;
     }
+    .cg323__shop-scene {
+      gap: 8px;
+      padding: 7px 9px 7px 12px;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+    }
+    .cg323__shop-scene-thumbs img {
+      width: 26px;
+      height: 26px;
+    }
+  }
+  @media screen and (max-width: 1023px) {
+    .cg323__scene-panel {
+      width: 92vw;
+      max-width: 420px;
+    }
   }
 {% endstylesheet %}
+
+<script>
+  (() => {
+    const section = document.getElementById({{ section_id | json }});
+    if (!section) return;
+
+    const setDrawer = (key, open) => {
+      const drawer = document.querySelector(`[data-cg323-scene-drawer="${key}"]`);
+      const toggle = section.querySelector(`[data-cg323-scene-toggle="${key}"]`);
+      if (!drawer) return;
+      drawer.classList.toggle('is-open', open);
+      drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+      if (toggle) toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.documentElement.classList.toggle('cg323-scene-open', open);
+    };
+
+    section.addEventListener('click', (event) => {
+      const toggle = event.target.closest('[data-cg323-scene-toggle]');
+      if (!toggle) return;
+      event.preventDefault();
+      event.stopPropagation();
+      setDrawer(toggle.dataset.cg323SceneToggle, true);
+    });
+
+    document.addEventListener('click', (event) => {
+      const close = event.target.closest('[data-cg323-scene-close]');
+      if (!close) return;
+      setDrawer(close.dataset.cg323SceneClose, false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+      document.querySelectorAll('.cg323__scene-drawer.is-open').forEach((drawer) => {
+        setDrawer(drawer.dataset.cg323SceneDrawer, false);
+      });
+    });
+
+    section.querySelectorAll('[data-cg323-scene-form]').forEach((form) => {
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const submitButton = form.querySelector('[data-cg323-scene-add]');
+        if (!submitButton || submitButton.classList.contains('is-loading')) return;
+
+        const originalLabel = submitButton.textContent;
+        const routes = (window.themeVariables && window.themeVariables.routes) || {};
+        const settings = (window.themeVariables && window.themeVariables.settings) || {};
+        const addUrl = routes.cartAddUrl ? `${routes.cartAddUrl}.js` : (form.action || '/cart/add.js');
+        const cartUrl = routes.cartUrl ? `${routes.cartUrl}.js` : '/cart.js';
+        const formData = new FormData(form);
+
+        formData.append('sections', ['mini-cart']);
+        submitButton.classList.add('is-loading');
+        submitButton.disabled = true;
+        submitButton.textContent = 'Adding...';
+
+        fetch(addUrl, {
+          method: 'POST',
+          body: formData,
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+          .then((response) => response.json().then((data) => ({ ok: response.ok, data })))
+          .then((result) => {
+            if (!result.ok) {
+              submitButton.textContent = (result.data && result.data.description) || 'Unavailable';
+              setTimeout(() => {
+                submitButton.textContent = originalLabel;
+                submitButton.classList.remove('is-loading');
+                submitButton.disabled = false;
+              }, 1800);
+              return null;
+            }
+
+            form.dispatchEvent(new CustomEvent('variant:added', {
+              bubbles: true,
+              detail: {
+                variant: Object.prototype.hasOwnProperty.call(result.data, 'items') ? result.data.items[0] : result.data
+              }
+            }));
+
+            return fetch(cartUrl)
+              .then((response) => response.json())
+              .then((cartContent) => {
+                document.documentElement.dispatchEvent(new CustomEvent('cart:updated', {
+                  bubbles: true,
+                  detail: { cart: cartContent }
+                }));
+
+                cartContent.sections = result.data.sections;
+                document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+                  bubbles: true,
+                  detail: {
+                    cart: cartContent,
+                    openMiniCart: settings.cartType === 'drawer'
+                  }
+                }));
+
+                submitButton.textContent = 'Added \u2713';
+                setTimeout(() => {
+                  submitButton.textContent = originalLabel;
+                  submitButton.classList.remove('is-loading');
+                  submitButton.disabled = false;
+                }, 1800);
+              });
+          })
+          .catch(() => {
+            submitButton.textContent = 'Try again';
+            setTimeout(() => {
+              submitButton.textContent = originalLabel;
+              submitButton.classList.remove('is-loading');
+              submitButton.disabled = false;
+            }, 1800);
+          });
+      });
+    });
+  })();
+</script>
 
 {% schema %}
 {
@@ -447,6 +1026,72 @@
           "id": "show_arrow",
           "label": "Show arrow icon",
           "default": true
+        },
+        {
+          "type": "header",
+          "content": "Shop scene"
+        },
+        {
+          "type": "checkbox",
+          "id": "shop_scene_enable",
+          "label": "Show shop scene button",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "shop_scene_label",
+          "label": "Button label",
+          "default": "Shop scene"
+        },
+        {
+          "type": "text",
+          "id": "shop_scene_title",
+          "label": "Drawer title"
+        },
+        {
+          "type": "text",
+          "id": "shop_scene_footer_label",
+          "label": "Footer button label",
+          "default": "Shop collection"
+        },
+        {
+          "type": "select",
+          "id": "shop_scene_source",
+          "label": "Products source",
+          "default": "card_link",
+          "options": [
+            { "value": "card_link", "label": "Use card collection link" },
+            { "value": "collection", "label": "Choose collection" },
+            { "value": "products", "label": "Choose products" }
+          ]
+        },
+        {
+          "type": "collection",
+          "id": "shop_scene_collection",
+          "label": "Shop scene collection"
+        },
+        {
+          "type": "product_list",
+          "id": "shop_scene_products",
+          "label": "Shop scene products"
+        },
+        {
+          "type": "range",
+          "id": "shop_scene_product_limit",
+          "label": "Products shown in drawer",
+          "min": 1,
+          "max": 24,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "shop_scene_thumb_count",
+          "label": "Button thumbnails",
+          "min": 0,
+          "max": 4,
+          "step": 1,
+          "default": 3
         }
       ]
     }
