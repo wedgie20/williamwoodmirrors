@@ -58,12 +58,76 @@
   assign detail_assembly_time = product.metafields.custom.assembly_time.value | default: product.metafields.custom.assembly_time
 -%}
 
+{%- liquid
+  assign description_detail_lines = product.description | replace: '</li>', '||' | replace: '</p>', '||' | replace: '</h2>', '||' | replace: '</h3>', '||' | replace: '<br />', '||' | replace: '<br>', '||' | replace: '&nbsp;', ' ' | strip_html | split: '||'
+  assign description_overall_size = ''
+  assign description_colour = ''
+  assign description_material = ''
+  assign description_weight = ''
+  assign description_capacity = ''
+  assign description_outdoor = ''
+  assign description_assembly = ''
+  assign description_care = ''
+  assign capture_description_care = false
+-%}
+
+{%- for description_detail_line_raw in description_detail_lines -%}
+  {%- liquid
+    assign description_detail_line = description_detail_line_raw | strip
+    assign normalized_detail_line = description_detail_line | replace: '–', '-' | replace: '—', '-'
+
+    if capture_description_care and description_care == blank and normalized_detail_line != blank
+      assign description_care = description_detail_line
+      assign capture_description_care = false
+    endif
+
+    if normalized_detail_line contains 'Product Care Information'
+      assign description_care_remainder = normalized_detail_line | split: 'Product Care Information' | last | remove_first: '-' | remove_first: ':' | strip
+      if description_care_remainder != blank
+        assign description_care = description_care_remainder
+        assign capture_description_care = false
+      else
+        assign capture_description_care = true
+      endif
+    elsif normalized_detail_line contains 'Overall Size'
+      assign description_overall_size = normalized_detail_line | split: 'Overall Size' | last | remove_first: '-' | remove_first: ':' | strip
+    elsif normalized_detail_line contains 'Colour'
+      assign description_colour = normalized_detail_line | split: 'Colour' | last | remove_first: '-' | remove_first: ':' | strip
+    elsif normalized_detail_line contains 'Color'
+      assign description_colour = normalized_detail_line | split: 'Color' | last | remove_first: '-' | remove_first: ':' | strip
+    elsif normalized_detail_line contains 'Material'
+      assign description_material = normalized_detail_line | split: 'Material' | last | remove_first: '-' | remove_first: ':' | strip
+    elsif normalized_detail_line contains 'Weight Capacity'
+      assign description_capacity = normalized_detail_line | split: 'Weight Capacity' | last | remove_first: '-' | remove_first: ':' | strip
+    elsif normalized_detail_line contains 'Weight'
+      assign description_weight = normalized_detail_line | split: 'Weight' | last | remove_first: '-' | remove_first: ':' | strip
+    elsif normalized_detail_line contains 'Outdoor suitable'
+      assign description_outdoor = normalized_detail_line | split: 'Outdoor suitable' | last | remove_first: '-' | remove_first: ':' | strip
+    elsif normalized_detail_line contains 'Outdoor Suitable'
+      assign description_outdoor = normalized_detail_line | split: 'Outdoor Suitable' | last | remove_first: '-' | remove_first: ':' | strip
+    elsif normalized_detail_line contains 'Assembly'
+      assign description_assembly = normalized_detail_line | split: 'Assembly' | last | remove_first: '-' | remove_first: ':' | strip
+    endif
+  -%}
+{%- endfor -%}
+
+{%- liquid
+  assign detail_colour = detail_colour | default: description_colour
+  assign detail_material = detail_material | default: description_material
+  assign detail_weight = detail_weight | default: description_weight
+  assign detail_capacity = detail_capacity | default: description_capacity
+  assign detail_outdoor = detail_outdoor | default: description_outdoor
+  assign detail_assembly = detail_assembly | default: description_assembly
+  assign detail_care = detail_care | default: description_care
+-%}
+
 {%- capture overall_size -%}
   {%- if detail_height != blank -%}{{ detail_height }} Height{%- endif -%}
   {%- if detail_width != blank -%}{% if detail_height != blank %} x {% endif %}{{ detail_width }} Width{%- endif -%}
   {%- if detail_depth != blank -%}{% if detail_height != blank or detail_width != blank %} x {% endif %}{{ detail_depth }} Depth{%- endif -%}
 {%- endcapture -%}
 {%- assign overall_size_clean = overall_size | strip -%}
+{%- assign overall_size_clean = overall_size_clean | default: description_overall_size -%}
 
 {%- assign second_media = blank -%}
 {%- for media in product.media -%}
@@ -140,7 +204,7 @@
         <div class="ww-pdp__excerpt">
           <span data-ww-excerpt-preview>{{ short_description }}</span>
           <span data-ww-excerpt-full hidden>{{ full_description | default: short_description }}</span>
-          <button type="button" data-ww-read-more>Read more</button>
+          <button type="button" data-ww-read-more aria-expanded="false">Read more</button>
         </div>
       {%- endif -%}
 
@@ -1542,8 +1606,21 @@
         var preview = excerpt.querySelector('[data-ww-excerpt-preview]');
         var full = excerpt.querySelector('[data-ww-excerpt-full]');
         if (!preview || !full) return;
-        preview.textContent = full.textContent.trim();
-        button.hidden = true;
+
+        if (!preview.dataset.collapsedText) {
+          preview.dataset.collapsedText = preview.textContent.trim();
+        }
+
+        var isExpanded = button.getAttribute('aria-expanded') === 'true';
+        if (isExpanded) {
+          preview.textContent = preview.dataset.collapsedText;
+          button.textContent = 'Read more';
+          button.setAttribute('aria-expanded', 'false');
+        } else {
+          preview.textContent = full.textContent.trim();
+          button.textContent = 'Read less';
+          button.setAttribute('aria-expanded', 'true');
+        }
       });
     });
 
