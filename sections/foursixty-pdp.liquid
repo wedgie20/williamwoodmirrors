@@ -6,9 +6,9 @@
       {%- assign fs_title_2 = section.settings.title2 | escape -%}
       <h2 class="heading heading--small">
         {%- if template contains 'product' and fs_title_2 == blank and fs_title contains '610,000+' -%}
-          {{ fs_title | replace: '610,000+ discerning', '610,000+<br/>discerning' }}
+          <span class="foursixty-title-primary">{{ fs_title | replace: '610,000+ discerning', '610,000+<br/>discerning' }}</span>
         {%- else -%}
-          {{ fs_title }}{% if fs_title_2 != blank %}<br/>{{ fs_title_2 }}{% endif %}
+          <span class="foursixty-title-primary">{{ fs_title }}</span>{% if fs_title_2 != blank %}<br/><span class="foursixty-title-secondary">{{ fs_title_2 }}</span>{% endif %}
         {%- endif -%}
       </h2>
     </header>
