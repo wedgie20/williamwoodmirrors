@@ -932,7 +932,7 @@
   .ww-pdp__details {
     display: grid;
     grid-template-columns: minmax(0, 59%) minmax(0, 41%);
-    gap: 50px;
+    {% comment %} gap: 50px; {% endcomment %}
     padding: 112px 52px 52px;
   }
 
@@ -946,6 +946,7 @@
     padding-top: 80px;
     font-size: 19px;
     line-height: 1.32;
+    padding-left: 40px;
   }
 
   .ww-pdp__detail-copy h2 {
