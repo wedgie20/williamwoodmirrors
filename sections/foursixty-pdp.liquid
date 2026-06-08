@@ -5,10 +5,14 @@
       {%- assign fs_title = section.settings.title | escape -%}
       {%- assign fs_title_2 = section.settings.title2 | escape -%}
       <h2 class="heading heading--small">
-        {%- if template contains 'product' and fs_title_2 == blank and fs_title contains '610,000+' -%}
-          <span class="foursixty-title-primary">{{ fs_title | replace: '610,000+ discerning', '610,000+<br/>discerning' }}</span>
+        {%- if template contains 'product' -%}
+          {%- if fs_title_2 == blank and fs_title contains '610,000+' -%}
+            <span class="foursixty-title-primary">{{ fs_title | replace: '610,000+ discerning', '610,000+<br/>discerning' }}</span>
+          {%- else -%}
+            <span class="foursixty-title-primary">{{ fs_title }}</span>{% if fs_title_2 != blank %}<br/><span class="foursixty-title-secondary">{{ fs_title_2 }}</span>{% endif %}
+          {%- endif -%}
         {%- else -%}
-          <span class="foursixty-title-primary">{{ fs_title }}</span>{% if fs_title_2 != blank %}<br/><span class="foursixty-title-secondary">{{ fs_title_2 }}</span>{% endif %}
+          {{ fs_title }}{% if fs_title_2 != blank %}<br/>{{ fs_title_2 }}{% endif %}
         {%- endif -%}
       </h2>
     </header>
