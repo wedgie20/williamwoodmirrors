@@ -67,6 +67,7 @@
   assign description_capacity = ''
   assign description_outdoor = ''
   assign description_assembly = ''
+  assign description_assembly_time = ''
   assign description_care = ''
   assign capture_description_care = false
 -%}
@@ -105,6 +106,10 @@
       assign description_outdoor = normalized_detail_line | split: 'Outdoor suitable' | last | remove_first: '-' | remove_first: ':' | strip
     elsif normalized_detail_line contains 'Outdoor Suitable'
       assign description_outdoor = normalized_detail_line | split: 'Outdoor Suitable' | last | remove_first: '-' | remove_first: ':' | strip
+    elsif normalized_detail_line contains 'Assembly Time'
+      assign description_assembly_time = normalized_detail_line | split: 'Assembly Time' | last | remove_first: '-' | remove_first: ':' | strip
+    elsif normalized_detail_line contains 'Assembly time'
+      assign description_assembly_time = normalized_detail_line | split: 'Assembly time' | last | remove_first: '-' | remove_first: ':' | strip
     elsif normalized_detail_line contains 'Assembly'
       assign description_assembly = normalized_detail_line | split: 'Assembly' | last | remove_first: '-' | remove_first: ':' | strip
     endif
@@ -119,6 +124,10 @@
   assign detail_outdoor = detail_outdoor | default: description_outdoor | replace: '&nbsp;', ' ' | replace: ' ', ' ' | strip
   assign detail_assembly = detail_assembly | default: description_assembly | replace: '&nbsp;', ' ' | replace: ' ', ' ' | strip
   assign detail_care = detail_care | default: description_care | replace: '&nbsp;', ' ' | replace: ' ', ' ' | strip
+-%}
+
+{%- liquid
+  assign detail_assembly_time = detail_assembly_time | default: description_assembly_time | replace: '&nbsp;', ' ' | strip
 -%}
 
 {%- capture overall_size -%}
@@ -1495,8 +1504,8 @@
     .ww-pdp__promo {
       display: flex;
       min-height: 68px;
-      padding: 12px 14px;
-      font-size: 15px;
+      padding: 10px 12px;
+      font-size: 11px;
       gap: 8px;
       flex-wrap: wrap;
     }
@@ -1504,7 +1513,7 @@
     .ww-pdp__code {
       margin-left: auto;
       min-height: 38px;
-      font-size: 15px;
+      font-size: 10px;
     }
 
     .ww-pdp__buy-row {
