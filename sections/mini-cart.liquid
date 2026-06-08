@@ -94,7 +94,7 @@
       {%- liquid
         assign free_gift_claimed = false
         for item in cart.items
-          if item.final_price == 0 or item.product.tags contains 'freegift'
+          if item.final_price == 0
             assign free_gift_claimed = true
           endif
         endfor
@@ -146,6 +146,7 @@
                   <form action="{{ routes.cart_add_url }}" method="post" class="ww-free-gift-card__form" data-free-gift-form>
                     <input type="hidden" name="id" value="{{ gift_variant.id }}">
                     <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="properties[_free_gift]" value="true">
                     <button type="submit">ADD TO CART</button>
                   </form>
                 {%- else -%}
