@@ -93,7 +93,12 @@
 
       {%- liquid
         assign free_gift_claimed = false
+        assign free_gift_in_cart = false
         for item in cart.items
+          if item.product.tags contains 'freegift'
+            assign free_gift_in_cart = true
+          endif
+
           if item.final_price == 0
             assign free_gift_claimed = true
           endif
@@ -191,16 +196,32 @@
                 {%- endif -%}
               {%- endcapture -%}
 
+              {%- liquid
+                assign is_free_gift_line = false
+
+                if line_item.product.tags contains 'freegift'
+                  assign is_free_gift_line = true
+                endif
+
+                unless line_item.properties == blank
+                  for property in line_item.properties
+                    if property.first == '_free_gift' and property.last == 'true'
+                      assign is_free_gift_line = true
+                    endif
+                  endfor
+                endunless
+              -%}
+
               {%- capture line_price -%}
                 {%- comment -%}
                 IMPLEMENTATION NOTE: The designer wanted to show the "compare at price" on cart. In case an automatic discount is applied
                   to a line item though, the "real" discount takes precedence over the compare at price
                 {%- endcomment -%}
 
-                <span class="price {% if line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price %}price--highlight{% endif %}">
+                <span class="price {% if is_free_gift_line or line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price %}price--highlight{% endif %}">
                   <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
 
-                  {%- if line_item.final_line_price == 0 -%}
+                  {%- if is_free_gift_line or line_item.final_line_price == 0 -%}
                     {{- 'cart.general.free' | t -}}
                   {%- else -%}
                    {% render 'format-money', amount: line_item.final_line_price %}
@@ -208,11 +229,13 @@
                   {%- endif -%}
                 </span>
 
-                {%- if line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
+                {%- if is_free_gift_line or line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
                   <span class="price price--compare">
                 <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
 
-               {% if line_item.variant.compare_at_price > line_item.variant.price %}
+               {% if is_free_gift_line %}
+                  {% render 'format-money', amount: line_item.original_line_price %}
+               {% elsif line_item.variant.compare_at_price > line_item.variant.price %}
                   {% assign compare_price_total = line_item.variant.compare_at_price | times: line_item.quantity %}
                   {% render 'format-money', amount: compare_price_total %}
                   {% else %}
@@ -470,7 +493,9 @@
 
       {%- endif -%}
 
-      {%- render 'ww-ctl-cart' -%}
+      {%- unless free_gift_in_cart -%}
+        {%- render 'ww-ctl-cart' -%}
+      {%- endunless -%}
     </div>
 
     <footer class="mini-cart__drawer-footer drawer__footer drawer__footer--tight drawer__footer--bordered">

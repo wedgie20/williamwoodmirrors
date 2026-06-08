@@ -12,6 +12,10 @@
 
   {%- for item in cart.items -%}
 
+    {%- if item.product.tags contains 'freegift' -%}
+      {%- continue -%}
+    {%- endif -%}
+
     {%- assign related_products = item.product.metafields.custom.related_products.value -%}
 
     {%- if related_products != blank -%}
