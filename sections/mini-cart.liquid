@@ -2,9 +2,9 @@
 
 
 {%- if current_path contains '/en-fr' or current_path contains '/en-de' or current_path contains '/en-nl'-%}
-  {%- assign free_shipping_calculated_threshold = 29900 -%}
+  {%- assign free_shipping_calculated_threshold = 34900 -%}
 {%- else -%}
-  {%- assign free_shipping_calculated_threshold = 29900 -%}
+  {%- assign free_shipping_calculated_threshold = 34900 -%}
 {%- endif -%}
 
 {%- assign threshold_in_cents = free_shipping_calculated_threshold -%}
@@ -15,6 +15,34 @@
     {%- assign calculated_total_price = calculated_total_price | minus: line_item.final_line_price -%}
   {%- endunless -%}
 {%- endfor -%}
+
+{%- liquid
+  assign free_gift_display_saving = 0
+  assign free_gift_display_saving_claimed = false
+
+  for line_item in cart.items
+    assign is_free_gift_discount_line = false
+
+    if line_item.product.tags contains 'freegift'
+      assign is_free_gift_discount_line = true
+    endif
+
+    unless line_item.properties == blank
+      for property in line_item.properties
+        if property.first == '_free_gift' and property.last == 'true'
+          assign is_free_gift_discount_line = true
+        endif
+      endfor
+    endunless
+
+    if is_free_gift_discount_line and free_gift_display_saving_claimed == false
+      assign free_gift_display_saving = line_item.final_line_price | divided_by: line_item.quantity
+      assign free_gift_display_saving_claimed = true
+    endif
+  endfor
+
+  assign display_cart_total = cart.total_price | minus: free_gift_display_saving
+-%}
 <cart-drawer section="{{ section.id }}" id="mini-cart" class="mini-cart drawer drawer--large" data-cart-count="{{ cart.item_count }}">
   <span class="drawer__overlay"></span>
   <header class="drawer__header">
@@ -110,7 +138,7 @@
       -%}
 
       <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large ww-free-gift-bar" style="--progress: {{ free_gift_progress }}">
-        {%- if free_gift_claimed -%}
+        {%- if free_gift_in_cart or free_gift_claimed -%}
           <div class="shipping-bar__text"><span style="color: green;">Free Gift successfully claimed</span>, courtesy of William Wood.</div>
         {%- elsif cart.items_subtotal_price >= threshold_in_cents -%}
           <div class="shipping-bar__text"><span style="color: green;">Free Gift Unlocked.</span> Please select your Free Gift of choice <a href="{{ free_gift_collection.url | default: '/collections/free-gift' }}?utm_source=mc" data-free-gift-trigger><u>here</u></a></div>
@@ -167,6 +195,8 @@
       <form id="mini-cart-form" action="{{ routes.cart_url }}" novalidate method="post">
         <input type="hidden" name="checkout">
 
+        {%- assign free_gift_display_claimed = false -%}
+
         {%- for line_item in cart.items -%}
           <line-item class="line-item">
             <div class="line-item__content-wrapper">
@@ -210,6 +240,21 @@
                     endif
                   endfor
                 endunless
+
+                assign gift_unit_displayed_free = false
+                assign free_gift_display_price = line_item.final_line_price
+
+                if is_free_gift_line and free_gift_display_claimed == false
+                  assign gift_unit_displayed_free = true
+                  assign free_gift_display_claimed = true
+
+                  if line_item.quantity > 1
+                    assign charged_gift_unit_price = line_item.final_line_price | divided_by: line_item.quantity
+                    assign free_gift_display_price = line_item.final_line_price | minus: charged_gift_unit_price
+                  else
+                    assign free_gift_display_price = 0
+                  endif
+                endif
               -%}
 
               {%- capture line_price -%}
@@ -218,10 +263,14 @@
                   to a line item though, the "real" discount takes precedence over the compare at price
                 {%- endcomment -%}
 
-                <span class="price {% if is_free_gift_line or line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price %}price--highlight{% endif %}">
+                <span class="price {% if gift_unit_displayed_free or line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price %}price--highlight{% endif %}">
                   <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
 
-                  {%- if is_free_gift_line or line_item.final_line_price == 0 -%}
+                  {%- if gift_unit_displayed_free and free_gift_display_price == 0 -%}
+                    {{- 'cart.general.free' | t -}}
+                  {%- elsif gift_unit_displayed_free -%}
+                    {% render 'format-money', amount: free_gift_display_price %}
+                  {%- elsif line_item.final_line_price == 0 -%}
                     {{- 'cart.general.free' | t -}}
                   {%- else -%}
                    {% render 'format-money', amount: line_item.final_line_price %}
@@ -229,11 +278,11 @@
                   {%- endif -%}
                 </span>
 
-                {%- if is_free_gift_line or line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
+                {%- if gift_unit_displayed_free or line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
                   <span class="price price--compare">
                 <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
 
-               {% if is_free_gift_line %}
+               {% if gift_unit_displayed_free %}
                   {% render 'format-money', amount: line_item.original_line_price %}
                {% elsif line_item.variant.compare_at_price > line_item.variant.price %}
                   {% assign compare_price_total = line_item.variant.compare_at_price | times: line_item.quantity %}
@@ -613,6 +662,7 @@
   {% assign total_saving = total_saving | plus: item_total_saving %}
 {% endfor %}
 
+{% assign total_saving = total_saving | plus: free_gift_display_saving %}
 
 {% if total_saving > 0 %}
   <p class="order_info">
@@ -668,7 +718,7 @@
 {% endif %}
 
      
-      <p class="order_info" style="font-weight: bold;"><span style="color: black;">Final Order Total:</span> <span style="text-align: right;"> {% render 'format-money', amount: cart.total_price %}</span></p>
+      <p class="order_info" style="font-weight: bold;"><span style="color: black;">Final Order Total:</span> <span style="text-align: right;"> {% render 'format-money', amount: display_cart_total %}</span></p>
       
       {% assign eu_countries = "AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE" | split: "," %}
       {% if localization.country.iso_code != "GB" and eu_countries contains localization.country.iso_code %}
@@ -729,7 +779,7 @@
       {%- endif -%}
 
         <div id="price-divider-container" class="customer-text" style="text-align: center !important; margin-top:  10px;">
-          {% assign installment_amount = cart.total_price | divided_by: 3 %}
+          {% assign installment_amount = display_cart_total | divided_by: 3 %}
           Or in 3 <b>interest free</b> instalments of <strong>{% render 'format-money', amount: installment_amount %}</strong> with Klarna
         </div>
 
