@@ -73,7 +73,7 @@
 
 {%- for description_detail_line_raw in description_detail_lines -%}
   {%- liquid
-    assign description_detail_line = description_detail_line_raw | strip
+    assign description_detail_line = description_detail_line_raw | replace: '&nbsp;', ' ' | replace: ' ', ' ' | strip
     assign normalized_detail_line = description_detail_line | replace: '–', '-' | replace: '—', '-'
 
     if capture_description_care and description_care == blank and normalized_detail_line != blank
@@ -112,13 +112,13 @@
 {%- endfor -%}
 
 {%- liquid
-  assign detail_colour = detail_colour | default: description_colour
-  assign detail_material = detail_material | default: description_material
-  assign detail_weight = detail_weight | default: description_weight
-  assign detail_capacity = detail_capacity | default: description_capacity
-  assign detail_outdoor = detail_outdoor | default: description_outdoor
-  assign detail_assembly = detail_assembly | default: description_assembly
-  assign detail_care = detail_care | default: description_care
+  assign detail_colour = detail_colour | default: description_colour | replace: '&nbsp;', ' ' | replace: ' ', ' ' | strip
+  assign detail_material = detail_material | default: description_material | replace: '&nbsp;', ' ' | replace: ' ', ' ' | strip
+  assign detail_weight = detail_weight | default: description_weight | replace: '&nbsp;', ' ' | replace: ' ', ' ' | strip
+  assign detail_capacity = detail_capacity | default: description_capacity | replace: '&nbsp;', ' ' | replace: ' ', ' ' | strip
+  assign detail_outdoor = detail_outdoor | default: description_outdoor | replace: '&nbsp;', ' ' | replace: ' ', ' ' | strip
+  assign detail_assembly = detail_assembly | default: description_assembly | replace: '&nbsp;', ' ' | replace: ' ', ' ' | strip
+  assign detail_care = detail_care | default: description_care | replace: '&nbsp;', ' ' | replace: ' ', ' ' | strip
 -%}
 
 {%- capture overall_size -%}
@@ -441,7 +441,7 @@
     gap: 5px;
     align-items: center;
     margin-bottom: 18px;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.4;
   }
 
@@ -459,21 +459,21 @@
     padding: 0 16px;
     margin-bottom: 45px;
     font-family: "Ambroise", "altesse-std-24pt", "Times New Roman", Georgia, serif;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 1;
   }
 
   .ww-pdp__designed strong {
     margin-left: 7px;
     font-family: var(--heading-font-family, var(--text-font-family, Arial, sans-serif));
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 800;
   }
 
   .ww-pdp__label {
     margin: 0 0 20px;
     text-transform: uppercase;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
     color: #4b4b4b;
   }
@@ -481,9 +481,9 @@
   .ww-pdp__title {
     max-width: 620px;
     margin: 0 0 18px;
-    font-size: 28px;
+    font-size: 24px;
     line-height: 1.08;
-    font-weight: 700;
+    font-weight: 500;
   }
 
   .ww-pdp__price-row {
@@ -502,7 +502,7 @@
   }
 
   .ww-pdp__price {
-    font-size: 26px;
+    font-size: 20px;
     line-height: 1;
     font-weight: 400;
   }
@@ -526,8 +526,8 @@
     border: 1.5px solid #111;
     border-radius: 999px;
     padding: 0 15px;
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 10px;
+    font-weight: 500;
     white-space: nowrap;
   }
 
@@ -553,15 +553,16 @@
     margin-bottom: 25px;
     color: #111;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 14px;
     line-height: 1;
   }
 
   .ww-pdp__reviews span:last-child {
-    font-size: 13px;
+    font-size: 12px;
     text-transform: uppercase;
     text-decoration: underline;
     text-underline-offset: 3px;
+    font-weight: 500;
   }
 
   .ww-pdp__excerpt {
@@ -601,7 +602,7 @@
     {% comment %} min-height: 80px; {% endcomment %}
     padding: 6px 30px;
     margin-bottom: 14px;
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .ww-pdp__promo strong {
@@ -616,11 +617,11 @@
     display: inline-flex;
     align-items: center;
     gap: 9px;
-    min-height: 42px;
+    min-height: 32px;
     border: 0;
-    border-radius: 999px;
-    padding: 0 16px;
-    background: #9f3934;
+    border-radius: 100px;
+    padding: 8px 12px 8px 12px;
+    background: #954039;
     color: #fff;
     font-size: 12px;
     font-weight: 700;
@@ -667,7 +668,7 @@
   }
 
   .ww-pdp__quantity {
-    height: 40px;
+    height: 59px;
     border: 1px solid #e1e1e1;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -701,7 +702,7 @@
   }
 
   .ww-pdp__add {
-    height: 40px;
+    height: 59px;
     border: 1px solid #000;
     border-radius: 0;
     background: #000;
@@ -711,9 +712,11 @@
     justify-content: center;
     text-align: center;
     text-transform: uppercase;
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 500;
     cursor: pointer;
+    padding: 24px;
+    gap: 10px;
   }
 
   .ww-pdp__add[disabled] {
@@ -723,10 +726,12 @@
   }
 
   .ww-pdp__payments {
-    padding: 16px 22px;
+    padding: 16px 12px 16px 12px;
     margin-bottom: 54px;
     text-align: center;
-    font-size: 15px;
+    font-size: 12px;
+    border: 1px solid #E8E8E8;
+    border-radius: 2px;
   }
 
   .ww-pdp__summary > product-payment-terms,
@@ -810,11 +815,12 @@
   }
 
   .ww-pdp__ctl .ctl-box--inline .ctl-heading {
-    font-size: 22px;
+    font-size: 16px;
     line-height: 1.15;
     letter-spacing: 0;
     text-transform: none;
-    font-weight: 700;
+    font-weight: 500;
+    font-family: 'GothamBlack';
   }
 
   .ww-pdp__ctl .ctl-box--inline .ctl-arrow {
@@ -853,11 +859,11 @@
   }
 
   .ww-pdp__ctl .ctl-box--inline .ctl-card__title {
-    font-size: 16px;
+    font-size: 12px;
     line-height: 1.2;
     font-weight: 700;
     display: -webkit-box;
-    min-height: 40px;
+    min-height: 22px;
     overflow: hidden;
     white-space: normal;
     -webkit-box-orient: vertical;
@@ -868,13 +874,23 @@
     order: 2;
     margin-top: 8px;
     display: block;
-    font-size: 18px;
+    font-size: 12px;
     line-height: 1.2;
+    font-weight: 700;
   }
 
   .ww-pdp__ctl .ctl-box--inline .ctl-card__rating {
     order: 3;
     margin-top: 12px;
+    font-size: 12px !important;
+  }
+
+  .ww-pdp__ctl .ctl-box--inline .ctl-card__rating *,
+  .ww-pdp__ctl .ctl-box--inline .ctl-card__rating .jdgm-star,
+  .ww-pdp__ctl .ctl-box--inline .ctl-card__rating .jdgm-star::before,
+  .ww-pdp__ctl .ctl-box--inline .ctl-card__rating .jdgm-prev-badge__text {
+    font-size: 12px !important;
+    line-height: 1.2 !important;
   }
 
   .ww-pdp__ctl .product-item-meta,
@@ -934,7 +950,7 @@
 
   .ww-pdp__detail-copy h2 {
     margin: 0 0 55px;
-    font-size: 34px;
+    font-size: 24px;
     line-height: 1.05;
     font-weight: 700;
   }
@@ -946,7 +962,7 @@
   .ww-pdp__detail-item strong {
     display: block;
     margin-bottom: 8px;
-    font-size: 19px;
+    font-size: 14px;
     line-height: 1.2;
   }
 
