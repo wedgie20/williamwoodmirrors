@@ -686,7 +686,8 @@ document.addEventListener("DOMContentLoaded", function() {
   {% endif %}
 {% endfor %}
 
-{% comment %} {% if is_host_moment_product or is_full_price_product %} {% endcomment %}
+
+
   <div class="ww-promo-banner">
     <p><strong>{% if is_host_moment_product %}Summer Savings</strong><br> 15% off everything / 20% off any 2 products or 25% off 3 or more<br><strong>Free Gift When You Spend £349.</strong> Apply Code <strong>WWJUNE</strong>{% else %}Summer Savings</strong><br> 15% off everything / 20% off any 2 products or 25% off 3 or more<br><strong>Free Gift When You Spend £349.</strong> Apply Code <strong>WWJUNE</strong>{% endif %}</p>
     <button type="button" class="ww-code" data-copy-code="{% if is_host_moment_product %}WWJUNE{% else %}WWJUNE{% endif %}" data-copy-feedback="COPIED" aria-label="Copy discount code {% if is_host_moment_product %}WWJUNE{% else %}WWJUNE{% endif %}">
@@ -708,7 +709,31 @@ document.addEventListener("DOMContentLoaded", function() {
 </svg>
     </button>
   </div>
-  {% comment %} {% endif %} {% endcomment %}
+ 
+
+{% comment %} {% if is_host_moment_product or is_full_price_product %}
+  <div class="ww-promo-banner">
+    <p><strong>{% if is_host_moment_product %}Summer Savings</strong><br> 15% off everything / 20% off any 2 products or 25% off 3 or more<br><strong>Free Gift When You Spend £349.</strong> Apply Code <strong>WWJUNE</strong>{% else %}Summer Savings</strong><br> 15% off everything / 20% off any 2 products or 25% off 3 or more<br><strong>Free Gift When You Spend £349.</strong> Apply Code <strong>WWJUNE</strong>{% endif %}</p>
+    <button type="button" class="ww-code" data-copy-code="{% if is_host_moment_product %}WWJUNE{% else %}WWJUNE{% endif %}" data-copy-feedback="COPIED" aria-label="Copy discount code {% if is_host_moment_product %}WWJUNE{% else %}WWJUNE{% endif %}">
+       
+      {% if is_host_moment_product %}WWJUNE{% else %}WWJUNE{% endif %}
+    <svg xmlns="http://www.w3.org/2000/svg"
+     width="15"
+     height="15"
+     viewBox="0 0 24 24"
+     fill="none"
+     stroke="#ffffff"
+     stroke-width="2"
+     stroke-linecap="round"
+     stroke-linejoin="round">
+
+  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+
+</svg>
+    </button>
+  </div>
+  {% endif %} {% endcomment %}
 
 <style>
     .ww-promo-banner {
