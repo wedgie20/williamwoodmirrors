@@ -689,7 +689,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
   <div class="ww-promo-banner">
-    <p><strong>{% if is_host_moment_product %}Summer Savings</strong><br> 15% off everything / 20% off any 2 products or 25% off 3 or more<br><strong>Free Gift When You Spend £349.</strong> Apply Code <strong>WWJUNE</strong>{% else %}Summer Savings</strong><br> 15% off everything / 20% off any 2 products or 25% off 3 or more<br><strong>Free Gift When You Spend £349.</strong> Apply Code <strong>WWJUNE</strong>{% endif %}</p>
+    <p><strong>{% if is_host_moment_product %}Summer Savings</strong><br> 15% off everything / 20% off any 2 or 25% off 3 or more<br><strong>Free Gift When You Spend £349.</strong> Apply Code <strong>WWJUNE</strong>{% else %}Summer Savings</strong><br> 15% off everything / 20% off any 2 or 25% off 3 or more<br><strong>Free Gift When You Spend £349.</strong> Apply Code <strong>WWJUNE</strong>{% endif %}</p>
     <button type="button" class="ww-code" data-copy-code="{% if is_host_moment_product %}WWJUNE{% else %}WWJUNE{% endif %}" data-copy-feedback="COPIED" aria-label="Copy discount code {% if is_host_moment_product %}WWJUNE{% else %}WWJUNE{% endif %}">
        
       {% if is_host_moment_product %}WWJUNE{% else %}WWJUNE{% endif %}
