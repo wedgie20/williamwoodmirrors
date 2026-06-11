@@ -336,6 +336,22 @@
   </div>
 </section>
 
+<div class="ww-pdp-sticky-atc" data-ww-pdp-sticky-atc hidden>
+  <div class="ww-pdp-sticky-atc__inner">
+    <p class="ww-pdp-sticky-atc__title">{{ product_heading }}</p>
+    <span class="ww-pdp-sticky-atc__price" data-ww-sticky-price>{{ current_variant.price | money }}</span>
+    <div class="ww-pdp-sticky-atc__quantity" data-ww-sticky-quantity>
+      <button type="button" data-ww-sticky-quantity-minus aria-label="Decrease quantity">-</button>
+      <input type="number" min="1" value="1" inputmode="numeric" aria-label="Quantity">
+      <button type="button" data-ww-sticky-quantity-plus aria-label="Increase quantity">+</button>
+    </div>
+    <button type="button" class="ww-pdp-sticky-atc__button" data-ww-sticky-add {% unless current_variant.available %}disabled{% endunless %}>
+      <span class="ww-pdp-sticky-atc__desktop-label">{%- if current_variant.available -%}Add to bag{%- else -%}Sold out{%- endif -%}</span>
+      <span class="ww-pdp-sticky-atc__mobile-label">{%- if current_variant.available -%}{{ current_variant.price | money }} - Add to bag{%- else -%}Sold out{%- endif -%}</span>
+    </button>
+  </div>
+</div>
+
 <style>
   #shopify-section-{{ section.id }} {
     background: #fff;
@@ -1008,6 +1024,110 @@
     font-style: italic;
   }
 
+  .ww-pdp-sticky-atc {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 29;
+    padding: 14px 18px;
+    background: rgba(222, 222, 222, .95);
+    transform: translateY(0);
+    transition: transform .2s ease, opacity .2s ease, visibility .2s ease;
+  }
+
+  .ww-pdp-sticky-atc[hidden],
+  .ww-pdp-sticky-atc.is-hidden {
+    display: block !important;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(100%);
+  }
+
+  .ww-pdp-sticky-atc__inner {
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) max-content 96px minmax(220px, 300px);
+    align-items: center;
+    gap: 8px;
+    width: min(100%, 1460px);
+    margin: 0 auto;
+    padding: 18px 36px;
+    background: #fff;
+  }
+
+  .ww-pdp-sticky-atc__title {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .ww-pdp-sticky-atc__price {
+    font-size: 12px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .ww-pdp-sticky-atc__quantity {
+    height: 45px;
+    border: 1px solid #e1e1e1;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+  }
+
+  .ww-pdp-sticky-atc__quantity button,
+  .ww-pdp-sticky-atc__quantity input {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: transparent;
+    color: #111;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .ww-pdp-sticky-atc__quantity button {
+    cursor: pointer;
+  }
+
+  .ww-pdp-sticky-atc__quantity input {
+    -moz-appearance: textfield;
+  }
+
+  .ww-pdp-sticky-atc__quantity input::-webkit-outer-spin-button,
+  .ww-pdp-sticky-atc__quantity input::-webkit-inner-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+  }
+
+  .ww-pdp-sticky-atc__button {
+    height: 45px;
+    border: 1px solid #000;
+    border-radius: 0;
+    background: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .ww-pdp-sticky-atc__button[disabled] {
+    background: #9a9a9a;
+    border-color: #9a9a9a;
+    cursor: not-allowed;
+  }
+
+  .ww-pdp-sticky-atc__mobile-label {
+    display: none;
+  }
+
   .foursixty-section .section__header .heading {
     max-width: 820px;
     margin-left: auto;
@@ -1375,6 +1495,36 @@
   }
 
   @media screen and (max-width: 999px) {
+    .ww-pdp-sticky-atc {
+      padding: 8px;
+      background: rgba(222, 222, 222, .95);
+    }
+
+    .ww-pdp-sticky-atc__inner {
+      display: block;
+      width: 100%;
+      padding: 0;
+      background: transparent;
+    }
+
+    .ww-pdp-sticky-atc__title,
+    .ww-pdp-sticky-atc__price,
+    .ww-pdp-sticky-atc__quantity,
+    .ww-pdp-sticky-atc__desktop-label {
+      display: none;
+    }
+
+    .ww-pdp-sticky-atc__mobile-label {
+      display: inline;
+    }
+
+    .ww-pdp-sticky-atc__button {
+      width: 100%;
+      height: 50px;
+      font-size: 13px;
+      letter-spacing: 0;
+    }
+
     #judgeme_product_reviews,
     .jdgm-widget.jdgm-review-widget {
       width: calc(100vw - 36px) !important;
@@ -1702,21 +1852,107 @@
     var priceGroup = root.querySelector('[data-ww-pdp-price-group]');
     var stockPill = root.querySelector('.ww-pdp__pill--stock');
     var addButton = root.querySelector('.ww-pdp__add');
+    var stickyBar = document.querySelector('#shopify-section-{{ section.id }} [data-ww-pdp-sticky-atc]');
+    var stickyPrice = stickyBar ? stickyBar.querySelector('[data-ww-sticky-price]') : null;
+    var stickyMobileLabel = stickyBar ? stickyBar.querySelector('.ww-pdp-sticky-atc__mobile-label') : null;
+    var stickyAddButton = stickyBar ? stickyBar.querySelector('[data-ww-sticky-add]') : null;
+    var stickyQuantity = stickyBar ? stickyBar.querySelector('[data-ww-sticky-quantity]') : null;
+    var stickyQuantityInput = stickyQuantity ? stickyQuantity.querySelector('input') : null;
+    var mainQuantityInput = root.querySelector('.ww-pdp__quantity input[name="quantity"]');
+
+    function updateStickyButtonLabel(priceText, available) {
+      if (!stickyAddButton) return;
+      stickyAddButton.disabled = !available;
+      var desktopLabel = stickyAddButton.querySelector('.ww-pdp-sticky-atc__desktop-label');
+      if (desktopLabel) desktopLabel.textContent = available ? 'Add to bag' : 'Sold out';
+      if (stickyMobileLabel) stickyMobileLabel.textContent = available ? priceText + ' - Add to bag' : 'Sold out';
+    }
+
+    function syncQuantityInputs(source, value) {
+      var nextValue = Math.max(1, parseInt(value || '1', 10) || 1);
+      if (source !== mainQuantityInput && mainQuantityInput) {
+        mainQuantityInput.value = nextValue;
+        mainQuantityInput.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      if (source !== stickyQuantityInput && stickyQuantityInput) {
+        stickyQuantityInput.value = nextValue;
+      }
+    }
+
+    if (mainQuantityInput && stickyQuantityInput) {
+      mainQuantityInput.addEventListener('change', function () {
+        syncQuantityInputs(mainQuantityInput, mainQuantityInput.value);
+      });
+
+      stickyQuantityInput.addEventListener('change', function () {
+        syncQuantityInputs(stickyQuantityInput, stickyQuantityInput.value);
+      });
+    }
+
+    if (stickyQuantity) {
+      var stickyMinus = stickyQuantity.querySelector('[data-ww-sticky-quantity-minus]');
+      var stickyPlus = stickyQuantity.querySelector('[data-ww-sticky-quantity-plus]');
+
+      if (stickyMinus) {
+        stickyMinus.addEventListener('click', function () {
+          syncQuantityInputs(stickyQuantityInput, Math.max(1, parseInt((stickyQuantityInput && stickyQuantityInput.value) || '1', 10) - 1));
+        });
+      }
+
+      if (stickyPlus) {
+        stickyPlus.addEventListener('click', function () {
+          syncQuantityInputs(stickyQuantityInput, Math.max(1, parseInt((stickyQuantityInput && stickyQuantityInput.value) || '1', 10) + 1));
+        });
+      }
+    }
+
+    if (stickyAddButton && addButton) {
+      stickyAddButton.addEventListener('click', function () {
+        if (stickyAddButton.disabled) return;
+        syncQuantityInputs(stickyQuantityInput, stickyQuantityInput ? stickyQuantityInput.value : (mainQuantityInput ? mainQuantityInput.value : 1));
+        addButton.click();
+      });
+    }
+
+    function updateStickyVisibility() {
+      if (!stickyBar || !addButton) return;
+      var addRect = addButton.getBoundingClientRect();
+      var footer = document.querySelector('.shopify-section--footer, footer');
+      var footerRect = footer ? footer.getBoundingClientRect() : null;
+      var footerVisible = footerRect ? footerRect.top < window.innerHeight : false;
+      var shouldShow = addRect.bottom < 0 && !footerVisible;
+      stickyBar.hidden = false;
+      stickyBar.classList.toggle('is-hidden', !shouldShow);
+    }
+
+    if (stickyBar && addButton) {
+      stickyBar.classList.add('is-hidden');
+      stickyBar.hidden = false;
+      updateStickyButtonLabel((stickyPrice && stickyPrice.textContent.trim()) || {{ current_variant.price | money | json }}, {{ current_variant.available | json }});
+      updateStickyVisibility();
+      window.addEventListener('scroll', updateStickyVisibility, { passive: true });
+      window.addEventListener('resize', updateStickyVisibility);
+    }
 
     function updateSelectedVariantDisplay(option) {
       if (!option) return;
       var price = parseInt(option.dataset.price || '0', 10);
       var compareAt = parseInt(option.dataset.compareAt || '0', 10);
       var available = option.dataset.available === 'true';
+      var priceText = price ? formatInstallmentMoney(price) : '';
 
       if (priceGroup && price) {
         if (compareAt > price) {
           priceGroup.classList.add('is-discounted');
-          priceGroup.innerHTML = '<span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>' + formatInstallmentMoney(compareAt) + '</span><span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>' + formatInstallmentMoney(price) + '</span>';
+          priceGroup.innerHTML = '<span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>' + formatInstallmentMoney(compareAt) + '</span><span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>' + priceText + '</span>';
         } else {
           priceGroup.classList.remove('is-discounted');
-          priceGroup.innerHTML = '<span class="ww-pdp__price" data-ww-pdp-current-price>' + formatInstallmentMoney(price) + '</span>';
+          priceGroup.innerHTML = '<span class="ww-pdp__price" data-ww-pdp-current-price>' + priceText + '</span>';
         }
+      }
+
+      if (stickyPrice && priceText) {
+        stickyPrice.textContent = priceText;
       }
 
       if (stockPill) {
@@ -1727,6 +1963,9 @@
         addButton.disabled = !available;
         addButton.textContent = available ? 'Add to bag' : 'Sold out';
       }
+
+      updateStickyButtonLabel(priceText || (stickyPrice && stickyPrice.textContent.trim()) || '', available);
+      updateStickyVisibility();
 
       root.querySelectorAll('[data-ww-installments]').forEach(function (box) {
         box.dataset.priceCents = price || box.dataset.priceCents;
