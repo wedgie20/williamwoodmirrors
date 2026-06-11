@@ -1,0 +1,232 @@
+{%- comment -%}
+  Sticky promo + price bar for PDP.
+  Shows: thumbnail, title, original price (if on sale), sale/current price, savings badge, copyable WW25 code.
+  Appears when the user scrolls past the main price block, hides when scrolled back up.
+{%- endcomment -%}
+
+{%- assign v = product.selected_or_first_available_variant -%}
+{%- assign on_sale = false -%}
+{%- if v.compare_at_price > v.price -%}{%- assign on_sale = true -%}{%- endif -%}
+{%- assign savings = v.compare_at_price | minus: v.price -%}
+
+<div class="ww-pdp-sticky" data-pdp-sticky aria-hidden="true">
+  <div class="ww-pdp-sticky__inner">
+    <div class="ww-pdp-sticky__info">
+      {%- if product.featured_image -%}
+        <img class="ww-pdp-sticky__thumb"
+             src="{{ product.featured_image | image_url: width: 120 }}"
+             alt="{{ product.title | escape }}"
+             loading="lazy" width="48" height="48">
+      {%- endif -%}
+      <div class="ww-pdp-sticky__text">
+        <div class="ww-pdp-sticky__title">{{ product.title }}</div>
+        <div class="ww-pdp-sticky__prices">
+          {%- if on_sale -%}
+            <s class="ww-pdp-sticky__compare">{{ v.compare_at_price | money }}</s>
+            <strong class="ww-pdp-sticky__price ww-pdp-sticky__price--sale">{{ v.price | money }}</strong>
+            {%- if savings > 0 -%}
+              <span class="ww-pdp-sticky__save">Save {{ savings | money }}</span>
+            {%- endif -%}
+          {%- else -%}
+            <strong class="ww-pdp-sticky__price">{{ v.price | money }}</strong>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+    <button type="button"
+            class="ww-pdp-sticky__code ww-code"
+            data-copy-code="WW25"
+            data-copy-feedback="COPIED"
+            aria-label="Copy discount code WW25">
+      <span class="ww-pdp-sticky__code-label">WW25</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .ww-pdp-sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    z-index: 995;
+    transform: translateY(-100%);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+  }
+  .ww-pdp-sticky.is-visible { transform: translateY(0); }
+
+  .ww-pdp-sticky__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 10px 20px;
+  }
+  .ww-pdp-sticky__info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    flex: 1;
+  }
+  .ww-pdp-sticky__thumb {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #f5f5f5;
+  }
+  .ww-pdp-sticky__text {
+    min-width: 0;
+    flex: 1;
+  }
+  .ww-pdp-sticky__title {
+    font-size: 13px;
+    font-weight: 500;
+    color: #111;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 2px;
+  }
+  .ww-pdp-sticky__prices {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    line-height: 1.2;
+  }
+  .ww-pdp-sticky__compare {
+    color: #999;
+    text-decoration: line-through;
+  }
+  .ww-pdp-sticky__price {
+    color: #111;
+    font-weight: 700;
+  }
+  .ww-pdp-sticky__price--sale { color: #b22a1f; }
+  .ww-pdp-sticky__save {
+    background: #b22a1f;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .ww-pdp-sticky__code {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #b22a1f;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.2s ease;
+    font-family: inherit;
+  }
+  .ww-pdp-sticky__code:hover { background: #951f17; }
+  .ww-pdp-sticky__code.is-copied { background: #2e9e7b; }
+
+  @media (max-width: 749px) {
+    .ww-pdp-sticky__inner { padding: 8px 14px; gap: 8px; }
+    .ww-pdp-sticky__thumb { width: 40px; height: 40px; }
+    .ww-pdp-sticky__title { font-size: 12px; }
+    .ww-pdp-sticky__prices { font-size: 12px; gap: 6px; }
+    .ww-pdp-sticky__code { padding: 7px 11px; font-size: 11px; }
+    .ww-pdp-sticky__save { font-size: 9px; padding: 2px 5px; }
+  }
+</style>
+
+<script>
+(function () {
+  if (window._wwPdpStickyInit) return;
+  window._wwPdpStickyInit = true;
+
+  var bar = document.querySelector('[data-pdp-sticky]');
+  if (!bar) return;
+
+  var trigger = document.querySelector('.product-meta__price-list-container');
+  if (!trigger) return;
+
+  var visible = false;
+
+  function setVisible(next) {
+    if (next === visible) return;
+    visible = next;
+    bar.classList.toggle('is-visible', next);
+    bar.setAttribute('aria-hidden', next ? 'false' : 'true');
+  }
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        // Show sticky when trigger has scrolled out of view at the top
+        var pastTop = entry.boundingClientRect.top < 0;
+        setVisible(!entry.isIntersecting && pastTop);
+      });
+    }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
+    observer.observe(trigger);
+  } else {
+    // Fallback: scroll listener
+    window.addEventListener('scroll', function () {
+      var rect = trigger.getBoundingClientRect();
+      setVisible(rect.bottom < 0);
+    }, { passive: true });
+  }
+
+  // Copy code → COPIED feedback
+  bar.querySelector('.ww-pdp-sticky__code').addEventListener('click', function (e) {
+    var btn = e.currentTarget;
+    var code = btn.getAttribute('data-copy-code') || 'WW25';
+    var label = btn.querySelector('.ww-pdp-sticky__code-label');
+    var original = label ? label.textContent : code;
+
+    function showCopied() {
+      if (!label) return;
+      label.textContent = btn.getAttribute('data-copy-feedback') || 'COPIED';
+      btn.classList.add('is-copied');
+      setTimeout(function () {
+        label.textContent = original;
+        btn.classList.remove('is-copied');
+      }, 1500);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).then(showCopied).catch(showCopied);
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = code;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      showCopied();
+    }
+  });
+})();
+</script>
