@@ -1765,9 +1765,7 @@
     }
 
     .ww-pdp__breadcrumb {
-      display: flex;
-      align-items: flex-start;
-      gap: 4px;
+      display: block;
       max-width: 390px;
       margin-bottom: 16px;
       font-size: 12px;
@@ -1775,9 +1773,13 @@
       letter-spacing: 0;
     }
 
+    .ww-pdp__breadcrumb a,
+    .ww-pdp__breadcrumb span {
+      display: inline;
+    }
+
     .ww-pdp__breadcrumb span:last-child {
-      flex: 1 1 0;
-      min-width: 0;
+      min-width: auto;
     }
 
     .ww-pdp__designed {
@@ -1970,7 +1972,7 @@
     .ww-pdp__ctl .ctl-box--inline .ctl-card__title {
       min-height: 34px;
       font-size: 13px;
-      line-height: 1.15;
+      line-height: 1.20;
     }
 
     .ww-pdp__ctl .ctl-box--inline .ctl-card__price {
