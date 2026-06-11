@@ -82,16 +82,43 @@
     font-family: 'Symphony Pro', serif !important;
   }
 
-  /* Slide 1 content - shift 6% from left edge on desktop (overrides center auto-margin) */
+  /* Slide 1 - desktop only: shift 13% from left edge (overrides center auto-margin) */
   @media (min-width: 1024px) {
     .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] {
       margin-left: 13% !important;
       margin-right: 0 !important;
     }
   }
-    /* @media (min-width: 1024px) {
-    .hero-text-text_ncVMW, .hero-text-text_jhaRb, .hero-text-text_ncVMW *, .hero-text-text_jhaRb * { margin-left: 8% !important; }
-  } */
+
+  /* Slide 1 - mobile & tablet (< 1024px): center everything, fix line-height, side-by-side buttons */
+  @media (max-width: 1023px) {
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] {
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+    [data-slide-content-index="0"] .hero-text-text_hh9DV,
+    [data-slide-content-index="0"] .hero-text-text_hh9DV *,
+    [data-slide-content-index="0"] .hero-heading-heading_4gkkY,
+    [data-slide-content-index="0"] .hero-heading-heading_4gkkY *,
+    [data-slide-content-index="0"] .hero-text-text_ncVMW,
+    [data-slide-content-index="0"] .hero-text-text_ncVMW *,
+    [data-slide-content-index="0"] .hero-text-text_jhaRb,
+    [data-slide-content-index="0"] .hero-text-text_jhaRb * {
+      text-align: center !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+    [data-slide-content-index="0"] .hero-text-text_ncVMW,
+    [data-slide-content-index="0"] .hero-text-text_ncVMW *,
+    [data-slide-content-index="0"] .hero-text-text_jhaRb,
+    [data-slide-content-index="0"] .hero-text-text_jhaRb * {
+      line-height: 1.35 !important;
+    }
+    [data-slide-content-index="0"] .hero-buttons-{{ section.id }} {
+      justify-content: center !important;
+      flex-wrap: nowrap !important;
+    }
+  }
 
   .section-{{ section.id }} {
     border-top: solid {{ border_color }} {{ border_thickness }}px;
