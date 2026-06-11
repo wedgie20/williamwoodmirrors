@@ -85,7 +85,7 @@
   /* Slide 1 - desktop only: shift 13% from left edge (overrides center auto-margin) */
   @media (min-width: 1024px) {
     .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] {
-      margin-left: 13% !important;
+      margin-left: 0 !important;
       margin-right: 0 !important;
     }
     .hero-heading-heading_4gkkY * {
@@ -104,7 +104,7 @@
   /* Slide 1 - mobile & tablet (< 1024px): center everything, fix line-height, side-by-side buttons */
   @media (max-width: 1023px) {
     .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] {
-      margin-left: 0px !important;
+      margin-left: auto !important;
       margin-right: auto !important;
     }
     [data-slide-content-index="0"] .hero-text-text_hh9DV,
