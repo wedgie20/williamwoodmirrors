@@ -1030,10 +1030,11 @@
     right: 0;
     bottom: 0;
     z-index: 29;
-    padding: 14px 18px;
-    background: rgba(222, 222, 222, .95);
+    padding: 0;
+    background: #fff;
     transform: translateY(0);
     transition: transform .2s ease, opacity .2s ease, visibility .2s ease;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, .08);
   }
 
   .ww-pdp-sticky-atc[hidden],
@@ -1050,21 +1051,21 @@
     grid-template-columns: minmax(220px, 1fr) max-content 96px minmax(220px, 300px);
     align-items: center;
     gap: 8px;
-    width: min(100%, 1460px);
-    margin: 0 auto;
-    padding: 18px 36px;
+    width: 100%;
+    margin: 0;
+    padding: 14px 30px;
     background: #fff;
   }
 
   .ww-pdp-sticky-atc__title {
     margin: 0;
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1.25;
     font-weight: 700;
   }
 
   .ww-pdp-sticky-atc__price {
-    font-size: 12px;
+    font-size: 16px;
     line-height: 1;
     white-space: nowrap;
   }
@@ -1085,7 +1086,7 @@
     background: transparent;
     color: #111;
     text-align: center;
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .ww-pdp-sticky-atc__quantity button {
