@@ -125,7 +125,7 @@
           width: auto;
         }
         .fs-timeline {
-          max-width: calc(100% - 60px);
+          max-width: 310px;
           margin: auto;
         }
         .fs-slider-next-button,
@@ -140,9 +140,16 @@
           stroke-width: 2px;
         }
         .fs-wrapper div.fs-entry-container {
-          height: 0;
-          width: 50% !important;
-          padding-top: 50% !important;
+          width: 310px !important;
+          max-width: calc(100vw - 36px) !important;
+          height: 330px !important;
+          padding-top: 0 !important;
+        }
+        .fs-wrapper div.fs-entry-container img,
+        .fs-wrapper div.fs-entry-container .fs-timeline-entry {
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: cover !important;
         }
       }
     </style>
