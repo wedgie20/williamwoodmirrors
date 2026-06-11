@@ -339,7 +339,14 @@
 <div class="ww-pdp-sticky-atc" data-ww-pdp-sticky-atc hidden>
   <div class="ww-pdp-sticky-atc__inner">
     <p class="ww-pdp-sticky-atc__title">{{ product_heading }}</p>
-    <span class="ww-pdp-sticky-atc__price" data-ww-sticky-price>{{ current_variant.price | money }}</span>
+    <span class="ww-pdp-sticky-atc__price {% if has_variant_discount %}is-discounted{% endif %}" data-ww-sticky-price>
+      {%- if has_variant_discount -%}
+        <span class="ww-pdp-sticky-atc__price-compare" data-ww-sticky-compare-price>{{ current_variant.compare_at_price | money }}</span>
+        <span class="ww-pdp-sticky-atc__price-current" data-ww-sticky-current-price>{{ current_variant.price | money }}</span>
+      {%- else -%}
+        <span class="ww-pdp-sticky-atc__price-current" data-ww-sticky-current-price>{{ current_variant.price | money }}</span>
+      {%- endif -%}
+    </span>
     <div class="ww-pdp-sticky-atc__quantity" data-ww-sticky-quantity>
       <button type="button" data-ww-sticky-quantity-minus aria-label="Decrease quantity">-</button>
       <input type="number" min="1" value="1" inputmode="numeric" aria-label="Quantity">
@@ -347,7 +354,17 @@
     </div>
     <button type="button" class="ww-pdp-sticky-atc__button" data-ww-sticky-add {% unless current_variant.available %}disabled{% endunless %}>
       <span class="ww-pdp-sticky-atc__desktop-label">{%- if current_variant.available -%}Add to bag{%- else -%}Sold out{%- endif -%}</span>
-      <span class="ww-pdp-sticky-atc__mobile-label">{%- if current_variant.available -%}{{ current_variant.price | money }} - Add to bag{%- else -%}Sold out{%- endif -%}</span>
+      <span class="ww-pdp-sticky-atc__mobile-label {% if has_variant_discount %}is-discounted{% endif %}">
+        {%- if current_variant.available -%}
+          {%- if has_variant_discount -%}
+            <span class="ww-pdp-sticky-atc__price-compare" data-ww-sticky-mobile-compare-price>{{ current_variant.compare_at_price | money }}</span>
+          {%- endif -%}
+          <span class="ww-pdp-sticky-atc__price-current" data-ww-sticky-mobile-current-price>{{ current_variant.price | money }}</span>
+          <span>- Add to bag</span>
+        {%- else -%}
+          Sold out
+        {%- endif -%}
+      </span>
     </button>
   </div>
 </div>
@@ -1065,9 +1082,37 @@
   }
 
   .ww-pdp-sticky-atc__price {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
     font-size: 16px;
     line-height: 1;
     white-space: nowrap;
+  }
+
+  .ww-pdp-sticky-atc__price-compare {
+    color: #555;
+    text-decoration: line-through;
+  }
+
+  .ww-pdp-sticky-atc__price-current {
+    color: #111;
+  }
+
+  .ww-pdp-sticky-atc__price.is-discounted .ww-pdp-sticky-atc__price-current {
+    color: #ff4a4a;
+  }
+
+  .ww-pdp-sticky-atc__button .ww-pdp-sticky-atc__price-compare {
+    color: rgba(255, 255, 255, .75);
+  }
+
+  .ww-pdp-sticky-atc__button .ww-pdp-sticky-atc__price-current {
+    color: #fff;
+  }
+
+  .ww-pdp-sticky-atc__mobile-label.is-discounted .ww-pdp-sticky-atc__price-current {
+    color: #ff4a4a;
   }
 
   .ww-pdp-sticky-atc__quantity {
@@ -1517,7 +1562,10 @@
     }
 
     .ww-pdp-sticky-atc__mobile-label {
-      display: inline;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
       font-size: 16px;
       line-height: 1;
     }
@@ -2081,12 +2129,25 @@
     var stickyQuantityInput = stickyQuantity ? stickyQuantity.querySelector('input') : null;
     var mainQuantityInput = root.querySelector('.ww-pdp__quantity input[name="quantity"]');
 
-    function updateStickyButtonLabel(priceText, available) {
+    function stickyPriceHtml(priceText, compareText) {
+      return (compareText ? '<span class="ww-pdp-sticky-atc__price-compare">' + compareText + '</span>' : '') + '<span class="ww-pdp-sticky-atc__price-current">' + priceText + '</span>';
+    }
+
+    function updateStickyPrice(priceText, compareText) {
+      if (!stickyPrice || !priceText) return;
+      stickyPrice.classList.toggle('is-discounted', !!compareText);
+      stickyPrice.innerHTML = stickyPriceHtml(priceText, compareText);
+    }
+
+    function updateStickyButtonLabel(priceText, compareText, available) {
       if (!stickyAddButton) return;
       stickyAddButton.disabled = !available;
       var desktopLabel = stickyAddButton.querySelector('.ww-pdp-sticky-atc__desktop-label');
       if (desktopLabel) desktopLabel.textContent = available ? 'Add to bag' : 'Sold out';
-      if (stickyMobileLabel) stickyMobileLabel.textContent = available ? priceText + ' - Add to bag' : 'Sold out';
+      if (stickyMobileLabel) {
+        stickyMobileLabel.classList.toggle('is-discounted', !!compareText);
+        stickyMobileLabel.innerHTML = available ? stickyPriceHtml(priceText, compareText) + '<span>- Add to bag</span>' : 'Sold out';
+      }
     }
 
     function syncQuantityInputs(source, value) {
@@ -2141,7 +2202,9 @@
       var footer = document.querySelector('.shopify-section--footer, footer');
       var footerRect = footer ? footer.getBoundingClientRect() : null;
       var footerVisible = footerRect ? footerRect.top < window.innerHeight : false;
-      var shouldShow = addRect.bottom < 0 && !footerVisible;
+      var isMobile = window.matchMedia('(max-width: 999px)').matches;
+      var addButtonVisible = addRect.top < window.innerHeight && addRect.bottom > 0;
+      var shouldShow = (isMobile ? !addButtonVisible : addRect.bottom < 0) && !footerVisible;
       stickyBar.hidden = false;
       stickyBar.classList.toggle('is-hidden', !shouldShow);
     }
@@ -2149,7 +2212,11 @@
     if (stickyBar && addButton) {
       stickyBar.classList.add('is-hidden');
       stickyBar.hidden = false;
-      updateStickyButtonLabel((stickyPrice && stickyPrice.textContent.trim()) || {{ current_variant.price | money | json }}, {{ current_variant.available | json }});
+      updateStickyButtonLabel(
+        {{ current_variant.price | money | json }},
+        {%- if has_variant_discount -%}{{ current_variant.compare_at_price | money | json }}{%- else -%}''{%- endif -%},
+        {{ current_variant.available | json }}
+      );
       updateStickyVisibility();
       window.addEventListener('scroll', updateStickyVisibility, { passive: true });
       window.addEventListener('resize', updateStickyVisibility);
@@ -2161,6 +2228,7 @@
       var compareAt = parseInt(option.dataset.compareAt || '0', 10);
       var available = option.dataset.available === 'true';
       var priceText = price ? formatInstallmentMoney(price) : '';
+      var compareText = compareAt > price ? formatInstallmentMoney(compareAt) : '';
 
       if (priceGroup && price) {
         if (compareAt > price) {
@@ -2172,9 +2240,7 @@
         }
       }
 
-      if (stickyPrice && priceText) {
-        stickyPrice.textContent = priceText;
-      }
+      updateStickyPrice(priceText, compareText);
 
       if (stockPill) {
         stockPill.innerHTML = '<span></span>' + (available ? 'In stock' : 'Sold out');
@@ -2185,7 +2251,7 @@
         addButton.textContent = available ? 'Add to bag' : 'Sold out';
       }
 
-      updateStickyButtonLabel(priceText || (stickyPrice && stickyPrice.textContent.trim()) || '', available);
+      updateStickyButtonLabel(priceText || '', compareText, available);
       updateStickyVisibility();
 
       root.querySelectorAll('[data-ww-installments]').forEach(function (box) {
