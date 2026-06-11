@@ -1105,6 +1105,7 @@
 
         .hero-text-{{ block.id }} {
           margin-top: {{ block.settings.text_mt_mobile }}px;
+          margin-left: {{ block.settings.text_ml_mobile | default: 0 }}px;
           text-align: {{ content_horizontal_align_mobile }};
           position: relative;
           z-index: 2;
@@ -1127,6 +1128,7 @@
 
           .hero-text-{{ block.id }} {
             margin-top: {{ block.settings.text_mt }}px;
+            margin-left: {{ block.settings.text_ml | default: 0 }}px;
             text-align: {{  content_horizontal_align }};
           }
 
@@ -4072,6 +4074,26 @@
           "unit": "px",
           "label": "Margin top - mobile",
           "default": 20
+        },
+        {
+          "type": "range",
+          "id": "text_ml",
+          "min": -200,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "Margin left",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "text_ml_mobile",
+          "min": -200,
+          "max": 200,
+          "step": 2,
+          "unit": "px",
+          "label": "Margin left - mobile",
+          "default": 0
         },
         {
           "type": "color",
