@@ -76,6 +76,12 @@
 
 {%- style -%}
 
+  /* Wellness Day heading - Symphony Pro override (falls back to Ambroise if font file missing) */
+  .hero-heading-heading_4gkkY,
+  .hero-heading-heading_4gkkY * {
+    font-family: 'Symphony Pro', 'Ambroise', serif !important;
+  }
+
   .section-{{ section.id }} {
     border-top: solid {{ border_color }} {{ border_thickness }}px;
     border-bottom: solid {{ border_color }} {{ border_thickness }}px;
@@ -730,6 +736,10 @@
       margin-top: 0;
       width: max-content;
       max-width: calc(100vw - 24px);
+    }
+
+    .hero-text-text_ncVMW{
+      margin-left: 6% !important;
     }
 
     .hero-shop-scene-btn-{{ section.id }} {
