@@ -1635,9 +1635,13 @@
   }
 
   @media screen and (max-width: 999px) {
-    .ww-pdp__top,
-    .ww-pdp__details {
+    .ww-pdp__top {
       display: block;
+    }
+
+    .ww-pdp__details {
+      display: flex;
+      flex-direction: column;
     }
 
     .ww-pdp__media {
@@ -1651,6 +1655,40 @@
       height: auto;
     }
 
+    .ww-pdp__thumbs {
+      left: 18px;
+      right: 140px;
+      bottom: 24px;
+      gap: 7px;
+      align-items: center;
+      overflow: visible;
+    }
+
+    .ww-pdp__thumb {
+      width: 10px;
+      height: 10px;
+      border: 0;
+      border-radius: 999px;
+      background: #fff;
+      opacity: 1;
+      overflow: hidden;
+    }
+
+    .ww-pdp__thumb.is-active {
+      outline: 0;
+      background: #050505;
+    }
+
+    .ww-pdp__thumb img {
+      display: none;
+    }
+
+    .ww-pdp__media-controls {
+      right: 18px;
+      bottom: 16px;
+      gap: 8px;
+    }
+
     .ww-pdp__summary {
       padding: 24px 18px 36px;
     }
@@ -1662,20 +1700,25 @@
 
     .ww-pdp__label {
       margin-bottom: 10px;
-      font-size: 16px;
+      font-size: 14px;
     }
 
     .ww-pdp__title {
-      font-size: 28px;
+      font-size: 20px;
     }
 
     .ww-pdp__price {
-      font-size: 22px;
+      font-size: 20px;
     }
 
     .ww-pdp__excerpt {
-      font-size: 12px;
+      font-size: 14px;
       margin-bottom: 26px;
+    }
+
+    .ww-pdp__payments p {
+      margin: 0;
+      font-size: 12px;
     }
 
     .ww-pdp__promo {
@@ -1722,19 +1765,21 @@
     }
 
     .ww-pdp__detail-image {
+      order: 2;
       min-height: 0;
       aspect-ratio: 1 / 1.15;
-      margin-bottom: 40px;
+      margin: 8px 0 0;
     }
 
     .ww-pdp__detail-copy {
-      padding-top: 0;
+      order: 1;
+      padding: 24px 28px 24px 28px;
       font-size: 16px;
     }
 
     .ww-pdp__detail-copy h2 {
       margin-bottom: 32px;
-      font-size: 28px;
+      font-size: 24px;
     }
   }
 </style>
