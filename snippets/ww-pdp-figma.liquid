@@ -207,7 +207,7 @@
 
       {% comment %} <div class="ww-pdp__designed">Designed in-house by <strong>WILLIAM WOOD</strong></div> {% endcomment %}
 
-      <div class="">
+      <div class="ww-pdp_designed_div">
       <p class="ww-pdp__label">{{ product_label }}</p>
       <div class="ww-pdp__designed">Designed in-house by <strong>WILLIAM WOOD</strong></div>
 
@@ -402,6 +402,10 @@
   #shopify-section-{{ section.id }} ~ [id$="__product-recommendations"],
   #shopify-section-{{ section.id }} ~ [id$="__17266470579eb0696b"] {
     display: none !important;
+  }
+
+  .ww-pdp_designed_div {
+    display: flex;
   }
 
   .ww-pdp,
