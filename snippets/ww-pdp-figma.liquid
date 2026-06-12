@@ -302,7 +302,13 @@
       <button type="button" class="ww-pdp-lightbox__close" data-ww-pdp-lightbox-close aria-label="Close image popup">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6.4 5.3 5.6 5.6 5.6-5.6 1.1 1.1-5.6 5.6 5.6 5.6-1.1 1.1-5.6-5.6-5.6 5.6-1.1-1.1 5.6-5.6-5.6-5.6 1.1-1.1Z"/></svg>
       </button>
+      <button type="button" class="ww-pdp-lightbox__arrow ww-pdp-lightbox__arrow--prev" data-ww-pdp-lightbox-prev aria-label="Previous product image">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14.7 5.3 1.1 1.1L10.2 12l5.6 5.6-1.1 1.1L8 12l6.7-6.7Z"/></svg>
+      </button>
       <img class="ww-pdp-lightbox__image" data-ww-pdp-lightbox-image alt="">
+      <button type="button" class="ww-pdp-lightbox__arrow ww-pdp-lightbox__arrow--next" data-ww-pdp-lightbox-next aria-label="Next product image">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.3 18.7-1.1-1.1 5.6-5.6-5.6-5.6 1.1-1.1L16 12l-6.7 6.7Z"/></svg>
+      </button>
     </div>
   </div>
 
@@ -566,6 +572,73 @@
     width: 24px;
     height: 24px;
     fill: currentColor;
+  }
+
+  .ww-pdp-lightbox__arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #fff;
+    color: #111;
+    display: grid;
+    place-items: center;
+    transform: translateY(-50%);
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, .15);
+  }
+
+  .ww-pdp-lightbox__arrow--prev {
+    left: 16px;
+  }
+
+  .ww-pdp-lightbox__arrow--next {
+    right: 16px;
+  }
+
+  .ww-pdp-lightbox__arrow svg {
+    width: 25px;
+    height: 25px;
+    fill: currentColor;
+  }
+
+  .ww-pdp-lightbox__arrow[hidden] {
+    display: none;
+  }
+
+  @media screen and (max-width: 999px) {
+    .ww-pdp-lightbox {
+      padding: 12px;
+    }
+
+    .ww-pdp-lightbox__dialog {
+      width: 100%;
+      height: 100%;
+    }
+
+    .ww-pdp-lightbox__close {
+      top: 10px;
+      right: 10px;
+      width: 40px;
+      height: 40px;
+    }
+
+    .ww-pdp-lightbox__arrow {
+      width: 42px;
+      height: 42px;
+    }
+
+    .ww-pdp-lightbox__arrow--prev {
+      left: 8px;
+    }
+
+    .ww-pdp-lightbox__arrow--next {
+      right: 8px;
+    }
   }
 
   .ww-pdp__summary {
@@ -2138,12 +2211,30 @@
     var lightbox = root.querySelector('[data-ww-pdp-lightbox]');
     var lightboxImage = lightbox ? lightbox.querySelector('[data-ww-pdp-lightbox-image]') : null;
     var lightboxCloseButtons = lightbox ? lightbox.querySelectorAll('[data-ww-pdp-lightbox-close]') : [];
+    var lightboxPrev = lightbox ? lightbox.querySelector('[data-ww-pdp-lightbox-prev]') : null;
+    var lightboxNext = lightbox ? lightbox.querySelector('[data-ww-pdp-lightbox-next]') : null;
     var previousBodyOverflow = '';
+    var lightboxTouchStartX = 0;
+
+    function updateLightboxImage() {
+      if (!lightboxImage || !mainImage || !mainImage.src) return;
+      var activeThumb = thumbs[currentIndex];
+      lightboxImage.src = activeThumb && activeThumb.dataset.src ? activeThumb.dataset.src : (mainImage.currentSrc || mainImage.src);
+      lightboxImage.alt = activeThumb && activeThumb.dataset.alt ? activeThumb.dataset.alt : (mainImage.alt || '');
+    }
+
+    function moveLightbox(step) {
+      if (!thumbs.length) return;
+      showImage(currentIndex + step);
+      updateLightboxImage();
+    }
 
     function openLightbox() {
       if (!lightbox || !lightboxImage || !mainImage || !mainImage.src) return;
-      lightboxImage.src = mainImage.currentSrc || mainImage.src;
-      lightboxImage.alt = mainImage.alt || '';
+      updateLightboxImage();
+      var hasMultipleImages = thumbs.length > 1;
+      if (lightboxPrev) lightboxPrev.hidden = !hasMultipleImages;
+      if (lightboxNext) lightboxNext.hidden = !hasMultipleImages;
       previousBodyOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
       lightbox.hidden = false;
@@ -2162,12 +2253,27 @@
     if (prev) prev.addEventListener('click', function () { showImage(currentIndex - 1); });
     if (next) next.addEventListener('click', function () { showImage(currentIndex + 1); });
     if (zoom) zoom.addEventListener('click', openLightbox);
+    if (lightboxPrev) lightboxPrev.addEventListener('click', function () { moveLightbox(-1); });
+    if (lightboxNext) lightboxNext.addEventListener('click', function () { moveLightbox(1); });
     lightboxCloseButtons.forEach(function (button) {
       button.addEventListener('click', closeLightbox);
     });
     document.addEventListener('keydown', function (event) {
+      if (!lightbox || lightbox.hidden) return;
       if (event.key === 'Escape') closeLightbox();
+      if (event.key === 'ArrowLeft') moveLightbox(-1);
+      if (event.key === 'ArrowRight') moveLightbox(1);
     });
+    if (lightbox) {
+      lightbox.addEventListener('touchstart', function (event) {
+        lightboxTouchStartX = event.changedTouches[0].clientX;
+      }, { passive: true });
+      lightbox.addEventListener('touchend', function (event) {
+        var distance = event.changedTouches[0].clientX - lightboxTouchStartX;
+        if (Math.abs(distance) < 45) return;
+        moveLightbox(distance > 0 ? -1 : 1);
+      }, { passive: true });
+    }
 
     root.querySelectorAll('[data-ww-quantity]').forEach(function (quantity) {
       var input = quantity.querySelector('input');
