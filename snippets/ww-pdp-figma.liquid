@@ -296,6 +296,16 @@
     </div>
   </div>
 
+  <div class="ww-pdp-lightbox" data-ww-pdp-lightbox hidden>
+    <button type="button" class="ww-pdp-lightbox__backdrop" data-ww-pdp-lightbox-close aria-label="Close image popup"></button>
+    <div class="ww-pdp-lightbox__dialog" role="dialog" aria-modal="true" aria-label="Product image preview">
+      <button type="button" class="ww-pdp-lightbox__close" data-ww-pdp-lightbox-close aria-label="Close image popup">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6.4 5.3 5.6 5.6 5.6-5.6 1.1 1.1-5.6 5.6 5.6 5.6-1.1 1.1-5.6-5.6-5.6 5.6-1.1-1.1 5.6-5.6-5.6-5.6 1.1-1.1Z"/></svg>
+      </button>
+      <img class="ww-pdp-lightbox__image" data-ww-pdp-lightbox-image alt="">
+    </div>
+  </div>
+
   <div class="ww-pdp__details" id="product-{{ product.id }}-details">
     <div class="ww-pdp__detail-image">
       {%- if detail_media.preview_image != blank -%}
@@ -491,6 +501,70 @@
   .ww-pdp__media-btn svg {
     width: 20px;
     height: 20px;
+    fill: currentColor;
+  }
+
+  .ww-pdp-lightbox[hidden] {
+    display: none;
+  }
+
+  .ww-pdp-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: grid;
+    place-items: center;
+    padding: 28px;
+  }
+
+  .ww-pdp-lightbox__backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: rgba(0, 0, 0, .78);
+    cursor: zoom-out;
+  }
+
+  .ww-pdp-lightbox__dialog {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: min(94vw, 1500px);
+    height: min(92vh, 1000px);
+  }
+
+  .ww-pdp-lightbox__image {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    background: #fff;
+  }
+
+  .ww-pdp-lightbox__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #fff;
+    color: #111;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+
+  .ww-pdp-lightbox__close svg {
+    width: 24px;
+    height: 24px;
     fill: currentColor;
   }
 
@@ -1232,7 +1306,7 @@
     padding: 0 !important;
     text-align: center !important;
     color: #050505 !important;
-    font-size: 26px !important;
+    font-size: 19.5px !important;
     line-height: 1.2 !important;
     font-weight: 700 !important;
     text-transform: none !important;
@@ -2054,13 +2128,39 @@
     var prev = root.querySelector('[data-ww-pdp-prev]');
     var next = root.querySelector('[data-ww-pdp-next]');
     var zoom = root.querySelector('[data-ww-pdp-zoom]');
+    var lightbox = root.querySelector('[data-ww-pdp-lightbox]');
+    var lightboxImage = lightbox ? lightbox.querySelector('[data-ww-pdp-lightbox-image]') : null;
+    var lightboxCloseButtons = lightbox ? lightbox.querySelectorAll('[data-ww-pdp-lightbox-close]') : [];
+    var previousBodyOverflow = '';
+
+    function openLightbox() {
+      if (!lightbox || !lightboxImage || !mainImage || !mainImage.src) return;
+      lightboxImage.src = mainImage.currentSrc || mainImage.src;
+      lightboxImage.alt = mainImage.alt || '';
+      previousBodyOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      lightbox.hidden = false;
+      var closeButton = lightbox.querySelector('.ww-pdp-lightbox__close');
+      if (closeButton) closeButton.focus();
+    }
+
+    function closeLightbox() {
+      if (!lightbox || lightbox.hidden) return;
+      lightbox.hidden = true;
+      lightboxImage.removeAttribute('src');
+      document.body.style.overflow = previousBodyOverflow;
+      if (zoom) zoom.focus();
+    }
+
     if (prev) prev.addEventListener('click', function () { showImage(currentIndex - 1); });
     if (next) next.addEventListener('click', function () { showImage(currentIndex + 1); });
-    if (zoom) {
-      zoom.addEventListener('click', function () {
-        if (mainImage && mainImage.src) window.open(mainImage.src, '_blank', 'noopener');
-      });
-    }
+    if (zoom) zoom.addEventListener('click', openLightbox);
+    lightboxCloseButtons.forEach(function (button) {
+      button.addEventListener('click', closeLightbox);
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeLightbox();
+    });
 
     root.querySelectorAll('[data-ww-quantity]').forEach(function (quantity) {
       var input = quantity.querySelector('input');
