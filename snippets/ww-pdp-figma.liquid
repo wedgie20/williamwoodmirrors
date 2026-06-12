@@ -544,7 +544,7 @@
     height: 100vh;
     padding: 4px 13vw;
     box-sizing: border-box;
-    pointer-events: none;
+    pointer-events: auto;
   }
 
   .ww-pdp-lightbox__image {
@@ -648,6 +648,8 @@
       top: auto;
       bottom: 20px;
       transform: none;
+      z-index: 4;
+      touch-action: manipulation;
     }
 
     .ww-pdp-lightbox__arrow--prev {
@@ -2271,8 +2273,20 @@
     if (prev) prev.addEventListener('click', function () { showImage(currentIndex - 1); });
     if (next) next.addEventListener('click', function () { showImage(currentIndex + 1); });
     if (zoom) zoom.addEventListener('click', openLightbox);
-    if (lightboxPrev) lightboxPrev.addEventListener('click', function () { moveLightbox(-1); });
-    if (lightboxNext) lightboxNext.addEventListener('click', function () { moveLightbox(1); });
+    if (lightboxPrev) {
+      lightboxPrev.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        moveLightbox(-1);
+      });
+    }
+    if (lightboxNext) {
+      lightboxNext.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        moveLightbox(1);
+      });
+    }
     lightboxCloseButtons.forEach(function (button) {
       button.addEventListener('click', closeLightbox);
     });
