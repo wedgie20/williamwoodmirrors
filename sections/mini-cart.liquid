@@ -104,7 +104,7 @@
         assign free_gift_progress = cart.items_subtotal_price | times: 1.0 | divided_by: threshold_in_cents | at_most: 1
       -%}
 
-      <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large ww-free-gift-bar" style="--progress: {{ free_gift_progress }}">
+      {% comment %} <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large ww-free-gift-bar" style="--progress: {{ free_gift_progress }}">
         {%- if free_gift_claimed -%}
           <div class="shipping-bar__text"><span style="color: green;">Free Gift successfully claimed</span>, courtesy of William Wood.</div>
         {%- elsif cart.items_subtotal_price >= threshold_in_cents -%}
@@ -120,7 +120,7 @@
 
         <span class="shipping-bar__progress imhere"></span>
         <div class="shipping_threshold">{{ threshold_in_cents | money }}</div>
-      </free-shipping-bar>
+      </free-shipping-bar> {% endcomment %}
 
       <aside class="ww-free-gift-drawer" data-free-gift-drawer aria-hidden="true">
         <div class="ww-free-gift-drawer__header">
