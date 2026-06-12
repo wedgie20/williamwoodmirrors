@@ -520,7 +520,8 @@
     z-index: 10000;
     display: grid;
     place-items: center;
-    padding: 28px;
+    padding: 0;
+    background: #fff;
   }
 
   .ww-pdp-lightbox__backdrop {
@@ -530,7 +531,7 @@
     height: 100%;
     padding: 0;
     border: 0;
-    background: rgba(0, 0, 0, .78);
+    background: #fff;
     cursor: zoom-out;
   }
 
@@ -539,33 +540,40 @@
     z-index: 1;
     display: grid;
     place-items: center;
-    width: min(94vw, 1500px);
-    height: min(92vh, 1000px);
+    width: 100vw;
+    height: 100vh;
+    padding: 4px 13vw;
+    box-sizing: border-box;
+    pointer-events: none;
   }
 
   .ww-pdp-lightbox__image {
     display: block;
+    width: auto;
+    height: 100%;
     max-width: 100%;
-    max-height: 100%;
+    max-height: 100vh;
     object-fit: contain;
-    background: #fff;
+    background: #f5f1e8;
+    pointer-events: auto;
   }
 
   .ww-pdp-lightbox__close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
+    position: fixed;
+    top: 24px;
+    right: 28px;
     z-index: 2;
-    width: 44px;
-    height: 44px;
+    width: 56px;
+    height: 56px;
     padding: 0;
-    border: 0;
+    border: 1px solid #dedede;
     border-radius: 50%;
     background: #fff;
     color: #111;
     display: grid;
     place-items: center;
     cursor: pointer;
+    pointer-events: auto;
   }
 
   .ww-pdp-lightbox__close svg {
@@ -575,13 +583,13 @@
   }
 
   .ww-pdp-lightbox__arrow {
-    position: absolute;
+    position: fixed;
     top: 50%;
     z-index: 2;
-    width: 48px;
-    height: 48px;
+    width: 60px;
+    height: 60px;
     padding: 0;
-    border: 0;
+    border: 1px solid #dedede;
     border-radius: 50%;
     background: #fff;
     color: #111;
@@ -589,15 +597,15 @@
     place-items: center;
     transform: translateY(-50%);
     cursor: pointer;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, .15);
+    pointer-events: auto;
   }
 
   .ww-pdp-lightbox__arrow--prev {
-    left: 16px;
+    left: 34px;
   }
 
   .ww-pdp-lightbox__arrow--next {
-    right: 16px;
+    right: 34px;
   }
 
   .ww-pdp-lightbox__arrow svg {
@@ -612,32 +620,42 @@
 
   @media screen and (max-width: 999px) {
     .ww-pdp-lightbox {
-      padding: 12px;
+      padding: 0;
     }
 
     .ww-pdp-lightbox__dialog {
       width: 100%;
       height: 100%;
+      padding: 64px 12px 84px;
     }
 
     .ww-pdp-lightbox__close {
-      top: 10px;
-      right: 10px;
+      top: 14px;
+      right: 14px;
       width: 40px;
       height: 40px;
+    }
+
+    .ww-pdp-lightbox__image {
+      width: 100%;
+      height: auto;
+      max-height: calc(100vh - 148px);
     }
 
     .ww-pdp-lightbox__arrow {
       width: 42px;
       height: 42px;
+      top: auto;
+      bottom: 20px;
+      transform: none;
     }
 
     .ww-pdp-lightbox__arrow--prev {
-      left: 8px;
+      left: calc(50% - 52px);
     }
 
     .ww-pdp-lightbox__arrow--next {
-      right: 8px;
+      right: calc(50% - 52px);
     }
   }
 
