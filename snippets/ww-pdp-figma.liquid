@@ -234,9 +234,10 @@
       </a>
 
       {%- if product.description != blank -%}
+        {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip -%}
         <div class="ww-pdp__excerpt">
           <div class="ww-pdp__excerpt-text" data-ww-excerpt-text>
-            {{ product.description | strip_html | strip }}
+            {{ desc_clean }}
           </div>
           <button type="button" data-ww-read-more aria-expanded="false">Read more</button>
         </div>
