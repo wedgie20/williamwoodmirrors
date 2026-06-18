@@ -235,10 +235,8 @@
 
       {%- if short_description != blank -%}
         <div class="ww-pdp__excerpt">
-          {% assign description_preview = product.description | split: 'Key Details:' | first %}
-
-<span data-ww-excerpt-preview>{{ description_preview }}</span>
-<span data-ww-excerpt-full hidden>{{ full_description | default: short_description }}</span>
+          <span data-ww-excerpt-preview>{{ short_description }}</span>
+          <span data-ww-excerpt-full hidden>{{ full_description | default: short_description }}</span>
           <button type="button" data-ww-read-more aria-expanded="false">Read more</button>
         </div>
       {%- endif -%}
