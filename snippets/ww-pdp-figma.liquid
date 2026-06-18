@@ -12,7 +12,7 @@
   endif
 
   assign review_count = product.metafields.reviews.rating_count.value | default: 0
-  assign full_description = product.description | strip_html | strip
+  assign full_description = product.description
   assign short_description = product.metafields.custom.short_description.value | default: product.metafields.custom.short_description | default: product.description | strip_html | truncate: 150
   assign has_host_promo = false
 
