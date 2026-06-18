@@ -233,22 +233,20 @@
         <span>{{ review_count }} reviews</span>
       </a>
 
-      {%- if product.description != blank -%}
+      {%- if short_description != blank -%}
         {% comment %} <div class="ww-pdp__excerpt">
-          <div class="ww-pdp__excerpt-text" data-ww-excerpt-text>
-            {{ product.description | strip_html | strip }}
-          </div>
+          <span data-ww-excerpt-preview>{{ short_description }}</span>
+          <span data-ww-excerpt-full hidden>{{ full_description | default: short_description }}</span>
           <button type="button" data-ww-read-more aria-expanded="false">Read more</button>
         </div> {% endcomment %}
 
         {%- assign preview_description = product.description | split: '<strong>Key Details</strong>' | first -%}
 
-<div class="ww-pdp__excerpt">
-  <span data-ww-excerpt-preview">{{ preview_description }}</span>
-  <span data-ww-excerpt-full hidden>{{ full_description | default: product.description }}</span>
-  <button type="button" data-ww-read-more aria-expanded="false">Read more</button>
-</div>
-        
+        <div class="ww-pdp__excerpt">
+          <span data-ww-excerpt-preview>{{ preview_description }}</span>
+          <span data-ww-excerpt-full hidden>{{ full_description | default: product.description }}</span>
+          <button type="button" data-ww-read-more aria-expanded="false">Read more</button>
+        </div>
       {%- endif -%}
 
       {%- if promo_code != blank -%}
@@ -827,19 +825,6 @@
     font-size: 14px;
     line-height: 1.65;
     font-family:"Gotham Book";
-  }
-
-  .ww-pdp__excerpt-text {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .ww-pdp__excerpt-text.is-expanded {
-    display: block;
-    -webkit-line-clamp: unset;
-    overflow: visible;
   }
 
   .ww-pdp__excerpt button {
@@ -2382,30 +2367,26 @@
 
     root.querySelectorAll('[data-ww-read-more]').forEach(function (button) {
       button.addEventListener('click', function () {
-      var excerpt = button.closest('.ww-pdp\_\_excerpt');
-      if (!excerpt) return;
-      var preview = excerpt.querySelector('[data-ww-excerpt-preview]');
-      var full = excerpt.querySelector('[data-ww-excerpt-full]');
-      if (!preview || !full) return;
+        var excerpt = button.closest('.ww-pdp__excerpt');
+        if (!excerpt) return;
+        var preview = excerpt.querySelector('[data-ww-excerpt-preview]');
+        var full = excerpt.querySelector('[data-ww-excerpt-full]');
+        if (!preview || !full) return;
 
-
-          if (!preview.dataset.collapsedText) {
-            preview.dataset.collapsedText = preview.textContent.trim();
-          }
-
-          var isExpanded = button.getAttribute('aria-expanded') === 'true';
-          if (isExpanded) {
-            preview.textContent = preview.dataset.collapsedText;
-            button.textContent = 'Read more';
-            button.setAttribute('aria-expanded', 'false');
-          } else {
-            preview.textContent = full.textContent.trim();
-            button.textContent = 'Read less';
-            button.setAttribute('aria-expanded', 'true');
-          }
-        });
+        var isExpanded = button.getAttribute('aria-expanded') === 'true';
+        if (isExpanded) {
+          preview.hidden = false;
+          full.hidden = true;
+          button.textContent = 'Read more';
+          button.setAttribute('aria-expanded', 'false');
+        } else {
+          preview.hidden = true;
+          full.hidden = false;
+          button.textContent = 'Read less';
+          button.setAttribute('aria-expanded', 'true');
+        }
       });
-
+    });
 
     function formatInstallmentMoney(cents) {
       var rounded = Math.round(cents);
