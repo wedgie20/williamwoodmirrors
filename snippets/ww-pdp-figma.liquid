@@ -2373,17 +2373,15 @@
         var full = excerpt.querySelector('[data-ww-excerpt-full]');
         if (!preview || !full) return;
 
-        if (!preview.dataset.collapsedText) {
-          preview.dataset.collapsedText = preview.textContent.trim();
-        }
-
         var isExpanded = button.getAttribute('aria-expanded') === 'true';
         if (isExpanded) {
-          preview.textContent = preview.dataset.collapsedText;
+          preview.hidden = false;
+          full.hidden = true;
           button.textContent = 'Read more';
           button.setAttribute('aria-expanded', 'false');
         } else {
-          preview.textContent = full.textContent.trim();
+          preview.hidden = true;
+          full.hidden = false;
           button.textContent = 'Read less';
           button.setAttribute('aria-expanded', 'true');
         }
