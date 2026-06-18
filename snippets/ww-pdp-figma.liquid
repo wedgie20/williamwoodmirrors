@@ -2374,17 +2374,30 @@
 
     root.querySelectorAll('[data-ww-read-more]').forEach(function (button) {
       button.addEventListener('click', function () {
-        var excerpt = button.closest('.ww-pdp__excerpt');
-        if (!excerpt) return;
-        var text = excerpt.querySelector('[data-ww-excerpt-text]');
-        if (!text) return;
+      var excerpt = button.closest('.ww-pdp\_\_excerpt');
+      if (!excerpt) return;
+      var preview = excerpt.querySelector('[data-ww-excerpt-preview]');
+      var full = excerpt.querySelector('[data-ww-excerpt-full]');
+      if (!preview || !full) return;
 
-        var isExpanded = button.getAttribute('aria-expanded') === 'true';
-        text.classList.toggle('is-expanded', !isExpanded);
-        button.textContent = isExpanded ? 'Read more' : 'Read less';
-        button.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+
+          if (!preview.dataset.collapsedText) {
+            preview.dataset.collapsedText = preview.textContent.trim();
+          }
+
+          var isExpanded = button.getAttribute('aria-expanded') === 'true';
+          if (isExpanded) {
+            preview.textContent = preview.dataset.collapsedText;
+            button.textContent = 'Read more';
+            button.setAttribute('aria-expanded', 'false');
+          } else {
+            preview.textContent = full.textContent.trim();
+            button.textContent = 'Read less';
+            button.setAttribute('aria-expanded', 'true');
+          }
+        });
       });
-    });
+
 
     function formatInstallmentMoney(cents) {
       var rounded = Math.round(cents);
