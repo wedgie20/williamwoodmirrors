@@ -12,7 +12,7 @@
   endif
 
   assign review_count = product.metafields.reviews.rating_count.value | default: 0
-  assign full_description = product.description
+  assign full_description = product.description | strip_html | strip
   assign short_description = product.metafields.custom.short_description.value | default: product.metafields.custom.short_description | default: product.description | strip_html | truncate: 150
   assign has_host_promo = false
 
@@ -243,7 +243,7 @@
         {%- assign preview_description = product.description | split: '<strong>Key Details</strong>' | first -%}
 
         <div class="ww-pdp__excerpt">
-          <span data-ww-excerpt-preview>{{ preview_description }}</span>
+          <span data-ww-excerpt-preview">{{ preview_description }}</span>
           <span data-ww-excerpt-full hidden>{{ full_description | default: product.description }}</span>
           <button type="button" data-ww-read-more aria-expanded="false">Read more</button>
         </div>
@@ -2373,15 +2373,17 @@
         var full = excerpt.querySelector('[data-ww-excerpt-full]');
         if (!preview || !full) return;
 
+        if (!preview.dataset.collapsedText) {
+          preview.dataset.collapsedText = preview.textContent.trim();
+        }
+
         var isExpanded = button.getAttribute('aria-expanded') === 'true';
         if (isExpanded) {
-          preview.hidden = false;
-          full.hidden = true;
+          preview.textContent = preview.dataset.collapsedText;
           button.textContent = 'Read more';
           button.setAttribute('aria-expanded', 'false');
         } else {
-          preview.hidden = true;
-          full.hidden = false;
+          preview.textContent = full.textContent.trim();
           button.textContent = 'Read less';
           button.setAttribute('aria-expanded', 'true');
         }
