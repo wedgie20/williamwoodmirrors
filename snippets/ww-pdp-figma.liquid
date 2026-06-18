@@ -209,8 +209,8 @@
 
       <div class="ww-pdp_designed_div">
       <p class="ww-pdp__label">{{ product_label }}</p>
-      <div class="ww-pdp__designed">Designed in-house by <strong>WILLIAM WOOD</strong></div>
-
+      
+{% if product.tags contains 'in-house' %}<div class="ww-pdp__designed">Designed in-house by <strong>WILLIAM WOOD</strong></div>{% endif %}
       </div>
       <h1 class="ww-pdp__title">{{ product_heading }}</h1>
 
