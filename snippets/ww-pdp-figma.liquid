@@ -240,6 +240,14 @@
           </div>
           <button type="button" data-ww-read-more aria-expanded="false">Read more</button>
         </div> {% endcomment %}
+
+        {%- assign preview_description = product.description | split: '<strong>Key Details</strong>' | first -%}
+
+<div class="ww-pdp__excerpt">
+  <span data-ww-excerpt-preview">{{ preview_description }}</span>
+  <span data-ww-excerpt-full hidden>{{ full_description | default: product.description }}</span>
+  <button type="button" data-ww-read-more aria-expanded="false">Read more</button>
+</div>
         
       {%- endif -%}
 
