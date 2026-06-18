@@ -212,7 +212,7 @@
       
 {% if product.tags contains 'in-house' %}<div class="ww-pdp__designed">Designed in-house by <strong>WILLIAM WOOD</strong></div>{% endif %}
       </div>
-      <h1 class="ww-pdp__title">{{ product_heading }}</h1>
+      <h1 class="ww-pdp__title">{{ product_heading }}{%- if detail_height != blank or detail_width != blank or detail_depth != blank %} <span class="ww-pdp__title-dims">{%- if detail_height != blank %}{{ detail_height }}{%- endif -%}{%- if detail_width != blank %} x {{ detail_width }}{%- endif -%}{%- if detail_depth != blank %} x {{ detail_depth }}{%- endif -%}</span>{%- endif -%}</h1>
 
       <div class="ww-pdp__price-row">
         <span class="ww-pdp__price-group {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
@@ -729,6 +729,14 @@
     font-size: 24px;
     line-height: 1.08;
     font-weight: 700;
+  }
+
+  .ww-pdp__title-dims {
+    font-weight: 500;
+    font-size: 0.85em;
+    color: #4b4b4b;
+    white-space: nowrap;
+    display: inline-block;
   }
 
   .ww-pdp__price-row {
