@@ -234,7 +234,7 @@
       </a>
 
       {%- if product.description != blank -%}
-        {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip -%}
+        {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
         <div class="ww-pdp__excerpt">
           <h3 class="ww-pdp__excerpt-heading">Product Description</h3>
           <div class="ww-pdp__excerpt-text" data-ww-excerpt-text>
