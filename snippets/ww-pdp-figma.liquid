@@ -236,6 +236,7 @@
       {%- if product.description != blank -%}
         {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip -%}
         <div class="ww-pdp__excerpt">
+          <h3 class="ww-pdp__excerpt-heading">Product Description</h3>
           <div class="ww-pdp__excerpt-text" data-ww-excerpt-text>
             {{ desc_clean }}
           </div>
@@ -821,16 +822,23 @@
     font-family:"Gotham Book";
   }
 
+  .ww-pdp__excerpt-heading {
+    margin: 0 0 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #111;
+    font-family: inherit;
+    line-height: 1.3;
+  }
+
   .ww-pdp__excerpt-text {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+    max-height: calc(1.65em * 2.5);
     overflow: hidden;
+    position: relative;
   }
 
   .ww-pdp__excerpt-text.is-expanded {
-    display: block;
-    -webkit-line-clamp: unset;
+    max-height: none;
     overflow: visible;
   }
 
