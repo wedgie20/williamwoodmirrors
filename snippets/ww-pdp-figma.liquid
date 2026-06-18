@@ -1275,7 +1275,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 29;
+    z-index: 60;
     padding: 0;
     background: #fff;
     transform: translateY(0);
@@ -2511,9 +2511,8 @@
       var footer = document.querySelector('.shopify-section--footer, footer');
       var footerRect = footer ? footer.getBoundingClientRect() : null;
       var footerVisible = footerRect ? footerRect.top < window.innerHeight : false;
-      var isMobile = window.matchMedia('(max-width: 999px)').matches;
       var addButtonVisible = addRect.top < window.innerHeight && addRect.bottom > 0;
-      var shouldShow = (isMobile ? !addButtonVisible : addRect.bottom < 0) && !footerVisible;
+      var shouldShow = !addButtonVisible && !footerVisible;
       stickyBar.hidden = false;
       stickyBar.classList.toggle('is-hidden', !shouldShow);
     }
@@ -2529,6 +2528,7 @@
       updateStickyVisibility();
       window.addEventListener('scroll', updateStickyVisibility, { passive: true });
       window.addEventListener('resize', updateStickyVisibility);
+      window.addEventListener('load', updateStickyVisibility);
     }
 
     function updateSelectedVariantDisplay(option) {
