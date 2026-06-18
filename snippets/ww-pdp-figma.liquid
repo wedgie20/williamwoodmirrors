@@ -238,7 +238,7 @@
           {% assign preview_description = short_description | split: '</p>' | first | append: '</p>' %}
 
           <span data-ww-excerpt-preview>{{ preview_description }}</span>
-          <span data-ww-excerpt-full hidden>{{ preview_description | default: short_description }}</span>
+          <span data-ww-excerpt-full hidden>{{ full_description | default: short_description }}</span>
           <button type="button" data-ww-read-more aria-expanded="false">Read more</button>
         </div>
       {%- endif -%}
