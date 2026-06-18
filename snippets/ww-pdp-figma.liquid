@@ -212,7 +212,8 @@
       
 {% if product.tags contains 'in-house' %}<div class="ww-pdp__designed">Designed in-house by <strong>WILLIAM WOOD</strong></div>{% endif %}
       </div>
-      <h1 class="ww-pdp__title">{{ product_heading }}{%- if detail_height != blank or detail_width != blank or detail_depth != blank %} <span class="ww-pdp__title-dims">{%- if detail_height != blank %}{{ detail_height }}{%- endif -%}{%- if detail_width != blank %} x {{ detail_width }}{%- endif -%}{%- if detail_depth != blank %} x {{ detail_depth }}{%- endif -%}</span>{%- endif -%}</h1>
+      {%- assign product_type_lc = product.type | downcase -%}
+      <h1 class="ww-pdp__title">{{ product_heading }}{%- if product_type_lc contains 'table' and detail_height != blank or product_type_lc contains 'table' and detail_width != blank or product_type_lc contains 'table' and detail_depth != blank %} <span class="ww-pdp__title-dims">{%- if detail_height != blank %}{{ detail_height }}{%- endif -%}{%- if detail_width != blank %} x {{ detail_width }}{%- endif -%}{%- if detail_depth != blank %} x {{ detail_depth }}{%- endif -%}</span>{%- endif -%}</h1>
 
       <div class="ww-pdp__price-row">
         <span class="ww-pdp__price-group {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
