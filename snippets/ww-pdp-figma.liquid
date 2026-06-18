@@ -241,17 +241,7 @@
         </div> {% endcomment %}
       {%- endif -%}
 
-      {% assign description_parts = full_description | split: '<strong>Key Details</strong>' %}
-{% assign main_description = description_parts | first %}
-{% assign main_description = main_description | replace: '<p><strong>Product Description</strong></p>', '' %}
-{% assign main_description = main_description | replace: '<p><br>', '' %}
-{% assign main_description = main_description | strip %}
-
-<div class="ww-pdp__excerpt">
-  <span data-ww-excerpt-preview>{{ short_description | default: main_description | strip_html }}</span>
-  <span data-ww-excerpt-full hidden>{{ main_description | default: short_description }}</span>
-  <button type="button" data-ww-read-more aria-expanded="false">Read more</button>
-</div>
+      
 
       {%- if promo_code != blank -%}
         <div class="ww-pdp__promo">
