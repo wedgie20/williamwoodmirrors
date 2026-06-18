@@ -832,13 +832,15 @@
   }
 
   .ww-pdp__excerpt-text {
-    max-height: calc(1.65em * 2.5);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    position: relative;
   }
 
   .ww-pdp__excerpt-text.is-expanded {
-    max-height: none;
+    display: block;
+    -webkit-line-clamp: unset;
     overflow: visible;
   }
 
