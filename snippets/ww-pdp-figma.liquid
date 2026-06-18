@@ -224,7 +224,7 @@
             <span class="ww-pdp__price" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
           {%- endif -%}
         </span>
-        <span class="ww-pdp__pill ww-pdp__pill--stock"><span></span>{% if current_variant.available %}In stock{% else %}Sold out{% endif %}</span>
+        <span class="ww-pdp__pill ww-pdp__pill--stock{% unless current_variant.available %} ww-pdp__pill--sold-out{% endunless %}"><span></span>{% if current_variant.available %}In stock{% else %}Sold out{% endif %}</span>
         <span class="ww-pdp__pill">Free UK Delivery</span>
         <span class="ww-pdp__pill">Crafted in limited quantities</span>
       </div>
@@ -774,7 +774,7 @@
   }
 
   .ww-pdp__price--sale {
-    color: #ff4b4b;
+    color: #5b5b5b;
   }
 
   .ww-pdp__pill {
@@ -803,6 +803,11 @@
     margin-right: 9px;
     border-radius: 50%;
     background: currentColor;
+  }
+
+  .ww-pdp__pill--stock.ww-pdp__pill--sold-out {
+    border-color: #111;
+    color: #111;
   }
 
   .ww-pdp__reviews {
@@ -2547,6 +2552,7 @@
       updateStickyPrice(priceText, compareText);
 
       if (stockPill) {
+        stockPill.classList.toggle('ww-pdp__pill--sold-out', !available);
         stockPill.innerHTML = '<span></span>' + (available ? 'In stock' : 'Sold out');
       }
 
