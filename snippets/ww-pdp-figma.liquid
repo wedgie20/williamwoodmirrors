@@ -242,8 +242,7 @@
       {%- endif -%} {% endcomment %}
 
       {%- if short_description != blank -%}
-  {% assign preview_description = short_description | split: 'Key Details:' | first %}
-
+{% assign preview_description = short_description | split: 'Key Details' | first %}
   <div class="ww-pdp__excerpt">
     <span data-ww-excerpt-preview>{{ preview_description }}</span>
     <span data-ww-excerpt-full hidden>{{ full_description | default: short_description }}</span>
