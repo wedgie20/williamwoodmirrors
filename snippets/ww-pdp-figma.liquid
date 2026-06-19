@@ -31,17 +31,9 @@
     assign has_variant_discount = true
   endif
 
-  assign promo_code = ''
-  assign promo_text = ''
+  assign promo_code = 'TAKE15'
+  assign promo_text = '15% Off Everything'
   assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id
-
-  if has_host_promo
-    assign promo_code = 'TAKE15'
-    assign promo_text = '15% Off Everything'
-  elsif is_full_price
-    assign promo_code = 'TAKE15'
-    assign promo_text = '15% Off Everything'
-  endif
 
   assign payment_amount = current_variant.price | divided_by: 3
 
