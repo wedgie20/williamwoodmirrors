@@ -12,6 +12,7 @@
   endif
 
   assign review_count = product.metafields.reviews.rating_count.value | default: 0
+  assign review_count_number = review_count | plus: 0
   assign full_description = product.description | strip_html | strip
   assign short_description = product.metafields.custom.short_description.value | default: product.metafields.custom.short_description | default: product.description | strip_html | truncate: 150
   assign has_host_promo = false
@@ -330,10 +331,12 @@
         <span class="ww-pdp__pill">Crafted in limited quantities</span>
       </div>
 
-      <a class="ww-pdp__reviews" href="#judgeme_product_reviews">
-        <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        <span>{{ review_count }} reviews</span>
-      </a>
+      {%- if review_count_number > 0 -%}
+        <a class="ww-pdp__reviews" href="#judgeme_product_reviews">
+          <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span>{{ review_count }} reviews</span>
+        </a>
+      {%- endif -%}
 
       {%- if product.description != blank -%}
         {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
