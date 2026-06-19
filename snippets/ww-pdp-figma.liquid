@@ -323,7 +323,9 @@
             <span class="ww-pdp__price" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
           {%- endif -%}
         </span>
-        <span class="ww-pdp__pill ww-pdp__pill--stock{% unless current_variant.available %} ww-pdp__pill--sold-out{% endunless %}"><span></span>{% if current_variant.available %}In stock{% else %}Sold out{% endif %}</span>
+        {%- unless is_preorder -%}
+          <span class="ww-pdp__pill ww-pdp__pill--stock{% unless current_variant.available %} ww-pdp__pill--sold-out{% endunless %}"><span></span>{% if current_variant.available %}In stock{% else %}Sold out{% endif %}</span>
+        {%- endunless -%}
         <span class="ww-pdp__pill">Free UK Delivery</span>
         <span class="ww-pdp__pill">Crafted in limited quantities</span>
       </div>
@@ -1156,7 +1158,7 @@
     align-items: center;
     gap: 8px;
     color: #5f5f5f;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.25;
   }
 
