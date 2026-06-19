@@ -1,1 +1,820 @@
-{"parent":"product.json","context":{"market":"netherlands"},"sections":{"multi_column_cBCjX":{"type":"multi-column","disabled":false,"custom_css":["@media (max-width: 767px) {.container {display: none; }}"],"settings":{"reveal_on_scroll":false,"stack_items":false,"subheading":"","title":"","content":"","column_alignment":"center","mobile_item_size":"small","desktop_item_size":"pico","spacing":"tight","header-bc698e90ac8d477b6c061fbfb8595337":null,"background":"#efefef","text_color":"rgba(0,0,0,0)"},"blocks":{"item_DLtKT":{"type":"item","disabled":false,"settings":{"image":"shopify:\/\/shop_images\/AS_SEEN_IN-01.png","image_width":63,"image_border":"rgba(0,0,0,0)","title":"","content":"","link_text":"","link_url":"","link_style":"link","text_alignment":"center","vertical_alignment":"center"}},"item_AtQQC":{"type":"item","disabled":false,"settings":{"image":"shopify:\/\/shop_images\/640px-VOGUE_LOGO_svg.png","image_width":74,"image_border":"rgba(0,0,0,0)","title":"","content":"","link_text":"","link_url":"","link_style":"link","text_alignment":"center","vertical_alignment":"center"}},"item_HmTRx":{"type":"item","disabled":false,"settings":{"image":"shopify:\/\/shop_images\/Feature_Logos-02.png","image_width":70,"image_border":"rgba(0,0,0,0)","title":"","content":"","link_text":"","link_url":"","link_style":"link","text_alignment":"center","vertical_alignment":"center"}},"item_Tw8cw":{"type":"item","disabled":false,"settings":{"image":"shopify:\/\/shop_images\/Feature_Logos-01.png","image_width":50,"image_border":"rgba(0,0,0,0)","title":"","content":"","link_text":"","link_url":"","link_style":"link","text_alignment":"center","vertical_alignment":"center"}},"item_iWD4H":{"type":"item","disabled":false,"settings":{"image":"shopify:\/\/shop_images\/interior_designer_1b4e789e-612a-4ab1-a3e0-a9e4c2bc0152.png","image_width":100,"image_border":"rgba(0,0,0,0)","title":"","content":"","link_text":"","link_url":"","link_style":"link","text_alignment":"center","vertical_alignment":"center"}},"item_pdcpR":{"type":"item","disabled":false,"settings":{"image":"shopify:\/\/shop_images\/Sheerluxe-logo-e1572805242856.png","image_width":100,"image_border":"rgba(0,0,0,0)","title":"","content":"","link_text":"","link_url":"","link_style":"link","text_alignment":"center","vertical_alignment":"center"}},"item_FBRkF":{"type":"item","disabled":false,"settings":{"image":"shopify:\/\/shop_images\/WW_24_AsSeenIn_Icons-09.png","image_width":66,"image_border":"rgba(0,0,0,0)","title":"","content":"","link_text":"","link_url":"","link_style":"link","text_alignment":"center","vertical_alignment":"center"}},"item_MBhTg":{"type":"item","disabled":false,"settings":{"image":"shopify:\/\/shop_images\/logo-3-2.svg","image_width":100,"image_border":"rgba(0,0,0,0)","title":"","content":"","link_text":"","link_url":"","link_style":"link","text_alignment":"center","vertical_alignment":"center"}}},"block_order":["item_DLtKT","item_AtQQC","item_HmTRx","item_Tw8cw","item_iWD4H","item_pdcpR","item_FBRkF","item_MBhTg"]},"custom_video_BnVCm":{"type":"custom-video","disabled":false,"settings":{"header-3851f9e89d2433716743a5b4e03a2cac":null,"video":"shopify:\/\/files\/videos\/Website Video - Abandoned Cart v2.mp4","poster_image":"shopify:\/\/shop_images\/Screenshot_2025-10-08_153408.png","autoplay":false,"muted":false,"loop":false,"show_controls":true,"show_controls_on_play":true,"pause_on_scroll":true,"header-467aece94d78af8c5c45601d53d675f9":null,"use_aspect_ratio":false,"video_aspect_ratio":"50","video_border_radius":4,"video_shadow":"0 4px 20px rgba(0,0,0,0.15)","header-95c0478b03c35f0d43100ee8e2acd0f6":null,"play_button_size":80,"play_button_background":"#ffffff","play_button_opacity":90,"play_button_icon_color":"#000000","header-bfd5474ba6e1688c972a06fa736793bd":null,"show_header":false,"title":"Watch Our Video","subtitle":"Discover more about our story","description":"<p>Add a compelling description about your video content here.<\/p>","text_alignment":"center","header-cdf46ed8061de1b1347aba2e72a45472":null,"title_size":36,"title_weight":"600","subtitle_size":18,"description_size":16,"header-d3c66f4ea9b4ff8557d8d24afebcaa8f":null,"show_button":false,"button_text":"Learn More","button_link":"","button_background":"#000000","button_text_color":"#ffffff","button_border_radius":4,"header-b92782f142124c1ba602f88a3118eb4f":null,"container_width":550,"padding_top":0,"padding_bottom":0,"content_spacing":10,"title_margin":0,"subtitle_margin":0,"header-289abbeef5b5c12fab593773c2084e08":null,"background_color":"#ffffff","text_color":"#000000"},"blocks":{},"block_order":[],"name":"Custom Video Section"},"custom_liquid_VWnCD":{"type":"custom-liquid","disabled":false,"custom_css":[".Acontainer {display: flex; flex-direction: column; align-items: center; background-color: #efefef !important; padding: 20px;}",".Acontainer img {width: 30px; margin-bottom: 10px;}",".Acontainer p {margin: 0; font-size: 16px;}",".Acontainer .delmins {font-size: 20px;}","@media (min-width: 1024px) {.Acontainer {width: 50%; transform: translate(50%, 0%); }}"],"settings":{"subheading":"","title":"","liquid":"{% if product.type == 'Table' or product.type == 'Chair' %}\n<br>\n{% if product.tags contains 'prebuilt' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    <\/style>\n<\/head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:<\/p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n<\/style>\n\n<b class=\"bigger-text\">0 Minutes<\/b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives fully assembled for your convenience.\n<\/span>\n<\/div>\n<\/body>\n<\/html>\n{% else %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    <\/style>\n<\/head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:<\/p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n<\/style>\n\n<b class=\"bigger-text\">3-5 Minutes<\/b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives ready for quick and easy assembly.\n<\/span>\n<\/div>\n<\/body>\n<\/html>\n{% endif %}\n{% else %}\n{% if product.type == 'Furniture Set' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    <\/style>\n<\/head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:<\/p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n<\/style>\n\n<b class=\"bigger-text\">0 Minutes<\/b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    All pieces of this furniture set arrive fully assembled for your convenience.\n<\/span>\n<\/div>\n<\/body>\n<\/html>\n\n{% endif %}\n{% endif %}\n{% if product.type == 'Mirror' %}\n<br>\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    <\/style>\n<\/head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Can this mirror be wall mounted?<\/p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n<\/style>\n\n<b class=\"bigger-text\" style=\"font-size: 20px;\">Yes<\/b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This mirror can be wall mounted in{% assign description = product.description | downcase %}{% if description contains 'portrait' and description contains 'landscape' %} either{% endif %}{% if description contains 'portrait' %} portrait{% endif %}{% if description contains 'portrait' and description contains 'landscape' %} or{% endif %}{% if description contains 'landscape' %} landscape{% endif %} orientation.\n<\/span>\n<\/div>\n<\/body>\n<\/html>\n{% endif %}","add_vertical_spacing":false,"background_type":"full_width","header-cf96456a2cb8d13a365add0b86e52619":null,"background":"rgba(0,0,0,0)","text_color":"rgba(0,0,0,0)"},"blocks":{},"block_order":[],"name":"Custom Liquid"},"custom_liquid_JWcmz":{"type":"custom-liquid","disabled":false,"custom_css":["@media only screen and (min-width: 768px) {.mobilePS {display: none; }}","@media only screen and (max-width: 768px) {.desktopPS {display: none; }}"],"settings":{"subheading":"","title":"","liquid":"{% if product.type == 'Mirror' %}\n<img class=\"mobilePS\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_24_MakeSmallRoomsBig_v1.02.jpg?v=1729256817\">\n<img class=\"desktopPS\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_24_MakeSmallRoomsBig_v1.0_2.jpg?v=1729595254\">\n{% elsif product.title contains 'Coffee Table' %}\n<img class=\"mobilePS\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_24_CoffeTables_v1.02_8875e8e7-b11c-4491-8427-803ef508469f.jpg?v=1729261477\">\n<img class=\"desktopPS\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_24_CoffeTables_v1.0.jpg?v=1729260504\">\n{% elsif product.type == 'Lamp' %}\n<img class=\"mobilePS\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_24_Lamps_v1.02.jpg?v=1729518322\">\n<img class=\"desktopPS\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_24_Lamps_v1.0_3.jpg?v=1730115270\">\n{% elsif product.type == 'vase' %}\n<img class=\"mobilePS\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_24_Vases_v1.22.jpg?v=1730293344\">\n{% endif %}","add_vertical_spacing":true,"background_type":"full_width","header-bddb48d69a57e856c093ae46f82a4dd1":null,"background":"rgba(0,0,0,0)","text_color":"rgba(0,0,0,0)"},"blocks":{},"block_order":[]},"rich_text_RWTB7":{"type":"rich-text","disabled":false,"settings":{"subheading":"Precision & Elegance, Since 2010.","title":"","content":"<p>Discover Premium Home Design at William Wood. Each product in our collection has been meticulously chosen to meet the high demands of our customers, with countless hours dedicated to ensuring exceptional quality and craftsmanship.<\/p>","button_text":"","button_link":"","background_type":"full_width","text_width":"medium","text_position":"center","text_alignment":"center","header-fe216f752205698c15d264310828d4fe":null,"background":"rgba(0,0,0,0)","text_color":"rgba(0,0,0,0)","button_background":"rgba(0,0,0,0)","button_text_color":"rgba(0,0,0,0)"},"blocks":{},"block_order":[]},"custom_liquid_HGKiF":{"type":"custom-liquid","disabled":false,"custom_css":["@media (min-width: 900px) {.container {display: none; }}","@media (max-width: 900px) {.container {padding-bottom: 30px; }}"],"settings":{"subheading":"","title":"","liquid":"<img src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_24_ElevateYourHome-02.jpg?v=1729592904\">","add_vertical_spacing":false,"background_type":"full_width","header-01ad94487c4dd232c22d29bb1e58b01a":null,"background":"rgba(0,0,0,0)","text_color":"rgba(0,0,0,0)"},"blocks":{},"block_order":[]},"17266470579eb0696b":{"type":"apps","disabled":false,"custom_css":[".rebuy-product-grid {text-align: left;}"],"settings":{"include_trustpilot":false,"include_horizontal_margins":true,"include_vertical_margins":false},"blocks":{"rebuy_personalization_engine_rebuy_widget_gpraa":{"type":"shopify:\/\/apps\/rebuy-personalization-engine\/blocks\/rebuy-widget\/a26ae9b9-933b-40bf-bbc6-bf1220bbc4dc","disabled":false,"settings":{"enabled":true,"id":"172735","product_id_enabled":true,"collection_id_enabled":false}}},"block_order":["rebuy_personalization_engine_rebuy_widget_gpraa"]},"custom_liquid_9X3BD":{"type":"custom-liquid","disabled":false,"custom_css":["@media screen and (min-width: 576px) {.container {display: none; }}"],"settings":{"subheading":"","title":"","liquid":"<video src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/videos\/c\/o\/v\/d07d71b60fe9447c99bada59959df6a3.mp4\" controls \n  poster=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/A_sit_down_with_Jenna_final_edit_2_0-00-02-24.jpg?v=1728481189\">\n  Your browser does not support the video tag.\n<\/video>","add_vertical_spacing":false,"background_type":"full_width","header-150cb30ec7eeea6b6fcd00c3917ac1e3":null,"background":"rgba(0,0,0,0)","text_color":"rgba(0,0,0,0)"},"blocks":{},"block_order":[]},"1721117569940993f4":{"type":"apps","disabled":false,"settings":{"include_trustpilot":false,"include_horizontal_margins":true,"include_vertical_margins":false},"blocks":{},"block_order":[]},"main":{"custom_css":["#BIS_trigger {background-color: black; color: white;}","@media only screen and (max-width: 768px) {.product__media-image-wrapper {padding: 0px !important; } .product__media-item {width: 115%; height: auto; overflow: hidden !important; } .product--thumbnails-bottom {margin-top: 0px; }}",".shopify-payment-button__more-options {display: none;}"],"settings":{"show_thumbnails_on_mobile":true},"blocks":{"review_banner_zhTgF":{"type":"review_banner","disabled":false,"settings":{"image":"shopify:\/\/shop_images\/700K_Thin_Banner_PNG_1.png","alt_text":"Customer Reviews","link":"","max_width":400,"height":0,"margin_top":26,"margin_bottom":0,"alignment":"left"}},"product_status_DB8wG":{"type":"product_status","disabled":false,"settings":{"header-66a0af668cff7de06f22b9ce1a537851":null,"margin_top":0,"font_weight":"bold","font_size":12,"background_color":"#efefef","text_color":"#000000","text_align":"center","border_radius":15,"padding_vertical":5,"padding_horizontal":15,"background_image":"shopify:\/\/shop_images\/New_Year_PDP_Desk.jpg","header-6d520e5fbabbafbd211afcd95e199259":null,"promo_heading":"","promo_text":"25% off when you purchase 2 full-priced products, no code needed.\nor\n30% off when you purchase 3 or more full-priced products, no code needed.\n+\nFree Gift with your purchase worth up to €148,95 EUR when you spend €440 EUR or more \n+\n30% Off shipping code: SHIP30","sale_heading":"","sale_text":"Free Gift with your purchase worth up to €148,95 EUR when you spend €440 EUR or more","header-2092fda43b70f59031b338674d06e0fd":null,"coming_soon_text":"Coming Soon","back_soon_text":"Back in stock soon, sign up for restock notifications below","black_friday_launch_text":"Launches 29.11.24","launch_text":"Launches [DATE]","black_friday_restock_text":"Restocks 29.11.24","restock_text":"Restocks [DATE] 8PM","out_of_stock_text":"Currently out of stock, join waitlist below.","header-56ea3cdcc520b4200d1ed6c11e7b9003":null,"show_hudson_message":true,"hudson_message":"Free cushion included with the Hudson Chair"}},"liquid_XxpzF":{"type":"liquid","disabled":true,"settings":{"liquid":"<div style=\"\nbackground-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.15)), url('https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/BF_Collection_Page_Desk_-_Texture.jpg?v=1762245089');\nbackground-size: cover;\nbackground-position: center;\ncolor: white;\npadding: 15px;\nborder-radius: 10px;\ntext-align: center;\nfont-weight: 700;\nfont-size: 11px;\n\">\n\n{% comment %} Initialize variables {% endcomment %}\n{% assign has_coming_soon = false %}\n{% assign has_back_soon = false %}\n{% assign has_restock = false %}\n{% assign has_black_friday_restock = false %}\n{% assign has_last_chance = false %}\n{% assign has_launch = false %}\n{% assign restock_date = \"\" %}\n{% assign launch_date = \"\" %}\n{% assign black_friday_launch_date = false %}\n\n{% comment %} Parse product tags {% endcomment %}\n{% for tag in product.tags %}\n{% if tag == \"__label:COMING SOON\" %}\n{% assign has_coming_soon = true %}\n{% elsif tag == \"__label:BACK SOON\" %}\n{% assign has_back_soon = true %}\n{% elsif tag == \"__label:RESTOCKS BLACK FRIDAY\" %}\n{% assign has_black_friday_restock = true %}\n{% elsif tag contains \"__label:RESTOCKS\" %}\n{% assign has_restock = true %}\n{% assign restock_date = tag | remove: \"__label:RESTOCKS \" %}\n{% elsif tag == \"__label:LAUNCHES BLACK FRIDAY\" %}\n{% assign black_friday_launch_date = true %}\n{% elsif tag == \"__label:LAST CHANCE\" %}\n{% assign has_last_chance = true %}\n{% elsif tag contains \"__label:LAUNCHES\" %}\n{% assign has_launch = true %}\n{% assign launch_date = tag | remove: \"__label:LAUNCHES \" %}\n{% endif %}\n{% endfor %}\n\n{% comment %} Check if product is in best-sellers collection {% endcomment %}\n{% assign in_best_sellers = false %}\n{% for collection in product.collections %}\n{% if collection.handle == 'best-sellers' %}\n{% unless product.tags contains \"pre-order\" %}\n{% assign in_best_sellers = true %}\n{% endunless %}\n{% endif %}\n{% endfor %}\n\n{% comment %} Determine if we're in EU region {% endcomment %}\n{% assign is_eu_region = false %}\n{% if current_path contains '\/en-fr' or current_path contains '\/en-de' or current_path contains '\/en-nl' %}\n{% assign is_eu_region = true %}\n{% endif %}\n\n{% comment %} Display status messages {% endcomment %}\n{% if has_coming_soon %}\n<p>Coming Soon<\/p>\n{% elsif has_back_soon %}\n<p>Back in stock soon, sign up for restock notifications below<\/p>\n{% elsif black_friday_launch_date %}\n<p>Launches 29.11.24<\/p>\n{% elsif has_launch %}\n<p>Launches {{ launch_date }}<\/p>\n{% elsif has_black_friday_restock %}\n<p>Restocks 29.11.24<\/p>\n{% elsif has_restock %}\n<p>Restocks {{ restock_date }} 8PM<\/p>\n{% endif %}\n\n{% comment %} Hudson chair special message {% endcomment %}\n{% if product.title contains \"Hudson\" %}\n<p style=\"transform: translateY(-5px) !important;\">Free cushion included with the Hudson Chair<\/p>\n{% endif %}\n\n{% comment %} Sale and discount messages {% endcomment %}\n{% if product.tags contains 'sale' or product.tags contains 'freegift' %}\n<p>\nExtra 20% off  £299 GBP or more. Code 'EB20'.\n<br>+<br>\n{% if is_eu_region %}\n\nFree Gift with your purchase worth up to €148,95 when you spend €440 or more\n{% else %}\nFree Gift with your purchase worth up to €148,95 when you spend €440 or more\n{% endif %}\n<\/p>\n{% else %}\n<p>\n\n\nBuy 2 full priced items & receive 25% off, no code required\n<br>\nor<br>\nBuy 3 items or more and receive 30% off, no code required\n<br>+<br>\n{% if is_eu_region %}\nFree Gift with your purchase worth up to €120 when you spend €359 or more\n{% else %}\nFree Gift with your purchase worth up to €120 when you spend €299 or more\n{% endif %}\n<br>+<br>\n30% Off shipping code: SHIP30\n<\/p>\n{% endif %}\n\n<\/div>"}},"benefit_section_YQmVzk":{"type":"benefit_section","disabled":false,"settings":{"enable_benefits":true,"exclude_product_title":"bowl","header-d760244cfb3e45a54be99fa11f4760fc":null,"icon_size_desktop":30,"icon_size_mobile":30,"text_size_desktop":10,"text_size_mobile":10,"heading_size_desktop":14,"heading_size_mobile":12,"gap_between_items":15,"margin_top":40,"margin_bottom":30,"layout_direction":"vertical","icon_position":"left","header-469dd87e13af7ab2495e295c6d7be5a6":null,"mirror_heading":"Benefits","mirror_benefit_1_icon":"shopify:\/\/shop_images\/Icons_Natural_Light.png","mirror_benefit_1_text":"Maximises natural light","mirror_benefit_2_icon":"shopify:\/\/shop_images\/Icons_More_Space.png","mirror_benefit_2_text":"Creates the illusion of more space","mirror_benefit_3_icon":"shopify:\/\/shop_images\/Icons_Daily_Routine.png","mirror_benefit_3_text":"Part of your daily routine","mirror_benefit_4_icon":"shopify:\/\/shop_images\/Icons_Focal_Point.png","mirror_benefit_4_text":"Focal point of your room","mirror_benefit_5_icon":null,"mirror_benefit_5_text":"","mirror_benefit_6_icon":null,"mirror_benefit_6_text":"","header-b6cbc517dfab1de806c8e64d382470fa":null,"coffee_table_heading":"Benefits","coffee_table_benefit_1_icon":"shopify:\/\/shop_images\/Icon_daily_usage.png","coffee_table_benefit_1_text":"Convenient surface for daily usage","coffee_table_benefit_2_icon":"shopify:\/\/shop_images\/Icon_other_decor_items-34.png","coffee_table_benefit_2_text":"Showcases your other decor items","coffee_table_benefit_3_icon":"shopify:\/\/shop_images\/Icon_brings_ppl_tgth.png","coffee_table_benefit_3_text":"Offers a shared space that brings people together in your home","coffee_table_benefit_4_icon":"shopify:\/\/shop_images\/Icon_structure_1.png","coffee_table_benefit_4_text":"Adds structure and balance to the overall design of your space","coffee_table_benefit_5_icon":null,"coffee_table_benefit_5_text":"","coffee_table_benefit_6_icon":null,"coffee_table_benefit_6_text":"","header-d257e93187ca4884c00b29a299aace34":null,"tray_heading":"Benefits","tray_benefit_1_icon":"shopify:\/\/shop_images\/Icon_daily_usage.png","tray_benefit_1_text":"Organises your surface","tray_benefit_2_icon":"shopify:\/\/shop_images\/Icon_Contrast_1.png","tray_benefit_2_text":"Adds style & contrast","tray_benefit_3_icon":"shopify:\/\/shop_images\/Icon_Table.png","tray_benefit_3_text":"Protects your table surface","tray_benefit_4_icon":"shopify:\/\/shop_images\/Icon_Easy_to_clean.png","tray_benefit_4_text":"Easy to clean","tray_benefit_5_icon":null,"tray_benefit_5_text":"","tray_benefit_6_icon":null,"tray_benefit_6_text":"","header-9afbbb02d7c8f8769a7ac15158f39656":null,"lamp_heading":"Benefits","lamp_benefit_1_icon":"shopify:\/\/shop_images\/Icon_ambience.png","lamp_benefit_1_text":"Creates ambience","lamp_benefit_2_icon":"shopify:\/\/shop_images\/Icons_Natural_Light.png","lamp_benefit_2_text":"Adds warmth to your room","lamp_benefit_3_icon":"shopify:\/\/shop_images\/Icon_decorative.png","lamp_benefit_3_text":"Decorative accent","lamp_benefit_4_icon":"shopify:\/\/shop_images\/Icon_downlight.png","lamp_benefit_4_text":"Eliminates harsh downlight","lamp_benefit_5_icon":null,"lamp_benefit_5_text":"","lamp_benefit_6_icon":null,"lamp_benefit_6_text":"","header-7f4b2f450d349e32e034c7cd3ff8c8e2":null,"vase_heading":"Benefits","vase_benefit_1_icon":"shopify:\/\/shop_images\/Icon_elevate.png","vase_benefit_1_text":"Perfectly displays your flowers or branches","vase_benefit_2_icon":"shopify:\/\/shop_images\/Icon_Centerpiece.png","vase_benefit_2_text":"Visual centerpiece","vase_benefit_3_icon":"shopify:\/\/shop_images\/Icon_decorative.png","vase_benefit_3_text":"Decorative accent","vase_benefit_4_icon":"shopify:\/\/shop_images\/Icon_branches.png","vase_benefit_4_text":"Elevates your space","vase_benefit_5_icon":null,"vase_benefit_5_text":"","vase_benefit_6_icon":null,"vase_benefit_6_text":"","header-abdf2def6ef958a4b4f9ab133d9d76e2":null,"side_table_heading":"Side Table Benefits","side_table_benefit_1_icon":"shopify:\/\/shop_images\/Icon_Easy_Access_1.png","side_table_benefit_1_text":"Easy access to essential items","side_table_benefit_2_icon":"shopify:\/\/shop_images\/copy.png","side_table_benefit_2_text":"Optimises space & reduces clutter","side_table_benefit_3_icon":"shopify:\/\/shop_images\/Icon_structure_1.png","side_table_benefit_3_text":"Completes room design","side_table_benefit_4_icon":"shopify:\/\/shop_images\/Icon_Lamps.png","side_table_benefit_4_text":"Perfect when paired with one of our lamps","side_table_benefit_5_icon":null,"side_table_benefit_5_text":"","side_table_benefit_6_icon":null,"side_table_benefit_6_text":"","header-bdb0c26d34cec0eac220d9bfde2cf201":null,"coaster_heading":"Coaster Benefits","coaster_benefit_1_icon":"shopify:\/\/shop_images\/Icon_Table.png","coaster_benefit_1_text":"Protects your table surface","coaster_benefit_2_icon":"shopify:\/\/shop_images\/Icon_Rubber_Feet.png","coaster_benefit_2_text":"Non-slip rubber feet","coaster_benefit_3_icon":"shopify:\/\/shop_images\/Icon_Contrast_1.png","coaster_benefit_3_text":"Adds style & contrast","coaster_benefit_4_icon":"shopify:\/\/shop_images\/Icon_Easy_to_clean.png","coaster_benefit_4_text":"Easy to clean","coaster_benefit_5_icon":null,"coaster_benefit_5_text":"","coaster_benefit_6_icon":null,"coaster_benefit_6_text":"","header-9bc88b899cfc8a1d25b72d7e72811d5d":null,"chair_heading":"Chair Benefits","chair_benefit_1_icon":"shopify:\/\/shop_images\/Icon_arrows.png","chair_benefit_1_text":"Balances Room Design","chair_benefit_2_icon":"shopify:\/\/shop_images\/cloud_1.png","chair_benefit_2_text":"Exceptional Comfort","chair_benefit_3_icon":"shopify:\/\/shop_images\/Icon_Spanner.svg","chair_benefit_3_text":"Solid & Durable Craftmanship","chair_benefit_4_icon":"shopify:\/\/shop_images\/Icons_Focal_Point.png","chair_benefit_4_text":"Creates A Focal Point","chair_benefit_5_icon":null,"chair_benefit_5_text":"","chair_benefit_6_icon":null,"chair_benefit_6_text":""}},"liquid_xnxWB":{"type":"liquid","disabled":true,"settings":{"liquid":"{% unless product.title contains 'bowl' %}\n<style>\n  @media only screen and (min-width: 769px) {\n    .desktop-only {\n      display: block;\n    }\n    .mobile-only {\n      display: none;\n    }\n.desktop-only {\nmargin-top: 20px;\n  }\n}\n  @media only screen and (max-width: 768px) {\n    .desktop-only {\n      display: none;\n    }\n    .mobile-only {\n      display: block;\nmargin-top: 20px;\n    }\n  }\n<\/style>\n\n{% assign width_desktop = \"240px\" %}\n{% assign width_mobile = \"180px\" %}\n\n{% if product.type == \"Mirror\" %} \n  <img class=\"desktop-only\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_25_ProducBenefits_v1.0_Mirrors_copy.jpg?v=1736413458\" style=\"width: {{ width_desktop }}; transform: translateX(-10px);\" alt=\"Product Benefits\">\n  <img class=\"mobile-only\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_25_ProducBenefits_v1.0_Mirrors_copy.jpg?v=1736413458\" style=\"width: {{ width_mobile }}; transform: translateX(-10px);\" alt=\"Product Benefits\">\n{% endif %}\n\n{% if product.title contains \"Coffee Table\" %}\n  <img class=\"desktop-only\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_25_ProducBenefits_v1.0_Coffee_Tables_copy.jpg?v=1736413458\" style=\"width: {{ width_desktop }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n  <img class=\"mobile-only\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_25_ProducBenefits_v1.0_Coffee_Tables_copy.jpg?v=1736413458\" style=\"width: {{ width_mobile }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n{% endif %}\n\n{% if product.title contains \"Tray\" %}\n  <img class=\"desktop-only\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_25_ProducBenefits_v1.0_Trays_copy.jpg?v=1736413457\" style=\"width: {{ width_desktop }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n  <img class=\"mobile-only\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_25_ProducBenefits_v1.0_Trays_copy.jpg?v=1736413457\" style=\"width: {{ width_mobile }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n{% endif %}\n\n{% if product.title contains \"Lamp\" %}\n  <img class=\"desktop-only\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_25_ProducBenefits_v1.0_Lamps_copy.jpg?v=1736413458\" style=\"width: {{ width_desktop }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n  <img class=\"mobile-only\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_25_ProducBenefits_v1.0_Lamps_copy.jpg?v=1736413458\" style=\"width: {{ width_mobile }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n{% endif %}\n\n{% if product.title contains \"Vase\" %}\n  <img class=\"desktop-only\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_25_ProducBenefits_v1.0_Vase_copy.jpg?v=1736413458\" style=\"width: {{ width_desktop }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n  <img class=\"mobile-only\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_25_ProducBenefits_v1.0_Vase_copy.jpg?v=1736413458\" style=\"width: {{ width_mobile }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n{% endif %}\n\n{% if product.title contains \"Side Table\" %}\n  <img class=\"desktop-only\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_25_ProducBenefits_v1.0_Side_Tables_copy.jpg?v=1736413457\" style=\"width: {{ width_desktop }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n  <img class=\"mobile-only\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_25_ProducBenefits_v1.0_Side_Tables_copy.jpg?v=1736413457\" style=\"width: {{ width_mobile }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n{% endif %}\n\n{% if product.title contains \"Coaster\" %}\n  <img class=\"desktop-only\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_25_ProducBenefits_v1.0_Coasters_copy.jpg?v=1736413459\" style=\"width: {{ width_desktop }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n  <img class=\"mobile-only\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_25_ProducBenefits_v1.0_Coasters_copy.jpg?v=1736413459\" style=\"width: {{ width_mobile }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n{% endif %}\n\n{% if product.title contains \"Chair\" %}\n  <img class=\"desktop-only\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/Benefits_-_Chairs_Square.png?v=1744718448\" style=\"width: {{ width_desktop }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n  <img class=\"mobile-only\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/Benefits_-_Chairs_Square.png?v=1744718448\" style=\"width: {{ width_mobile }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n{% endif %}\n\n{% endunless %}\n<p><\/p>"}},"liquid_YbAhJ":{"type":"liquid","disabled":false,"settings":{"liquid":"{% if product.available %}\n{% if product.tags contains '__label:RESTOCKED' %}\n  <div style=\"margin-left: 5px;\">\n   <b> Recently restocked<\/b>, don't miss out.\n  <\/div>\n{% endif %}\n{% if product.variants[0].inventory_quantity < 16 %}\n<span style=\"margin-left: 4px;\"><span class=\"urgency-indicator\"><\/span> Low stock, <b>only {{ product.variants[0].inventory_quantity }} left<\/b><\/span>\n{% else %}\n<div style=\"margin-left: 5px;\"><b>Availability is limited<\/b> - secure yours while stock lasts<\/div>\n{% endif %}\n{% endif %}\n\n{% if product.tags contains '__label:LAST CHANCE' %}\n<div style=\"margin-top: 10px; margin-bottom: 10px; margin-left: 5px;\">Last chance to purchase, this product <b>won't be restocked.<\/b><\/div>\n{% endif %}\n\n{% if product.tags contains '__label:LIMITED OFFER' %}\n<div style=\"margin-top: 10px; margin-bottom: 10px; margin-left: 5px;\"><span style=\"font-weight: bold;\">Exclusive offer<\/span>, returning to full price soon.<\/div>\n{% endif %}\n\n<div style=\"margin-top: 0px; margin-bottom: 15px; display: flex; flex-direction: column;\">\n{% if product.variants[0].inventory_quantity > 0 %}\n{% for tag in product.tags %}\n{% if tag == 'pre-order' and product.variants[0].inventory_quantity < 16 %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"><\/span>\n<span>Available for pre order<\/span>\n<\/div>\n{% elsif tag == 'pre-order' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"><\/span>\n<span>Available for pre order<\/span>\n<\/div>\n{% endif %}\n{% endfor %}\n{% unless product.tags contains 'pre-order' %}\n{% if product.available and product.variants[0].inventory_quantity < 16 %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"><\/span>\n<span><b>In stock<\/b> and ready to ship<\/span>\n<\/div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"><\/span>\n<span>In stock and ready to ship<\/span>\n<\/div>\n{% endunless %}\n{% else %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"><\/span>\n<span><b>In stock<\/b> and ready to ship<\/span>\n<\/div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"><\/span>\n<span><b>In stock<\/b> and ready to ship<\/span>\n<\/div>\n{% endunless %}\n{% endif %}\n{% endunless %}\n{% endif %}\n<\/div>\n\n<style>\n{% if product.available %}\n.instock-pulse {\ndisplay: flex;\nflex-wrap: nowrap;\nalign-items: center;\njustify-content: center;\nmargin: 3px 0 0;\n}\n.icon--pulsing {\nposition: relative;\nwidth: 20px;\nheight: 20px;\nmargin-right: 5px;\n}\n.icon--pulsing:after,\n.icon--pulsing:before {\nbackground: #54c63a;\nwidth: 10px;\nheight: 10px;\nborder-radius: 10px;\nposition: absolute;\nleft: 0;\ntop: 0;\ncontent: \"\";\nmargin: 5px;\n}\n@keyframes inventory-pulse {\n0% {\nopacity: 0.5;\n}\nto {\ntransform: scale(2.5);\nopacity: 0;\n}\n}\n{% endif %}\n{% if product.variants[0].inventory_quantity >= 11 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 2.5s linear infinite;\n}\n{% elsif product.variants[0].inventory_quantity < 11 and product.variants[0].inventory_quantity > 1 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1.5s linear infinite;\n}\n{% else %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1s linear infinite;\n}\n{% endif %}\n\n.urgency-indicator {\nposition: relative;\ndisplay: inline-block;\nwidth: 10px;\nheight: 10px;\nmargin-right: 6px;\nvertical-align: middle;\nbackground-color: #FFBF00;\nborder-radius: 20px;\nmargin-top: -1px;\n}\n.urgency-indicator::before {\nanimation: inventory-pulse 2s linear infinite;\nwidth: 8px;\nheight: 8px;\n}\n.urgency-indicator::before,\n.urgency-indicator::after {\nbackground: #FFBF00;\nborder-radius: 9px;\nposition: absolute;\nleft: 1px;\ntop: 1px;\ncontent: '';\n}\n<\/style>\n "}},"timer_QADRN":{"type":"timer","disabled":false,"settings":{"start_time":"2025-09-24 00:00","end_time":"2025-09-30 23:59","label":"20% off storewide code AUTUMN. End of Month Sale ends in..."}},"customer_count_axVdN":{"type":"customer_count","disabled":true,"settings":{"show_banner":true,"banner_text":"1,000+ customers shopped today"}},"liquid_H6RYf":{"type":"liquid","disabled":true,"settings":{"liquid":"<p><\/p><u><a href=\"#product-{{ product.id }}-tabs\">View Product Description<\/a><\/u><br><br>"}},"trust_badges_bear_widget_YMkCzc":{"disabled":true,"settings":{}},"liquid_zjFCE":{"type":"liquid","disabled":true,"settings":{"liquid":"{% if product.type == 'Mirror' %}\n<br><p>\nYou want your home to <b>stand out<\/b> from the rest, don't you?\n<\/p>\n<p>\nA <b>William Wood Mirror<\/b> isn't just a purchase; it's the statement piece that makes your home <b>unforgettable<\/b>. <br> Why settle for<b> ordinary<\/b>?\n<\/p>\n\n<p>Your <b>best reflection<\/b> starts with<b> William Wood.<\/b><\/p>\n{% elsif product.title contains \"Coffee Table\" %}\n<br><p>\nYou want your home to <b>stand out<\/b> from the rest, don't you?\n<\/p>\n<p>A <b>William Wood Table<\/b> isn’t just furniture – it’s the <b>defining piece<\/b> that brings your home to life, blending <b>elegance<\/b> and <b>purpose<\/b> seamlessly. <br>Why settle for<b> ordinary<\/b>?<\/p>\n{% else %}\n<img src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_24_InYourHome_v1.0_1.jpg?v=1728309397\" alt=\"Feel More Proud of Your Home with William Wood\">\n{% endif %}"}},"liquid_mEKpB":{"type":"liquid","disabled":false,"settings":{"liquid":"<div class=\"description-container\" style=\"margin-top: 10px;\">\n  <div class=\"short-description\">\n    {% if product.tags contains 'pre-order' %}\n      {% if current_path contains '\/en-fr\/' or current_path contains '\/en-de\/' or current_path contains '\/en-nl\/' or current_path contains '\/en-be\/' %}\n        {% assign short_description = product.description \n              | strip_html \n              | replace: 'between', 'from' \n              | split: 'and' \n              | first \n              | strip \n        %}\n      {% else %}\n          {% assign short_description = product.description\n            | strip_html\n            | split: ':' \n            | first \n            | strip \n          %}\n      {% endif %}\n\n      {% if block.settings.short_description != blank %}\n        <p><b>{{ block.settings.short_description }}<\/b><\/p>\n      {% else %}\n        <p><b>{{ short_description }}<\/b><\/p>\n      {% endif %}\n\n      <img \n        src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_24_QuestionMark-01_1.png?v=1737370952\" \n        alt=\"Question Mark Icon\" \n        class=\"info-icon\" \n        tabindex=\"0\" \n      \/>\n      <div class=\"tooltip\">This product is currently being crafted by our <br>expert manufacturers and is available for Pre Order.<br>We will contact you on the week below to arrange delivery.<\/div>\n\n    {% else %}\n      <p style=\"transform: translateY(-5px); padding-top: 5px; padding-bottom: 5px;\"><b>Usually dispatched in 10-14 Business Days<\/b><\/p>\n    {% endif %}\n  <\/div>\n<\/div>\n\n<style>\n  .short-description {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    text-align: center;\n    padding-bottom: 0px;\n    padding-top: 12px;\n    position: relative;\n  }\n  .description-container {\n    background-color: #efefef;\n    padding: 0px;\n    border-radius: 25px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n  .info-icon {\n    margin-left: 8px;\n    width: 15px;\n    height: 15px;\n    transform: translateY(-6px);\n    cursor: pointer;\n    position: relative;\n  }\n  .info-icon:hover + .tooltip,\n  .info-icon:focus + .tooltip {\n    display: block;\n  }\n  .tooltip {\n    display: none;\n    position: absolute;\n    bottom: 120%;\n    left: 50%;\n    transform: translateX(-50%);\n    background-color: #333;\n    color: #fff;\n    padding: 5px 10px;\n    border-radius: 4px;\n    font-size: 12px;\n    white-space: nowrap;\n    z-index: 1000;\n  }\n  .tooltip::after {\n    content: '';\n    position: absolute;\n    top: 100%;\n    left: 50%;\n    transform: translateX(-50%);\n    border-width: 5px;\n    border-style: solid;\n    border-color: #333 transparent transparent transparent;\n  }\n<\/style>"}},"liquid_tpcdQ":{"type":"liquid","disabled":false,"settings":{"liquid":"<div>\n<div class=\"usps-lines\">\n<div style=\"font-weight: 500; text-transform: capitalize; display: block;\"><span><svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><\/path><\/svg><\/span> Easy 90 days free returns <\/div>\n\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><\/path><\/svg><\/span> 100% Money Back Guarantee <\/div>\n\n\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><\/path><\/svg><\/span> 700,000+ Satisfied Customers<\/div>\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><\/path><\/svg><\/span> <span class=\"fordesktop\">5 Year Warranty Guarantee\n<\/span>\n<span class=\"formobile\">5 Year Warranty Guarantee\n<\/span> <\/div>\n\n{% for tag in product.tags %}\n{% if tag == '#sp' %}\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><\/path><\/svg><\/span>\n<span>Assembled with <b>safe and secure<\/b> accident preventing shatter proof glass<\/span><\/div>\n{% endif %}\n{% endfor %}\n\n<\/div>\n{% comment %}\n\n<div style=\"margin-top: 0px; margin-bottom: 15px; display: flex; flex-direction: column; \">\n{% if product.variants[0].inventory_quantity > 0 %}\n{% for tag in product.tags %}\n{% if tag == 'pre-order' and product.variants[0].inventory_quantity < 16 %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"><\/span>\n<span>Free UK Delivery: Available for pre order<\/span>\n<\/div>\n{% elsif tag == 'pre-order' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"><\/span>\n<span>Free UK Delivery: Available for pre order<\/span>\n<\/div>\n{% endif %}\n{% endfor %}\n\n{% unless product.tags contains 'pre-order' %}\n{% if product.available and product.variants[0].inventory_quantity < 16 %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"><\/span>\n<span>Free UK Delivery: <b>In stock<\/b> and ready to ship<\/span>\n<\/div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"><\/span>\n<span>Free UK Delivery: In stock and ready to ship<\/span>\n<\/div>\n{% endunless %}\n{% else %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"><\/span>\n<span>Free UK Delivery: <b>In stock<\/b> and ready to ship<\/span>\n<\/div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"><\/span>\n<span>Free UK Delivery: <b>In stock<\/b> and ready to ship<\/span>\n<\/div>\n{% endunless %}\n{% endif %}\n{% endunless %}\n\n\n\n\n\n\n<style>\n\n{% if product.available %}\n.instock-pulse {\ndisplay: flex;\nflex-wrap: nowrap;\nalign-items: center;\njustify-content: center;\nmargin: 2px -4px 0;\n}\n\n.icon--pulsing {\nposition: relative;\nwidth: 20px;\nheight: 20px;\nmargin-right: 4px;\n}\n\n.icon--pulsing:after,\n.icon--pulsing:before {\nbackground: #54c63a;\nwidth: 10px;\nheight: 10px;\nborder-radius: 10px;\nposition: absolute;\nleft: 0;\ntop: 0;\ncontent: \"\";\nmargin: 5px;\n}\n\n@keyframes inventory-pulse {\n0% {\nopacity: 0.5;\n}\nto {\ntransform: scale(2.5);\nopacity: 0;\n}\n}\n{% endif %}\n\n{% if product.variants[0].inventory_quantity >= 11 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 2.5s linear infinite;\n}\n{% elsif product.variants[0].inventory_quantity < 11 and product.variants[0].inventory_quantity > 1 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1.5s linear infinite;\n}\n{% else %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1s linear infinite;\n}\n{% endif %}\n<\/style>\n{% endif %}\n\n{% endcomment %}\n\n\n{% if product.tags contains 'pre-order' %}\n\n<div class=\"icon-blocks-container\">\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Order Instantly.svg' | asset_url }}\" alt=\"Free Shipping\" width=\"34\" height=\"34\">\n    <\/div>\n    <div class=\"icon-block__number\">Step 1<\/div>\n    <h3 class=\"icon-block__title\">Order instantly today<\/h3>\n    <div class=\"icon-block__description\">Simply tap the <b>add to bag button<\/b> and checkout <b>securely<\/b> today to get your order in progress.<\/div>\n  <\/div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Fast Delivery.svg' | asset_url }}\" alt=\"Easy Returns\" width=\"34\" height=\"34\">\n    <\/div>\n\n    <div class=\"icon-block__number\">Step 2<\/div>\n    <h3 class=\"icon-block__title\">We ship your order from the date above<\/h3>\n    <div class=\"icon-block__description\">Once the Pre Order date arrives, our warehouse team carefully prepares your order for <b>safe & secure<\/b> delivery by your dedicated William Wood driver.<\/div>\n  <\/div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Love Your Home.svg' | asset_url }}\" alt=\"24\/7 Support\" width=\"34\" height=\"34\">\n    <\/div>\n    <div class=\"icon-block__number\">Step 3<\/div>\n    <h3 class=\"icon-block__title\">Be more proud of your home<\/h3>\n    <div class=\"icon-block__description\">Feel <b>happier<\/b> and <b>prouder<\/b> of your home, every single day.<\/div>\n  <\/div>\n<\/div>\n\n{% else %}\n<div class=\"icon-blocks-container\">\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Order Instantly.svg' | asset_url }}\" alt=\"Free Shipping\" width=\"34\" height=\"34\">\n    <\/div>\n    <div class=\"icon-block__number\">Step 1<\/div>\n    <h3 class=\"icon-block__title\">Order instantly today<\/h3>\n    <div class=\"icon-block__description\">Simply tap the <b>add to bag button<\/b> and checkout <b>securely<\/b> today to get your order in progress.<\/div>\n  <\/div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Fast Delivery.svg' | asset_url }}\" alt=\"Easy Returns\" width=\"34\" height=\"34\">\n    <\/div>\n\n    <div class=\"icon-block__number\">Step 2<\/div>\n    <h3 class=\"icon-block__title\">We usually ship within 1-3 Business Days<\/h3>\n    <div class=\"icon-block__description\">Our warehouse team carefully prepares your order for <b>safe & secure<\/b> delivery by your dedicated William Wood driver.<\/div>\n  <\/div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Love Your Home.svg' | asset_url }}\" alt=\"24\/7 Support\" width=\"34\" height=\"34\">\n    <\/div>\n    <div class=\"icon-block__number\">Step 3<\/div>\n    <h3 class=\"icon-block__title\">Be more proud of your home<\/h3>\n    <div class=\"icon-block__description\">Feel <b>happier<\/b> and <b>prouder<\/b> of your home, every single day.<\/div>\n  <\/div>\n<\/div>\n\n{% endif %}\n\n<style>\n.cart-return-product-page {\ndisplay: flex\n;\nalign-items: self-end;\njustify-content: left;\ngap: 6px;\n}\n\n.instock-pulse {\njustify-content: left;\n}\n\n.shattered-glass {\nmargin: 15px 0px;\n}\n\n.icon-blocks-container {\n    display: flex;\n    flex-wrap: wrap;\n    gap: 2rem;\n    justify-content: center;\n    margin: 2rem 0px 4rem;\n  }\n\n  .icon-block {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    text-align: center;\n    border-radius: 8px;\n  }\n  .icon-block__icon img {\n    width: 34px;\n    height: 34px;\n    object-fit: contain;\n  }\n  \n  .icon-block__number {\n    font-size: 12px;\n    font-weight: bold;\n    margin-bottom: 0.5rem;\n  }\n  \n  .icon-block__title {\n    font-size: 12px;\n    font-weight: 600;\n    margin-bottom: 0.75rem;\nmargin-top: 0px;\n  }\n  \n  .icon-block__description {\n    font-size: 12px;\n    line-height: 1.5;\n    max-width: 280px;\n  }\n  \n  \/* Desktop flex styling *\/\n  @media (min-width: 768px) {\n    .icon-blocks-container .icon-block {\n      flex: 1;\n      \n    }\n  }\n  \n  \/* Mobile stacking *\/\n  @media (max-width: 767px) {\n    .icon-blocks-container {\n      flex-direction: column;\n      gap: 1rem;\n    }\n    \n  }\n<\/style>"}},"liquid_dRJt6":{"type":"liquid","disabled":true,"settings":{"liquid":"<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n{% assign in_best_sellers = false %}\n{% for collection in product.collections %}\n    {% if collection.handle == 'best-sellers' %}\n{% unless product.tags contains \"pre-order\" %}\n        {% assign in_best_sellers = true %}\n{% endunless %}\n    {% endif %}\n{% endfor %}\n    <style>\n        @media (max-width: 768px) {\n            .FGbutton--primary {\n                background-color: black;\n                color: white;\n                text-align: center;\n                text-decoration: none;\n                padding: 5px 20px;\n                font-size: 12px;\n                border-radius: 15px;\n                transform: translateY(38%);\n            }\n\n            .Gcontainer {\n\n            }\n\n            .Gcontainer p {\n                transform: translateY(-7px);\n            }\n\n            .Gcontainer .delmins {\n                transform: translateY(-5px);\n            }\n\n            .text-button-container {\n                transform: translateY(-5px);\n            }\n        }\n\n        @media (min-width: 1024px) { \n            .Gcontainer p + b {\n                display: block;\n                margin-left: -20px;\n            }\n        }\n        .Gcontainer {\n            display: flex;\n            flex-direction: column;\n            align-items: flex-start;\n            background-color: #efefef !important;\n            padding: 20px;\n        }\n        .Gcontainer img {\n            width: 30px;\n            margin-bottom: 5px; \n        }\n        .Gcontainer p {\n            margin: 0;\n            font-size: 16px;\n        }\n        .Gcontainer .delmins {\n            font-size: 20px;\n            margin-top: 5px;\n        }\n        .text-button-container {\n            display: flex;\n            align-items: center;\n            justify-content: space-between;\n            width: 100%;\n        }\n\n        @media (min-width: 1024px) {\n        .FGbutton--primary {\n            background-color: black;\n            color: white;\n            text-align: center;\n            text-decoration: none;\n            padding: 5px 20px;\n            font-size: 10px;\n            border-radius: 15px;\n            transform: translateY(45%);\n        }\n            .Acontainer {\n                width: 100%;\n                height: 40%;\n                transform: translate(0%, 0%);\n            }\n        }\n    <\/style>\n<\/head>\n{% if in_best_sellers %}\n<body>\n    <div class=\"Gcontainer\">\n        <style>\n            @media only screen and (min-width: 1024px) {\n                .bigger-text {\n                    font-size: 20px;\n                }\n            }\n        <\/style>\n        <div class=\"text-button-container\">\n            <b class=\"bigger-text\">25% Off<\/b>\n<style>\n\n  .desktop-only {\n    display: none;\n  }\n  @media (min-width: 768px) {\n    .desktop-only {\n      display: inline-block;\n\n    }\n  }\n<\/style>\n        <\/span>\n<span class=\"desktop-only\" style=\"\n                text-align: center;\n                text-decoration: none;\n                padding: 5px 20px;\n                font-size: 18px;\n                border-radius: 15px;\n                transform: translateY(38%);\">Code: <b>BEST<\/b><\/span>\n        <\/div>\n        <span class=\"delmins\" style=\"font-size: 13px;\">\n            When you purchase <b>2<\/b> or more <b>Best Sellers<\/b>\n        <\/span>\n        <span class=\"delmins\" style=\"font-size: 10px;\">\n            (This Product Qualifies)\n        <\/span>\n<span><\/span>\n        <span class=\"delmins mobile-only\" style=\"font-size: 13px; transform: translateY(5px);\">\n            Code: <b>BEST<\/b>\n        <\/span>\n\n<style>\n\n  .mobile-only {\n    display: none;\n  }\n  @media (max-width: 768px) {\n    .mobile-only {\n      display: inline-block;\n    }\n  }\n.desktop-only {\nfont-size: 15px;\n}\n<\/style>\n    <\/div>\n<\/body>\n<br><br>\n\n{% endif %}\n<body>\n    <div class=\"Gcontainer\">\n        <style>\n            @media only screen and (min-width: 1024px) {\n                .bigger-text {\n                    font-size: 20px;\n                }\n            }\n        <\/style>\n        <div class=\"text-button-container\">\n            <b class=\"bigger-text\">Free Gift With This Purchase<\/b>\n<style>\n\n  .desktop-only {\n    display: none;\n  }\n  @media (min-width: 768px) {\n    .desktop-only {\n      display: inline-block;\n    }\n  }\n<\/style>\n        <\/span>\n<a href=\"\/pages\/free-gift\" class=\"FGbutton--primary desktop-only\">View Free Gifts<\/a>\n        <\/div>\n        <span class=\"delmins\" style=\"font-size: 13px;\">\n            When you spend €359 or more\n        <\/span>\n<a href=\"\/pages\/free-gift\" class=\"FGbutton--primary mobile-only\">View Free Gifts<\/a><p style=\"font-size: 4px; opacity: 0%;\">r<\/p>\n\n<style>\n\n  .mobile-only {\n    display: none;\n  }\n  @media (max-width: 768px) {\n    .mobile-only {\n      display: inline-block;\n    }\n  }\n.desktop-only {\nfont-size: 15px;\n}\n<\/style>\n    <\/div>\n<\/body>\n<\/html>"}},"planet_shopify_planet_PVEqkE":{"disabled":true,"settings":{}},"button_hGLYr":{"type":"button","disabled":false,"settings":{"paragraph-e83d7eb68ac34aeddaf7c31417ce3a7a":null,"link":"","text":"","stretch":true,"background":"rgba(0,0,0,0)","text_color":"rgba(0,0,0,0)"}},"liquid_xC96M":{"type":"liquid","disabled":false,"settings":{"liquid":"<img src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/Green_USP_V1.1.webp?v=1746534818\" style=\"transform: translateY(-20px);\">"}}},"block_order":["review_banner_zhTgF","product_status_DB8wG","liquid_XxpzF","benefit_section_YQmVzk","liquid_xnxWB","liquid_YbAhJ","timer_QADRN","buy_buttons","customer_count_axVdN","liquid_H6RYf","trust_badges_bear_widget_YMkCzc","67334996-ee52-4157-a9a3-730178b33fa7","liquid_zjFCE","quantity_selector","liquid_mEKpB","liquid_tpcdQ","liquid_dRJt6","planet_shopify_planet_PVEqkE","button_hGLYr","stories_z3hwyH","usp_list_DD8pzP","spread_payments_ciptAV","liquid_xC96M"]},"infinite_scroller_PLWixJ":{"custom_css":["@media (min-width: 767px) {.infinite-logo-scroller {display: none; }}"],"settings":{"logos_shown":3.5},"blocks":{}},"product-content":{"settings":{},"blocks":{"content_wjEDe":{"type":"content","disabled":false,"settings":{"title":"CAN I HOLD MY ORDER IN STOCK?","content":"<p>To hold your order, simply tick \"Hold my order in stock for up to 90 days\" at checkout and select your desired hold date. <\/p><p>Alternatively, you can email <a href=\"mailto:hello@williamwoodmirrors.co.uk\" target=\"_blank\">hello@williamwoodmirrors.co.uk<\/a> after placing your order, quoting your order number and the date you want to hold your order until. An advisor will be happy to assist you.<\/p><p><\/p><p><strong>PLEASE NOTE: <\/strong>We can only hold orders for up to 90 days from the date of your purchase.<\/p>","page":""}},"content_zqQUA":{"type":"content","disabled":false,"settings":{"title":"WORRIED ABOUT QUALITY?","content":"","page":"quality"}},"liquid_7igpU":{"type":"liquid","disabled":false,"settings":{"title":"Delivery Information","liquid":"<p data-mce-fragment=\"1\"><strong data-mce-fragment=\"1\"><br data-mce-fragment=\"1\"><br data-mce-fragment=\"1\">NETHERLANDS DELIVERY INFORMATION<\/strong><br data-mce-fragment=\"1\"><br data-mce-fragment=\"1\">Your order will be safely delivered by William Wood Dedicated Delivery service within <strong data-mce-fragment=\"1\">7-28 Business Days.<\/strong><br data-mce-fragment=\"1\"><br data-mce-fragment=\"1\">Once you receive your shipping confirmation email, our team will contact you to book delivery.<\/p>\n\n\n<p data-mce-fragment=\"1\"><br data-mce-fragment=\"1\"><br data-mce-fragment=\"1\"><br data-mce-fragment=\"1\"><strong data-mce-fragment=\"1\">PRE ORDER ITEM(S) DELIVERY<br data-mce-fragment=\"1\"><br data-mce-fragment=\"1\"><\/strong><p>Your Pre Order items will be shipped urgently within the specified week. You can find this week below the 'ADD TO BAG' button. Our highly acclaimed Pre Order service lets you reserve in-demand stock. You can cancel anytime, <strong>100% refund guarantee<\/strong>.\n<br><br>\nFor orders with both in-stock and Pre Order items, we will ship the in-stock items first, within the usual time. Once your Pre Order items are available, we'll send them promptly to you upon arrival to our warehouse.<\/p>"}},"liquid_Gc6DA":{"type":"liquid","disabled":false,"settings":{"title":"Easy Returns + 100% Money Back Guarantee","liquid":"<style>\n  @media (max-width: 768px) {\n    .mobile-only {\n      display: block;\n    }\n    .desktop-only {\n      display: none !important;\n    }\n  }\n\n  @media (min-width: 769px) {\n    .desktop-only {\n      display: block;\n    }\n    .mobile-only {\n      display: none !important;\n    }\n  }\n<\/style>\n\n<img class=\"mobile-only\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_24_ReturnProcess_v1.0-02_7a52876d-f8cd-46c3-aac5-5313191965c3.jpg?v=1724769745\" alt=\"Returns Process\">\n\n<img class=\"desktop-only\" src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_24_ReturnProcess_v1.0-01_1.jpg?v=1724151843\" alt=\"Returns Process\">\n\n<p data-mce-fragment=\"1\">We offer a&nbsp;<strong data-mce-fragment=\"1\">100% Money Back Guarantee<\/strong>&nbsp;on all orders, including a&nbsp;<strong data-mce-fragment=\"1\">90<\/strong>&nbsp;Day Hassle-Free&nbsp;Returns<span data-mce-fragment=\"1\">&nbsp;<\/span><\/strong>. To initiate your return and claim your 100% refund, simply head to your&nbsp;<strong data-mce-fragment=\"1\">Customer Portal<\/strong>&nbsp;and select 'Request a return' or email&nbsp;<strong data-mce-fragment=\"1\">hello@williamwoodmirrors.co.uk<\/strong>&nbsp;with your order number. Our Customer Support Team will get back to you as soon as possible with the next steps.<\/p>\n\n<p data-mce-fragment=\"1\"><br data-mce-fragment=\"1\"><strong data-mce-fragment=\"1\">INDUSTRY-LEADING INSTANT REFUND SERVICE<\/strong><br data-mce-fragment=\"1\"><br data-mce-fragment=\"1\">Experience our industry-leading Instant Refund Service (Maximum wait time for your refund: 1 Business Day). We ensure a prompt, 100% money back refund on all returns.<\/p>\n\n<p data-mce-fragment=\"1\">&nbsp;<\/p>\n\n<p data-mce-fragment=\"1\">Once your return is collected, a notification will be sent to our Customer Support Team, and your 100% refund will be processed instantly. If your return is collected outside of working hours (8 AM - 4 PM, Monday - Friday), you will receive your refund the next business day – that's our promise.<br data-mce-fragment=\"1\"><br data-mce-fragment=\"1\">For more information about our Returns &amp; Exchanges, click&nbsp;<a href=\"https:\/\/www.williamwoodmirrors.co.uk\/pages\/returns\" title=\"https:\/\/www.williamwoodmirrors.co.uk\/pages\/returns\" data-mce-fragment=\"1\">here<\/a>.<\/p>\n\n<p data-mce-fragment=\"1\"><br data-mce-fragment=\"1\">Need more help? Feel free to contact our Customer Support Team via&nbsp;<strong data-mce-fragment=\"1\">hello@williamwoodmirrors.co.uk<\/strong>, and one of our advisors will be happy to assist you.<\/p>"}},"content_yaC6w":{"type":"content","disabled":false,"settings":{"title":"Have an expert hang your mirror \/ assemble your table","content":"","page":"mounting-assembly-service"}}},"block_order":["description","content_wjEDe","liquid_GG3wbC","content_zqQUA","liquid_7igpU","liquid_Gc6DA","8aee6622-1264-45f1-86c7-d7dcf187277f","7388b98b-fb77-4c92-895d-9695c498307b","content_yaC6w"]},"multi_column_yFeQDG":{"settings":{"desktop_item_size":"medium","spacing":"normal"},"blocks":{"item_UDdzRJ":{"settings":{"content":"<p>Over 700,000 customers have trusted William Wood<\/p>"}},"item_Q6dQVC":{"settings":{"content":"<p>Pay in 3 instalments at no extra cost<\/p>"}},"item_fWNi8d":{"settings":{"content":"<p>100% Insured Delivery To Netherlands<\/p>"}}}},"1662736476a1d5736f":{"disabled":true,"settings":{"title":"Join our Community of over 608,000 discerning home enthusiasts just like you.","title2":"Follow @williamwood"},"blocks":{}},"custom_liquid_NNFwRd":{"custom_css":["@media (min-width: 1024px) {.container {display: none; }}"],"settings":{"liquid":"<img src=\"https:\/\/sfycdn.speedsize.com\/19bba31a-6c36-4510-aa4c-90e87768362d\/cdn.shopify.com\/s\/files\/1\/0780\/3843\/files\/WW_24_PlantTree-01_4.jpg?v=1734355785\">","add_vertical_spacing":false},"blocks":{}}},"order":["main","infinite_scroller_PLWixJ","multi_column_cBCjX","custom_video_BnVCm","custom_liquid_VWnCD","product-content","custom_liquid_JWcmz","multi_column_yFeQDG","rich_text_RWTB7","custom_liquid_HGKiF","17266470579eb0696b","1662736476a1d5736f","custom_liquid_NNFwRd","custom_liquid_9X3BD","1664500680eee3b37a","1721117569940993f4"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "parent": "product.json",
+  "context": {
+    "market": "netherlands"
+  },
+  "sections": {
+    "multi_column_cBCjX": {
+      "type": "multi-column",
+      "disabled": false,
+      "custom_css": [
+        "@media (max-width: 767px) {.container {display: none; }}"
+      ],
+      "settings": {
+        "reveal_on_scroll": false,
+        "stack_items": false,
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "column_alignment": "center",
+        "mobile_item_size": "small",
+        "desktop_item_size": "pico",
+        "spacing": "tight",
+        "header-bc698e90ac8d477b6c061fbfb8595337": null,
+        "background": "#efefef",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {
+        "item_DLtKT": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/AS_SEEN_IN-01.png",
+            "image_width": 63,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "center"
+          }
+        },
+        "item_AtQQC": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/640px-VOGUE_LOGO_svg.png",
+            "image_width": 74,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "center"
+          }
+        },
+        "item_HmTRx": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Feature_Logos-02.png",
+            "image_width": 70,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "center"
+          }
+        },
+        "item_Tw8cw": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Feature_Logos-01.png",
+            "image_width": 50,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "center"
+          }
+        },
+        "item_iWD4H": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/interior_designer_1b4e789e-612a-4ab1-a3e0-a9e4c2bc0152.png",
+            "image_width": 100,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "center"
+          }
+        },
+        "item_pdcpR": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/Sheerluxe-logo-e1572805242856.png",
+            "image_width": 100,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "center"
+          }
+        },
+        "item_FBRkF": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/WW_24_AsSeenIn_Icons-09.png",
+            "image_width": 66,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "center"
+          }
+        },
+        "item_MBhTg": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/logo-3-2.svg",
+            "image_width": 100,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "",
+            "content": "",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "center"
+          }
+        }
+      },
+      "block_order": [
+        "item_DLtKT",
+        "item_AtQQC",
+        "item_HmTRx",
+        "item_Tw8cw",
+        "item_iWD4H",
+        "item_pdcpR",
+        "item_FBRkF",
+        "item_MBhTg"
+      ]
+    },
+    "custom_video_BnVCm": {
+      "type": "custom-video",
+      "disabled": false,
+      "settings": {
+        "header-3851f9e89d2433716743a5b4e03a2cac": null,
+        "video": "shopify://files/videos/Website Video - Abandoned Cart v2.mp4",
+        "poster_image": "shopify://shop_images/Screenshot_2025-10-08_153408.png",
+        "autoplay": false,
+        "muted": false,
+        "loop": false,
+        "show_controls": true,
+        "show_controls_on_play": true,
+        "pause_on_scroll": true,
+        "header-467aece94d78af8c5c45601d53d675f9": null,
+        "use_aspect_ratio": false,
+        "video_aspect_ratio": "50",
+        "video_border_radius": 4,
+        "video_shadow": "0 4px 20px rgba(0,0,0,0.15)",
+        "header-95c0478b03c35f0d43100ee8e2acd0f6": null,
+        "play_button_size": 80,
+        "play_button_background": "#ffffff",
+        "play_button_opacity": 90,
+        "play_button_icon_color": "#000000",
+        "header-bfd5474ba6e1688c972a06fa736793bd": null,
+        "show_header": false,
+        "title": "Watch Our Video",
+        "subtitle": "Discover more about our story",
+        "description": "<p>Add a compelling description about your video content here.</p>",
+        "text_alignment": "center",
+        "header-cdf46ed8061de1b1347aba2e72a45472": null,
+        "title_size": 36,
+        "title_weight": "600",
+        "subtitle_size": 18,
+        "description_size": 16,
+        "header-d3c66f4ea9b4ff8557d8d24afebcaa8f": null,
+        "show_button": false,
+        "button_text": "Learn More",
+        "button_link": "",
+        "button_background": "#000000",
+        "button_text_color": "#ffffff",
+        "button_border_radius": 4,
+        "header-b92782f142124c1ba602f88a3118eb4f": null,
+        "container_width": 550,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "content_spacing": 10,
+        "title_margin": 0,
+        "subtitle_margin": 0,
+        "header-289abbeef5b5c12fab593773c2084e08": null,
+        "background_color": "#ffffff",
+        "text_color": "#000000"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Video Section"
+    },
+    "custom_liquid_VWnCD": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "custom_css": [
+        ".Acontainer {display: flex; flex-direction: column; align-items: center; background-color: #efefef !important; padding: 20px;}",
+        ".Acontainer img {width: 30px; margin-bottom: 10px;}",
+        ".Acontainer p {margin: 0; font-size: 16px;}",
+        ".Acontainer .delmins {font-size: 20px;}",
+        "@media (min-width: 1024px) {.Acontainer {width: 50%; transform: translate(50%, 0%); }}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "{% if product.type == 'Table' or product.type == 'Chair' %}\n<br>\n{% if product.tags contains 'prebuilt' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n{% else %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">3-5 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives ready for quick and easy assembly.\n</span>\n</div>\n</body>\n</html>\n{% endif %}\n{% else %}\n{% if product.type == 'Furniture Set' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    All pieces of this furniture set arrive fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n\n{% endif %}\n{% endif %}\n{% if product.type == 'Mirror' %}\n<br>\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Can this mirror be wall mounted?</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\" style=\"font-size: 20px;\">Yes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This mirror can be wall mounted in{% assign description = product.description | downcase %}{% if description contains 'portrait' and description contains 'landscape' %} either{% endif %}{% if description contains 'portrait' %} portrait{% endif %}{% if description contains 'portrait' and description contains 'landscape' %} or{% endif %}{% if description contains 'landscape' %} landscape{% endif %} orientation.\n</span>\n</div>\n</body>\n</html>\n{% endif %}",
+        "add_vertical_spacing": false,
+        "background_type": "full_width",
+        "header-cf96456a2cb8d13a365add0b86e52619": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": [],
+      "name": "Custom Liquid"
+    },
+    "custom_liquid_JWcmz": {
+      "type": "custom-liquid",
+      "disabled": false,
+      "custom_css": [
+        "@media only screen and (min-width: 768px) {.mobilePS {display: none; }}",
+        "@media only screen and (max-width: 768px) {.desktopPS {display: none; }}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "{% if product.type == 'Mirror' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_MakeSmallRoomsBig_v1.02.jpg?v=1729256817\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_MakeSmallRoomsBig_v1.0_2.jpg?v=1729595254\">\n{% elsif product.title contains 'Coffee Table' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_CoffeTables_v1.02_8875e8e7-b11c-4491-8427-803ef508469f.jpg?v=1729261477\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_CoffeTables_v1.0.jpg?v=1729260504\">\n{% elsif product.type == 'Lamp' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Lamps_v1.02.jpg?v=1729518322\">\n<img class=\"desktopPS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Lamps_v1.0_3.jpg?v=1730115270\">\n{% elsif product.type == 'vase' %}\n<img class=\"mobilePS\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Vases_v1.22.jpg?v=1730293344\">\n{% endif %}",
+        "add_vertical_spacing": true,
+        "background_type": "full_width",
+        "header-bddb48d69a57e856c093ae46f82a4dd1": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "rich_text_RWTB7": {
+      "type": "rich-text",
+      "disabled": false,
+      "settings": {
+        "subheading": "Precision & Elegance, Since 2010.",
+        "title": "",
+        "content": "<p>Discover Premium Home Design at William Wood. Each product in our collection has been meticulously chosen to meet the high demands of our customers, with countless hours dedicated to ensuring exceptional quality and craftsmanship.</p>",
+        "button_text": "",
+        "button_link": "",
+        "background_type": "full_width",
+        "text_width": "medium",
+        "text_position": "center",
+        "text_alignment": "center",
+        "header-fe216f752205698c15d264310828d4fe": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "custom_liquid_HGKiF": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "custom_css": [
+        "@media (min-width: 900px) {.container {display: none; }}",
+        "@media (max-width: 900px) {.container {padding-bottom: 30px; }}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_ElevateYourHome-02.jpg?v=1729592904\">",
+        "add_vertical_spacing": false,
+        "background_type": "full_width",
+        "header-01ad94487c4dd232c22d29bb1e58b01a": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "17266470579eb0696b": {
+      "type": "apps",
+      "disabled": false,
+      "custom_css": [
+        ".rebuy-product-grid {text-align: left;}"
+      ],
+      "settings": {
+        "include_trustpilot": false,
+        "include_horizontal_margins": true,
+        "include_vertical_margins": false
+      },
+      "blocks": {
+        "rebuy_personalization_engine_rebuy_widget_gpraa": {
+          "type": "shopify://apps/rebuy-personalization-engine/blocks/rebuy-widget/a26ae9b9-933b-40bf-bbc6-bf1220bbc4dc",
+          "disabled": false,
+          "settings": {
+            "enabled": true,
+            "id": "172735",
+            "product_id_enabled": true,
+            "collection_id_enabled": false
+          }
+        }
+      },
+      "block_order": [
+        "rebuy_personalization_engine_rebuy_widget_gpraa"
+      ]
+    },
+    "custom_liquid_9X3BD": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "custom_css": [
+        "@media screen and (min-width: 576px) {.container {display: none; }}"
+      ],
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<video src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/videos/c/o/v/d07d71b60fe9447c99bada59959df6a3.mp4\" controls \n  poster=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/A_sit_down_with_Jenna_final_edit_2_0-00-02-24.jpg?v=1728481189\">\n  Your browser does not support the video tag.\n</video>",
+        "add_vertical_spacing": false,
+        "background_type": "full_width",
+        "header-150cb30ec7eeea6b6fcd00c3917ac1e3": null,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "1721117569940993f4": {
+      "type": "apps",
+      "disabled": false,
+      "settings": {
+        "include_trustpilot": false,
+        "include_horizontal_margins": true,
+        "include_vertical_margins": false
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "main": {
+      "custom_css": [
+        "#BIS_trigger {background-color: black; color: white;}",
+        "@media only screen and (max-width: 768px) {.product__media-image-wrapper {padding: 0px !important; } .product__media-item {width: 115%; height: auto; overflow: hidden !important; } .product--thumbnails-bottom {margin-top: 0px; }}",
+        ".shopify-payment-button__more-options {display: none;}"
+      ],
+      "settings": {
+        "show_thumbnails_on_mobile": true
+      },
+      "blocks": {
+        "review_banner_zhTgF": {
+          "type": "review_banner",
+          "disabled": false,
+          "settings": {
+            "image": "shopify://shop_images/700K_Thin_Banner_PNG_1.png",
+            "alt_text": "Customer Reviews",
+            "link": "",
+            "max_width": 400,
+            "height": 0,
+            "margin_top": 26,
+            "margin_bottom": 0,
+            "alignment": "left"
+          }
+        },
+        "product_status_DB8wG": {
+          "type": "product_status",
+          "disabled": false,
+          "settings": {
+            "header-66a0af668cff7de06f22b9ce1a537851": null,
+            "margin_top": 0,
+            "font_weight": "bold",
+            "font_size": 12,
+            "background_color": "#efefef",
+            "text_color": "#000000",
+            "text_align": "center",
+            "border_radius": 15,
+            "padding_vertical": 5,
+            "padding_horizontal": 15,
+            "background_image": "shopify://shop_images/New_Year_PDP_Desk.jpg",
+            "header-6d520e5fbabbafbd211afcd95e199259": null,
+            "promo_heading": "",
+            "promo_text": "25% off when you purchase 2 full-priced products, no code needed.\nor\n30% off when you purchase 3 or more full-priced products, no code needed.\n+\nFree Gift with your purchase worth up to €148,95 EUR when you spend €440 EUR or more \n+\n30% Off shipping code: SHIP30",
+            "sale_heading": "",
+            "sale_text": "Free Gift with your purchase worth up to €148,95 EUR when you spend €440 EUR or more",
+            "header-2092fda43b70f59031b338674d06e0fd": null,
+            "coming_soon_text": "Coming Soon",
+            "back_soon_text": "Back in stock soon, sign up for restock notifications below",
+            "black_friday_launch_text": "Launches 29.11.24",
+            "launch_text": "Launches [DATE]",
+            "black_friday_restock_text": "Restocks 29.11.24",
+            "restock_text": "Restocks [DATE] 8PM",
+            "out_of_stock_text": "Currently out of stock, join waitlist below.",
+            "header-56ea3cdcc520b4200d1ed6c11e7b9003": null,
+            "show_hudson_message": true,
+            "hudson_message": "Free cushion included with the Hudson Chair"
+          }
+        },
+        "liquid_XxpzF": {
+          "type": "liquid",
+          "disabled": true,
+          "settings": {
+            "liquid": "<div style=\"\nbackground-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.15)), url('https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/BF_Collection_Page_Desk_-_Texture.jpg?v=1762245089');\nbackground-size: cover;\nbackground-position: center;\ncolor: white;\npadding: 15px;\nborder-radius: 10px;\ntext-align: center;\nfont-weight: 700;\nfont-size: 11px;\n\">\n\n{% comment %} Initialize variables {% endcomment %}\n{% assign has_coming_soon = false %}\n{% assign has_back_soon = false %}\n{% assign has_restock = false %}\n{% assign has_black_friday_restock = false %}\n{% assign has_last_chance = false %}\n{% assign has_launch = false %}\n{% assign restock_date = \"\" %}\n{% assign launch_date = \"\" %}\n{% assign black_friday_launch_date = false %}\n\n{% comment %} Parse product tags {% endcomment %}\n{% for tag in product.tags %}\n{% if tag == \"__label:COMING SOON\" %}\n{% assign has_coming_soon = true %}\n{% elsif tag == \"__label:BACK SOON\" %}\n{% assign has_back_soon = true %}\n{% elsif tag == \"__label:RESTOCKS BLACK FRIDAY\" %}\n{% assign has_black_friday_restock = true %}\n{% elsif tag contains \"__label:RESTOCKS\" %}\n{% assign has_restock = true %}\n{% assign restock_date = tag | remove: \"__label:RESTOCKS \" %}\n{% elsif tag == \"__label:LAUNCHES BLACK FRIDAY\" %}\n{% assign black_friday_launch_date = true %}\n{% elsif tag == \"__label:LAST CHANCE\" %}\n{% assign has_last_chance = true %}\n{% elsif tag contains \"__label:LAUNCHES\" %}\n{% assign has_launch = true %}\n{% assign launch_date = tag | remove: \"__label:LAUNCHES \" %}\n{% endif %}\n{% endfor %}\n\n{% comment %} Check if product is in best-sellers collection {% endcomment %}\n{% assign in_best_sellers = false %}\n{% for collection in product.collections %}\n{% if collection.handle == 'best-sellers' %}\n{% unless product.tags contains \"pre-order\" %}\n{% assign in_best_sellers = true %}\n{% endunless %}\n{% endif %}\n{% endfor %}\n\n{% comment %} Determine if we're in EU region {% endcomment %}\n{% assign is_eu_region = false %}\n{% if current_path contains '/en-fr' or current_path contains '/en-de' or current_path contains '/en-nl' %}\n{% assign is_eu_region = true %}\n{% endif %}\n\n{% comment %} Display status messages {% endcomment %}\n{% if has_coming_soon %}\n<p>Coming Soon</p>\n{% elsif has_back_soon %}\n<p>Back in stock soon, sign up for restock notifications below</p>\n{% elsif black_friday_launch_date %}\n<p>Launches 29.11.24</p>\n{% elsif has_launch %}\n<p>Launches {{ launch_date }}</p>\n{% elsif has_black_friday_restock %}\n<p>Restocks 29.11.24</p>\n{% elsif has_restock %}\n<p>Restocks {{ restock_date }} 8PM</p>\n{% endif %}\n\n{% comment %} Hudson chair special message {% endcomment %}\n{% if product.title contains \"Hudson\" %}\n<p style=\"transform: translateY(-5px) !important;\">Free cushion included with the Hudson Chair</p>\n{% endif %}\n\n{% comment %} Sale and discount messages {% endcomment %}\n{% if product.tags contains 'sale' or product.tags contains 'freegift' %}\n<p>\nExtra 20% off  £299 GBP or more. Code 'EB20'.\n<br>+<br>\n{% if is_eu_region %}\n\nFree Gift with your purchase worth up to €148,95 when you spend €440 or more\n{% else %}\nFree Gift with your purchase worth up to €148,95 when you spend €440 or more\n{% endif %}\n</p>\n{% else %}\n<p>\n\n\nBuy 2 full priced items & receive 25% off, no code required\n<br>\nor<br>\nBuy 3 items or more and receive 30% off, no code required\n<br>+<br>\n{% if is_eu_region %}\nFree Gift with your purchase worth up to €120 when you spend €359 or more\n{% else %}\nFree Gift with your purchase worth up to €120 when you spend €299 or more\n{% endif %}\n<br>+<br>\n30% Off shipping code: SHIP30\n</p>\n{% endif %}\n\n</div>"
+          }
+        },
+        "benefit_section_YQmVzk": {
+          "type": "benefit_section",
+          "disabled": false,
+          "settings": {
+            "enable_benefits": true,
+            "exclude_product_title": "bowl",
+            "header-d760244cfb3e45a54be99fa11f4760fc": null,
+            "icon_size_desktop": 30,
+            "icon_size_mobile": 30,
+            "text_size_desktop": 10,
+            "text_size_mobile": 10,
+            "heading_size_desktop": 14,
+            "heading_size_mobile": 12,
+            "gap_between_items": 15,
+            "margin_top": 40,
+            "margin_bottom": 30,
+            "layout_direction": "vertical",
+            "icon_position": "left",
+            "header-469dd87e13af7ab2495e295c6d7be5a6": null,
+            "mirror_heading": "Benefits",
+            "mirror_benefit_1_icon": "shopify://shop_images/Icons_Natural_Light.png",
+            "mirror_benefit_1_text": "Maximises natural light",
+            "mirror_benefit_2_icon": "shopify://shop_images/Icons_More_Space.png",
+            "mirror_benefit_2_text": "Creates the illusion of more space",
+            "mirror_benefit_3_icon": "shopify://shop_images/Icons_Daily_Routine.png",
+            "mirror_benefit_3_text": "Part of your daily routine",
+            "mirror_benefit_4_icon": "shopify://shop_images/Icons_Focal_Point.png",
+            "mirror_benefit_4_text": "Focal point of your room",
+            "mirror_benefit_5_icon": null,
+            "mirror_benefit_5_text": "",
+            "mirror_benefit_6_icon": null,
+            "mirror_benefit_6_text": "",
+            "header-b6cbc517dfab1de806c8e64d382470fa": null,
+            "coffee_table_heading": "Benefits",
+            "coffee_table_benefit_1_icon": "shopify://shop_images/Icon_daily_usage.png",
+            "coffee_table_benefit_1_text": "Convenient surface for daily usage",
+            "coffee_table_benefit_2_icon": "shopify://shop_images/Icon_other_decor_items-34.png",
+            "coffee_table_benefit_2_text": "Showcases your other decor items",
+            "coffee_table_benefit_3_icon": "shopify://shop_images/Icon_brings_ppl_tgth.png",
+            "coffee_table_benefit_3_text": "Offers a shared space that brings people together in your home",
+            "coffee_table_benefit_4_icon": "shopify://shop_images/Icon_structure_1.png",
+            "coffee_table_benefit_4_text": "Adds structure and balance to the overall design of your space",
+            "coffee_table_benefit_5_icon": null,
+            "coffee_table_benefit_5_text": "",
+            "coffee_table_benefit_6_icon": null,
+            "coffee_table_benefit_6_text": "",
+            "header-d257e93187ca4884c00b29a299aace34": null,
+            "tray_heading": "Benefits",
+            "tray_benefit_1_icon": "shopify://shop_images/Icon_daily_usage.png",
+            "tray_benefit_1_text": "Organises your surface",
+            "tray_benefit_2_icon": "shopify://shop_images/Icon_Contrast_1.png",
+            "tray_benefit_2_text": "Adds style & contrast",
+            "tray_benefit_3_icon": "shopify://shop_images/Icon_Table.png",
+            "tray_benefit_3_text": "Protects your table surface",
+            "tray_benefit_4_icon": "shopify://shop_images/Icon_Easy_to_clean.png",
+            "tray_benefit_4_text": "Easy to clean",
+            "tray_benefit_5_icon": null,
+            "tray_benefit_5_text": "",
+            "tray_benefit_6_icon": null,
+            "tray_benefit_6_text": "",
+            "header-9afbbb02d7c8f8769a7ac15158f39656": null,
+            "lamp_heading": "Benefits",
+            "lamp_benefit_1_icon": "shopify://shop_images/Icon_ambience.png",
+            "lamp_benefit_1_text": "Creates ambience",
+            "lamp_benefit_2_icon": "shopify://shop_images/Icons_Natural_Light.png",
+            "lamp_benefit_2_text": "Adds warmth to your room",
+            "lamp_benefit_3_icon": "shopify://shop_images/Icon_decorative.png",
+            "lamp_benefit_3_text": "Decorative accent",
+            "lamp_benefit_4_icon": "shopify://shop_images/Icon_downlight.png",
+            "lamp_benefit_4_text": "Eliminates harsh downlight",
+            "lamp_benefit_5_icon": null,
+            "lamp_benefit_5_text": "",
+            "lamp_benefit_6_icon": null,
+            "lamp_benefit_6_text": "",
+            "header-7f4b2f450d349e32e034c7cd3ff8c8e2": null,
+            "vase_heading": "Benefits",
+            "vase_benefit_1_icon": "shopify://shop_images/Icon_elevate.png",
+            "vase_benefit_1_text": "Perfectly displays your flowers or branches",
+            "vase_benefit_2_icon": "shopify://shop_images/Icon_Centerpiece.png",
+            "vase_benefit_2_text": "Visual centerpiece",
+            "vase_benefit_3_icon": "shopify://shop_images/Icon_decorative.png",
+            "vase_benefit_3_text": "Decorative accent",
+            "vase_benefit_4_icon": "shopify://shop_images/Icon_branches.png",
+            "vase_benefit_4_text": "Elevates your space",
+            "vase_benefit_5_icon": null,
+            "vase_benefit_5_text": "",
+            "vase_benefit_6_icon": null,
+            "vase_benefit_6_text": "",
+            "header-abdf2def6ef958a4b4f9ab133d9d76e2": null,
+            "side_table_heading": "Side Table Benefits",
+            "side_table_benefit_1_icon": "shopify://shop_images/Icon_Easy_Access_1.png",
+            "side_table_benefit_1_text": "Easy access to essential items",
+            "side_table_benefit_2_icon": "shopify://shop_images/copy.png",
+            "side_table_benefit_2_text": "Optimises space & reduces clutter",
+            "side_table_benefit_3_icon": "shopify://shop_images/Icon_structure_1.png",
+            "side_table_benefit_3_text": "Completes room design",
+            "side_table_benefit_4_icon": "shopify://shop_images/Icon_Lamps.png",
+            "side_table_benefit_4_text": "Perfect when paired with one of our lamps",
+            "side_table_benefit_5_icon": null,
+            "side_table_benefit_5_text": "",
+            "side_table_benefit_6_icon": null,
+            "side_table_benefit_6_text": "",
+            "header-bdb0c26d34cec0eac220d9bfde2cf201": null,
+            "coaster_heading": "Coaster Benefits",
+            "coaster_benefit_1_icon": "shopify://shop_images/Icon_Table.png",
+            "coaster_benefit_1_text": "Protects your table surface",
+            "coaster_benefit_2_icon": "shopify://shop_images/Icon_Rubber_Feet.png",
+            "coaster_benefit_2_text": "Non-slip rubber feet",
+            "coaster_benefit_3_icon": "shopify://shop_images/Icon_Contrast_1.png",
+            "coaster_benefit_3_text": "Adds style & contrast",
+            "coaster_benefit_4_icon": "shopify://shop_images/Icon_Easy_to_clean.png",
+            "coaster_benefit_4_text": "Easy to clean",
+            "coaster_benefit_5_icon": null,
+            "coaster_benefit_5_text": "",
+            "coaster_benefit_6_icon": null,
+            "coaster_benefit_6_text": "",
+            "header-9bc88b899cfc8a1d25b72d7e72811d5d": null,
+            "chair_heading": "Chair Benefits",
+            "chair_benefit_1_icon": "shopify://shop_images/Icon_arrows.png",
+            "chair_benefit_1_text": "Balances Room Design",
+            "chair_benefit_2_icon": "shopify://shop_images/cloud_1.png",
+            "chair_benefit_2_text": "Exceptional Comfort",
+            "chair_benefit_3_icon": "shopify://shop_images/Icon_Spanner.svg",
+            "chair_benefit_3_text": "Solid & Durable Craftmanship",
+            "chair_benefit_4_icon": "shopify://shop_images/Icons_Focal_Point.png",
+            "chair_benefit_4_text": "Creates A Focal Point",
+            "chair_benefit_5_icon": null,
+            "chair_benefit_5_text": "",
+            "chair_benefit_6_icon": null,
+            "chair_benefit_6_text": ""
+          }
+        },
+        "liquid_xnxWB": {
+          "type": "liquid",
+          "disabled": true,
+          "settings": {
+            "liquid": "{% unless product.title contains 'bowl' %}\n<style>\n  @media only screen and (min-width: 769px) {\n    .desktop-only {\n      display: block;\n    }\n    .mobile-only {\n      display: none;\n    }\n.desktop-only {\nmargin-top: 20px;\n  }\n}\n  @media only screen and (max-width: 768px) {\n    .desktop-only {\n      display: none;\n    }\n    .mobile-only {\n      display: block;\nmargin-top: 20px;\n    }\n  }\n</style>\n\n{% assign width_desktop = \"240px\" %}\n{% assign width_mobile = \"180px\" %}\n\n{% if product.type == \"Mirror\" %} \n  <img class=\"desktop-only\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_25_ProducBenefits_v1.0_Mirrors_copy.jpg?v=1736413458\" style=\"width: {{ width_desktop }}; transform: translateX(-10px);\" alt=\"Product Benefits\">\n  <img class=\"mobile-only\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_25_ProducBenefits_v1.0_Mirrors_copy.jpg?v=1736413458\" style=\"width: {{ width_mobile }}; transform: translateX(-10px);\" alt=\"Product Benefits\">\n{% endif %}\n\n{% if product.title contains \"Coffee Table\" %}\n  <img class=\"desktop-only\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_25_ProducBenefits_v1.0_Coffee_Tables_copy.jpg?v=1736413458\" style=\"width: {{ width_desktop }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n  <img class=\"mobile-only\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_25_ProducBenefits_v1.0_Coffee_Tables_copy.jpg?v=1736413458\" style=\"width: {{ width_mobile }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n{% endif %}\n\n{% if product.title contains \"Tray\" %}\n  <img class=\"desktop-only\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_25_ProducBenefits_v1.0_Trays_copy.jpg?v=1736413457\" style=\"width: {{ width_desktop }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n  <img class=\"mobile-only\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_25_ProducBenefits_v1.0_Trays_copy.jpg?v=1736413457\" style=\"width: {{ width_mobile }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n{% endif %}\n\n{% if product.title contains \"Lamp\" %}\n  <img class=\"desktop-only\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_25_ProducBenefits_v1.0_Lamps_copy.jpg?v=1736413458\" style=\"width: {{ width_desktop }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n  <img class=\"mobile-only\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_25_ProducBenefits_v1.0_Lamps_copy.jpg?v=1736413458\" style=\"width: {{ width_mobile }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n{% endif %}\n\n{% if product.title contains \"Vase\" %}\n  <img class=\"desktop-only\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_25_ProducBenefits_v1.0_Vase_copy.jpg?v=1736413458\" style=\"width: {{ width_desktop }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n  <img class=\"mobile-only\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_25_ProducBenefits_v1.0_Vase_copy.jpg?v=1736413458\" style=\"width: {{ width_mobile }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n{% endif %}\n\n{% if product.title contains \"Side Table\" %}\n  <img class=\"desktop-only\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_25_ProducBenefits_v1.0_Side_Tables_copy.jpg?v=1736413457\" style=\"width: {{ width_desktop }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n  <img class=\"mobile-only\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_25_ProducBenefits_v1.0_Side_Tables_copy.jpg?v=1736413457\" style=\"width: {{ width_mobile }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n{% endif %}\n\n{% if product.title contains \"Coaster\" %}\n  <img class=\"desktop-only\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_25_ProducBenefits_v1.0_Coasters_copy.jpg?v=1736413459\" style=\"width: {{ width_desktop }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n  <img class=\"mobile-only\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_25_ProducBenefits_v1.0_Coasters_copy.jpg?v=1736413459\" style=\"width: {{ width_mobile }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n{% endif %}\n\n{% if product.title contains \"Chair\" %}\n  <img class=\"desktop-only\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Benefits_-_Chairs_Square.png?v=1744718448\" style=\"width: {{ width_desktop }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n  <img class=\"mobile-only\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Benefits_-_Chairs_Square.png?v=1744718448\" style=\"width: {{ width_mobile }}; transform: translateX(-20px);\" alt=\"Product Benefits\">\n{% endif %}\n\n{% endunless %}\n<p></p>"
+          }
+        },
+        "liquid_YbAhJ": {
+          "type": "liquid",
+          "disabled": false,
+          "settings": {
+            "liquid": "{% if product.available %}\n{% if product.tags contains '__label:RESTOCKED' %}\n  <div style=\"margin-left: 5px;\">\n   <b> Recently restocked</b>, don't miss out.\n  </div>\n{% endif %}\n{% if product.variants[0].inventory_quantity < 16 %}\n<span style=\"margin-left: 4px;\"><span class=\"urgency-indicator\"></span> Low stock, <b>only {{ product.variants[0].inventory_quantity }} left</b></span>\n{% else %}\n<div style=\"margin-left: 5px;\"><b>Availability is limited</b> - secure yours while stock lasts</div>\n{% endif %}\n{% endif %}\n\n{% if product.tags contains '__label:LAST CHANCE' %}\n<div style=\"margin-top: 10px; margin-bottom: 10px; margin-left: 5px;\">Last chance to purchase, this product <b>won't be restocked.</b></div>\n{% endif %}\n\n{% if product.tags contains '__label:LIMITED OFFER' %}\n<div style=\"margin-top: 10px; margin-bottom: 10px; margin-left: 5px;\"><span style=\"font-weight: bold;\">Exclusive offer</span>, returning to full price soon.</div>\n{% endif %}\n\n<div style=\"margin-top: 0px; margin-bottom: 15px; display: flex; flex-direction: column;\">\n{% if product.variants[0].inventory_quantity > 0 %}\n{% for tag in product.tags %}\n{% if tag == 'pre-order' and product.variants[0].inventory_quantity < 16 %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Available for pre order</span>\n</div>\n{% elsif tag == 'pre-order' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Available for pre order</span>\n</div>\n{% endif %}\n{% endfor %}\n{% unless product.tags contains 'pre-order' %}\n{% if product.available and product.variants[0].inventory_quantity < 16 %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span><b>In stock</b> and ready to ship</span>\n</div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>In stock and ready to ship</span>\n</div>\n{% endunless %}\n{% else %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span><b>In stock</b> and ready to ship</span>\n</div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span><b>In stock</b> and ready to ship</span>\n</div>\n{% endunless %}\n{% endif %}\n{% endunless %}\n{% endif %}\n</div>\n\n<style>\n{% if product.available %}\n.instock-pulse {\ndisplay: flex;\nflex-wrap: nowrap;\nalign-items: center;\njustify-content: center;\nmargin: 3px 0 0;\n}\n.icon--pulsing {\nposition: relative;\nwidth: 20px;\nheight: 20px;\nmargin-right: 5px;\n}\n.icon--pulsing:after,\n.icon--pulsing:before {\nbackground: #54c63a;\nwidth: 10px;\nheight: 10px;\nborder-radius: 10px;\nposition: absolute;\nleft: 0;\ntop: 0;\ncontent: \"\";\nmargin: 5px;\n}\n@keyframes inventory-pulse {\n0% {\nopacity: 0.5;\n}\nto {\ntransform: scale(2.5);\nopacity: 0;\n}\n}\n{% endif %}\n{% if product.variants[0].inventory_quantity >= 11 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 2.5s linear infinite;\n}\n{% elsif product.variants[0].inventory_quantity < 11 and product.variants[0].inventory_quantity > 1 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1.5s linear infinite;\n}\n{% else %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1s linear infinite;\n}\n{% endif %}\n\n.urgency-indicator {\nposition: relative;\ndisplay: inline-block;\nwidth: 10px;\nheight: 10px;\nmargin-right: 6px;\nvertical-align: middle;\nbackground-color: #FFBF00;\nborder-radius: 20px;\nmargin-top: -1px;\n}\n.urgency-indicator::before {\nanimation: inventory-pulse 2s linear infinite;\nwidth: 8px;\nheight: 8px;\n}\n.urgency-indicator::before,\n.urgency-indicator::after {\nbackground: #FFBF00;\nborder-radius: 9px;\nposition: absolute;\nleft: 1px;\ntop: 1px;\ncontent: '';\n}\n</style>\n "
+          }
+        },
+        "timer_QADRN": {
+          "type": "timer",
+          "disabled": false,
+          "settings": {
+            "start_time": "2025-09-24 00:00",
+            "end_time": "2025-09-30 23:59",
+            "label": "20% off storewide code AUTUMN. End of Month Sale ends in..."
+          }
+        },
+        "customer_count_axVdN": {
+          "type": "customer_count",
+          "disabled": true,
+          "settings": {
+            "show_banner": true,
+            "banner_text": "1,000+ customers shopped today"
+          }
+        },
+        "liquid_H6RYf": {
+          "type": "liquid",
+          "disabled": true,
+          "settings": {
+            "liquid": "<p></p><u><a href=\"#product-{{ product.id }}-tabs\">View Product Description</a></u><br><br>"
+          }
+        },
+        "trust_badges_bear_widget_YMkCzc": {
+          "disabled": true,
+          "settings": {}
+        },
+        "liquid_zjFCE": {
+          "type": "liquid",
+          "disabled": true,
+          "settings": {
+            "liquid": "{% if product.type == 'Mirror' %}\n<br><p>\nYou want your home to <b>stand out</b> from the rest, don't you?\n</p>\n<p>\nA <b>William Wood Mirror</b> isn't just a purchase; it's the statement piece that makes your home <b>unforgettable</b>. <br> Why settle for<b> ordinary</b>?\n</p>\n\n<p>Your <b>best reflection</b> starts with<b> William Wood.</b></p>\n{% elsif product.title contains \"Coffee Table\" %}\n<br><p>\nYou want your home to <b>stand out</b> from the rest, don't you?\n</p>\n<p>A <b>William Wood Table</b> isn’t just furniture – it’s the <b>defining piece</b> that brings your home to life, blending <b>elegance</b> and <b>purpose</b> seamlessly. <br>Why settle for<b> ordinary</b>?</p>\n{% else %}\n<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_InYourHome_v1.0_1.jpg?v=1728309397\" alt=\"Feel More Proud of Your Home with William Wood\">\n{% endif %}"
+          }
+        },
+        "liquid_mEKpB": {
+          "type": "liquid",
+          "disabled": false,
+          "settings": {
+            "liquid": "<div class=\"description-container\" style=\"margin-top: 10px;\">\n  <div class=\"short-description\">\n    {% if product.tags contains 'pre-order' %}\n      {% if current_path contains '/en-fr/' or current_path contains '/en-de/' or current_path contains '/en-nl/' or current_path contains '/en-be/' %}\n        {% assign short_description = product.description \n              | strip_html \n              | replace: 'between', 'from' \n              | split: 'and' \n              | first \n              | strip \n        %}\n      {% else %}\n          {% assign short_description = product.description\n            | strip_html\n            | split: ':' \n            | first \n            | strip \n          %}\n      {% endif %}\n\n      {% if block.settings.short_description != blank %}\n        <p><b>{{ block.settings.short_description }}</b></p>\n      {% else %}\n        <p><b>{{ short_description }}</b></p>\n      {% endif %}\n\n      <img \n        src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_QuestionMark-01_1.png?v=1737370952\" \n        alt=\"Question Mark Icon\" \n        class=\"info-icon\" \n        tabindex=\"0\" \n      />\n      <div class=\"tooltip\">This product is currently being crafted by our <br>expert manufacturers and is available for Pre Order.<br>We will contact you on the week below to arrange delivery.</div>\n\n    {% else %}\n      <p style=\"transform: translateY(-5px); padding-top: 5px; padding-bottom: 5px;\"><b>Usually dispatched in 10-14 Business Days</b></p>\n    {% endif %}\n  </div>\n</div>\n\n<style>\n  .short-description {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    text-align: center;\n    padding-bottom: 0px;\n    padding-top: 12px;\n    position: relative;\n  }\n  .description-container {\n    background-color: #efefef;\n    padding: 0px;\n    border-radius: 25px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n  .info-icon {\n    margin-left: 8px;\n    width: 15px;\n    height: 15px;\n    transform: translateY(-6px);\n    cursor: pointer;\n    position: relative;\n  }\n  .info-icon:hover + .tooltip,\n  .info-icon:focus + .tooltip {\n    display: block;\n  }\n  .tooltip {\n    display: none;\n    position: absolute;\n    bottom: 120%;\n    left: 50%;\n    transform: translateX(-50%);\n    background-color: #333;\n    color: #fff;\n    padding: 5px 10px;\n    border-radius: 4px;\n    font-size: 12px;\n    white-space: nowrap;\n    z-index: 1000;\n  }\n  .tooltip::after {\n    content: '';\n    position: absolute;\n    top: 100%;\n    left: 50%;\n    transform: translateX(-50%);\n    border-width: 5px;\n    border-style: solid;\n    border-color: #333 transparent transparent transparent;\n  }\n</style>"
+          }
+        },
+        "liquid_tpcdQ": {
+          "type": "liquid",
+          "disabled": false,
+          "settings": {
+            "liquid": "<div>\n<div class=\"usps-lines\">\n<div style=\"font-weight: 500; text-transform: capitalize; display: block;\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span> Easy 90 days free returns </div>\n\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span> 100% Money Back Guarantee </div>\n\n\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span> 700,000+ Satisfied Customers</div>\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span> <span class=\"fordesktop\">5 Year Warranty Guarantee\n</span>\n<span class=\"formobile\">5 Year Warranty Guarantee\n</span> </div>\n\n{% for tag in product.tags %}\n{% if tag == '#sp' %}\n<div style=\"font-weight: 500;\" class=\"\"><span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\" viewBox=\"0 0 18 13\" fill=\"none\"><path d=\"M17.2 1.06006L6.19995 12.0601L1.19995 7.06006\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg></span>\n<span>Assembled with <b>safe and secure</b> accident preventing shatter proof glass</span></div>\n{% endif %}\n{% endfor %}\n\n</div>\n{% comment %}\n\n<div style=\"margin-top: 0px; margin-bottom: 15px; display: flex; flex-direction: column; \">\n{% if product.variants[0].inventory_quantity > 0 %}\n{% for tag in product.tags %}\n{% if tag == 'pre-order' and product.variants[0].inventory_quantity < 16 %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: Available for pre order</span>\n</div>\n{% elsif tag == 'pre-order' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: Available for pre order</span>\n</div>\n{% endif %}\n{% endfor %}\n\n{% unless product.tags contains 'pre-order' %}\n{% if product.available and product.variants[0].inventory_quantity < 16 %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: <b>In stock</b> and ready to ship</span>\n</div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: In stock and ready to ship</span>\n</div>\n{% endunless %}\n{% else %}\n{% unless product.tags contains 'PF' %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: <b>In stock</b> and ready to ship</span>\n</div>\n{% else %}\n<div class=\"instock-pulse\">\n<span class=\"icon--pulsing\"></span>\n<span>Free UK Delivery: <b>In stock</b> and ready to ship</span>\n</div>\n{% endunless %}\n{% endif %}\n{% endunless %}\n\n\n\n\n\n\n<style>\n\n{% if product.available %}\n.instock-pulse {\ndisplay: flex;\nflex-wrap: nowrap;\nalign-items: center;\njustify-content: center;\nmargin: 2px -4px 0;\n}\n\n.icon--pulsing {\nposition: relative;\nwidth: 20px;\nheight: 20px;\nmargin-right: 4px;\n}\n\n.icon--pulsing:after,\n.icon--pulsing:before {\nbackground: #54c63a;\nwidth: 10px;\nheight: 10px;\nborder-radius: 10px;\nposition: absolute;\nleft: 0;\ntop: 0;\ncontent: \"\";\nmargin: 5px;\n}\n\n@keyframes inventory-pulse {\n0% {\nopacity: 0.5;\n}\nto {\ntransform: scale(2.5);\nopacity: 0;\n}\n}\n{% endif %}\n\n{% if product.variants[0].inventory_quantity >= 11 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 2.5s linear infinite;\n}\n{% elsif product.variants[0].inventory_quantity < 11 and product.variants[0].inventory_quantity > 1 %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1.5s linear infinite;\n}\n{% else %}\n.icon--pulsing:before {\nanimation: inventory-pulse 1s linear infinite;\n}\n{% endif %}\n</style>\n{% endif %}\n\n{% endcomment %}\n\n\n{% if product.tags contains 'pre-order' %}\n\n<div class=\"icon-blocks-container\">\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Order Instantly.svg' | asset_url }}\" alt=\"Free Shipping\" width=\"34\" height=\"34\">\n    </div>\n    <div class=\"icon-block__number\">Step 1</div>\n    <h3 class=\"icon-block__title\">Order instantly today</h3>\n    <div class=\"icon-block__description\">Simply tap the <b>add to bag button</b> and checkout <b>securely</b> today to get your order in progress.</div>\n  </div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Fast Delivery.svg' | asset_url }}\" alt=\"Easy Returns\" width=\"34\" height=\"34\">\n    </div>\n\n    <div class=\"icon-block__number\">Step 2</div>\n    <h3 class=\"icon-block__title\">We ship your order from the date above</h3>\n    <div class=\"icon-block__description\">Once the Pre Order date arrives, our warehouse team carefully prepares your order for <b>safe & secure</b> delivery by your dedicated William Wood driver.</div>\n  </div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Love Your Home.svg' | asset_url }}\" alt=\"24/7 Support\" width=\"34\" height=\"34\">\n    </div>\n    <div class=\"icon-block__number\">Step 3</div>\n    <h3 class=\"icon-block__title\">Be more proud of your home</h3>\n    <div class=\"icon-block__description\">Feel <b>happier</b> and <b>prouder</b> of your home, every single day.</div>\n  </div>\n</div>\n\n{% else %}\n<div class=\"icon-blocks-container\">\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Order Instantly.svg' | asset_url }}\" alt=\"Free Shipping\" width=\"34\" height=\"34\">\n    </div>\n    <div class=\"icon-block__number\">Step 1</div>\n    <h3 class=\"icon-block__title\">Order instantly today</h3>\n    <div class=\"icon-block__description\">Simply tap the <b>add to bag button</b> and checkout <b>securely</b> today to get your order in progress.</div>\n  </div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Fast Delivery.svg' | asset_url }}\" alt=\"Easy Returns\" width=\"34\" height=\"34\">\n    </div>\n\n    <div class=\"icon-block__number\">Step 2</div>\n    <h3 class=\"icon-block__title\">We usually ship within 1-3 Business Days</h3>\n    <div class=\"icon-block__description\">Our warehouse team carefully prepares your order for <b>safe & secure</b> delivery by your dedicated William Wood driver.</div>\n  </div>\n\n  <div class=\"icon-block\">\n    <div class=\"icon-block__icon\">\n      <img src=\"{{ 'Icons _Love Your Home.svg' | asset_url }}\" alt=\"24/7 Support\" width=\"34\" height=\"34\">\n    </div>\n    <div class=\"icon-block__number\">Step 3</div>\n    <h3 class=\"icon-block__title\">Be more proud of your home</h3>\n    <div class=\"icon-block__description\">Feel <b>happier</b> and <b>prouder</b> of your home, every single day.</div>\n  </div>\n</div>\n\n{% endif %}\n\n<style>\n.cart-return-product-page {\ndisplay: flex\n;\nalign-items: self-end;\njustify-content: left;\ngap: 6px;\n}\n\n.instock-pulse {\njustify-content: left;\n}\n\n.shattered-glass {\nmargin: 15px 0px;\n}\n\n.icon-blocks-container {\n    display: flex;\n    flex-wrap: wrap;\n    gap: 2rem;\n    justify-content: center;\n    margin: 2rem 0px 4rem;\n  }\n\n  .icon-block {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    text-align: center;\n    border-radius: 8px;\n  }\n  .icon-block__icon img {\n    width: 34px;\n    height: 34px;\n    object-fit: contain;\n  }\n  \n  .icon-block__number {\n    font-size: 12px;\n    font-weight: bold;\n    margin-bottom: 0.5rem;\n  }\n  \n  .icon-block__title {\n    font-size: 12px;\n    font-weight: 600;\n    margin-bottom: 0.75rem;\nmargin-top: 0px;\n  }\n  \n  .icon-block__description {\n    font-size: 12px;\n    line-height: 1.5;\n    max-width: 280px;\n  }\n  \n  /* Desktop flex styling */\n  @media (min-width: 768px) {\n    .icon-blocks-container .icon-block {\n      flex: 1;\n      \n    }\n  }\n  \n  /* Mobile stacking */\n  @media (max-width: 767px) {\n    .icon-blocks-container {\n      flex-direction: column;\n      gap: 1rem;\n    }\n    \n  }\n</style>"
+          }
+        },
+        "liquid_dRJt6": {
+          "type": "liquid",
+          "disabled": true,
+          "settings": {
+            "liquid": "<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n{% assign in_best_sellers = false %}\n{% for collection in product.collections %}\n    {% if collection.handle == 'best-sellers' %}\n{% unless product.tags contains \"pre-order\" %}\n        {% assign in_best_sellers = true %}\n{% endunless %}\n    {% endif %}\n{% endfor %}\n    <style>\n        @media (max-width: 768px) {\n            .FGbutton--primary {\n                background-color: black;\n                color: white;\n                text-align: center;\n                text-decoration: none;\n                padding: 5px 20px;\n                font-size: 12px;\n                border-radius: 15px;\n                transform: translateY(38%);\n            }\n\n            .Gcontainer {\n\n            }\n\n            .Gcontainer p {\n                transform: translateY(-7px);\n            }\n\n            .Gcontainer .delmins {\n                transform: translateY(-5px);\n            }\n\n            .text-button-container {\n                transform: translateY(-5px);\n            }\n        }\n\n        @media (min-width: 1024px) { \n            .Gcontainer p + b {\n                display: block;\n                margin-left: -20px;\n            }\n        }\n        .Gcontainer {\n            display: flex;\n            flex-direction: column;\n            align-items: flex-start;\n            background-color: #efefef !important;\n            padding: 20px;\n        }\n        .Gcontainer img {\n            width: 30px;\n            margin-bottom: 5px; \n        }\n        .Gcontainer p {\n            margin: 0;\n            font-size: 16px;\n        }\n        .Gcontainer .delmins {\n            font-size: 20px;\n            margin-top: 5px;\n        }\n        .text-button-container {\n            display: flex;\n            align-items: center;\n            justify-content: space-between;\n            width: 100%;\n        }\n\n        @media (min-width: 1024px) {\n        .FGbutton--primary {\n            background-color: black;\n            color: white;\n            text-align: center;\n            text-decoration: none;\n            padding: 5px 20px;\n            font-size: 10px;\n            border-radius: 15px;\n            transform: translateY(45%);\n        }\n            .Acontainer {\n                width: 100%;\n                height: 40%;\n                transform: translate(0%, 0%);\n            }\n        }\n    </style>\n</head>\n{% if in_best_sellers %}\n<body>\n    <div class=\"Gcontainer\">\n        <style>\n            @media only screen and (min-width: 1024px) {\n                .bigger-text {\n                    font-size: 20px;\n                }\n            }\n        </style>\n        <div class=\"text-button-container\">\n            <b class=\"bigger-text\">25% Off</b>\n<style>\n\n  .desktop-only {\n    display: none;\n  }\n  @media (min-width: 768px) {\n    .desktop-only {\n      display: inline-block;\n\n    }\n  }\n</style>\n        </span>\n<span class=\"desktop-only\" style=\"\n                text-align: center;\n                text-decoration: none;\n                padding: 5px 20px;\n                font-size: 18px;\n                border-radius: 15px;\n                transform: translateY(38%);\">Code: <b>BEST</b></span>\n        </div>\n        <span class=\"delmins\" style=\"font-size: 13px;\">\n            When you purchase <b>2</b> or more <b>Best Sellers</b>\n        </span>\n        <span class=\"delmins\" style=\"font-size: 10px;\">\n            (This Product Qualifies)\n        </span>\n<span></span>\n        <span class=\"delmins mobile-only\" style=\"font-size: 13px; transform: translateY(5px);\">\n            Code: <b>BEST</b>\n        </span>\n\n<style>\n\n  .mobile-only {\n    display: none;\n  }\n  @media (max-width: 768px) {\n    .mobile-only {\n      display: inline-block;\n    }\n  }\n.desktop-only {\nfont-size: 15px;\n}\n</style>\n    </div>\n</body>\n<br><br>\n\n{% endif %}\n<body>\n    <div class=\"Gcontainer\">\n        <style>\n            @media only screen and (min-width: 1024px) {\n                .bigger-text {\n                    font-size: 20px;\n                }\n            }\n        </style>\n        <div class=\"text-button-container\">\n            <b class=\"bigger-text\">Free Gift With This Purchase</b>\n<style>\n\n  .desktop-only {\n    display: none;\n  }\n  @media (min-width: 768px) {\n    .desktop-only {\n      display: inline-block;\n    }\n  }\n</style>\n        </span>\n<a href=\"/pages/free-gift\" class=\"FGbutton--primary desktop-only\">View Free Gifts</a>\n        </div>\n        <span class=\"delmins\" style=\"font-size: 13px;\">\n            When you spend €359 or more\n        </span>\n<a href=\"/pages/free-gift\" class=\"FGbutton--primary mobile-only\">View Free Gifts</a><p style=\"font-size: 4px; opacity: 0%;\">r</p>\n\n<style>\n\n  .mobile-only {\n    display: none;\n  }\n  @media (max-width: 768px) {\n    .mobile-only {\n      display: inline-block;\n    }\n  }\n.desktop-only {\nfont-size: 15px;\n}\n</style>\n    </div>\n</body>\n</html>"
+          }
+        },
+        "planet_shopify_planet_PVEqkE": {
+          "disabled": true,
+          "settings": {}
+        },
+        "button_hGLYr": {
+          "type": "button",
+          "disabled": false,
+          "settings": {
+            "paragraph-e83d7eb68ac34aeddaf7c31417ce3a7a": null,
+            "link": "",
+            "text": "",
+            "stretch": true,
+            "background": "rgba(0,0,0,0)",
+            "text_color": "rgba(0,0,0,0)"
+          }
+        },
+        "liquid_xC96M": {
+          "type": "liquid",
+          "disabled": false,
+          "settings": {
+            "liquid": "<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Green_USP_V1.1.webp?v=1746534818\" style=\"transform: translateY(-20px);\">"
+          }
+        }
+      },
+      "block_order": [
+        "review_banner_zhTgF",
+        "product_status_DB8wG",
+        "liquid_XxpzF",
+        "benefit_section_YQmVzk",
+        "liquid_xnxWB",
+        "liquid_YbAhJ",
+        "timer_QADRN",
+        "buy_buttons",
+        "customer_count_axVdN",
+        "liquid_H6RYf",
+        "trust_badges_bear_widget_YMkCzc",
+        "67334996-ee52-4157-a9a3-730178b33fa7",
+        "liquid_zjFCE",
+        "quantity_selector",
+        "liquid_mEKpB",
+        "liquid_tpcdQ",
+        "liquid_dRJt6",
+        "planet_shopify_planet_PVEqkE",
+        "button_hGLYr",
+        "stories_z3hwyH",
+        "usp_list_DD8pzP",
+        "spread_payments_ciptAV",
+        "liquid_xC96M"
+      ]
+    },
+    "infinite_scroller_PLWixJ": {
+      "custom_css": [
+        "@media (min-width: 767px) {.infinite-logo-scroller {display: none; }}"
+      ],
+      "settings": {
+        "logos_shown": 3.5
+      },
+      "blocks": {}
+    },
+    "product-content": {
+      "settings": {},
+      "blocks": {
+        "content_wjEDe": {
+          "type": "content",
+          "disabled": false,
+          "settings": {
+            "title": "CAN I HOLD MY ORDER IN STOCK?",
+            "content": "<p>To hold your order, simply tick \"Hold my order in stock for up to 90 days\" at checkout and select your desired hold date. </p><p>Alternatively, you can email <a href=\"mailto:hello@williamwoodmirrors.co.uk\" target=\"_blank\">hello@williamwoodmirrors.co.uk</a> after placing your order, quoting your order number and the date you want to hold your order until. An advisor will be happy to assist you.</p><p></p><p><strong>PLEASE NOTE: </strong>We can only hold orders for up to 90 days from the date of your purchase.</p>",
+            "page": ""
+          }
+        },
+        "content_zqQUA": {
+          "type": "content",
+          "disabled": false,
+          "settings": {
+            "title": "WORRIED ABOUT QUALITY?",
+            "content": "",
+            "page": "quality"
+          }
+        },
+        "liquid_7igpU": {
+          "type": "liquid",
+          "disabled": false,
+          "settings": {
+            "title": "Delivery Information",
+            "liquid": "<p data-mce-fragment=\"1\"><strong data-mce-fragment=\"1\"><br data-mce-fragment=\"1\"><br data-mce-fragment=\"1\">NETHERLANDS DELIVERY INFORMATION</strong><br data-mce-fragment=\"1\"><br data-mce-fragment=\"1\">Your order will be safely delivered by William Wood Dedicated Delivery service within <strong data-mce-fragment=\"1\">7-28 Business Days.</strong><br data-mce-fragment=\"1\"><br data-mce-fragment=\"1\">Once you receive your shipping confirmation email, our team will contact you to book delivery.</p>\n\n\n<p data-mce-fragment=\"1\"><br data-mce-fragment=\"1\"><br data-mce-fragment=\"1\"><br data-mce-fragment=\"1\"><strong data-mce-fragment=\"1\">PRE ORDER ITEM(S) DELIVERY<br data-mce-fragment=\"1\"><br data-mce-fragment=\"1\"></strong><p>Your Pre Order items will be shipped urgently within the specified week. You can find this week below the 'ADD TO BAG' button. Our highly acclaimed Pre Order service lets you reserve in-demand stock. You can cancel anytime, <strong>100% refund guarantee</strong>.\n<br><br>\nFor orders with both in-stock and Pre Order items, we will ship the in-stock items first, within the usual time. Once your Pre Order items are available, we'll send them promptly to you upon arrival to our warehouse.</p>"
+          }
+        },
+        "liquid_Gc6DA": {
+          "type": "liquid",
+          "disabled": false,
+          "settings": {
+            "title": "Easy Returns + 100% Money Back Guarantee",
+            "liquid": "<style>\n  @media (max-width: 768px) {\n    .mobile-only {\n      display: block;\n    }\n    .desktop-only {\n      display: none !important;\n    }\n  }\n\n  @media (min-width: 769px) {\n    .desktop-only {\n      display: block;\n    }\n    .mobile-only {\n      display: none !important;\n    }\n  }\n</style>\n\n<img class=\"mobile-only\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_ReturnProcess_v1.0-02_7a52876d-f8cd-46c3-aac5-5313191965c3.jpg?v=1724769745\" alt=\"Returns Process\">\n\n<img class=\"desktop-only\" src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_ReturnProcess_v1.0-01_1.jpg?v=1724151843\" alt=\"Returns Process\">\n\n<p data-mce-fragment=\"1\">We offer a&nbsp;<strong data-mce-fragment=\"1\">100% Money Back Guarantee</strong>&nbsp;on all orders, including a&nbsp;<strong data-mce-fragment=\"1\">90</strong>&nbsp;Day Hassle-Free&nbsp;Returns<span data-mce-fragment=\"1\">&nbsp;</span></strong>. To initiate your return and claim your 100% refund, simply head to your&nbsp;<strong data-mce-fragment=\"1\">Customer Portal</strong>&nbsp;and select 'Request a return' or email&nbsp;<strong data-mce-fragment=\"1\">hello@williamwoodmirrors.co.uk</strong>&nbsp;with your order number. Our Customer Support Team will get back to you as soon as possible with the next steps.</p>\n\n<p data-mce-fragment=\"1\"><br data-mce-fragment=\"1\"><strong data-mce-fragment=\"1\">INDUSTRY-LEADING INSTANT REFUND SERVICE</strong><br data-mce-fragment=\"1\"><br data-mce-fragment=\"1\">Experience our industry-leading Instant Refund Service (Maximum wait time for your refund: 1 Business Day). We ensure a prompt, 100% money back refund on all returns.</p>\n\n<p data-mce-fragment=\"1\">&nbsp;</p>\n\n<p data-mce-fragment=\"1\">Once your return is collected, a notification will be sent to our Customer Support Team, and your 100% refund will be processed instantly. If your return is collected outside of working hours (8 AM - 4 PM, Monday - Friday), you will receive your refund the next business day – that's our promise.<br data-mce-fragment=\"1\"><br data-mce-fragment=\"1\">For more information about our Returns &amp; Exchanges, click&nbsp;<a href=\"https://www.williamwoodmirrors.co.uk/pages/returns\" title=\"https://www.williamwoodmirrors.co.uk/pages/returns\" data-mce-fragment=\"1\">here</a>.</p>\n\n<p data-mce-fragment=\"1\"><br data-mce-fragment=\"1\">Need more help? Feel free to contact our Customer Support Team via&nbsp;<strong data-mce-fragment=\"1\">hello@williamwoodmirrors.co.uk</strong>, and one of our advisors will be happy to assist you.</p>"
+          }
+        },
+        "content_yaC6w": {
+          "type": "content",
+          "disabled": false,
+          "settings": {
+            "title": "Have an expert hang your mirror / assemble your table",
+            "content": "",
+            "page": "mounting-assembly-service"
+          }
+        }
+      },
+      "block_order": [
+        "description",
+        "content_wjEDe",
+        "liquid_GG3wbC",
+        "content_zqQUA",
+        "liquid_7igpU",
+        "liquid_Gc6DA",
+        "8aee6622-1264-45f1-86c7-d7dcf187277f",
+        "7388b98b-fb77-4c92-895d-9695c498307b",
+        "content_yaC6w"
+      ]
+    },
+    "multi_column_yFeQDG": {
+      "settings": {
+        "desktop_item_size": "medium",
+        "spacing": "normal"
+      },
+      "blocks": {
+        "item_UDdzRJ": {
+          "settings": {
+            "content": "<p>Over 700,000 customers have trusted William Wood</p>"
+          }
+        },
+        "item_Q6dQVC": {
+          "settings": {
+            "content": "<p>Pay in 3 instalments at no extra cost</p>"
+          }
+        },
+        "item_fWNi8d": {
+          "settings": {
+            "content": "<p>100% Insured Delivery To Netherlands</p>"
+          }
+        }
+      }
+    },
+    "1662736476a1d5736f": {
+      "disabled": true,
+      "settings": {
+        "title": "Join our Community of over 608,000 discerning home enthusiasts just like you.",
+        "title2": "Follow @williamwood"
+      },
+      "blocks": {}
+    },
+    "custom_liquid_NNFwRd": {
+      "custom_css": [
+        "@media (min-width: 1024px) {.container {display: none; }}"
+      ],
+      "settings": {
+        "liquid": "<img src=\"https://sfycdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_PlantTree-01_4.jpg?v=1734355785\">",
+        "add_vertical_spacing": false
+      },
+      "blocks": {}
+    }
+  },
+  "order": [
+    "main",
+    "infinite_scroller_PLWixJ",
+    "multi_column_cBCjX",
+    "custom_video_BnVCm",
+    "custom_liquid_VWnCD",
+    "product-content",
+    "custom_liquid_JWcmz",
+    "multi_column_yFeQDG",
+    "rich_text_RWTB7",
+    "custom_liquid_HGKiF",
+    "17266470579eb0696b",
+    "1662736476a1d5736f",
+    "custom_liquid_NNFwRd",
+    "custom_liquid_9X3BD",
+    "1664500680eee3b37a",
+    "1721117569940993f4"
+  ]
+}

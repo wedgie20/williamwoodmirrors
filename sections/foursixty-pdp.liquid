@@ -2,7 +2,19 @@
 <div id="foursixty-hideable-container" style="display:none">
   <div class="foursixty-section">
     <header class="section__header text-container">
-      <h2 class="heading heading--small">{{ section.settings.title | escape }}<br/>{{ section.settings.title2 | escape }}</h2>
+      {%- assign fs_title = section.settings.title | escape -%}
+      {%- assign fs_title_2 = section.settings.title2 | escape -%}
+      <h2 class="heading heading--small">
+        {%- if template contains 'product' -%}
+          {%- if fs_title_2 == blank and fs_title contains '610,000+' -%}
+            <span class="foursixty-title-primary">{{ fs_title | replace: '610,000+ discerning', '610,000+<br/>discerning' }}</span>
+          {%- else -%}
+            <span class="foursixty-title-primary">{{ fs_title }}</span>{% if fs_title_2 != blank %}<br/><span class="foursixty-title-secondary">{{ fs_title_2 }}</span>{% endif %}
+          {%- endif -%}
+        {%- else -%}
+          {{ fs_title }}{% if fs_title_2 != blank %}<br/>{{ fs_title_2 }}{% endif %}
+        {%- endif -%}
+      </h2>
     </header>
 
     <script
@@ -113,7 +125,7 @@
           width: auto;
         }
         .fs-timeline {
-          max-width: calc(100% - 60px);
+          max-width: 310px;
           margin: auto;
         }
         .fs-slider-next-button,
@@ -128,9 +140,17 @@
           stroke-width: 2px;
         }
         .fs-wrapper div.fs-entry-container {
-          height: 0;
-          width: 50% !important;
-          padding-top: 50% !important;
+          width: 310px !important;
+          max-width: calc(100vw - 36px) !important;
+          height: 330px !important;
+          padding-top: 0 !important;
+        }
+        .fs-wrapper div.fs-entry-container img,
+        .fs-wrapper div.fs-entry-container .fs-timeline-entry {
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: cover !important;
+          margin: 0px !important;
         }
       }
     </style>
