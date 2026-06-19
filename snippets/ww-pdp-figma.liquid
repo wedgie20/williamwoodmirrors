@@ -48,6 +48,75 @@
   assign detail_assembly = product.metafields.custom.assembly.value | default: product.metafields.custom.assembly
   assign detail_care = product.metafields.custom.product_care_information.value | default: product.metafields.custom.product_care_information | default: product.metafields.custom.care.value | default: product.metafields.custom.care
   assign detail_assembly_time = product.metafields.custom.assembly_time.value | default: product.metafields.custom.assembly_time
+
+  assign display_product_heading = product_heading
+  assign display_product_title = product.title
+  assign title_dimensions = ''
+
+  if detail_height != blank and detail_width != blank
+    capture title_dimensions
+      echo detail_height
+      echo ' x '
+      echo detail_width
+    endcapture
+    assign title_dimensions = title_dimensions | strip
+  endif
+
+  assign heading_words = product_heading | split: ' '
+  assign heading_word_count = heading_words.size
+  assign has_title_measurement_suffix = false
+  assign has_three_part_title_measurement_suffix = false
+
+  if heading_word_count > 2
+    assign last_word_index = heading_word_count | minus: 1
+    assign x_word_index = heading_word_count | minus: 2
+    assign before_x_word_index = heading_word_count | minus: 3
+    assign last_word = heading_words[last_word_index] | downcase
+    assign x_word = heading_words[x_word_index] | downcase
+    assign before_x_word = heading_words[before_x_word_index] | downcase
+
+    if last_word contains 'cm' and x_word == 'x' and before_x_word contains 'cm'
+      assign has_title_measurement_suffix = true
+    endif
+
+    if heading_word_count > 4
+      assign second_x_word_index = heading_word_count | minus: 4
+      assign first_dimension_word_index = heading_word_count | minus: 5
+      assign second_x_word = heading_words[second_x_word_index] | downcase
+      assign first_dimension_word = heading_words[first_dimension_word_index] | downcase
+
+      if has_title_measurement_suffix and second_x_word == 'x' and first_dimension_word contains 'cm'
+        assign has_three_part_title_measurement_suffix = true
+      endif
+    endif
+  endif
+
+  if has_title_measurement_suffix and title_dimensions != blank
+    capture title_measurement_suffix
+      if has_three_part_title_measurement_suffix
+        echo heading_words[first_dimension_word_index]
+        echo ' '
+        echo heading_words[second_x_word_index]
+        echo ' '
+      endif
+      echo heading_words[before_x_word_index]
+      echo ' '
+      echo heading_words[x_word_index]
+      echo ' '
+      echo heading_words[last_word_index]
+    endcapture
+    if has_three_part_title_measurement_suffix and detail_depth != blank
+      capture title_dimensions
+        echo title_dimensions
+        echo ' x '
+        echo detail_depth
+      endcapture
+      assign title_dimensions = title_dimensions | strip
+    endif
+    assign title_measurement_suffix = title_measurement_suffix | strip
+    assign display_product_heading = product_heading | split: title_measurement_suffix | first | strip | append: ' ' | append: title_dimensions | strip
+    assign display_product_title = product.title | split: title_measurement_suffix | first | strip | append: ' ' | append: title_dimensions | strip
+  endif
 -%}
 
 {%- liquid
@@ -194,7 +263,7 @@
       <nav class="ww-pdp__breadcrumb" aria-label="{{ 'general.breadcrumb.title' | t }}">
         <a href="{{ routes.root_url }}">Home</a>
         <span>/</span>
-        <span>{{ product.title }}</span>
+        <span>{{ display_product_title }}</span>
       </nav>
 
       {% comment %} <div class="ww-pdp__designed">Designed in-house by <strong>WILLIAM WOOD</strong></div> {% endcomment %}
@@ -204,8 +273,7 @@
       
 {% if product.tags contains 'in-house' %}<div class="ww-pdp__designed">Designed in-house by <strong>WILLIAM WOOD</strong></div>{% endif %}
       </div>
-      {%- assign product_type_lc = product.type | downcase -%}
-      <h1 class="ww-pdp__title">{{ product_heading }}{%- if product_type_lc contains 'table' and detail_height != blank or product_type_lc contains 'table' and detail_width != blank or product_type_lc contains 'table' and detail_depth != blank %} <span class="ww-pdp__title-dims">{%- if detail_height != blank %}{{ detail_height }}{%- endif -%}{%- if detail_width != blank %} x {{ detail_width }}{%- endif -%}{%- if detail_depth != blank %} x {{ detail_depth }}{%- endif -%}</span>{%- endif -%}</h1>
+      <h1 class="ww-pdp__title">{{ display_product_heading }}</h1>
 
       <div class="ww-pdp__price-row">
         <span class="ww-pdp__price-group {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
