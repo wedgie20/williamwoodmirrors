@@ -66,26 +66,42 @@
   assign heading_word_count = heading_words.size
   assign has_title_measurement_suffix = false
   assign has_three_part_title_measurement_suffix = false
+  assign last_word = ''
+  assign x_word = ''
+  assign before_x_word = ''
+  assign second_x_word = ''
+  assign first_dimension_word = ''
 
   if heading_word_count > 2
-    assign last_word_index = heading_word_count | minus: 1
-    assign x_word_index = heading_word_count | minus: 2
-    assign before_x_word_index = heading_word_count | minus: 3
-    assign last_word = heading_words[last_word_index] | downcase
-    assign x_word = heading_words[x_word_index] | downcase
-    assign before_x_word = heading_words[before_x_word_index] | downcase
+    assign reverse_word_position = 0
 
-    if last_word contains 'cm' and x_word == 'x' and before_x_word contains 'cm'
+    for heading_word in heading_words reversed limit: 5
+      assign reverse_word_position = reverse_word_position | plus: 1
+      if reverse_word_position == 1
+        assign last_word = heading_word
+      elsif reverse_word_position == 2
+        assign x_word = heading_word
+      elsif reverse_word_position == 3
+        assign before_x_word = heading_word
+      elsif reverse_word_position == 4
+        assign second_x_word = heading_word
+      elsif reverse_word_position == 5
+        assign first_dimension_word = heading_word
+      endif
+    endfor
+
+    assign last_word_lc = last_word | downcase
+    assign x_word_lc = x_word | downcase
+    assign before_x_word_lc = before_x_word | downcase
+    assign second_x_word_lc = second_x_word | downcase
+    assign first_dimension_word_lc = first_dimension_word | downcase
+
+    if last_word_lc contains 'cm' and x_word_lc == 'x' and before_x_word_lc contains 'cm'
       assign has_title_measurement_suffix = true
     endif
 
     if heading_word_count > 4
-      assign second_x_word_index = heading_word_count | minus: 4
-      assign first_dimension_word_index = heading_word_count | minus: 5
-      assign second_x_word = heading_words[second_x_word_index] | downcase
-      assign first_dimension_word = heading_words[first_dimension_word_index] | downcase
-
-      if has_title_measurement_suffix and second_x_word == 'x' and first_dimension_word contains 'cm'
+      if has_title_measurement_suffix and second_x_word_lc == 'x' and first_dimension_word_lc contains 'cm'
         assign has_three_part_title_measurement_suffix = true
       endif
     endif
@@ -94,16 +110,16 @@
   if has_title_measurement_suffix and title_dimensions != blank
     capture title_measurement_suffix
       if has_three_part_title_measurement_suffix
-        echo heading_words[first_dimension_word_index]
+        echo first_dimension_word
         echo ' '
-        echo heading_words[second_x_word_index]
+        echo second_x_word
         echo ' '
       endif
-      echo heading_words[before_x_word_index]
+      echo before_x_word
       echo ' '
-      echo heading_words[x_word_index]
+      echo x_word
       echo ' '
-      echo heading_words[last_word_index]
+      echo last_word
     endcapture
     if has_three_part_title_measurement_suffix and detail_depth != blank
       capture title_dimensions
