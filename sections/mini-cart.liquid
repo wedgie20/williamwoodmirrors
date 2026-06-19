@@ -555,26 +555,42 @@
             {% endif %}
 {% endcomment %}
      
-       {% assign original_subtotal = 0 %}
 {% assign total_saving = 0 %}
+{% assign savings_basis = 0 %}
+{% assign has_code_savings = false %}
 
 {% for item in cart.items %}
   {% assign item_total_saving = 0 %}
+  {% assign item_savings_basis = item.final_line_price %}
 
   {% if item.original_line_price > item.final_line_price %}
+    {% assign has_code_savings = true %}
+    {% assign item_savings_basis = item.original_line_price %}
     {% assign item_total_saving = item.original_line_price | minus: item.final_line_price %}
   {% elsif item.variant.compare_at_price and item.variant.compare_at_price > item.variant.price %}
+    {% assign item_savings_basis = item.variant.compare_at_price | times: item.quantity %}
     {% assign item_total_saving = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity %}
   {% endif %}
 
+  {% assign savings_basis = savings_basis | plus: item_savings_basis %}
   {% assign total_saving = total_saving | plus: item_total_saving %}
 {% endfor %}
 
 
 {% if total_saving > 0 %}
+  {% assign savings_label = 'Product Savings:' %}
+  {% if has_code_savings %}
+    {% assign savings_label = 'Code Savings:' %}
+  {% endif %}
+
+  {% assign savings_percentage = 0 %}
+  {% if savings_basis > 0 %}
+    {% assign savings_percentage = total_saving | times: 100.0 | divided_by: savings_basis | round %}
+  {% endif %}
+
   <p class="order_info">
-    <span style="color: black;">Total Savings:</span> 
-    <span style="text-align: right; color: #780606;">-{% render 'format-money', amount: total_saving %}</span>
+    <span style="color: black;">{{ savings_label }}</span>
+    <span style="text-align: right; color: #780606;">-{% render 'format-money', amount: total_saving %} ({{ savings_percentage }}%)</span>
   </p>
 {% endif %}
 
