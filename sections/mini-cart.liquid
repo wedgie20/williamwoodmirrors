@@ -211,11 +211,11 @@
                   <span class="price price--compare">
                 <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
 
-                {% if line_item.original_line_price > line_item.final_line_price %}
-                  {% render 'format-money', amount: line_item.original_line_price %}
-                {% elsif line_item.variant.compare_at_price > line_item.variant.price %}
+               {% if line_item.variant.compare_at_price > line_item.variant.price %}
                   {% assign compare_price_total = line_item.variant.compare_at_price | times: line_item.quantity %}
                   {% render 'format-money', amount: compare_price_total %}
+                  {% else %}
+                  {% render 'format-money', amount: line_item.original_line_price %}
                 {% endif %}
               </span>
 
@@ -519,13 +519,15 @@
     <span style="text-align: right;">
       {%- assign original_subtotal = 0 -%}
       {%- for line_item in cart.items -%}
-        {%- if line_item.original_line_price > line_item.final_line_price -%}
-          {%- assign item_total = line_item.original_line_price -%}
-        {%- elsif line_item.variant.compare_at_price > line_item.variant.price -%}
-          {% assign item_total = line_item.variant.compare_at_price | times: line_item.quantity %}
-        {%- else -%}
-          {%- assign item_total = line_item.final_line_price -%}
-        {%- endif -%}
+    {%- if line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
+                {% if line_item.variant.compare_at_price > line_item.variant.price %}
+               {% assign item_total = line_item.variant.compare_at_price | times: line_item.quantity %}
+                {% else %}
+                  {%- assign item_total = line_item.original_line_price -%}
+                {% endif %}
+            {%- else -%}
+                {%- assign item_total = line_item.final_line_price -%}
+                {%- endif -%}
         {%- assign original_subtotal = original_subtotal | plus: item_total -%}
       {%- endfor -%}
 
@@ -555,42 +557,41 @@
             {% endif %}
 {% endcomment %}
      
+       {% assign original_subtotal = 0 %}
 {% assign total_saving = 0 %}
-{% assign savings_basis = 0 %}
-{% assign has_code_savings = false %}
 
 {% for item in cart.items %}
-  {% assign item_total_saving = 0 %}
-  {% assign item_savings_basis = item.final_line_price %}
-
-  {% if item.original_line_price > item.final_line_price %}
-    {% assign has_code_savings = true %}
-    {% assign item_savings_basis = item.original_line_price %}
-    {% assign item_total_saving = item.original_line_price | minus: item.final_line_price %}
-  {% elsif item.variant.compare_at_price and item.variant.compare_at_price > item.variant.price %}
-    {% assign item_savings_basis = item.variant.compare_at_price | times: item.quantity %}
-    {% assign item_total_saving = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity %}
+  {% comment %} Calculate original subtotal {% endcomment %}
+  {% if item.variant.compare_at_price and item.variant.compare_at_price > 0 %}
+    {% assign item_original_total = item.variant.compare_at_price | times: item.quantity %}
+  {% else %}
+    {% assign item_original_total = item.variant.price | times: item.quantity %}
   {% endif %}
-
-  {% assign savings_basis = savings_basis | plus: item_savings_basis %}
+  {% assign original_subtotal = original_subtotal | plus: item_original_total %}
+  
+  {% comment %} Calculate savings from both product discounts AND line discounts {% endcomment %}
+  {% assign product_saving = 0 %}
+  {% assign line_saving = 0 %}
+  
+  {% comment %} Product-level savings (compare_at_price vs price) {% endcomment %}
+  {% if item.variant.compare_at_price and item.variant.compare_at_price > item.variant.price %}
+    {% assign product_saving = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity %}
+  {% endif %}
+  
+  {% comment %} Cart/quantity-level savings (original_line_price vs final_line_price) {% endcomment %}
+  {% if item.original_line_price > item.final_line_price %}
+    {% assign line_saving = item.original_line_price | minus: item.final_line_price %}
+  {% endif %}
+  
+  {% assign item_total_saving = product_saving | plus: line_saving %}
   {% assign total_saving = total_saving | plus: item_total_saving %}
 {% endfor %}
 
 
 {% if total_saving > 0 %}
-  {% assign savings_label = 'Product Savings:' %}
-  {% if has_code_savings %}
-    {% assign savings_label = 'Code Savings:' %}
-  {% endif %}
-
-  {% assign savings_percentage = 0 %}
-  {% if savings_basis > 0 %}
-    {% assign savings_percentage = total_saving | times: 100.0 | divided_by: savings_basis | round %}
-  {% endif %}
-
   <p class="order_info">
-    <span style="color: black;">{{ savings_label }}</span>
-    <span style="text-align: right; color: #780606;">-{% render 'format-money', amount: total_saving %} ({{ savings_percentage }}%)</span>
+    <span style="color: black;">Total Savings:</span> 
+    <span style="text-align: right; color: #780606;">-{% render 'format-money', amount: total_saving %}</span>
   </p>
 {% endif %}
 

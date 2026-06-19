@@ -587,217 +587,9 @@ For inquiries or permissions, contact daniel@section.store
   </style>
 {% endif %}
 
-{% if request.page_type == 'product' %}
-  <style>
-    .custom_faq_section.faq-{{ section.id }} {
-      margin: 0 !important;
-      border: 0 !important;
-      border-radius: 0 !important;
-      overflow: visible !important;
-      background: #f5f5f5 !important;
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .section-{{ section.id }}-settings {
-      max-width: 750px !important;
-      padding: 78px 0 84px !important;
-      margin: 0 auto !important;
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .faq-heading-{{ section.id }} {
-      text-align: center !important;
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .faq-heading-{{ section.id }} * {
-      margin: 0 !important;
-      font-size: 24px !important;
-      line-height: 1.18 !important;
-      font-weight: 700 !important;
-      letter-spacing: 0 !important;
-      color: #050505 !important;
-      text-transform: none !important;
-      font-family: 'Gotham Book' !important;
-      font-weight: 500 !important;
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .faq-body-{{ section.id }} {
-      display: block !important;
-      margin-top: 72px !important;
-      padding: 0 !important;
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .faq-toggles-{{ section.id }} {
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      flex-wrap: wrap !important;
-      gap: 15px !important;
-      margin: 0 0 38px !important;
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .faq-tab-toggle-{{ section.id }} {
-      min-height: 43px !important;
-      padding: 0 17px !important;
-      border: 1.5px solid #111 !important;
-      border-radius: 999px !important;
-      background: transparent !important;
-      color: #111 !important;
-      font-size: 14px !important;
-      line-height: 1 !important;
-      font-weight: 700 !important;
-      letter-spacing: 0 !important;
-      text-align: center !important;
-      white-space: nowrap !important;
-      font-family: 'Gotham Book';
-      font-weight: 500 !important;
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .faq-tab-toggle-{{ section.id }}.active,
-    .custom_faq_section.faq-{{ section.id }} .faq-tab-toggle-{{ section.id }}:hover {
-      background: #000 !important;
-      color: #fff !important;
-      border-color: #000 !important;
-      font-family: 'Gotham Book';
-      font-weight: 500 !important;
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .faq-tabs-{{ section.id }} {
-      max-width: 750px !important;
-      margin: 0 auto !important;
-      
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .faq-tabs-mobile-{{ section.id }} {
-      max-width: 750px !important;
-      margin: 0 auto !important;
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .faq-tab-{{ section.id }} {
-      padding: 0 !important;
-      border: 0 !important;
-      border-radius: 0 !important;
-      background: transparent !important;
-      overflow: visible !important;
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .faq-item-{{ section.id }} {
-      padding: 27px 0 26px !important;
-      margin: 0 !important;
-      border: 0 !important;
-      border-top: 1px solid #e3e3e3 !important;
-      border-radius: 0 !important;
-      background: transparent !important;
-      box-shadow: none !important;
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .faq-item-{{ section.id }}:last-child {
-      border-bottom: 1px solid #e3e3e3 !important;
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .faq-toggle-{{ section.id }} {
-      align-items: flex-start !important;
-      gap: 18px !important;
-      font-family: 'Gotham Book';
-      font-weight: 500 !important;
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .faq-question-{{ section.id }} {
-      margin: 0 !important;
-      font-size: 14px !important;
-      line-height: 20px !important;
-      font-weight: 700 !important;
-      letter-spacing: 0 !important;
-      color: #050505 !important;
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .faq-arrow-{{ section.id }} {
-      flex: 0 0 18px !important;
-      width: 18px !important;
-      height: 18px !important;
-      margin-top: 2px !important;
-      border: 0 !important;
-      border-radius: 0 !important;
-      color: #050505 !important;
-      transform: rotate(var(--rotate, 0deg)) !important;
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .faq-arrow-{{ section.id }} svg {
-      width: 13px !important;
-      height: 13px !important;
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .faq-arrow-{{ section.id }} svg path {
-      fill: #050505 !important;
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .faq-answer-{{ section.id }} * ,
-    .custom_faq_section.faq-{{ section.id }} .faq-height-cal-{{ section.id }} * {
-      margin: 0 !important;
-      max-width: 705px !important;
-      font-size: 14px !important;
-      line-height: 20px !important;
-      font-family: 'Gotham Book' !important;
-      font-weight: 500 !important;
-      letter-spacing: 0 !important;
-      color: #111 !important;
-    }
-
-    .custom_faq_section.faq-{{ section.id }} .faq-answer-{{ section.id }} p:not(:first-child),
-    .custom_faq_section.faq-{{ section.id }} .faq-height-cal-{{ section.id }} p:not(:first-child) {
-      margin-top: 12px !important;
-    }
-
-    @media screen and (max-width: 999px) {
-      .custom_faq_section.faq-{{ section.id }} .section-{{ section.id }}-settings {
-        padding: 54px 18px 58px !important;
-      }
-
-      .custom_faq_section.faq-{{ section.id }} .faq-heading-{{ section.id }} * {
-        font-size: 20px !important;
-      }
-
-      .custom_faq_section.faq-{{ section.id }} .faq-body-{{ section.id }} {
-        margin-top: 40px !important;
-      }
-
-      .custom_faq_section.faq-{{ section.id }} .faq-tabs-desktop-{{ section.id }} {
-        display: block !important;
-      }
-
-      .custom_faq_section.faq-{{ section.id }} .faq-tabs-mobile-{{ section.id }} {
-        display: none !important;
-      }
-
-      .custom_faq_section.faq-{{ section.id }} .faq-toggles-{{ section.id }} {
-        justify-content: flex-start !important;
-        gap: 10px !important;
-        margin-bottom: 30px !important;
-      }
-
-      .custom_faq_section.faq-{{ section.id }} .faq-tab-toggle-{{ section.id }} {
-        min-height: 38px !important;
-        padding: 0 14px !important;
-        font-size: 14px !important;
-      }
-
-      .custom_faq_section.faq-{{ section.id }} .faq-question-{{ section.id }} {
-        font-size: 14px !important;
-      }
-
-      .custom_faq_section.faq-{{ section.id }} .faq-answer-{{ section.id }} *,
-      .custom_faq_section.faq-{{ section.id }} .faq-height-cal-{{ section.id }} * {
-        font-size: 14px !important;
-      }
-    }
-  </style>
-{% endif %}
-
 <div class="section-{{ section.id }} faq-{{ section.id }} custom_faq_section" style="background-color:{{ background_color }}; background-image: {{ background_gradient }};">
     <div class="section-{{ section.id }}-settings">
-      {% if request.page_type == 'product' %}
-        <div class="faq-heading-{{ section.id }}">
-          <h2>Your questions, answered</h2>
-        </div>
-      {% elsif heading != blank %}
+      {% if heading != blank %}
         <div class="faq-heading-{{ section.id }}">
           {{ heading }}
         </div>
@@ -924,7 +716,7 @@ For inquiries or permissions, contact daniel@section.store
       })
     }
     
-    const answerPaddingTop = {% if request.page_type == 'product' %}28{% else %}{{ answer_padding_top }}{% endif %};
+    const answerPaddingTop = {{ answer_padding_top }};
     const answerPaddingBottom = 0;
 
     const faqs = document.querySelectorAll(
@@ -946,6 +738,7 @@ For inquiries or permissions, contact daniel@section.store
     let activeIndex = -1;
 
     function openAnswer(index) {
+      console.log( answersHeightCalElements[index]);
       const height = answersHeightCalElements[index].offsetHeight;
 
       answers[index].style.display = 'block';
@@ -990,14 +783,6 @@ For inquiries or permissions, contact daniel@section.store
         closeAllAnswerBut(index);
       });
     });
-
-    {% if request.page_type == 'product' %}
-      const firstVisibleIndex = Array.from(faqs).findIndex((faq) => faq.offsetParent !== null);
-      if (firstVisibleIndex !== -1) {
-        openAnswer(firstVisibleIndex);
-        activeIndex = firstVisibleIndex;
-      }
-    {% endif %}
 
     // When the window is resized, debounce the answer's height:
     let resizeTimer;

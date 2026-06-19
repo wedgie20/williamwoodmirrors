@@ -6,7 +6,7 @@
 <div class="ctl-box ctl-box--inline" id="ctl-{{ ctl_uid }}">
 
   <div class="ctl-header">
-    <h2 class="ctl-heading">{% if full_titles %}Complete the look{% else %}COMPLETE THE LOOK{% endif %}</h2>
+    <h2 class="ctl-heading">COMPLETE THE LOOK</h2>
     <div class="ctl-arrows" id="ctl-arrows-{{ ctl_uid }}" hidden>
       <button type="button" class="ctl-arrow ctl-arrow--prev" id="ctl-prev-{{ ctl_uid }}" aria-label="Previous" disabled>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -24,7 +24,19 @@
   <div class="ctl-track" id="ctl-track-{{ ctl_uid }}">
     {%- for rp in ctl_products -%}
       <div class="ctl-card">
-        {%- capture ctl_card_action -%}
+        <a href="{{ rp.url }}" class="ctl-card__img-wrap">
+          {%- if rp.featured_image -%}
+            {{ rp.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', class: 'ctl-card__img', alt: rp.title | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'ctl-card__img ctl-card__img--placeholder' }}
+          {%- endif -%}
+        </a>
+        <div class="ctl-card__body">
+          <a href="{{ rp.url }}" class="ctl-card__title">{{ rp.title|truncate: 20 }}</a>
+          <div class="ctl-card__rating">
+            {%- render 'product-rating', product: rp -%}
+          </div>
+          <span class="ctl-card__price">{{ rp.price | money }}</span>
           <div class="ctl-card__footer">
             {%- if rp.available and rp.has_only_default_variant -%}
               <button type="button" class="ctl-card__atc" data-variant-id="{{ rp.selected_or_first_available_variant.id }}" aria-label="Add to cart">
@@ -44,34 +56,6 @@
               </a>
             {%- endif -%}
           </div>
-        {%- endcapture -%}
-        <div class="ctl-card__media">
-          <a href="{{ rp.url }}" class="ctl-card__img-wrap">
-            {%- if rp.featured_image -%}
-              {{ rp.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', class: 'ctl-card__img', alt: rp.title | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
-            {%- else -%}
-              {{ 'product-1' | placeholder_svg_tag: 'ctl-card__img ctl-card__img--placeholder' }}
-            {%- endif -%}
-          </a>
-          {%- if full_titles -%}
-            {{ ctl_card_action }}
-          {%- endif -%}
-        </div>
-        <div class="ctl-card__body">
-          <a href="{{ rp.url }}" class="ctl-card__title">
-            {%- if full_titles -%}
-              {{ rp.title }}
-            {%- else -%}
-              {{ rp.title | truncate: 20 }}
-            {%- endif -%}
-          </a>
-          <div class="ctl-card__rating">
-            {%- render 'product-rating', product: rp -%}
-          </div>
-          <span class="ctl-card__price">{{ rp.price | money }}</span>
-          {%- unless full_titles -%}
-            {{ ctl_card_action }}
-          {%- endunless -%}
         </div>
       </div>
     {%- endfor -%}
@@ -205,21 +189,16 @@
     margin: 4px 0 3px;
     min-height: 14px;
     line-height: 1;
-    font-size: 12px;
   }
 
   .ctl-box--inline .ctl-card__rating .rating,
   .ctl-box--inline .ctl-card__rating .jdgm-widget {
     margin: 0;
     line-height: 1;
-    font-size: 12px;
   }
 
-  .ctl-box--inline .ctl-card__rating .jdgm-star,
-  .ctl-box--inline .ctl-card__rating .jdgm-star::before,
   .ctl-box--inline .ctl-card__rating .jdgm-prev-badge__text {
-    font-size: 12px;
-    line-height: 1.2;
+    font-size: 11px;
   }
 
   .ctl-box--inline .ctl-card__footer {
