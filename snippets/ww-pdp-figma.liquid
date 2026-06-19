@@ -373,6 +373,12 @@
         {%- if is_preorder and preorder_cart_note != blank -%}
           <input type="hidden" name="properties[Note]" value="{{ preorder_cart_note | escape }}">
         {%- endif -%}
+        {%- if is_preorder and preorder_delivery_text != blank -%}
+          <div class="ww-pdp__preorder-note">
+            <span aria-hidden="true"></span>
+            <p>Pre-order item. Expected shipping date {{ preorder_date }}</p>
+          </div>
+        {%- endif -%}
         <div class="ww-pdp__buy-row">
           <div class="ww-pdp__quantity" data-ww-quantity>
             <button type="button" data-ww-quantity-minus aria-label="Decrease quantity">-</button>
@@ -393,14 +399,6 @@
           </button>
         </div>
       {%- endform -%}
-
-      {%- if is_preorder and preorder_delivery_text != blank -%}
-        <div class="ww-pdp__preorder-delivery">
-          {%- render 'icon' with 'picto-delivery-truck' -%}
-          <strong>{{ preorder_delivery_text }}</strong>
-          <span aria-hidden="true">?</span>
-        </div>
-      {%- endif -%}
 
       <div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ current_variant.price }}">
         <p>Pay in <span data-ww-paypal-count>3</span> interest-free payments of <span data-ww-paypal-amount>{{ payment_amount | money }}</span> with <strong class="ww-pdp__paypal">PayPal</strong> <a href="/pages/payment">Learn More</a></p>
@@ -1152,40 +1150,26 @@
     cursor: not-allowed;
   }
 
-  .ww-pdp__preorder-delivery {
-    min-height: 46px;
-    margin: 6px 0 14px;
-    border-radius: 999px;
-    background: #efefef;
+  .ww-pdp__preorder-note {
+    margin: 0 0 8px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 9px;
-    padding: 10px 18px;
-    text-align: center;
+    gap: 8px;
+    color: #5f5f5f;
     font-size: 14px;
-    line-height: 1.2;
+    line-height: 1.25;
   }
 
-  .ww-pdp__preorder-delivery svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .ww-pdp__preorder-delivery strong {
-    font-weight: 700;
-  }
-
-  .ww-pdp__preorder-delivery span {
-    width: 16px;
-    height: 16px;
-    border: 1px solid currentColor;
+  .ww-pdp__preorder-note > span {
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 700;
+    flex: 0 0 5px;
+    background: #b4772b;
+  }
+
+  .ww-pdp__preorder-note p {
+    margin: 0;
   }
 
   .ww-pdp__payments {
