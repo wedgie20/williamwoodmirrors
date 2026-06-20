@@ -2498,6 +2498,11 @@
 
     if (prev) prev.addEventListener('click', function () { showImage(currentIndex - 1); });
     if (next) next.addEventListener('click', function () { showImage(currentIndex + 1); });
+    if (mainImage && thumbs.length > 1) {
+      mainImage.addEventListener('click', function () {
+        showImage(currentIndex + 1);
+      });
+    }
     if (zoom) zoom.addEventListener('click', openLightbox);
     if (gallery && thumbs.length > 1) {
       gallery.addEventListener('touchstart', function (event) {
