@@ -274,6 +274,11 @@
         {%- if featured_media != blank -%}
           <img class="ww-pdp__main-image" data-ww-pdp-main-image loading="eager" sizes="(min-width: 1000px) 57vw, 100vw" {% render 'image-attributes', image: featured_media.preview_image, sizes: '800,1000,1200,1400,1600,1800,2200' %}>
         {%- endif -%}
+        {%- if product.media.size > 1 -%}
+          <button type="button" class="ww-pdp__image-next" data-ww-pdp-image-next aria-label="Next product image">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.3 18.7-1.1-1.1 5.6-5.6-5.6-5.6 1.1-1.1L16 12l-6.7 6.7Z"/></svg>
+          </button>
+        {%- endif -%}
 
         <div class="ww-pdp__thumbs" aria-label="Product media thumbnails">
           {%- for media in product.media limit: 7 -%}
@@ -581,6 +586,40 @@
     height: 100%;
     {% comment %} display: block; {% endcomment %}
     object-fit: fill;
+    cursor: pointer;
+  }
+
+  .ww-pdp__image-next {
+    position: absolute;
+    right: 22%;
+    top: 50%;
+    z-index: 3;
+    width: 46px;
+    height: 46px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .92);
+    color: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(50%, -50%);
+    transition: opacity .18s ease;
+    cursor: pointer;
+  }
+
+  .ww-pdp__media-frame:hover .ww-pdp__image-next,
+  .ww-pdp__image-next:focus-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .ww-pdp__image-next svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
   }
 
   .ww-pdp__detail-image img {
@@ -2451,6 +2490,7 @@
 
     var prev = root.querySelector('[data-ww-pdp-prev]');
     var next = root.querySelector('[data-ww-pdp-next]');
+    var imageNext = root.querySelector('[data-ww-pdp-image-next]');
     var zoom = root.querySelector('[data-ww-pdp-zoom]');
     var lightbox = root.querySelector('[data-ww-pdp-lightbox]');
     var lightboxImage = lightbox ? lightbox.querySelector('[data-ww-pdp-lightbox-image]') : null;
@@ -2503,6 +2543,7 @@
         showImage(currentIndex + 1);
       });
     }
+    if (imageNext) imageNext.addEventListener('click', function () { showImage(currentIndex + 1); });
     if (zoom) zoom.addEventListener('click', openLightbox);
     if (gallery && thumbs.length > 1) {
       gallery.addEventListener('touchstart', function (event) {
