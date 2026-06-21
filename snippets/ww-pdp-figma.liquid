@@ -2534,10 +2534,17 @@
       slideImage.style.transform = slideDirection === 'prev' ? 'translateX(-100%)' : 'translateX(100%)';
       frame.appendChild(slideImage);
 
+      var slideFinished = false;
       function finishSlide() {
+        if (slideFinished) return;
+        slideFinished = true;
+        window.clearTimeout(imageSlideTimer);
         slideImage.removeEventListener('transitionend', finishSlide);
+        mainImage.style.transition = 'none';
         setImageFromThumb(nextIndex);
         mainImage.classList.remove('is-sliding-out-next', 'is-sliding-out-prev');
+        mainImage.offsetHeight;
+        mainImage.style.transition = '';
         slideImage.remove();
         imageIsSliding = false;
       }
