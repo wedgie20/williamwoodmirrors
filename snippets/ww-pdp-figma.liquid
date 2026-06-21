@@ -276,7 +276,7 @@
         {%- endif -%}
         {%- if product.media.size > 1 -%}
           <button type="button" class="ww-pdp__image-next" data-ww-pdp-image-next aria-label="Next product image">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.3 18.7-1.1-1.1 5.6-5.6-5.6-5.6 1.1-1.1L16 12l-6.7 6.7Z"/></svg>
+            <span aria-hidden="true">→</span>
           </button>
         {%- endif -%}
 
@@ -586,7 +586,7 @@
     height: 100%;
     {% comment %} display: block; {% endcomment %}
     object-fit: fill;
-    cursor: pointer;
+    cursor: none;
     transition: transform .28s ease, opacity .28s ease;
     will-change: transform, opacity;
   }
@@ -629,19 +629,16 @@
     pointer-events: none;
     transform: translate(-50%, -50%);
     transition: opacity .18s ease;
-    cursor: pointer;
+    cursor: none;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1;
   }
 
   .ww-pdp__media-frame:hover .ww-pdp__image-next,
   .ww-pdp__image-next:focus-visible {
     opacity: 1;
     pointer-events: auto;
-  }
-
-  .ww-pdp__image-next svg {
-    width: 28px;
-    height: 28px;
-    fill: currentColor;
   }
 
   .ww-pdp__detail-image img {
