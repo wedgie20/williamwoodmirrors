@@ -276,7 +276,7 @@
         {%- endif -%}
         {%- if product.media.size > 1 -%}
           <button type="button" class="ww-pdp__image-next" data-ww-pdp-image-next aria-label="Next product image">
-            <span aria-hidden="true">→</span>
+            <span aria-hidden="true">&rarr;</span>
           </button>
         {%- endif -%}
 
@@ -2540,6 +2540,7 @@
     var previousBodyOverflow = '';
     var galleryTouchStartX = 0;
     var galleryTouchStartY = 0;
+    var galleryHoverDirection = 'next';
     var lightboxTouchStartX = 0;
 
     function updateLightboxImage() {
@@ -2579,19 +2580,28 @@
     if (prev) prev.addEventListener('click', function () { showImage(currentIndex - 1, 'prev'); });
     if (next) next.addEventListener('click', function () { showImage(currentIndex + 1, 'next'); });
     if (mainImage && thumbs.length > 1) {
-      mainImage.addEventListener('click', function () {
-        showImage(currentIndex + 1, 'next');
+      mainImage.addEventListener('click', function (event) {
+        var rect = mainImage.getBoundingClientRect();
+        var direction = event.clientX - rect.left < rect.width / 2 ? 'prev' : 'next';
+        showImage(currentIndex + (direction === 'prev' ? -1 : 1), direction);
       });
     }
-    if (imageNext) imageNext.addEventListener('click', function () { showImage(currentIndex + 1, 'next'); });
+    if (imageNext) imageNext.addEventListener('click', function () {
+      showImage(currentIndex + (galleryHoverDirection === 'prev' ? -1 : 1), galleryHoverDirection);
+    });
     if (zoom) zoom.addEventListener('click', openLightbox);
     if (gallery && thumbs.length > 1) {
       gallery.addEventListener('mousemove', function (event) {
         var frame = event.target.closest('.ww-pdp__media-frame');
         if (!frame) return;
         var rect = frame.getBoundingClientRect();
+        galleryHoverDirection = event.clientX - rect.left < rect.width / 2 ? 'prev' : 'next';
         frame.style.setProperty('--ww-pdp-image-next-x', (event.clientX - rect.left) + 'px');
         frame.style.setProperty('--ww-pdp-image-next-y', (event.clientY - rect.top) + 'px');
+        if (imageNext) {
+          imageNext.setAttribute('aria-label', galleryHoverDirection === 'prev' ? 'Previous product image' : 'Next product image');
+          imageNext.innerHTML = '<span aria-hidden="true">' + (galleryHoverDirection === 'prev' ? '&larr;' : '&rarr;') + '</span>';
+        }
       });
       gallery.addEventListener('touchstart', function (event) {
         galleryTouchStartX = event.changedTouches[0].clientX;
