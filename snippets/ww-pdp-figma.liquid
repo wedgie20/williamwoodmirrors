@@ -638,8 +638,8 @@
   .ww-pdp__media {
     position: sticky;
     top: 0;
-    height: min(720px, calc(100vh - 96px));
-    min-height: 600px;
+    height: var(--ww-pdp-media-height, calc(100vh - 150px));
+    min-height: 0;
   }
 
   .ww-pdp__media-frame,
@@ -2592,6 +2592,21 @@
     if (currentIndex < 0) currentIndex = 0;
     var imageSlideTimer = null;
     var imageIsSliding = false;
+
+    function updateMediaHeight() {
+      if (!gallery || window.matchMedia('(max-width: 999px)').matches) {
+        root.style.removeProperty('--ww-pdp-media-height');
+        return;
+      }
+
+      var top = gallery.getBoundingClientRect().top;
+      var height = Math.max(420, window.innerHeight - top);
+      root.style.setProperty('--ww-pdp-media-height', height + 'px');
+    }
+
+    updateMediaHeight();
+    window.addEventListener('resize', updateMediaHeight);
+    window.addEventListener('orientationchange', updateMediaHeight);
 
     function setImageFromThumb(index) {
       if (!mainImage || !thumbs.length) return;
