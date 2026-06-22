@@ -607,10 +607,14 @@
     width: 100%;
     height: 100%;
     {% comment %} display: block; {% endcomment %}
-    object-fit: cover;
+    {% comment %} object-fit: cover; {% endcomment %}
     cursor: none;
     transition: transform .48s cubic-bezier(.22, .61, .36, 1);
     will-change: transform;
+
+    object-fit: contain !important;
+    height: 100% !important;
+    max-height: 100% !important;
   }
 
   .ww-pdp__main-image.is-sliding-out-next {
