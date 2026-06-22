@@ -281,7 +281,8 @@
       endif
 
       if normalized_detail_line contains 'Product Care Information'
-        assign capture_key_details = true
+        assign capture_key_details = false
+        continue
       endif
 
       unless capture_key_details
@@ -303,6 +304,54 @@
   {%- endfor -%}
 {%- endcapture -%}
 {%- assign description_key_details_items = description_key_details_items | strip -%}
+
+{%- capture description_product_care_items -%}
+  {%- liquid
+    assign capture_product_care = false
+  -%}
+
+  {%- for description_detail_line_raw in description_detail_lines -%}
+    {%- liquid
+      assign description_detail_line = description_detail_line_raw | replace: '&nbsp;', ' ' | replace: 'Ã‚Â ', ' ' | strip
+      assign normalized_detail_line = description_detail_line | replace: 'Ã¢â‚¬â€œ', '-' | replace: 'Ã¢â‚¬â€', '-'
+      assign care_label = ''
+      assign care_value = ''
+
+      if normalized_detail_line == blank
+        continue
+      endif
+
+      if normalized_detail_line contains 'Product Care Information'
+        assign capture_product_care = true
+        assign product_care_remainder = normalized_detail_line | split: 'Product Care Information' | last | remove_first: '-' | remove_first: ':' | strip
+        if product_care_remainder != blank
+          assign normalized_detail_line = product_care_remainder
+        else
+          continue
+        endif
+      endif
+
+      unless capture_product_care
+        continue
+      endunless
+
+      if normalized_detail_line contains '-'
+        assign care_label = normalized_detail_line | split: '-' | first | strip
+        assign care_value = normalized_detail_line | remove_first: care_label | remove_first: '-' | strip
+      elsif normalized_detail_line contains ':'
+        assign care_label = normalized_detail_line | split: ':' | first | strip
+        assign care_value = normalized_detail_line | remove_first: care_label | remove_first: ':' | strip
+      endif
+    -%}
+
+    {%- if care_label != blank and care_value != blank -%}
+      <div class="ww-pdp__detail-item"><strong>{{ care_label }}</strong><p>{{ care_value }}</p></div>
+    {%- else -%}
+      <div class="ww-pdp__detail-item"><p>{{ normalized_detail_line }}</p></div>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- assign description_product_care_items = description_product_care_items | strip -%}
 
 {%- assign second_media = blank -%}
 {%- for media in product.media -%}
@@ -502,6 +551,10 @@
     <div class="ww-pdp__detail-copy">
       <h2>Key Details</h2>
       {{ description_key_details_items }}
+      {%- if description_product_care_items != blank -%}
+        <h2>Product Care Information</h2>
+        {{ description_product_care_items }}
+      {%- endif -%}
     </div>
   </div>
 </section>
