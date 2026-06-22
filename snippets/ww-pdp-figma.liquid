@@ -259,6 +259,51 @@
 {%- assign overall_size_clean = overall_size | strip -%}
 {%- assign overall_size_clean = overall_size_clean | default: description_overall_size -%}
 
+{%- capture description_key_details_items -%}
+  {%- liquid
+    assign capture_key_details = false
+  -%}
+
+  {%- for description_detail_line_raw in description_detail_lines -%}
+    {%- liquid
+      assign description_detail_line = description_detail_line_raw | replace: '&nbsp;', ' ' | replace: 'Â ', ' ' | strip
+      assign normalized_detail_line = description_detail_line | replace: 'â€“', '-' | replace: 'â€”', '-'
+      assign detail_label = ''
+      assign detail_value = ''
+
+      if normalized_detail_line == blank
+        continue
+      endif
+
+      if normalized_detail_line contains 'Key Details'
+        assign capture_key_details = true
+        continue
+      endif
+
+      if normalized_detail_line contains 'Product Care Information'
+        assign capture_key_details = false
+      endif
+
+      unless capture_key_details
+        continue
+      endunless
+
+      if normalized_detail_line contains '-'
+        assign detail_label = normalized_detail_line | split: '-' | first | strip
+        assign detail_value = normalized_detail_line | remove_first: detail_label | remove_first: '-' | strip
+      elsif normalized_detail_line contains ':'
+        assign detail_label = normalized_detail_line | split: ':' | first | strip
+        assign detail_value = normalized_detail_line | remove_first: detail_label | remove_first: ':' | strip
+      endif
+    -%}
+
+    {%- if detail_label != blank and detail_value != blank -%}
+      <div class="ww-pdp__detail-item"><strong>{{ detail_label }}</strong><p>{{ detail_value }}</p></div>
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- assign description_key_details_items = description_key_details_items | strip -%}
+
 {%- assign second_media = blank -%}
 {%- for media in product.media -%}
   {%- if forloop.index == 2 -%}
@@ -456,33 +501,7 @@
 
     <div class="ww-pdp__detail-copy">
       <h2>Key Details</h2>
-      {%- if overall_size_clean != blank -%}
-        <div class="ww-pdp__detail-item"><strong>Overall Size</strong><p>{{ overall_size_clean }}</p></div>
-      {%- endif -%}
-      {%- if detail_colour != blank -%}
-        <div class="ww-pdp__detail-item"><strong>Colour</strong><p>{{ detail_colour }}</p></div>
-      {%- endif -%}
-      {%- if detail_material != blank -%}
-        <div class="ww-pdp__detail-item"><strong>Material</strong><p>{{ detail_material }}</p></div>
-      {%- endif -%}
-      {%- if detail_weight != blank -%}
-        <div class="ww-pdp__detail-item"><strong>Weight - {{ detail_weight }}</strong>{% if detail_material != blank %}<p>{{ detail_material }}</p>{% endif %}</div>
-      {%- endif -%}
-      {%- if detail_capacity != blank -%}
-        <div class="ww-pdp__detail-item"><strong>Weight Capacity- {{ detail_capacity }}</strong>{% if detail_material != blank %}<p>{{ detail_material }}</p>{% endif %}</div>
-      {%- endif -%}
-      {%- if detail_outdoor != blank -%}
-        <div class="ww-pdp__detail-item"><strong>Outdoor suitable</strong><p>{{ detail_outdoor }}</p></div>
-      {%- endif -%}
-      {%- if detail_assembly != blank -%}
-        <div class="ww-pdp__detail-item"><strong>Assembly</strong><p>{{ detail_assembly }}</p></div>
-      {%- endif -%}
-      {%- if detail_care != blank -%}
-        <div class="ww-pdp__detail-item"><strong>Product Care Information</strong><p>{{ detail_care }}</p></div>
-      {%- endif -%}
-      {%- if detail_assembly_time != blank -%}
-        <div class="ww-pdp__detail-item"><strong>Assembly Time</strong><p>{{ detail_assembly_time }}</p>{% if detail_assembly_note != blank %}<em>{{ detail_assembly_note }}</em>{% endif %}</div>
-      {%- endif -%}
+      {{ description_key_details_items }}
     </div>
   </div>
 </section>
