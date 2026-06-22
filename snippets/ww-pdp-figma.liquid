@@ -582,7 +582,7 @@
     min-height: 600px;
     height: calc(100vh - 118px);
     {% comment %} height: 780px !important; {% endcomment %}
-      max-height: 780px !important;
+      {% comment %} max-height: 780px !important; {% endcomment %}
   }
 
   .ww-pdp__media-frame,
@@ -609,6 +609,7 @@
     {% comment %} object-fit: fill; {% endcomment %}
      {% comment %} object-fit: cover; {% endcomment %}
       object-position: center;
+      object-fit: cover;
     cursor: none;
     transition: transform .48s cubic-bezier(.22, .61, .36, 1);
     will-change: transform;
