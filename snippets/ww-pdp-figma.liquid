@@ -583,7 +583,9 @@
     top: 0;
     {% comment %} height: calc(100vh - 118px); {% endcomment %}
     min-height: 600px;
-    height: 780px !important;
+    height: calc(100vh - 118px);
+    {% comment %} height: 780px !important; {% endcomment %}
+      max-height: 780px !important;
   }
 
   .ww-pdp__media-frame,
@@ -605,8 +607,11 @@
     z-index: 1;
     width: 100%;
     height: 100%;
+    display: block;
     {% comment %} display: block; {% endcomment %}
-    object-fit: fill;
+    {% comment %} object-fit: fill; {% endcomment %}
+     object-fit: cover;
+      object-position: center;
     cursor: none;
     transition: transform .48s cubic-bezier(.22, .61, .36, 1);
     will-change: transform;
@@ -861,7 +866,7 @@
       width: 100%;
       display: block;
       height: 100%;
-      object-fit: fill;
+      object-fit: cover;
     }
     .ww-pdp-lightbox__dialog {
       width: 100%;
