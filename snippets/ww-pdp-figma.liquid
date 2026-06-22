@@ -552,8 +552,10 @@
       <h2>Key Details</h2>
       {{ description_key_details_items }}
       {%- if description_product_care_items != blank -%}
-        <strong>Product Care Information</strong>
-        {{ description_product_care_items }}
+        <div class="ww-pdp__product-care">
+          <strong class="ww-pdp__product-care-heading">Product Care Information</strong>
+          {{ description_product_care_items }}
+        </div>
       {%- endif -%}
     </div>
   </div>
@@ -1576,6 +1578,21 @@
   .ww-pdp__detail-item em {
     margin-top: 12px;
     font-style: italic;
+  }
+
+  .ww-pdp__product-care {
+    margin-top: 34px;
+  }
+
+  .ww-pdp__product-care-heading {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+
+  .ww-pdp__product-care .ww-pdp__detail-item {
+    margin-bottom: 24px;
   }
 
   .ww-pdp-sticky-atc {
