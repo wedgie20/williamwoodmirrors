@@ -259,6 +259,23 @@
 {%- assign overall_size_clean = overall_size | strip -%}
 {%- assign overall_size_clean = overall_size_clean | default: description_overall_size -%}
 
+{%- liquid
+  assign overall_size_clean = description_overall_size | replace: '&nbsp;', ' ' | replace: 'Â ', ' ' | strip
+  assign detail_colour = description_colour | replace: '","', ', ' | remove: '["' | remove: '"]' | remove: '"' | replace: '&nbsp;', ' ' | replace: 'Â ', ' ' | strip
+  assign detail_material = description_material | replace: '&nbsp;', ' ' | replace: 'Â ', ' ' | strip
+  assign detail_weight = description_weight | replace: '&nbsp;', ' ' | replace: 'Â ', ' ' | strip
+  assign detail_capacity = description_capacity | replace: '&nbsp;', ' ' | replace: 'Â ', ' ' | strip
+  assign detail_outdoor = description_outdoor | replace: '&nbsp;', ' ' | replace: 'Â ', ' ' | strip
+  assign detail_assembly = description_assembly | replace: '&nbsp;', ' ' | replace: 'Â ', ' ' | strip
+  assign detail_care = description_care | replace: '&nbsp;', ' ' | replace: 'Â ', ' ' | strip
+  assign detail_assembly_time = description_assembly_time | replace: '&nbsp;', ' ' | replace: 'Â ', ' ' | strip
+  assign detail_assembly_note = ''
+
+  if detail_assembly_time != blank
+    assign detail_assembly_note = 'This piece of furniture arrives ready for quick and easy assembly.'
+  endif
+-%}
+
 {%- assign second_media = blank -%}
 {%- for media in product.media -%}
   {%- if forloop.index == 2 -%}
