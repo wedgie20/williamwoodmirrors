@@ -483,19 +483,16 @@
         <div class="ww-pdp__detail-item"><strong>Material</strong><p>{{ detail_material }}</p></div>
       {%- endif -%}
       {%- if detail_weight != blank -%}
-        <div class="ww-pdp__detail-item"><strong>Weight - {{ detail_weight }}</strong>{% if detail_material != blank %}<p>{{ detail_material }}</p>{% endif %}</div>
+        <div class="ww-pdp__detail-item"><strong>Weight</strong><p>{{ detail_weight }}</p></div>
       {%- endif -%}
       {%- if detail_capacity != blank -%}
-        <div class="ww-pdp__detail-item"><strong>Weight Capacity- {{ detail_capacity }}</strong>{% if detail_material != blank %}<p>{{ detail_material }}</p>{% endif %}</div>
+        <div class="ww-pdp__detail-item"><strong>Weight Capacity</strong><p>{{ detail_capacity }}</p></div>
       {%- endif -%}
       {%- if detail_outdoor != blank -%}
         <div class="ww-pdp__detail-item"><strong>Outdoor suitable</strong><p>{{ detail_outdoor }}</p></div>
       {%- endif -%}
       {%- if detail_assembly != blank -%}
         <div class="ww-pdp__detail-item"><strong>Assembly</strong><p>{{ detail_assembly }}</p></div>
-      {%- endif -%}
-      {%- if detail_care != blank -%}
-        <div class="ww-pdp__detail-item"><strong>Product Care Information</strong><p>{{ detail_care }}</p></div>
       {%- endif -%}
       {%- if detail_assembly_time != blank -%}
         <div class="ww-pdp__detail-item"><strong>Assembly Time</strong><p>{{ detail_assembly_time }}</p>{% if detail_assembly_note != blank %}<em>{{ detail_assembly_note }}</em>{% endif %}</div>
