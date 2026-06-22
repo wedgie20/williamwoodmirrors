@@ -55,8 +55,8 @@
     assign has_variant_discount = true
   endif
 
-  assign promo_code = 'TAKE15'
-  assign promo_text = '15% Off Everything'
+  assign promo_code = 'PRIME'
+  assign promo_text = '25% Off Everything'
   assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id
 
   assign payment_amount = current_variant.price | divided_by: 3
