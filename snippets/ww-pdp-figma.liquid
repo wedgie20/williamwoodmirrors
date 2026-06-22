@@ -583,10 +583,13 @@
   .ww-pdp__media {
     position: sticky;
     top: 0;
-    height: calc(100vh - 118px);
+    {% comment %} height: calc(100vh - 118px); {% endcomment %}
     min-height: 600px;
-    overflow-y: auto;
+    height: calc(100vh - 118px);
+    {% comment %} height: 780px !important; {% endcomment %}
+      {% comment %} max-height: 780px !important; {% endcomment %}
   }
+
 
   .ww-pdp__media-frame,
   .ww-pdp__detail-image {
