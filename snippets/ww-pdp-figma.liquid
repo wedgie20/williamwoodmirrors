@@ -566,14 +566,14 @@
     top: 0;
     {% comment %} height: calc(100vh - 118px); {% endcomment %}
     min-height: 600px;
-    height: 924px !important;
+    height: auto;
   }
 
   .ww-pdp__media-frame,
   .ww-pdp__detail-image {
     position: relative;
     width: 100%;
-    height: auto;
+    height: 100%;
     overflow: hidden;
     background: #f3efe6;
     aspect-ratio: auto;
@@ -587,9 +587,9 @@
     position: relative;
     z-index: 1;
     width: 100%;
-    height: auto;
+    height: 100%;
     {% comment %} display: block; {% endcomment %}
-    object-fit: contain;
+    object-fit: fill;
     cursor: none;
     transition: transform .48s cubic-bezier(.22, .61, .36, 1);
     will-change: transform;
@@ -609,7 +609,7 @@
     z-index: 2;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: fill;
     pointer-events: none;
     transition: transform .48s cubic-bezier(.22, .61, .36, 1);
     will-change: transform;
@@ -844,7 +844,7 @@
       width: 100%;
       display: block;
       height: 100%;
-      object-fit: contain;
+      object-fit: fill;
     }
     .ww-pdp-lightbox__dialog {
       width: 100%;
