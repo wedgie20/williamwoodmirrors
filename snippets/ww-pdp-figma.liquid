@@ -2628,6 +2628,7 @@
       mainImage.alt = thumb.dataset.alt || '';
       thumbs.forEach(function (item) { item.classList.remove('is-active'); });
       thumb.classList.add('is-active');
+      updateRenderedImageUi();
     }
 
     function showImage(index, direction) {
@@ -2728,7 +2729,7 @@
     function isPointOnRenderedMainImage(clientX, clientY) {
       var renderedRect = getRenderedMainImageRect();
       if (!renderedRect) return false;
-      return clientX >= renderedLeft && clientX <= renderedLeft + renderedWidth && clientY >= renderedTop && clientY <= renderedTop + renderedHeight;
+      return clientX >= renderedRect.left && clientX <= renderedRect.right && clientY >= renderedRect.top && clientY <= renderedRect.bottom;
     }
 
     function updateRenderedImageUi() {
@@ -2744,6 +2745,11 @@
       frame.style.setProperty('--ww-pdp-media-controls-right', rightOffset + 'px');
       frame.style.setProperty('--ww-pdp-media-controls-bottom', bottomOffset + 'px');
     }
+
+    updateRenderedImageUi();
+    window.addEventListener('resize', updateRenderedImageUi);
+    window.addEventListener('orientationchange', updateRenderedImageUi);
+    if (mainImage) mainImage.addEventListener('load', updateRenderedImageUi);
 
     function updateLightboxImage() {
       if (!lightboxImage || !mainImage || !mainImage.src) return;
@@ -2797,6 +2803,11 @@
       gallery.addEventListener('mousemove', function (event) {
         var frame = event.target.closest('.ww-pdp__media-frame');
         if (!frame) return;
+        if (!isPointOnRenderedMainImage(event.clientX, event.clientY)) {
+          if (imageNext) imageNext.hidden = true;
+          return;
+        }
+        if (imageNext) imageNext.hidden = false;
         var rect = frame.getBoundingClientRect();
         galleryHoverDirection = event.clientX - rect.left < rect.width / 2 ? 'prev' : 'next';
         frame.style.setProperty('--ww-pdp-image-next-x', (event.clientX - rect.left) + 'px');
@@ -2805,6 +2816,9 @@
           imageNext.setAttribute('aria-label', galleryHoverDirection === 'prev' ? 'Previous product image' : 'Next product image');
           imageNext.innerHTML = '<span aria-hidden="true">' + (galleryHoverDirection === 'prev' ? '&larr;' : '&rarr;') + '</span>';
         }
+      });
+      gallery.addEventListener('mouseleave', function () {
+        if (imageNext) imageNext.hidden = true;
       });
       gallery.addEventListener('touchstart', function (event) {
         galleryTouchStartX = event.changedTouches[0].clientX;
