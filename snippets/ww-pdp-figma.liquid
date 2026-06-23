@@ -2695,8 +2695,30 @@
     var previousBodyOverflow = '';
     var galleryTouchStartX = 0;
     var galleryTouchStartY = 0;
+    var galleryTouchStartedOnImage = false;
     var galleryHoverDirection = 'next';
     var lightboxTouchStartX = 0;
+
+    function isPointOnRenderedMainImage(clientX, clientY) {
+      if (!mainImage) return false;
+      var rect = mainImage.getBoundingClientRect();
+      if (clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) return false;
+
+      var naturalWidth = mainImage.naturalWidth || rect.width;
+      var naturalHeight = mainImage.naturalHeight || rect.height;
+      if (!naturalWidth || !naturalHeight) return true;
+
+      var objectFit = window.getComputedStyle(mainImage).objectFit;
+      if (objectFit !== 'contain') return true;
+
+      var scale = Math.min(rect.width / naturalWidth, rect.height / naturalHeight);
+      var renderedWidth = naturalWidth * scale;
+      var renderedHeight = naturalHeight * scale;
+      var renderedLeft = rect.left + (rect.width - renderedWidth) / 2;
+      var renderedTop = rect.top + (rect.height - renderedHeight) / 2;
+
+      return clientX >= renderedLeft && clientX <= renderedLeft + renderedWidth && clientY >= renderedTop && clientY <= renderedTop + renderedHeight;
+    }
 
     function updateLightboxImage() {
       if (!lightboxImage || !mainImage || !mainImage.src) return;
@@ -2736,6 +2758,7 @@
     if (next) next.addEventListener('click', function () { showImage(currentIndex + 1, 'next'); });
     if (mainImage && thumbs.length > 1) {
       mainImage.addEventListener('click', function (event) {
+        if (!isPointOnRenderedMainImage(event.clientX, event.clientY)) return;
         var rect = mainImage.getBoundingClientRect();
         var direction = event.clientX - rect.left < rect.width / 2 ? 'prev' : 'next';
         showImage(currentIndex + (direction === 'prev' ? -1 : 1), direction);
@@ -2761,8 +2784,10 @@
       gallery.addEventListener('touchstart', function (event) {
         galleryTouchStartX = event.changedTouches[0].clientX;
         galleryTouchStartY = event.changedTouches[0].clientY;
+        galleryTouchStartedOnImage = isPointOnRenderedMainImage(galleryTouchStartX, galleryTouchStartY);
       }, { passive: true });
       gallery.addEventListener('touchend', function (event) {
+        if (!galleryTouchStartedOnImage) return;
         var distanceX = event.changedTouches[0].clientX - galleryTouchStartX;
         var distanceY = event.changedTouches[0].clientY - galleryTouchStartY;
         if (Math.abs(distanceX) < 45 || Math.abs(distanceX) < Math.abs(distanceY)) return;
