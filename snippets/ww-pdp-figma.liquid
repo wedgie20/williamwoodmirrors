@@ -774,8 +774,8 @@
 
   .ww-pdp__media-controls {
     position: absolute;
-    right: 120px;
-    bottom: 18px;
+    right: var(--ww-pdp-media-controls-right, 18px);
+    bottom: var(--ww-pdp-media-controls-bottom, 18px);
     display: flex;
     gap: 8px;
     z-index: 5;
@@ -2699,17 +2699,15 @@
     var galleryHoverDirection = 'next';
     var lightboxTouchStartX = 0;
 
-    function isPointOnRenderedMainImage(clientX, clientY) {
+    function getRenderedMainImageRect() {
       if (!mainImage) return false;
       var rect = mainImage.getBoundingClientRect();
-      if (clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) return false;
-
       var naturalWidth = mainImage.naturalWidth || rect.width;
       var naturalHeight = mainImage.naturalHeight || rect.height;
-      if (!naturalWidth || !naturalHeight) return true;
+      if (!naturalWidth || !naturalHeight) return rect;
 
       var objectFit = window.getComputedStyle(mainImage).objectFit;
-      if (objectFit !== 'contain') return true;
+      if (objectFit !== 'contain') return rect;
 
       var scale = Math.min(rect.width / naturalWidth, rect.height / naturalHeight);
       var renderedWidth = naturalWidth * scale;
@@ -2717,7 +2715,34 @@
       var renderedLeft = rect.left + (rect.width - renderedWidth) / 2;
       var renderedTop = rect.top + (rect.height - renderedHeight) / 2;
 
+      return {
+        left: renderedLeft,
+        top: renderedTop,
+        right: renderedLeft + renderedWidth,
+        bottom: renderedTop + renderedHeight,
+        width: renderedWidth,
+        height: renderedHeight
+      };
+    }
+
+    function isPointOnRenderedMainImage(clientX, clientY) {
+      var renderedRect = getRenderedMainImageRect();
+      if (!renderedRect) return false;
       return clientX >= renderedLeft && clientX <= renderedLeft + renderedWidth && clientY >= renderedTop && clientY <= renderedTop + renderedHeight;
+    }
+
+    function updateRenderedImageUi() {
+      if (!mainImage) return;
+      var frame = mainImage.closest('.ww-pdp__media-frame');
+      var renderedRect = getRenderedMainImageRect();
+      if (!frame || !renderedRect) return;
+
+      var frameRect = frame.getBoundingClientRect();
+      var rightOffset = Math.max(18, frameRect.right - renderedRect.right + 18);
+      var bottomOffset = Math.max(18, frameRect.bottom - renderedRect.bottom + 18);
+
+      frame.style.setProperty('--ww-pdp-media-controls-right', rightOffset + 'px');
+      frame.style.setProperty('--ww-pdp-media-controls-bottom', bottomOffset + 'px');
     }
 
     function updateLightboxImage() {
