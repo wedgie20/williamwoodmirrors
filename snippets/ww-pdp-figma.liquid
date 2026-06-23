@@ -732,15 +732,17 @@
 
   .ww-pdp__thumbs {
     position: absolute;
-    left: 28px;
-    right: 170px;
-    bottom: 22px;
+    left: 24px;
+    top: 24px;
+    bottom: 24px;
     display: flex;
+    flex-direction: column;
     gap: 8px;
     z-index: 5;
-    overflow-x: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     scrollbar-width: none;
-    width: 400px;
+    width: 56px;
   }
 
   .ww-pdp__thumbs::-webkit-scrollbar {
@@ -748,8 +750,8 @@
   }
 
   .ww-pdp__thumb {
-    width: 60px;
-    height: 60px;
+    width: 56px;
+    height: 56px;
     border: 0;
     padding: 0;
     background: transparent;
@@ -759,7 +761,7 @@
   }
 
   .ww-pdp__thumb.is-active {
-    outline: 3px solid #fff;
+    outline: 2px solid #fff;
     opacity: 1;
   }
 
