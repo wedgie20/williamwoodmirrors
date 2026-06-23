@@ -732,19 +732,15 @@
 
   .ww-pdp__thumbs {
     position: absolute;
-    left: 24px;
-    top: 50%;
-    bottom: auto;
-    transform: translateY(-50%);
+    left: 28px;
+    right: 170px;
+    bottom: 22px;
     display: flex;
-    flex-direction: column;
     gap: 8px;
     z-index: 5;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow-x: auto;
     scrollbar-width: none;
-    width: 56px;
-    max-height: calc(100% - 48px);
+    width: 400px;
   }
 
   .ww-pdp__thumbs::-webkit-scrollbar {
@@ -752,8 +748,8 @@
   }
 
   .ww-pdp__thumb {
-    width: 56px;
-    height: 56px;
+    width: 60px;
+    height: 60px;
     border: 0;
     padding: 0;
     background: transparent;
@@ -763,7 +759,7 @@
   }
 
   .ww-pdp__thumb.is-active {
-    outline: 2px solid #fff;
+    outline: 3px solid #fff;
     opacity: 1;
   }
 
@@ -776,7 +772,7 @@
 
   .ww-pdp__media-controls {
     position: absolute;
-    right: 18px;
+    right: 30px;
     bottom: 18px;
     display: flex;
     gap: 8px;
