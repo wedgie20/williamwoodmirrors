@@ -735,17 +735,18 @@
 
   .ww-pdp__thumbs {
     position: absolute;
-    left: 24px;
-    top: 24px;
-    bottom: 24px;
+    left: var(--ww-pdp-thumbs-left, 24px);
+    top: var(--ww-pdp-thumbs-top, 24px);
+    bottom: auto;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    z-index: 5;
+    z-index: 10;
     overflow-x: hidden;
     overflow-y: auto;
     scrollbar-width: none;
     width: 56px;
+    max-height: var(--ww-pdp-thumbs-max-height, calc(100% - 48px));
   }
 
   .ww-pdp__thumbs::-webkit-scrollbar {
@@ -753,8 +754,9 @@
   }
 
   .ww-pdp__thumb {
+    position: relative;
     width: 56px;
-    height: 56px;
+    height: 62px;
     border: 0;
     padding: 0;
     background: transparent;
@@ -764,13 +766,29 @@
   }
 
   .ww-pdp__thumb.is-active {
-    outline: 2px solid #fff;
     opacity: 1;
+  }
+
+  .ww-pdp__thumb::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: #000;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform .28s ease;
+  }
+
+  .ww-pdp__thumb.is-active::after {
+    transform: scaleX(1);
   }
 
   .ww-pdp__thumb img {
     width: 100%;
-    height: 100%;
+    height: 56px;
     object-fit: cover;
     display: block;
   }
@@ -2345,6 +2363,10 @@
       background: #050505;
     }
 
+    .ww-pdp__thumb::after {
+      display: none;
+    }
+
     .ww-pdp__thumb img {
       display: none;
     }
@@ -2776,9 +2798,15 @@
       if (!frame || !renderedRect) return;
 
       var frameRect = frame.getBoundingClientRect();
+      var thumbsLeftOffset = Math.max(24, renderedRect.left - frameRect.left + 24);
+      var thumbsTopOffset = Math.max(24, renderedRect.top - frameRect.top + 24);
+      var thumbsMaxHeight = Math.max(120, renderedRect.bottom - frameRect.top - thumbsTopOffset - 24);
       var rightOffset = Math.max(18, frameRect.right - renderedRect.right + 18);
       var bottomOffset = Math.max(18, frameRect.bottom - renderedRect.bottom + 18);
 
+      frame.style.setProperty('--ww-pdp-thumbs-left', thumbsLeftOffset + 'px');
+      frame.style.setProperty('--ww-pdp-thumbs-top', thumbsTopOffset + 'px');
+      frame.style.setProperty('--ww-pdp-thumbs-max-height', thumbsMaxHeight + 'px');
       frame.style.setProperty('--ww-pdp-media-controls-right', rightOffset + 'px');
       frame.style.setProperty('--ww-pdp-media-controls-bottom', bottomOffset + 'px');
     }
