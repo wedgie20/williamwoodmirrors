@@ -663,7 +663,7 @@
     z-index: 1;
     width: 100%;
     height: 100%;
-    {% comment %} display: block; {% endcomment %}
+    display: block;
     object-fit: contain;
     cursor: none;
     transition: transform .72s cubic-bezier(.25, .46, .45, .94), opacity .72s ease;
@@ -686,6 +686,7 @@
     z-index: 2;
     width: 100%;
     height: 100%;
+    display: block;
     object-fit: contain;
     opacity: 0;
     pointer-events: none;
@@ -742,7 +743,7 @@
     bottom: var(--ww-pdp-thumbs-bottom, 20px);
     display: flex;
     gap: 7px;
-    z-index: 5;
+    z-index: 10;
     overflow-x: auto;
     scrollbar-width: none;
     width: auto;
@@ -800,7 +801,7 @@
     bottom: var(--ww-pdp-media-controls-bottom, 18px);
     display: flex;
     gap: 8px;
-    z-index: 5;
+    z-index: 10;
   }
 
   .ww-pdp__media-btn {
@@ -2629,6 +2630,7 @@
     if (currentIndex < 0) currentIndex = 0;
     var imageSlideTimer = null;
     var imageIsSliding = false;
+    var imageSlideRequestId = 0;
 
     function updateMediaHeight() {
       if (!gallery || window.matchMedia('(max-width: 999px)').matches) {
@@ -2645,16 +2647,63 @@
     window.addEventListener('resize', updateMediaHeight);
     window.addEventListener('orientationchange', updateMediaHeight);
 
-    function setImageFromThumb(index) {
+    function markActiveThumb(index) {
+      thumbs.forEach(function (item) { item.classList.remove('is-active'); });
+      if (thumbs[index]) thumbs[index].classList.add('is-active');
+    }
+
+    function setImageFromThumb(index, options) {
       if (!mainImage || !thumbs.length) return;
+      options = options || {};
       currentIndex = (index + thumbs.length) % thumbs.length;
       var thumb = thumbs[currentIndex];
       mainImage.src = thumb.dataset.src;
       mainImage.removeAttribute('srcset');
       mainImage.alt = thumb.dataset.alt || '';
-      thumbs.forEach(function (item) { item.classList.remove('is-active'); });
-      thumb.classList.add('is-active');
-      updateRenderedImageUi();
+      markActiveThumb(currentIndex);
+      if (!options.waitForLoad && mainImage.complete && mainImage.naturalWidth) {
+        updateRenderedImageUi();
+      }
+    }
+
+    function waitForImageReady(image, callback, errorCallback) {
+      var done = false;
+
+      function cleanup() {
+        image.removeEventListener('load', finish);
+        image.removeEventListener('error', fail);
+      }
+
+      function finish() {
+        if (done) return;
+        done = true;
+        cleanup();
+        callback();
+      }
+
+      function fail() {
+        if (done) return;
+        done = true;
+        cleanup();
+        if (errorCallback) {
+          errorCallback();
+        } else {
+          callback();
+        }
+      }
+
+      image.addEventListener('load', finish);
+      image.addEventListener('error', fail);
+
+      if (image.complete && image.currentSrc) {
+        if (image.naturalWidth || !errorCallback) {
+          finish();
+        } else {
+          fail();
+        }
+      } else if (image.decode) {
+        image.decode().then(finish).catch(function () {});
+      }
     }
 
     function showImage(index, direction) {
@@ -2669,40 +2718,60 @@
         return;
       }
 
+      imageSlideRequestId += 1;
+      var requestId = imageSlideRequestId;
       window.clearTimeout(imageSlideTimer);
       frame.querySelectorAll('.ww-pdp__slide-image').forEach(function (item) { item.remove(); });
       imageIsSliding = true;
 
       var slideImage = document.createElement('img');
       slideImage.className = 'ww-pdp__slide-image';
-      slideImage.src = thumb.dataset.src;
       slideImage.alt = thumb.dataset.alt || '';
       slideImage.style.transform = slideDirection === 'prev' ? 'translateX(-100%)' : 'translateX(100%)';
-      frame.appendChild(slideImage);
 
       var slideFinished = false;
+      function resetSlide() {
+        mainImage.classList.remove('is-sliding-out-next', 'is-sliding-out-prev');
+        mainImage.style.transition = '';
+        slideImage.remove();
+        imageIsSliding = false;
+      }
+
       function finishSlide() {
         if (slideFinished) return;
         slideFinished = true;
         window.clearTimeout(imageSlideTimer);
         slideImage.removeEventListener('transitionend', finishSlide);
         mainImage.style.transition = 'none';
-        setImageFromThumb(nextIndex);
+        setImageFromThumb(nextIndex, { waitForLoad: true });
         mainImage.classList.remove('is-sliding-out-next', 'is-sliding-out-prev');
-        mainImage.offsetHeight;
-        mainImage.style.transition = '';
-        slideImage.remove();
-        imageIsSliding = false;
+        waitForImageReady(mainImage, function () {
+          if (requestId !== imageSlideRequestId) return;
+          updateRenderedImageUi();
+          mainImage.offsetHeight;
+          window.requestAnimationFrame(resetSlide);
+        });
       }
 
-      slideImage.addEventListener('transitionend', finishSlide);
-      imageSlideTimer = window.setTimeout(finishSlide, 900);
+      function startSlide() {
+        if (requestId !== imageSlideRequestId) return;
+        frame.appendChild(slideImage);
+        slideImage.addEventListener('transitionend', finishSlide);
+        imageSlideTimer = window.setTimeout(finishSlide, 900);
 
-      window.requestAnimationFrame(function () {
         window.requestAnimationFrame(function () {
-          mainImage.classList.add(slideDirection === 'prev' ? 'is-sliding-out-prev' : 'is-sliding-out-next');
-          slideImage.classList.add('is-active');
+          window.requestAnimationFrame(function () {
+            mainImage.classList.add(slideDirection === 'prev' ? 'is-sliding-out-prev' : 'is-sliding-out-next');
+            slideImage.classList.add('is-active');
+          });
         });
+      }
+
+      slideImage.src = thumb.dataset.src;
+      waitForImageReady(slideImage, startSlide, function () {
+        if (requestId !== imageSlideRequestId) return;
+        setImageFromThumb(nextIndex);
+        resetSlide();
       });
     }
 
@@ -2760,6 +2829,7 @@
 
     function updateRenderedImageUi() {
       if (!mainImage) return;
+      if (!mainImage.complete || !mainImage.naturalWidth) return;
       var frame = mainImage.closest('.ww-pdp__media-frame');
       var renderedRect = getRenderedMainImageRect();
       if (!frame || !renderedRect) return;
