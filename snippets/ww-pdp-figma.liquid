@@ -280,16 +280,14 @@
         continue
       endif
 
-      if normalized_detail_line contains 'Product Care Information'
-        assign capture_key_details = false
-        continue
-      endif
-
       unless capture_key_details
         continue
       endunless
 
-      if normalized_detail_line contains '-'
+      if normalized_detail_line contains 'Product Care Information'
+        assign detail_label = 'Product Care Information'
+        assign detail_value = normalized_detail_line | split: 'Product Care Information' | last | remove_first: '-' | remove_first: ':' | strip
+      elsif normalized_detail_line contains '-'
         assign detail_label = normalized_detail_line | split: '-' | first | strip
         assign detail_value = normalized_detail_line | remove_first: detail_label | remove_first: '-' | strip
       elsif normalized_detail_line contains ':'
@@ -300,6 +298,8 @@
 
     {%- if detail_label != blank and detail_value != blank -%}
       <div class="ww-pdp__detail-item"><strong>{{ detail_label }}</strong><p>{{ detail_value }}</p></div>
+    {%- elsif normalized_detail_line != blank -%}
+      <div class="ww-pdp__detail-item"><p>{{ normalized_detail_line }}</p></div>
     {%- endif -%}
   {%- endfor -%}
 {%- endcapture -%}
@@ -551,12 +551,6 @@
     <div class="ww-pdp__detail-copy">
       <h2>Key Details</h2>
       {{ description_key_details_items }}
-      {%- if description_product_care_items != blank -%}
-        <div class="ww-pdp__product-care">
-          <strong class="ww-pdp__product-care-heading">Product Care Information</strong>
-          {{ description_product_care_items }}
-        </div>
-      {%- endif -%}
     </div>
   </div>
 </section>
