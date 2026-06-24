@@ -586,7 +586,8 @@
             <span class="ww-pdp-sticky-atc__price-compare" data-ww-sticky-mobile-compare-price>{{ current_variant.compare_at_price | money }}</span>
           {%- endif -%}
           <span class="ww-pdp-sticky-atc__price-current" data-ww-sticky-mobile-current-price>{{ current_variant.price | money }}</span>
-          <span>- {%- if is_preorder -%}Pre-order{%- else -%}Add to bag{%- endif -%}</span>
+          <span aria-hidden="true">-</span>
+          <span>{%- if is_preorder -%}Pre-order{%- else -%}Add to bag{%- endif -%}</span>
         {%- else -%}
           Sold out
         {%- endif -%}
@@ -2134,7 +2135,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 4px;
+      gap: 12px;
       font-size: 12px;
       line-height: 1;
       font-weight: lighter;
