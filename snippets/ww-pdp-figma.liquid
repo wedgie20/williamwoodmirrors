@@ -160,6 +160,7 @@
 -%}
 
 {%- liquid
+  assign description_detail_rich_lines = product.description | replace: '</li>', '||' | replace: '</p>', '||' | replace: '</h2>', '||' | replace: '</h3>', '||' | replace: '<br />', '||' | replace: '<br>', '||' | replace: '&nbsp;', ' ' | split: '||'
   assign description_detail_lines = product.description | replace: '</li>', '||' | replace: '</p>', '||' | replace: '</h2>', '||' | replace: '</h3>', '||' | replace: '<br />', '||' | replace: '<br>', '||' | replace: '&nbsp;', ' ' | strip_html | split: '||'
   assign description_overall_size = ''
   assign description_colour = ''
@@ -270,6 +271,12 @@
       assign normalized_detail_line = description_detail_line | replace: 'â€“', '-' | replace: 'â€”', '-'
       assign detail_label = ''
       assign detail_value = ''
+      assign description_detail_rich_line = description_detail_rich_lines[forloop.index0] | default: ''
+      assign is_bold_detail_line = false
+
+      if description_detail_rich_line contains '<strong' or description_detail_rich_line contains '<b'
+        assign is_bold_detail_line = true
+      endif
 
       if normalized_detail_line == blank
         continue
@@ -299,7 +306,7 @@
     {%- if detail_label != blank and detail_value != blank -%}
       <div class="ww-pdp__detail-item"><strong>{{ detail_label }}</strong><p>{{ detail_value }}</p></div>
     {%- elsif normalized_detail_line != blank -%}
-      <div class="ww-pdp__detail-item"><p>{{ normalized_detail_line }}</p></div>
+      <div class="ww-pdp__detail-item"><p>{% if is_bold_detail_line %}<strong>{{ normalized_detail_line }}</strong>{% else %}{{ normalized_detail_line }}{% endif %}</p></div>
     {%- endif -%}
   {%- endfor -%}
 {%- endcapture -%}
