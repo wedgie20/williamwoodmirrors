@@ -2798,22 +2798,31 @@
       if (!frame || !renderedRect) return;
 
       var frameRect = frame.getBoundingClientRect();
-      var thumbsInset = 12;
-      var thumbsTopInset = 32;
-      var thumbsWidth = 56;
-      var imageLeft = renderedRect.left - frameRect.left;
-      var imageRight = renderedRect.right - frameRect.left;
-      var desiredThumbsLeft = imageLeft + thumbsInset;
-      var maxThumbsLeft = imageRight - thumbsWidth - thumbsInset;
-      var thumbsLeftOffset = maxThumbsLeft >= desiredThumbsLeft ? desiredThumbsLeft : Math.max(imageLeft, imageRight - thumbsWidth);
-      var thumbsTopOffset = Math.max(24, renderedRect.top - frameRect.top + thumbsTopInset);
-      var thumbsMaxHeight = Math.max(120, renderedRect.bottom - frameRect.top - thumbsTopOffset - 24);
       var rightOffset = Math.max(18, frameRect.right - renderedRect.right + 18);
       var bottomOffset = Math.max(18, frameRect.bottom - renderedRect.bottom + 18);
 
-      frame.style.setProperty('--ww-pdp-thumbs-left', Math.max(0, thumbsLeftOffset) + 'px');
-      frame.style.setProperty('--ww-pdp-thumbs-top', thumbsTopOffset + 'px');
-      frame.style.setProperty('--ww-pdp-thumbs-max-height', thumbsMaxHeight + 'px');
+      if (window.matchMedia('(min-width: 1000px)').matches) {
+        var thumbsInset = 12;
+        var thumbsTopInset = 32;
+        var thumbsWidth = 56;
+        var imageLeft = renderedRect.left - frameRect.left;
+        var imageRight = renderedRect.right - frameRect.left;
+        var gutterThumbsLeft = imageLeft - thumbsWidth - thumbsInset;
+        var imageThumbsLeft = imageLeft + thumbsInset;
+        var maxImageThumbsLeft = imageRight - thumbsWidth - thumbsInset;
+        var thumbsLeftOffset = gutterThumbsLeft >= thumbsInset ? gutterThumbsLeft : Math.min(imageThumbsLeft, maxImageThumbsLeft);
+        var thumbsTopOffset = Math.max(24, renderedRect.top - frameRect.top + thumbsTopInset);
+        var thumbsMaxHeight = Math.max(120, renderedRect.bottom - frameRect.top - thumbsTopOffset - 24);
+
+        frame.style.setProperty('--ww-pdp-thumbs-left', Math.max(0, thumbsLeftOffset) + 'px');
+        frame.style.setProperty('--ww-pdp-thumbs-top', thumbsTopOffset + 'px');
+        frame.style.setProperty('--ww-pdp-thumbs-max-height', thumbsMaxHeight + 'px');
+      } else {
+        frame.style.removeProperty('--ww-pdp-thumbs-left');
+        frame.style.removeProperty('--ww-pdp-thumbs-top');
+        frame.style.removeProperty('--ww-pdp-thumbs-max-height');
+      }
+
       frame.style.setProperty('--ww-pdp-media-controls-right', rightOffset + 'px');
       frame.style.setProperty('--ww-pdp-media-controls-bottom', bottomOffset + 'px');
     }
