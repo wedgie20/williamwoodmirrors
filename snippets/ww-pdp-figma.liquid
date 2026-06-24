@@ -2975,7 +2975,7 @@
       if (desktopLabel) desktopLabel.textContent = available ? addToBagLabel : 'Sold out';
       if (stickyMobileLabel) {
         stickyMobileLabel.classList.toggle('is-discounted', !!compareText);
-        stickyMobileLabel.innerHTML = available ? stickyPriceHtml(priceText, compareText) + '<span>- ' + addToBagLabel + '</span>' : 'Sold out';
+        stickyMobileLabel.innerHTML = available ? stickyPriceHtml(priceText, compareText) + '<span aria-hidden="true">-</span><span>' + addToBagLabel + '</span>' : 'Sold out';
       }
     }
 
