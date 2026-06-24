@@ -762,11 +762,12 @@
     opacity: .82;
     cursor: pointer;
     flex: 0 0 auto;
-    transition: opacity .28s ease;
+    transition: opacity .34s ease, transform .34s ease;
   }
 
   .ww-pdp__thumb.is-active {
     opacity: 1;
+    transform: translateY(-2px);
   }
 
   .ww-pdp__thumb::after {
@@ -778,8 +779,8 @@
     height: 2px;
     background: #000;
     transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform .32s ease;
+    transform-origin: center;
+    transition: transform .42s cubic-bezier(.25, .46, .45, .94);
   }
 
   .ww-pdp__thumb.is-active::after {
