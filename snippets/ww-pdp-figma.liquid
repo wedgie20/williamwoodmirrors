@@ -733,9 +733,9 @@
 
   .ww-pdp__thumbs {
     position: absolute;
-    left: 32px;
-    right: 150px;
-    bottom: 20px;
+    left: var(--ww-pdp-thumbs-left, 32px);
+    right: var(--ww-pdp-thumbs-right, 150px);
+    bottom: var(--ww-pdp-thumbs-bottom, 20px);
     display: flex;
     gap: 7px;
     z-index: 5;
@@ -2752,9 +2752,15 @@
       if (!frame || !renderedRect) return;
 
       var frameRect = frame.getBoundingClientRect();
+      var thumbsLeftOffset = Math.max(32, renderedRect.left - frameRect.left + 16);
+      var thumbsRightOffset = Math.max(150, frameRect.right - renderedRect.right + 150);
+      var thumbsBottomOffset = Math.max(20, frameRect.bottom - renderedRect.bottom + 20);
       var rightOffset = Math.max(18, frameRect.right - renderedRect.right + 18);
       var bottomOffset = Math.max(18, frameRect.bottom - renderedRect.bottom + 18);
 
+      frame.style.setProperty('--ww-pdp-thumbs-left', thumbsLeftOffset + 'px');
+      frame.style.setProperty('--ww-pdp-thumbs-right', thumbsRightOffset + 'px');
+      frame.style.setProperty('--ww-pdp-thumbs-bottom', thumbsBottomOffset + 'px');
       frame.style.setProperty('--ww-pdp-media-controls-right', rightOffset + 'px');
       frame.style.setProperty('--ww-pdp-media-controls-bottom', bottomOffset + 'px');
     }
