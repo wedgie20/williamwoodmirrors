@@ -735,7 +735,7 @@
 
   .ww-pdp__thumbs {
     position: absolute;
-    left: var(--ww-pdp-thumbs-left, 24px);
+    left: var(--ww-pdp-thumbs-left, 12px);
     top: var(--ww-pdp-thumbs-top, 24px);
     bottom: auto;
     display: flex;
@@ -2798,13 +2798,20 @@
       if (!frame || !renderedRect) return;
 
       var frameRect = frame.getBoundingClientRect();
-      var thumbsLeftOffset = Math.max(24, renderedRect.left - frameRect.left + 24);
-      var thumbsTopOffset = Math.max(24, renderedRect.top - frameRect.top + 24);
+      var thumbsInset = 12;
+      var thumbsTopInset = 32;
+      var thumbsWidth = 56;
+      var imageLeft = renderedRect.left - frameRect.left;
+      var imageRight = renderedRect.right - frameRect.left;
+      var desiredThumbsLeft = imageLeft + thumbsInset;
+      var maxThumbsLeft = imageRight - thumbsWidth - thumbsInset;
+      var thumbsLeftOffset = maxThumbsLeft >= desiredThumbsLeft ? desiredThumbsLeft : Math.max(imageLeft, imageRight - thumbsWidth);
+      var thumbsTopOffset = Math.max(24, renderedRect.top - frameRect.top + thumbsTopInset);
       var thumbsMaxHeight = Math.max(120, renderedRect.bottom - frameRect.top - thumbsTopOffset - 24);
       var rightOffset = Math.max(18, frameRect.right - renderedRect.right + 18);
       var bottomOffset = Math.max(18, frameRect.bottom - renderedRect.bottom + 18);
 
-      frame.style.setProperty('--ww-pdp-thumbs-left', thumbsLeftOffset + 'px');
+      frame.style.setProperty('--ww-pdp-thumbs-left', Math.max(0, thumbsLeftOffset) + 'px');
       frame.style.setProperty('--ww-pdp-thumbs-top', thumbsTopOffset + 'px');
       frame.style.setProperty('--ww-pdp-thumbs-max-height', thumbsMaxHeight + 'px');
       frame.style.setProperty('--ww-pdp-media-controls-right', rightOffset + 'px');
