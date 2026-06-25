@@ -510,6 +510,45 @@
 
 }
 
+.product_description_dropdown {
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.product_description_dropdown.open {
+  border-bottom: none;
+}
+
+.product-description-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent;
+  border: 0;
+  padding: 15px 0;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.product-description-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.product-description-content.active {
+  max-height: 1000px;
+  padding-bottom: 15px;
+}
+
+.product-description-toggle .toggle-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
       </style>
       {%- if product.description != blank -%}
         {% comment %} {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
