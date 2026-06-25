@@ -2833,9 +2833,11 @@ document.addEventListener('DOMContentLoaded', function () {
   const toggle = document.querySelector('.key-details-toggle');
   const content = document.querySelector('.key-details-content');
   const icon = document.querySelector('.toggle-icon');
+  const wrapper = document.querySelector('.key_details_dropdown');
 
   toggle.addEventListener('click', function () {
     content.classList.toggle('active');
+    wrapper.classList.toggle('open');
 
     if (content.classList.contains('active')) {
       icon.textContent = '−';
