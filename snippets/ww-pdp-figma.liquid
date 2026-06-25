@@ -667,18 +667,18 @@
     display: block;
     object-fit: contain;
     cursor: none;
-    transition: transform .72s cubic-bezier(.25, .46, .45, .94), opacity .72s ease;
+    transition: transform .82s cubic-bezier(.22, .61, .36, 1), opacity .82s ease;
     will-change: transform, opacity;
   }
 
   .ww-pdp__main-image.is-sliding-out-next {
-    transform: translateX(-8%);
-    opacity: 0;
+    transform: translateX(-24%) scale(.985);
+    opacity: .72;
   }
 
   .ww-pdp__main-image.is-sliding-out-prev {
-    transform: translateX(8%);
-    opacity: 0;
+    transform: translateX(24%) scale(.985);
+    opacity: .72;
   }
 
   .ww-pdp__slide-image {
@@ -691,7 +691,7 @@
     object-fit: contain;
     opacity: 0;
     pointer-events: none;
-    transition: transform .72s cubic-bezier(.25, .46, .45, .94), opacity .72s ease;
+    transition: transform .82s cubic-bezier(.22, .61, .36, 1), opacity .82s ease;
     will-change: transform, opacity;
   }
 
@@ -2818,7 +2818,7 @@
       slideImage.className = 'ww-pdp__slide-image';
       slideImage.src = thumb.dataset.src;
       slideImage.alt = thumb.dataset.alt || '';
-      slideImage.style.transform = slideDirection === 'prev' ? 'translateX(-8%)' : 'translateX(8%)';
+      slideImage.style.transform = slideDirection === 'prev' ? 'translateX(-100%)' : 'translateX(100%)';
       frame.appendChild(slideImage);
 
       var slideFinished = false;
@@ -2837,7 +2837,7 @@
       }
 
       slideImage.addEventListener('transitionend', finishSlide);
-      imageSlideTimer = window.setTimeout(finishSlide, 900);
+      imageSlideTimer = window.setTimeout(finishSlide, 1000);
 
       window.requestAnimationFrame(function () {
         window.requestAnimationFrame(function () {
