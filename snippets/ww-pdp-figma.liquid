@@ -700,15 +700,20 @@
     transform: translateX(0) !important;
   }
 
-  .ww-pdp__slide-track {
+  .ww-pdp__slide-viewport {
     position: absolute;
-    inset: 0;
     z-index: 2;
+    overflow: hidden;
+    background: white;
+    pointer-events: none;
+  }
+
+  .ww-pdp__slide-track {
+    position: relative;
     display: flex;
     width: 200%;
     height: 100%;
     background: white;
-    pointer-events: none;
     transition: transform .78s cubic-bezier(.22, .61, .36, 1);
     will-change: transform;
   }
@@ -2835,8 +2840,21 @@
       window.clearTimeout(imageSlideTimer);
       frame.querySelectorAll('.ww-pdp__slide-image').forEach(function (item) { item.remove(); });
       frame.querySelectorAll('.ww-pdp__slide-track').forEach(function (item) { item.remove(); });
+      frame.querySelectorAll('.ww-pdp__slide-viewport').forEach(function (item) { item.remove(); });
       imageIsSliding = true;
       mainImage.classList.add('is-track-sliding');
+
+      var frameRect = frame.getBoundingClientRect();
+      var imageRect = getRenderedMainImageRect();
+      if (!imageRect || !imageRect.width || !imageRect.height) {
+        imageRect = mainImage.getBoundingClientRect();
+      }
+      var viewport = document.createElement('div');
+      viewport.className = 'ww-pdp__slide-viewport';
+      viewport.style.left = (imageRect.left - frameRect.left) + 'px';
+      viewport.style.top = (imageRect.top - frameRect.top) + 'px';
+      viewport.style.width = imageRect.width + 'px';
+      viewport.style.height = imageRect.height + 'px';
 
       var track = document.createElement('div');
       track.className = 'ww-pdp__slide-track';
@@ -2859,7 +2877,8 @@
         track.style.transform = 'translateX(0)';
       }
 
-      frame.appendChild(track);
+      viewport.appendChild(track);
+      frame.appendChild(viewport);
 
       var slideFinished = false;
       function finishSlide() {
@@ -2872,7 +2891,7 @@
         mainImage.classList.remove('is-sliding-out-next', 'is-sliding-out-prev', 'is-track-sliding');
         mainImage.offsetHeight;
         mainImage.style.transition = '';
-        track.remove();
+        viewport.remove();
         imageIsSliding = false;
       }
 
