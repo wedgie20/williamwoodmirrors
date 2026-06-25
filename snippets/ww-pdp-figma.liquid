@@ -444,6 +444,29 @@
         </a>
       {%- endif -%}
 
+       {%- if product.description != blank -%}
+       {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
+         {% comment %} 
+       <div class="ww-pdp__excerpt">
+          <h3 class="ww-pdp__excerpt-heading">Product Description</h3>
+          <div class="ww-pdp__excerpt-text" data-ww-excerpt-text>
+            {{ desc_clean }}
+          </div>
+          <button type="button" data-ww-read-more aria-expanded="false">Read more</button>
+        </div> {% endcomment %}
+
+        <div class="product_description_dropdown">
+          <button type="button" class="product-description-toggle">
+            <span>Product Description</span>
+            <span class="toggle-icon">+</span>
+          </button>
+
+          <div class="product-description-content">
+            {{ desc_clean }}
+          </div>
+        </div>
+      {%- endif -%} 
+
       <div class="key_details_dropdown">
         <button type="button" class="key-details-toggle">
           <span>Key Details</span>
@@ -550,28 +573,7 @@
 }
 
       </style>
-      {%- if product.description != blank -%}
-       {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
-         {% comment %} 
-       <div class="ww-pdp__excerpt">
-          <h3 class="ww-pdp__excerpt-heading">Product Description</h3>
-          <div class="ww-pdp__excerpt-text" data-ww-excerpt-text>
-            {{ desc_clean }}
-          </div>
-          <button type="button" data-ww-read-more aria-expanded="false">Read more</button>
-        </div> {% endcomment %}
-
-        <div class="product_description_dropdown">
-          <button type="button" class="product-description-toggle">
-            <span>Product Description</span>
-            <span class="toggle-icon">+</span>
-          </button>
-
-          <div class="product-description-content">
-            {{ desc_clean }}
-          </div>
-        </div>
-      {%- endif -%} 
+     
 
       {%- if promo_code != blank -%}
         <div class="ww-pdp__promo">
