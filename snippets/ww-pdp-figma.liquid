@@ -455,6 +455,45 @@
         </div>
       </div>
 
+      <style>
+        .key_details_dropdown {
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.key-details-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent;
+  border: 0;
+  padding: 15px 0;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.toggle-icon {
+  font-size: 24px;
+  line-height: 1;
+  transition: transform 0.3s ease;
+}
+
+.key-details-content {
+  display: none;
+  padding: 0 0 15px;
+}
+
+.key-details-content.active {
+  display: block;
+}
+
+.toggle-icon.active {
+  transform: rotate(180deg);
+}
+      </style>
       {%- if product.description != blank -%}
         {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
         <div class="ww-pdp__excerpt">
