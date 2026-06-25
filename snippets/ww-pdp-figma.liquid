@@ -444,8 +444,17 @@
         </a>
       {%- endif -%}
 
-      {{ description_key_details_items }}
-      
+      <div class="key_details_dropdown">
+        <button type="button" class="key-details-toggle">
+          <span>Key Details</span>
+          <span class="toggle-icon">+</span>
+        </button>
+
+        <div class="key-details-content">
+          {{ description_key_details_items }}
+        </div>
+      </div>
+
       {%- if product.description != blank -%}
         {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
         <div class="ww-pdp__excerpt">
