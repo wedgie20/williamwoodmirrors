@@ -766,18 +766,15 @@
 
   .ww-pdp__thumbs {
     position: absolute;
-    left: var(--ww-pdp-thumbs-left, 12px);
-    top: var(--ww-pdp-thumbs-top, 24px);
-    bottom: auto;
+    left: var(--ww-pdp-thumbs-left, 32px);
+    right: var(--ww-pdp-thumbs-right, 150px);
+    bottom: var(--ww-pdp-thumbs-bottom, 20px);
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    gap: 7px;
     z-index: 10;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow-x: auto;
     scrollbar-width: none;
-    width: 56px;
-    max-height: var(--ww-pdp-thumbs-max-height, calc(100% - 48px));
+    width: auto;
   }
 
   .ww-pdp__thumbs::-webkit-scrollbar {
@@ -786,18 +783,20 @@
 
   .ww-pdp__thumb {
     position: relative;
-    width: 56px;
-    height: 62px;
+    width: 44px;
+    height: 50px;
     border: 0;
     padding: 0;
     background: transparent;
     opacity: .82;
     cursor: pointer;
     flex: 0 0 auto;
+    transition: opacity .34s ease, transform .34s ease;
   }
 
   .ww-pdp__thumb.is-active {
     opacity: 1;
+    transform: translateY(-2px);
   }
 
   .ww-pdp__thumb::after {
@@ -810,7 +809,7 @@
     background: #000;
     transform: scaleX(0);
     transform-origin: center;
-    transition: transform .28s ease;
+    transition: transform .42s cubic-bezier(.25, .46, .45, .94);
   }
 
   .ww-pdp__thumb.is-active::after {
@@ -819,7 +818,7 @@
 
   .ww-pdp__thumb img {
     width: 100%;
-    height: 56px;
+    height: 44px;
     object-fit: cover;
     display: block;
   }
@@ -2959,36 +2958,21 @@
 
     function updateRenderedImageUi() {
       if (!mainImage) return;
+      if (!mainImage.complete || !mainImage.naturalWidth) return;
       var frame = mainImage.closest('.ww-pdp__media-frame');
       var renderedRect = getRenderedMainImageRect();
       if (!frame || !renderedRect) return;
 
       var frameRect = frame.getBoundingClientRect();
+      var thumbsLeftOffset = Math.max(32, renderedRect.left - frameRect.left + 16);
+      var thumbsRightOffset = Math.max(150, frameRect.right - renderedRect.right + 150);
+      var thumbsBottomOffset = Math.max(20, frameRect.bottom - renderedRect.bottom + 20);
       var rightOffset = Math.max(18, frameRect.right - renderedRect.right + 18);
-      var bottomOffset = Math.max(18, frameRect.bottom - renderedRect.bottom + 18);
+      var bottomOffset = Math.max(20, frameRect.bottom - renderedRect.bottom + 20);
 
-      if (window.matchMedia('(min-width: 1000px)').matches) {
-        var thumbsInset = 12;
-        var thumbsTopInset = 32;
-        var thumbsWidth = 56;
-        var imageLeft = renderedRect.left - frameRect.left;
-        var imageRight = renderedRect.right - frameRect.left;
-        var gutterThumbsLeft = imageLeft - thumbsWidth - thumbsInset;
-        var imageThumbsLeft = imageLeft + thumbsInset;
-        var maxImageThumbsLeft = imageRight - thumbsWidth - thumbsInset;
-        var thumbsLeftOffset = gutterThumbsLeft >= thumbsInset ? gutterThumbsLeft : Math.min(imageThumbsLeft, maxImageThumbsLeft);
-        var thumbsTopOffset = Math.max(24, renderedRect.top - frameRect.top + thumbsTopInset);
-        var thumbsMaxHeight = Math.max(120, renderedRect.bottom - frameRect.top - thumbsTopOffset - 24);
-
-        frame.style.setProperty('--ww-pdp-thumbs-left', Math.max(0, thumbsLeftOffset) + 'px');
-        frame.style.setProperty('--ww-pdp-thumbs-top', thumbsTopOffset + 'px');
-        frame.style.setProperty('--ww-pdp-thumbs-max-height', thumbsMaxHeight + 'px');
-      } else {
-        frame.style.removeProperty('--ww-pdp-thumbs-left');
-        frame.style.removeProperty('--ww-pdp-thumbs-top');
-        frame.style.removeProperty('--ww-pdp-thumbs-max-height');
-      }
-
+      frame.style.setProperty('--ww-pdp-thumbs-left', thumbsLeftOffset + 'px');
+      frame.style.setProperty('--ww-pdp-thumbs-right', thumbsRightOffset + 'px');
+      frame.style.setProperty('--ww-pdp-thumbs-bottom', thumbsBottomOffset + 'px');
       frame.style.setProperty('--ww-pdp-media-controls-right', rightOffset + 'px');
       frame.style.setProperty('--ww-pdp-media-controls-bottom', bottomOffset + 'px');
     }
