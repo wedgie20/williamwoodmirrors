@@ -444,6 +444,8 @@
         </a>
       {%- endif -%}
 
+      {{ description_key_details_items }}
+      
       {%- if product.description != blank -%}
         {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
         <div class="ww-pdp__excerpt">
