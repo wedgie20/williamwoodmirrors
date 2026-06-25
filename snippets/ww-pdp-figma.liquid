@@ -667,18 +667,16 @@
     display: block;
     object-fit: contain;
     cursor: none;
-    transition: transform .82s cubic-bezier(.22, .61, .36, 1), opacity .82s ease;
-    will-change: transform, opacity;
+    transition: transform .82s cubic-bezier(.22, .61, .36, 1);
+    will-change: transform;
   }
 
   .ww-pdp__main-image.is-sliding-out-next {
     transform: translateX(-24%) scale(.985);
-    opacity: .72;
   }
 
   .ww-pdp__main-image.is-sliding-out-prev {
     transform: translateX(24%) scale(.985);
-    opacity: .72;
   }
 
   .ww-pdp__slide-image {
@@ -689,15 +687,13 @@
     height: 100%;
     display: block;
     object-fit: contain;
-    opacity: 0;
     pointer-events: none;
-    transition: transform .82s cubic-bezier(.22, .61, .36, 1), opacity .82s ease;
-    will-change: transform, opacity;
+    transition: transform .82s cubic-bezier(.22, .61, .36, 1);
+    will-change: transform;
   }
 
   .ww-pdp__slide-image.is-active {
     transform: translateX(0) !important;
-    opacity: 1;
   }
 
   .ww-pdp__image-next {
