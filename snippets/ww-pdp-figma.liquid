@@ -2805,6 +2805,8 @@
         setImageFromThumb(nextIndex);
         return;
       }
+      var frameRect = frame.getBoundingClientRect();
+      var renderedRect = getRenderedMainImageRect();
 
       window.clearTimeout(imageSlideTimer);
       frame.querySelectorAll('.ww-pdp__slide-image').forEach(function (item) { item.remove(); });
@@ -2814,6 +2816,14 @@
       slideImage.className = 'ww-pdp__slide-image';
       slideImage.src = thumb.dataset.src;
       slideImage.alt = thumb.dataset.alt || '';
+      if (renderedRect) {
+        slideImage.style.left = (renderedRect.left - frameRect.left) + 'px';
+        slideImage.style.top = (renderedRect.top - frameRect.top) + 'px';
+        slideImage.style.width = renderedRect.width + 'px';
+        slideImage.style.height = renderedRect.height + 'px';
+        slideImage.style.right = 'auto';
+        slideImage.style.bottom = 'auto';
+      }
       slideImage.style.transform = slideDirection === 'prev' ? 'translateX(-100%)' : 'translateX(100%)';
       frame.appendChild(slideImage);
 
