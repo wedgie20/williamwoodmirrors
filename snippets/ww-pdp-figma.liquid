@@ -679,6 +679,10 @@
     transform: translateX(100%);
   }
 
+  .ww-pdp__main-image.is-track-sliding {
+    visibility: hidden;
+  }
+
   .ww-pdp__slide-image {
     position: absolute;
     inset: 0;
@@ -703,6 +707,7 @@
     display: flex;
     width: 200%;
     height: 100%;
+    background: white;
     pointer-events: none;
     transition: transform .78s cubic-bezier(.22, .61, .36, 1);
     will-change: transform;
@@ -714,6 +719,7 @@
     height: 100%;
     display: block;
     object-fit: contain;
+    background: white;
   }
 
   .ww-pdp__image-next {
@@ -2830,6 +2836,7 @@
       frame.querySelectorAll('.ww-pdp__slide-image').forEach(function (item) { item.remove(); });
       frame.querySelectorAll('.ww-pdp__slide-track').forEach(function (item) { item.remove(); });
       imageIsSliding = true;
+      mainImage.classList.add('is-track-sliding');
 
       var track = document.createElement('div');
       track.className = 'ww-pdp__slide-track';
@@ -2862,7 +2869,7 @@
         track.removeEventListener('transitionend', finishSlide);
         mainImage.style.transition = 'none';
         setImageFromThumb(nextIndex, { skipUiUpdate: true });
-        mainImage.classList.remove('is-sliding-out-next', 'is-sliding-out-prev');
+        mainImage.classList.remove('is-sliding-out-next', 'is-sliding-out-prev', 'is-track-sliding');
         mainImage.offsetHeight;
         mainImage.style.transition = '';
         track.remove();
