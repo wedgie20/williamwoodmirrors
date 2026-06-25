@@ -562,15 +562,15 @@
         </div> {% endcomment %}
 
         <div class="product_description_dropdown">
-  <button type="button" class="product-description-toggle">
-    <span>Product Description</span>
-    <span class="toggle-icon">+</span>
-  </button>
+          <button type="button" class="product-description-toggle">
+            <span>Product Description</span>
+            <span class="toggle-icon">+</span>
+          </button>
 
-  <div class="product-description-content">
-    {{ desc_clean }}
-  </div>
-</div>
+          <div class="product-description-content">
+            {{ desc_clean }}
+          </div>
+        </div>
       {%- endif -%} 
 
       {%- if promo_code != blank -%}
@@ -2881,24 +2881,20 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+  const toggle = document.querySelector('.product-description-toggle');
 
-  document.querySelectorAll('.key-details-toggle, .product-description-toggle').forEach(toggle => {
+  if (!toggle) return;
 
-    toggle.addEventListener('click', function () {
+  const wrapper = document.querySelector('.product_description_dropdown');
+  const content = document.querySelector('.product-description-content');
+  const icon = document.querySelector('.product-description-icon');
 
-      const wrapper = this.closest('.key_details_dropdown, .product_description_dropdown');
-      const content = wrapper.querySelector('.key-details-content, .product-description-content');
-      const icon = this.querySelector('.toggle-icon');
+  toggle.addEventListener('click', function () {
+    content.classList.toggle('active');
+    wrapper.classList.toggle('open');
 
-      content.classList.toggle('active');
-      wrapper.classList.toggle('open');
-
-      icon.textContent = content.classList.contains('active') ? '−' : '+';
-
-    });
-
+    icon.textContent = content.classList.contains('active') ? '−' : '+';
   });
-
 });
 
 
