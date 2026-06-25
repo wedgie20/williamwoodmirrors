@@ -493,6 +493,24 @@
 .toggle-icon.active {
   transform: rotate(180deg);
 }
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const toggle = document.querySelector('.key-details-toggle');
+  const content = document.querySelector('.key-details-content');
+  const icon = document.querySelector('.toggle-icon');
+
+  toggle.addEventListener('click', function () {
+    content.classList.toggle('active');
+
+    if (content.classList.contains('active')) {
+      icon.textContent = '−';
+    } else {
+      icon.textContent = '+';
+    }
+  });
+});
+</script>
       </style>
       {%- if product.description != blank -%}
         {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
