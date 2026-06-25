@@ -2887,15 +2887,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!toggle) return;
 
-  const wrapper = document.querySelector('.product_description_dropdown');
-  const content = document.querySelector('.product-description-content');
-  const icon = document.querySelector('.product-description-icon');
-
   toggle.addEventListener('click', function () {
-    content.classList.toggle('active');
-    wrapper.classList.toggle('open');
+    const wrapper = this.closest('.product_description_dropdown');
+    const content = wrapper.querySelector('.product-description-content');
+    const icon = this.querySelector('.toggle-icon');
 
-    icon.textContent = content.classList.contains('active') ? '−' : '+';
+    if (wrapper.classList.contains('open')) {
+      // Close
+      content.style.height = content.scrollHeight + 'px';
+
+      requestAnimationFrame(() => {
+        content.style.height = '0px';
+      });
+
+      wrapper.classList.remove('open');
+      icon.textContent = '+';
+    } else {
+      // Open
+      content.style.height = content.scrollHeight + 'px';
+
+      content.addEventListener(
+        'transitionend',
+        function handler() {
+          if (wrapper.classList.contains('open')) {
+            content.style.height = 'auto';
+          }
+          content.removeEventListener('transitionend', handler);
+        },
+        { once: true }
+      );
+
+      wrapper.classList.add('open');
+      icon.textContent = '−';
+    }
   });
 });
 
