@@ -2880,6 +2880,28 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+
+  document.querySelectorAll('.key-details-toggle, .product-description-toggle').forEach(toggle => {
+
+    toggle.addEventListener('click', function () {
+
+      const wrapper = this.closest('.key_details_dropdown, .product_description_dropdown');
+      const content = wrapper.querySelector('.key-details-content, .product-description-content');
+      const icon = this.querySelector('.toggle-icon');
+
+      content.classList.toggle('active');
+      wrapper.classList.toggle('open');
+
+      icon.textContent = content.classList.contains('active') ? '−' : '+';
+
+    });
+
+  });
+
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
   const toggle = document.querySelector('.key-details-toggle');
   const content = document.querySelector('.key-details-content');
   const icon = document.querySelector('.toggle-icon');
