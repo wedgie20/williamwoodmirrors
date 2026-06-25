@@ -668,7 +668,7 @@
     </div>
   </div>
 
-  <div class="ww-pdp__details" id="product-{{ product.id }}-details">
+  <div class="ww-pdp__details" id="product-{{ product.id }}-details" style="display: none;">
     <div class="ww-pdp__detail-image">
       {%- if detail_media.preview_image != blank -%}
         <img loading="lazy" sizes="(min-width: 1000px) 58vw, 100vw" {% render 'image-attributes', image: detail_media.preview_image, sizes: '800,1000,1200,1400,1600,1800,2200' %}>
