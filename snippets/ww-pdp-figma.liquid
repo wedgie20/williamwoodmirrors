@@ -495,7 +495,7 @@
 }
 
       </style>
-      {%- if product.description != blank -%}
+      {% comment %} {%- if product.description != blank -%}
         {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
         <div class="ww-pdp__excerpt">
           <h3 class="ww-pdp__excerpt-heading">Product Description</h3>
@@ -504,7 +504,7 @@
           </div>
           <button type="button" data-ww-read-more aria-expanded="false">Read more</button>
         </div>
-      {%- endif -%}
+      {%- endif -%} {% endcomment %}
 
       {%- if promo_code != blank -%}
         <div class="ww-pdp__promo">
