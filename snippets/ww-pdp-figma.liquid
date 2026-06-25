@@ -2285,6 +2285,30 @@
     }
   }
 
+  @media screen and (min-width: 1000px) and (max-width: 1199px) {
+    .ww-pdp__top {
+      min-height: 0;
+      align-items: start;
+    }
+
+    .ww-pdp__media {
+      position: relative;
+      height: auto;
+      padding-bottom: 0;
+    }
+
+    .ww-pdp__media-frame {
+      aspect-ratio: 1 / 1;
+      height: auto;
+    }
+
+    .ww-pdp__main-image {
+      display: block;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
   @media screen and (max-width: 1199px) {
     .ww-pdp__summary {
       padding-left: 32px;
@@ -2664,7 +2688,7 @@
     var imageIsSliding = false;
 
     function updateMediaHeight() {
-      if (!gallery || window.matchMedia('(max-width: 999px)').matches) {
+      if (!gallery || window.matchMedia('(max-width: 1199px)').matches) {
         root.style.removeProperty('--ww-pdp-media-height');
         return;
       }
