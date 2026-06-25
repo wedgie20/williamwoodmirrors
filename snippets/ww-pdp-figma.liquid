@@ -551,8 +551,9 @@
 
       </style>
       {%- if product.description != blank -%}
-        {% comment %} {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
-        <div class="ww-pdp__excerpt">
+       {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
+         {% comment %} 
+       <div class="ww-pdp__excerpt">
           <h3 class="ww-pdp__excerpt-heading">Product Description</h3>
           <div class="ww-pdp__excerpt-text" data-ww-excerpt-text>
             {{ desc_clean }}
