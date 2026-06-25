@@ -557,6 +557,16 @@
 
     <div class="ww-pdp__detail-copy">
       <h2>Key Details</h2>
+      {%- if product.description != blank -%}
+        {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
+        <div class="ww-pdp__excerpt">
+          <h3 class="ww-pdp__excerpt-heading">Product Description</h3>
+          <div class="ww-pdp__excerpt-text" data-ww-excerpt-text>
+            {{ desc_clean }}
+          </div>
+          <button type="button" data-ww-read-more aria-expanded="false">Read more</button>
+        </div>
+      {%- endif -%}
       {{ description_key_details_items }}
     </div>
   </div>
