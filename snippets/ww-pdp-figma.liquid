@@ -446,12 +446,26 @@
 
       {%- if product.description != blank -%}
         {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
-        <div class="ww-pdp__excerpt">
-          <h3 class="ww-pdp__excerpt-heading">Product Description</h3>
-          <div class="ww-pdp__excerpt-text" data-ww-excerpt-text>
+        <div class="product_description_dropdown">
+          <button type="button" class="product-description-toggle" aria-expanded="false">
+            <span>Product Description</span>
+            <span class="toggle-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="product-description-content">
             {{ desc_clean }}
           </div>
-          <button type="button" data-ww-read-more aria-expanded="false">Read more</button>
+        </div>
+      {%- endif -%}
+
+      {%- if description_key_details_items != blank -%}
+        <div class="key_details_dropdown">
+          <button type="button" class="key-details-toggle" aria-expanded="false">
+            <span>Key Details</span>
+            <span class="toggle-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="key-details-content">
+            {{ description_key_details_items }}
+          </div>
         </div>
       {%- endif -%}
 
@@ -1207,6 +1221,46 @@
     text-underline-offset: 3px;
     font: inherit;
     cursor: pointer;
+  }
+
+  .product_description_dropdown,
+  .key_details_dropdown {
+    border-top: 1px solid #e5e5e5;
+    margin-bottom: 10px;
+  }
+
+  .product-description-toggle,
+  .key-details-toggle {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border: 0;
+    background: transparent;
+    color: #111;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .toggle-icon {
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  .product-description-content,
+  .key-details-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+  }
+
+  .product-description-content.active,
+  .key-details-content.active {
+    max-height: 1000px;
+    padding-bottom: 15px;
   }
 
   .ww-pdp__promo,
@@ -3152,6 +3206,24 @@
         text.classList.toggle('is-expanded', !isExpanded);
         button.textContent = isExpanded ? 'Read more' : 'Read less';
         button.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+      });
+    });
+
+    [
+      { toggle: '.product-description-toggle', content: '.product-description-content', wrapper: '.product_description_dropdown' },
+      { toggle: '.key-details-toggle', content: '.key-details-content', wrapper: '.key_details_dropdown' }
+    ].forEach(function (dropdown) {
+      var toggle = root.querySelector(dropdown.toggle);
+      var content = root.querySelector(dropdown.content);
+      var wrapper = root.querySelector(dropdown.wrapper);
+      var icon = toggle ? toggle.querySelector('.toggle-icon') : null;
+      if (!toggle || !content) return;
+
+      toggle.addEventListener('click', function () {
+        var isOpen = content.classList.toggle('active');
+        if (wrapper) wrapper.classList.toggle('open', isOpen);
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        if (icon) icon.textContent = isOpen ? '-' : '+';
       });
     });
 
