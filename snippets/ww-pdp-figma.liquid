@@ -477,7 +477,9 @@
             <span class="toggle-icon" aria-hidden="true">+</span>
           </button>
           <div class="product-description-content">
-            {{ desc_clean }}
+            <div class="ww-pdp__accordion-inner">
+              {{ desc_clean }}
+            </div>
           </div>
         </div>
       {%- endif -%}
@@ -489,7 +491,9 @@
             <span class="toggle-icon" aria-hidden="true">+</span>
           </button>
           <div class="key-details-content">
-            {{ description_key_details_items }}
+            <div class="ww-pdp__accordion-inner">
+              {{ description_key_details_items }}
+            </div>
           </div>
         </div>
       {%- endif -%}
@@ -1281,8 +1285,7 @@
     overflow: hidden;
     opacity: 0;
     transform: translateY(-4px);
-    padding-bottom: 0;
-    transition: height .34s cubic-bezier(.25, .46, .45, .94), padding-bottom .34s cubic-bezier(.25, .46, .45, .94), opacity .24s ease, transform .34s cubic-bezier(.25, .46, .45, .94);
+    transition: height .34s cubic-bezier(.25, .46, .45, .94), opacity .24s ease, transform .34s cubic-bezier(.25, .46, .45, .94);
     will-change: height, opacity, transform;
   }
 
@@ -1290,6 +1293,9 @@
   .key-details-content.active {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  .ww-pdp__accordion-inner {
     padding-bottom: 15px;
   }
 
@@ -3253,13 +3259,14 @@
       var wrapper = root.querySelector(dropdown.wrapper);
       var icon = toggle ? toggle.querySelector('.toggle-icon') : null;
       if (!toggle || !content) return;
+      var inner = content.querySelector('.ww-pdp__accordion-inner') || content;
 
       content.hidden = true;
 
       toggle.addEventListener('click', function () {
         var isOpen = toggle.getAttribute('aria-expanded') === 'true';
         if (isOpen) {
-          content.style.height = content.scrollHeight + 'px';
+          content.style.height = inner.scrollHeight + 'px';
           content.offsetHeight;
           content.classList.remove('active');
           content.style.height = '0px';
@@ -3281,7 +3288,7 @@
         if (wrapper) wrapper.classList.add('open');
         toggle.setAttribute('aria-expanded', 'true');
         if (icon) icon.textContent = '-';
-        content.style.height = content.scrollHeight + 'px';
+        content.style.height = inner.scrollHeight + 'px';
         content.addEventListener('transitionend', function onOpenEnd(event) {
           if (event.propertyName !== 'height') return;
           content.style.height = 'auto';
