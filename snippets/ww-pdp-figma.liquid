@@ -291,7 +291,13 @@
         continue
       endunless
 
-      if normalized_detail_line contains 'Product Care Information'
+      if normalized_detail_line contains 'Overall Size'
+        assign detail_label = 'Overall Size'
+        assign detail_value = normalized_detail_line | split: 'Overall Size' | last | remove_first: '-' | remove_first: ':' | strip
+      elsif normalized_detail_line contains 'Dimensions'
+        assign detail_label = 'Overall Size'
+        assign detail_value = normalized_detail_line | split: 'Dimensions' | last | remove_first: '-' | remove_first: ':' | strip
+      elsif normalized_detail_line contains 'Product Care Information'
         assign detail_label = 'Product Care Information'
         assign detail_value = normalized_detail_line | split: 'Product Care Information' | last | remove_first: '-' | remove_first: ':' | strip
       elsif normalized_detail_line contains '-'
