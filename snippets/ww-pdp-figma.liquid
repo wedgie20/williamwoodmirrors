@@ -1277,14 +1277,19 @@
 
   .product-description-content,
   .key-details-content {
-    max-height: 0;
+    height: 0;
     overflow: hidden;
-    transition: max-height .3s ease;
+    opacity: 0;
+    transform: translateY(-4px);
+    padding-bottom: 0;
+    transition: height .34s cubic-bezier(.25, .46, .45, .94), padding-bottom .34s cubic-bezier(.25, .46, .45, .94), opacity .24s ease, transform .34s cubic-bezier(.25, .46, .45, .94);
+    will-change: height, opacity, transform;
   }
 
   .product-description-content.active,
   .key-details-content.active {
-    max-height: 1000px;
+    opacity: 1;
+    transform: translateY(0);
     padding-bottom: 15px;
   }
 
@@ -3249,11 +3254,39 @@
       var icon = toggle ? toggle.querySelector('.toggle-icon') : null;
       if (!toggle || !content) return;
 
+      content.hidden = true;
+
       toggle.addEventListener('click', function () {
-        var isOpen = content.classList.toggle('active');
-        if (wrapper) wrapper.classList.toggle('open', isOpen);
-        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        if (icon) icon.textContent = isOpen ? '-' : '+';
+        var isOpen = toggle.getAttribute('aria-expanded') === 'true';
+        if (isOpen) {
+          content.style.height = content.scrollHeight + 'px';
+          content.offsetHeight;
+          content.classList.remove('active');
+          content.style.height = '0px';
+          if (wrapper) wrapper.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+          if (icon) icon.textContent = '+';
+          content.addEventListener('transitionend', function onCloseEnd(event) {
+            if (event.propertyName !== 'height') return;
+            content.hidden = true;
+            content.removeEventListener('transitionend', onCloseEnd);
+          });
+          return;
+        }
+
+        content.hidden = false;
+        content.style.height = '0px';
+        content.offsetHeight;
+        content.classList.add('active');
+        if (wrapper) wrapper.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+        if (icon) icon.textContent = '-';
+        content.style.height = content.scrollHeight + 'px';
+        content.addEventListener('transitionend', function onOpenEnd(event) {
+          if (event.propertyName !== 'height') return;
+          content.style.height = 'auto';
+          content.removeEventListener('transitionend', onOpenEnd);
+        });
       });
     });
 
