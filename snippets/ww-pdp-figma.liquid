@@ -271,7 +271,9 @@
       assign normalized_detail_line = description_detail_line | replace: 'â€“', '-' | replace: 'â€”', '-'
       assign detail_label = ''
       assign detail_value = ''
+      assign detail_value_markup = ''
       assign description_detail_rich_line = description_detail_rich_lines[forloop.index0] | default: ''
+      assign description_detail_rich_line_clean = description_detail_rich_line | replace: '<li>', '' | replace: '</li>', '' | replace: '<p>', '' | replace: '</p>', '' | replace: '<ul>', '' | replace: '</ul>', '' | replace: '<ol>', '' | replace: '</ol>', '' | strip
       assign is_bold_detail_line = false
 
       if description_detail_rich_line contains '<strong' or description_detail_rich_line contains '<b'
@@ -307,10 +309,27 @@
         assign detail_label = normalized_detail_line | split: ':' | first | strip
         assign detail_value = normalized_detail_line | remove_first: detail_label | remove_first: ':' | strip
       endif
+
+      assign detail_value_markup = detail_value
+      if is_bold_detail_line and detail_label != blank and detail_value != blank
+        if normalized_detail_line contains 'Overall Size'
+          assign detail_value_markup = description_detail_rich_line_clean | split: 'Overall Size' | last | remove_first: '</strong>' | remove_first: '</b>' | remove_first: '-' | remove_first: ':' | strip
+        elsif normalized_detail_line contains 'Dimensions'
+          assign detail_value_markup = description_detail_rich_line_clean | split: 'Dimensions' | last | remove_first: '</strong>' | remove_first: '</b>' | remove_first: '-' | remove_first: ':' | strip
+        elsif normalized_detail_line contains 'Product Care Information'
+          assign detail_value_markup = description_detail_rich_line_clean | split: 'Product Care Information' | last | remove_first: '</strong>' | remove_first: '</b>' | remove_first: '-' | remove_first: ':' | strip
+        elsif description_detail_rich_line_clean contains ' - '
+          assign detail_value_markup = description_detail_rich_line_clean | split: ' - ' | last | strip
+        elsif description_detail_rich_line_clean contains ':'
+          assign detail_value_markup = description_detail_rich_line_clean | split: ':' | last | strip
+        elsif description_detail_rich_line_clean contains '-'
+          assign detail_value_markup = description_detail_rich_line_clean | split: '-' | last | strip
+        endif
+      endif
     -%}
 
     {%- if detail_label != blank and detail_value != blank -%}
-      <div class="ww-pdp__detail-item ww-pdp__detail-item--inline"><p><strong>{{ detail_label }}</strong> - {{ detail_value }}</p></div>
+      <div class="ww-pdp__detail-item ww-pdp__detail-item--inline"><p><strong>{{ detail_label }}</strong> - {{ detail_value_markup }}</p></div>
     {%- elsif normalized_detail_line != blank -%}
       <div class="ww-pdp__detail-item"><p>{% if is_bold_detail_line %}<strong>{{ normalized_detail_line }}</strong>{% else %}{{ normalized_detail_line }}{% endif %}</p></div>
     {%- endif -%}
