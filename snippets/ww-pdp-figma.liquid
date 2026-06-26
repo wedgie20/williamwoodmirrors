@@ -310,7 +310,7 @@
     -%}
 
     {%- if detail_label != blank and detail_value != blank -%}
-      <div class="ww-pdp__detail-item"><strong>{{ detail_label }}</strong><p>{{ detail_value }}</p></div>
+      <div class="ww-pdp__detail-item ww-pdp__detail-item--inline"><p><strong>{{ detail_label }}</strong> - {{ detail_value }}</p></div>
     {%- elsif normalized_detail_line != blank -%}
       <div class="ww-pdp__detail-item"><p>{% if is_bold_detail_line %}<strong>{{ normalized_detail_line }}</strong>{% else %}{{ normalized_detail_line }}{% endif %}</p></div>
     {%- endif -%}
@@ -1686,6 +1686,11 @@
     margin-bottom: 8px;
     font-size: 14px;
     line-height: 1.2;
+  }
+
+  .ww-pdp__detail-item--inline strong {
+    display: inline;
+    margin-bottom: 0;
   }
 
   .ww-pdp__detail-item p,
