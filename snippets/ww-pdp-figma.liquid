@@ -496,7 +496,12 @@
             <input type="number" name="quantity" min="1" value="1" inputmode="numeric" aria-label="Quantity">
             <button type="button" data-ww-quantity-plus aria-label="Increase quantity">+</button>
           </div>
-          <button type="submit" class="ww-pdp__add{% if is_preorder %} ww-pdp__add--preorder{% endif %}" {% unless current_variant.available %}disabled{% endunless %}>
+          <button
+            type="{% if current_variant.available %}submit{% else %}button{% endif %}"
+            {% unless current_variant.available %}id="BIS_trigger"{% endunless %}
+            class="ww-pdp__add{% if is_preorder %} ww-pdp__add--preorder{% endif %}"
+            {% unless current_variant.available %}data-ww-open-waitlist aria-disabled="false"{% endunless %}
+          >
             {%- if current_variant.available -%}
               {%- if is_preorder -%}
                 <span>Pre-order</span>
@@ -505,7 +510,7 @@
                 Add to bag
               {%- endif -%}
             {%- else -%}
-              Sold out
+              Sold out: join waitlist
             {%- endif -%}
           </button>
         </div>
@@ -578,8 +583,8 @@
       <input type="number" min="1" value="1" inputmode="numeric" aria-label="Quantity">
       <button type="button" data-ww-sticky-quantity-plus aria-label="Increase quantity">+</button>
     </div>
-    <button type="button" class="ww-pdp-sticky-atc__button{% if is_preorder %} ww-pdp-sticky-atc__button--preorder{% endif %}" data-ww-sticky-add {% unless current_variant.available %}disabled{% endunless %}>
-      <span class="ww-pdp-sticky-atc__desktop-label">{%- if current_variant.available -%}{%- if is_preorder -%}Pre-order{%- else -%}Add to bag{%- endif -%}{%- else -%}Sold out{%- endif -%}</span>
+    <button type="button" class="ww-pdp-sticky-atc__button{% if is_preorder %} ww-pdp-sticky-atc__button--preorder{% endif %}" data-ww-sticky-add data-ww-sold-out="{% unless current_variant.available %}true{% else %}false{% endunless %}">
+      <span class="ww-pdp-sticky-atc__desktop-label">{%- if current_variant.available -%}{%- if is_preorder -%}Pre-order{%- else -%}Add to bag{%- endif -%}{%- else -%}Sold out: join waitlist{%- endif -%}</span>
       <span class="ww-pdp-sticky-atc__mobile-label {% if has_variant_discount %}is-discounted{% endif %}">
         {%- if current_variant.available -%}
           {%- if has_variant_discount -%}
@@ -589,7 +594,7 @@
           <span aria-hidden="true">-  </span>
           <span>{%- if is_preorder -%}Pre-order{%- else -%}Add to bag{%- endif -%}</span>
         {%- else -%}
-          Sold out
+          Sold out: join waitlist
         {%- endif -%}
       </span>
     </button>
@@ -3178,6 +3183,7 @@
     var mainQuantityInput = root.querySelector('.ww-pdp__quantity input[name="quantity"]');
     var isPreorder = {{ is_preorder | json }};
     var addToBagLabel = isPreorder ? 'Pre-order' : 'Add to bag';
+    var soldOutWaitlistLabel = 'Sold out: join waitlist';
 
     function preorderButtonHtml() {
       return '<span>Pre-order</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 1-8.5 12h1.7A7.5 7.5 0 1 0 12 4.5c-2 0-3.8.8-5.1 2.1L9 8.7H3.8V3.5l2 2A9 9 0 0 1 12 3Zm.8 4.5v4.2l3.2 1.9-.8 1.3-3.9-2.3V7.5h1.5Z"/></svg>';
@@ -3195,13 +3201,41 @@
 
     function updateStickyButtonLabel(priceText, compareText, available) {
       if (!stickyAddButton) return;
-      stickyAddButton.disabled = !available;
+      stickyAddButton.disabled = false;
+      stickyAddButton.dataset.wwSoldOut = available ? 'false' : 'true';
       var desktopLabel = stickyAddButton.querySelector('.ww-pdp-sticky-atc__desktop-label');
-      if (desktopLabel) desktopLabel.textContent = available ? addToBagLabel : 'Sold out';
+      if (desktopLabel) desktopLabel.textContent = available ? addToBagLabel : soldOutWaitlistLabel;
       if (stickyMobileLabel) {
         stickyMobileLabel.classList.toggle('is-discounted', !!compareText);
-        stickyMobileLabel.innerHTML = available ? stickyPriceHtml(priceText, compareText) + '<span aria-hidden="true">-</span><span>' + addToBagLabel + '</span>' : 'Sold out';
+        stickyMobileLabel.innerHTML = available ? stickyPriceHtml(priceText, compareText) + '<span aria-hidden="true">-</span><span>' + addToBagLabel + '</span>' : soldOutWaitlistLabel;
       }
+    }
+
+    function openWaitlistPopup() {
+      var selectors = ['#BIS_trigger', '.BIS_trigger', '[data-bis-trigger]', '[data-back-in-stock]'];
+      var triggers = Array.prototype.slice.call(document.querySelectorAll(selectors.join(',')));
+      var trigger = triggers.find(function (item) {
+        return item && item !== addButton && item !== stickyAddButton && item.offsetParent !== null;
+      }) || triggers.find(function (item) {
+        return item && item !== addButton && item !== stickyAddButton;
+      });
+
+      if (trigger) {
+        trigger.click();
+        return true;
+      }
+
+      if (window.BIS && typeof window.BIS.show === 'function') {
+        window.BIS.show();
+        return true;
+      }
+
+      if (window.BIS && typeof window.BIS.open === 'function') {
+        window.BIS.open();
+        return true;
+      }
+
+      return false;
     }
 
     function syncQuantityInputs(source, value) {
@@ -3244,9 +3278,25 @@
 
     if (stickyAddButton && addButton) {
       stickyAddButton.addEventListener('click', function () {
+        if (stickyAddButton.dataset.wwSoldOut === 'true') {
+          if (addButton && addButton.hasAttribute('data-ww-open-waitlist')) {
+            addButton.click();
+          } else {
+            openWaitlistPopup();
+          }
+          return;
+        }
         if (stickyAddButton.disabled) return;
         syncQuantityInputs(stickyQuantityInput, stickyQuantityInput ? stickyQuantityInput.value : (mainQuantityInput ? mainQuantityInput.value : 1));
         addButton.click();
+      });
+    }
+
+    if (addButton) {
+      addButton.addEventListener('click', function (event) {
+        if (!addButton.hasAttribute('data-ww-open-waitlist')) return;
+        event.preventDefault();
+        openWaitlistPopup();
       });
     }
 
@@ -3302,8 +3352,18 @@
       }
 
       if (addButton) {
-        addButton.disabled = !available;
-        addButton.innerHTML = available ? (isPreorder ? preorderButtonHtml() : 'Add to bag') : 'Sold out';
+        addButton.disabled = false;
+        addButton.type = available ? 'submit' : 'button';
+        if (available) {
+          if (addButton.id === 'BIS_trigger') addButton.removeAttribute('id');
+          addButton.removeAttribute('data-ww-open-waitlist');
+          addButton.removeAttribute('aria-disabled');
+        } else {
+          addButton.id = 'BIS_trigger';
+          addButton.setAttribute('data-ww-open-waitlist', '');
+          addButton.setAttribute('aria-disabled', 'false');
+        }
+        addButton.innerHTML = available ? (isPreorder ? preorderButtonHtml() : 'Add to bag') : soldOutWaitlistLabel;
       }
 
       updateStickyButtonLabel(priceText || '', compareText, available);
