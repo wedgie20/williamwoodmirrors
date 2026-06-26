@@ -1283,16 +1283,7 @@
   .key-details-content {
     height: 0;
     overflow: hidden;
-    opacity: 0;
-    transform: translateY(-4px);
-    transition: height .34s cubic-bezier(.25, .46, .45, .94), opacity .24s ease, transform .34s cubic-bezier(.25, .46, .45, .94);
-    will-change: height, opacity, transform;
-  }
-
-  .product-description-content.active,
-  .key-details-content.active {
-    opacity: 1;
-    transform: translateY(0);
+    transition: height .34s cubic-bezier(.25, .46, .45, .94);
   }
 
   .ww-pdp__accordion-inner {
@@ -1303,6 +1294,8 @@
     font-size: 14px;
     line-height: 1.65;
     font-family: "Gotham Book";
+    -webkit-font-smoothing: auto;
+    text-rendering: optimizeLegibility;
   }
 
   @media screen and (max-width: 999px) {
