@@ -95,43 +95,7 @@
       margin-right: auto;
     }
 
-    /* Inline desktop-only search pill - never renders on mobile/tablet */
-    #shopify-section-{{ section.id }} .desktop-search--inline {
-      display: none;
-    }
-
-    @media screen and (min-width: 1000px) {
-      #shopify-section-{{ section.id }} .desktop-search--inline {
-        position: relative;
-        left: auto;
-        top: auto;
-        margin: 0 8px 0 0 !important;
-        transform: none;
-        width: 220px;
-        max-width: 220px;
-        display: flex;
-        align-items: center;
-      }
-
-      #shopify-section-{{ section.id }} .desktop-search--inline predictive-search,
-      #shopify-section-{{ section.id }} .desktop-search--inline form {
-        width: 100%;
-      }
-
-      #shopify-section-{{ section.id }} .desktop-search--inline .search-input {
-        width: 100%;
-        height: 36px;
-        padding: 6px 36px 6px 14px;
-        border-radius: 999px;
-        border: 1px solid #e2e2e2;
-        background: #f6f6f6;
-        font-size: 13px;
-      }
-
-      #shopify-section-{{ section.id }} .desktop-search--inline .search-icon {
-        right: 10px;
-      }
-    }
+    {%- comment -%} Removed: .desktop-search--inline custom pill. Replaced by repositioning .mobile-searchbar to left: 81% in the style block below. {%- endcomment -%}
 
     {%- if section.settings.header_layout == 'logo_left_navigation_inline' -%}
       /* For this navigation we have to move the logo at the first and add a margin */
@@ -526,34 +490,7 @@
               {%- render 'icon' with 'header-search' -%}
             </a>
 
-            {%- comment -%} Desktop search bar - inline pill on the right, regardless of header_layout {%- endcomment -%}
-            <div class="desktop-search desktop-search--inline hidden-phone">
-              <predictive-search>
-                <form action="{{ routes.search_url }}" method="get" role="search">
-                  <input
-                    class="search-input"
-                    id="searchInputInline"
-                      type="search"
-                      name="q"
-                      role="combobox"
-                      aria-expanded="false"
-                      aria-owns="predictive-search-results"
-                      aria-controls="predictive-search-results"
-                      aria-haspopup="listbox"
-                      aria-autocomplete="list"
-                      placeholder="{{ 'search.general.search_placeholder' | t }}"
-                      autocomplete="off"
-                    >
-                    <input name="options[prefix]" type="hidden" value="last">
-                    <button class="search-icon" type="submit" aria-label="{{ 'search.general.submit' | t | escape | default: 'Search' }}">
-                      <svg fill="none" focusable="false" width="15" height="15" viewBox="0 0 14 14">
-                        <path d="M9.50184 9.50184C11.4777 7.52595 11.5133 4.358 9.58134 2.42602C7.64936 0.494037 4.48141 0.529632 2.50552 2.50552C0.529632 4.48141 0.494037 7.64936 2.42602 9.58134C4.358 11.5133 7.52595 11.4777 9.50184 9.50184ZM9.50184 9.50184L13 13" stroke="currentColor" stroke-width="1"></path>
-                      </svg>
-                    </button>
-                  <button class="close-icon" data-close-button type="button">{{ settings.close_id }}</button>
-                </form>
-              </predictive-search>
-            </div>
+            {%- comment -%} Desktop pill search now handled by .mobile-searchbar positioned at left: 81% in the CSS below {%- endcomment -%}
 
           <a
             href="/pages/swym-wishlist"
@@ -849,7 +786,7 @@ display: none !important;
     }
 
   
-      .template-index .mobile-searchbar {
+      .mobile-searchbar {
         display: block;
         backdrop-filter: blur(6px);
         background-color: hsla(0, 0%, 96%, .5);
@@ -871,13 +808,13 @@ display: none !important;
       }
 
       @media screen and (min-width: 1200px) {
-        .template-index:not(.no-scroll) .header .mobile-searchbar {
+        .header .mobile-searchbar {
           position: absolute;
           top: 50%;
-          left: 50%;
+          left: 81%;
           transform: translate(-50%, -50%);
           margin: 0;
-          width: min(500px, 38vw);
+          width: min(250px, 38vw);
           z-index: 2;
         }
       }
