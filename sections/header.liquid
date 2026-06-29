@@ -95,7 +95,12 @@
       margin-right: auto;
     }
 
-    {%- comment -%} Removed: .desktop-search--inline custom pill. Replaced by repositioning .mobile-searchbar to left: 81% in the style block below. {%- endcomment -%}
+    #shopify-section-{{ section.id }} .desktop-search {
+      left: 50%;
+      top: 50%;
+      margin-left: 0 !important;
+      transform: translate(-50%, -50%);
+    }
 
     {%- if section.settings.header_layout == 'logo_left_navigation_inline' -%}
       /* For this navigation we have to move the logo at the first and add a margin */
@@ -299,7 +304,32 @@
             </a>
           </div>
 
-          {%- comment -%} Old centred search-bar removed; the inline pill is rendered inside .header__icon-list on the right {%- endcomment -%}
+          {%- if section.settings.header_layout == 'logo_center_search_open' -%}
+            <div class="header__search-bar predictive-search hidden-pocket">
+              <form class="predictive-search__form" action="{{ routes.search_url }}" method="get" role="search">
+                <input type="hidden" name="type" value="product">
+                <input type="hidden" name="options[prefix]" value="last">
+                <input
+                  type="hidden"
+                  name="options[unavailable_products]"
+                  value="{{ settings.search_unavailable_products }}"
+                >
+                {%- render 'icon' with 'header-search' -%}
+                <input
+                  class="predictive-search__input"
+                  is="predictive-search-input"
+                  type="text"
+                  name="q"
+                  autocomplete="off"
+                  autocorrect="off"
+                  aria-controls="search-drawer"
+                  aria-expanded="false"
+                  aria-label="{{ 'search.general.title' | t }}"
+                  placeholder="{{ 'search.general.search_placeholder' | t }}"
+                >
+              </form>
+            </div>
+          {%- endif -%}
         </nav>
         {%- capture logo -%}
         <a class="header__logo-link" href="{{ routes.root_url  }}">
@@ -322,7 +352,42 @@
         {%- endif -%}
       </div>
 
-      {%- comment -%} Desktop search bar moved into .header__icon-list (right side, near wishlist/account/cart) {%- endcomment -%}
+      {%- if section.settings.header_layout != 'logo_center_search_open' -%}
+        <div class="desktop-search">
+          <predictive-search>
+            <form action="{{ routes.search_url }}" method="get" role="search">
+              <input
+                class="search-input"
+                id="searchInput"
+                type="search"
+                name="q"
+                role="combobox"
+                aria-expanded="false"
+                aria-owns="predictive-search-results"
+                aria-controls="predictive-search-results"
+                aria-haspopup="listbox"
+                aria-autocomplete="list"
+                placeholder="{{ 'search.general.search_placeholder' | t }}"
+                autocomplete="off"
+              >
+              <input name="options[prefix]" type="hidden" value="last">
+              <button class="search-icon">
+                <svg
+                  fill="none"
+                  focusable="false"
+                  width="15"
+                  height="15"
+
+                  viewBox="0 0 14 14"
+                >
+                  <path d="M9.50184 9.50184C11.4777 7.52595 11.5133 4.358 9.58134 2.42602C7.64936 0.494037 4.48141 0.529632 2.50552 2.50552C0.529632 4.48141 0.494037 7.64936 2.42602 9.58134C4.358 11.5133 7.52595 11.4777 9.50184 9.50184ZM9.50184 9.50184L13 13" stroke="currentColor" stroke-width="1"></path>
+                </svg>
+              </button>
+              <button class="close-icon" data-close-button type="button">{{ settings.close_id }}</button>
+            </form>
+          </predictive-search>
+        </div>
+      {%- endif -%}
 
       {%- if request.page_type == 'index' -%}
         <h1 class="header__logo mobile-only">{{ logo }}</h1>
@@ -483,14 +548,11 @@
                   d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
             </svg>
           </a>
-
-            {%- comment -%} Mobile search icon - shown only on phone, opens search drawer {%- endcomment -%}
-            <a href="{{ routes.search_url  }}" is="toggle-link" class="cloud-search-mobile-open header__icon-wrapper tap-area hidden-desk" aria-label="{{ 'search.general.title' | t | escape }}" aria-controls="search-drawer" aria-expanded="false">
+          
+            <a href="{{ routes.search_url  }}" is="toggle-link" class="cloud-search-mobile-open header__icon-wrapper tap-area {% unless section.settings.show_icons %}hidden-desk{% endunless %}" aria-label="{{ 'search.general.title' | t | escape }}" aria-controls="search-drawer" aria-expanded="false">
               <span class="visually-hidden">{{ 'search.general.title' | t }}</span>
               {%- render 'icon' with 'header-search' -%}
             </a>
-
-            {%- comment -%} Desktop pill search now handled by .mobile-searchbar positioned at left: 81% in the CSS below {%- endcomment -%}
 
           <a
             href="/pages/swym-wishlist"
@@ -786,7 +848,7 @@ display: none !important;
     }
 
   
-      .mobile-searchbar {
+      .template-index .mobile-searchbar {
         display: block;
         backdrop-filter: blur(6px);
         background-color: hsla(0, 0%, 96%, .5);
@@ -808,14 +870,13 @@ display: none !important;
       }
 
       @media screen and (min-width: 1200px) {
-        .header .mobile-searchbar {
+        .template-index:not(.no-scroll) .header .mobile-searchbar {
           position: absolute;
           top: 50%;
-          right: 180px;
-          left: auto;
-          transform: translateY(-50%);
+          left: 50%;
+          transform: translate(-50%, -50%);
           margin: 0;
-          width: clamp(180px, 22vw, 280px);
+          width: min(500px, 38vw);
           z-index: 2;
         }
       }
