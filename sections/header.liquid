@@ -562,6 +562,9 @@
                 name="q"
                 placeholder="Search for a product..."
                 autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
                 aria-label="{{ 'search.general.title' | t | escape }}"
               >
               <button class="close-icon header-inline-search__close" data-close-button type="button">
@@ -1089,6 +1092,27 @@ display: none !important;
 }
 
 #shopify-section-{{ section.id }} .header:not(.header--transparent) .header-inline-search__icon {
+  color: #000;
+}
+
+#shopify-section-{{ section.id }} .header-inline-search.active,
+#shopify-section-{{ section.id }} .header-inline-search.show {
+  opacity: 1;
+}
+
+#shopify-section-{{ section.id }} .header-inline-search.active .header-inline-search__input,
+#shopify-section-{{ section.id }} .header-inline-search.show .header-inline-search__input {
+  color: #000;
+  caret-color: #000;
+}
+
+#shopify-section-{{ section.id }} .header-inline-search.active .header-inline-search__input::placeholder,
+#shopify-section-{{ section.id }} .header-inline-search.show .header-inline-search__input::placeholder {
+  color: #3f3f3f;
+}
+
+#shopify-section-{{ section.id }} .header-inline-search.active .header-inline-search__icon,
+#shopify-section-{{ section.id }} .header-inline-search.show .header-inline-search__icon {
   color: #000;
 }
 
