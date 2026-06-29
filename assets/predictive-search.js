@@ -9,6 +9,8 @@ class PredictiveSearch extends HTMLElement {
       "#quick-search-content"
     );
 
+    if (!this.input) return;
+
     //
     this.input.addEventListener(
       "input",
@@ -23,17 +25,26 @@ class PredictiveSearch extends HTMLElement {
       }, 300).bind(this)
     );
 
-    this.button.addEventListener("click", this.onClick.bind(this));
-    this.button.addEventListener("click", this.onShow.bind(this));
-    this.closeButton.addEventListener("click", this.close.bind(this));
+    if (this.button && (this.classList.contains("header-inline-search") || !document.querySelector(".header-inline-search"))) {
+      this.button.addEventListener("click", this.onClick.bind(this));
+      this.button.addEventListener("click", this.onShow.bind(this));
+    }
+
+    if (this.closeButton) {
+      this.closeButton.addEventListener("click", this.close.bind(this));
+    }
   }
 
   onShow() {
     window.disableScrollHandler = true;
-      document.querySelector(".mobile-search").classList.add("mobile-search__show");
-      document.querySelector("predictive-search").classList.add("show");
+      const mobileSearch = document.querySelector(".mobile-search");
+      if (mobileSearch) {
+        mobileSearch.classList.add("mobile-search__show");
+      }
+
+      this.classList.add("show");
   
-      const searchInput = document.querySelector(".search-input");
+      const searchInput = this.input;
       const header = document.querySelector('store-header');
 const quickSearchContent = document.querySelector('#quick-search-content.show');
 if (header && quickSearchContent) {
@@ -156,8 +167,16 @@ if (header && quickSearchContent) {
   open() {
     // disable scrolling on the main doc body
     document.querySelector("body").classList.add("no-scroll");
-    document.querySelector('.mobile-searchbar').style.display = 'none';
-    document.querySelector('#lightboxjs-lightboxlib').style.display = 'none';
+    const mobileSearchbar = document.querySelector('.mobile-searchbar');
+    const lightbox = document.querySelector('#lightboxjs-lightboxlib');
+
+    if (mobileSearchbar) {
+      mobileSearchbar.style.display = 'none';
+    }
+
+    if (lightbox) {
+      lightbox.style.display = 'none';
+    }
     // open search container
     this.predictiveSearchResults.classList.add("show");
     // show close button
@@ -169,9 +188,16 @@ if (header && quickSearchContent) {
     // enable scrolling on the main doc body
     document.querySelector("body").classList.remove("no-scroll");
     //
-    document.querySelector("predictive-search").classList.remove("show");
+    document.querySelectorAll("predictive-search").forEach((search) => {
+      search.classList.remove("show", "active");
+    });
+
     document.querySelector("#quick-search-content").classList.remove("show");
-    document.querySelector(".mobile-search").classList.remove("mobile-search__show");
+
+    const mobileSearch = document.querySelector(".mobile-search");
+    if (mobileSearch) {
+      mobileSearch.classList.remove("mobile-search__show");
+    }
 
     const quickSearchContent = document.querySelector('#quick-search-content');
 if (quickSearchContent) {
