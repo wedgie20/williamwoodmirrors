@@ -167,6 +167,7 @@ if (header && quickSearchContent) {
   open() {
     // disable scrolling on the main doc body
     document.querySelector("body").classList.add("no-scroll");
+    document.querySelector("body").classList.add("search-overlay-open");
     const mobileSearchbar = document.querySelector('.mobile-searchbar');
     const lightbox = document.querySelector('#lightboxjs-lightboxlib');
 
@@ -187,6 +188,7 @@ if (header && quickSearchContent) {
     window.disableScrollHandler = false;
     // enable scrolling on the main doc body
     document.querySelector("body").classList.remove("no-scroll");
+    document.querySelector("body").classList.remove("search-overlay-open");
     //
     document.querySelectorAll("predictive-search").forEach((search) => {
       search.classList.remove("show", "active");

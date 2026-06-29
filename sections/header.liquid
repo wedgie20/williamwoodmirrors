@@ -1096,7 +1096,8 @@ display: none !important;
 }
 
 #shopify-section-{{ section.id }} .header-inline-search.active,
-#shopify-section-{{ section.id }} .header-inline-search.show {
+#shopify-section-{{ section.id }} .header-inline-search.show,
+body.search-overlay-open #shopify-section-{{ section.id }} .header-inline-search {
   background-color: #fbfbfb;
   border-color: #e8e8e8;
   border-radius: 999px;
@@ -1107,18 +1108,21 @@ display: none !important;
 }
 
 #shopify-section-{{ section.id }} .header-inline-search.active .header-inline-search__input,
-#shopify-section-{{ section.id }} .header-inline-search.show .header-inline-search__input {
+#shopify-section-{{ section.id }} .header-inline-search.show .header-inline-search__input,
+body.search-overlay-open #shopify-section-{{ section.id }} .header-inline-search__input {
   color: #000;
   caret-color: #000;
 }
 
 #shopify-section-{{ section.id }} .header-inline-search.active .header-inline-search__input::placeholder,
-#shopify-section-{{ section.id }} .header-inline-search.show .header-inline-search__input::placeholder {
+#shopify-section-{{ section.id }} .header-inline-search.show .header-inline-search__input::placeholder,
+body.search-overlay-open #shopify-section-{{ section.id }} .header-inline-search__input::placeholder {
   color: #3f3f3f;
 }
 
 #shopify-section-{{ section.id }} .header-inline-search.active .header-inline-search__icon,
-#shopify-section-{{ section.id }} .header-inline-search.show .header-inline-search__icon {
+#shopify-section-{{ section.id }} .header-inline-search.show .header-inline-search__icon,
+body.search-overlay-open #shopify-section-{{ section.id }} .header-inline-search__icon {
   color: #000;
 }
 
