@@ -95,35 +95,42 @@
       margin-right: auto;
     }
 
+    /* Inline desktop-only search pill - never renders on mobile/tablet */
     #shopify-section-{{ section.id }} .desktop-search--inline {
-      position: relative;
-      left: auto;
-      top: auto;
-      margin: 0 8px 0 0 !important;
-      transform: none;
-      width: 220px;
-      max-width: 220px;
-      display: flex;
-      align-items: center;
+      display: none;
     }
 
-    #shopify-section-{{ section.id }} .desktop-search--inline predictive-search,
-    #shopify-section-{{ section.id }} .desktop-search--inline form {
-      width: 100%;
-    }
+    @media screen and (min-width: 1000px) {
+      #shopify-section-{{ section.id }} .desktop-search--inline {
+        position: relative;
+        left: auto;
+        top: auto;
+        margin: 0 8px 0 0 !important;
+        transform: none;
+        width: 220px;
+        max-width: 220px;
+        display: flex;
+        align-items: center;
+      }
 
-    #shopify-section-{{ section.id }} .desktop-search--inline .search-input {
-      width: 100%;
-      height: 36px;
-      padding: 6px 36px 6px 14px;
-      border-radius: 999px;
-      border: 1px solid #e2e2e2;
-      background: #f6f6f6;
-      font-size: 13px;
-    }
+      #shopify-section-{{ section.id }} .desktop-search--inline predictive-search,
+      #shopify-section-{{ section.id }} .desktop-search--inline form {
+        width: 100%;
+      }
 
-    #shopify-section-{{ section.id }} .desktop-search--inline .search-icon {
-      right: 10px;
+      #shopify-section-{{ section.id }} .desktop-search--inline .search-input {
+        width: 100%;
+        height: 36px;
+        padding: 6px 36px 6px 14px;
+        border-radius: 999px;
+        border: 1px solid #e2e2e2;
+        background: #f6f6f6;
+        font-size: 13px;
+      }
+
+      #shopify-section-{{ section.id }} .desktop-search--inline .search-icon {
+        right: 10px;
+      }
     }
 
     {%- if section.settings.header_layout == 'logo_left_navigation_inline' -%}
