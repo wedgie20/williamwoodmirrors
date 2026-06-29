@@ -1009,7 +1009,7 @@ display: none !important;
   align-items: center;
   backdrop-filter: blur(6px);
   background-color: hsla(0, 0%, 96%, .5);
-  border: 2px solid hsla(0, 0%, 6%, .06);
+  border: 2px solid hsla(0, 0%, 6%, .06) ;
   border-radius: 20px;
   font-family: sofiam, sans-serif;
   padding: .5rem .5rem .5rem 1rem;
@@ -1095,11 +1095,11 @@ display: none !important;
   color: #000;
 }
 
-#shopify-section-{{ section.id }} .header-inline-search.active,
-#shopify-section-{{ section.id }} .header-inline-search.show,
-body.search-overlay-open #shopify-section-{{ section.id }} .header-inline-search {
+#shopify-section-{{ section.id }} .header .header-inline-search.active,
+#shopify-section-{{ section.id }} .header .header-inline-search.show,
+body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inline-search {
   background-color: #fbfbfb;
-  border-color: #e8e8e8;
+    border: 2px solid hsla(0, 0%, 6%, .06) ;
   border-radius: 999px;
   box-shadow: none;
   backdrop-filter: none;
@@ -1107,22 +1107,22 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header-inline-search
   padding: .55rem .75rem .55rem 1rem;
 }
 
-#shopify-section-{{ section.id }} .header-inline-search.active .header-inline-search__input,
-#shopify-section-{{ section.id }} .header-inline-search.show .header-inline-search__input,
-body.search-overlay-open #shopify-section-{{ section.id }} .header-inline-search__input {
+#shopify-section-{{ section.id }} .header .header-inline-search.active .header-inline-search__input,
+#shopify-section-{{ section.id }} .header .header-inline-search.show .header-inline-search__input,
+body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inline-search__input {
   color: #000;
   caret-color: #000;
 }
 
-#shopify-section-{{ section.id }} .header-inline-search.active .header-inline-search__input::placeholder,
-#shopify-section-{{ section.id }} .header-inline-search.show .header-inline-search__input::placeholder,
-body.search-overlay-open #shopify-section-{{ section.id }} .header-inline-search__input::placeholder {
+#shopify-section-{{ section.id }} .header .header-inline-search.active .header-inline-search__input::placeholder,
+#shopify-section-{{ section.id }} .header .header-inline-search.show .header-inline-search__input::placeholder,
+body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inline-search__input::placeholder {
   color: #3f3f3f;
 }
 
-#shopify-section-{{ section.id }} .header-inline-search.active .header-inline-search__icon,
-#shopify-section-{{ section.id }} .header-inline-search.show .header-inline-search__icon,
-body.search-overlay-open #shopify-section-{{ section.id }} .header-inline-search__icon {
+#shopify-section-{{ section.id }} .header .header-inline-search.active .header-inline-search__icon,
+#shopify-section-{{ section.id }} .header .header-inline-search.show .header-inline-search__icon,
+body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inline-search__icon {
   color: #000;
 }
 
