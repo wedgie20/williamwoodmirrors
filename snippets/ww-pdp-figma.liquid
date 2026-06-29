@@ -55,8 +55,8 @@
     assign has_variant_discount = true
   endif
 
-  assign promo_code = 'WWJUNE'
-  assign promo_text = 'Take An Extra 15% Off This Item'<br>'Buy Any 2 & Save 20% / 3+ Save 30%'
+  assign promo_code = 'PRIME'
+  assign promo_text = 'Take An Extra 30% Off This Item'
   assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id
 
   assign payment_amount = current_variant.price | divided_by: 3
