@@ -95,11 +95,35 @@
       margin-right: auto;
     }
 
-    #shopify-section-{{ section.id }} .desktop-search {
-      left: 50%;
-      top: 50%;
-      margin-left: 0 !important;
-      transform: translate(-50%, -50%);
+    #shopify-section-{{ section.id }} .desktop-search--inline {
+      position: relative;
+      left: auto;
+      top: auto;
+      margin: 0 8px 0 0 !important;
+      transform: none;
+      width: 220px;
+      max-width: 220px;
+      display: flex;
+      align-items: center;
+    }
+
+    #shopify-section-{{ section.id }} .desktop-search--inline predictive-search,
+    #shopify-section-{{ section.id }} .desktop-search--inline form {
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .desktop-search--inline .search-input {
+      width: 100%;
+      height: 36px;
+      padding: 6px 36px 6px 14px;
+      border-radius: 999px;
+      border: 1px solid #e2e2e2;
+      background: #f6f6f6;
+      font-size: 13px;
+    }
+
+    #shopify-section-{{ section.id }} .desktop-search--inline .search-icon {
+      right: 10px;
     }
 
     {%- if section.settings.header_layout == 'logo_left_navigation_inline' -%}
@@ -352,42 +376,7 @@
         {%- endif -%}
       </div>
 
-      {%- if section.settings.header_layout != 'logo_center_search_open' -%}
-        <div class="desktop-search">
-          <predictive-search>
-            <form action="{{ routes.search_url }}" method="get" role="search">
-              <input
-                class="search-input"
-                id="searchInput"
-                type="search"
-                name="q"
-                role="combobox"
-                aria-expanded="false"
-                aria-owns="predictive-search-results"
-                aria-controls="predictive-search-results"
-                aria-haspopup="listbox"
-                aria-autocomplete="list"
-                placeholder="{{ 'search.general.search_placeholder' | t }}"
-                autocomplete="off"
-              >
-              <input name="options[prefix]" type="hidden" value="last">
-              <button class="search-icon">
-                <svg
-                  fill="none"
-                  focusable="false"
-                  width="15"
-                  height="15"
-
-                  viewBox="0 0 14 14"
-                >
-                  <path d="M9.50184 9.50184C11.4777 7.52595 11.5133 4.358 9.58134 2.42602C7.64936 0.494037 4.48141 0.529632 2.50552 2.50552C0.529632 4.48141 0.494037 7.64936 2.42602 9.58134C4.358 11.5133 7.52595 11.4777 9.50184 9.50184ZM9.50184 9.50184L13 13" stroke="currentColor" stroke-width="1"></path>
-                </svg>
-              </button>
-              <button class="close-icon" data-close-button type="button">{{ settings.close_id }}</button>
-            </form>
-          </predictive-search>
-        </div>
-      {%- endif -%}
+      {%- comment -%} Desktop search bar moved into .header__icon-list (right side, near wishlist/account/cart) {%- endcomment -%}
 
       {%- if request.page_type == 'index' -%}
         <h1 class="header__logo mobile-only">{{ logo }}</h1>
@@ -548,11 +537,43 @@
                   d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
             </svg>
           </a>
-          
-            <a href="{{ routes.search_url  }}" is="toggle-link" class="cloud-search-mobile-open header__icon-wrapper tap-area {% unless section.settings.show_icons %}hidden-desk{% endunless %}" aria-label="{{ 'search.general.title' | t | escape }}" aria-controls="search-drawer" aria-expanded="false">
+
+            {%- comment -%} Mobile search icon - shown only on phone, opens search drawer {%- endcomment -%}
+            <a href="{{ routes.search_url  }}" is="toggle-link" class="cloud-search-mobile-open header__icon-wrapper tap-area hidden-desk" aria-label="{{ 'search.general.title' | t | escape }}" aria-controls="search-drawer" aria-expanded="false">
               <span class="visually-hidden">{{ 'search.general.title' | t }}</span>
               {%- render 'icon' with 'header-search' -%}
             </a>
+
+            {%- comment -%} Desktop search bar - moved here from the middle of the header {%- endcomment -%}
+            {%- if section.settings.header_layout != 'logo_center_search_open' -%}
+              <div class="desktop-search desktop-search--inline hidden-phone">
+                <predictive-search>
+                  <form action="{{ routes.search_url }}" method="get" role="search">
+                    <input
+                      class="search-input"
+                      id="searchInputInline"
+                      type="search"
+                      name="q"
+                      role="combobox"
+                      aria-expanded="false"
+                      aria-owns="predictive-search-results"
+                      aria-controls="predictive-search-results"
+                      aria-haspopup="listbox"
+                      aria-autocomplete="list"
+                      placeholder="{{ 'search.general.search_placeholder' | t }}"
+                      autocomplete="off"
+                    >
+                    <input name="options[prefix]" type="hidden" value="last">
+                    <button class="search-icon" type="submit" aria-label="{{ 'search.general.submit' | t | escape | default: 'Search' }}">
+                      <svg fill="none" focusable="false" width="15" height="15" viewBox="0 0 14 14">
+                        <path d="M9.50184 9.50184C11.4777 7.52595 11.5133 4.358 9.58134 2.42602C7.64936 0.494037 4.48141 0.529632 2.50552 2.50552C0.529632 4.48141 0.494037 7.64936 2.42602 9.58134C4.358 11.5133 7.52595 11.4777 9.50184 9.50184ZM9.50184 9.50184L13 13" stroke="currentColor" stroke-width="1"></path>
+                      </svg>
+                    </button>
+                    <button class="close-icon" data-close-button type="button">{{ settings.close_id }}</button>
+                  </form>
+                </predictive-search>
+              </div>
+            {%- endif -%}
 
           <a
             href="/pages/swym-wishlist"
