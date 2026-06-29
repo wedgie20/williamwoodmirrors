@@ -328,32 +328,7 @@
             </a>
           </div>
 
-          {%- if section.settings.header_layout == 'logo_center_search_open' -%}
-            <div class="header__search-bar predictive-search hidden-pocket">
-              <form class="predictive-search__form" action="{{ routes.search_url }}" method="get" role="search">
-                <input type="hidden" name="type" value="product">
-                <input type="hidden" name="options[prefix]" value="last">
-                <input
-                  type="hidden"
-                  name="options[unavailable_products]"
-                  value="{{ settings.search_unavailable_products }}"
-                >
-                {%- render 'icon' with 'header-search' -%}
-                <input
-                  class="predictive-search__input"
-                  is="predictive-search-input"
-                  type="text"
-                  name="q"
-                  autocomplete="off"
-                  autocorrect="off"
-                  aria-controls="search-drawer"
-                  aria-expanded="false"
-                  aria-label="{{ 'search.general.title' | t }}"
-                  placeholder="{{ 'search.general.search_placeholder' | t }}"
-                >
-              </form>
-            </div>
-          {%- endif -%}
+          {%- comment -%} Old centred search-bar removed; the inline pill is rendered inside .header__icon-list on the right {%- endcomment -%}
         </nav>
         {%- capture logo -%}
         <a class="header__logo-link" href="{{ routes.root_url  }}">
@@ -544,14 +519,13 @@
               {%- render 'icon' with 'header-search' -%}
             </a>
 
-            {%- comment -%} Desktop search bar - moved here from the middle of the header {%- endcomment -%}
-            {%- if section.settings.header_layout != 'logo_center_search_open' -%}
-              <div class="desktop-search desktop-search--inline hidden-phone">
-                <predictive-search>
-                  <form action="{{ routes.search_url }}" method="get" role="search">
-                    <input
-                      class="search-input"
-                      id="searchInputInline"
+            {%- comment -%} Desktop search bar - inline pill on the right, regardless of header_layout {%- endcomment -%}
+            <div class="desktop-search desktop-search--inline hidden-phone">
+              <predictive-search>
+                <form action="{{ routes.search_url }}" method="get" role="search">
+                  <input
+                    class="search-input"
+                    id="searchInputInline"
                       type="search"
                       name="q"
                       role="combobox"
@@ -569,11 +543,10 @@
                         <path d="M9.50184 9.50184C11.4777 7.52595 11.5133 4.358 9.58134 2.42602C7.64936 0.494037 4.48141 0.529632 2.50552 2.50552C0.529632 4.48141 0.494037 7.64936 2.42602 9.58134C4.358 11.5133 7.52595 11.4777 9.50184 9.50184ZM9.50184 9.50184L13 13" stroke="currentColor" stroke-width="1"></path>
                       </svg>
                     </button>
-                    <button class="close-icon" data-close-button type="button">{{ settings.close_id }}</button>
-                  </form>
-                </predictive-search>
-              </div>
-            {%- endif -%}
+                  <button class="close-icon" data-close-button type="button">{{ settings.close_id }}</button>
+                </form>
+              </predictive-search>
+            </div>
 
           <a
             href="/pages/swym-wishlist"
