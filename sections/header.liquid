@@ -1073,6 +1073,25 @@ display: none !important;
   color: #f5f5f5;
 }
 
+#shopify-section-{{ section.id }} .header:not(.header--transparent) .header-inline-search {
+  background-color: transparent;
+  border-color: transparent;
+  backdrop-filter: none;
+  opacity: 1;
+}
+
+#shopify-section-{{ section.id }} .header:not(.header--transparent) .header-inline-search__input {
+  color: #000;
+}
+
+#shopify-section-{{ section.id }} .header:not(.header--transparent) .header-inline-search__input::placeholder {
+  color: #3f3f3f;
+}
+
+#shopify-section-{{ section.id }} .header:not(.header--transparent) .header-inline-search__icon {
+  color: #000;
+}
+
 #shopify-section-{{ section.id }} .header-inline-search__drawer-trigger {
   position: absolute;
   width: 1px;
