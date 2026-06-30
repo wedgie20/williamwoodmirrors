@@ -1204,7 +1204,11 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
   }
 
   #shopify-section-{{ section.id }} .header-inline-search {
-    display: none;
+    display: none !important;
+  }
+
+  body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inline-search {
+    display: none !important;
   }
 
   #shopify-section-{{ section.id }} .header-inline-search__drawer-trigger {
