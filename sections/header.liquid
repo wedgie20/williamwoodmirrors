@@ -1195,29 +1195,41 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
 
 @media screen and (max-width: 999px) {
   #shopify-section-{{ section.id }} .header__secondary-links {
-    flex: 1 1 auto;
+    flex: 0 1 auto;
   }
 
   #shopify-section-{{ section.id }} .header__secondary-links .header__icon-list {
-    gap: 10px;
+    gap: 8px;
     padding-left: 0;
   }
 
   #shopify-section-{{ section.id }} .header-inline-search {
-    display: none !important;
+    display: flex !important;
+    flex: 0 1 clamp(155px, 42vw, 190px);
+    width: clamp(155px, 42vw, 190px);
+    padding: .45rem .5rem .45rem .85rem;
   }
 
   body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inline-search {
-    display: none !important;
+    display: flex !important;
+  }
+
+  #shopify-section-{{ section.id }} .header-inline-search__input {
+    font-size: 12px;
+    padding: 0 1.5rem 0 18px;
+  }
+
+  #shopify-section-{{ section.id }} .header-inline-search__icon {
+    left: .15rem;
   }
 
   #shopify-section-{{ section.id }} .header-inline-search__drawer-trigger {
-    position: relative;
-    width: auto;
-    height: auto;
-    overflow: visible;
-    opacity: 1;
-    pointer-events: auto;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
   }
 }
 
