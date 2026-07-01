@@ -14,7 +14,7 @@
     <div class="ww-pdp-sticky__info">
       {%- if product.featured_image -%}
         <img class="ww-pdp-sticky__thumb"
-             src="{{ product.featured_image | image_url: width: 120 }}"
+             src="{{ settings.speedsize_url_pfx_https -}}{{ product.featured_image | image_url: width: 120 }}"
              alt="{{ product.title | escape }}"
              loading="lazy" width="48" height="48">
       {%- endif -%}
