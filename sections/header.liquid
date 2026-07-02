@@ -549,10 +549,34 @@
             </svg>
           </a>
           
-            <a href="{{ routes.search_url  }}" is="toggle-link" class="cloud-search-mobile-open header__icon-wrapper tap-area {% unless section.settings.show_icons %}hidden-desk{% endunless %}" aria-label="{{ 'search.general.title' | t | escape }}" aria-controls="search-drawer" aria-expanded="false">
-              <span class="visually-hidden">{{ 'search.general.title' | t }}</span>
-              {%- render 'icon' with 'header-search' -%}
-            </a>
+          <predictive-search class="header-inline-search">
+            <form action="{{ routes.search_url }}" method="get" role="search">
+              <input type="hidden" name="type" value="product">
+              <input name="options[prefix]" type="hidden" value="last">
+              <span class="header-inline-search__icon" aria-hidden="true">
+                {%- render 'icon' with 'header-search' -%}
+              </span>
+              <input
+                class="header-inline-search__input"
+                type="search"
+                name="q"
+                placeholder="Search for a product..."
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
+                aria-label="{{ 'search.general.title' | t | escape }}"
+              >
+              <button class="close-icon header-inline-search__close" data-close-button type="button">
+                {%- render 'icon' with 'close' -%}
+              </button>
+            </form>
+          </predictive-search>
+
+          <a href="{{ routes.search_url  }}" is="toggle-link" class="cloud-search-mobile-open header__icon-wrapper tap-area header-inline-search__drawer-trigger" aria-label="{{ 'search.general.title' | t | escape }}" aria-controls="search-drawer" aria-expanded="false">
+            <span class="visually-hidden">{{ 'search.general.title' | t }}</span>
+            {%- render 'icon' with 'header-search' -%}
+          </a>
 
           <a
             href="/pages/swym-wishlist"
@@ -956,6 +980,253 @@ display: none !important;
   color: #f5f5f5;
 }
 
+#shopify-section-{{ section.id }} .header__secondary-links {
+  min-width: 0;
+}
+
+#shopify-section-{{ section.id }} .header__secondary-links .header__icon-list {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 18px;
+  min-width: 0;
+}
+
+#shopify-section-{{ section.id }} .desktop-search,
+#shopify-section-{{ section.id }} .header__search-bar,
+#shopify-section-{{ section.id }} .mobile-searchbar {
+  display: none !important;
+}
+
+#shopify-section-{{ section.id }} .header-inline-search {
+  position: relative;
+  z-index: 1;
+  flex: 0 1 clamp(220px, 22vw, 340px);
+  width: clamp(220px, 20vw, 340px);
+  min-width: 0;
+  height: auto;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(6px);
+  background-color: hsla(0, 0%, 96%, .5);
+  border: 2px solid hsla(0, 0%, 6%, .06) !important;
+  border-radius: 20px;
+  font-family: sofiam, sans-serif;
+  padding: .5rem .5rem .5rem 1rem;
+}
+
+#shopify-section-{{ section.id }} .header-inline-search form {
+  display: block;
+  width: 100%;
+  height: 24px;
+  opacity: 1 !important;
+}
+
+#shopify-section-{{ section.id }} .header-inline-search__input {
+  width: 100%;
+  height: 24px;
+  border: 0;
+  border-bottom: 0 #f5f5f5;
+  background-color: transparent;
+  color: white;
+  font-family: sofiapro_light, sans-serif;
+  font-size: 1rem;
+  line-height: 3rem;
+  outline: none;
+  padding: 0 2rem 0 20px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#shopify-section-{{ section.id }} .header-inline-search__input::placeholder {
+  color: #000;
+  opacity: 1;
+}
+
+#shopify-section-{{ section.id }} .header-inline-search__icon {
+  position: absolute;
+  top: 6px;
+  left: .25rem;
+  z-index: 1;
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+#shopify-section-{{ section.id }} .header-inline-search__icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.template-index #shopify-section-{{ section.id }} .header--transparent .header-inline-search,
+.template-product #shopify-section-{{ section.id }} .header--transparent .header-inline-search {
+  opacity: 0.6;
+}
+
+.template-product #shopify-section-{{ section.id }} .header--transparent .header-inline-search {
+  background-color: #cfcdcb;
+  opacity: 0.8;
+}
+
+.template-index #shopify-section-{{ section.id }} .header--transparent .header-inline-search__input::placeholder,
+.template-product #shopify-section-{{ section.id }} .header--transparent .header-inline-search__input::placeholder {
+  color: #f5f5f5;
+}
+
+#shopify-section-{{ section.id }} .header:not(.header--transparent) .header-inline-search {
+  background-color: transparent;
+  border-color: transparent;
+  backdrop-filter: none;
+  opacity: 1;
+}
+
+#shopify-section-{{ section.id }} .header:not(.header--transparent) .header-inline-search__input {
+  color: #000;
+}
+
+#shopify-section-{{ section.id }} .header:not(.header--transparent) .header-inline-search__input::placeholder {
+  color: #3f3f3f;
+}
+
+#shopify-section-{{ section.id }} .header:not(.header--transparent) .header-inline-search__icon {
+  color: #000;
+}
+
+#shopify-section-{{ section.id }} .header .header-inline-search.active,
+#shopify-section-{{ section.id }} .header .header-inline-search.show,
+body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inline-search {
+  background-color: #fbfbfb;
+    border: 2px solid hsla(0, 0%, 6%, .06) ;
+  border-radius: 999px;
+  box-shadow: none;
+  backdrop-filter: none;
+  opacity: 1;
+  padding: .55rem .75rem .55rem 1rem;
+}
+
+#shopify-section-{{ section.id }} .header .header-inline-search.active .header-inline-search__input,
+#shopify-section-{{ section.id }} .header .header-inline-search.show .header-inline-search__input,
+body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inline-search__input {
+  color: #000;
+  caret-color: #000;
+}
+
+#shopify-section-{{ section.id }} .header .header-inline-search.active .header-inline-search__input::placeholder,
+#shopify-section-{{ section.id }} .header .header-inline-search.show .header-inline-search__input::placeholder,
+body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inline-search__input::placeholder {
+  color: #3f3f3f;
+}
+
+#shopify-section-{{ section.id }} .header .header-inline-search.active .header-inline-search__icon,
+#shopify-section-{{ section.id }} .header .header-inline-search.show .header-inline-search__icon,
+body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inline-search__icon {
+  color: #000;
+}
+
+#shopify-section-{{ section.id }} .header .header-inline-search.active .header-inline-search__input,
+#shopify-section-{{ section.id }} .header .header-inline-search.show .header-inline-search__input,
+body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inline-search__input {
+  padding-right: 36px;
+}
+
+#shopify-section-{{ section.id }} .header-inline-search__drawer-trigger {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#shopify-section-{{ section.id }} .header-inline-search .close-icon {
+  display: none;
+}
+
+#shopify-section-{{ section.id }} .header .header-inline-search.active .header-inline-search__close,
+#shopify-section-{{ section.id }} .header .header-inline-search.show .header-inline-search__close,
+body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inline-search__close {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  color: #000;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  transform: translateY(-50%);
+}
+
+#shopify-section-{{ section.id }} .header-inline-search__close svg {
+  width: 14px;
+  height: 14px;
+}
+
+#shopify-section-{{ section.id }} .header__secondary-links .header__icon-wrapper,
+#shopify-section-{{ section.id }} .header__icon-wrapper--wishlist {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 auto;
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1199px) {
+  #shopify-section-{{ section.id }} .header__secondary-links .header__icon-list {
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .header-inline-search {
+    flex-basis: clamp(210px, 30vw, 320px);
+    width: clamp(210px, 30vw, 320px);
+  }
+
+  #shopify-section-{{ section.id }} .header-inline-search__input {
+    font-size: 1rem;
+    padding-left: 20px;
+  }
+}
+
+@media screen and (max-width: 999px) {
+  #shopify-section-{{ section.id }} .header__secondary-links {
+    flex: 0 1 auto;
+  }
+
+  #shopify-section-{{ section.id }} .header__secondary-links .header__icon-list {
+    gap: 8px;
+    padding-left: 0;
+  }
+
+  #shopify-section-{{ section.id }} .header-inline-search {
+    display: none !important;
+  }
+
+  body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inline-search {
+    display: none !important;
+  }
+
+  #shopify-section-{{ section.id }} .header-inline-search__drawer-trigger {
+    position: relative;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@media screen and (max-width: 740px) {
+  #shopify-section-{{ section.id }} .mobile-search.mobile-search__show {
+    display: block !important;
+  }
+}
+
 .loader-button__text svg.icon.icon--header-cart{
     width: 10px;
     height: 10px;
@@ -967,12 +1238,28 @@ display: none !important;
   <script>
     document.addEventListener('DOMContentLoaded', function () {
   var searchInput = document.querySelector('.mobile-searchbar input');
+  var inlineSearchInput = document.querySelector('.header-inline-search__input');
   var cloudSearchBtn = document.querySelector('.cloud-search-mobile-open');
-  if (searchInput && cloudSearchBtn) {
-    searchInput.addEventListener('click', function () {
-      document.querySelector('.mobile-searchbar').style.display = 'none';
+  var openSearch = function () {
+    if (!cloudSearchBtn || document.querySelector('#quick-search-content.show')) {
+      return;
+    }
+
+    var mobileSearchbar = document.querySelector('.mobile-searchbar');
+    if (mobileSearchbar) {
+      mobileSearchbar.style.display = 'none';
+    }
+
       cloudSearchBtn.click();
-    });
+  };
+
+  if (searchInput) {
+    searchInput.addEventListener('click', openSearch);
+  }
+
+  if (inlineSearchInput) {
+    inlineSearchInput.addEventListener('focus', openSearch);
+    inlineSearchInput.addEventListener('click', openSearch);
   }
 });
   </script>

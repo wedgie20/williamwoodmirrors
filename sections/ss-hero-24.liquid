@@ -102,6 +102,14 @@
     }
   }
 
+  .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] .hero-buttons-{{ section.id }} {
+    order: 20;
+  }
+
+  .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] .hero-text-after-buttons {
+    order: 30;
+  }
+
   /* Slide 1 - mobile & tablet (< 1024px): center everything, fix line-height, side-by-side buttons */
   @media (max-width: 1023px) {
     .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] {
@@ -139,6 +147,21 @@
 
   .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] .hero-text-after-buttons {
     order: 30;
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .hero-content-{{ section.id }} {
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 170px;
+    }
+
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] {
+      max-width: 92% !important;
+    }
+
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] .hero-text-after-buttons {
+      margin-top: 14px !important;
+    }
   }
 
   .section-{{ section.id }} {
@@ -788,7 +811,7 @@
   ================================================ */
   @media screen and (max-width: 1023px) {
     .hero-shop-scene-btn-wrap-{{ section.id }} {
-      top: 175px;
+      top: 125px;
       bottom: auto;
       gap: 8px;
       padding: 6px 10px 6px 12px;
