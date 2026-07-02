@@ -1204,34 +1204,11 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
   }
 
   #shopify-section-{{ section.id }} .header-inline-search {
-    display: flex !important;
-    flex: 0 1 clamp(155px, 42vw, 190px);
-    width: clamp(155px, 42vw, 190px);
-    padding: .45rem .5rem .45rem .85rem;
+    display: none !important;
   }
 
   body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inline-search {
-    display: flex !important;
-  }
-
-  #shopify-section-{{ section.id }} .header-inline-search__input {
-    font-size: 12px;
-    color: #000;
-    padding: 0 1.5rem 0 18px;
-  }
-
-  #shopify-section-{{ section.id }} .header-inline-search__input::placeholder {
-    color: transparent;
-    opacity: 0;
-  }
-
-  #shopify-section-{{ section.id }} .header-inline-search__icon {
-    left: .15rem;
-  }
-
-  #shopify-section-{{ section.id }} .header--transparent .header-inline-search__input::placeholder {
-    color: transparent;
-    opacity: 0;
+    display: none !important;
   }
 
   #shopify-section-{{ section.id }} .mobile-search.mobile-search__show {
@@ -1239,12 +1216,12 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
   }
 
   #shopify-section-{{ section.id }} .header-inline-search__drawer-trigger {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    opacity: 0;
-    pointer-events: none;
+    position: relative;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    opacity: 1;
+    pointer-events: auto;
   }
 }
 
