@@ -1211,10 +1211,6 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
     display: none !important;
   }
 
-  #shopify-section-{{ section.id }} .mobile-search.mobile-search__show {
-    display: none !important;
-  }
-
   #shopify-section-{{ section.id }} .header-inline-search__drawer-trigger {
     position: relative;
     width: auto;
@@ -1222,6 +1218,12 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
     overflow: visible;
     opacity: 1;
     pointer-events: auto;
+  }
+}
+
+@media screen and (max-width: 740px) {
+  #shopify-section-{{ section.id }} .mobile-search.mobile-search__show {
+    display: block !important;
   }
 }
 
