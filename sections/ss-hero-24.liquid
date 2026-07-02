@@ -102,6 +102,14 @@
     }
   }
 
+  .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] .hero-buttons-{{ section.id }} {
+    order: 20;
+  }
+
+  .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] .hero-text-after-buttons {
+    order: 30;
+  }
+
   /* Slide 1 - mobile & tablet (< 1024px): center everything, fix line-height, side-by-side buttons */
   @media (max-width: 1023px) {
     .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] {
@@ -130,6 +138,22 @@
     [data-slide-content-index="0"] .hero-buttons-{{ section.id }} {
       justify-content: center !important;
       flex-wrap: nowrap !important;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .hero-content-{{ section.id }} {
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 170px;
+    }
+
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] {
+      max-width: 92% !important;
+    }
+
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] .hero-text-after-buttons {
+      margin-top: 14px !important;
     }
   }
 
@@ -2189,10 +2213,15 @@
                 data-slide-content-index="{{ content_idx }}"
                 style="--slide-max-width: {{ slide_content_max_width }}%; --slide-text-align: {{ slide_content_align }}; --slide-text-align-mobile: {{ slide_content_align_mobile }}; --slide-vertical-align: {{ slide_content_vertical_align }}; --slide-vertical-align-mobile: {{ slide_content_vertical_align_mobile }}; --slide-buttons-justify: {{ slide_justify }}; --slide-buttons-justify-mobile: {{ slide_justify_mobile }}; --slide-margin-left: {{ slide_margin_left }}; --slide-margin-right: {{ slide_margin_right }}; --slide-margin-left-mobile: {{ slide_margin_left_mobile }}; --slide-margin-right-mobile: {{ slide_margin_right_mobile }};"
               >
+                {% assign has_seen_slide_button = false %}
                 {% for block in section.blocks %}
                   {% assign block_slide = block.settings.slide_number | default: 'all' %}
                   {% if block_slide == slide_num_str or block_slide == 'all' %}
                     {% case block.type %}
+                      {% when 'button' %}
+                        {% if block.settings.button != blank %}
+                          {% assign has_seen_slide_button = true %}
+                        {% endif %}
                       {% when 'heading' %}
                         {% if block.settings.heading != blank %}
                           <div class="hero-heading-{{ block.id }}" {{ block.shopify_attributes }}>
@@ -2201,7 +2230,7 @@
                         {% endif %}
                       {% when 'text' %}
                         {% if block.settings.text != blank %}
-                          <div class="hero-text-{{ block.id }}" {{ block.shopify_attributes }}>
+                          <div class="hero-text-{{ block.id }}{% if slide_num_str == '1' and has_seen_slide_button %} hero-text-after-buttons{% endif %}" {{ block.shopify_attributes }}>
                             {{ block.settings.text }}
                           </div>
                         {% endif %}
