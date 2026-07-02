@@ -442,7 +442,7 @@
       <div class="ww-pdp_designed_div">
       <p class="ww-pdp__label">{{ product_label }}</p>
       
-{% if product.tags contains 'in-house' %}<div class="ww-pdp__designed">Designed in-house by <strong>WILLIAM WOOD</strong></div>{% endif %}
+{% if product.tags contains 'in-house' %}<a class="ww-pdp__designed" href="/collections/designed-in-house-by-william-wood">Designed in-house by <strong>WILLIAM WOOD</strong></a>{% endif %}
       </div>
       <h1 class="ww-pdp__title">{{ display_product_heading }}</h1>
 
@@ -1085,6 +1085,13 @@
     font-size: 13px;
     line-height: 1;
     margin-left: 10px;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .ww-pdp__designed:hover {
+    color: inherit;
+    text-decoration: none;
   }
 
   .ww-pdp__designed strong {
