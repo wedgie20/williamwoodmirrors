@@ -271,7 +271,9 @@
       assign normalized_detail_line = description_detail_line | replace: 'â€“', '-' | replace: 'â€”', '-'
       assign detail_label = ''
       assign detail_value = ''
+      assign detail_value_markup = ''
       assign description_detail_rich_line = description_detail_rich_lines[forloop.index0] | default: ''
+      assign description_detail_rich_line_clean = description_detail_rich_line | replace: '<li>', '' | replace: '</li>', '' | replace: '<p>', '' | replace: '</p>', '' | replace: '<ul>', '' | replace: '</ul>', '' | replace: '<ol>', '' | replace: '</ol>', '' | strip
       assign is_bold_detail_line = false
 
       if description_detail_rich_line contains '<strong' or description_detail_rich_line contains '<b'
@@ -291,7 +293,13 @@
         continue
       endunless
 
-      if normalized_detail_line contains 'Product Care Information'
+      if normalized_detail_line contains 'Overall Size'
+        assign detail_label = 'Overall Size'
+        assign detail_value = normalized_detail_line | split: 'Overall Size' | last | remove_first: '-' | remove_first: ':' | strip
+      elsif normalized_detail_line contains 'Dimensions'
+        assign detail_label = 'Overall Size'
+        assign detail_value = normalized_detail_line | split: 'Dimensions' | last | remove_first: '-' | remove_first: ':' | strip
+      elsif normalized_detail_line contains 'Product Care Information'
         assign detail_label = 'Product Care Information'
         assign detail_value = normalized_detail_line | split: 'Product Care Information' | last | remove_first: '-' | remove_first: ':' | strip
       elsif normalized_detail_line contains '-'
@@ -301,10 +309,27 @@
         assign detail_label = normalized_detail_line | split: ':' | first | strip
         assign detail_value = normalized_detail_line | remove_first: detail_label | remove_first: ':' | strip
       endif
+
+      assign detail_value_markup = detail_value
+      if is_bold_detail_line and detail_label != blank and detail_value != blank
+        if normalized_detail_line contains 'Overall Size'
+          assign detail_value_markup = description_detail_rich_line_clean | split: 'Overall Size' | last | remove_first: '</strong>' | remove_first: '</b>' | remove_first: '-' | remove_first: ':' | strip
+        elsif normalized_detail_line contains 'Dimensions'
+          assign detail_value_markup = description_detail_rich_line_clean | split: 'Dimensions' | last | remove_first: '</strong>' | remove_first: '</b>' | remove_first: '-' | remove_first: ':' | strip
+        elsif normalized_detail_line contains 'Product Care Information'
+          assign detail_value_markup = description_detail_rich_line_clean | split: 'Product Care Information' | last | remove_first: '</strong>' | remove_first: '</b>' | remove_first: '-' | remove_first: ':' | strip
+        elsif description_detail_rich_line_clean contains ' - '
+          assign detail_value_markup = description_detail_rich_line_clean | split: ' - ' | last | strip
+        elsif description_detail_rich_line_clean contains ':'
+          assign detail_value_markup = description_detail_rich_line_clean | split: ':' | last | strip
+        elsif description_detail_rich_line_clean contains '-'
+          assign detail_value_markup = description_detail_rich_line_clean | split: '-' | last | strip
+        endif
+      endif
     -%}
 
     {%- if detail_label != blank and detail_value != blank -%}
-      <div class="ww-pdp__detail-item"><strong>{{ detail_label }}</strong><p>{{ detail_value }}</p></div>
+      <div class="ww-pdp__detail-item ww-pdp__detail-item--inline"><p><strong>{{ detail_label }}</strong> - {{ detail_value_markup }}</p></div>
     {%- elsif normalized_detail_line != blank -%}
       <div class="ww-pdp__detail-item"><p>{% if is_bold_detail_line %}<strong>{{ normalized_detail_line }}</strong>{% else %}{{ normalized_detail_line }}{% endif %}</p></div>
     {%- endif -%}
@@ -446,12 +471,30 @@
 
       {%- if product.description != blank -%}
         {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
-        <div class="ww-pdp__excerpt">
-          <h3 class="ww-pdp__excerpt-heading">Product Description</h3>
-          <div class="ww-pdp__excerpt-text" data-ww-excerpt-text>
-            {{ desc_clean }}
+        <div class="product_description_dropdown">
+          <button type="button" class="product-description-toggle" aria-expanded="false">
+            <span>Product Description</span>
+            <span class="toggle-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="product-description-content">
+            <div class="ww-pdp__accordion-inner">
+              {{ desc_clean }}
+            </div>
           </div>
-          <button type="button" data-ww-read-more aria-expanded="false">Read more</button>
+        </div>
+      {%- endif -%}
+
+      {%- if description_key_details_items != blank -%}
+        <div class="key_details_dropdown">
+          <button type="button" class="key-details-toggle" aria-expanded="false">
+            <span>Key Details</span>
+            <span class="toggle-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="key-details-content">
+            <div class="ww-pdp__accordion-inner">
+              {{ description_key_details_items }}
+            </div>
+          </div>
         </div>
       {%- endif -%}
 
@@ -1209,6 +1252,62 @@
     cursor: pointer;
   }
 
+  .product_description_dropdown,
+  .key_details_dropdown {
+    border-top: 1px solid #e5e5e5;
+    margin-bottom: 10px;
+  }
+
+  .product-description-toggle,
+  .key-details-toggle {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border: 0;
+    background: transparent;
+    color: #111;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .toggle-icon {
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  .product-description-content,
+  .key-details-content {
+    height: 0;
+    overflow: hidden;
+    transition: height .34s cubic-bezier(.25, .46, .45, .94);
+  }
+
+  .ww-pdp__accordion-inner {
+    padding-bottom: 15px;
+  }
+
+  .product-description-content .ww-pdp__accordion-inner {
+    font-size: 14px;
+    line-height: 1.65;
+    font-family: "Gotham Book";
+    -webkit-font-smoothing: auto;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media screen and (max-width: 999px) {
+    .product-description-content .ww-pdp__accordion-inner {
+      font-size: 14px;
+      line-height: 1.65;
+      margin-bottom: 30px;
+      font-family: "Gotham Book";
+      font-weight: 400;
+    }
+  }
+
   .ww-pdp__promo,
   .ww-pdp__payments {
     border: 1px solid #dedede;
@@ -1589,7 +1688,7 @@
   }
 
   .ww-pdp__details {
-    display: grid;
+    display: none !important;
     grid-template-columns: minmax(0, 59%) minmax(0, 41%);
     {% comment %} gap: 50px; {% endcomment %}
     padding: 112px 52px 52px;
@@ -1618,7 +1717,7 @@
   }
 
   .ww-pdp__detail-item {
-    margin-bottom: 32px;
+    margin-bottom: 15px;
   }
 
   .ww-pdp__detail-item strong {
@@ -1628,11 +1727,17 @@
     line-height: 1.2;
   }
 
+  .ww-pdp__detail-item--inline strong {
+    display: inline;
+    margin-bottom: 0;
+  }
+
   .ww-pdp__detail-item p,
   .ww-pdp__detail-item em {
     display: block;
     margin: 0;
     font-size: 14px;
+    font-family: 'Gotham Book';
   }
 
   .ww-pdp__detail-item em {
@@ -3152,6 +3257,53 @@
         text.classList.toggle('is-expanded', !isExpanded);
         button.textContent = isExpanded ? 'Read more' : 'Read less';
         button.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+      });
+    });
+
+    [
+      { toggle: '.product-description-toggle', content: '.product-description-content', wrapper: '.product_description_dropdown' },
+      { toggle: '.key-details-toggle', content: '.key-details-content', wrapper: '.key_details_dropdown' }
+    ].forEach(function (dropdown) {
+      var toggle = root.querySelector(dropdown.toggle);
+      var content = root.querySelector(dropdown.content);
+      var wrapper = root.querySelector(dropdown.wrapper);
+      var icon = toggle ? toggle.querySelector('.toggle-icon') : null;
+      if (!toggle || !content) return;
+      var inner = content.querySelector('.ww-pdp__accordion-inner') || content;
+
+      content.hidden = true;
+
+      toggle.addEventListener('click', function () {
+        var isOpen = toggle.getAttribute('aria-expanded') === 'true';
+        if (isOpen) {
+          content.style.height = inner.scrollHeight + 'px';
+          content.offsetHeight;
+          content.classList.remove('active');
+          content.style.height = '0px';
+          if (wrapper) wrapper.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+          if (icon) icon.textContent = '+';
+          content.addEventListener('transitionend', function onCloseEnd(event) {
+            if (event.propertyName !== 'height') return;
+            content.hidden = true;
+            content.removeEventListener('transitionend', onCloseEnd);
+          });
+          return;
+        }
+
+        content.hidden = false;
+        content.style.height = '0px';
+        content.offsetHeight;
+        content.classList.add('active');
+        if (wrapper) wrapper.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+        if (icon) icon.textContent = '-';
+        content.style.height = inner.scrollHeight + 'px';
+        content.addEventListener('transitionend', function onOpenEnd(event) {
+          if (event.propertyName !== 'height') return;
+          content.style.height = 'auto';
+          content.removeEventListener('transitionend', onOpenEnd);
+        });
       });
     });
 
