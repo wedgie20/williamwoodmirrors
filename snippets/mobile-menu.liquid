@@ -102,11 +102,12 @@
               {%- if link.links.size > 0 -%}
                 <ul class="mobile-nav list--unstyled" role="list">
                   {%- for sub_link in link.links -%}
+                    {%- assign sub_link_title_handle = sub_link.title | strip | handle -%}
                     <li class="mobile-nav__item" data-level="2">
                       {%- if sub_link.links.size > 0 -%}
                         <button
                           is="toggle-button"
-                          class="mobile-nav__link"
+                          class="mobile-nav__link{% if sub_link_title_handle == 'lamps' %} mobile-nav__link--regular{% endif %}"
                           aria-controls="mobile-menu-{{ forloop.parentloop.index }}-{{ forloop.index }}"
                           aria-expanded="false"
                         >
@@ -120,14 +121,15 @@
                         >
                           <ul class="mobile-nav list--unstyled" role="list">
                             {%- for sub_sub_link in sub_link.links -%}
+                              {%- assign sub_sub_link_title_handle = sub_sub_link.title | strip | handle -%}
                               <li class="mobile-nav__item" data-level="3">
-                                <a href="{{ sub_sub_link.url  }}" class="mobile-nav__link">{{ sub_sub_link.title }}</a>
+                                <a href="{{ sub_sub_link.url  }}" class="mobile-nav__link{% if sub_sub_link_title_handle == 'lamps' %} mobile-nav__link--regular{% endif %}">{{ sub_sub_link.title }}</a>
                               </li>
                             {%- endfor -%}
                           </ul>
                         </collapsible-content>
                       {%- else -%}
-                        <a href="{{ sub_link.url  }}" class="mobile-nav__link">{{ sub_link.title }}</a>
+                        <a href="{{ sub_link.url  }}" class="mobile-nav__link{% if sub_link_title_handle == 'lamps' %} mobile-nav__link--regular{% endif %}">{{ sub_link.title }}</a>
                       {%- endif -%}
                     </li>
                   {%- endfor -%}
@@ -196,9 +198,10 @@
             </a>
             
             {% else %}
+            {%- assign link_title_handle = link.title | strip | handle -%}
             <a
               href="{{ link.url  }}"
-              class="{% if link.title contains ' - ' %}have-two-parts{% endif %} mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
+              class="{% if link.title contains ' - ' %}have-two-parts{% endif %} mobile-nav__link{% if link_title_handle == 'lamps' %} mobile-nav__link--regular{% endif %} heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
             >
             {% if localization.country.iso_code != 'GB' %}
               {%- if link.title contains ' - ' -%}
@@ -543,6 +546,11 @@ a.have-two-parts.mobile-nav__link .title-part-2 {
 
 .mobile-nav__item a[href*="/collections/lamps"],
 .mobile-nav__item a[href*="/collections/new-lamps"] {
+  font-weight: 400 !important;
+}
+
+.mobile-nav__link--regular,
+.mobile-nav__link--regular * {
   font-weight: 400 !important;
 }
 
