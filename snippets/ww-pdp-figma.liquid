@@ -82,10 +82,12 @@
       echo detail_height
       echo ' x '
       echo detail_width
-      if detail_depth != blank
-        echo ' x '
-        echo detail_depth
-      endif
+      unless product.type == 'Mirror'
+        if detail_depth != blank
+          echo ' x '
+          echo detail_depth
+        endif
+      endunless
     endcapture
     assign title_dimensions = title_dimensions | strip
   endif
