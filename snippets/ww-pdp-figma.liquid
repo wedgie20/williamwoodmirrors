@@ -82,6 +82,10 @@
       echo detail_width
       echo ' x '
       echo detail_height
+      if detail_depth != blank
+        echo ' x '
+        echo detail_depth
+      endif
     endcapture
     assign title_dimensions = title_dimensions | strip
   endif
@@ -131,7 +135,7 @@
     endif
   endif
 
-  if has_title_measurement_suffix and title_dimensions != blank
+  if title_dimensions != blank
     capture title_measurement_suffix
       if has_three_part_title_measurement_suffix
         echo first_dimension_word
@@ -145,17 +149,14 @@
       echo ' '
       echo last_word
     endcapture
-    if has_three_part_title_measurement_suffix and detail_depth != blank
-      capture title_dimensions
-        echo title_dimensions
-        echo ' x '
-        echo detail_depth
-      endcapture
-      assign title_dimensions = title_dimensions | strip
+    if has_title_measurement_suffix
+      assign title_measurement_suffix = title_measurement_suffix | strip
+      assign display_product_heading = product_heading | split: title_measurement_suffix | first | strip | append: ' ' | append: title_dimensions | strip
+      assign display_product_title = product.title | split: title_measurement_suffix | first | strip | append: ' ' | append: title_dimensions | strip
+    else
+      assign display_product_heading = product_heading | append: ' ' | append: title_dimensions | strip
+      assign display_product_title = product.title | append: ' ' | append: title_dimensions | strip
     endif
-    assign title_measurement_suffix = title_measurement_suffix | strip
-    assign display_product_heading = product_heading | split: title_measurement_suffix | first | strip | append: ' ' | append: title_dimensions | strip
-    assign display_product_title = product.title | split: title_measurement_suffix | first | strip | append: ' ' | append: title_dimensions | strip
   endif
 -%}
 
