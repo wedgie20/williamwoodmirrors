@@ -124,13 +124,25 @@
     assign second_x_word_lc = second_x_word | downcase
     assign first_dimension_word_lc = first_dimension_word | downcase
 
-    if last_word_lc contains 'cm' and x_word_lc == 'x' and before_x_word_lc contains 'cm'
+    if last_word_lc contains 'cm' and before_x_word_lc contains 'cm'
+      if x_word_lc == 'x' or x_word_lc == '×' or x_word_lc == '&times;'
+        assign has_title_measurement_suffix = true
+      endif
+    endif
+
+    if has_title_measurement_suffix == false and last_word_lc contains 'cm' and x_word_lc contains 'x' and before_x_word_lc contains 'cm'
+      assign has_title_measurement_suffix = true
+    endif
+
+    if has_title_measurement_suffix == false and last_word_lc contains 'cm' and x_word != blank and before_x_word_lc contains 'cm'
       assign has_title_measurement_suffix = true
     endif
 
     if heading_word_count > 4
-      if has_title_measurement_suffix and second_x_word_lc == 'x' and first_dimension_word_lc contains 'cm'
-        assign has_three_part_title_measurement_suffix = true
+      if has_title_measurement_suffix and first_dimension_word_lc contains 'cm'
+        if second_x_word_lc == 'x' or second_x_word_lc == '×' or second_x_word_lc == '&times;' or second_x_word_lc contains 'x'
+          assign has_three_part_title_measurement_suffix = true
+        endif
       endif
     endif
   endif
