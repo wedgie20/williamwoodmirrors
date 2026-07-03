@@ -77,11 +77,11 @@
   assign display_product_title = product.title
   assign title_dimensions = ''
 
-  if detail_width != blank and detail_height != blank
+  if detail_height != blank and detail_width != blank
     capture title_dimensions
-      echo detail_width
-      echo ' x '
       echo detail_height
+      echo ' x '
+      echo detail_width
       if detail_depth != blank
         echo ' x '
         echo detail_depth
