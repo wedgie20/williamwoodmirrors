@@ -75,6 +75,7 @@
 
   assign display_product_heading = product_heading
   assign display_product_title = product.title
+  assign display_title_measurement = ''
   assign title_dimensions = ''
 
   if detail_height != blank and detail_width != blank
@@ -153,6 +154,7 @@
   endif
 
   if title_dimensions != blank
+    assign display_title_measurement = title_dimensions
     if has_title_measurement_suffix
       assign title_measurement_word_count = 3
       if has_three_part_title_measurement_suffix
@@ -169,14 +171,14 @@
           endif
         endfor
       endcapture
-      assign display_product_heading = title_text_without_measurement | strip | append: ' ' | append: title_dimensions | strip
+      assign display_product_heading = title_text_without_measurement | strip
       if title_parts.size > 1
-        assign display_product_title = product_label | append: ' - ' | append: display_product_heading
+        assign display_product_title = product_label | append: ' - ' | append: display_product_heading | append: ' ' | append: title_dimensions
       else
-        assign display_product_title = display_product_heading
+        assign display_product_title = display_product_heading | append: ' ' | append: title_dimensions
       endif
     else
-      assign display_product_heading = product_heading | append: ' ' | append: title_dimensions | strip
+      assign display_product_heading = product_heading
       assign display_product_title = product.title | append: ' ' | append: title_dimensions | strip
     endif
   endif
@@ -467,7 +469,12 @@
       
 {% if product.tags contains 'in-house' %}<a class="ww-pdp__designed" href="/collections/designed-in-house-by-william-wood">Designed in-house by <strong>WILLIAM WOOD</strong></a>{% endif %}
       </div>
-      <h1 class="ww-pdp__title">{{ display_product_heading }}</h1>
+      <h1 class="ww-pdp__title">
+        <span class="ww-pdp__title-text">{{ display_product_heading }}</span>
+        {%- if display_title_measurement != blank -%}
+          <span class="ww-pdp__title-measurement">{{ display_title_measurement }}</span>
+        {%- endif -%}
+      </h1>
 
       <div class="ww-pdp__price-row">
         <span class="ww-pdp__price-group {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
@@ -1138,6 +1145,11 @@
     font-size: 24px;
     line-height: 1.08;
     font-weight: 700;
+  }
+
+  .ww-pdp__title-text,
+  .ww-pdp__title-measurement {
+    display: block;
   }
 
   .ww-pdp__title-dims {
