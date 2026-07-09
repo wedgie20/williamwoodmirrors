@@ -61,7 +61,7 @@
   assign promo_note = ''
 
   assign home_accessories_match = product.collections | where: 'handle', 'home-accessories'
-  assign mirrors_match = product.collections | where: 'handle', 'length-mirrors'
+  assign mirrors_match = product.collections | where: 'handle', 'full-length-mirrors'
 
   if home_accessories_match.size > 0
     assign promo_text = '3 for 2'
