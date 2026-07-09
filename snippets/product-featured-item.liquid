@@ -186,29 +186,130 @@
           <a class="product-item-meta__vendor heading heading--xsmall" href="{{ product.vendor | url_for_vendor  }}">{{ product.vendor }}</a>
         {%- endunless -%}
       {%- endif -%}
+{%- liquid
+  assign card_detail_height = product.metafields.custom.height.value | default: product.metafields.custom.height
+  assign card_detail_width = product.metafields.custom.width.value | default: product.metafields.custom.width
+  assign card_detail_depth = product.metafields.custom.depth.value | default: product.metafields.custom.depth
+  assign card_title_measurement = ''
+  assign card_is_mirror = false
+
+  if product.type == 'Mirror' or product.type == 'Mirrors'
+    assign card_is_mirror = true
+  endif
+
+  if card_detail_height != blank and card_detail_width != blank
+    capture card_title_measurement
+      echo card_detail_height
+      echo ' x '
+      echo card_detail_width
+      unless card_is_mirror
+        if card_detail_depth != blank
+          echo ' x '
+          echo card_detail_depth
+        endif
+      endunless
+    endcapture
+    assign card_title_measurement = card_title_measurement | strip
+  endif
+
+  assign card_title_words = product.title | split: ' '
+  assign card_title_word_count = card_title_words.size
+  assign card_title_without_measurement = product.title
+  assign card_has_measurement_suffix = false
+  assign card_has_three_part_measurement_suffix = false
+
+  if card_title_word_count > 2
+    assign card_last_word_position = card_title_word_count
+    assign card_x_word_position = card_title_word_count | minus: 1
+    assign card_before_x_word_position = card_title_word_count | minus: 2
+    assign card_second_x_word_position = card_title_word_count | minus: 3
+    assign card_first_dimension_word_position = card_title_word_count | minus: 4
+    assign card_last_word = ''
+    assign card_x_word = ''
+    assign card_before_x_word = ''
+    assign card_second_x_word = ''
+    assign card_first_dimension_word = ''
+
+    for card_title_word in card_title_words
+      if forloop.index == card_last_word_position
+        assign card_last_word = card_title_word
+      elsif forloop.index == card_x_word_position
+        assign card_x_word = card_title_word
+      elsif forloop.index == card_before_x_word_position
+        assign card_before_x_word = card_title_word
+      elsif forloop.index == card_second_x_word_position
+        assign card_second_x_word = card_title_word
+      elsif forloop.index == card_first_dimension_word_position
+        assign card_first_dimension_word = card_title_word
+      endif
+    endfor
+
+    assign card_last_word_lc = card_last_word | downcase
+    assign card_x_word_lc = card_x_word | downcase
+    assign card_before_x_word_lc = card_before_x_word | downcase
+    assign card_second_x_word_lc = card_second_x_word | downcase
+    assign card_first_dimension_word_lc = card_first_dimension_word | downcase
+
+    if card_last_word_lc contains 'cm' and card_before_x_word_lc contains 'cm'
+      if card_x_word_lc == 'x' or card_x_word_lc == '&times;' or card_x_word_lc contains 'x'
+        assign card_has_measurement_suffix = true
+      endif
+    endif
+
+    if card_title_word_count > 4
+      if card_has_measurement_suffix and card_first_dimension_word_lc contains 'cm'
+        if card_second_x_word_lc == 'x' or card_second_x_word_lc == '&times;' or card_second_x_word_lc contains 'x'
+          assign card_has_three_part_measurement_suffix = true
+        endif
+      endif
+    endif
+  endif
+
+  if card_has_measurement_suffix
+    assign card_measurement_word_count = 3
+    if card_has_three_part_measurement_suffix
+      assign card_measurement_word_count = 5
+    endif
+    assign card_title_word_limit = card_title_word_count | minus: card_measurement_word_count
+    capture card_title_without_measurement
+      for card_title_word in card_title_words
+        if forloop.index <= card_title_word_limit
+          echo card_title_word
+          unless forloop.index == card_title_word_limit
+            echo ' '
+          endunless
+        endif
+      endfor
+    endcapture
+    assign card_title_without_measurement = card_title_without_measurement | strip
+  endif
+-%}
 {% if product.title contains 'Corylus Branch' %}
   <b>Corylus Branch</b><br>100cm Pieces Brown x3
 {% elsif product.title contains 'Ella Grande - Gold' %}
-  <b>Ella Grande</b><br>Gold Ornate Floor Mirror 190cm x 140cm
+  <b>Ella Grande</b><br>Gold Ornate Floor Mirror
 {% elsif product.title contains 'Ella Grande - Champagne' %}
-  <b>Ella Grande</b><br>Champagne Ornate Floor Mirror 190cm x 140cm
+  <b>Ella Grande</b><br>Champagne Ornate Floor Mirror
 {% elsif product.title contains 'Gift Card' %}
   <b>E-Gift Card</b>
 {% elsif product.title contains 'Arcurva Noir - Extra Large' %}
-<a href="{{ product.url }}"><strong style="display: block;">Arcurva Noir</strong><span style="display: block;">Extra Large Full Length Black Irregular Mirror 180cm x 116cm</span></a>
+<a href="{{ product.url }}"><strong style="display: block;">Arcurva Noir</strong><span style="display: block;">Extra Large Full Length Black Irregular Mirror</span></a>
 {% elsif product.title contains 'Arcurva Noir - Large' %}
-<a href="{{ product.url }}"><strong style="display: block;">Arcurva Noir</strong><span style="display: block;">Large Full Length Black Irregular Mirror 170cm x 85cm</span></a>
+<a href="{{ product.url }}"><strong style="display: block;">Arcurva Noir</strong><span style="display: block;">Large Full Length Black Irregular Mirror</span></a>
 {% elsif product.title contains 'Wabi-Sabi - Concrete' %}
-<a href="{{ product.url }}"><strong style="display: block;">Wabi-Sabi</strong><span style="display: block;">Concrete Irregular Wall Mirror 80cm x 72cm</span></a>
+<a href="{{ product.url }}"><strong style="display: block;">Wabi-Sabi</strong><span style="display: block;">Concrete Irregular Wall Mirror</span></a>
 {% elsif product.title contains 'Wabi-Sabi - Large Concrete' %}
-<a href="{{ product.url }}"><strong style="display: block;">Wabi-Sabi</strong><span style="display: block;">Large Concrete Irregular Wall Mirror 119cm x 76cm</span></a>
+<a href="{{ product.url }}"><strong style="display: block;">Wabi-Sabi</strong><span style="display: block;">Large Concrete Irregular Wall Mirror</span></a>
 {% elsif product.title contains 'Wabi-Sabi - Large Full Length' %}
-<a href="{{ product.url }}"><strong style="display: block;">Wabi-Sabi</strong><span style="display: block;">Large Full Length Concrete Irregular Mirror 170cm x 80cm</span></a>
+<a href="{{ product.url }}"><strong style="display: block;">Wabi-Sabi</strong><span style="display: block;">Large Full Length Concrete Irregular Mirror</span></a>
 {% else %}
-    {% assign title_words = product.title | split: ' ' %}
+    {% assign title_words = card_title_without_measurement | split: ' ' %}
   {% assign first_word = title_words[0] | replace: '-', '' %}
   <a href="{{ product.url }}"><strong style="display: block;">{{ first_word }}</strong><span style="display: block; text-transform: inherit !important; margin-top: 2px;">{{ title_words | join: ' ' | remove: '-' | remove: first_word }}</span></a>
 {% endif %}
+{%- if card_title_measurement != blank -%}
+  <div class="product-item-meta__measurement">{{ card_title_measurement }}</div>
+{%- endif -%}
 {% if request.path != "/en-international" %}
       <div class="product-item-meta__price-list-container">
         <div class="price-list price-list--centered">
@@ -312,6 +413,9 @@
           {%- endif -%}
         </div>
       </div>
+      {%- if card_title_measurement != blank -%}
+  <div class="product-item-meta__measurement">{{ card_title_measurement }}</div>
+{%- endif -%}
        {% assign collectionhandles = product.collections | map: 'handle' | join: ',' %}
       <div class="ups-tag">
          {% comment %} {% unless product.tags contains 'pre-order' %}
@@ -334,7 +438,7 @@
                 <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
             </span>
-            30-Day Money Back Guarantee
+            30-Day Money Back Guarantee 
           </div>
         {% comment %} <div class="guarantee-item" {% unless product.tags contains 'MarchPush' %}style="font-size: 13px;"{% else %}style="font-size: 13px; display: none;"{% endunless %}> {% endcomment %}
    <div class="guarantee-item imhere" style="display: none" {% if product.tags contains 'MarchPush' %}style="font-size: 13px;"{% else %}style="font-size: 13px; display: none;"{% endif %}>

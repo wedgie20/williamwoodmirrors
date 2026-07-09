@@ -75,6 +75,7 @@
 
   assign display_product_heading = product_heading
   assign display_product_title = product.title
+  assign display_title_measurement = ''
   assign title_dimensions = ''
 
   if detail_height != blank and detail_width != blank
@@ -82,6 +83,12 @@
       echo detail_height
       echo ' x '
       echo detail_width
+      unless product.type == 'Mirror'
+        if detail_depth != blank
+          echo ' x '
+          echo detail_depth
+        endif
+      endunless
     endcapture
     assign title_dimensions = title_dimensions | strip
   endif
@@ -97,19 +104,22 @@
   assign first_dimension_word = ''
 
   if heading_word_count > 2
-    assign reverse_word_position = 0
+    assign last_word_position = heading_word_count
+    assign x_word_position = heading_word_count | minus: 1
+    assign before_x_word_position = heading_word_count | minus: 2
+    assign second_x_word_position = heading_word_count | minus: 3
+    assign first_dimension_word_position = heading_word_count | minus: 4
 
-    for heading_word in heading_words reversed limit: 5
-      assign reverse_word_position = reverse_word_position | plus: 1
-      if reverse_word_position == 1
+    for heading_word in heading_words
+      if forloop.index == last_word_position
         assign last_word = heading_word
-      elsif reverse_word_position == 2
+      elsif forloop.index == x_word_position
         assign x_word = heading_word
-      elsif reverse_word_position == 3
+      elsif forloop.index == before_x_word_position
         assign before_x_word = heading_word
-      elsif reverse_word_position == 4
+      elsif forloop.index == second_x_word_position
         assign second_x_word = heading_word
-      elsif reverse_word_position == 5
+      elsif forloop.index == first_dimension_word_position
         assign first_dimension_word = heading_word
       endif
     endfor
@@ -120,42 +130,57 @@
     assign second_x_word_lc = second_x_word | downcase
     assign first_dimension_word_lc = first_dimension_word | downcase
 
-    if last_word_lc contains 'cm' and x_word_lc == 'x' and before_x_word_lc contains 'cm'
+    if last_word_lc contains 'cm' and before_x_word_lc contains 'cm'
+      if x_word_lc == 'x' or x_word_lc == '×' or x_word_lc == '&times;'
+        assign has_title_measurement_suffix = true
+      endif
+    endif
+
+    if has_title_measurement_suffix == false and last_word_lc contains 'cm' and x_word_lc contains 'x' and before_x_word_lc contains 'cm'
+      assign has_title_measurement_suffix = true
+    endif
+
+    if has_title_measurement_suffix == false and last_word_lc contains 'cm' and x_word != blank and before_x_word_lc contains 'cm'
       assign has_title_measurement_suffix = true
     endif
 
     if heading_word_count > 4
-      if has_title_measurement_suffix and second_x_word_lc == 'x' and first_dimension_word_lc contains 'cm'
-        assign has_three_part_title_measurement_suffix = true
+      if has_title_measurement_suffix and first_dimension_word_lc contains 'cm'
+        if second_x_word_lc == 'x' or second_x_word_lc == '×' or second_x_word_lc == '&times;' or second_x_word_lc contains 'x'
+          assign has_three_part_title_measurement_suffix = true
+        endif
       endif
     endif
   endif
 
-  if has_title_measurement_suffix and title_dimensions != blank
-    capture title_measurement_suffix
+  if title_dimensions != blank
+    assign display_title_measurement = title_dimensions
+    if has_title_measurement_suffix
+      assign title_measurement_word_count = 3
       if has_three_part_title_measurement_suffix
-        echo first_dimension_word
-        echo ' '
-        echo second_x_word
-        echo ' '
+        assign title_measurement_word_count = 5
       endif
-      echo before_x_word
-      echo ' '
-      echo x_word
-      echo ' '
-      echo last_word
-    endcapture
-    if has_three_part_title_measurement_suffix and detail_depth != blank
-      capture title_dimensions
-        echo title_dimensions
-        echo ' x '
-        echo detail_depth
+      assign title_text_word_limit = heading_word_count | minus: title_measurement_word_count
+      capture title_text_without_measurement
+        for heading_word in heading_words
+          if forloop.index <= title_text_word_limit
+            echo heading_word
+            unless forloop.index == title_text_word_limit
+              echo ' '
+            endunless
+          endif
+        endfor
       endcapture
-      assign title_dimensions = title_dimensions | strip
+      assign display_product_heading = title_text_without_measurement | strip
+      if title_parts.size > 1
+        assign display_product_title = product_label | append: ' - ' | append: display_product_heading | append: ' ' | append: title_dimensions
+      else
+        assign display_product_title = display_product_heading | append: ' ' | append: title_dimensions
+      endif
+    else
+      assign display_product_heading = product_heading
+      assign display_product_title = product.title | append: ' ' | append: title_dimensions | strip
     endif
-    assign title_measurement_suffix = title_measurement_suffix | strip
-    assign display_product_heading = product_heading | split: title_measurement_suffix | first | strip | append: ' ' | append: title_dimensions | strip
-    assign display_product_title = product.title | split: title_measurement_suffix | first | strip | append: ' ' | append: title_dimensions | strip
   endif
 -%}
 
@@ -444,7 +469,12 @@
       
 {% if product.tags contains 'in-house' %}<a class="ww-pdp__designed" href="/collections/designed-in-house-by-william-wood">Designed in-house by <strong>WILLIAM WOOD</strong></a>{% endif %}
       </div>
-      <h1 class="ww-pdp__title">{{ display_product_heading }}</h1>
+      <h1 class="ww-pdp__title">
+        <span class="ww-pdp__title-text">{{ display_product_heading }}</span>
+        {%- if display_title_measurement != blank -%}
+          <span class="ww-pdp__title-measurement">{{ display_title_measurement }}</span>
+        {%- endif -%}
+      </h1>
 
       <div class="ww-pdp__price-row">
         <span class="ww-pdp__price-group {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
@@ -1115,6 +1145,15 @@
     font-size: 24px;
     line-height: 1.08;
     font-weight: 700;
+  }
+
+  .ww-pdp__title-text,
+  .ww-pdp__title-measurement {
+    display: block;
+  }
+
+  .ww-pdp__title-measurement {
+    margin-top: 10px;
   }
 
   .ww-pdp__title-dims {
