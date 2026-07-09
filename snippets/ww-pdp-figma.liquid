@@ -60,7 +60,7 @@
   assign promo_text = ''
   assign promo_note = ''
 
-  assign home_accessories_match = product.collections | where: 'handle', 'home-accessories'
+  assign home_accessories_match = product.collections | where: 'handle', 'all-accessories'
   assign mirrors_match = product.collections | where: 'handle', 'full-length-mirrors'
 
   if home_accessories_match.size > 0
