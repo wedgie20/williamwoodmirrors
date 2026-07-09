@@ -55,9 +55,27 @@
     assign has_variant_discount = true
   endif
 
-  assign promo_code = 'WWJULY'
-  assign promo_text = '15% Off 1 | 20% Off Any 2 | 30% Off Any 3+'
+
+  assign promo_code = ''
+  assign promo_text = ''
+  assign promo_note = ''
+
+  assign home_accessories_match = product.collections | where: 'handle', 'home-accessories'
+  assign mirrors_match = product.collections | where: 'handle', 'length-mirrors'
+
+  if home_accessories_match.size > 0
+    assign promo_text = '3 for 2'
+    assign promo_note = 'Code auto applies at checkout'
+  elsif mirrors_match.size > 0
+    assign promo_code = 'WW28'
+    assign promo_text = '28% Off'
+  else
+    assign promo_code = 'WWJULY'
+    assign promo_text = '15% Off 1 | 20% Off Any 2 | 30% Off Any 3+'
+  endif
+
   assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id
+
 
   assign payment_amount = current_variant.price | divided_by: 3
 
@@ -528,16 +546,21 @@
         </div>
       {%- endif -%}
 
-      {%- if promo_code != blank -%}
-        <div class="ww-pdp__promo">
-          <strong>{{ promo_text }}</strong>
-          <span>Code: WWJULY</span>
-          <button type="button" class="ww-pdp__code" data-ww-copy-code="{{ promo_code }}">
-            <span>{{ promo_code }}</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7V5.5A2.5 2.5 0 0 1 10.5 3h7A2.5 2.5 0 0 1 20 5.5v7a2.5 2.5 0 0 1-2.5 2.5H16v1.5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 4 16.5v-7A2.5 2.5 0 0 1 6.5 7H8Zm1.5 0h4A2.5 2.5 0 0 1 16 9.5v4h1.5a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1V7Zm-3 1.5a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-7Z"/></svg>
-          </button>
-        </div>
-      {%- endif -%}
+      {%- if promo_text != blank -%}
+  <div class="ww-pdp__promo">
+    <strong>{{ promo_text }}</strong>
+
+    {%- if promo_code != blank -%}
+      <span>Code: {{ promo_code }}</span>
+      <button type="button" class="ww-pdp__code" data-ww-copy-code="{{ promo_code }}">
+        <span>{{ promo_code }}</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7V5.5A2.5 2.5 0 0 1 10.5 3h7A2.5 2.5 0 0 1 20 5.5v7a2.5 2.5 0 0 1-2.5 2.5H16v1.5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 4 16.5v-7A2.5 2.5 0 0 1 6.5 7H8Zm1.5 0h4A2.5 2.5 0 0 1 16 9.5v4h1.5a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1V7Zm-3 1.5a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-7Z"/></svg>
+      </button>
+    {%- elsif promo_note != blank -%}
+      <span>{{ promo_note }}</span>
+    {%- endif -%}
+  </div>
+{%- endif -%}
 
       {%- form 'product', product, id: product_form_id, is: 'product-form', class: 'ww-pdp__form' -%}
         {%- if product.has_only_default_variant -%}
