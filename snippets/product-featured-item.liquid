@@ -413,6 +413,9 @@
           {%- endif -%}
         </div>
       </div>
+      {%- if card_title_measurement != blank -%}
+  <div class="product-item-meta__measurement">{{ card_title_measurement }}</div>
+{%- endif -%}
        {% assign collectionhandles = product.collections | map: 'handle' | join: ',' %}
       <div class="ups-tag">
          {% comment %} {% unless product.tags contains 'pre-order' %}
@@ -435,7 +438,7 @@
                 <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
             </span>
-            30-Day Money Back Guarantee
+            30-Day Money Back Guarantee 
           </div>
         {% comment %} <div class="guarantee-item" {% unless product.tags contains 'MarchPush' %}style="font-size: 13px;"{% else %}style="font-size: 13px; display: none;"{% endunless %}> {% endcomment %}
    <div class="guarantee-item imhere" style="display: none" {% if product.tags contains 'MarchPush' %}style="font-size: 13px;"{% else %}style="font-size: 13px; display: none;"{% endif %}>
