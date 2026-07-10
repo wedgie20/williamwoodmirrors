@@ -454,22 +454,6 @@
         "text_color": "rgba(0,0,0,0)"
       },
       "blocks": {
-        "item_4fWeG": {
-          "type": "item",
-          "disabled": false,
-          "settings": {
-            "image": null,
-            "image_width": 100,
-            "image_border": "rgba(0,0,0,0)",
-            "title": "Accessories & Smaller Item Delivery",
-            "content": "<p>Free Delivery within <strong>1-3 Business Days. </strong>We will provide you with tracking information once your order has shipped.</p>",
-            "link_text": "",
-            "link_url": "",
-            "link_style": "link",
-            "text_alignment": "center",
-            "vertical_alignment": "start"
-          }
-        },
         "item_Vx8We": {
           "type": "item",
           "disabled": false,
@@ -477,8 +461,24 @@
             "image": null,
             "image_width": 100,
             "image_border": "rgba(0,0,0,0)",
-            "title": "MAINLAND UK + NORTHERN IRELAND",
-            "content": "<p>Free Mainland UK Delivery within <strong>1-7 Business Days</strong>. We will contact you with advance notice to organise a delivery date.</p><p>£20 Northern Ireland Delivery within <strong>7-21 Business Days. </strong>We will contact you with advance notice to organise a delivery date.</p>",
+            "title": "MAINLAND UK",
+            "content": "<p>Free Mainland UK Delivery within Up to <strong>7 Business Days</strong>. We will contact you with advance notice to organise a delivery date.</p><p>Large Furniture <strong>10-15 Business Days </strong>Free Delivery.</p><p></p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        },
+        "item_4fWeG": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": null,
+            "image_width": 100,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "Accessories & Smaller Items",
+            "content": "<p>Free Delivery within <strong>1-3 Business Days </strong>via courier.<strong> </strong>We will provide you with tracking information once your order has shipped.</p>",
             "link_text": "",
             "link_url": "",
             "link_style": "link",
@@ -488,8 +488,8 @@
         }
       },
       "block_order": [
-        "item_4fWeG",
-        "item_Vx8We"
+        "item_Vx8We",
+        "item_4fWeG"
       ]
     },
     "multi_column_dUhXK": {
@@ -574,7 +574,23 @@
             "image_width": 100,
             "image_border": "rgba(0,0,0,0)",
             "title": "REST OF UK",
-            "content": "<p>Free UK Delivery within 7<strong>-14 Business Days </strong>to the following post codes:</p><p><strong>AB, BA, CA, DD, DG,  DT, EX, FK, IP, IV1, IV2, IV3, IV5, IV8, IV9, IV10, IV12, IV13, IV30, IV31, IV32, IV36, KY, LA,  LD,  LL,  LN, NR, PE,  PH1-PH26,  PL, SA,  SY, TA, TQ,  TR</strong></p><p>We will contact you with advance notice to organise a delivery date.</p>",
+            "content": "<p>Free UK Delivery within <strong>7-14 Business Days </strong>to the following post codes:</p><p><strong>AB, BA, CA, DD, DG,  DT, EX, FK, IP, IV1, IV2, IV3, IV5, IV8, IV9, IV10, IV12, IV13, IV30, IV31, IV32, IV36, KY, LA,  LD,  LL,  LN, NR, PE,  PH1-PH26,  PL, SA,  SY, TA, TQ,  TR</strong></p><p>We will contact you with advance notice to organise a delivery date.</p>",
+            "link_text": "",
+            "link_url": "",
+            "link_style": "link",
+            "text_alignment": "center",
+            "vertical_alignment": "start"
+          }
+        },
+        "item_3Pxij": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "image": null,
+            "image_width": 100,
+            "image_border": "rgba(0,0,0,0)",
+            "title": "NORTHEN IRELAND AND SCOTTISH HIGHLANDS",
+            "content": "<p>£20  Hand Delivery Service within <strong>7-21 Business Days </strong>to Northern Ireland and the following post codes:</p><p><strong>IV4, IV6, IV14, IV15, IV16, IV17, IV18, IV19, IV20, IV23, IV24, IV25, IV28, IV63, PH30, PH31, PH32, PH34, PH35, PH37, PH49, PH50, PA36 </strong></p><p>We will contact you with advance notice to organise a delivery date.</p>",
             "link_text": "",
             "link_url": "",
             "link_style": "link",
@@ -584,7 +600,8 @@
         }
       },
       "block_order": [
-        "item_49AhW"
+        "item_49AhW",
+        "item_3Pxij"
       ]
     },
     "rich_text_hwGXc": {
