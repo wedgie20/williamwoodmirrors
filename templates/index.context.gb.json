@@ -64,8 +64,8 @@
         "bg_media_type_1": "image",
         "bg_video_1": "shopify://files/videos/Spring Web Promo Video 16x9_92ac669e-6711-4553-ac2c-6e26675c6438.mp4",
         "bg_video_mobile_1": "shopify://files/videos/Spring Web Promo Video 9x16_5b501b2e-3c0d-46a6-9d9f-246662e62b73.mp4",
-        "bg_image": "shopify://shop_images/Antique_Bronze_Homepage_Banner_Desktop_33f45336-27e8-4fb1-ae94-b2f0c2b3cade.jpg",
-        "bg_image_mobile": "shopify://shop_images/Antique_Bronze_Homepage_Banner_Mobile_231b1515-53cf-4397-ba2a-4401c9333a15.jpg",
+        "bg_image": "shopify://shop_images/Homepage_Update_Banner_4000x2000_4a0a81ca-942c-41fa-8f83-7b35b4b5a8ac.jpg",
+        "bg_image_mobile": "shopify://shop_images/Homepage_Banner_Update_1000x1884_e8500841-c47f-4e94-a060-0f265c3f62ad.jpg",
         "header-d1e9eaae6361148b15a9853a185ef4b4": null,
         "bg_media_type_2": "image",
         "bg_video_2": "shopify://files/videos/WILLIAM WOOD - ROOM 04 - 16x9 - NO LOGO.mp4",
@@ -93,10 +93,10 @@
         "bg_image_overlay": 0.1,
         "header-dd9edd438d49850f19ce760d09bce738": null,
         "slide_content_max_width_1": 100,
-        "slide_content_align_1": "left",
-        "slide_content_align_mobile_1": "left",
+        "slide_content_align_1": "center",
+        "slide_content_align_mobile_1": "center",
         "slide_content_vertical_align_1": "center",
-        "slide_content_vertical_align_mobile_1": "end",
+        "slide_content_vertical_align_mobile_1": "center",
         "header-4f58834798b9131bf490b9a10e6a72ca": null,
         "slide_content_max_width_2": 50,
         "slide_content_align_2": "left",
@@ -268,8 +268,8 @@
             "heading_custom": true,
             "heading_font": "josefin_sans_n4",
             "custom_heading_font": "GothamBlack",
-            "heading_size": 40,
-            "heading_size_mobile": 34,
+            "heading_size": 72,
+            "heading_size_mobile": 44,
             "heading_height": 100,
             "heading_mt": 100,
             "heading_mt_mobile": 0,
@@ -411,11 +411,11 @@
             "text_custom": true,
             "text_font": "josefin_sans_n4",
             "custom_text_font": "Gotham Book",
-            "text_size": 20,
-            "text_size_mobile": 17,
+            "text_size": 23,
+            "text_size_mobile": 18,
             "text_height": 100,
             "text_mt": 20,
-            "text_mt_mobile": 6,
+            "text_mt_mobile": 10,
             "text_color": "#ffffff"
           }
         },
@@ -441,7 +441,7 @@
           "disabled": false,
           "settings": {
             "slide_number": "1",
-            "text": "<p>Code:</p>",
+            "text": "<p>Use Code:</p>",
             "text_custom": true,
             "text_font": "josefin_sans_n4",
             "custom_text_font": "Gotham Book",
@@ -799,6 +799,23 @@
             "text_mt_mobile": 4,
             "text_color": "#ffffff"
           }
+        },
+        "text_XXKHE": {
+          "type": "text",
+          "disabled": false,
+          "settings": {
+            "slide_number": "1",
+            "text": "<p>*15% Off One. 20% Off Two. </p><p>30% Off Three Or More.</p>",
+            "text_custom": true,
+            "text_font": "josefin_sans_n4",
+            "custom_text_font": "Gotham Book",
+            "text_size": 14,
+            "text_size_mobile": 12,
+            "text_height": 100,
+            "text_mt": 100,
+            "text_mt_mobile": 32,
+            "text_color": "#ffffff"
+          }
         }
       },
       "block_order": [
@@ -832,7 +849,8 @@
         "text_BhinP",
         "text_QNFa9",
         "text_RK7pB",
-        "text_aLjGd"
+        "text_aLjGd",
+        "text_XXKHE"
       ],
       "name": "SS - Hero #24"
     },
