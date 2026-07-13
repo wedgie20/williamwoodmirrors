@@ -1672,7 +1672,11 @@
                       {%- assign s_mobile_src_url = s_mobile_src_url | append: '?speedsize=ar_1:1' -%}
                     {%- endif -%}
                   {%- endif -%}
-                  <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata" poster="{{ s_video_poster_url | replace: settings.speedsize_url_pfx_duplicated }}" type="video/mp4">
+                  <video class="hero-bg-video hero-bg-video-desktop" autoplay muted loop playsinline preload="metadata" poster="{{ s_video_poster_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}">
+                    <source src="{{ s_video_mp4_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}" type="video/mp4">
+                  </video>
+                  <video class="hero-bg-video hero-bg-video-mobile" autoplay muted loop playsinline preload="metadata" poster="{{ s_video_poster_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}">
+                    <source src="{{ s_mobile_src_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}" type="video/mp4">
                   </video>
                 {%- endif -%}
               {%- else -%}
@@ -1741,7 +1745,11 @@
                 {%- assign single_mobile_src_url = single_mobile_src_url | append: '?speedsize=ar_1:1' -%}
               {%- endif -%}
             {%- endif -%}
-            <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata" poster="{{ single_video_poster_url | replace: settings.speedsize_url_pfx_duplicated }}" type="video/mp4">
+            <video class="hero-bg-video hero-bg-video-desktop" autoplay muted loop playsinline preload="metadata" poster="{{ single_video_poster_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}">
+              <source src="{{ single_video_mp4_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}" type="video/mp4">
+            </video>
+            <video class="hero-bg-video hero-bg-video-mobile" autoplay muted loop playsinline preload="metadata" poster="{{ single_video_poster_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}">
+              <source src="{{ single_mobile_src_url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}" type="video/mp4">
             </video>
           {%- endif -%}
         {%- elsif bg_image != blank -%}
