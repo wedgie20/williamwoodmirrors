@@ -124,9 +124,9 @@
         "slide_content_vertical_align_1": "center",
         "slide_content_vertical_align_mobile_1": "center",
         "header-1bf1a767be90069f7407ade7993f6b06": null,
-        "slide_content_max_width_2": 50,
-        "slide_content_align_2": "left",
-        "slide_content_align_mobile_2": "left",
+        "slide_content_max_width_2": 100,
+        "slide_content_align_2": "center",
+        "slide_content_align_mobile_2": "center",
         "slide_content_vertical_align_2": "center",
         "slide_content_vertical_align_mobile_2": "center",
         "header-6c240bc3a9d1feb419e3ebb9c3e4e79a": null,
@@ -270,7 +270,7 @@
           "type": "heading",
           "disabled": false,
           "settings": {
-            "slide_number": "1",
+            "slide_number": "all",
             "heading": "<p><strong> </strong></p>",
             "heading_custom": true,
             "heading_font": "josefin_sans_n4",
@@ -289,7 +289,7 @@
           "type": "heading",
           "disabled": false,
           "settings": {
-            "slide_number": "1",
+            "slide_number": "all",
             "heading": "<p><strong>Summer Offers</strong></p>",
             "heading_custom": true,
             "heading_font": "josefin_sans_n4",
@@ -323,7 +323,7 @@
         },
         "text_B9gH7": {
           "type": "text",
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "slide_number": "2",
             "text": "<p><strong>Discover</strong></p>",
@@ -340,7 +340,7 @@
         },
         "heading_FKtci": {
           "type": "heading",
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "slide_number": "2",
             "heading": "<h1><strong>Latest Arrivals</strong></h1>",
@@ -432,7 +432,7 @@
           "type": "text",
           "disabled": false,
           "settings": {
-            "slide_number": "1",
+            "slide_number": "all",
             "text": "<p><strong>Up To 30% Off*</strong></p>",
             "text_custom": true,
             "text_font": "josefin_sans_n4",
@@ -466,7 +466,7 @@
           "type": "text",
           "disabled": false,
           "settings": {
-            "slide_number": "1",
+            "slide_number": "all",
             "text": "<p>Use Code:</p>",
             "text_custom": true,
             "text_font": "josefin_sans_n4",
@@ -483,7 +483,7 @@
           "type": "text",
           "disabled": false,
           "settings": {
-            "slide_number": "1",
+            "slide_number": "all",
             "text": "<p>WWJULY</p>",
             "text_custom": true,
             "text_font": "josefin_sans_n4",
@@ -601,7 +601,7 @@
           "type": "button",
           "disabled": false,
           "settings": {
-            "slide_number": "1",
+            "slide_number": "all",
             "button": "SHOP NOW",
             "url": "shopify://collections/all",
             "button_custom": true,
@@ -633,7 +633,7 @@
           "name": "Button-slider-2",
           "disabled": false,
           "settings": {
-            "slide_number": "1",
+            "slide_number": "all",
             "button": "BEST SELLERS",
             "url": "shopify://collections/best-sellers",
             "button_custom": true,
@@ -662,8 +662,8 @@
         },
         "button_Hzmd6": {
           "type": "button",
+          "disabled": true,
           "name": "Button-slider-2",
-          "disabled": false,
           "settings": {
             "slide_number": "2",
             "button": "SHOP NOW",
@@ -722,6 +722,23 @@
             "button_bg_hover_color": "#efefef",
             "button_border_color": "#ffffff",
             "button_border_hover_color": "#efefef"
+          }
+        },
+        "text_XXKHE": {
+          "type": "text",
+          "disabled": false,
+          "settings": {
+            "slide_number": "all",
+            "text": "<p>*15% Off One. 20% Off Two. </p><p>30% Off Three Or More.</p>",
+            "text_custom": true,
+            "text_font": "josefin_sans_n4",
+            "custom_text_font": "Gotham Book",
+            "text_size": 14,
+            "text_size_mobile": 12,
+            "text_height": 100,
+            "text_mt": 100,
+            "text_mt_mobile": 32,
+            "text_color": "#ffffff"
           }
         },
         "text_hnCjX": {
@@ -825,23 +842,6 @@
             "text_mt_mobile": 4,
             "text_color": "#ffffff"
           }
-        },
-        "text_XXKHE": {
-          "type": "text",
-          "disabled": false,
-          "settings": {
-            "slide_number": "1",
-            "text": "<p>*15% Off One. 20% Off Two. </p><p>30% Off Three Or More.</p>",
-            "text_custom": true,
-            "text_font": "josefin_sans_n4",
-            "custom_text_font": "Gotham Book",
-            "text_size": 14,
-            "text_size_mobile": 12,
-            "text_height": 100,
-            "text_mt": 100,
-            "text_mt_mobile": 32,
-            "text_color": "#ffffff"
-          }
         }
       },
       "block_order": [
@@ -870,13 +870,13 @@
         "button_tBQ37",
         "button_Hzmd6",
         "button_DVGGU",
+        "text_XXKHE",
         "text_hnCjX",
         "text_BmViB",
         "text_BhinP",
         "text_QNFa9",
         "text_RK7pB",
-        "text_aLjGd",
-        "text_XXKHE"
+        "text_aLjGd"
       ],
       "name": "SS - Hero #24"
     },
