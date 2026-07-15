@@ -62,6 +62,7 @@
 
   assign home_accessories_match = product.collections | where: 'handle', 'all-accessories'
   assign mirrors_match = product.collections | where: 'handle', 'full-length-mirrors'
+  assign mirrors_match = product.collections | where: 'handle', 'secret-sale'
 
   if home_accessories_match.size > 0
     assign promo_text = '3 for 2'
@@ -69,6 +70,9 @@
   elsif mirrors_match.size > 0
     assign promo_code = 'WWJULY'
     assign promo_text = '15% Off 1 | 20% Off Any 2 | 30% Off Any 3+'
+  elsif mirrors_match.size > 0
+  assign promo_code = 'SECRET'
+  assign promo_text = '15% Off 1 | 20% Off Any 2'
   else
     assign promo_code = 'WWJULY'
     assign promo_text = '15% Off 1 | 20% Off Any 2 | 30% Off Any 3+'
