@@ -349,7 +349,7 @@
       "type": "custom-video",
       "disabled": true,
       "settings": {
-        "header-8022639c696e7e7448f9dc5135501c3b": null,
+        "header-9428187ac585757973fa95fca9292e9e": null,
         "video": "shopify://files/videos/Website Video - Abandoned Cart v2.mp4",
         "poster_image": "shopify://shop_images/Screenshot_2025-10-08_153408.png",
         "autoplay": false,
@@ -358,42 +358,42 @@
         "show_controls": true,
         "show_controls_on_play": true,
         "pause_on_scroll": true,
-        "header-592ece8c59ec8ab731117d83d586c4dd": null,
+        "header-a012a25099ba72796689f004af1dceaa": null,
         "use_aspect_ratio": false,
         "video_aspect_ratio": "50",
         "video_border_radius": 4,
         "video_shadow": "0 4px 20px rgba(0,0,0,0.15)",
-        "header-429399188a13d1206f20c579e5a3617b": null,
+        "header-b5da10763b94ec4d0155e26d9cf95515": null,
         "play_button_size": 80,
         "play_button_background": "#ffffff",
         "play_button_opacity": 90,
         "play_button_icon_color": "#000000",
-        "header-9025ff47be1f7f016770659503bc21c9": null,
+        "header-24f03a5140737e03ad6ac6c724e570af": null,
         "show_header": false,
         "title": "",
         "subtitle": "",
         "description": "",
         "text_alignment": "center",
-        "header-fd1e51ebde2f90e06acdb4f0e7bb7ade": null,
+        "header-890857fb5004fb1672ce9aa027b30630": null,
         "title_size": 36,
         "title_weight": "600",
         "subtitle_size": 18,
         "description_size": 16,
-        "header-05a4a1a0ea665a674fe2015de1fa8326": null,
+        "header-709b2ca0ef84f99fb8896b9090e9c245": null,
         "show_button": false,
         "button_text": "Learn More",
         "button_link": "",
         "button_background": "#000000",
         "button_text_color": "#ffffff",
         "button_border_radius": 4,
-        "header-b244823da12adcaeea0b02c52fcb5338": null,
+        "header-1a92ac819b51eaefab5c76e268d7be2b": null,
         "container_width": 550,
         "padding_top": 0,
         "padding_bottom": 0,
         "content_spacing": 10,
         "title_margin": 0,
         "subtitle_margin": 0,
-        "header-27c4651f062c2b9698483c3409e072e9": null,
+        "header-d56dc082e1ebadebdd3bc1c67f660122": null,
         "background_color": "#ffffff",
         "text_color": "#000000"
       },
@@ -417,7 +417,7 @@
         "liquid": "{% if product.type == 'Table' or product.type == 'Chair' %}\n<br>\n{% if product.tags contains 'prebuilt' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n{% else %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">3-5 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This piece of furniture arrives ready for quick and easy assembly.\n</span>\n</div>\n</body>\n</html>\n{% endif %}\n{% else %}\n{% if product.type == 'Furniture Set' %}\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Assembly Time:</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\">0 Minutes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    All pieces of this furniture set arrive fully assembled for your convenience.\n</span>\n</div>\n</body>\n</html>\n\n{% endif %}\n{% endif %}\n{% if product.type == 'Mirror' %}\n<br>\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        @media (min-width: 1024px) { \n            .Acontainer p + b {\n                display: block;\n                margin-top: 50px; \nmargin-left: -20px;\n            }\n        }\n    </style>\n</head>\n<body>\n<div class=\"Acontainer\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0780/3843/files/icons8-spanner.svg?v=1718023832\" alt=\"Spanner Icon\">\n    <p>Can this mirror be wall mounted?</p>\n<style>\n  @media only screen and (min-width: 1024px) {\n    .bigger-text {\n      font-size: 20px;\n    }\n  }\n</style>\n\n<b class=\"bigger-text\" style=\"font-size: 20px;\">Yes</b>\n\n    <br>\n<span class=\"delmins\" style=\"font-size: 11px;\">\n    This mirror can be wall mounted in{% assign description = product.description | downcase %}{% if description contains 'portrait' and description contains 'landscape' %} either{% endif %}{% if description contains 'portrait' %} portrait{% endif %}{% if description contains 'portrait' and description contains 'landscape' %} or{% endif %}{% if description contains 'landscape' %} landscape{% endif %} orientation.\n</span>\n</div>\n</body>\n</html>\n{% endif %}",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-a70e22ad9c3959b63ae09f626f674127": null,
+        "header-d876ba0e5fee073c255065a83bea3c5f": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -431,11 +431,11 @@
         "@media (min-width: 800px) {.section-template--25370834338171__ss_slider_2_WtqaH-settings {display: none !important; }}"
       ],
       "settings": {
-        "header-d442bc78fdfb81284d1397f2090b75e9": null,
+        "header-a55baaba23982d69835eb97f14c1a5be": null,
         "slider_view": 3,
         "slider_view_mobile": 1.5,
         "slider_rotate": 0,
-        "header-7b1d2bf8aac50eda37cae9d78f53a98c": null,
+        "header-5d5701b8287a9ad9e7a565bc071ac936": null,
         "card_padding_vertical": 24,
         "card_padding_vertical_mobile": 24,
         "card_padding_horizontal": 40,
@@ -446,18 +446,18 @@
         "card_ratio": "portrait",
         "card_ratio_mobile": "portrait",
         "card_overlay": 0,
-        "header-9bcbe476aeb083fc46d3ba882298f1c9": null,
+        "header-ef6393cb847da13d7f635966a0a232e3": null,
         "content_horizontal_position": "center",
         "content_horizontal_position_mobile": "center",
         "content_vertical_position": "end",
         "content_vertical_position_mobile": "end",
-        "header-f964764d61f7551634edfa1fe6cb1999": null,
+        "header-0e8f0595b1f440dfc22fa652e7171adb": null,
         "title_custom": false,
         "title_font": "josefin_sans_n4",
         "title_size": 28,
         "title_size_mobile": 28,
         "title_height": 130,
-        "header-35586da9c9dade734ea9a8b6a46c8d8e": null,
+        "header-2a6300896d7e8b25413fa35914992fee": null,
         "button_custom": false,
         "button_font": "josefin_sans_n4",
         "button_size": 14,
@@ -468,7 +468,7 @@
         "button_padding_horizontal": 20,
         "button_radius": 0,
         "button_border_thickness": 1,
-        "header-35fe239598080a24943f3a14717d441f": null,
+        "header-1f535933129133ae7d89a2b277a6a1bf": null,
         "arrow_size": 50,
         "arrow_size_mobile": 32,
         "arrow_icon_size": 20,
@@ -476,38 +476,38 @@
         "arrow_border_thickness": 0,
         "arrow_show_desktop": true,
         "arrow_show_mobile": true,
-        "header-4d8d4b4458067d4ce66c2a1dc1f9394d": null,
+        "header-d5a8d48bce22e25109572a0718eeed8c": null,
         "title_color": "#ffffff",
         "card_border_color": "#121212",
         "card_shadow_color": "#121212",
         "card_overlay_color": "#121212",
-        "header-5f2ed549ebd87f87292770501de5ae71": null,
+        "header-c925a61088a018b4e24f3fda1783aadd": null,
         "button_color": "#ffffff",
         "button_hover_color": "#121212",
         "button_bg_color": "",
         "button_bg_hover_color": "#ffffff",
         "button_border_color": "#ffffff",
         "button_border_hover_color": "#ffffff",
-        "header-2293c6cf8ae436f4b8ee815e2403e35e": null,
+        "header-b99eb575d4f48e703e6d36778a12ee57": null,
         "arrow_color": "#121212",
         "arrow_hover_color": "#ffffff",
         "arrow_bg_color": "#ffffff",
         "arrow_bg_hover_color": "#121212",
         "arrow_border_color": "#121212",
         "arrow_border_hover_color": "#454545",
-        "header-e5a66fb5dba5ecc4846b55a289cac596": null,
+        "header-b5d2644b0301ed7265c042d47d2584ac": null,
         "background_color": "#ffffff",
         "background_gradient": "",
         "border_color": "#121212",
-        "header-c1828fef1792a17ed6ef8bb4c3c1765d": null,
+        "header-627d58232a4ab3ec2a30be9f6e473eb7": null,
         "margin_top": 0,
         "margin_bottom": 56,
-        "header-c873162087659b4d456496f0fae8bae6": null,
+        "header-dcc4e43131d7a9c09159540d1c98b270": null,
         "padding_top": 36,
         "padding_bottom": 36,
         "padding_horizontal": 0,
         "padding_horizontal_mobile": 0,
-        "header-251db21d1498ae5be46b109d6bc0b989": null,
+        "header-fdef3cc52ad49f9f308c1dcf473b74a1": null,
         "device_visibility": "mobile_only",
         "full_width": true,
         "content_width": 1200,
@@ -563,7 +563,7 @@
       "type": "ss-faq-10",
       "disabled": false,
       "settings": {
-        "header-9cdeeb9ca0c29c0f701e3c165a4ee5af": null,
+        "header-2aad2f0a8969693325dd61ef288d2b8c": null,
         "heading": "<h2>YOUR MOST COMMON QUESTIONS, ANSWERED.</h2>",
         "heading_custom": true,
         "heading_font": "josefin_sans_n4",
@@ -573,16 +573,16 @@
         "heading_height": 130,
         "heading_align": "left",
         "heading_align_mobile": "center",
-        "header-69eb8102b36981b3accab471d07d01ba": null,
+        "header-b461f460f98db6288d9818feea8dc26c": null,
         "body_gap": 16,
         "body_gap_mobile": 24,
         "body_mt": 100,
         "body_mt_mobile": 40,
-        "header-8cdcb092ff9e255139953c3ae3e1a893": null,
+        "header-bd35f15c5d03e47a512007f2b674910a": null,
         "toggles_gap": 20,
         "toggles_gap_mobile": 16,
         "toggles_horizontal_align": "start",
-        "header-ab1175d2370defd4550addb90aa4d9c4": null,
+        "header-fd3da9dea81d1fed985fb4a3ea093a4f": null,
         "toggle_padding_vertical": 32,
         "toggle_padding_vertical_mobile": 26,
         "toggle_padding_horizontal": 40,
@@ -597,14 +597,14 @@
         "toggle_height": 130,
         "toggle_align": "center",
         "toggle_align_mobile": "center",
-        "header-2f27834e590ed97da41c94a899d1f2b1": null,
+        "header-9a761b0bdf4d13d351b0b7261386011f": null,
         "items_padding_vertical": 48,
         "items_padding_vertical_mobile": 16,
         "items_padding_horizontal": 52,
         "items_padding_horizontal_mobile": 32,
         "items_radius": 16,
         "items_border_thickness": 0,
-        "header-7ec1f2dbff4b265a7df6a0763e4ce365": null,
+        "header-aa9adc409ca1042b526c28118e51d6eb": null,
         "item_padding_vertical": 24,
         "item_padding_vertical_mobile": 20,
         "item_padding_horizontal": 0,
@@ -614,18 +614,18 @@
         "item_border_thickness": 1,
         "item_border_bottom": true,
         "item_shadow": false,
-        "header-4fa89483fefd9647f8dcaa1032fc44c3": null,
+        "header-19bc29ea70595c01660252d81f07a2d5": null,
         "question_custom": true,
         "question_font": "josefin_sans_n4",
         "custom_question_font": "Zurich, sans-serif",
         "question_size": 20,
         "question_size_mobile": 14,
         "question_height": 150,
-        "header-60d3412d73a528ce5bf3ce5ea4b8e019": null,
+        "header-7d677e7941393cd91485a6bb13dad323": null,
         "arrow_size": 24,
         "arrow_size_mobile": 24,
         "arrow_border_thickness": 0,
-        "header-0f381abc365342d4a0095dd4860bf1ee": null,
+        "header-b416ebaf7ea820ce65bb4222a0428f18": null,
         "answer_custom": true,
         "answer_font": "josefin_sans_n4",
         "custom_answer_font": "Zurich, sans-serif",
@@ -633,7 +633,7 @@
         "answer_size_mobile": 12,
         "answer_height": 170,
         "answer_padding_top": 24,
-        "header-7e8e51f6b30d8c8bcfbcc6911258cc33": null,
+        "header-6ce322a1ef87aeb5ba4250ed0f4da40b": null,
         "toggle_color": "#000000",
         "toggle_hover_color": "#000000",
         "toggle_active_color": "#000000",
@@ -643,32 +643,32 @@
         "toggle_border_color": "#000000",
         "toggle_border_hover_color": "#000000",
         "toggle_border_active_color": "#000000",
-        "header-3926fff82971a5e2e68228e71a5f296d": null,
+        "header-1663caaa7f27d659b9246fedc94f0922": null,
         "items_bg_color": "#ffffff",
         "items_border_color": "#000000",
-        "header-9302276b52ba6d96484d3643f5daea40": null,
+        "header-f76882adf23dc03e0c00e937cf82839b": null,
         "item_bg_color": "#ffffff",
         "item_border_color": "#efefef",
         "question_color": "#000000",
         "arrow_color": "#000000",
         "arrow_border_color": "#000000",
         "answer_color": "#000000",
-        "header-8b48a5ff0860e9095722fe667abfb76f": null,
+        "header-df18a946387241f97b1255173edee275": null,
         "heading_color": "#000000",
         "background_color": "#efefef",
         "background_gradient": "",
         "border_color": "#000000",
-        "header-8b12009fe73df0d5a075db389dee8931": null,
+        "header-824f02917a2367a960b3d96eddd80ddf": null,
         "margin_top": 0,
         "margin_bottom": 0,
         "margin_horizontal": 1,
         "margin_horizontal_mobile": 0,
-        "header-ab42f1798b58f0029d811fc2a1aa1626": null,
+        "header-8e3090c9681a8ca9a63ffaed4e2d761b": null,
         "padding_top": 64,
         "padding_bottom": 48,
         "padding_horizontal": 8,
         "padding_horizontal_mobile": 1.5,
-        "header-90d16b41c7bc8333864af1c70e0214ce": null,
+        "header-5a246b5e4dece0db6f8db302085b2ba7": null,
         "bg_image": null,
         "full_width": true,
         "content_width": 120,
@@ -696,7 +696,7 @@
           "disabled": false,
           "settings": {
             "question": "Can I spread the cost with finance?",
-            "answer": "<p>Yes, you can split the cost of your order over 3-12 months at no extra cost.<br/><br/>Available finance partners include:<br/><br/>Klarna<br/>Clearpay<br/>PayPal<br/>Shop Pay Installments<br/>DivideBuy (Pay in 6, £300 GBP minimum spend. Pay in 9, £450 GBP minimum spend. Pay in 12, £600 GBP minimum spend).<br/></p>"
+            "answer": "<p>Yes, you can split the cost of your order over 3-12 months at no extra cost.<br/><br/>Available finance partners include:<br/><br/>Klarna<br/>Clearpay<br/>PayPal<br/>Shop Pay Installments<br/>DivideBuy (Pay in 6, £300 GBP minimum spend. Pay in 9, £450 GBP minimum spend. Pay in 12, £600 GBP minimum spend).</p>"
           }
         },
         "item_wNVRx": {
@@ -704,7 +704,7 @@
           "disabled": false,
           "settings": {
             "question": "Where do I enter Promotional codes?",
-            "answer": "<p>You can enter a promotional code on the first checkout page. If the advertised promotional code is set to apply automatically, you don’t need to enter it, this will be applied for you at checkout. <br/><br/>Please note only one promotional code can be applied per order and cannot be used against sale or outlet items unless stated.<br/></p>"
+            "answer": "<p>You can enter a promotional code on the first checkout page. If the advertised promotional code is set to apply automatically, you don’t need to enter it, this will be applied for you at checkout.<br/><br/>Please note only one promotional code can be applied per order and cannot be used against sale or outlet items unless stated.</p>"
           }
         },
         "item_gbn7U": {
@@ -712,23 +712,23 @@
           "disabled": false,
           "settings": {
             "question": "Do you offer Trade accounts?",
-            "answer": "<p>Yes, to open a trade account with us please visit our dedicated Trade page www.williamwoodmirrors.co.uk/pages/trade and fill out a Trade application form. </p><p>A member of our Team will be in touch once this is approved with further details.</p>"
+            "answer": "<p>Yes, to open a trade account with us please visit our dedicated Trade page www.williamwoodmirrors.co.uk/pages/trade and fill out a Trade application form.</p><p>A member of our Team will be in touch once this is approved with further details.<br/><br/><br/></p>"
           }
         },
-        "item_pnfUA": {
+        "item_mJJbc": {
           "type": "item",
           "disabled": false,
           "settings": {
             "question": "I am interested in a product, but it is sold out, how can I order this?",
-            "answer": "<p>If the item you are interested in is sold out, please ensure you have entered your email address in the 'Email Me When Available' section on the product listing page. This way, you will be the first to hear of a restock of your desired William Wood product. </p><p>Due to high demand, we do find that pre-orders may sell out very quickly after we have restocked this; therefore, we recommend acting fast once you receive notification of this.</p>"
+            "answer": "<p>If the item you are interested in is sold out, please ensure you have entered your email address in the 'Email Me When Available' section on the product listing page. This way, you will be the first to hear of a restock of your desired William Wood product.</p><p>Due to high demand, we do find that pre-orders may sell out very quickly after we have restocked this; therefore, we recommend acting fast once you receive notification of this.<br/><br/><br/><br/></p>"
           }
         },
-        "item_fzCyq": {
+        "item_BJ9ef": {
           "type": "item",
           "disabled": false,
           "settings": {
             "question": "How do you ensure the quality of your products?",
-            "answer": "<p>Quality is at the heart of everything we do. Each product is carefully crafted using high-grade materials by our trusted manufacturers. </p><p>From production to final delivery, we take extra care to ensure every item meets our exacting standards—so you can be confident you’re receiving a product that is both durable and beautifully finished.<br/><br/><br/></p>"
+            "answer": "<p>Quality is at the heart of everything we do. Each product is carefully crafted using high-grade materials by our trusted manufacturers.</p><p>From production to final delivery, we take extra care to ensure every item meets our exacting standards—so you can be confident you’re receiving a product that is both durable and beautifully finished.<br/><br/><br/><br/></p>"
           }
         },
         "tab_PExMq": {
@@ -751,7 +751,7 @@
           "disabled": false,
           "settings": {
             "question": "Who do you use for your deliveries?",
-            "answer": "<p>We use our own dedicated hand-delivery service rather than third-party couriers. Every one of our drivers is trained to handle products of a fragile nature with the utmost care. <br/><br/>This personal, expert approach ensures your items arrive safely, and it’s a key part of what sets us apart from other companies.<br/><br/>For our smaller items, we occasionally use UPS to provide a reliable, tracked and efficient delivery.</p>"
+            "answer": "<p>We use our own dedicated hand-delivery service rather than third-party couriers. Every one of our drivers is trained to handle products of a fragile nature with the utmost care.<br/><br/>This personal, expert approach ensures your items arrive safely, and it’s a key part of what sets us apart from other companies.<br/><br/>For our smaller items, we occasionally use UPS to provide a reliable, tracked and efficient delivery.</p>"
           }
         },
         "item_JyVEj": {
@@ -759,7 +759,7 @@
           "disabled": false,
           "settings": {
             "question": "When will my order be delivered?",
-            "answer": "<p>In stock items: Your order will be dispatched within the lead time for your area provided at checkout. Once our logistics team has finalised the delivery schedule, we will provide you with a further update. This will come in the form of a dispatch confirmation email when your order is ready to leave our HQ.<br/><br/>This communication will include the estimated day of arrival and the driver’s contact details. Please note: the driver will reach out to you via phone or text to provide a more precise time of arrival.<br/><br/>Pre order items: Your pre order will be dispatched from the week displayed<br/>above the ‘PRE-ORDER’ button, in line with the lead time for your area. </p>"
+            "answer": "<p>In stock items: Your order will be dispatched within the lead time for your area provided at checkout. Once our logistics team has finalised the delivery schedule, we will provide you with a further update. This will come in the form of a dispatch confirmation email when your order is ready to leave our HQ.<br/><br/>This communication will include the estimated day of arrival and the driver’s contact details. Please note: the driver will reach out to you via phone or text to provide a more precise time of arrival.<br/><br/>Pre order items: Your pre order will be dispatched from the week displayed<br/>above the ‘PRE-ORDER’ button, in line with the lead time for your area.</p>"
           }
         },
         "item_YVFfj": {
@@ -767,7 +767,7 @@
           "disabled": false,
           "settings": {
             "question": "Can I change my delivery address after I’ve placed my order?",
-            "answer": "<p>Yes, please email our Customer Support Team at hello@williamwoodmirrors.co.uk within 24 hours of placing your order. <br/><br/>We’ll gladly help you change your delivery address (the new address provided must be within our overall area of coverage).</p>"
+            "answer": "<p>Yes, please email our Customer Support Team at hello@williamwoodmirrors.co.uk within 24 hours of placing your order.<br/><br/>We’ll gladly help you change your delivery address (the new address provided must be within our overall area of coverage).</p>"
           }
         },
         "item_GjYfj": {
@@ -775,7 +775,7 @@
           "disabled": false,
           "settings": {
             "question": "What happens if I’m not home for my delivery?",
-            "answer": "<p>If you're not home for delivery, you may advise your William Wood Delivery driver where to leave your order safe. You can do this using the contact number we provide. <br/><br/>If there's no safe spot, we'll reschedule your delivery for the next available route to your area once your order has returned back to our warehouse. We'll reach out within 24-48 hours to inform you about your first delivery attempt.</p>"
+            "answer": "<p>If you're not home for delivery, you may advise your William Wood Delivery driver where to leave your order safe. You can do this using the contact number we provide.<br/><br/>If there's no safe spot, we'll reschedule your delivery for the next available route to your area once your order has returned back to our warehouse. We'll reach out within 24-48 hours to inform you about your first delivery attempt.</p>"
           }
         },
         "item_eHy6F": {
@@ -783,7 +783,7 @@
           "disabled": false,
           "settings": {
             "question": "Can I check my order when the driver delivers it?",
-            "answer": "<p>Our driver will typically be able to allow time for a brief physical condition check on our item(s). Please do ensure this check is quick enough to allow our driver to continue on schedule to his remaining delivery customers <br/><br/>Please note that our drivers are unable to dispose of any packaging. We strongly recommend keeping all original packaging until you have fully inspected the item(s) and are 100% satisfied with your order.<br/><br/></p>"
+            "answer": "<p>Our driver will typically be able to allow time for a brief physical condition check on our item(s). Please do ensure this check is quick enough to allow our driver to continue on schedule to his remaining delivery customers<br/><br/>Please note that our drivers are unable to dispose of any packaging. We strongly recommend keeping all original packaging until you have fully inspected the item(s) and are 100% satisfied with your order.<br/></p>"
           }
         },
         "item_pwMfV": {
@@ -791,7 +791,7 @@
           "disabled": false,
           "settings": {
             "question": "Will you deliver to my room of choice?",
-            "answer": "<p>Your William Wood Dedicated Delivery driver will always deliver to the entrance of the property. <br/><br/>If you request delivery to a room of choice, the driver will assess access on arrival, including stairs, doorways, and tight spaces to determine what can be completed safely. Please note that any room-of-choice delivery is subject to the driver’s discretion on the day.<br/></p>"
+            "answer": "<p>Your William Wood Dedicated Delivery driver will always deliver to the entrance of the property.<br/><br/>If you request delivery to a room of choice, the driver will assess access on arrival, including stairs, doorways, and tight spaces to determine what can be completed safely. Please note that any room-of-choice delivery is subject to the driver’s discretion on the day.</p>"
           }
         },
         "item_BDkpY": {
@@ -799,7 +799,7 @@
           "disabled": false,
           "settings": {
             "question": "Can I track my order?",
-            "answer": "<p>At William Wood, we take a more personal and direct approach to 'tracking'.<br/> <br/>We are proud to offer one of the most transparent delivery services in our industry. Our driver will initiate contact via SMS prior to your delivery day. Upon dispatch, you will also be provided your driver's direct contact number, allowing you to contact them if you wish to do so.<br/></p>"
+            "answer": "<p>At William Wood, we take a more personal and direct approach to 'tracking'.<br/><br/>We are proud to offer one of the most transparent delivery services in our industry. Our driver will initiate contact via SMS prior to your delivery day. Upon dispatch, you will also be provided your driver's direct contact number, allowing you to contact them if you wish to do so.</p>"
           }
         },
         "item_kic3j": {
@@ -807,7 +807,7 @@
           "disabled": false,
           "settings": {
             "question": "Can I choose a delivery date / time slot?",
-            "answer": "<p>We don’t offer date or time slot selection at checkout. However, you’ll receive a delivery time window at least the evening prior to delivery. We’ll also provide our driver’s direct contact number so you can coordinate with them at any point if needed.<br/><br/>If you do have specific strict delivery day/time requirements, please advise our customer support team prior to, or immediately upon completion of your order.<br/></p>"
+            "answer": "<p>We don’t offer date or time slot selection at checkout. However, you’ll receive a delivery time window at least the evening prior to delivery. We’ll also provide our driver’s direct contact number so you can coordinate with them at any point if needed.<br/><br/>If you do have specific strict delivery day/time requirements, please advise our customer support team prior to, or immediately upon completion of your order.</p>"
           }
         },
         "item_NgeCY": {
@@ -815,15 +815,15 @@
           "disabled": false,
           "settings": {
             "question": "Can I order now and choose a later delivery date?",
-            "answer": "<p>Please contact our customer support if you wish to hold delivery of you order - hello@williamwoodmirrors.co.uk</p><p>We are able to hold delivery orders up to 90 days following the date of order.<br/></p>"
+            "answer": "<p>Please contact our customer support if you wish to hold delivery of you order - hello@williamwoodmirrors.co.uk</p><p>We are able to hold delivery orders up to 90 days following the date of order.</p>"
           }
         },
-        "item_feRFc": {
+        "item_N9fbD": {
           "type": "item",
           "disabled": false,
           "settings": {
             "question": "I love your products, but there is no delivery option to my country, can you ship to me?",
-            "answer": "<p>We are currently working on expanding our website coverage to allow customers from international countries to order our products.<br/><br/>Given the size and fragility of our products, international expansion involves many logistical challenges, and we are currently working through these as quickly as possible.<br/><br/>Please keep up to date with our social channels as we hope to have further news in the near future.<br/></p>"
+            "answer": "<p>We are currently working on expanding our website coverage to allow customers from international countries to order our products.<br/><br/>Given the size and fragility of our products, international expansion involves many logistical challenges, and we are currently working through these as quickly as possible.<br/><br/>Please keep up to date with our social channels as we hope to have further news in the near future.</p>"
           }
         },
         "tab_KN96z": {
@@ -838,7 +838,7 @@
           "disabled": false,
           "settings": {
             "question": "Is my item(s) on pre-order or in stock?",
-            "answer": "<p>All items are in stock and ready to be shipped from William Wood HQ in Knutsford, unless your add to cart button states 'PRE-ORDER'<br/></p>"
+            "answer": "<p>All items are in stock and ready to be shipped from William Wood HQ in Knutsford, unless your add to cart button states 'PRE-ORDER'</p>"
           }
         },
         "item_ggXQY": {
@@ -857,15 +857,15 @@
             "answer": "<p>In the rare case your order arrives with a defect, our helpful customer support team are on hand help resolve this - hello@williamwoodmirrors.co.uk<br/><br/>Please also provide some images of the defect/damage and our team will assist you promptly.</p>"
           }
         },
-        "item_Dhd87": {
+        "item_UMBGD": {
           "type": "item",
           "disabled": false,
           "settings": {
             "question": "I have ordered both pre-order and in stock items, will they be delivered together?",
-            "answer": "<p>If your order contains both in-stock and pre-order items, your items will be dispatched as they become available in line with the lead time for your delivery area.<br/></p><p>This means that in-stock items may be delivered separately from pre-order items to avoid unnecessary delays. <br/></p>"
+            "answer": "<p>If your order contains both in-stock and pre-order items, your items will be dispatched as they become available in line with the lead time for your delivery area.<br/></p><p>This means that in-stock items may be delivered separately from pre-order items to avoid unnecessary delays.</p>"
           }
         },
-        "item_UMBGD": {
+        "item_DDx67": {
           "type": "item",
           "disabled": false,
           "settings": {
@@ -873,19 +873,19 @@
             "answer": "<p>If your order includes a free gift alongside a pre-order item, the free gift will be delivered together with your pre-order once the item becomes available.</p>"
           }
         },
-        "item_6K6aK": {
+        "item_LgYnD": {
           "type": "item",
           "disabled": false,
           "settings": {
             "question": "Can I exchange my order once it is received?",
-            "answer": "<p>Should you wish to exchange your order, this service is free up to 30 days of your order being received. Should the product you wish to exchange to be higher in price than the initial product on your order, the difference in price will be requested by our customer support team. Should the product you wish to exchange to be lower in price than the initial product on your order, an exchange will be carried out. <br/><br/>Once the initial product is returned back to our warehouse, the difference in price will be refunded back to you as soon as possible. Please note your first exchange is free. Any additional exchanges which are not a result of a product being faulty are charged at a fixed fee of £15.00.</p>"
+            "answer": "<p>Should you wish to exchange your order, this service is free up to 30 days of your order being received. Should the product you wish to exchange to be higher in price than the initial product on your order, the difference in price will be requested by our customer support team. Should the product you wish to exchange to be lower in price than the initial product on your order, an exchange will be carried out.<br/><br/>Once the initial product is returned back to our warehouse, the difference in price will be refunded back to you as soon as possible. Please note your first exchange is free. Any additional exchanges which are not a result of a product being faulty are charged at a fixed fee of £15.00.</p>"
           }
         },
         "tab_6MpTY": {
           "type": "tab",
           "disabled": false,
           "settings": {
-            "tab_title": "Product and Warranty Information"
+            "tab_title": "Product Information and Warranty"
           }
         },
         "item_9jwbM": {
@@ -901,7 +901,7 @@
           "disabled": false,
           "settings": {
             "question": "Can I request more images of a product?",
-            "answer": "<p>All images on our website are taken by our in-house photography team, who aim to represent each product as accurately as possible.<br/></p><p>We unfortunately do not have more pictures of the items beyond those already shown on our website.</p><p>For further inspiration, please check our socials - @williamwood<br/></p>"
+            "answer": "<p>All images on our website are taken by our in-house photography team, who aim to represent each product as accurately as possible.<br/><br/>We unfortunately do not have more pictures of the items beyond those already shown on our website.</p><p>For further inspiration, please check our socials - @williamwood</p>"
           }
         },
         "item_rQBUi": {
@@ -909,7 +909,7 @@
           "disabled": false,
           "settings": {
             "question": "What should I use to hang my mirror?",
-            "answer": "<p>The fittings required for wall mounting will depend on your wall type. For solid walls, a pair of standard 2-3\" screws drilled directly into the wall with wall plugs will be sufficient for the mirror to hang in place as required.<br/></p><p>You may require additional fittings to wall-mount heavier items if you have a non-solid wall type. We recommend a product called 'Gripit'; these will allow you to wall-mount items far in excess of the weight of our mirrors into non-solid walls.<br/></p><p>Please ensure you do not use wire to hang to hang your mirror as this will cause immediate damage to your item(s) and will void your warranty.<br/></p>"
+            "answer": "<p>The fittings required for wall mounting will depend on your wall type. For solid walls, a pair of standard 2-3\" screws drilled directly into the wall with wall plugs will be sufficient for the mirror to hang in place as required.</p><p>You may require additional fittings to wall-mount heavier items if you have a non-solid wall type. We recommend a product called 'Gripit'; these will allow you to wall-mount items far in excess of the weight of our mirrors into non-solid walls.<br/><br/>Please ensure you do not use wire to hang to hang your mirror as this will cause immediate damage to your item(s) and will void your warranty.</p>"
           }
         },
         "item_qAWDg": {
@@ -917,7 +917,7 @@
           "disabled": false,
           "settings": {
             "question": "Does my order arrive assembled?",
-            "answer": "<p>Furniture items that require assembly will be clearly stated within the product description on the product page. <br/></p><p>If assembly is required, any relevant information or instructions for the product will be provided in the box upon delivery.<br/></p>"
+            "answer": "<p>Furniture items that require assembly will be clearly stated within the product description on the product page.</p><p>If assembly is required, any relevant information or instructions for the product will be provided in the box upon delivery.</p>"
           }
         },
         "item_EBe6F": {
@@ -925,7 +925,7 @@
           "disabled": false,
           "settings": {
             "question": "Do you offer a fitting/assembly service?",
-            "answer": "<p>Yes, once your order is confirmed you will receive a confirmation email. This email will have a link to schedule your fitting or assembly service with our trusted partner, TaskRabbit.<br/><br/>Please ensure you do not book this service until you have taken delivery of your order.<br/></p>"
+            "answer": "<p>Yes, once your order is confirmed you will receive a confirmation email. This email will have a link to schedule your fitting or assembly service with our trusted partner, TaskRabbit.<br/><br/>Please ensure you do not book this service until you have taken delivery of your order.</p>"
           }
         },
         "item_CFhYx": {
@@ -933,15 +933,7 @@
           "disabled": false,
           "settings": {
             "question": "What are your products made from?",
-            "answer": "<p>We use a variety of different premium materials to produce different products within our range. Each product that we sell is produced by trusted and vetted suppliers. To find out what specific products are made from, head to the product informarion section on the product page.</p>"
-          }
-        },
-        "item_MXrid": {
-          "type": "item",
-          "disabled": true,
-          "settings": {
-            "question": "Do you offer a fitting / assembly service?",
-            "answer": "<p><strong>Yes</strong>, once your order is confirmed, you will receive a confirmation email. This email will have a link to schedule your fitting or assembly service with our trusted partner, TaskRabbit.</p><p><strong>Please do not book this service until you have taken delivery of your order.</strong></p>"
+            "answer": "<p>We use a variety of different premium materials to produce different products within our range. Each product that we sell is produced by trusted and vetted suppliers. To find out what specific products are made from, head to the product information section on the product page.</p>"
           }
         },
         "tab_jyiYq": {
@@ -982,44 +974,44 @@
             "answer": "<p>Yes, if you need to cancel your order at any point, please contact our customer support team - hello@williamwoodmirrors.co.uk</p><p>Our team will be more than happy to assist you.<br/><br/>Please note if you do cancel after your order has been dispatched the refund will be processed once the item(s) have returned to our warehouse.</p>"
           }
         },
-        "item_4QgQm": {
+        "item_WirMQ": {
           "type": "item",
           "disabled": false,
           "settings": {
             "question": "I would like to return my order; how do I do this?",
-            "answer": "<p>If an item doesn't fit your space or meet your requirements, just let us know within 30 days of receiving your order. </p><p>Our team will arrange to collect it from your delivery address. You won’t need to return anything yourself. <br/></p><p>Please keep your packaging until you have confirmed you are 100% happy with your order.<br/></p>"
+            "answer": "<p>If an item doesn't fit your space or meet your requirements, just let us know within 30 days of receiving your order.</p><p>Our team will arrange to collect it from your delivery address. You won’t need to return anything yourself.</p><p>Please keep your packaging until you have confirmed you are 100% happy with your order.</p>"
           }
         },
-        "item_WMpG4": {
+        "item_fhUaU": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "Do you charge for a return?",
+            "answer": "<p>There is a £15 carriage fee for return of item(s) up to the value of £499 RRP</p><p>There is a £25 carriage fee for return of item(s) over the value of £500 RRP<br/><br/>Please note this charge is applied per visit and will be deducted from your refund on the return of your item(s).</p>"
+          }
+        },
+        "item_waCyy": {
           "type": "item",
           "disabled": false,
           "settings": {
             "question": "I have ordered as part of a bundle; will this affect my refund?",
-            "answer": "<p>If you return part of an order that was placed using a multi-item bundle discount, the remaining items in your order will be re-evaluated under the relevant offer tier. <br/><br/>For example: If a “30% off three or more full priced items” promotion was used, and one item is returned, the remaining two items will be adjusted to the “20% off two full priced items” pricing.<br/><br/>The price difference will be deducted from your refund.<br/></p>"
+            "answer": "<p>If you return part of an order that was placed using a multi-item bundle discount, the remaining items in your order will be re-evaluated under the relevant offer tier.<br/><br/>For example: If a “30% off three or more full priced items” promotion was used, and one item is returned, the remaining two items will be adjusted to the “20% off two full priced items” pricing.<br/><br/>The price difference will be deducted from your refund.</p>"
           }
         },
-        "item_U8nd9": {
+        "item_cyd9K": {
+          "type": "item",
+          "disabled": false,
+          "settings": {
+            "question": "When will I receive my refund?",
+            "answer": "<p>Once collected, your item(s) will be returned to our warehouse.</p><p>When we receive them, we’ll refund you within 1-3 Business Days.</p>"
+          }
+        },
+        "item_nTP74": {
           "type": "item",
           "disabled": false,
           "settings": {
             "question": "I don’t have the packaging for my return, is there a charge?",
-            "answer": "<p>Should you no longer have the packaging for your item(s), this would incur a repackaging charge, that would be deducted from your refund. This is applied per item.<br/><br/>Items under £99 RRP (including free gifts): £10 fee applies<br/><br/>Items £100 - £499 RRP: £15 fee applies<br/><br/>Items £500 RRP and over: £25 fee applies<br/></p>"
-          }
-        },
-        "item_Gy6Bc": {
-          "type": "item",
-          "disabled": true,
-          "settings": {
-            "question": "How do I contact Customer Support?",
-            "answer": "<p>Our industry leading human Customer Support Team is here to answer and questions you have. <br/><br/>Live Chat: Monday - Friday / 9 AM - 3 PM<br/><br/>WhatsApp: +44 7407 728747<br/><br/>Customer Support: <a href=\"mailto:hello@williamwoodmirrors.co.uk\">hello@williamwoodmirrors.co.uk</a></p>"
-          }
-        },
-        "item_9BB36": {
-          "type": "item",
-          "disabled": true,
-          "settings": {
-            "question": "How do I contact Customer Support?",
-            "answer": "<p>Our industry leading human Customer Support Team is here to answer and questions you have. <br/><br/>Live Chat: Monday - Friday / 9 AM - 3 PM<br/><br/>WhatsApp: +44 7407 728747<br/><br/>Customer Support: <a href=\"mailto:hello@williamwoodmirrors.co.uk\">hello@williamwoodmirrors.co.uk</a></p>"
+            "answer": "<p>Should you no longer have the packaging for your item(s), this would incur a repackaging charge, that would be deducted from your refund. This is applied per item.<br/><br/>Items under £99 RRP (including free gifts): £10 fee applies<br/><br/>Items £100 - £499 RRP: £15 fee applies<br/><br/>Items £500 RRP and over: £25 fee applies<br/><br/><br/><br/><br/><br/><br/></p>"
           }
         }
       },
@@ -1029,8 +1021,8 @@
         "item_T9Xpa",
         "item_wNVRx",
         "item_gbn7U",
-        "item_pnfUA",
-        "item_fzCyq",
+        "item_mJJbc",
+        "item_BJ9ef",
         "tab_PExMq",
         "item_3kXJF",
         "item_X9BQn",
@@ -1042,14 +1034,14 @@
         "item_BDkpY",
         "item_kic3j",
         "item_NgeCY",
-        "item_feRFc",
+        "item_N9fbD",
         "tab_KN96z",
         "item_7D6Bq",
         "item_ggXQY",
         "item_i9KVq",
-        "item_Dhd87",
         "item_UMBGD",
-        "item_6K6aK",
+        "item_DDx67",
+        "item_LgYnD",
         "tab_6MpTY",
         "item_9jwbM",
         "item_zaDbH",
@@ -1057,17 +1049,16 @@
         "item_qAWDg",
         "item_EBe6F",
         "item_CFhYx",
-        "item_MXrid",
         "tab_jyiYq",
         "item_Ff4Qp",
         "item_ydtRD",
         "tab_eG43j",
         "item_dLjPf",
-        "item_4QgQm",
-        "item_WMpG4",
-        "item_U8nd9",
-        "item_Gy6Bc",
-        "item_9BB36"
+        "item_WirMQ",
+        "item_fhUaU",
+        "item_waCyy",
+        "item_cyd9K",
+        "item_nTP74"
       ],
       "name": "SS - FAQ #10"
     },
@@ -1087,7 +1078,7 @@
         "mobile_item_size": "small",
         "desktop_item_size": "pico",
         "spacing": "tight",
-        "header-f80f1c4bb03760d149c8d3eb103dada3": null,
+        "header-822832d8a228fdb834d11c5df99d3546": null,
         "background": "#efefef",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -1310,7 +1301,7 @@
         "liquid": "{% if product.type == 'Mirror' %}\n<img class=\"mobilePS\" src=\"https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_MakeSmallRoomsBig_v1.02.jpg?v=1729256817\">\n<img class=\"desktopPS\" src=\"https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_MakeSmallRoomsBig_v1.0_2.jpg?v=1729595254\">\n{% elsif product.title contains 'Coffee Table' %}\n<img class=\"mobilePS\" src=\"https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_CoffeTables_v1.02_8875e8e7-b11c-4491-8427-803ef508469f.jpg?v=1729261477\">\n<img class=\"desktopPS\" src=\"https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_CoffeTables_v1.0.jpg?v=1729260504\">\n{% elsif product.type == 'Lamp' %}\n<img class=\"mobilePS\" src=\"https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Lamps_v1.02.jpg?v=1729518322\">\n<img class=\"desktopPS\" src=\"https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Lamps_v1.0_3.jpg?v=1730115270\">\n{% elsif product.type == 'vase' %}\n<img class=\"mobilePS\" src=\"https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_Vases_v1.22.jpg?v=1730293344\">\n{% endif %}",
         "add_vertical_spacing": true,
         "background_type": "full_width",
-        "header-a2cbf8496c1b16c2b6ecc2c6cdbd9dad": null,
+        "header-2d5f93dbf985364508b56d3706e36e1a": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -1330,7 +1321,7 @@
         "text_width": "medium",
         "text_position": "center",
         "text_alignment": "center",
-        "header-67824cdabd6ad1a87c5175318feec02e": null,
+        "header-2c1aad2a0990e53aa2bc533f7f68818d": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)",
         "button_background": "rgba(0,0,0,0)",
@@ -1352,7 +1343,7 @@
         "liquid": "<img src=\"https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_ElevateYourHome-02.jpg?v=1729592904\">",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-7037b44c9be6e1ca6912cfbaf7489101": null,
+        "header-65ebefa5167706b40eadd2cd5163a35b": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -1398,7 +1389,7 @@
         "liquid": "<video src=\"https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/videos/c/o/v/d07d71b60fe9447c99bada59959df6a3.mp4\" controls \n  poster=\"https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/A_sit_down_with_Jenna_final_edit_2_0-00-02-24.jpg?v=1728481189\">\n  Your browser does not support the video tag.\n</video>",
         "add_vertical_spacing": false,
         "background_type": "full_width",
-        "header-d3c7441d3f11fdc09eb9fb5273f6cfeb": null,
+        "header-68857ce271516e617ca31cf19e4f9ada": null,
         "background": "rgba(0,0,0,0)",
         "text_color": "rgba(0,0,0,0)"
       },
@@ -1468,7 +1459,7 @@
           "type": "product_status",
           "disabled": true,
           "settings": {
-            "header-2a4fa649986f0372af7ced6abc79d9a4": null,
+            "header-a9c22f61eb67ff20c4fb7c7b83aef563": null,
             "margin_top": 0,
             "font_weight": "bold",
             "font_size": 13,
@@ -1479,12 +1470,12 @@
             "padding_vertical": 5,
             "padding_horizontal": 15,
             "background_image": "shopify://shop_images/New_Year_PDP_Desk.jpg",
-            "header-ef91476b53df18bd65a3049b4069a75e": null,
+            "header-f39f7ae94e5e927dad71742c60b3954d": null,
             "promo_heading": "",
             "promo_text": "20% off when you purchase 3 or more full-priced products, no code needed.",
             "sale_heading": "",
             "sale_text": "",
-            "header-910e071aadc636aa06b64a786149c4bf": null,
+            "header-8e73c4ab241e8cfc601b49c3190d9942": null,
             "coming_soon_text": "Coming Soon",
             "back_soon_text": "Back in stock soon, sign up for restock notifications below",
             "black_friday_launch_text": "Launches 29.11.24",
@@ -1492,7 +1483,7 @@
             "black_friday_restock_text": "Restocks 29.11.24",
             "restock_text": "Restocks [DATE] 8PM",
             "out_of_stock_text": "Currently out of stock, join waitlist below.",
-            "header-8d4b69e59d9a2623331ba4f1f9526f9e": null,
+            "header-17330ccc1a4270b069388b9fea748443": null,
             "show_hudson_message": true,
             "hudson_message": "Free cushion included with the Hudson Chair"
           }
@@ -1510,7 +1501,7 @@
           "settings": {
             "enable_benefits": true,
             "exclude_product_title": "bowl",
-            "header-8e261de77d07c2acb6047b375ec62ddc": null,
+            "header-1e92d85a45400fc58fef95e7faa141f8": null,
             "icon_size_desktop": 30,
             "icon_size_mobile": 30,
             "text_size_desktop": 10,
@@ -1522,7 +1513,7 @@
             "margin_bottom": 30,
             "layout_direction": "vertical",
             "icon_position": "left",
-            "header-3e56d50a115ab5f83a23ae885795cd60": null,
+            "header-30af58e03fe187a444f5ab89145b74d6": null,
             "mirror_heading": "Benefits",
             "mirror_benefit_1_icon": "shopify://shop_images/Icons_Natural_Light.png",
             "mirror_benefit_1_text": "Maximises natural light",
@@ -1536,7 +1527,7 @@
             "mirror_benefit_5_text": "",
             "mirror_benefit_6_icon": null,
             "mirror_benefit_6_text": "",
-            "header-767c5ef6dc3c7a8bad6195e3bad2c618": null,
+            "header-2a1590976b89a04075cbd3d64e64e0e3": null,
             "coffee_table_heading": "Benefits",
             "coffee_table_benefit_1_icon": "shopify://shop_images/Icon_daily_usage.png",
             "coffee_table_benefit_1_text": "Convenient surface for daily usage",
@@ -1550,7 +1541,7 @@
             "coffee_table_benefit_5_text": "",
             "coffee_table_benefit_6_icon": null,
             "coffee_table_benefit_6_text": "",
-            "header-64ff3062ffdae90d4309784178ac057e": null,
+            "header-82c3f066ccb2702f12ae4004ce9a0136": null,
             "tray_heading": "Benefits",
             "tray_benefit_1_icon": "shopify://shop_images/Icon_daily_usage.png",
             "tray_benefit_1_text": "Organises your surface",
@@ -1564,7 +1555,7 @@
             "tray_benefit_5_text": "",
             "tray_benefit_6_icon": null,
             "tray_benefit_6_text": "",
-            "header-23cb128aa618082d9b973489d7e144ed": null,
+            "header-1ea126bbd47ba9b0be82ae4ab32f19b7": null,
             "lamp_heading": "Benefits",
             "lamp_benefit_1_icon": "shopify://shop_images/Icon_ambience.png",
             "lamp_benefit_1_text": "Creates ambience",
@@ -1578,7 +1569,7 @@
             "lamp_benefit_5_text": "",
             "lamp_benefit_6_icon": null,
             "lamp_benefit_6_text": "",
-            "header-c0654a68ff674d77f86b3fb22a89e626": null,
+            "header-bb366d4cbb773065d300f45dd63c3f93": null,
             "vase_heading": "Benefits",
             "vase_benefit_1_icon": "shopify://shop_images/Icon_elevate.png",
             "vase_benefit_1_text": "Perfectly displays your flowers or branches",
@@ -1592,7 +1583,7 @@
             "vase_benefit_5_text": "",
             "vase_benefit_6_icon": null,
             "vase_benefit_6_text": "",
-            "header-e22837a0cad3e03013c407fc081b6c83": null,
+            "header-413cf2ae6799036f2f79e2b7f392de2d": null,
             "side_table_heading": "Side Table Benefits",
             "side_table_benefit_1_icon": "shopify://shop_images/Icon_Easy_Access_1.png",
             "side_table_benefit_1_text": "Easy access to essential items",
@@ -1606,7 +1597,7 @@
             "side_table_benefit_5_text": "",
             "side_table_benefit_6_icon": null,
             "side_table_benefit_6_text": "",
-            "header-9da01392e9160efdc3aea3d4b17b5403": null,
+            "header-1888eb3d68793bc0b60c176014dd1f3a": null,
             "coaster_heading": "Coaster Benefits",
             "coaster_benefit_1_icon": "shopify://shop_images/Icon_Table.png",
             "coaster_benefit_1_text": "Protects your table surface",
@@ -1620,7 +1611,7 @@
             "coaster_benefit_5_text": "",
             "coaster_benefit_6_icon": null,
             "coaster_benefit_6_text": "",
-            "header-8159a446a012c1769418acac1b2b9a4c": null,
+            "header-93f9a1a11caa3766aa4906b1ede18cf4": null,
             "chair_heading": "Chair Benefits",
             "chair_benefit_1_icon": "shopify://shop_images/Icon_arrows.png",
             "chair_benefit_1_text": "Balances Room Design",
@@ -1654,23 +1645,23 @@
           "type": "low_stock",
           "disabled": false,
           "settings": {
-            "header-9342ddc7ce8f287ddc61d79c9ae29d2c": null,
+            "header-8fcd9d95261657dda050f830a7d1d62f": null,
             "restocked_text": "Recently restocked, don't miss out.",
             "low_stock_text": "Low stock",
             "low_stock_suffix": "left",
             "limited_availability_bold": "Availability is limited",
             "limited_availability_normal": "- secure yours before it's gone",
-            "header-45f8a8e35e4262886f0d3583a8168106": null,
+            "header-445fe26ffcd50e324791f34d29735c4e": null,
             "last_chance_text": "Last chance to purchase, this product <b>won't be restocked</b>.",
             "limited_offer_prefix": "Exclusive offer",
             "limited_offer_suffix": ", returning to full price soon.",
-            "header-0a082823594793aa88e69844defa4e7f": null,
+            "header-9105e6ecb77094d91af5dd5703d11692": null,
             "preorder_delivery_text": "Free UK Delivery: Available for pre order",
             "instock_delivery_bold_text": "Free UK Delivery, 100% Insured.",
             "instock_delivery_regular_text": "Free UK Delivery: In stock & ready to ship",
-            "header-e1ea3e47849957c8b628048ed73ff944": null,
+            "header-e218bed39ad1c6035c7de167434e2e5c": null,
             "low_stock_threshold": 10,
-            "header-4836654a09d7d16650cb5acd62a8c312": null,
+            "header-fe9c65c838c917c505eed9c9435cc765": null,
             "pulse_color": "#54c63a",
             "urgency_indicator_color": "#ffbf00",
             "enable_animations": true
@@ -1774,7 +1765,7 @@
           "type": "button",
           "disabled": false,
           "settings": {
-            "paragraph-09218a16475a8f61509367b91938bbf8": null,
+            "paragraph-7bbc2b6b0256b5d9644cffb2cff0a21e": null,
             "link": "",
             "text": "",
             "stretch": true,
