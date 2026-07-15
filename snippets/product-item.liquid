@@ -178,13 +178,10 @@
 {% elsif product.title contains 'Wabi-Sabi - Large Full Length' %}
 <a href="{{ product.url }}"><strong style="display: block;">Wabi-Sabi</strong><span style="display: block;">Large Full Length Concrete Irregular Mirror 170cm x 80cm</span></a>
 {% else %}
-    {% assign title_words = card_title_without_measurement | split: ' ' %}
+    {% assign title_words = product.title | split: ' ' %}
   {% assign first_word = title_words[0] | replace: '-', '' %}
   <a href="{{ product.url }}"><strong style="display: block;">{{ first_word }}</strong><span style="display: block; text-transform: inherit !important; margin-top: 2px;">{{ title_words | join: ' ' | remove: '-' | remove: first_word }}</span></a>
 {% endif %}
-{%- if card_title_measurement != blank -%}
-  <div class="product-item-meta__measurement">{{ card_title_measurement }}</div>
-{%- endif -%}
 {% if request.path != "/en-international" %}
       <div class="product-item-meta__price-list-container">
         <div class="price-list price-list--centered">
