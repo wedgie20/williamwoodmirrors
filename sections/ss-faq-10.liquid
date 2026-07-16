@@ -629,14 +629,14 @@ For inquiries or permissions, contact daniel@section.store
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      flex-wrap: wrap !important;
-      gap: 15px !important;
+      flex-wrap: nowrap !important;
+      gap: 10px !important;
       margin: 0 0 38px !important;
     }
 
     .custom_faq_section.faq-{{ section.id }} .faq-tab-toggle-{{ section.id }} {
       min-height: 43px !important;
-      padding: 0 17px !important;
+      padding: 0 14px !important;
       border: 1.5px solid #111 !important;
       border-radius: 999px !important;
       background: transparent !important;
@@ -786,6 +786,22 @@ For inquiries or permissions, contact daniel@section.store
       .custom_faq_section.faq-{{ section.id }} .faq-answer-{{ section.id }} *,
       .custom_faq_section.faq-{{ section.id }} .faq-height-cal-{{ section.id }} * {
         font-size: 14px !important;
+      }
+    }
+
+    @media screen and (max-width: 699px) {
+      .custom_faq_section.faq-{{ section.id }} .faq-toggles-{{ section.id }} {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        flex-wrap: nowrap !important;
+        gap: 10px !important;
+      }
+
+      .custom_faq_section.faq-{{ section.id }} .faq-tab-toggle-{{ section.id }} {
+        width: auto !important;
+        max-width: 100% !important;
+        white-space: nowrap !important;
       }
     }
   </style>
