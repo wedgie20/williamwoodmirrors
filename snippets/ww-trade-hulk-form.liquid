@@ -1,0 +1,257 @@
+<div class="ww-trade-hulk-form" data-ww-trade-hulk-form>
+  <div class="pxFormGenerator" id="Az-QKwOpUDJom6HimmxUTQ"></div>
+</div>
+
+<style>
+  .ww-trade-hulk-form {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 34px 20px 22px;
+    color: #000;
+  }
+
+  .ww-trade-hulk-form form,
+  .ww-trade-hulk-form .pxFormGenerator,
+  .ww-trade-hulk-form iframe {
+    width: 100%;
+  }
+
+  .ww-trade-hulk-form form,
+  .ww-trade-hulk-form .form-wrapper,
+  .ww-trade-hulk-form .form-container,
+  .ww-trade-hulk-form .hulk-form,
+  .ww-trade-hulk-form [class*="form-wrapper"],
+  .ww-trade-hulk-form [class*="form-container"] {
+    max-width: 100% !important;
+    margin-inline: auto !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+
+  .ww-trade-hulk-form h1,
+  .ww-trade-hulk-form h2,
+  .ww-trade-hulk-form h3,
+  .ww-trade-hulk-form .form-title,
+  .ww-trade-hulk-form [class*="title"] {
+    margin: 0 0 18px !important;
+    color: #000 !important;
+    text-align: center !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0 !important;
+  }
+
+  .ww-trade-hulk-form p,
+  .ww-trade-hulk-form .form-description,
+  .ww-trade-hulk-form [class*="description"] {
+    max-width: 700px;
+    margin: 0 auto 34px !important;
+    color: #000 !important;
+    text-align: center !important;
+    font-size: 13px !important;
+    line-height: 1.6 !important;
+    font-weight: 400 !important;
+  }
+
+  .ww-trade-hulk-form iframe {
+    display: block;
+    border: 0;
+  }
+
+  .ww-trade-hulk-form .ww-floating-field {
+    position: relative !important;
+    margin: 0 auto 18px !important;
+    {% comment %} max-width: 620px; {% endcomment %}
+  }
+
+  .ww-trade-hulk-form input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]),
+  .ww-trade-hulk-form textarea,
+  .ww-trade-hulk-form select {
+    width: 100% !important;
+    min-height: 52px !important;
+    padding: 0 20px !important;
+    border: 1px solid #d0d0d0 !important;
+    border-radius: 999px !important;
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    outline: 0 !important;
+  }
+
+  .ww-trade-hulk-form textarea {
+    min-height: 116px !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    border-radius: 26px !important;
+    resize: vertical;
+  }
+
+  .ww-trade-hulk-form input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]):focus,
+  .ww-trade-hulk-form textarea:focus,
+  .ww-trade-hulk-form select:focus {
+    border-color: #111 !important;
+    border-width: 2px !important;
+  }
+
+  .ww-trade-hulk-form .ww-floating-field > label {
+    position: absolute !important;
+    top: 50%;
+    left: 16px;
+    z-index: 2;
+    max-width: calc(100% - 32px);
+    padding: 0 4px;
+    background: #efefef;
+    color: #000 !important;
+    font-size: 10px !important;
+    line-height: 1 !important;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: top 0.18s ease, opacity 0.18s ease, transform 0.18s ease;
+  }
+
+  .ww-trade-hulk-form .ww-floating-textarea > label {
+    top: 20px;
+    transform: none;
+  }
+
+  .ww-trade-hulk-form .ww-floating-field.ww-field-focused > label,
+  .ww-trade-hulk-form .ww-floating-field.ww-field-filled > label {
+    top: 0;
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+
+  .ww-trade-hulk-form button[type="submit"],
+  .ww-trade-hulk-form input[type="submit"] {
+    display: block !important;
+    width: min(100%, 620px) !important;
+    min-height: 48px !important;
+    margin: 28px auto 0 !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: #000 !important;
+    color: #fff !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.03em !important;
+    text-transform: uppercase !important;
+  }
+
+  @media screen and (max-width: 699px) {
+    .ww-trade-hulk-form {
+      max-width: 100%;
+      padding-inline: 18px;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    var roots = document.querySelectorAll('[data-ww-trade-hulk-form]');
+
+    roots.forEach(function(root) {
+      function renderHulkForm() {
+        var formMount = root.querySelector('.pxFormGenerator[id]');
+        if (!formMount) {
+          return;
+        }
+
+        if (typeof window.shouldLoadPopup === 'function') {
+          window.shouldLoadPopup(formMount.id);
+        } else if (typeof window.RenderFormById === 'function') {
+          window.RenderFormById(formMount.id);
+        }
+      }
+
+      function findLabel(control, field) {
+        if (control.id && window.CSS && CSS.escape) {
+          var labelById = root.querySelector('label[for="' + CSS.escape(control.id) + '"]');
+          if (labelById) {
+            return labelById;
+          }
+        }
+
+        return field.querySelector('label');
+      }
+
+      function setupField(control) {
+        if (control.dataset.wwFloatingReady === 'true') {
+          return;
+        }
+
+        var field = control.closest('.hulk-form-field, .form-field, .form-group, .field, [class*="field"]') || control.parentElement;
+        if (field === control) {
+          field = control.parentElement;
+        }
+
+        if (!field || field === root) {
+          return;
+        }
+
+        var label = findLabel(control, field);
+        if (!label) {
+          return;
+        }
+
+        if (!field.contains(label) && label.parentElement && label.parentElement.contains(control)) {
+          field = label.parentElement;
+        }
+
+        field.classList.add('ww-floating-field');
+
+        if (control.tagName.toLowerCase() === 'textarea') {
+          field.classList.add('ww-floating-textarea');
+        }
+
+        if (label.parentElement !== field || label.nextElementSibling !== control) {
+          field.insertBefore(label, control);
+        }
+
+        control.dataset.wwFloatingReady = 'true';
+
+        function syncState() {
+          field.classList.toggle('ww-field-filled', Boolean(control.value));
+        }
+
+        control.addEventListener('focus', function() {
+          field.classList.add('ww-field-focused');
+        });
+
+        control.addEventListener('blur', function() {
+          field.classList.remove('ww-field-focused');
+          syncState();
+        });
+
+        control.addEventListener('input', syncState);
+        control.addEventListener('change', syncState);
+        syncState();
+      }
+
+      function setupFields() {
+        root.querySelectorAll('input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]), textarea, select').forEach(setupField);
+      }
+
+      setupFields();
+      renderHulkForm();
+
+      new MutationObserver(setupFields).observe(root, {
+        childList: true,
+        subtree: true
+      });
+
+      var attempts = 0;
+      var renderTimer = setInterval(function() {
+        attempts += 1;
+        renderHulkForm();
+
+        if (root.querySelector('form, iframe') || attempts >= 20) {
+          clearInterval(renderTimer);
+        }
+      }, 250);
+    });
+  })();
+</script>
