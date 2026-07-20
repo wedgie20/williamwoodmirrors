@@ -61,6 +61,7 @@
   assign promo_note = ''
 
   assign home_accessories_match = product.collections | where: 'handle', 'all-accessories'
+  assign secret_match = product.collections | where: 'handle', 'secret-sale'
   assign furniture_match = product.collections | where: 'handle', 'all-furniture'
 
   if home_accessories_match.size > 0
@@ -69,6 +70,9 @@
    elsif furniture_match.size > 0
     assign promo_code = 'WW25'
     assign promo_text = '25% Off'
+   elsif secret_match.size > 0
+    assign promo_code = ''
+    assign promo_text = ''
 
   else
     assign promo_code = 'WWJULY'
