@@ -64,12 +64,12 @@
   assign secret_match = product.collections | where: 'handle', 'secret-sale'
   assign all_furniture_match = product.collections | where: 'handle', '25-off-full-priced-furniture'
 
-  if home_accessories_match.size > 0
-    assign promo_text = '3 for 2'
-    assign promo_note = 'Code auto applies at checkout'
-   elsif all_furniture_match.size > 0
+  if all_furniture_match.size > 0
     assign promo_code = 'WW25'
     assign promo_text = '25% Off Furniture'
+  elsif home_accessories_match.size > 0
+    assign promo_text = '3 for 2'
+    assign promo_note = 'Code auto applies at checkout'
    elsif secret_match.size > 0
     assign promo_code = ''
     assign promo_text = ''
