@@ -1,625 +1,1002 @@
 {%- comment -%}
-  Trade Show page - inspired by Soho Home Trade editorial layout.
-  Warm neutral palette, editorial imagery with text overlays, alternating image+text bands.
-  Ignores header, footer, "Featured Projects", and "Book a trade appointment" sections per brief.
-  William Wood typography: GothamBlack headings, Ambroise italic accents, Gotham Book body.
+  William Wood trade page body.
+  Keeps the theme header/footer outside this section and avoids the Soho sections
+  called out in the brief: Featured Projects and Book a trade appointment.
 {%- endcomment -%}
 
-<section class="ww-trade" data-ww-trade>
+{%- liquid
+  assign benefit_blocks = section.blocks | where: 'type', 'benefit'
+  assign step_blocks = section.blocks | where: 'type', 'step'
+  assign faq_blocks = section.blocks | where: 'type', 'faq'
+-%}
 
-  {%- comment -%} ============================================================
-    1. HERO - editorial image with text overlay (like Soho Home)
-  ============================================================ {%- endcomment -%}
-  <div class="ww-trade__hero">
-    {%- if section.settings.hero_image != blank -%}
-      <img class="ww-trade__hero-image"
-           src="{{ section.settings.hero_image | image_url: width: 2400 }}"
-           alt="{{ section.settings.hero_title | escape }}"
-           width="{{ section.settings.hero_image.width }}"
-           height="{{ section.settings.hero_image.height }}">
-    {%- endif -%}
-    <div class="ww-trade__hero-overlay"></div>
-    <div class="ww-trade__hero-inner">
+<section class="ww-trade-page" data-ww-trade-page>
+  <section class="ww-trade-page__hero">
+    <picture class="ww-trade-page__hero-picture">
+      {%- if section.settings.hero_mobile_image != blank -%}
+        <source
+          media="(max-width: 749px)"
+          srcset="{{ section.settings.hero_mobile_image | image_url: width: 900 }}">
+      {%- endif -%}
+      {%- if section.settings.hero_image != blank -%}
+        <img
+          class="ww-trade-page__hero-image"
+          src="{{ section.settings.hero_image | image_url: width: 2400 }}"
+          alt="{{ section.settings.hero_title | escape }}"
+          width="{{ section.settings.hero_image.width }}"
+          height="{{ section.settings.hero_image.height }}">
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'ww-trade-page__hero-placeholder' }}
+      {%- endif -%}
+    </picture>
+
+    <div class="ww-trade-page__hero-overlay"></div>
+
+    <div class="ww-trade-page__hero-content">
       {%- if section.settings.hero_eyebrow != blank -%}
-        <p class="ww-trade__hero-eyebrow">{{ section.settings.hero_eyebrow }}</p>
+        <p class="ww-trade-page__eyebrow ww-trade-page__eyebrow--light">{{ section.settings.hero_eyebrow }}</p>
       {%- endif -%}
-      <h1 class="ww-trade__hero-title">{{ section.settings.hero_title }}</h1>
+      {%- if section.settings.hero_title != blank -%}
+        <h1>{{ section.settings.hero_title }}</h1>
+      {%- endif -%}
       {%- if section.settings.hero_subtitle != blank -%}
-        <p class="ww-trade__hero-subtitle">{{ section.settings.hero_subtitle }}</p>
+        <div class="ww-trade-page__hero-copy">{{ section.settings.hero_subtitle }}</div>
       {%- endif -%}
-      {%- if section.settings.hero_cta_text != blank -%}
-        <a href="{{ section.settings.hero_cta_link | default: '#trade-apply' }}" class="ww-trade__cta ww-trade__cta--outline">
-          {{ section.settings.hero_cta_text }}
-        </a>
-      {%- endif -%}
-    </div>
-  </div>
-
-  {%- comment -%} ============================================================
-    2. INTRO - centered narrative on warm cream background
-  ============================================================ {%- endcomment -%}
-  {%- if section.settings.intro_body != blank -%}
-    <div class="ww-trade__intro">
-      <div class="ww-trade__container ww-trade__container--narrow">
-        {%- if section.settings.intro_eyebrow != blank -%}
-          <p class="ww-trade__eyebrow">{{ section.settings.intro_eyebrow }}</p>
+      <div class="ww-trade-page__actions">
+        {%- if section.settings.hero_cta_text != blank -%}
+          <a class="ww-trade-page__button ww-trade-page__button--light" href="{{ section.settings.hero_cta_link | default: '#trade-apply' }}">
+            {{ section.settings.hero_cta_text }}
+          </a>
         {%- endif -%}
-        {%- if section.settings.intro_heading != blank -%}
-          <h2 class="ww-trade__intro-heading">{{ section.settings.intro_heading }}</h2>
-        {%- endif -%}
-        {%- if section.settings.intro_body != blank -%}
-          <div class="ww-trade__intro-body">{{ section.settings.intro_body }}</div>
-        {%- endif -%}
-      </div>
-    </div>
-  {%- endif -%}
-
-  {%- comment -%} ============================================================
-    3. FIRST EDITORIAL SPLIT - image left, text right
-  ============================================================ {%- endcomment -%}
-  {%- if section.settings.split1_image != blank or section.settings.split1_heading != blank -%}
-    <div class="ww-trade__split ww-trade__split--image-left">
-      <div class="ww-trade__split-media">
-        {%- if section.settings.split1_image != blank -%}
-          <img src="{{ section.settings.split1_image | image_url: width: 1600 }}"
-               alt="{{ section.settings.split1_heading | escape }}"
-               loading="lazy"
-               width="{{ section.settings.split1_image.width }}"
-               height="{{ section.settings.split1_image.height }}">
-        {%- endif -%}
-      </div>
-      <div class="ww-trade__split-text">
-        <div class="ww-trade__split-inner">
-          {%- if section.settings.split1_eyebrow != blank -%}
-            <p class="ww-trade__eyebrow">{{ section.settings.split1_eyebrow }}</p>
-          {%- endif -%}
-          {%- if section.settings.split1_heading != blank -%}
-            <h2 class="ww-trade__split-heading">{{ section.settings.split1_heading }}</h2>
-          {%- endif -%}
-          {%- if section.settings.split1_body != blank -%}
-            <div class="ww-trade__split-body">{{ section.settings.split1_body }}</div>
-          {%- endif -%}
-        </div>
-      </div>
-    </div>
-  {%- endif -%}
-
-  {%- comment -%} ============================================================
-    4. BENEFITS - editorial cards on cream
-  ============================================================ {%- endcomment -%}
-  {%- assign benefits = section.blocks | where: 'type', 'benefit' -%}
-  {%- if benefits.size > 0 -%}
-    <div class="ww-trade__benefits">
-      <div class="ww-trade__container">
-        <div class="ww-trade__section-header">
-          {%- if section.settings.benefits_eyebrow != blank -%}
-            <p class="ww-trade__eyebrow">{{ section.settings.benefits_eyebrow }}</p>
-          {%- endif -%}
-          {%- if section.settings.benefits_heading != blank -%}
-            <h2 class="ww-trade__section-heading">{{ section.settings.benefits_heading }}</h2>
-          {%- endif -%}
-        </div>
-        <div class="ww-trade__benefits-grid">
-          {%- for block in benefits -%}
-            <div class="ww-trade__benefit" {{ block.shopify_attributes }}>
-              {%- if block.settings.image != blank -%}
-                <div class="ww-trade__benefit-image">
-                  <img src="{{ block.settings.image | image_url: width: 700 }}"
-                       alt="{{ block.settings.title | escape }}"
-                       loading="lazy"
-                       width="{{ block.settings.image.width }}"
-                       height="{{ block.settings.image.height }}">
-                </div>
-              {%- endif -%}
-              <h3 class="ww-trade__benefit-title">{{ block.settings.title }}</h3>
-              {%- if block.settings.body != blank -%}
-                <p class="ww-trade__benefit-body">{{ block.settings.body }}</p>
-              {%- endif -%}
-            </div>
-          {%- endfor -%}
-        </div>
-      </div>
-    </div>
-  {%- endif -%}
-
-  {%- comment -%} ============================================================
-    5. SECOND EDITORIAL SPLIT - image right, text left (alternating)
-  ============================================================ {%- endcomment -%}
-  {%- if section.settings.split2_image != blank or section.settings.split2_heading != blank -%}
-    <div class="ww-trade__split ww-trade__split--image-right">
-      <div class="ww-trade__split-text">
-        <div class="ww-trade__split-inner">
-          {%- if section.settings.split2_eyebrow != blank -%}
-            <p class="ww-trade__eyebrow">{{ section.settings.split2_eyebrow }}</p>
-          {%- endif -%}
-          {%- if section.settings.split2_heading != blank -%}
-            <h2 class="ww-trade__split-heading">{{ section.settings.split2_heading }}</h2>
-          {%- endif -%}
-          {%- if section.settings.split2_body != blank -%}
-            <div class="ww-trade__split-body">{{ section.settings.split2_body }}</div>
-          {%- endif -%}
-        </div>
-      </div>
-      <div class="ww-trade__split-media">
-        {%- if section.settings.split2_image != blank -%}
-          <img src="{{ section.settings.split2_image | image_url: width: 1600 }}"
-               alt="{{ section.settings.split2_heading | escape }}"
-               loading="lazy"
-               width="{{ section.settings.split2_image.width }}"
-               height="{{ section.settings.split2_image.height }}">
-        {%- endif -%}
-      </div>
-    </div>
-  {%- endif -%}
-
-  {%- comment -%} ============================================================
-    6. HOW IT WORKS - numbered steps on cream
-  ============================================================ {%- endcomment -%}
-  {%- assign steps = section.blocks | where: 'type', 'step' -%}
-  {%- if steps.size > 0 -%}
-    <div class="ww-trade__steps">
-      <div class="ww-trade__container">
-        <div class="ww-trade__section-header">
-          {%- if section.settings.steps_eyebrow != blank -%}
-            <p class="ww-trade__eyebrow">{{ section.settings.steps_eyebrow }}</p>
-          {%- endif -%}
-          {%- if section.settings.steps_heading != blank -%}
-            <h2 class="ww-trade__section-heading">{{ section.settings.steps_heading }}</h2>
-          {%- endif -%}
-        </div>
-        <div class="ww-trade__steps-grid">
-          {%- for block in steps -%}
-            <div class="ww-trade__step" {{ block.shopify_attributes }}>
-              <span class="ww-trade__step-number">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
-              <h3 class="ww-trade__step-title">{{ block.settings.title }}</h3>
-              {%- if block.settings.body != blank -%}
-                <p class="ww-trade__step-body">{{ block.settings.body }}</p>
-              {%- endif -%}
-            </div>
-          {%- endfor -%}
-        </div>
-      </div>
-    </div>
-  {%- endif -%}
-
-  {%- comment -%} ============================================================
-    7. APPLY BAND - full-width editorial CTA
-  ============================================================ {%- endcomment -%}
-  {%- if section.settings.cta_heading != blank -%}
-    <div class="ww-trade__apply" id="trade-apply" {% if section.settings.cta_image != blank %}style="background-image: url('{{ section.settings.cta_image | image_url: width: 2400 }}');"{% endif %}>
-      {%- if section.settings.cta_image != blank -%}
-        <div class="ww-trade__apply-overlay"></div>
-      {%- endif -%}
-      <div class="ww-trade__container ww-trade__container--narrow ww-trade__apply-inner">
-        {%- if section.settings.cta_eyebrow != blank -%}
-          <p class="ww-trade__hero-eyebrow">{{ section.settings.cta_eyebrow }}</p>
-        {%- endif -%}
-        <h2 class="ww-trade__apply-heading">{{ section.settings.cta_heading }}</h2>
-        {%- if section.settings.cta_body != blank -%}
-          <div class="ww-trade__apply-body">{{ section.settings.cta_body }}</div>
-        {%- endif -%}
-        {%- if section.settings.cta_button_text != blank -%}
-          <a href="{{ section.settings.cta_button_link }}" class="ww-trade__cta ww-trade__cta--outline">
-            {{ section.settings.cta_button_text }}
+        {%- if section.settings.hero_secondary_text != blank -%}
+          <a class="ww-trade-page__button ww-trade-page__button--ghost-light" href="{{ section.settings.hero_secondary_link | default: '#trade-benefits' }}">
+            {{ section.settings.hero_secondary_text }}
           </a>
         {%- endif -%}
       </div>
     </div>
+  </section>
+
+  {%- if section.settings.intro_heading != blank or section.settings.intro_body != blank -%}
+    <section class="ww-trade-page__section ww-trade-page__intro">
+      <div class="ww-trade-page__container ww-trade-page__container--narrow">
+        {%- if section.settings.intro_eyebrow != blank -%}
+          <p class="ww-trade-page__eyebrow">{{ section.settings.intro_eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.intro_heading != blank -%}
+          <h2>{{ section.settings.intro_heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.intro_body != blank -%}
+          <div class="ww-trade-page__rte">{{ section.settings.intro_body }}</div>
+        {%- endif -%}
+      </div>
+    </section>
   {%- endif -%}
 
+  {%- if section.settings.split1_heading != blank or section.settings.split1_image != blank -%}
+    <section class="ww-trade-page__split">
+      <div class="ww-trade-page__split-media">
+        {%- if section.settings.split1_image != blank -%}
+          <img
+            src="{{ section.settings.split1_image | image_url: width: 1600 }}"
+            alt="{{ section.settings.split1_heading | escape }}"
+            loading="lazy"
+            width="{{ section.settings.split1_image.width }}"
+            height="{{ section.settings.split1_image.height }}">
+        {%- endif -%}
+      </div>
+      <div class="ww-trade-page__split-copy">
+        {%- if section.settings.split1_eyebrow != blank -%}
+          <p class="ww-trade-page__eyebrow">{{ section.settings.split1_eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.split1_heading != blank -%}
+          <h2>{{ section.settings.split1_heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.split1_body != blank -%}
+          <div class="ww-trade-page__rte">{{ section.settings.split1_body }}</div>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- if benefit_blocks.size > 0 -%}
+    <section id="trade-benefits" class="ww-trade-page__section ww-trade-page__benefits">
+      <div class="ww-trade-page__container">
+        <div class="ww-trade-page__section-heading">
+          {%- if section.settings.benefits_eyebrow != blank -%}
+            <p class="ww-trade-page__eyebrow">{{ section.settings.benefits_eyebrow }}</p>
+          {%- endif -%}
+          {%- if section.settings.benefits_heading != blank -%}
+            <h2>{{ section.settings.benefits_heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.benefits_body != blank -%}
+            <div class="ww-trade-page__rte">{{ section.settings.benefits_body }}</div>
+          {%- endif -%}
+        </div>
+
+        <div class="ww-trade-page__benefit-grid">
+          {%- for block in benefit_blocks -%}
+            <article class="ww-trade-page__benefit" {{ block.shopify_attributes }}>
+              <span class="ww-trade-page__benefit-number">{{ forloop.index | prepend: '0' }}</span>
+              {%- if block.settings.title != blank -%}
+                <h3>{{ block.settings.title }}</h3>
+              {%- endif -%}
+              {%- if block.settings.body != blank -%}
+                <div class="ww-trade-page__rte ww-trade-page__rte--small">{{ block.settings.body }}</div>
+              {%- endif -%}
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- if section.settings.split2_heading != blank or section.settings.split2_image != blank -%}
+    <section class="ww-trade-page__split ww-trade-page__split--reverse">
+      <div class="ww-trade-page__split-media">
+        {%- if section.settings.split2_image != blank -%}
+          <img
+            src="{{ section.settings.split2_image | image_url: width: 1600 }}"
+            alt="{{ section.settings.split2_heading | escape }}"
+            loading="lazy"
+            width="{{ section.settings.split2_image.width }}"
+            height="{{ section.settings.split2_image.height }}">
+        {%- endif -%}
+      </div>
+      <div class="ww-trade-page__split-copy">
+        {%- if section.settings.split2_eyebrow != blank -%}
+          <p class="ww-trade-page__eyebrow">{{ section.settings.split2_eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.split2_heading != blank -%}
+          <h2>{{ section.settings.split2_heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.split2_body != blank -%}
+          <div class="ww-trade-page__rte">{{ section.settings.split2_body }}</div>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- if step_blocks.size > 0 -%}
+    <section class="ww-trade-page__section ww-trade-page__steps">
+      <div class="ww-trade-page__container">
+        <div class="ww-trade-page__section-heading">
+          {%- if section.settings.steps_eyebrow != blank -%}
+            <p class="ww-trade-page__eyebrow">{{ section.settings.steps_eyebrow }}</p>
+          {%- endif -%}
+          {%- if section.settings.steps_heading != blank -%}
+            <h2>{{ section.settings.steps_heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.steps_body != blank -%}
+            <div class="ww-trade-page__rte">{{ section.settings.steps_body }}</div>
+          {%- endif -%}
+        </div>
+
+        <div class="ww-trade-page__step-grid">
+          {%- for block in step_blocks -%}
+            <article class="ww-trade-page__step" {{ block.shopify_attributes }}>
+              <span>{{ forloop.index }}</span>
+              {%- if block.settings.title != blank -%}
+                <h3>{{ block.settings.title }}</h3>
+              {%- endif -%}
+              {%- if block.settings.body != blank -%}
+                <div class="ww-trade-page__rte ww-trade-page__rte--small">{{ block.settings.body }}</div>
+              {%- endif -%}
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- if section.settings.show_form -%}
+    <section id="trade-apply" class="ww-trade-page__section ww-trade-page__form-section">
+      <div class="ww-trade-page__container ww-trade-page__form-grid">
+        <div class="ww-trade-page__form-copy">
+          {%- if section.settings.form_eyebrow != blank -%}
+            <p class="ww-trade-page__eyebrow">{{ section.settings.form_eyebrow }}</p>
+          {%- endif -%}
+          {%- if section.settings.form_heading != blank -%}
+            <h2>{{ section.settings.form_heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.form_body != blank -%}
+            <div class="ww-trade-page__rte">{{ section.settings.form_body }}</div>
+          {%- endif -%}
+        </div>
+        <div class="ww-trade-page__form-panel">
+          {% render 'ww-trade-hulk-form' %}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- if faq_blocks.size > 0 -%}
+    <section class="ww-trade-page__section ww-trade-page__faq">
+      <div class="ww-trade-page__container ww-trade-page__container--narrow">
+        {%- if section.settings.faq_heading != blank -%}
+          <h2>{{ section.settings.faq_heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.faq_body != blank -%}
+          <div class="ww-trade-page__rte">{{ section.settings.faq_body }}</div>
+        {%- endif -%}
+        <div class="ww-trade-page__faq-list">
+          {%- for block in faq_blocks -%}
+            <details class="ww-trade-page__faq-item" {{ block.shopify_attributes }}>
+              <summary>
+                <span>{{ block.settings.question }}</span>
+                <span aria-hidden="true">+</span>
+              </summary>
+              <div class="ww-trade-page__faq-answer ww-trade-page__rte">{{ block.settings.answer }}</div>
+            </details>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
 </section>
 
 <style>
-  .ww-trade {
-    color: #2b2622;
-    font-family: 'Gotham Book', 'Josefin Sans', sans-serif;
-    font-size: 15px;
-    line-height: 1.7;
-    background: #f5efe7;
-  }
-
-  .ww-trade__container {
-    max-width: 1320px;
-    margin: 0 auto;
-    padding: 0 40px;
-  }
-  .ww-trade__container--narrow {
-    max-width: 720px;
-  }
-
-  .ww-trade__eyebrow {
-    font-family: 'GothamBlack', 'Josefin Sans', sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: #7b6a58;
-    margin: 0 0 20px;
-  }
-
-  /* ============ HERO ============ */
-  .ww-trade__hero {
-    position: relative;
-    min-height: 640px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    background-color: #3a322a;
-    padding: 120px 32px;
-    text-align: center;
-  }
-  .ww-trade__hero-image {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-  }
-  .ww-trade__hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.30);
-    z-index: 2;
-  }
-  .ww-trade__hero-inner {
-    position: relative;
-    z-index: 3;
-    max-width: 800px;
-  }
-  .ww-trade__hero-eyebrow {
-    font-family: 'GothamBlack', 'Josefin Sans', sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: #f1e6d3;
-    margin: 0 0 22px;
-  }
-  .ww-trade__hero-title {
-    font-family: 'GothamBlack', 'Josefin Sans', sans-serif;
-    font-size: clamp(42px, 6.4vw, 84px);
-    line-height: 1;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    margin: 0 0 24px;
-    color: #ffffff;
-  }
-  .ww-trade__hero-subtitle {
-    font-family: 'Ambroise', serif;
-    font-style: italic;
-    font-size: clamp(20px, 2.4vw, 28px);
-    line-height: 1.4;
-    margin: 0 0 40px;
-    color: #f3e6d1;
-    font-weight: 400;
-  }
-
-  /* ============ INTRO ============ */
-  .ww-trade__intro {
-    padding: 120px 0 100px;
-    text-align: center;
-    background: #f5efe7;
-  }
-  .ww-trade__intro-heading {
-    font-family: 'GothamBlack', 'Josefin Sans', sans-serif;
-    font-size: clamp(30px, 4vw, 48px);
-    line-height: 1.15;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    margin: 0 0 28px;
-    color: #2b2622;
-  }
-  .ww-trade__intro-body {
-    font-size: 17px;
-    line-height: 1.8;
-    color: #5a4f45;
-  }
-  .ww-trade__intro-body p { margin: 0 0 1em; }
-  .ww-trade__intro-body p:last-child { margin-bottom: 0; }
-
-  /* ============ SECTION HEADER ============ */
-  .ww-trade__section-header {
-    text-align: center;
-    margin-bottom: 72px;
-  }
-  .ww-trade__section-heading {
-    font-family: 'GothamBlack', 'Josefin Sans', sans-serif;
-    font-size: clamp(28px, 3.4vw, 40px);
-    line-height: 1.2;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    margin: 0;
-    color: #2b2622;
-  }
-
-  /* ============ EDITORIAL SPLIT ============ */
-  .ww-trade__split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: stretch;
-    background: #f5efe7;
-    min-height: 620px;
-  }
-  .ww-trade__split-media {
-    overflow: hidden;
-    min-height: 520px;
-  }
-  .ww-trade__split-media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .ww-trade__split-text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 80px 72px;
-  }
-  .ww-trade__split-inner {
-    max-width: 480px;
-  }
-  .ww-trade__split-heading {
-    font-family: 'GothamBlack', 'Josefin Sans', sans-serif;
-    font-size: clamp(28px, 3.2vw, 40px);
-    line-height: 1.15;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    margin: 0 0 24px;
-    color: #2b2622;
-  }
-  .ww-trade__split-body {
-    font-size: 16px;
-    line-height: 1.8;
-    color: #5a4f45;
-  }
-  .ww-trade__split-body p { margin: 0 0 1em; }
-  .ww-trade__split-body p:last-child { margin-bottom: 0; }
-
-  /* ============ BENEFITS ============ */
-  .ww-trade__benefits {
-    padding: 120px 0;
-    background: #ede4d4;
-  }
-  .ww-trade__benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 56px 48px;
-  }
-  .ww-trade__benefit {
-    text-align: center;
-  }
-  .ww-trade__benefit-image {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    overflow: hidden;
-    margin-bottom: 24px;
-    background: #d5c9b2;
-  }
-  .ww-trade__benefit-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.6s ease;
-  }
-  .ww-trade__benefit:hover .ww-trade__benefit-image img {
-    transform: scale(1.05);
-  }
-  .ww-trade__benefit-title {
-    font-family: 'GothamBlack', 'Josefin Sans', sans-serif;
-    font-size: 14px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    margin: 0 0 14px;
-    color: #2b2622;
-  }
-  .ww-trade__benefit-body {
-    font-size: 14px;
-    line-height: 1.75;
-    color: #5a4f45;
-    margin: 0;
-  }
-
-  /* ============ STEPS ============ */
-  .ww-trade__steps {
-    padding: 120px 0;
-    background: #f5efe7;
-  }
-  .ww-trade__steps-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 56px 48px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  .ww-trade__step {
-    text-align: center;
-  }
-  .ww-trade__step-number {
-    display: block;
-    font-family: 'Ambroise', serif;
-    font-style: italic;
-    font-size: 56px;
-    line-height: 1;
-    color: #b7a37c;
-    margin-bottom: 24px;
-    font-weight: 400;
-  }
-  .ww-trade__step-title {
-    font-family: 'GothamBlack', 'Josefin Sans', sans-serif;
-    font-size: 14px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    margin: 0 0 14px;
-    color: #2b2622;
-  }
-  .ww-trade__step-body {
-    font-size: 14px;
-    line-height: 1.75;
-    color: #5a4f45;
-    margin: 0;
-  }
-
-  /* ============ APPLY BAND ============ */
-  .ww-trade__apply {
-    position: relative;
-    padding: 140px 32px;
-    background-color: #3a322a;
-    background-size: cover;
-    background-position: center;
-    color: #fff;
-    text-align: center;
-    overflow: hidden;
-  }
-  .ww-trade__apply-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1;
-  }
-  .ww-trade__apply-inner {
-    position: relative;
-    z-index: 2;
-  }
-  .ww-trade__apply-heading {
-    font-family: 'GothamBlack', 'Josefin Sans', sans-serif;
-    font-size: clamp(32px, 4vw, 52px);
-    line-height: 1.1;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    margin: 0 0 24px;
-    color: #ffffff;
-  }
-  .ww-trade__apply-body {
-    max-width: 620px;
-    margin: 0 auto 40px;
-    font-size: 16px;
-    line-height: 1.8;
-    color: #f1e6d3;
-  }
-  .ww-trade__apply-body p { margin: 0 0 1em; }
-  .ww-trade__apply-body p:last-child { margin-bottom: 0; }
-
-  /* ============ CTA BUTTONS ============ */
-  .ww-trade__cta {
-    display: inline-block;
-    font-family: 'GothamBlack', 'Josefin Sans', sans-serif;
-    font-size: 11px;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    padding: 18px 44px;
-    text-decoration: none;
-    cursor: pointer;
-    border: 1px solid #fff;
-    color: #fff;
-    background: transparent;
-    transition: background 0.25s ease, color 0.25s ease;
-  }
-  .ww-trade__cta--outline:hover {
+  #shopify-section-{{ section.id }} .ww-trade-page {
     background: #fff;
-    color: #2b2622;
+    color: #000;
+    font-family: "Gotham Book", Arial, sans-serif;
+    overflow-x: clip;
   }
 
-  /* ============ RESPONSIVE ============ */
-  @media (max-width: 900px) {
-    .ww-trade__container { padding: 0 24px; }
+  #shopify-section-{{ section.id }} .ww-trade-page * {
+    box-sizing: border-box;
+  }
 
-    .ww-trade__hero { min-height: 480px; padding: 80px 24px; }
-    .ww-trade__intro { padding: 72px 0 64px; }
-    .ww-trade__benefits { padding: 80px 0; }
-    .ww-trade__steps { padding: 80px 0; }
-    .ww-trade__apply { padding: 96px 24px; }
+  #shopify-section-{{ section.id }} .ww-trade-page__container {
+    width: min(100%, 1320px);
+    margin: 0 auto;
+    padding: 0 48px;
+  }
 
-    .ww-trade__section-header { margin-bottom: 48px; }
+  #shopify-section-{{ section.id }} .ww-trade-page__container--narrow {
+    max-width: 920px;
+  }
 
-    .ww-trade__split { grid-template-columns: 1fr; min-height: 0; }
-    .ww-trade__split-media { min-height: 320px; }
-    .ww-trade__split-text { padding: 56px 32px; }
+  #shopify-section-{{ section.id }} .ww-trade-page__section {
+    padding: 96px 0;
+  }
 
-    /* On mobile stack image ABOVE text for image-right split too */
-    .ww-trade__split--image-right .ww-trade__split-media { order: -1; }
+  #shopify-section-{{ section.id }} .ww-trade-page__hero {
+    position: relative;
+    min-height: 700px;
+    display: grid;
+    align-items: end;
+    isolation: isolate;
+    overflow: hidden;
+    background: #111;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__hero-picture,
+  #shopify-section-{{ section.id }} .ww-trade-page__hero-image,
+  #shopify-section-{{ section.id }} .ww-trade-page__hero-placeholder {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__hero-image {
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__hero-placeholder {
+    background: #222;
+    fill: #444;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, .62) 0%, rgba(0, 0, 0, .28) 48%, rgba(0, 0, 0, .06) 100%);
+    z-index: 1;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__hero-content {
+    position: relative;
+    z-index: 2;
+    width: min(100%, 1320px);
+    margin: 0 auto;
+    padding: 0 48px 92px;
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__hero h1,
+  #shopify-section-{{ section.id }} .ww-trade-page h2,
+  #shopify-section-{{ section.id }} .ww-trade-page h3 {
+    margin: 0;
+    color: inherit;
+    font-family: "GothamBlack", "Gotham Book", Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__hero h1 {
+    max-width: 780px;
+    font-size: clamp(48px, 7vw, 108px);
+    line-height: .95;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page h2 {
+    font-size: clamp(30px, 4vw, 54px);
+    line-height: 1.05;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page h3 {
+    font-size: 18px;
+    line-height: 1.25;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__eyebrow {
+    margin: 0 0 18px;
+    font-size: 12px;
+    line-height: 1.4;
+    font-family: "GothamBlack", "Gotham Book", Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__eyebrow--light {
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__hero-copy {
+    max-width: 560px;
+    margin-top: 24px;
+    font-size: 18px;
+    line-height: 1.65;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__hero-copy p,
+  #shopify-section-{{ section.id }} .ww-trade-page__rte p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__hero-copy p + p,
+  #shopify-section-{{ section.id }} .ww-trade-page__rte p + p {
+    margin-top: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__rte {
+    color: #111;
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__rte--small {
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 34px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 168px;
+    min-height: 48px;
+    padding: 14px 28px;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    font-family: "GothamBlack", "Gotham Book", Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background .2s ease, color .2s ease, border-color .2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__button--light {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__button--light:hover {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__button--ghost-light {
+    color: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__button--ghost-light:hover,
+  #shopify-section-{{ section.id }} .ww-trade-page__button--dark {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__intro {
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__intro .ww-trade-page__rte,
+  #shopify-section-{{ section.id }} .ww-trade-page__section-heading .ww-trade-page__rte {
+    margin-top: 22px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    min-height: 640px;
+    border-top: 1px solid #e5e5e5;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__split--reverse .ww-trade-page__split-media {
+    order: 2;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__split-media {
+    min-height: 520px;
+    background: #f3f3f3;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__split-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__split-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 88px clamp(32px, 6vw, 110px);
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__split-copy .ww-trade-page__rte {
+    max-width: 560px;
+    margin-top: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__benefits,
+  #shopify-section-{{ section.id }} .ww-trade-page__form-section {
+    background: #f5f5f5;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__section-heading {
+    max-width: 720px;
+    margin-bottom: 52px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 28px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__benefit {
+    border-top: 1px solid #000;
+    padding-top: 22px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__benefit-number {
+    display: block;
+    margin-bottom: 26px;
+    color: #6f6f6f;
+    font-size: 12px;
+    letter-spacing: .12em;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__benefit .ww-trade-page__rte,
+  #shopify-section-{{ section.id }} .ww-trade-page__step .ww-trade-page__rte {
+    margin-top: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__step-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__step {
+    border: 1px solid #d9d9d9;
+    padding: 32px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__step span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    margin-bottom: 28px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    font-family: "GothamBlack", "Gotham Book", Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__form-grid {
+    display: grid;
+    grid-template-columns: minmax(260px, 420px) minmax(0, 1fr);
+    gap: 56px;
+    align-items: start;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__form-copy {
+    position: sticky;
+    top: 120px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__form-copy .ww-trade-page__rte {
+    margin-top: 22px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__form-panel {
+    background: #f5f5f5;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__faq {
+    border-top: 1px solid #e5e5e5;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__faq h2,
+  #shopify-section-{{ section.id }} .ww-trade-page__faq > .ww-trade-page__container > .ww-trade-page__rte {
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__faq > .ww-trade-page__container > .ww-trade-page__rte {
+    max-width: 680px;
+    margin: 20px auto 46px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__faq-list {
+    border-top: 1px solid #d9d9d9;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__faq-item {
+    border-bottom: 1px solid #d9d9d9;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 24px 0;
+    cursor: pointer;
+    list-style: none;
+    font-family: "GothamBlack", "Gotham Book", Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__faq-item[open] summary span:last-child {
+    transform: rotate(45deg);
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__faq-answer {
+    padding: 0 0 28px;
+  }
+
+  @media screen and (max-width: 989px) {
+    #shopify-section-{{ section.id }} .ww-trade-page__container {
+      padding: 0 28px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__section {
+      padding: 72px 0;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__hero {
+      min-height: 620px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__hero-content {
+      padding: 0 28px 68px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__split,
+    #shopify-section-{{ section.id }} .ww-trade-page__form-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__split--reverse .ww-trade-page__split-media {
+      order: 0;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__split-copy {
+      padding: 56px 28px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__benefit-grid,
+    #shopify-section-{{ section.id }} .ww-trade-page__step-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__form-copy {
+      position: static;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .ww-trade-page__container {
+      padding: 0 20px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__section {
+      padding: 56px 0;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__hero {
+      min-height: 560px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__hero-overlay {
+      background: linear-gradient(180deg, rgba(0, 0, 0, .12) 0%, rgba(0, 0, 0, .64) 100%);
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__hero-content {
+      padding: 0 20px 46px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__hero h1 {
+      font-size: 46px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page h2 {
+      font-size: 28px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__hero-copy,
+    #shopify-section-{{ section.id }} .ww-trade-page__rte {
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__actions {
+      gap: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__button {
+      min-width: 0;
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__split-media {
+      min-height: 360px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__benefit-grid,
+    #shopify-section-{{ section.id }} .ww-trade-page__step-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__step {
+      padding: 26px 22px;
+    }
   }
 </style>
 
 {% schema %}
 {
-  "name": "Trade Show Page",
-  "tag": "section",
-  "class": "ww-trade-section",
+  "name": "WW trade show",
   "settings": [
-    { "type": "header", "content": "HERO" },
-    { "type": "image_picker", "id": "hero_image", "label": "Hero background image", "info": "Editorial photo - warm interior scene recommended" },
-    { "type": "text", "id": "hero_eyebrow", "label": "Eyebrow", "default": "William Wood" },
-    { "type": "text", "id": "hero_title", "label": "Hero title", "default": "TRADE PROGRAM" },
-    { "type": "textarea", "id": "hero_subtitle", "label": "Hero subtitle", "default": "Discover the world of William Wood for trade professionals." },
-    { "type": "text", "id": "hero_cta_text", "label": "Hero button text", "default": "Apply Now" },
-    { "type": "url", "id": "hero_cta_link", "label": "Hero button link" },
-
-    { "type": "header", "content": "INTRO" },
-    { "type": "text", "id": "intro_eyebrow", "label": "Eyebrow", "default": "Our Programme" },
-    { "type": "text", "id": "intro_heading", "label": "Heading", "default": "Designed for the trade" },
-    { "type": "richtext", "id": "intro_body", "label": "Body", "default": "<p>Whether you're an interior designer, architect, hotelier, or a private client with a project in mind, our trade programme offers preferential pricing, dedicated support and priority access to our full collection of mirrors and furniture — all handcrafted in Britain.</p>" },
-
-    { "type": "header", "content": "EDITORIAL SPLIT 1 (image left)" },
-    { "type": "image_picker", "id": "split1_image", "label": "Image" },
-    { "type": "text", "id": "split1_eyebrow", "label": "Eyebrow", "default": "Craftsmanship" },
-    { "type": "text", "id": "split1_heading", "label": "Heading", "default": "Handmade in Britain" },
-    { "type": "richtext", "id": "split1_body", "label": "Body", "default": "<p>Each mirror and piece of furniture is designed in-house and handmade to order in our British workshop. Sustainable materials, timeless proportions, and refined finishes — pieces made to grace a home for generations.</p>" },
-
-    { "type": "header", "content": "BENEFITS" },
-    { "type": "text", "id": "benefits_eyebrow", "label": "Eyebrow", "default": "Trade Benefits" },
-    { "type": "text", "id": "benefits_heading", "label": "Heading", "default": "The Benefits" },
-
-    { "type": "header", "content": "EDITORIAL SPLIT 2 (image right)" },
-    { "type": "image_picker", "id": "split2_image", "label": "Image" },
-    { "type": "text", "id": "split2_eyebrow", "label": "Eyebrow", "default": "Personal Service" },
-    { "type": "text", "id": "split2_heading", "label": "Heading", "default": "A dedicated partnership" },
-    { "type": "richtext", "id": "split2_body", "label": "Body", "default": "<p>Every trade client is paired with a personal account manager. From initial specification to final installation, our team is on hand to guide you through every step of the project.</p>" },
-
-    { "type": "header", "content": "HOW TO APPLY" },
-    { "type": "text", "id": "steps_eyebrow", "label": "Eyebrow", "default": "Getting Started" },
-    { "type": "text", "id": "steps_heading", "label": "Heading", "default": "How to apply" },
-
-    { "type": "header", "content": "APPLY CTA (final band)" },
-    { "type": "image_picker", "id": "cta_image", "label": "Background image (optional)", "info": "Warm interior scene recommended" },
-    { "type": "text", "id": "cta_eyebrow", "label": "Eyebrow", "default": "Join the Programme" },
-    { "type": "text", "id": "cta_heading", "label": "Heading", "default": "Ready to join?" },
-    { "type": "richtext", "id": "cta_body", "label": "Body", "default": "<p>Complete a short application and one of our advisors will be in touch within 48 hours.</p>" },
-    { "type": "text", "id": "cta_button_text", "label": "Button text", "default": "Apply Now" },
-    { "type": "url", "id": "cta_button_link", "label": "Button link" }
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_mobile_image",
+      "label": "Mobile image"
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Eyebrow",
+      "default": "William Wood Trade"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Heading",
+      "default": "Trade"
+    },
+    {
+      "type": "richtext",
+      "id": "hero_subtitle",
+      "label": "Text",
+      "default": "<p>Exclusive access, dedicated support and considered pieces for residential and commercial projects.</p>"
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_text",
+      "label": "Primary button text",
+      "default": "Apply now"
+    },
+    {
+      "type": "url",
+      "id": "hero_cta_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "hero_secondary_text",
+      "label": "Secondary button text",
+      "default": "View benefits"
+    },
+    {
+      "type": "url",
+      "id": "hero_secondary_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Intro"
+    },
+    {
+      "type": "text",
+      "id": "intro_eyebrow",
+      "label": "Eyebrow",
+      "default": "Designed for professionals"
+    },
+    {
+      "type": "text",
+      "id": "intro_heading",
+      "label": "Heading",
+      "default": "A trade programme for considered interiors"
+    },
+    {
+      "type": "richtext",
+      "id": "intro_body",
+      "label": "Text",
+      "default": "<p>Whether you are an interior designer, architect, hotelier, stylist or property developer, William Wood Trade gives you access to preferential pricing, dedicated support and a refined collection of mirrors, furniture and homeware.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Editorial split one"
+    },
+    {
+      "type": "image_picker",
+      "id": "split1_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "split1_eyebrow",
+      "label": "Eyebrow",
+      "default": "The collection"
+    },
+    {
+      "type": "text",
+      "id": "split1_heading",
+      "label": "Heading",
+      "default": "Pieces selected with your projects in mind"
+    },
+    {
+      "type": "richtext",
+      "id": "split1_body",
+      "label": "Text",
+      "default": "<p>From statement mirrors to furniture and accessories, our range is curated to support complete schemes and styling moments across homes, hospitality spaces and commercial projects.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Benefits"
+    },
+    {
+      "type": "text",
+      "id": "benefits_eyebrow",
+      "label": "Eyebrow",
+      "default": "Why join"
+    },
+    {
+      "type": "text",
+      "id": "benefits_heading",
+      "label": "Heading",
+      "default": "Trade benefits"
+    },
+    {
+      "type": "richtext",
+      "id": "benefits_body",
+      "label": "Text",
+      "default": "<p>Everything you need to source confidently, with a team ready to support the details that matter.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Editorial split two"
+    },
+    {
+      "type": "image_picker",
+      "id": "split2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "split2_eyebrow",
+      "label": "Eyebrow",
+      "default": "Support"
+    },
+    {
+      "type": "text",
+      "id": "split2_heading",
+      "label": "Heading",
+      "default": "A dedicated team from brief to delivery"
+    },
+    {
+      "type": "richtext",
+      "id": "split2_body",
+      "label": "Text",
+      "default": "<p>Our trade team can help with product guidance, availability, lead times and order support, so you can keep each project moving with clarity.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Steps"
+    },
+    {
+      "type": "text",
+      "id": "steps_eyebrow",
+      "label": "Eyebrow",
+      "default": "How it works"
+    },
+    {
+      "type": "text",
+      "id": "steps_heading",
+      "label": "Heading",
+      "default": "Applying for an account"
+    },
+    {
+      "type": "richtext",
+      "id": "steps_body",
+      "label": "Text",
+      "default": "<p>Complete the application form and our trade team will review your details before getting in touch.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Form"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_form",
+      "label": "Show Hulk form",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "form_eyebrow",
+      "label": "Eyebrow",
+      "default": "Apply"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "Heading",
+      "default": "Trade application form"
+    },
+    {
+      "type": "richtext",
+      "id": "form_body",
+      "label": "Text",
+      "default": "<p>Tell us a little about your business and the projects you work on. Our team will respond as soon as possible.</p>"
+    },
+    {
+      "type": "header",
+      "content": "FAQ"
+    },
+    {
+      "type": "text",
+      "id": "faq_heading",
+      "label": "Heading",
+      "default": "Trade FAQs"
+    },
+    {
+      "type": "richtext",
+      "id": "faq_body",
+      "label": "Text",
+      "default": "<p>Helpful answers before you apply.</p>"
+    }
   ],
   "blocks": [
     {
       "type": "benefit",
       "name": "Benefit",
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Image (editorial photo)" },
-        { "type": "text", "id": "title", "label": "Title", "default": "Trade Discount" },
-        { "type": "textarea", "id": "body", "label": "Body", "default": "Exclusive preferential pricing across our full collection." }
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Trade pricing"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Text",
+          "default": "<p>Access preferential pricing across selected William Wood collections.</p>"
+        }
       ]
     },
     {
       "type": "step",
       "name": "Step",
       "settings": [
-        { "type": "text", "id": "title", "label": "Title", "default": "Register" },
-        { "type": "textarea", "id": "body", "label": "Body", "default": "Complete our short online application with your business details." }
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Apply"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Text",
+          "default": "<p>Submit the application form with your business details.</p>"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Who can apply for a trade account?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Our trade programme is open to interior designers, architects, stylists, hoteliers, property developers and other trade professionals.</p>"
+        }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Trade Show Page",
+      "name": "WW trade show",
       "blocks": [
-        { "type": "benefit", "settings": { "title": "Trade Discount", "body": "Exclusive preferential pricing across our full collection of handmade mirrors and furniture." } },
-        { "type": "benefit", "settings": { "title": "Dedicated Support", "body": "A personal account manager to guide you and your clients through every project." } },
-        { "type": "benefit", "settings": { "title": "Sample Service", "body": "Access finishes, materials and swatches to plan your projects with confidence." } },
-        { "type": "benefit", "settings": { "title": "Bespoke Commissions", "body": "Custom sizes and finishes crafted to your exact specification in our British workshop." } },
-        { "type": "step", "settings": { "title": "Register", "body": "Complete our short online application with your business details and portfolio." } },
-        { "type": "step", "settings": { "title": "Get Approved", "body": "Our trade team will review your application within 48 hours." } },
-        { "type": "step", "settings": { "title": "Start Shopping", "body": "Instant access to preferential pricing, samples and dedicated support." } }
+        {
+          "type": "benefit"
+        },
+        {
+          "type": "benefit"
+        },
+        {
+          "type": "benefit"
+        },
+        {
+          "type": "step"
+        },
+        {
+          "type": "step"
+        },
+        {
+          "type": "step"
+        },
+        {
+          "type": "faq"
+        }
       ]
     }
   ]
