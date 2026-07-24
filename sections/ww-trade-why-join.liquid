@@ -1,0 +1,223 @@
+{%- liquid
+  assign benefit_blocks = section.blocks | where: 'type', 'benefit'
+-%}
+
+<section id="trade-benefits" class="ww-trade-why" data-ww-trade-why>
+  <div class="ww-trade-why__container">
+    {%- if section.settings.heading != blank -%}
+      <h2>{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.body != blank -%}
+      <div class="ww-trade-why__body">{{ section.settings.body }}</div>
+    {%- endif -%}
+
+    {%- if benefit_blocks.size > 0 -%}
+      <div class="ww-trade-why__grid">
+        {%- for block in benefit_blocks -%}
+          <article class="ww-trade-why__item" {{ block.shopify_attributes }}>
+            <div class="ww-trade-why__image">
+              {%- if block.settings.image != blank -%}
+                <img
+                  src="{{ block.settings.image | image_url: width: 900 }}"
+                  alt="{{ block.settings.title | escape }}"
+                  loading="lazy"
+                  width="{{ block.settings.image.width }}"
+                  height="{{ block.settings.image.height }}">
+              {%- else -%}
+                {{ 'lifestyle-2' | placeholder_svg_tag: 'ww-trade-why__placeholder' }}
+              {%- endif -%}
+            </div>
+            {%- if block.settings.title != blank -%}
+              <h3>{{ block.settings.title }}</h3>
+            {%- endif -%}
+            {%- if block.settings.body != blank -%}
+              <div class="ww-trade-why__item-body">{{ block.settings.body }}</div>
+            {%- endif -%}
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} .ww-trade-why {
+    padding: 64px 0 96px;
+    background: #fff;
+    color: #000;
+    font-family: "Gotham Book", Arial, sans-serif;
+    overflow-x: clip;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-why * {
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-why__container {
+    {% comment %} width: min(100%, 1320px); {% endcomment %}
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-why h2 {
+    margin: 0 0 34px;
+    color: #000;
+    font-family: "Ambroise", Georgia, serif;
+    font-size: clamp(42px, 5vw, 62px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-why__body {
+    max-width: 720px;
+    margin: -16px 0 34px;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-why__body p,
+  #shopify-section-{{ section.id }} .ww-trade-why__item-body p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-why__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-why__item {
+    min-width: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-why__image {
+    aspect-ratio: 1 / 1;
+    margin-bottom: 20px;
+    overflow: hidden;
+    background: #f3f3f3;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-why__image img,
+  #shopify-section-{{ section.id }} .ww-trade-why__placeholder {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-why__placeholder {
+    fill: #d8d8d8;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-why h3 {
+    max-width: 94%;
+    margin: 0;
+    color: #000;
+    font-family: "Gotham Book", Arial, sans-serif;
+    font-size: clamp(20px, 1.7vw, 28px);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-why__item-body {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  @media screen and (max-width: 989px) {
+    #shopify-section-{{ section.id }} .ww-trade-why {
+      padding: 56px 0 72px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-why__container {
+      padding: 0 28px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-why__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .ww-trade-why {
+      padding: 46px 0 56px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-why__container {
+      padding: 0 20px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-why h2 {
+      font-size: 42px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-why__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Why join",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why join?"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Text"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Tailored service with direct access to sales support & advice"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why join",
+      "blocks": [
+        {
+          "type": "benefit"
+        },
+        {
+          "type": "benefit"
+        },
+        {
+          "type": "benefit"
+        },
+        {
+          "type": "benefit"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
