@@ -6,6 +6,7 @@
 
 {%- liquid
   assign benefit_blocks = section.blocks | where: 'type', 'benefit'
+  assign testimonial_blocks = section.blocks | where: 'type', 'testimonial'
   assign step_blocks = section.blocks | where: 'type', 'step'
   assign faq_blocks = section.blocks | where: 'type', 'faq'
 -%}
@@ -92,6 +93,39 @@
               {%- endif -%}
               {%- if block.settings.body != blank -%}
                 <div class="ww-trade-page__rte ww-trade-page__rte--small">{{ block.settings.body }}</div>
+              {%- endif -%}
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- if testimonial_blocks.size > 0 -%}
+    <section class="ww-trade-page__section ww-trade-page__testimonials" data-ww-trade-testimonials>
+      <div class="ww-trade-page__container">
+        <div class="ww-trade-page__testimonial-header">
+          {%- if section.settings.testimonials_heading != blank -%}
+            <h2>{{ section.settings.testimonials_heading }}</h2>
+          {%- endif -%}
+          <div class="ww-trade-page__testimonial-arrows" aria-label="Testimonials controls">
+            <button class="ww-trade-page__testimonial-arrow" type="button" data-ww-testimonial-prev aria-label="Previous testimonial">
+              <span aria-hidden="true">&lsaquo;</span>
+            </button>
+            <button class="ww-trade-page__testimonial-arrow" type="button" data-ww-testimonial-next aria-label="Next testimonial">
+              <span aria-hidden="true">&rsaquo;</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="ww-trade-page__testimonial-track" data-ww-testimonial-track>
+          {%- for block in testimonial_blocks -%}
+            <article class="ww-trade-page__testimonial" {{ block.shopify_attributes }}>
+              {%- if block.settings.quote != blank -%}
+                <div class="ww-trade-page__testimonial-quote">{{ block.settings.quote }}</div>
+              {%- endif -%}
+              {%- if block.settings.author != blank -%}
+                <p class="ww-trade-page__testimonial-author">{{ block.settings.author }}</p>
               {%- endif -%}
             </article>
           {%- endfor -%}
@@ -245,6 +279,51 @@
     </section>
   {%- endif -%}
 </section>
+
+<script>
+  (function() {
+    function initTradeTestimonials(root) {
+      if (root.dataset.wwTestimonialsReady === 'true') {
+        return;
+      }
+
+      var track = root.querySelector('[data-ww-testimonial-track]');
+      var prev = root.querySelector('[data-ww-testimonial-prev]');
+      var next = root.querySelector('[data-ww-testimonial-next]');
+
+      if (!track || !prev || !next) {
+        return;
+      }
+
+      function scrollTestimonials(direction) {
+        var distance = track.clientWidth;
+        track.scrollBy({ left: direction * distance, behavior: 'smooth' });
+      }
+
+      prev.addEventListener('click', function() {
+        scrollTestimonials(-1);
+      });
+
+      next.addEventListener('click', function() {
+        scrollTestimonials(1);
+      });
+
+      root.dataset.wwTestimonialsReady = 'true';
+    }
+
+    function initAllTradeTestimonials() {
+      document.querySelectorAll('[data-ww-trade-testimonials]').forEach(initTradeTestimonials);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAllTradeTestimonials);
+    } else {
+      initAllTradeTestimonials();
+    }
+
+    document.addEventListener('shopify:section:load', initAllTradeTestimonials);
+  })();
+</script>
 
 <style>
   #shopify-section-{{ section.id }} .ww-trade-page {
@@ -548,6 +627,86 @@
     margin-top: 14px;
   }
 
+  #shopify-section-{{ section.id }} .ww-trade-page__testimonials {
+    background: #fff;
+    padding-top: 34px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__testimonial-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__testimonial-header h2 {
+    font-family: "Ambroise", Georgia, serif;
+    font-size: clamp(42px, 5vw, 62px);
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__testimonial-arrows {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__testimonial-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #000;
+    cursor: pointer;
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__testimonial-track {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__testimonial-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__testimonial {
+    flex: 0 0 calc((100% - 14px) / 2);
+    min-height: 320px;
+    padding: clamp(36px, 5vw, 80px);
+    background: #f1f0ee;
+    scroll-snap-align: start;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__testimonial-quote {
+    max-width: 880px;
+    color: #000;
+    font-size: clamp(22px, 1.8vw, 30px);
+    line-height: 1.22;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__testimonial-quote p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__testimonial-author {
+    margin: 24px 0 0;
+    color: #000;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
   #shopify-section-{{ section.id }} .ww-trade-page__step-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -676,6 +835,11 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    #shopify-section-{{ section.id }} .ww-trade-page__testimonial {
+      flex-basis: calc((100% - 14px) / 2);
+      min-height: 280px;
+    }
+
     #shopify-section-{{ section.id }} .ww-trade-page__form-copy {
       position: static;
     }
@@ -732,6 +896,24 @@
     #shopify-section-{{ section.id }} .ww-trade-page__benefit-grid,
     #shopify-section-{{ section.id }} .ww-trade-page__step-grid {
       grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__testimonial-header {
+      align-items: flex-end;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__testimonial {
+      flex-basis: 100%;
+      min-height: 260px;
+      padding: 32px 24px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__testimonial-quote {
+      font-size: 21px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-page__testimonial-author {
+      font-size: 14px;
     }
 
     #shopify-section-{{ section.id }} .ww-trade-page__step {
@@ -871,6 +1053,16 @@
     },
     {
       "type": "header",
+      "content": "Testimonials"
+    },
+    {
+      "type": "text",
+      "id": "testimonials_heading",
+      "label": "Heading",
+      "default": "Testimonials"
+    },
+    {
+      "type": "header",
       "content": "Editorial split two"
     },
     {
@@ -988,6 +1180,24 @@
       ]
     },
     {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "quote",
+          "label": "Quote",
+          "default": "<p>William Wood remains one of my favourite brands to source from for my clients. The range is the perfect addition to homes that value considered design and quality.</p>"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "Trade customer"
+        }
+      ]
+    },
+    {
       "type": "step",
       "name": "Step",
       "settings": [
@@ -1036,6 +1246,12 @@
         },
         {
           "type": "benefit"
+        },
+        {
+          "type": "testimonial"
+        },
+        {
+          "type": "testimonial"
         },
         {
           "type": "step"
