@@ -57,6 +57,49 @@
     </div>
   </section>
 
+  {%- if benefit_blocks.size > 0 -%}
+    <section id="trade-benefits" class="ww-trade-page__section ww-trade-page__benefits">
+      <div class="ww-trade-page__container">
+        <div class="ww-trade-page__section-heading">
+          {%- if section.settings.benefits_eyebrow != blank -%}
+            <p class="ww-trade-page__eyebrow">{{ section.settings.benefits_eyebrow }}</p>
+          {%- endif -%}
+          {%- if section.settings.benefits_heading != blank -%}
+            <h2>{{ section.settings.benefits_heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.benefits_body != blank -%}
+            <div class="ww-trade-page__rte">{{ section.settings.benefits_body }}</div>
+          {%- endif -%}
+        </div>
+
+        <div class="ww-trade-page__benefit-grid">
+          {%- for block in benefit_blocks -%}
+            <article class="ww-trade-page__benefit" {{ block.shopify_attributes }}>
+              <div class="ww-trade-page__benefit-image">
+                {%- if block.settings.image != blank -%}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 900 }}"
+                    alt="{{ block.settings.title | escape }}"
+                    loading="lazy"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}">
+                {%- else -%}
+                  {{ 'lifestyle-2' | placeholder_svg_tag: 'ww-trade-page__benefit-placeholder' }}
+                {%- endif -%}
+              </div>
+              {%- if block.settings.title != blank -%}
+                <h3>{{ block.settings.title }}</h3>
+              {%- endif -%}
+              {%- if block.settings.body != blank -%}
+                <div class="ww-trade-page__rte ww-trade-page__rte--small">{{ block.settings.body }}</div>
+              {%- endif -%}
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
   {%- if section.settings.intro_heading != blank or section.settings.intro_body != blank -%}
     <section class="ww-trade-page__section ww-trade-page__intro">
       <div class="ww-trade-page__container ww-trade-page__container--narrow">
@@ -95,38 +138,6 @@
         {%- if section.settings.split1_body != blank -%}
           <div class="ww-trade-page__rte">{{ section.settings.split1_body }}</div>
         {%- endif -%}
-      </div>
-    </section>
-  {%- endif -%}
-
-  {%- if benefit_blocks.size > 0 -%}
-    <section id="trade-benefits" class="ww-trade-page__section ww-trade-page__benefits">
-      <div class="ww-trade-page__container">
-        <div class="ww-trade-page__section-heading">
-          {%- if section.settings.benefits_eyebrow != blank -%}
-            <p class="ww-trade-page__eyebrow">{{ section.settings.benefits_eyebrow }}</p>
-          {%- endif -%}
-          {%- if section.settings.benefits_heading != blank -%}
-            <h2>{{ section.settings.benefits_heading }}</h2>
-          {%- endif -%}
-          {%- if section.settings.benefits_body != blank -%}
-            <div class="ww-trade-page__rte">{{ section.settings.benefits_body }}</div>
-          {%- endif -%}
-        </div>
-
-        <div class="ww-trade-page__benefit-grid">
-          {%- for block in benefit_blocks -%}
-            <article class="ww-trade-page__benefit" {{ block.shopify_attributes }}>
-              <span class="ww-trade-page__benefit-number">{{ forloop.index | prepend: '0' }}</span>
-              {%- if block.settings.title != blank -%}
-                <h3>{{ block.settings.title }}</h3>
-              {%- endif -%}
-              {%- if block.settings.body != blank -%}
-                <div class="ww-trade-page__rte ww-trade-page__rte--small">{{ block.settings.body }}</div>
-              {%- endif -%}
-            </article>
-          {%- endfor -%}
-        </div>
       </div>
     </section>
   {%- endif -%}
@@ -467,9 +478,13 @@
     margin-top: 24px;
   }
 
-  #shopify-section-{{ section.id }} .ww-trade-page__benefits,
   #shopify-section-{{ section.id }} .ww-trade-page__form-section {
     background: #f5f5f5;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__benefits {
+    background: #fff;
+    padding-top: 64px;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-page__section-heading {
@@ -477,23 +492,55 @@
     margin-bottom: 52px;
   }
 
+  #shopify-section-{{ section.id }} .ww-trade-page__benefits .ww-trade-page__section-heading {
+    max-width: none;
+    margin-bottom: 34px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__benefits .ww-trade-page__section-heading h2 {
+    font-family: "Ambroise", Georgia, serif;
+    font-size: clamp(42px, 5vw, 62px);
+    font-weight: 400;
+    line-height: 1;
+  }
+
   #shopify-section-{{ section.id }} .ww-trade-page__benefit-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 28px;
+    gap: 14px;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-page__benefit {
-    border-top: 1px solid #000;
-    padding-top: 22px;
+    min-width: 0;
   }
 
-  #shopify-section-{{ section.id }} .ww-trade-page__benefit-number {
+  #shopify-section-{{ section.id }} .ww-trade-page__benefit-image {
+    position: relative;
     display: block;
-    margin-bottom: 26px;
-    color: #6f6f6f;
-    font-size: 12px;
-    letter-spacing: .12em;
+    aspect-ratio: 1 / 1;
+    margin-bottom: 20px;
+    overflow: hidden;
+    background: #f3f3f3;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__benefit-image img,
+  #shopify-section-{{ section.id }} .ww-trade-page__benefit-placeholder {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__benefit-placeholder {
+    fill: #d8d8d8;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-page__benefit h3 {
+    max-width: 94%;
+    font-family: "Gotham Book", Arial, sans-serif;
+    font-size: clamp(20px, 1.7vw, 28px);
+    font-weight: 400;
+    line-height: 1.15;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-page__benefit .ww-trade-page__rte,
@@ -921,6 +968,11 @@
       "type": "benefit",
       "name": "Benefit",
       "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
         {
           "type": "text",
           "id": "title",
