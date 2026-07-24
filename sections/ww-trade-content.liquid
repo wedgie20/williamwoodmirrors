@@ -1,6 +1,5 @@
 {%- liquid
   assign step_blocks = section.blocks | where: 'type', 'step'
-  assign faq_blocks = section.blocks | where: 'type', 'faq'
 -%}
 
 <section class="ww-trade-content" data-ww-trade-content>
@@ -125,29 +124,6 @@
     </section>
   {%- endif -%}
 
-  {%- if faq_blocks.size > 0 -%}
-    <section class="ww-trade-content__section ww-trade-content__faq">
-      <div class="ww-trade-content__container ww-trade-content__container--narrow">
-        {%- if section.settings.faq_heading != blank -%}
-          <h2>{{ section.settings.faq_heading }}</h2>
-        {%- endif -%}
-        {%- if section.settings.faq_body != blank -%}
-          <div class="ww-trade-content__rte">{{ section.settings.faq_body }}</div>
-        {%- endif -%}
-        <div class="ww-trade-content__faq-list">
-          {%- for block in faq_blocks -%}
-            <details class="ww-trade-content__faq-item" {{ block.shopify_attributes }}>
-              <summary>
-                <span>{{ block.settings.question }}</span>
-                <span aria-hidden="true">+</span>
-              </summary>
-              <div class="ww-trade-content__faq-answer ww-trade-content__rte">{{ block.settings.answer }}</div>
-            </details>
-          {%- endfor -%}
-        </div>
-      </div>
-    </section>
-  {%- endif -%}
 </section>
 
 <style>
@@ -322,53 +298,6 @@
 
   #shopify-section-{{ section.id }} .ww-trade-content__form-copy .ww-trade-content__rte {
     margin-top: 22px;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-content__faq {
-    border-top: 1px solid #e5e5e5;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-content__faq h2,
-  #shopify-section-{{ section.id }} .ww-trade-content__faq > .ww-trade-content__container > .ww-trade-content__rte {
-    text-align: center;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-content__faq > .ww-trade-content__container > .ww-trade-content__rte {
-    max-width: 680px;
-    margin: 20px auto 46px;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-content__faq-list {
-    border-top: 1px solid #d9d9d9;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-content__faq-item {
-    border-bottom: 1px solid #d9d9d9;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-content__faq-item summary {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    padding: 24px 0;
-    cursor: pointer;
-    list-style: none;
-    font-family: "GothamBlack", "Gotham Book", Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-content__faq-item summary::-webkit-details-marker {
-    display: none;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-content__faq-item[open] summary span:last-child {
-    transform: rotate(45deg);
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-content__faq-answer {
-    padding: 0 0 28px;
   }
 
   @media screen and (max-width: 989px) {
@@ -563,22 +492,6 @@
       "id": "form_body",
       "label": "Text",
       "default": "<p>Tell us a little about your business and the projects you work on. Our team will respond as soon as possible.</p>"
-    },
-    {
-      "type": "header",
-      "content": "FAQ"
-    },
-    {
-      "type": "text",
-      "id": "faq_heading",
-      "label": "Heading",
-      "default": "Trade FAQs"
-    },
-    {
-      "type": "richtext",
-      "id": "faq_body",
-      "label": "Text",
-      "default": "<p>Helpful answers before you apply.</p>"
     }
   ],
   "blocks": [
@@ -599,24 +512,6 @@
           "default": "<p>Submit the application form with your business details.</p>"
         }
       ]
-    },
-    {
-      "type": "faq",
-      "name": "FAQ",
-      "settings": [
-        {
-          "type": "text",
-          "id": "question",
-          "label": "Question",
-          "default": "Who can apply for a trade account?"
-        },
-        {
-          "type": "richtext",
-          "id": "answer",
-          "label": "Answer",
-          "default": "<p>Our trade programme is open to interior designers, architects, stylists, hoteliers, property developers and other trade professionals.</p>"
-        }
-      ]
     }
   ],
   "presets": [
@@ -631,9 +526,6 @@
         },
         {
           "type": "step"
-        },
-        {
-          "type": "faq"
         }
       ]
     }

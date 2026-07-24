@@ -108,12 +108,10 @@
         "steps_eyebrow": "How it works",
         "steps_heading": "Applying for an account",
         "steps_body": "<p>Complete the application form and our trade team will review your details before getting in touch.</p>",
-        "show_form": true,
+        "show_form": false,
         "form_eyebrow": "Apply",
         "form_heading": "Trade application form",
-        "form_body": "<p>Tell us a little about your business and the projects you work on. Our team will respond as soon as possible.</p>",
-        "faq_heading": "Trade FAQs",
-        "faq_body": "<p>Helpful answers before you apply.</p>"
+        "form_body": "<p>Tell us a little about your business and the projects you work on. Our team will respond as soon as possible.</p>"
       },
       "blocks": {
         "step_1": {
@@ -139,77 +137,66 @@
             "title": "Start sourcing",
             "body": "<p>Once approved, you can begin using your trade account for eligible William Wood pieces.</p>"
           }
-        },
-        "faq_1": {
-          "type": "faq",
-          "settings": {
-            "question": "Who can apply for a trade account?",
-            "answer": "<p>Our trade programme is open to interior designers, architects, stylists, hoteliers, property developers and other trade professionals.</p>"
-          }
-        },
-        "faq_2": {
-          "type": "faq",
-          "settings": {
-            "question": "How long does approval take?",
-            "answer": "<p>The William Wood Trade team will respond as soon as possible after receiving your application.</p>"
-          }
-        },
-        "faq_3": {
-          "type": "faq",
-          "settings": {
-            "question": "Can I use trade support for a project order?",
-            "answer": "<p>Yes. Our team can help with product information, availability and order support for eligible projects.</p>"
-          }
         }
       },
       "block_order": [
         "step_1",
         "step_2",
-        "step_3",
+        "step_3"
+      ]
+    },
+    "trade_faq": {
+      "type": "ww-trade-faq",
+      "settings": {
+        "heading": "FAQs",
+        "body": "",
+        "open_first_item": true,
+        "button_text": "View all FAQs",
+        "button_link": "/pages/faqs"
+      },
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "Which industries and professions qualify for the William Wood Trade account?",
+            "answer": "<p>The William Wood Trade programme is here to help designers, architects, stylists, hoteliers, property developers and other interiors professionals source considered pieces for every project.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "What is included with a William Wood Trade account?",
+            "answer": "<p>Trade customers can access dedicated support, project guidance, product information and eligible trade benefits across selected William Wood collections.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does approval take?",
+            "answer": "<p>Our trade team will review your application and contact you with the next steps as soon as possible.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I get help sourcing products for a project?",
+            "answer": "<p>Yes. Our team can help with product guidance, availability, lead times and order support for eligible projects.</p>"
+          }
+        }
+      },
+      "block_order": [
         "faq_1",
         "faq_2",
-        "faq_3"
-      ],
-      "settings": {
-        "hero_image": "shopify://shop_images/WW_24_WebsiteHeroWarehouse.jpg",
-        "hero_eyebrow": "William Wood Trade",
-        "hero_title": "Trade",
-        "hero_subtitle": "<p>Exclusive access, dedicated support and considered pieces for residential and commercial projects.</p>",
-        "hero_cta_text": "Apply now",
-        "hero_cta_link": "#trade-apply",
-        "hero_secondary_text": "View benefits",
-        "hero_secondary_link": "#trade-benefits",
-        "intro_eyebrow": "Designed for professionals",
-        "intro_heading": "A trade programme for considered interiors",
-        "intro_body": "<p>Whether you are an interior designer, architect, hotelier, stylist or property developer, William Wood Trade gives you access to preferential pricing, dedicated support and a refined collection of mirrors, furniture and homeware.</p>",
-        "split1_image": "shopify://shop_images/Untitled_design_15_e364eae1-2b10-43be-bcaa-d7ce127547b9.jpg",
-        "split1_eyebrow": "The collection",
-        "split1_heading": "Pieces selected with your projects in mind",
-        "split1_body": "<p>From statement mirrors to furniture and accessories, our range is curated to support complete schemes and styling moments across homes, hospitality spaces and commercial projects.</p>",
-        "benefits_eyebrow": "",
-        "benefits_heading": "Why join?",
-        "benefits_body": "",
-        "testimonials_heading": "Testimonials",
-        "split2_image": "shopify://shop_images/Zola_Concrete_Large_Table_c64b94dc-b6a1-4173-8c77-b2311f02064b.jpg",
-        "split2_eyebrow": "Support",
-        "split2_heading": "A dedicated team from brief to delivery",
-        "split2_body": "<p>Our trade team can help with product guidance, availability, lead times and order support, so you can keep each project moving with clarity.</p>",
-        "steps_eyebrow": "How it works",
-        "steps_heading": "Applying for an account",
-        "steps_body": "<p>Complete the application form and our trade team will review your details before getting in touch.</p>",
-        "show_form": false,
-        "form_eyebrow": "Apply",
-        "form_heading": "Trade application form",
-        "form_body": "<p>Tell us a little about your business and the projects you work on. Our team will respond as soon as possible.</p>",
-        "faq_heading": "Trade FAQs",
-        "faq_body": "<p>Helpful answers before you apply.</p>"
-      }
+        "faq_3",
+        "faq_4"
+      ]
     }
   },
   "order": [
     "trade_hero",
     "why_join",
     "testimonials",
-    "trade_content"
+    "trade_content",
+    "trade_faq"
   ]
 }
