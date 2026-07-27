@@ -24,10 +24,6 @@
     },
     "why_join": {
       "type": "ww-trade-why-join",
-      "settings": {
-        "heading": "Why join?",
-        "body": ""
-      },
       "blocks": {
         "benefit_1": {
           "type": "benefit",
@@ -63,13 +59,14 @@
         "benefit_2",
         "benefit_3",
         "benefit_4"
-      ]
+      ],
+      "settings": {
+        "heading": "Why join?",
+        "body": ""
+      }
     },
     "testimonials": {
       "type": "ww-trade-testimonials",
-      "settings": {
-        "heading": "Testimonials"
-      },
       "blocks": {
         "testimonial_1": {
           "type": "testimonial",
@@ -89,30 +86,13 @@
       "block_order": [
         "testimonial_1",
         "testimonial_2"
-      ]
+      ],
+      "settings": {
+        "heading": "Testimonials"
+      }
     },
     "trade_content": {
       "type": "ww-trade-content",
-      "settings": {
-        "intro_eyebrow": "Designed for professionals",
-        "intro_heading": "A trade programme for considered interiors",
-        "intro_body": "<p>Whether you are an interior designer, architect, hotelier, stylist or property developer, William Wood Trade gives you access to preferential pricing, dedicated support and a refined collection of mirrors, furniture and homeware.</p>",
-        "split1_image": "shopify://shop_images/Untitled_design_15_e364eae1-2b10-43be-bcaa-d7ce127547b9.jpg",
-        "split1_eyebrow": "The collection",
-        "split1_heading": "Pieces selected with your projects in mind",
-        "split1_body": "<p>From statement mirrors to furniture and accessories, our range is curated to support complete schemes and styling moments across homes, hospitality spaces and commercial projects.</p>",
-        "split2_image": "shopify://shop_images/Zola_Concrete_Large_Table_c64b94dc-b6a1-4173-8c77-b2311f02064b.jpg",
-        "split2_eyebrow": "Support",
-        "split2_heading": "A dedicated team from brief to delivery",
-        "split2_body": "<p>Our trade team can help with product guidance, availability, lead times and order support, so you can keep each project moving with clarity.</p>",
-        "steps_eyebrow": "How it works",
-        "steps_heading": "Applying for an account",
-        "steps_body": "<p>Complete the application form and our trade team will review your details before getting in touch.</p>",
-        "show_form": false,
-        "form_eyebrow": "Apply",
-        "form_heading": "Trade application form",
-        "form_body": "<p>Tell us a little about your business and the projects you work on. Our team will respond as soon as possible.</p>"
-      },
       "blocks": {
         "step_1": {
           "type": "step",
@@ -143,17 +123,31 @@
         "step_1",
         "step_2",
         "step_3"
-      ]
+      ],
+      "disabled": true,
+      "settings": {
+        "intro_eyebrow": "Designed for professionals",
+        "intro_heading": "A trade programme for considered interiors",
+        "intro_body": "<p>Whether you are an interior designer, architect, hotelier, stylist or property developer, William Wood Trade gives you access to preferential pricing, dedicated support and a refined collection of mirrors, furniture and homeware.</p>",
+        "split1_image": "shopify://shop_images/Untitled_design_15_e364eae1-2b10-43be-bcaa-d7ce127547b9.jpg",
+        "split1_eyebrow": "The collection",
+        "split1_heading": "Pieces selected with your projects in mind",
+        "split1_body": "<p>From statement mirrors to furniture and accessories, our range is curated to support complete schemes and styling moments across homes, hospitality spaces and commercial projects.</p>",
+        "split2_image": "shopify://shop_images/Zola_Concrete_Large_Table_c64b94dc-b6a1-4173-8c77-b2311f02064b.jpg",
+        "split2_eyebrow": "Support",
+        "split2_heading": "A dedicated team from brief to delivery",
+        "split2_body": "<p>Our trade team can help with product guidance, availability, lead times and order support, so you can keep each project moving with clarity.</p>",
+        "steps_eyebrow": "How it works",
+        "steps_heading": "Applying for an account",
+        "steps_body": "<p>Complete the application form and our trade team will review your details before getting in touch.</p>",
+        "show_form": false,
+        "form_eyebrow": "Apply",
+        "form_heading": "Trade application form",
+        "form_body": "<p>Tell us a little about your business and the projects you work on. Our team will respond as soon as possible.</p>"
+      }
     },
     "trade_faq": {
       "type": "ww-trade-faq",
-      "settings": {
-        "heading": "FAQs",
-        "body": "",
-        "open_first_item": true,
-        "button_text": "View all FAQs",
-        "button_link": "/pages/faqs"
-      },
       "blocks": {
         "faq_1": {
           "type": "faq",
@@ -189,7 +183,14 @@
         "faq_2",
         "faq_3",
         "faq_4"
-      ]
+      ],
+      "settings": {
+        "heading": "FAQs",
+        "body": "",
+        "open_first_item": true,
+        "button_text": "View all FAQs",
+        "button_link": "/pages/faqs"
+      }
     }
   },
   "order": [
