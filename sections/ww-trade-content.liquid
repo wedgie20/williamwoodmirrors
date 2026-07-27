@@ -128,9 +128,16 @@
 
 <style>
   #shopify-section-{{ section.id }} .ww-trade-content {
+    --ww-trade-text-font: var(--text-font-family, "Gotham Book", Arial, sans-serif);
+    --ww-trade-heading-font: var(--heading-font-family, "GothamBlack", "Gotham Book", Arial, sans-serif);
+    --ww-trade-heading-weight: var(--heading-font-weight, 700);
+    --ww-trade-bold-weight: var(--text-font-bold-weight, 700);
+    --ww-trade-body-size: var(--base-font-size, 14px);
     background: #fff;
     color: #000;
-    font-family: "Gotham Book", Arial, sans-serif;
+    font-family: var(--ww-trade-text-font);
+    font-size: var(--ww-trade-body-size);
+    line-height: 1.7333333333;
     overflow-x: clip;
   }
 
@@ -156,40 +163,40 @@
   #shopify-section-{{ section.id }} .ww-trade-content h3 {
     margin: 0;
     color: inherit;
-    font-family: "GothamBlack", "Gotham Book", Arial, sans-serif;
-    font-weight: 700;
-    line-height: 1.05;
+    font-family: var(--ww-trade-heading-font);
+    font-weight: var(--ww-trade-heading-weight);
     letter-spacing: 0;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-content h2 {
-    font-size: clamp(30px, 4vw, 54px);
+    font-size: var(--heading-h2-font-size, 54px);
+    line-height: 1.1333333333;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-content h3 {
-    font-size: 18px;
-    line-height: 1.25;
+    font-size: var(--heading-h3-font-size, 24px);
+    line-height: 1.3;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-content__eyebrow {
     margin: 0 0 18px;
-    font-family: "GothamBlack", "Gotham Book", Arial, sans-serif;
-    font-size: 12px;
-    font-weight: 700;
+    font-family: var(--ww-trade-text-font);
+    font-size: calc(var(--ww-trade-body-size) - 3px);
+    font-weight: var(--ww-trade-bold-weight);
     line-height: 1.4;
-    letter-spacing: .14em;
+    letter-spacing: 0;
     text-transform: uppercase;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-content__rte {
     color: #111;
-    font-size: 16px;
-    line-height: 1.75;
+    font-size: var(--ww-trade-body-size);
+    line-height: 1.7333333333;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-content__rte--small {
-    font-size: 14px;
-    line-height: 1.65;
+    font-size: calc(var(--ww-trade-body-size) - 1px);
+    line-height: 1.7142857143;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-content__rte p {
@@ -271,9 +278,9 @@
     margin-bottom: 28px;
     border: 1px solid #000;
     border-radius: 50%;
-    font-family: "GothamBlack", "Gotham Book", Arial, sans-serif;
-    font-size: 13px;
-    font-weight: 700;
+    font-family: var(--ww-trade-text-font);
+    font-size: calc(var(--ww-trade-body-size) - 2px);
+    font-weight: var(--ww-trade-bold-weight);
   }
 
   #shopify-section-{{ section.id }} .ww-trade-content__step .ww-trade-content__rte {
@@ -341,12 +348,12 @@
     }
 
     #shopify-section-{{ section.id }} .ww-trade-content h2 {
-      font-size: 28px;
+      font-size: var(--heading-h2-font-size, 32px);
     }
 
     #shopify-section-{{ section.id }} .ww-trade-content__rte {
-      font-size: 14px;
-      line-height: 1.65;
+      font-size: calc(var(--ww-trade-body-size) - 1px);
+      line-height: 1.7142857143;
     }
 
     #shopify-section-{{ section.id }} .ww-trade-content__split-media {
