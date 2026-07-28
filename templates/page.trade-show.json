@@ -91,6 +91,48 @@
         "heading": "Testimonials"
       }
     },
+    "apply_account": {
+      "type": "ww-trade-apply-account",
+      "blocks": {
+        "apply_step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Submit an application",
+            "text": "<p>Complete the application form with your business and project information.</p>"
+          }
+        },
+        "apply_step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Await confirmation",
+            "text": "<p>Our trade team will review your application and be in touch.</p>"
+          }
+        },
+        "apply_step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Begin shopping",
+            "text": "<p>Approved trade account members can use their trade benefits online or by contacting our team.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "apply_step_1",
+        "apply_step_2",
+        "apply_step_3"
+      ],
+      "settings": {
+        "image_alt": "William Wood trade account application",
+        "background_color": "#633126",
+        "text_color": "#ffffff",
+        "heading": "Applying for an account",
+        "body": "",
+        "primary_button_text": "Apply now",
+        "primary_button_link": "#trade-apply",
+        "secondary_button_text": "Already a member? Sign in",
+        "secondary_button_link": "/account/login"
+      }
+    },
     "trade_content": {
       "type": "ww-trade-content",
       "blocks": {
@@ -197,6 +239,7 @@
     "trade_hero",
     "why_join",
     "testimonials",
+    "apply_account",
     "trade_content",
     "trade_faq"
   ]
