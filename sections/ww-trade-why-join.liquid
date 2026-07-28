@@ -61,9 +61,10 @@
   }
 
   #shopify-section-{{ section.id }} .ww-trade-why__container {
-    {% comment %} width: min(100%, 1320px); {% endcomment %}
+    width: 100%;
+    max-width: var(--container-max-width);
     margin: 0 auto;
-    padding: 0 48px;
+    padding: 0 var(--container-gutter);
   }
 
   #shopify-section-{{ section.id }} .ww-trade-why h2 {
@@ -140,7 +141,7 @@
     }
 
     #shopify-section-{{ section.id }} .ww-trade-why__container {
-      padding: 0 28px;
+      padding: 0 var(--container-gutter);
     }
 
     #shopify-section-{{ section.id }} .ww-trade-why__grid {
@@ -168,7 +169,7 @@
     }
 
     #shopify-section-{{ section.id }} .ww-trade-why__container {
-      padding: 0 20px;
+      padding: 0 var(--container-gutter);
     }
 
     #shopify-section-{{ section.id }} .ww-trade-why h2 {

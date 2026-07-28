@@ -73,7 +73,8 @@
     --ww-trade-heading-weight: var(--heading-font-weight, 700);
     --ww-trade-bold-weight: var(--text-font-bold-weight, 700);
     --ww-trade-body-size: var(--base-font-size, 14px);
-    padding: 30px;
+    --ww-trade-page-gutter: max(var(--container-gutter), calc((100vw - var(--container-max-width)) / 2 + var(--container-gutter)));
+    padding: 30px var(--ww-trade-page-gutter);
     background: var(--ww-trade-apply-bg);
     color: var(--ww-trade-apply-text);
     font-family: var(--ww-trade-text-font);
@@ -219,7 +220,7 @@
 
   @media screen and (max-width: 989px) {
     #shopify-section-{{ section.id }} .ww-trade-apply-account {
-      padding: 28px;
+      padding: 28px var(--ww-trade-page-gutter);
     }
 
     #shopify-section-{{ section.id }} .ww-trade-apply-account__inner {
@@ -253,7 +254,7 @@
     }
 
     #shopify-section-{{ section.id }} .ww-trade-apply-account {
-      padding: 20px;
+      padding: 20px var(--container-gutter);
     }
 
     #shopify-section-{{ section.id }} .ww-trade-apply-account__media {

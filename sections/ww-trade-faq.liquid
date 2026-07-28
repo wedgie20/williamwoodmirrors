@@ -56,9 +56,10 @@
   }
 
   #shopify-section-{{ section.id }} .ww-trade-faq__container {
-    width: min(100%, 1450px);
+    width: 100%;
+    max-width: var(--container-max-width);
     margin: 0 auto;
-    padding: 0 48px;
+    padding: 0 var(--container-gutter);
   }
 
   #shopify-section-{{ section.id }} .ww-trade-faq h2 {
@@ -205,7 +206,7 @@
     }
 
     #shopify-section-{{ section.id }} .ww-trade-faq__container {
-      padding: 0 28px;
+      padding: 0 var(--container-gutter);
     }
 
     #shopify-section-{{ section.id }} .ww-trade-faq__answer {
@@ -234,7 +235,7 @@
     }
 
     #shopify-section-{{ section.id }} .ww-trade-faq__container {
-      padding: 0 20px;
+      padding: 0 var(--container-gutter);
     }
 
     #shopify-section-{{ section.id }} .ww-trade-faq h2 {
