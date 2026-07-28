@@ -339,6 +339,20 @@
   }
 
   @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .ww-trade-content,
+    #shopify-section-{{ section.id }} .ww-trade-content p,
+    #shopify-section-{{ section.id }} .ww-trade-content span,
+    #shopify-section-{{ section.id }} .ww-trade-content a,
+    #shopify-section-{{ section.id }} .ww-trade-content button {
+      font-family: var(--ww-trade-text-font);
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-content h1,
+    #shopify-section-{{ section.id }} .ww-trade-content h2,
+    #shopify-section-{{ section.id }} .ww-trade-content h3 {
+      font-family: var(--ww-trade-heading-font);
+    }
+
     #shopify-section-{{ section.id }} .ww-trade-content__container {
       padding: 0 20px;
     }
