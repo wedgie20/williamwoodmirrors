@@ -65,15 +65,15 @@
   assign all_furniture_match = product.collections | where: 'handle', '25-off-full-priced-furniture'
 
   if all_furniture_match.size > 0
-    assign promo_code = 'WW25'
-    assign promo_text = '25% Off Furniture'
+    assign promo_code = 'EOM'
+    assign promo_text = '30% Off Everything'
   elsif home_accessories_match.size > 0
-    assign promo_text = '3 for 2'
-    assign promo_note = 'Code auto applies at checkout'
+    assign promo_text = 'EOM'
+    assign promo_note = '30% Off Everything'
 
   else
-    assign promo_code = 'WWJULY'
-    assign promo_text = '15% Off 1 | 20% Off Any 2 | 30% Off Any 3+'
+    assign promo_code = 'EOM'
+    assign promo_text = '30% Off Everything'
   endif
 
   assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id
