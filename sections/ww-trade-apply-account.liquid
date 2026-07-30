@@ -51,7 +51,7 @@
       {%- if section.settings.primary_button_text != blank or section.settings.secondary_button_text != blank -%}
         <div class="ww-trade-apply-account__actions">
           {%- if section.settings.primary_button_text != blank -%}
-            <a class="ww-trade-apply-account__button ww-trade-apply-account__button--primary" href="{{ section.settings.primary_button_link | default: '#trade-apply' }}">
+            <a class="ww-trade-apply-account__button ww-trade-apply-account__button--primary" href="{{ section.settings.primary_button_link | default: '/pages/trade-application' }}">
               {{ section.settings.primary_button_text }}
             </a>
           {%- endif -%}
@@ -328,7 +328,7 @@
       "type": "text",
       "id": "primary_button_text",
       "label": "Primary button text",
-      "default": "Apply now"
+      "default": "Join now"
     },
     {
       "type": "url",

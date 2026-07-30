@@ -37,7 +37,7 @@
     {%- endif -%}
     <div class="ww-trade-hero__actions">
       {%- if section.settings.hero_cta_text != blank -%}
-        <a class="ww-trade-hero__button ww-trade-hero__button--light" href="{{ section.settings.hero_cta_link | default: '#trade-apply' }}">
+        <a class="ww-trade-hero__button ww-trade-hero__button--light" href="{{ section.settings.hero_cta_link | default: '/pages/trade-application' }}">
           {{ section.settings.hero_cta_text }}
         </a>
       {%- endif -%}
@@ -255,7 +255,7 @@
       "type": "text",
       "id": "hero_title",
       "label": "Heading",
-      "default": "Trade"
+      "default": "William Wood Trade"
     },
     {
       "type": "richtext",
@@ -267,7 +267,7 @@
       "type": "text",
       "id": "hero_cta_text",
       "label": "Primary button text",
-      "default": "Apply now"
+      "default": "Join now"
     },
     {
       "type": "url",
