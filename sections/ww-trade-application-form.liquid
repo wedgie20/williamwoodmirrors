@@ -613,17 +613,22 @@
   #shopify-section-{{ section.id }} .ww-trade-application__phone input[data-phone-number] {
     flex: 1 1 auto;
     min-width: 0;
-    min-height: 0;
-    height: 1px;
-    padding: 0;
+    min-height: 80px;
+    height: auto;
+    padding: 0 20px 0 8px;
     border: 0;
     background: transparent;
-    font-size: 18px;
-    opacity: 0;
+    color: #000;
+    font-family: var(--ww-trade-text-font);
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.2;
+    opacity: 1;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__phone input[data-phone-number]:focus {
     border: 0;
+    outline: 0;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__phone-dropdown {
@@ -923,6 +928,8 @@
     }
 
     #shopify-section-{{ section.id }} .ww-trade-application__phone input[data-phone-number] {
+      min-height: 72px;
+      padding: 0 14px 0 6px;
       font-size: 16px;
     }
 
