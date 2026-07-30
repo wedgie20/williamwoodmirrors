@@ -337,12 +337,12 @@
   #shopify-section-{{ section.id }} .ww-trade-application__field > label {
     position: absolute;
     top: 50%;
-    left: 18px;
+    left: 16px;
     z-index: 2;
-    max-width: calc(100% - 36px);
+    max-width: calc(100% - 32px);
     color: #000;
     font-family: var(--ww-trade-text-font);
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 400;
     line-height: 1.2;
     pointer-events: none;
@@ -358,14 +358,14 @@
   #shopify-section-{{ section.id }} .ww-trade-application select,
   #shopify-section-{{ section.id }} .ww-trade-application textarea {
     width: 100%;
-    min-height: 62px;
-    padding: 22px 18px 8px;
+    min-height: 48px;
+    padding: 17px 16px 6px;
     border: 1px solid #bdbdbd;
     border-radius: var(--ww-trade-field-radius);
     background: #fff;
     color: #000;
     font-family: var(--ww-trade-text-font);
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 400;
     line-height: 1.35;
     box-shadow: none;
@@ -411,7 +411,7 @@
 
   #shopify-section-{{ section.id }} .ww-trade-application__address-results {
     position: absolute;
-    top: calc(62px + var(--ww-trade-field-gap));
+    top: calc(48px + var(--ww-trade-field-gap));
     right: 0;
     left: 0;
     z-index: 25;
@@ -494,9 +494,9 @@
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application textarea {
-    min-height: 126px;
-    padding-top: 28px;
-    padding-bottom: 14px;
+    min-height: 86px;
+    padding-top: 22px;
+    padding-bottom: 10px;
     resize: vertical;
   }
 
@@ -509,10 +509,14 @@
     z-index: 1;
   }
 
+  #shopify-section-{{ section.id }} .ww-trade-application__field:focus-within > label,
   #shopify-section-{{ section.id }} .ww-trade-application__field.ww-field-focused > label,
   #shopify-section-{{ section.id }} .ww-trade-application__field.ww-field-filled > label {
-    top: 9px;
-    font-size: 11px;
+    top: -6px;
+    left: 14px;
+    padding: 0 4px;
+    background: #fff;
+    font-size: 10px;
     transform: none;
   }
 
@@ -675,26 +679,26 @@
     }
 
     #shopify-section-{{ section.id }} .ww-trade-application__field > label {
-      left: 16px;
-      font-size: 15px;
+      left: 14px;
+      font-size: 13px;
     }
 
     #shopify-section-{{ section.id }} .ww-trade-application input:not([type="hidden"]):not([type="checkbox"]):not([type="file"]),
     #shopify-section-{{ section.id }} .ww-trade-application select,
     #shopify-section-{{ section.id }} .ww-trade-application textarea {
-      min-height: 56px;
-      padding: 20px 16px 8px;
-      font-size: 14px;
+      min-height: 46px;
+      padding: 16px 14px 6px;
+      font-size: 12px;
     }
 
     #shopify-section-{{ section.id }} .ww-trade-application textarea {
-      min-height: 118px;
-      padding-top: 26px;
-      padding-bottom: 14px;
+      min-height: 78px;
+      padding-top: 21px;
+      padding-bottom: 10px;
     }
 
     #shopify-section-{{ section.id }} .ww-trade-application__address-results {
-      top: calc(56px + var(--ww-trade-field-gap));
+      top: calc(46px + var(--ww-trade-field-gap));
     }
 
     #shopify-section-{{ section.id }} .ww-trade-application__submit {
