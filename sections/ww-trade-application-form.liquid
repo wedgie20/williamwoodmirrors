@@ -337,12 +337,12 @@
   #shopify-section-{{ section.id }} .ww-trade-application__field > label {
     position: absolute;
     top: 50%;
-    left: 20px;
+    left: 18px;
     z-index: 2;
-    max-width: calc(100% - 40px);
+    max-width: calc(100% - 36px);
     color: #000;
     font-family: var(--ww-trade-text-font);
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 400;
     line-height: 1.2;
     pointer-events: none;
@@ -358,14 +358,14 @@
   #shopify-section-{{ section.id }} .ww-trade-application select,
   #shopify-section-{{ section.id }} .ww-trade-application textarea {
     width: 100%;
-    min-height: 80px;
-    padding: 28px 20px 10px;
+    min-height: 62px;
+    padding: 22px 18px 8px;
     border: 1px solid #bdbdbd;
     border-radius: var(--ww-trade-field-radius);
     background: #fff;
     color: #000;
     font-family: var(--ww-trade-text-font);
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 400;
     line-height: 1.35;
     box-shadow: none;
@@ -411,7 +411,7 @@
 
   #shopify-section-{{ section.id }} .ww-trade-application__address-results {
     position: absolute;
-    top: calc(80px + var(--ww-trade-field-gap));
+    top: calc(62px + var(--ww-trade-field-gap));
     right: 0;
     left: 0;
     z-index: 25;
@@ -494,9 +494,9 @@
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application textarea {
-    min-height: 150px;
-    padding-top: 34px;
-    padding-bottom: 16px;
+    min-height: 126px;
+    padding-top: 28px;
+    padding-bottom: 14px;
     resize: vertical;
   }
 
@@ -511,8 +511,8 @@
 
   #shopify-section-{{ section.id }} .ww-trade-application__field.ww-field-focused > label,
   #shopify-section-{{ section.id }} .ww-trade-application__field.ww-field-filled > label {
-    top: 14px;
-    font-size: 13px;
+    top: 9px;
+    font-size: 11px;
     transform: none;
   }
 
@@ -675,18 +675,26 @@
     }
 
     #shopify-section-{{ section.id }} .ww-trade-application__field > label {
-      font-size: 18px;
+      left: 16px;
+      font-size: 15px;
     }
 
     #shopify-section-{{ section.id }} .ww-trade-application input:not([type="hidden"]):not([type="checkbox"]):not([type="file"]),
     #shopify-section-{{ section.id }} .ww-trade-application select,
     #shopify-section-{{ section.id }} .ww-trade-application textarea {
-      min-height: 72px;
-      font-size: 16px;
+      min-height: 56px;
+      padding: 20px 16px 8px;
+      font-size: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-application textarea {
+      min-height: 118px;
+      padding-top: 26px;
+      padding-bottom: 14px;
     }
 
     #shopify-section-{{ section.id }} .ww-trade-application__address-results {
-      top: calc(72px + var(--ww-trade-field-gap));
+      top: calc(56px + var(--ww-trade-field-gap));
     }
 
     #shopify-section-{{ section.id }} .ww-trade-application__submit {
