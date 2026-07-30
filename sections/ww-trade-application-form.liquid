@@ -582,7 +582,6 @@
     min-height: 80px;
     padding: 0 20px;
     border: 0;
-    border-right: 1px solid #bdbdbd;
     border-radius: 0;
     background: transparent;
     color: #000;
@@ -632,8 +631,9 @@
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__phone input[data-phone-number]:focus {
-    border: 0;
+    border: 0 !important;
     outline: 0;
+    box-shadow: none !important;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__phone-dropdown {
@@ -676,7 +676,9 @@
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__phone-search input:focus {
-    border: 0;
+    border: 0 !important;
+    outline: 0;
+    box-shadow: none !important;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__phone-options {
