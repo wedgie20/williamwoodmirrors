@@ -22,7 +22,7 @@
     </header>
 
     <div class="ww-trade-application__panel">
-      {%- form 'contact', id: 'ww-trade-application-form', class: 'ww-trade-application__form' -%}
+      {%- form 'contact', id: 'ww-trade-application-form', class: 'ww-trade-application__form', autocomplete: 'on' -%}
         <input type="hidden" name="contact[Form]" value="Trade application">
         <input type="hidden" name="contact[Trade application source]" value="{{ page.title | default: 'Trade application' | escape }}">
         <input type="hidden" id="trade-application-contact-name" name="contact[name]" value="">
@@ -50,27 +50,27 @@
             <div class="ww-trade-application__grid">
               <div class="ww-trade-application__field">
                 <label for="trade-application-email">Email address <span aria-hidden="true">*</span></label>
-                <input id="trade-application-email" type="email" name="contact[email]" autocomplete="off" required>
+                <input id="trade-application-email" type="email" name="contact[email]" autocomplete="email" required>
               </div>
 
               <div class="ww-trade-application__field">
                 <label for="trade-application-first-name">First name <span aria-hidden="true">*</span></label>
-                <input id="trade-application-first-name" type="text" name="contact[First name]" autocomplete="off" required>
+                <input id="trade-application-first-name" type="text" name="contact[First name]" autocomplete="given-name" required>
               </div>
 
               <div class="ww-trade-application__field">
                 <label for="trade-application-last-name">Last name <span aria-hidden="true">*</span></label>
-                <input id="trade-application-last-name" type="text" name="contact[Last name]" autocomplete="off" required>
+                <input id="trade-application-last-name" type="text" name="contact[Last name]" autocomplete="family-name" required>
               </div>
 
               <div class="ww-trade-application__field">
                 <label for="trade-application-phone">Phone <span aria-hidden="true">*</span></label>
-                <input id="trade-application-phone" type="tel" name="contact[Phone number]" autocomplete="off" required>
+                <input id="trade-application-phone" type="tel" name="contact[Phone number]" autocomplete="tel" required>
               </div>
 
               <div class="ww-trade-application__field">
                 <label for="trade-application-preferred-contact">Preferred contact <span aria-hidden="true">*</span></label>
-                <select id="trade-application-preferred-contact" name="contact[Preferred contact]" required>
+                <select id="trade-application-preferred-contact" name="contact[Preferred contact]" autocomplete="on" required>
                   <option value="" selected disabled></option>
                   {%- for option in contact_options -%}
                     {%- assign trimmed_option = option | strip -%}
@@ -89,22 +89,22 @@
             <div class="ww-trade-application__grid">
               <div class="ww-trade-application__field">
                 <label for="trade-application-company">Company name <span aria-hidden="true">*</span></label>
-                <input id="trade-application-company" type="text" name="contact[Company name]" autocomplete="off" required>
+                <input id="trade-application-company" type="text" name="contact[Company name]" autocomplete="organization" required>
               </div>
 
               <div class="ww-trade-application__field">
                 <label for="trade-application-company-number">Company number</label>
-                <input id="trade-application-company-number" type="text" name="contact[Company number]">
+                <input id="trade-application-company-number" type="text" name="contact[Company number]" autocomplete="on">
               </div>
 
               <div class="ww-trade-application__field">
                 <label for="trade-application-website">Company website (optional)</label>
-                <input id="trade-application-website" type="url" name="contact[Company website]" inputmode="url">
+                <input id="trade-application-website" type="url" name="contact[Company website]" autocomplete="url" inputmode="url">
               </div>
 
               <div class="ww-trade-application__field">
                 <label for="trade-application-profession">Business Type <span aria-hidden="true">*</span></label>
-                <select id="trade-application-profession" name="contact[Business Type]" required>
+                <select id="trade-application-profession" name="contact[Business Type]" autocomplete="on" required>
                   <option value="" selected disabled></option>
                   {%- for option in profession_options -%}
                     {%- assign trimmed_option = option | strip -%}
@@ -128,7 +128,7 @@
             <div class="ww-trade-application__address">
               <div class="ww-trade-application__field ww-trade-application__field--full">
                 <label for="trade-application-company-address">Company address <span aria-hidden="true">*</span></label>
-                <input id="trade-application-company-address" type="text" name="contact[Company address]" autocomplete="off" required data-address-search>
+                <input id="trade-application-company-address" type="text" name="contact[Company address]" autocomplete="street-address" required data-address-search>
               </div>
 
               <div class="ww-trade-application__address-results" data-address-results hidden></div>
@@ -140,7 +140,7 @@
               <div class="ww-trade-application__manual-address" data-manual-address hidden>
                 <div class="ww-trade-application__field">
                   <label for="trade-application-country">Country <span aria-hidden="true">*</span></label>
-                  <select id="trade-application-country" name="contact[Country]" autocomplete="off" data-manual-required>
+                  <select id="trade-application-country" name="contact[Country]" autocomplete="country-name" data-manual-required>
                     <option value="" selected disabled></option>
                     {%- for country in country_options -%}
                       {%- assign trimmed_country = country | strip -%}
@@ -153,22 +153,22 @@
 
                 <div class="ww-trade-application__field">
                   <label for="trade-application-address-1">Line 1 <span aria-hidden="true">*</span></label>
-                  <input id="trade-application-address-1" type="text" name="contact[Line 1]" autocomplete="off" data-manual-required>
+                  <input id="trade-application-address-1" type="text" name="contact[Line 1]" autocomplete="address-line1" data-manual-required>
                 </div>
 
                 <div class="ww-trade-application__field">
                   <label for="trade-application-address-2">Line 2 (optional)</label>
-                  <input id="trade-application-address-2" type="text" name="contact[Line 2]" autocomplete="off">
+                  <input id="trade-application-address-2" type="text" name="contact[Line 2]" autocomplete="address-line2">
                 </div>
 
                 <div class="ww-trade-application__field">
                   <label for="trade-application-city">Town/City <span aria-hidden="true">*</span></label>
-                  <input id="trade-application-city" type="text" name="contact[Town/City]" autocomplete="off" data-manual-required>
+                  <input id="trade-application-city" type="text" name="contact[Town/City]" autocomplete="address-level2" data-manual-required>
                 </div>
 
                 <div class="ww-trade-application__field">
                   <label for="trade-application-postcode">Postcode <span aria-hidden="true">*</span></label>
-                  <input id="trade-application-postcode" type="text" name="contact[Postcode]" autocomplete="off" data-manual-required>
+                  <input id="trade-application-postcode" type="text" name="contact[Postcode]" autocomplete="postal-code" data-manual-required>
                 </div>
               </div>
             </div>
@@ -180,12 +180,12 @@
             <div class="ww-trade-application__account">
               <div class="ww-trade-application__field">
                 <label for="trade-application-password">Password <span aria-hidden="true">*</span></label>
-                <input id="trade-application-password" type="password" autocomplete="off" required data-account-password>
+                <input id="trade-application-password" type="password" autocomplete="new-password" required data-account-password>
               </div>
 
               <div class="ww-trade-application__field">
                 <label for="trade-application-confirm-password">Confirm Password <span aria-hidden="true">*</span></label>
-                <input id="trade-application-confirm-password" type="password" autocomplete="off" required data-account-confirm-password>
+                <input id="trade-application-confirm-password" type="password" autocomplete="new-password" required data-account-confirm-password>
               </div>
 
               <div class="ww-trade-application__marketing">
@@ -510,6 +510,7 @@
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__field:focus-within > label,
+  #shopify-section-{{ section.id }} .ww-trade-application__field:has(input:-webkit-autofill) > label,
   #shopify-section-{{ section.id }} .ww-trade-application__field.ww-field-focused > label,
   #shopify-section-{{ section.id }} .ww-trade-application__field.ww-field-filled > label {
     top: -6px;
