@@ -57,6 +57,12 @@
     "trade_faq": {
       "settings": {},
       "blocks": {
+        "faq_1": {
+          "settings": {
+            "question": "Who qualifies for a William Wood Trade Account?",
+            "answer": "<p>We work with interior designers, architects, stylists, property developers, hoteliers, and other interiors professionals, providing dedicated trade support for projects of all sizes.</p>"
+          }
+        },
         "faq_2": {
           "settings": {
             "question": "What are the William Wood tiered trade discounts?"
@@ -72,11 +78,23 @@
           "settings": {
             "answer": "<p>Yes! Our team can help with product guidance, availability, lead times, bespoke sizing options and order support.<br/><br/></p>"
           }
-        },
-        "faq_1": {
+        }
+      }
+    },
+    "apply_account": {
+      "settings": {
+        "heading": "Join William Wood Trade"
+      },
+      "blocks": {
+        "apply_step_1": {
           "settings": {
-            "question": "Who qualifies for a William Wood Trade Account?",
-            "answer": "<p>We work with interior designers, architects, stylists, property developers, hoteliers, and other interiors professionals, providing dedicated trade support for projects of all sizes.</p>"
+            "title": "Join Now",
+            "text": "<p>Ready to become a Trade member? Complete our quick application form with so we can get to know you.<br/><br/></p>"
+          }
+        },
+        "apply_step_2": {
+          "settings": {
+            "text": "<p>Our dedicated trade team will review your application and we'll be in touch to get you started.</p>"
           }
         }
       }
