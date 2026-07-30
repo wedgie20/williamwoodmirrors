@@ -3,7 +3,6 @@
   assign country_options = section.settings.country_options | split: ','
   assign contact_options = section.settings.contact_options | split: ','
   assign address_suggestion_rows = section.settings.address_suggestions | newline_to_br | split: '<br />'
-  assign phone_country_rows = section.settings.phone_country_options | newline_to_br | split: '<br />'
 -%}
 
 <section class="ww-trade-application" data-ww-trade-application>
@@ -64,51 +63,9 @@
                 <input id="trade-application-last-name" type="text" name="contact[Last name]" autocomplete="off" required>
               </div>
 
-              <div class="ww-trade-application__phone" data-phone-field>
-                <input type="hidden" name="contact[Phone country]" value="United Kingdom (+44)" data-phone-country-output>
-                <input type="hidden" name="contact[Phone number]" value="" data-phone-output>
-
-                <div class="ww-trade-application__phone-control">
-                  <button type="button" class="ww-trade-application__phone-toggle" aria-expanded="false" data-phone-toggle>
-                    <span class="ww-trade-application__phone-flag" data-phone-flag>🇬🇧</span>
-                    <span class="ww-trade-application__phone-chevron" aria-hidden="true"></span>
-                    <span class="ww-trade-application__phone-label" data-phone-label>Phone</span>
-                  </button>
-
-                  <input id="trade-application-phone" type="tel" autocomplete="off" required data-phone-number aria-label="Phone number">
-                </div>
-
-                <div class="ww-trade-application__phone-dropdown" data-phone-dropdown hidden>
-                  <div class="ww-trade-application__phone-search">
-                    <span aria-hidden="true">⌕</span>
-                    <input type="search" placeholder="Search" autocomplete="off" data-phone-search aria-label="Search countries">
-                  </div>
-
-                  <div class="ww-trade-application__phone-options" role="listbox">
-                    {%- for row in phone_country_rows -%}
-                      {%- assign phone_option = row | strip_html | strip -%}
-                      {%- assign phone_parts = phone_option | split: '|' -%}
-                      {%- assign phone_flag = phone_parts[0] | strip -%}
-                      {%- assign phone_country = phone_parts[1] | strip -%}
-                      {%- assign phone_code = phone_parts[2] | strip -%}
-                      {%- if phone_flag != blank and phone_country != blank and phone_code != blank -%}
-                        <button
-                          type="button"
-                          class="ww-trade-application__phone-option"
-                          data-phone-option
-                          data-phone-flag="{{ phone_flag | escape }}"
-                          data-phone-country="{{ phone_country | escape }}"
-                          data-phone-code="{{ phone_code | escape }}"
-                          role="option"
-                        >
-                          <span class="ww-trade-application__phone-option-flag">{{ phone_flag }}</span>
-                          <span class="ww-trade-application__phone-option-text">{{ phone_country }} ({{ phone_code }})</span>
-                          <span class="ww-trade-application__phone-option-check" aria-hidden="true"></span>
-                        </button>
-                      {%- endif -%}
-                    {%- endfor -%}
-                  </div>
-                </div>
+              <div class="ww-trade-application__field">
+                <label for="trade-application-phone">Phone <span aria-hidden="true">*</span></label>
+                <input id="trade-application-phone" type="tel" name="contact[Phone number]" autocomplete="off" required>
               </div>
 
               <div class="ww-trade-application__field">
@@ -559,212 +516,6 @@
     transform: none;
   }
 
-  #shopify-section-{{ section.id }} .ww-trade-application__phone {
-    position: relative;
-    margin-top: var(--ww-trade-field-gap);
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-control {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    min-height: 80px;
-    border: 1px solid #bdbdbd;
-    border-radius: var(--ww-trade-field-radius);
-    background: #fff;
-    overflow: hidden;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-control:focus-within {
-    position: relative;
-    z-index: 4;
-    border-color: #000;
-    border-width: 2px;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    width: 215px;
-    min-width: 0;
-    min-height: 80px;
-    padding: 0 20px;
-    border: 0;
-    border-radius: 0;
-    background: transparent;
-    color: #000;
-    font-family: var(--ww-trade-text-font);
-    font-size: 22px;
-    font-weight: 400;
-    line-height: 1.2;
-    text-align: left;
-    cursor: pointer;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-flag {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 28px;
-    font-size: 22px;
-    line-height: 1;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-chevron {
-    width: 7px;
-    height: 7px;
-    border-right: 1px solid currentColor;
-    border-bottom: 1px solid currentColor;
-    transform: rotate(45deg) translateY(-2px);
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-toggle[aria-expanded="true"] .ww-trade-application__phone-chevron {
-    transform: rotate(225deg) translateY(-1px);
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone input[data-phone-number] {
-    flex: 1 1 auto;
-    min-width: 0;
-    min-height: 80px;
-    height: auto;
-    padding: 0 20px;
-    border: 0;
-    background: transparent;
-    color: #000;
-    font-family: var(--ww-trade-text-font);
-    font-size: 22px;
-    font-weight: 400;
-    line-height: 1.2;
-    opacity: 1;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone input[data-phone-number]:focus {
-    border: 0 !important;
-    outline: 0;
-    box-shadow: none !important;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-dropdown {
-    position: absolute;
-    top: calc(100% - 1px);
-    right: 0;
-    left: 0;
-    z-index: 20;
-    border: 1px solid #bdbdbd;
-    border-radius: 0 0 22px 22px;
-    background: #fff;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, .16);
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-dropdown[hidden] {
-    display: none;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-search {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-height: 44px;
-    padding: 0 14px;
-    border-bottom: 1px solid #000;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-search span {
-    font-size: 24px;
-    line-height: 1;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-search input {
-    width: 100%;
-    min-height: 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    font-size: 18px;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-search input:focus {
-    border: 0 !important;
-    outline: 0;
-    box-shadow: none !important;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-options {
-    max-height: 260px;
-    overflow-y: auto;
-    scrollbar-width: auto;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-option {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-    min-height: 49px;
-    padding: 10px 48px 10px 14px;
-    border: 0;
-    border-radius: 0;
-    background: #fff;
-    color: #000;
-    font-family: var(--ww-trade-text-font);
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 1.25;
-    text-align: left;
-    cursor: pointer;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-option-flag {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    flex: 0 0 28px;
-    font-size: 24px;
-    line-height: 1;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-option-text {
-    min-width: 0;
-    flex: 1 1 auto;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-option-check {
-    position: absolute;
-    top: 50%;
-    right: 18px;
-    display: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #666;
-    transform: translateY(-50%);
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-option-check::after {
-    content: "";
-    position: absolute;
-    top: 4px;
-    left: 6px;
-    width: 5px;
-    height: 8px;
-    border-right: 2px solid #fff;
-    border-bottom: 2px solid #fff;
-    transform: rotate(45deg);
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-option:hover,
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-option:focus-visible,
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-option.is-selected {
-    background: #efefef;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__phone-option.is-selected .ww-trade-application__phone-option-check {
-    display: block;
-  }
-
   #shopify-section-{{ section.id }} .ww-trade-application__account {
     border: 0;
   }
@@ -934,29 +685,6 @@
       font-size: 16px;
     }
 
-    #shopify-section-{{ section.id }} .ww-trade-application__phone-control {
-      min-height: 72px;
-    }
-
-    #shopify-section-{{ section.id }} .ww-trade-application__phone-toggle {
-      gap: 10px;
-      width: 150px;
-      padding: 0 14px;
-      font-size: 18px;
-      min-height: 72px;
-    }
-
-    #shopify-section-{{ section.id }} .ww-trade-application__phone input[data-phone-number] {
-      min-height: 72px;
-      padding: 0 14px;
-      font-size: 16px;
-    }
-
-    #shopify-section-{{ section.id }} .ww-trade-application__phone-option,
-    #shopify-section-{{ section.id }} .ww-trade-application__phone-search input {
-      font-size: 16px;
-    }
-
     #shopify-section-{{ section.id }} .ww-trade-application__address-results {
       top: calc(72px + var(--ww-trade-field-gap));
     }
@@ -980,16 +708,6 @@
     var contactName = section.querySelector('#trade-application-contact-name');
     var password = section.querySelector('[data-account-password]');
     var confirmPassword = section.querySelector('[data-account-confirm-password]');
-    var phoneField = section.querySelector('[data-phone-field]');
-    var phoneToggle = section.querySelector('[data-phone-toggle]');
-    var phoneDropdown = section.querySelector('[data-phone-dropdown]');
-    var phoneSearch = section.querySelector('[data-phone-search]');
-    var phoneNumber = section.querySelector('[data-phone-number]');
-    var phoneOutput = section.querySelector('[data-phone-output]');
-    var phoneCountryOutput = section.querySelector('[data-phone-country-output]');
-    var phoneFlag = section.querySelector('[data-phone-flag]');
-    var phoneLabel = section.querySelector('[data-phone-label]');
-    var phoneOptions = Array.prototype.slice.call(section.querySelectorAll('[data-phone-option]'));
     var addressSearch = section.querySelector('[data-address-search]');
     var addressResults = section.querySelector('[data-address-results]');
     var manualAddress = section.querySelector('[data-manual-address]');
@@ -1286,119 +1004,7 @@
       confirmPassword.addEventListener('input', validatePasswords);
     }
 
-    function closePhoneDropdown() {
-      if (!phoneDropdown || !phoneToggle) {
-        return;
-      }
-
-      phoneDropdown.hidden = true;
-      phoneToggle.setAttribute('aria-expanded', 'false');
-    }
-
-    function openPhoneDropdown() {
-      if (!phoneDropdown || !phoneToggle) {
-        return;
-      }
-
-      phoneDropdown.hidden = false;
-      phoneToggle.setAttribute('aria-expanded', 'true');
-
-      if (phoneSearch) {
-        phoneSearch.value = '';
-        filterPhoneOptions('');
-        window.setTimeout(function() {
-          phoneSearch.focus();
-        }, 0);
-      }
-    }
-
-    function filterPhoneOptions(query) {
-      var normalizedQuery = query.trim().toLowerCase();
-
-      phoneOptions.forEach(function(option) {
-        var optionText = option.textContent.toLowerCase();
-        option.hidden = Boolean(normalizedQuery) && optionText.indexOf(normalizedQuery) === -1;
-      });
-    }
-
-    function selectPhoneOption(option) {
-      if (!option) {
-        return;
-      }
-
-      phoneOptions.forEach(function(item) {
-        item.classList.toggle('is-selected', item === option);
-        item.setAttribute('aria-selected', item === option ? 'true' : 'false');
-      });
-
-      if (phoneFlag) {
-        phoneFlag.textContent = option.dataset.phoneFlag || '';
-      }
-
-      if (phoneLabel) {
-        phoneLabel.textContent = 'Phone';
-      }
-
-      if (phoneCountryOutput) {
-        phoneCountryOutput.value = (option.dataset.phoneCountry || '') + ' (' + (option.dataset.phoneCode || '') + ')';
-      }
-
-      closePhoneDropdown();
-
-      if (phoneNumber) {
-        window.setTimeout(function() {
-          phoneNumber.focus();
-        }, 0);
-      }
-    }
-
-    function syncPhoneOutput() {
-      if (!phoneOutput || !phoneNumber) {
-        return;
-      }
-
-      var selectedOption = phoneOptions.find(function(option) {
-        return option.classList.contains('is-selected');
-      });
-      var code = selectedOption ? selectedOption.dataset.phoneCode : '+44';
-      phoneOutput.value = [code, phoneNumber.value.trim()].filter(Boolean).join(' ');
-    }
-
-    if (phoneOptions.length) {
-      selectPhoneOption(phoneOptions[0]);
-    }
-
-    if (phoneToggle) {
-      phoneToggle.addEventListener('click', function() {
-        if (phoneDropdown && phoneDropdown.hidden) {
-          openPhoneDropdown();
-        } else {
-          closePhoneDropdown();
-        }
-      });
-    }
-
-    if (phoneSearch) {
-      phoneSearch.addEventListener('input', function() {
-        filterPhoneOptions(phoneSearch.value);
-      });
-    }
-
-    phoneOptions.forEach(function(option) {
-      option.addEventListener('click', function() {
-        selectPhoneOption(option);
-      });
-    });
-
-    if (phoneNumber) {
-      phoneNumber.addEventListener('input', syncPhoneOutput);
-    }
-
     document.addEventListener('click', function(event) {
-      if (phoneField && !phoneField.contains(event.target)) {
-        closePhoneDropdown();
-      }
-
       if (addressResults && addressSearch && !addressResults.contains(event.target) && event.target !== addressSearch) {
         closeAddressResults();
       }
@@ -1410,7 +1016,6 @@
 
     form.addEventListener('submit', function() {
       validatePasswords();
-      syncPhoneOutput();
       contactName.value = [firstName.value, lastName.value].filter(Boolean).join(' ').trim();
     });
   })();
@@ -1510,13 +1115,6 @@
       "id": "contact_options",
       "label": "Preferred contact options",
       "default": "Email, Phone"
-    },
-    {
-      "type": "textarea",
-      "id": "phone_country_options",
-      "label": "Phone country options",
-      "info": "One country per line. Format: Flag | Country | Dial code",
-      "default": "🇬🇧 | United Kingdom | +44\n🇺🇸 | United States | +1\n🇦🇫 | Afghanistan | +93\n🇦🇽 | Åland Islands | +358\n🇦🇱 | Albania | +355\n🇩🇿 | Algeria | +213\n🇦🇩 | Andorra | +376\n🇦🇴 | Angola | +244\n🇦🇺 | Australia | +61\n🇦🇹 | Austria | +43\n🇧🇪 | Belgium | +32\n🇧🇷 | Brazil | +55\n🇨🇦 | Canada | +1\n🇨🇳 | China | +86\n🇩🇰 | Denmark | +45\n🇫🇷 | France | +33\n🇩🇪 | Germany | +49\n🇮🇪 | Ireland | +353\n🇮🇹 | Italy | +39\n🇳🇱 | Netherlands | +31\n🇳🇿 | New Zealand | +64\n🇳🇴 | Norway | +47\n🇵🇹 | Portugal | +351\n🇪🇸 | Spain | +34\n🇸🇪 | Sweden | +46\n🇨🇭 | Switzerland | +41\n🇦🇪 | United Arab Emirates | +971"
     },
     {
       "type": "textarea",
