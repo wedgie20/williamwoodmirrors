@@ -1,6 +1,7 @@
 {%- liquid
   assign profession_options = section.settings.profession_options | split: ','
   assign country_options = section.settings.country_options | split: ','
+  assign contact_options = section.settings.contact_options | split: ','
 -%}
 
 <section class="ww-trade-application" data-ww-trade-application>
@@ -39,8 +40,17 @@
 
           <div class="ww-trade-application__fieldset">
             <h2>{{ section.settings.details_heading }}</h2>
+            <p class="ww-trade-application__signin">
+              {{ section.settings.sign_in_text }}
+              <a href="{{ routes.account_login_url }}">{{ section.settings.sign_in_link_text }}</a>
+            </p>
 
             <div class="ww-trade-application__grid">
+              <div class="ww-trade-application__field">
+                <label for="trade-application-email">Email address <span aria-hidden="true">*</span></label>
+                <input id="trade-application-email" type="email" name="contact[email]" autocomplete="email" required>
+              </div>
+
               <div class="ww-trade-application__field">
                 <label for="trade-application-first-name">First name <span aria-hidden="true">*</span></label>
                 <input id="trade-application-first-name" type="text" name="contact[First name]" autocomplete="given-name" required>
@@ -52,13 +62,21 @@
               </div>
 
               <div class="ww-trade-application__field">
-                <label for="trade-application-email">Email address <span aria-hidden="true">*</span></label>
-                <input id="trade-application-email" type="email" name="contact[email]" autocomplete="email" required>
+                <label for="trade-application-phone">Phone <span aria-hidden="true">*</span></label>
+                <input id="trade-application-phone" type="tel" name="contact[Phone number]" autocomplete="tel" required>
               </div>
 
               <div class="ww-trade-application__field">
-                <label for="trade-application-phone">Phone number <span aria-hidden="true">*</span></label>
-                <input id="trade-application-phone" type="tel" name="contact[Phone number]" autocomplete="tel" required>
+                <label for="trade-application-preferred-contact">Preferred contact <span aria-hidden="true">*</span></label>
+                <select id="trade-application-preferred-contact" name="contact[Preferred contact]" required>
+                  <option value="" selected disabled></option>
+                  {%- for option in contact_options -%}
+                    {%- assign trimmed_option = option | strip -%}
+                    {%- if trimmed_option != blank -%}
+                      <option value="{{ trimmed_option | escape }}">{{ trimmed_option }}</option>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </select>
               </div>
             </div>
           </div>
@@ -74,13 +92,13 @@
 
               <div class="ww-trade-application__field">
                 <label for="trade-application-website">Website</label>
-                <input id="trade-application-website" type="url" name="contact[Website]" inputmode="url" placeholder="https://">
+                <input id="trade-application-website" type="url" name="contact[Website]" inputmode="url">
               </div>
 
               <div class="ww-trade-application__field">
                 <label for="trade-application-profession">Profession / business type <span aria-hidden="true">*</span></label>
                 <select id="trade-application-profession" name="contact[Profession or business type]" required>
-                  <option value="" selected disabled>Please select</option>
+                  <option value="" selected disabled></option>
                   {%- for option in profession_options -%}
                     {%- assign trimmed_option = option | strip -%}
                     {%- if trimmed_option != blank -%}
@@ -134,7 +152,7 @@
               <div class="ww-trade-application__field">
                 <label for="trade-application-country">Country <span aria-hidden="true">*</span></label>
                 <select id="trade-application-country" name="contact[Country]" autocomplete="country-name" required>
-                  <option value="" selected disabled>Please select</option>
+                  <option value="" selected disabled></option>
                   {%- for country in country_options -%}
                     {%- assign trimmed_country = country | strip -%}
                     {%- if trimmed_country != blank -%}
@@ -181,7 +199,7 @@
     font-family: var(--ww-trade-text-font);
     font-size: var(--ww-trade-body-size);
     line-height: 1.65;
-    padding: 72px 0 96px;
+    padding: 70px 0 100px;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application *,
@@ -198,8 +216,8 @@
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__header {
-    max-width: 760px;
-    margin-bottom: 42px;
+    max-width: 890px;
+    margin: 0 auto 48px;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__eyebrow {
@@ -215,17 +233,17 @@
   #shopify-section-{{ section.id }} .ww-trade-application h1 {
     margin: 0;
     font-family: var(--ww-trade-heading-font);
-    font-size: 44px;
-    font-weight: var(--ww-trade-heading-weight);
-    line-height: 1.12;
+    font-size: 42px;
+    font-weight: 400;
+    line-height: 1.15;
     letter-spacing: 0;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__intro {
-    max-width: 650px;
+    max-width: 660px;
     margin-top: 18px;
-    font-size: 14px;
-    line-height: 1.7333333333;
+    font-size: 16px;
+    line-height: 1.55;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__intro p {
@@ -233,79 +251,118 @@
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__panel {
-    max-width: 980px;
-    padding: clamp(28px, 4vw, 56px);
-    background: #fff;
+    max-width: 890px;
+    margin: 0 auto;
+    padding: 0;
+    background: transparent;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__fieldset + .ww-trade-application__fieldset {
-    margin-top: 42px;
+    margin-top: 54px;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application h2 {
-    margin: 0 0 22px;
+    margin: 0 0 20px;
     font-family: var(--ww-trade-heading-font);
-    font-size: 22px;
-    font-weight: var(--ww-trade-heading-weight);
+    font-size: 30px;
+    font-weight: 400;
     line-height: 1.25;
     letter-spacing: 0;
   }
 
+  #shopify-section-{{ section.id }} .ww-trade-application__signin {
+    margin: -4px 0 28px;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__signin a {
+    color: inherit;
+    font-weight: var(--ww-trade-bold-weight);
+    text-decoration: none;
+  }
+
   #shopify-section-{{ section.id }} .ww-trade-application__grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 22px 28px;
+    display: block;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__field {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    position: relative;
+    display: block;
+    margin-top: -1px;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__field--full {
-    grid-column: 1 / -1;
+    grid-column: auto;
   }
 
-  #shopify-section-{{ section.id }} .ww-trade-application label {
+  #shopify-section-{{ section.id }} .ww-trade-application__field > label {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    z-index: 2;
+    max-width: calc(100% - 40px);
+    color: #000;
     font-family: var(--ww-trade-text-font);
-    font-size: 12px;
-    font-weight: var(--ww-trade-bold-weight);
-    line-height: 1.4;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.2;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: top .16s ease, font-size .16s ease, transform .16s ease;
   }
 
-  #shopify-section-{{ section.id }} .ww-trade-application label span {
-    color: #a3403a;
+  #shopify-section-{{ section.id }} .ww-trade-application__field > label span {
+    display: none;
   }
 
-  #shopify-section-{{ section.id }} .ww-trade-application input:not([type="checkbox"]),
+  #shopify-section-{{ section.id }} .ww-trade-application input:not([type="hidden"]):not([type="checkbox"]),
   #shopify-section-{{ section.id }} .ww-trade-application select,
   #shopify-section-{{ section.id }} .ww-trade-application textarea {
     width: 100%;
-    min-height: 52px;
-    padding: 0 16px;
-    border: 1px solid #cfcfcf;
+    min-height: 80px;
+    padding: 28px 20px 10px;
+    border: 1px solid #bdbdbd;
     border-radius: 0;
     background: #fff;
     color: #000;
     font-family: var(--ww-trade-text-font);
-    font-size: 14px;
-    line-height: 1.45;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.35;
     box-shadow: none;
     outline: 0;
   }
 
+  #shopify-section-{{ section.id }} .ww-trade-application select {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, #000 50%), linear-gradient(135deg, #000 50%, transparent 50%);
+    background-position: calc(100% - 24px) 50%, calc(100% - 16px) 50%;
+    background-size: 8px 8px, 8px 8px;
+    background-repeat: no-repeat;
+  }
+
   #shopify-section-{{ section.id }} .ww-trade-application textarea {
     min-height: 150px;
-    padding-top: 16px;
+    padding-top: 34px;
     padding-bottom: 16px;
     resize: vertical;
   }
 
-  #shopify-section-{{ section.id }} .ww-trade-application input:not([type="checkbox"]):focus,
+  #shopify-section-{{ section.id }} .ww-trade-application input:not([type="hidden"]):not([type="checkbox"]):focus,
   #shopify-section-{{ section.id }} .ww-trade-application select:focus,
   #shopify-section-{{ section.id }} .ww-trade-application textarea:focus {
     border-color: #000;
+    border-width: 2px;
+    position: relative;
+    z-index: 1;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__field.ww-field-focused > label,
+  #shopify-section-{{ section.id }} .ww-trade-application__field.ww-field-filled > label {
+    top: 14px;
+    font-size: 13px;
+    transform: none;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__check {
@@ -313,8 +370,9 @@
     align-items: flex-start;
     gap: 10px;
     max-width: 700px;
-    margin-top: 18px;
+    margin-top: 22px;
     font-weight: 400;
+    font-size: 14px;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__check input {
@@ -330,7 +388,7 @@
     justify-content: center;
     min-width: 220px;
     min-height: 52px;
-    margin-top: 42px;
+    margin-top: 44px;
     padding: 15px 32px;
     border: 1px solid #000;
     border-radius: 999px;
@@ -387,13 +445,24 @@
       font-size: 34px;
     }
 
-    #shopify-section-{{ section.id }} .ww-trade-application__panel {
-      padding: 28px 18px;
+    #shopify-section-{{ section.id }} .ww-trade-application__intro,
+    #shopify-section-{{ section.id }} .ww-trade-application__signin {
+      font-size: 14px;
     }
 
-    #shopify-section-{{ section.id }} .ww-trade-application__grid {
-      grid-template-columns: 1fr;
-      gap: 18px;
+    #shopify-section-{{ section.id }} .ww-trade-application h2 {
+      font-size: 26px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-application__field > label {
+      font-size: 18px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-application input:not([type="hidden"]):not([type="checkbox"]),
+    #shopify-section-{{ section.id }} .ww-trade-application select,
+    #shopify-section-{{ section.id }} .ww-trade-application textarea {
+      min-height: 72px;
+      font-size: 16px;
     }
 
     #shopify-section-{{ section.id }} .ww-trade-application__submit {
@@ -414,6 +483,31 @@
     var lastName = section.querySelector('#trade-application-last-name');
     var contactName = section.querySelector('#trade-application-contact-name');
 
+    section.querySelectorAll('.ww-trade-application__field').forEach(function(field) {
+      var control = field.querySelector('input, select, textarea');
+
+      if (!control) {
+        return;
+      }
+
+      function syncFieldState() {
+        field.classList.toggle('ww-field-filled', Boolean(control.value));
+      }
+
+      control.addEventListener('focus', function() {
+        field.classList.add('ww-field-focused');
+      });
+
+      control.addEventListener('blur', function() {
+        field.classList.remove('ww-field-focused');
+        syncFieldState();
+      });
+
+      control.addEventListener('input', syncFieldState);
+      control.addEventListener('change', syncFieldState);
+      syncFieldState();
+    });
+
     if (!form || !firstName || !lastName || !contactName) {
       return;
     }
@@ -432,7 +526,7 @@
       "type": "color",
       "id": "background_color",
       "label": "Background color",
-      "default": "#f2f2f2"
+      "default": "#ffffff"
     },
     {
       "type": "text",
@@ -460,6 +554,18 @@
     },
     {
       "type": "text",
+      "id": "sign_in_text",
+      "label": "Sign in text",
+      "default": "Purchased with us before?"
+    },
+    {
+      "type": "text",
+      "id": "sign_in_link_text",
+      "label": "Sign in link text",
+      "default": "Sign In"
+    },
+    {
+      "type": "text",
       "id": "company_heading",
       "label": "Company heading",
       "default": "Company details"
@@ -481,6 +587,12 @@
       "id": "profession_options",
       "label": "Profession options",
       "default": "Interior designer, Architect, Stylist, Hotelier, Property developer, Retailer, Procurement, Other"
+    },
+    {
+      "type": "textarea",
+      "id": "contact_options",
+      "label": "Preferred contact options",
+      "default": "Email, Phone"
     },
     {
       "type": "textarea",
