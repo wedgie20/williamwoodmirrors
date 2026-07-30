@@ -91,13 +91,18 @@
               </div>
 
               <div class="ww-trade-application__field">
-                <label for="trade-application-website">Website</label>
-                <input id="trade-application-website" type="url" name="contact[Website]" inputmode="url">
+                <label for="trade-application-company-number">Company number</label>
+                <input id="trade-application-company-number" type="text" name="contact[Company number]">
               </div>
 
               <div class="ww-trade-application__field">
-                <label for="trade-application-profession">Profession / business type <span aria-hidden="true">*</span></label>
-                <select id="trade-application-profession" name="contact[Profession or business type]" required>
+                <label for="trade-application-website">Company website (optional)</label>
+                <input id="trade-application-website" type="url" name="contact[Company website]" inputmode="url">
+              </div>
+
+              <div class="ww-trade-application__field">
+                <label for="trade-application-profession">Business Type <span aria-hidden="true">*</span></label>
+                <select id="trade-application-profession" name="contact[Business Type]" required>
                   <option value="" selected disabled></option>
                   {%- for option in profession_options -%}
                     {%- assign trimmed_option = option | strip -%}
@@ -108,19 +113,9 @@
                 </select>
               </div>
 
-              <div class="ww-trade-application__field">
-                <label for="trade-application-company-number">Company registration number</label>
-                <input id="trade-application-company-number" type="text" name="contact[Company registration number]">
-              </div>
-
-              <div class="ww-trade-application__field">
-                <label for="trade-application-vat">VAT number</label>
-                <input id="trade-application-vat" type="text" name="contact[VAT number]">
-              </div>
-
-              <div class="ww-trade-application__field">
-                <label for="trade-application-instagram">Instagram / social profile</label>
-                <input id="trade-application-instagram" type="text" name="contact[Instagram or social profile]">
+              <div class="ww-trade-application__file">
+                <label for="trade-application-portfolio">Portfolio (optional)</label>
+                <input id="trade-application-portfolio" type="file" name="contact[Portfolio]" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
               </div>
             </div>
           </div>
@@ -316,7 +311,7 @@
     display: none;
   }
 
-  #shopify-section-{{ section.id }} .ww-trade-application input:not([type="hidden"]):not([type="checkbox"]),
+  #shopify-section-{{ section.id }} .ww-trade-application input:not([type="hidden"]):not([type="checkbox"]):not([type="file"]),
   #shopify-section-{{ section.id }} .ww-trade-application select,
   #shopify-section-{{ section.id }} .ww-trade-application textarea {
     width: 100%;
@@ -342,6 +337,29 @@
     background-repeat: no-repeat;
   }
 
+  #shopify-section-{{ section.id }} .ww-trade-application__file {
+    padding: 14px 20px 18px;
+    border: 1px solid #bdbdbd;
+    border-top-width: 0;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__file label {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__file input[type="file"] {
+    width: auto;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    font-size: 14px;
+  }
+
   #shopify-section-{{ section.id }} .ww-trade-application textarea {
     min-height: 150px;
     padding-top: 34px;
@@ -349,7 +367,7 @@
     resize: vertical;
   }
 
-  #shopify-section-{{ section.id }} .ww-trade-application input:not([type="hidden"]):not([type="checkbox"]):focus,
+  #shopify-section-{{ section.id }} .ww-trade-application input:not([type="hidden"]):not([type="checkbox"]):not([type="file"]):focus,
   #shopify-section-{{ section.id }} .ww-trade-application select:focus,
   #shopify-section-{{ section.id }} .ww-trade-application textarea:focus {
     border-color: #000;
@@ -458,7 +476,7 @@
       font-size: 18px;
     }
 
-    #shopify-section-{{ section.id }} .ww-trade-application input:not([type="hidden"]):not([type="checkbox"]),
+    #shopify-section-{{ section.id }} .ww-trade-application input:not([type="hidden"]):not([type="checkbox"]):not([type="file"]),
     #shopify-section-{{ section.id }} .ww-trade-application select,
     #shopify-section-{{ section.id }} .ww-trade-application textarea {
       min-height: 72px;
@@ -568,7 +586,7 @@
       "type": "text",
       "id": "company_heading",
       "label": "Company heading",
-      "default": "Company details"
+      "default": "Company"
     },
     {
       "type": "text",
@@ -585,8 +603,8 @@
     {
       "type": "textarea",
       "id": "profession_options",
-      "label": "Profession options",
-      "default": "Interior designer, Architect, Stylist, Hotelier, Property developer, Retailer, Procurement, Other"
+      "label": "Business type options",
+      "default": "Sole Trader, Ltd Company"
     },
     {
       "type": "textarea",
