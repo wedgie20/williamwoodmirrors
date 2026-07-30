@@ -26,6 +26,7 @@
         <input type="hidden" name="contact[Form]" value="Trade application">
         <input type="hidden" name="contact[Trade application source]" value="{{ page.title | default: 'Trade application' | escape }}">
         <input type="hidden" id="trade-application-contact-name" name="contact[name]" value="">
+        <input type="hidden" name="contact[body]" value="Trade application submitted.">
 
         {%- if form.posted_successfully? -%}
           <div class="ww-trade-application__success" role="status" tabindex="-1">
@@ -183,22 +184,44 @@
           </div>
 
           <div class="ww-trade-application__fieldset">
-            <h2>{{ section.settings.project_heading }}</h2>
+            <h2>{{ section.settings.account_heading }}</h2>
 
-            <div class="ww-trade-application__field">
-              <label for="trade-application-body">Tell us about your business and projects <span aria-hidden="true">*</span></label>
-              <textarea id="trade-application-body" name="contact[body]" rows="6" required></textarea>
+            <div class="ww-trade-application__account">
+              <div class="ww-trade-application__field">
+                <label for="trade-application-password">Password <span aria-hidden="true">*</span></label>
+                <input id="trade-application-password" type="password" autocomplete="new-password" required data-account-password>
+              </div>
+
+              <div class="ww-trade-application__field">
+                <label for="trade-application-confirm-password">Confirm Password <span aria-hidden="true">*</span></label>
+                <input id="trade-application-confirm-password" type="password" autocomplete="new-password" required data-account-confirm-password>
+              </div>
+
+              <div class="ww-trade-application__marketing">
+                <p>{{ section.settings.marketing_question }}</p>
+                <div class="ww-trade-application__marketing-options">
+                  <label>
+                    <input type="radio" name="contact[Marketing opt in]" value="Yes" required>
+                    <span>Yes</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="contact[Marketing opt in]" value="No" required>
+                    <span>No</span>
+                  </label>
+                </div>
+              </div>
             </div>
-
-            <label class="ww-trade-application__check" for="trade-application-marketing">
-              <input id="trade-application-marketing" type="checkbox" name="contact[Marketing opt in]" value="Yes">
-              <span>{{ section.settings.marketing_label }}</span>
-            </label>
           </div>
 
           <button type="submit" class="ww-trade-application__submit">
             {{ section.settings.submit_text }}
           </button>
+
+          {%- if section.settings.terms_text != blank -%}
+            <div class="ww-trade-application__terms">
+              {{ section.settings.terms_text }}
+            </div>
+          {%- endif -%}
         {%- endif -%}
       {%- endform -%}
     </div>
@@ -436,21 +459,70 @@
     transform: none;
   }
 
-  #shopify-section-{{ section.id }} .ww-trade-application__check {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    max-width: 700px;
-    margin-top: 22px;
-    font-weight: 400;
-    font-size: 14px;
+  #shopify-section-{{ section.id }} .ww-trade-application__account {
+    border: 1px solid #bdbdbd;
   }
 
-  #shopify-section-{{ section.id }} .ww-trade-application__check input {
-    width: 16px;
-    height: 16px;
-    margin-top: 2px;
-    flex: 0 0 16px;
+  #shopify-section-{{ section.id }} .ww-trade-application__account .ww-trade-application__field {
+    margin-top: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__account .ww-trade-application__field + .ww-trade-application__field {
+    margin-top: -1px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing {
+    padding: 14px 20px 12px;
+    border-top: 1px solid #bdbdbd;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing p {
+    max-width: 760px;
+    margin: 0 0 16px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-options label {
+    position: relative;
+    display: inline-flex;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-options input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-options span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    min-height: 34px;
+    padding: 8px 22px;
+    border-radius: 999px;
+    background: #efefef;
+    color: #000;
+    font-family: var(--ww-trade-text-font);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-options input:checked + span,
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-options input:focus-visible + span {
+    outline: 1px solid #000;
+    outline-offset: 2px;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__submit {
@@ -472,6 +544,24 @@
     letter-spacing: .03em;
     text-transform: uppercase;
     cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__terms {
+    max-width: 760px;
+    margin-top: 22px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__terms p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__terms a,
+  #shopify-section-{{ section.id }} .ww-trade-application__terms strong {
+    color: inherit;
+    font-weight: var(--ww-trade-bold-weight);
+    text-decoration: none;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__success,
@@ -553,6 +643,8 @@
     var firstName = section.querySelector('#trade-application-first-name');
     var lastName = section.querySelector('#trade-application-last-name');
     var contactName = section.querySelector('#trade-application-contact-name');
+    var password = section.querySelector('[data-account-password]');
+    var confirmPassword = section.querySelector('[data-account-confirm-password]');
     var addressSearch = section.querySelector('#trade-application-company-address');
     var manualAddress = section.querySelector('[data-manual-address]');
     var manualAddressToggle = section.querySelector('[data-manual-address-toggle]');
@@ -659,11 +751,29 @@
       addressSearch.addEventListener('change', handleAddressSelection);
     }
 
+    function validatePasswords() {
+      if (!password || !confirmPassword) {
+        return;
+      }
+
+      confirmPassword.setCustomValidity(
+        password.value && confirmPassword.value && password.value !== confirmPassword.value
+          ? 'Passwords do not match.'
+          : ''
+      );
+    }
+
+    if (password && confirmPassword) {
+      password.addEventListener('input', validatePasswords);
+      confirmPassword.addEventListener('input', validatePasswords);
+    }
+
     if (!form || !firstName || !lastName || !contactName) {
       return;
     }
 
     form.addEventListener('submit', function() {
+      validatePasswords();
       contactName.value = [firstName.value, lastName.value].filter(Boolean).join(' ').trim();
     });
   })();
@@ -735,9 +845,9 @@
     },
     {
       "type": "text",
-      "id": "project_heading",
-      "label": "Project heading",
-      "default": "Project details"
+      "id": "account_heading",
+      "label": "Account heading",
+      "default": "Account"
     },
     {
       "type": "textarea",
@@ -765,16 +875,22 @@
       "default": "51, 51 Exmouth Market London, EC1R 4QL | 51 Exmouth Market |  | London | EC1R 4QL | United Kingdom\n5/1, Cunningham Street Dundee, DD4 6QR | 5/1 Cunningham Street |  | Dundee | DD4 6QR | United Kingdom\n5/1, Niddry Street Edinburgh, EH1 1LG | 5/1 Niddry Street |  | Edinburgh | EH1 1LG | United Kingdom\n5/1, Blackfriars Street Edinburgh, EH1 1NB | 5/1 Blackfriars Street |  | Edinburgh | EH1 1NB | United Kingdom\n5/1, Old Fishmarket Close Edinburgh, EH1 1AE | 5/1 Old Fishmarket Close |  | Edinburgh | EH1 1AE | United Kingdom\n5/1, Victoria Street Edinburgh, EH1 2HE | 5/1 Victoria Street |  | Edinburgh | EH1 2HE | United Kingdom\n5/1, Brown's Place Edinburgh, EH1 2HX | 5/1 Brown's Place |  | Edinburgh | EH1 2HX | United Kingdom"
     },
     {
-      "type": "text",
-      "id": "marketing_label",
-      "label": "Marketing opt-in label",
-      "default": "I would like to receive William Wood trade updates, collection previews and offers."
+      "type": "textarea",
+      "id": "marketing_question",
+      "label": "Marketing question",
+      "default": "Are you happy to receive exclusive trade newsletters, invites to trade events, marketing communications, exclusive offers by email"
     },
     {
       "type": "text",
       "id": "submit_text",
       "label": "Submit button text",
-      "default": "Submit application"
+      "default": "Submit"
+    },
+    {
+      "type": "richtext",
+      "id": "terms_text",
+      "label": "Terms text",
+      "default": "<p>By creating our account you agree to our <strong>Terms &amp; Conditions</strong> and <strong>Privacy Policy</strong></p>"
     },
     {
       "type": "text",
