@@ -101,8 +101,9 @@
                           data-phone-code="{{ phone_code | escape }}"
                           role="option"
                         >
-                          <span>{{ phone_flag }}</span>
-                          <span>{{ phone_country }} ({{ phone_code }})</span>
+                          <span class="ww-trade-application__phone-option-flag">{{ phone_flag }}</span>
+                          <span class="ww-trade-application__phone-option-text">{{ phone_country }} ({{ phone_code }})</span>
+                          <span class="ww-trade-application__phone-option-check" aria-hidden="true"></span>
                         </button>
                       {%- endif -%}
                     {%- endfor -%}
@@ -630,7 +631,7 @@
     border: 1px solid #bdbdbd;
     border-top: 0;
     background: #fff;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, .16);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .16);
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__phone-dropdown[hidden] {
@@ -667,15 +668,17 @@
   #shopify-section-{{ section.id }} .ww-trade-application__phone-options {
     max-height: 260px;
     overflow-y: auto;
+    scrollbar-width: auto;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__phone-option {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 12px;
     width: 100%;
-    min-height: 50px;
-    padding: 10px 20px;
+    min-height: 49px;
+    padding: 10px 48px 10px 14px;
     border: 0;
     border-radius: 0;
     background: #fff;
@@ -688,10 +691,53 @@
     cursor: pointer;
   }
 
+  #shopify-section-{{ section.id }} .ww-trade-application__phone-option-flag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    flex: 0 0 28px;
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__phone-option-text {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__phone-option-check {
+    position: absolute;
+    top: 50%;
+    right: 18px;
+    display: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #666;
+    transform: translateY(-50%);
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__phone-option-check::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 6px;
+    width: 5px;
+    height: 8px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(45deg);
+  }
+
   #shopify-section-{{ section.id }} .ww-trade-application__phone-option:hover,
   #shopify-section-{{ section.id }} .ww-trade-application__phone-option:focus-visible,
   #shopify-section-{{ section.id }} .ww-trade-application__phone-option.is-selected {
     background: #efefef;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__phone-option.is-selected .ww-trade-application__phone-option-check {
+    display: block;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__account {
@@ -1253,6 +1299,7 @@
 
       phoneOptions.forEach(function(item) {
         item.classList.toggle('is-selected', item === option);
+        item.setAttribute('aria-selected', item === option ? 'true' : 'false');
       });
 
       if (phoneFlag) {
