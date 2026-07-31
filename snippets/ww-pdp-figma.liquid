@@ -62,14 +62,14 @@
 
   assign home_accessories_match = product.collections | where: 'handle', 'all-accessories'
   assign secret_match = product.collections | where: 'handle', 'secret-sale'
-  assign all_furniture_match = product.collections | where: 'handle', '25-off-full-priced-furniture'
+  assign full_price_match = product.collections | where: 'handle', 'all-full-price-products'
 
-  if all_furniture_match.size > 0
-    assign promo_code = 'EOM'
-    assign promo_text = '30% Off Everything'
+  if full_price_match.size > 0
+    assign promo_code = 'WWAUG'
+    assign promo_text = '20% Off Or 25% Off Two Or More'
   elsif home_accessories_match.size > 0
-    assign promo_code = 'EOM'
-    assign promo_text = '30% Off Everything'
+    assign promo_code = 'WWAUG'
+    assign promo_text = '20% Off Or 25% Off Two Or More'
 
   else
     assign promo_code =
