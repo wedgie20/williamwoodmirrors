@@ -61,7 +61,6 @@
   assign promo_note = ''
 
   assign home_accessories_match = product.collections | where: 'handle', 'all-accessories'
-  assign secret_match = product.collections | where: 'handle', 'secret-sale'
   assign full_price_match = product.collections | where: 'handle', 'all-full-price-products'
 
   if full_price_match.size > 0
