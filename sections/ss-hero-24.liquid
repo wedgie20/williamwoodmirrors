@@ -1536,7 +1536,7 @@
           align-items: center;
           justify-content: var(--slide-buttons-justify-mobile, {{ content_horizontal_align_mobile }});
           gap: 8px;
-          flex-wrap: wrap;
+          flex-wrap: nowrap;
         }
 
         .hero-trustpilot-{{ block.id }}__widget {
@@ -1545,6 +1545,8 @@
           width: 100%;
           min-height: {{ block.settings.widget_height }}px;
           overflow: hidden;
+          transform: scale(.86);
+          transform-origin: center top;
         }
 
         .hero-trustpilot-{{ block.id }}__widget .trustpilot-widget {
@@ -1610,6 +1612,7 @@
 
           .hero-trustpilot-{{ block.id }}__widget {
             justify-content: var(--slide-buttons-justify, {{ content_horizontal_align }});
+            transform: none;
           }
 
           .hero-trustpilot-{{ block.id }}__widget .trustpilot-widget {
