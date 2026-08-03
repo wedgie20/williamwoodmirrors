@@ -1,0 +1,28 @@
+<div class="hero-trustpilot-{{ block.id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.intro_text != blank %}
+    <p class="hero-trustpilot-{{ block.id }}__intro">{{ block.settings.intro_text }}</p>
+  {% endif %}
+
+  <div class="hero-trustpilot-{{ block.id }}__row">
+    {% if block.settings.rating_text != blank %}
+      <span class="hero-trustpilot-{{ block.id }}__rating">{{ block.settings.rating_text }}</span>
+    {% endif %}
+
+    <span class="hero-trustpilot-{{ block.id }}__stars" aria-hidden="true">
+      {% for index in (1..5) %}
+        <span class="hero-trustpilot-{{ block.id }}__star{% if index == 5 and block.settings.show_half_star %} hero-trustpilot-{{ block.id }}__star--half{% endif %}">&#9733;</span>
+      {% endfor %}
+    </span>
+
+    {% if block.settings.reviews_text != blank %}
+      <span class="hero-trustpilot-{{ block.id }}__reviews">{{ block.settings.reviews_text }}</span>
+    {% endif %}
+
+    {% if block.settings.brand_text != blank %}
+      <span class="hero-trustpilot-{{ block.id }}__brand">
+        <span class="hero-trustpilot-{{ block.id }}__brand-star" aria-hidden="true">&#9733;</span>
+        {{ block.settings.brand_text }}
+      </span>
+    {% endif %}
+  </div>
+</div>

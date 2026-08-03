@@ -351,6 +351,17 @@
     justify-content: var(--slide-buttons-justify-mobile, {{ content_horizontal_align_mobile }});
   }
 
+  .hero-app-block-{{ section.id }} {
+    order: 40;
+    width: 100%;
+    margin-top: 14px;
+    text-align: inherit;
+  }
+
+  .hero-app-block-{{ section.id }} .shopify-block {
+    width: 100%;
+  }
+
   .hero-slide-content-{{ section.id }} [class^="hero-heading-"],
   .hero-slide-content-{{ section.id }} [class^="hero-heading-"] *,
   .hero-slide-content-{{ section.id }} [class^="hero-text-"],
@@ -1498,6 +1509,106 @@
         }
       </style>
 
+    {% when 'trustpilot_badge' %}
+      <style>
+        .hero-trustpilot-{{ block.id }} {
+          order: 40;
+          width: 100%;
+          margin-top: {{ block.settings.margin_top_mobile }}px;
+          color: {{ block.settings.text_color }};
+          font-family: "Gotham Book", var(--font-body-family, sans-serif);
+          text-align: {{ content_align_mobile }};
+        }
+
+        .hero-trustpilot-{{ block.id }}__intro {
+          margin: 0 0 6px;
+          font-size: {{ block.settings.intro_size_mobile }}px;
+          line-height: 1.25;
+          font-weight: {{ block.settings.intro_weight }};
+        }
+
+        .hero-trustpilot-{{ block.id }}__row {
+          display: flex;
+          align-items: center;
+          justify-content: {{ content_horizontal_align_mobile }};
+          gap: 8px;
+          flex-wrap: wrap;
+        }
+
+        .hero-trustpilot-{{ block.id }}__rating,
+        .hero-trustpilot-{{ block.id }}__reviews,
+        .hero-trustpilot-{{ block.id }}__brand {
+          font-size: {{ block.settings.row_size_mobile }}px;
+          line-height: 1.2;
+          font-weight: {{ block.settings.row_weight }};
+        }
+
+        .hero-trustpilot-{{ block.id }}__stars {
+          display: inline-flex;
+          align-items: center;
+          gap: 2px;
+        }
+
+        .hero-trustpilot-{{ block.id }}__star {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: {{ block.settings.star_size_mobile }}px;
+          height: {{ block.settings.star_size_mobile }}px;
+          background: #00b67a;
+          color: #ffffff;
+          font-size: calc({{ block.settings.star_size_mobile }}px * .7);
+          line-height: 1;
+        }
+
+        .hero-trustpilot-{{ block.id }}__star--half {
+          background: linear-gradient(90deg, #00b67a 72%, #dcdce6 72%);
+        }
+
+        .hero-trustpilot-{{ block.id }}__brand {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+        }
+
+        .hero-trustpilot-{{ block.id }}__brand-star {
+          color: #00b67a;
+          font-size: {{ block.settings.brand_star_size_mobile }}px;
+          line-height: 1;
+        }
+
+        @media(min-width: 1024px) {
+          .hero-trustpilot-{{ block.id }} {
+            margin-top: {{ block.settings.margin_top }}px;
+            text-align: {{ content_align }};
+          }
+
+          .hero-trustpilot-{{ block.id }}__intro {
+            font-size: {{ block.settings.intro_size }}px;
+          }
+
+          .hero-trustpilot-{{ block.id }}__row {
+            justify-content: {{ content_horizontal_align }};
+          }
+
+          .hero-trustpilot-{{ block.id }}__rating,
+          .hero-trustpilot-{{ block.id }}__reviews,
+          .hero-trustpilot-{{ block.id }}__brand {
+            font-size: {{ block.settings.row_size }}px;
+          }
+
+          .hero-trustpilot-{{ block.id }}__star {
+            width: {{ block.settings.star_size }}px;
+            height: {{ block.settings.star_size }}px;
+            font-size: calc({{ block.settings.star_size }}px * .7);
+          }
+
+          .hero-trustpilot-{{ block.id }}__brand-star {
+            font-size: {{ block.settings.brand_star_size }}px;
+          }
+        }
+      </style>
+
     {% when 'melrose_hero' %}
       <style>
         .hero-melrose-{{ block.id }} {
@@ -2111,6 +2222,16 @@
                 {{ block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
               </div>
             {% endunless %}
+          {% when 'trustpilot_badge' %}
+            {% unless layout_mode == 'slideshow' %}
+              {% render 'ss-hero-trustpilot-badge', block: block %}
+            {% endunless %}
+          {% when '@app' %}
+            {% unless layout_mode == 'slideshow' %}
+              <div class="hero-app-block-{{ section.id }}" {{ block.shopify_attributes }}>
+                {% render block %}
+              </div>
+            {% endunless %}
 
         {% endcase %}
       {% endfor %}
@@ -2248,6 +2369,12 @@
                       {% when 'melrose_hero' %}
                         <div class="hero-melrose-{{ block.id }}" {{ block.shopify_attributes }}>
                           {{ block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+                        </div>
+                      {% when 'trustpilot_badge' %}
+                        {% render 'ss-hero-trustpilot-badge', block: block %}
+                      {% when '@app' %}
+                        <div class="hero-app-block-{{ section.id }}" {{ block.shopify_attributes }}>
+                          {% render block %}
                         </div>
                     {% endcase %}
                   {% endif %}
@@ -3708,6 +3835,9 @@
   ],
   "blocks": [
     {
+      "type": "@app"
+    },
+    {
       "type": "review",
       "limit": 1,
       "name": "Stars rating",
@@ -4769,6 +4899,186 @@
           "label": "Border hover",
           "id": "button_border_hover_color",
           "default": "#17c87c"
+        }
+      ]
+    },
+    {
+      "type": "trustpilot_badge",
+      "name": "Trustpilot Badge",
+      "settings": [
+        {
+          "type": "text",
+          "id": "intro_text",
+          "label": "Intro text",
+          "default": "Join Over 700,000 Satisfied Customers"
+        },
+        {
+          "type": "text",
+          "id": "rating_text",
+          "label": "Rating text",
+          "default": "Excellent"
+        },
+        {
+          "type": "text",
+          "id": "reviews_text",
+          "label": "Reviews text",
+          "default": "11,636 reviews on"
+        },
+        {
+          "type": "text",
+          "id": "brand_text",
+          "label": "Brand text",
+          "default": "Trustpilot"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_half_star",
+          "label": "Show partial fifth star",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "slide_number",
+          "label": "Show on slide",
+          "options": [
+            { "value": "all", "label": "All slides" },
+            { "value": "1", "label": "Slide 1" },
+            { "value": "2", "label": "Slide 2" },
+            { "value": "3", "label": "Slide 3" },
+            { "value": "4", "label": "Slide 4" },
+            { "value": "5", "label": "Slide 5" }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "range",
+          "id": "intro_size",
+          "min": 10,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "label": "Intro font size",
+          "default": 18
+        },
+        {
+          "type": "range",
+          "id": "intro_size_mobile",
+          "min": 10,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "label": "Intro font size - mobile",
+          "default": 14
+        },
+        {
+          "type": "select",
+          "id": "intro_weight",
+          "label": "Intro weight",
+          "options": [
+            { "value": "400", "label": "Regular" },
+            { "value": "500", "label": "Medium" },
+            { "value": "600", "label": "Semi bold" },
+            { "value": "700", "label": "Bold" }
+          ],
+          "default": "500"
+        },
+        {
+          "type": "range",
+          "id": "row_size",
+          "min": 10,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "label": "Review row font size",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "row_size_mobile",
+          "min": 10,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "label": "Review row font size - mobile",
+          "default": 14
+        },
+        {
+          "type": "select",
+          "id": "row_weight",
+          "label": "Review row weight",
+          "options": [
+            { "value": "400", "label": "Regular" },
+            { "value": "500", "label": "Medium" },
+            { "value": "600", "label": "Semi bold" },
+            { "value": "700", "label": "Bold" }
+          ],
+          "default": "600"
+        },
+        {
+          "type": "range",
+          "id": "star_size",
+          "min": 12,
+          "max": 36,
+          "step": 1,
+          "unit": "px",
+          "label": "Star size",
+          "default": 22
+        },
+        {
+          "type": "range",
+          "id": "star_size_mobile",
+          "min": 10,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "label": "Star size - mobile",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "brand_star_size",
+          "min": 12,
+          "max": 36,
+          "step": 1,
+          "unit": "px",
+          "label": "Trustpilot star size",
+          "default": 20
+        },
+        {
+          "type": "range",
+          "id": "brand_star_size_mobile",
+          "min": 10,
+          "max": 28,
+          "step": 1,
+          "unit": "px",
+          "label": "Trustpilot star size - mobile",
+          "default": 15
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "min": 0,
+          "max": 80,
+          "step": 2,
+          "unit": "px",
+          "label": "Top spacing",
+          "default": 14
+        },
+        {
+          "type": "range",
+          "id": "margin_top_mobile",
+          "min": 0,
+          "max": 60,
+          "step": 2,
+          "unit": "px",
+          "label": "Top spacing - mobile",
+          "default": 12
         }
       ]
     },

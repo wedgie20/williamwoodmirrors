@@ -532,7 +532,7 @@
         },
         "text_hnCjX": {
           "type": "text",
-          "disabled": false,
+          "disabled": true,
           "settings": {
             "slide_number": "1",
             "text": "<p>Join Over 700,000 Satisfied Customers</p>",
@@ -653,6 +653,31 @@
             "text_mt_mobile": 0,
             "text_color": "#ffffff"
           }
+        },
+        "trustpilot_badge_slide_1": {
+          "type": "trustpilot_badge",
+          "disabled": false,
+          "settings": {
+            "intro_text": "Join Over 700,000 Satisfied Customers",
+            "rating_text": "Excellent",
+            "reviews_text": "11,636 reviews on",
+            "brand_text": "Trustpilot",
+            "show_half_star": true,
+            "slide_number": "1",
+            "text_color": "#ffffff",
+            "intro_size": 18,
+            "intro_size_mobile": 14,
+            "intro_weight": "500",
+            "row_size": 20,
+            "row_size_mobile": 14,
+            "row_weight": "600",
+            "star_size": 22,
+            "star_size_mobile": 16,
+            "brand_star_size": 20,
+            "brand_star_size_mobile": 15,
+            "margin_top": 14,
+            "margin_top_mobile": 12
+          }
         }
       },
       "block_order": [
@@ -673,6 +698,7 @@
         "button_Hzmd6",
         "button_DVGGU",
         "text_hnCjX",
+        "trustpilot_badge_slide_1",
         "review_text_line_JrmfG",
         "star_rating_full_dXC44",
         "review_JfABD",
