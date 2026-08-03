@@ -1539,6 +1539,17 @@
           flex-wrap: wrap;
         }
 
+        .hero-trustpilot-{{ block.id }}__widget {
+          display: flex;
+          justify-content: var(--slide-buttons-justify-mobile, {{ content_horizontal_align_mobile }});
+          width: 100%;
+        }
+
+        .hero-trustpilot-{{ block.id }}__widget .trustpilot-widget {
+          width: {{ block.settings.widget_width_mobile }}px;
+          max-width: 100%;
+        }
+
         .hero-trustpilot-{{ block.id }}__rating,
         .hero-trustpilot-{{ block.id }}__reviews,
         .hero-trustpilot-{{ block.id }}__brand {
@@ -1593,6 +1604,14 @@
 
           .hero-trustpilot-{{ block.id }}__row {
             justify-content: var(--slide-buttons-justify, {{ content_horizontal_align }});
+          }
+
+          .hero-trustpilot-{{ block.id }}__widget {
+            justify-content: var(--slide-buttons-justify, {{ content_horizontal_align }});
+          }
+
+          .hero-trustpilot-{{ block.id }}__widget .trustpilot-widget {
+            width: {{ block.settings.widget_width }}px;
           }
 
           .hero-trustpilot-{{ block.id }}__rating,
@@ -4930,6 +4949,52 @@
           "id": "brand_text",
           "label": "Brand text",
           "default": "Trustpilot"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_live_widget",
+          "label": "Use Trustpilot widget for live review count",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "widget_theme",
+          "label": "Trustpilot widget theme",
+          "options": [
+            { "value": "dark", "label": "Dark" },
+            { "value": "light", "label": "Light" }
+          ],
+          "default": "dark"
+        },
+        {
+          "type": "range",
+          "id": "widget_width",
+          "min": 180,
+          "max": 520,
+          "step": 10,
+          "unit": "px",
+          "label": "Trustpilot widget width",
+          "default": 430
+        },
+        {
+          "type": "range",
+          "id": "widget_width_mobile",
+          "min": 160,
+          "max": 360,
+          "step": 10,
+          "unit": "px",
+          "label": "Trustpilot widget width - mobile",
+          "default": 300
+        },
+        {
+          "type": "range",
+          "id": "widget_height",
+          "min": 18,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "label": "Trustpilot widget height",
+          "default": 24
         },
         {
           "type": "checkbox",

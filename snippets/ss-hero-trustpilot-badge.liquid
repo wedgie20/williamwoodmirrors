@@ -3,26 +3,61 @@
     <p class="hero-trustpilot-{{ block.id }}__intro">{{ block.settings.intro_text }}</p>
   {% endif %}
 
-  <div class="hero-trustpilot-{{ block.id }}__row">
-    {% if block.settings.rating_text != blank %}
-      <span class="hero-trustpilot-{{ block.id }}__rating">{{ block.settings.rating_text }}</span>
-    {% endif %}
+  {% if block.settings.use_live_widget %}
+    <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+    <div id="hero-trustpilot-widget-{{ block.id }}" class="hero-trustpilot-{{ block.id }}__widget">
+      <div
+        class="trustpilot-widget"
+        data-locale="en-GB"
+        data-template-id="5419b6ffb0d04a076446a9af"
+        data-businessunit-id="5c1ad659b7fbfa000156daec"
+        data-style-height="{{ block.settings.widget_height }}px"
+        data-style-width="100%"
+        data-theme="{{ block.settings.widget_theme }}"
+      >
+        <a href="https://uk.trustpilot.com/review/www.williamwoodmirrors.co.uk" target="_blank" rel="noopener">Trustpilot</a>
+      </div>
+    </div>
+    <script>
+      (function() {
+        var container = document.getElementById('hero-trustpilot-widget-{{ block.id }}');
+        if (!container) return;
+        var widget = container.querySelector('.trustpilot-widget');
+        var loadTrustpilot = function() {
+          if (window.Trustpilot && widget) {
+            window.Trustpilot.loadFromElement(widget, true);
+          }
+        };
 
-    <span class="hero-trustpilot-{{ block.id }}__stars" aria-hidden="true">
-      {% for index in (1..5) %}
-        <span class="hero-trustpilot-{{ block.id }}__star{% if index == 5 and block.settings.show_half_star %} hero-trustpilot-{{ block.id }}__star--half{% endif %}">&#9733;</span>
-      {% endfor %}
-    </span>
+        if (window.Trustpilot) {
+          loadTrustpilot();
+        } else {
+          window.addEventListener('load', loadTrustpilot);
+        }
+      })();
+    </script>
+  {% else %}
+    <div class="hero-trustpilot-{{ block.id }}__row">
+      {% if block.settings.rating_text != blank %}
+        <span class="hero-trustpilot-{{ block.id }}__rating">{{ block.settings.rating_text }}</span>
+      {% endif %}
 
-    {% if block.settings.reviews_text != blank %}
-      <span class="hero-trustpilot-{{ block.id }}__reviews">{{ block.settings.reviews_text }}</span>
-    {% endif %}
-
-    {% if block.settings.brand_text != blank %}
-      <span class="hero-trustpilot-{{ block.id }}__brand">
-        <span class="hero-trustpilot-{{ block.id }}__brand-star" aria-hidden="true">&#9733;</span>
-        {{ block.settings.brand_text }}
+      <span class="hero-trustpilot-{{ block.id }}__stars" aria-hidden="true">
+        {% for index in (1..5) %}
+          <span class="hero-trustpilot-{{ block.id }}__star{% if index == 5 and block.settings.show_half_star %} hero-trustpilot-{{ block.id }}__star--half{% endif %}">&#9733;</span>
+        {% endfor %}
       </span>
-    {% endif %}
-  </div>
+
+      {% if block.settings.reviews_text != blank %}
+        <span class="hero-trustpilot-{{ block.id }}__reviews">{{ block.settings.reviews_text }}</span>
+      {% endif %}
+
+      {% if block.settings.brand_text != blank %}
+        <span class="hero-trustpilot-{{ block.id }}__brand">
+          <span class="hero-trustpilot-{{ block.id }}__brand-star" aria-hidden="true">&#9733;</span>
+          {{ block.settings.brand_text }}
+        </span>
+      {% endif %}
+    </div>
+  {% endif %}
 </div>
