@@ -18,24 +18,6 @@
         <a href="https://uk.trustpilot.com/review/www.williamwoodmirrors.co.uk" target="_blank" rel="noopener">Trustpilot</a>
       </div>
     </div>
-    <script>
-      (function() {
-        var container = document.getElementById('hero-trustpilot-widget-{{ block.id }}');
-        if (!container) return;
-        var widget = container.querySelector('.trustpilot-widget');
-        var loadTrustpilot = function() {
-          if (window.Trustpilot && widget) {
-            window.Trustpilot.loadFromElement(widget, true);
-          }
-        };
-
-        if (window.Trustpilot) {
-          loadTrustpilot();
-        } else {
-          window.addEventListener('load', loadTrustpilot);
-        }
-      })();
-    </script>
   {% else %}
     <div class="hero-trustpilot-{{ block.id }}__row">
       {% if block.settings.rating_text != blank %}

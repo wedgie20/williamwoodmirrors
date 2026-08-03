@@ -1543,6 +1543,8 @@
           display: flex;
           justify-content: var(--slide-buttons-justify-mobile, {{ content_horizontal_align_mobile }});
           width: 100%;
+          min-height: {{ block.settings.widget_height }}px;
+          overflow: hidden;
         }
 
         .hero-trustpilot-{{ block.id }}__widget .trustpilot-widget {
