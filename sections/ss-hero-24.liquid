@@ -367,7 +367,9 @@
   .hero-slide-content-{{ section.id }} [class^="hero-text-"],
   .hero-slide-content-{{ section.id }} [class^="hero-text-"] *,
   .hero-slide-content-{{ section.id }} [class^="hero-melrose-"],
-  .hero-slide-content-{{ section.id }} [class^="hero-melrose-"] * {
+  .hero-slide-content-{{ section.id }} [class^="hero-melrose-"] *,
+  .hero-slide-content-{{ section.id }} [class^="hero-trustpilot-"],
+  .hero-slide-content-{{ section.id }} [class^="hero-trustpilot-"] * {
     text-align: var(--slide-text-align-mobile, {{ content_align_mobile }}) !important;
   }
 
@@ -498,7 +500,9 @@
     .hero-slide-content-{{ section.id }} [class^="hero-text-"],
     .hero-slide-content-{{ section.id }} [class^="hero-text-"] *,
     .hero-slide-content-{{ section.id }} [class^="hero-melrose-"],
-    .hero-slide-content-{{ section.id }} [class^="hero-melrose-"] * {
+    .hero-slide-content-{{ section.id }} [class^="hero-melrose-"] *,
+    .hero-slide-content-{{ section.id }} [class^="hero-trustpilot-"],
+    .hero-slide-content-{{ section.id }} [class^="hero-trustpilot-"] * {
       text-align: var(--slide-text-align, {{ content_align }}) !important;
     }
 
@@ -1517,7 +1521,7 @@
           margin-top: {{ block.settings.margin_top_mobile }}px;
           color: {{ block.settings.text_color }};
           font-family: "Gotham Book", var(--font-body-family, sans-serif);
-          text-align: {{ content_align_mobile }};
+          text-align: var(--slide-text-align-mobile, {{ content_align_mobile }});
         }
 
         .hero-trustpilot-{{ block.id }}__intro {
@@ -1530,7 +1534,7 @@
         .hero-trustpilot-{{ block.id }}__row {
           display: flex;
           align-items: center;
-          justify-content: {{ content_horizontal_align_mobile }};
+          justify-content: var(--slide-buttons-justify-mobile, {{ content_horizontal_align_mobile }});
           gap: 8px;
           flex-wrap: wrap;
         }
@@ -1580,7 +1584,7 @@
         @media(min-width: 1024px) {
           .hero-trustpilot-{{ block.id }} {
             margin-top: {{ block.settings.margin_top }}px;
-            text-align: {{ content_align }};
+            text-align: var(--slide-text-align, {{ content_align }});
           }
 
           .hero-trustpilot-{{ block.id }}__intro {
@@ -1588,7 +1592,7 @@
           }
 
           .hero-trustpilot-{{ block.id }}__row {
-            justify-content: {{ content_horizontal_align }};
+            justify-content: var(--slide-buttons-justify, {{ content_horizontal_align }});
           }
 
           .hero-trustpilot-{{ block.id }}__rating,
