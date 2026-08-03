@@ -1545,8 +1545,6 @@
           width: 100%;
           min-height: {{ block.settings.widget_height }}px;
           overflow: hidden;
-          transform: scale(.86);
-          transform-origin: center top;
         }
 
         .hero-trustpilot-{{ block.id }}__widget .trustpilot-widget {
@@ -1612,7 +1610,6 @@
 
           .hero-trustpilot-{{ block.id }}__widget {
             justify-content: var(--slide-buttons-justify, {{ content_horizontal_align }});
-            transform: none;
           }
 
           .hero-trustpilot-{{ block.id }}__widget .trustpilot-widget {
@@ -5144,7 +5141,7 @@
         {
           "type": "range",
           "id": "margin_top_mobile",
-          "min": -40,
+          "min": 0,
           "max": 60,
           "step": 2,
           "unit": "px",
