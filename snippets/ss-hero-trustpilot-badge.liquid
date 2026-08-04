@@ -4,7 +4,6 @@
   {% endif %}
 
   {% if block.settings.use_live_widget %}
-    <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
     <div id="hero-trustpilot-widget-{{ block.id }}" class="hero-trustpilot-{{ block.id }}__widget">
       <div
         class="trustpilot-widget"
@@ -18,6 +17,67 @@
         <a href="https://uk.trustpilot.com/review/www.williamwoodmirrors.co.uk" target="_blank" rel="noopener">Trustpilot</a>
       </div>
     </div>
+    <script>
+      (function() {
+        var container = document.getElementById('hero-trustpilot-widget-{{ block.id }}');
+        if (!container) return;
+
+        var widget = container.querySelector('.trustpilot-widget');
+        if (!widget) return;
+
+        function removeDuplicateIframes() {
+          var iframes = widget.querySelectorAll('iframe');
+          iframes.forEach(function(iframe, index) {
+            if (index > 0) {
+              iframe.remove();
+            }
+          });
+        }
+
+        function renderTrustpilotWidget() {
+          removeDuplicateIframes();
+
+          if (window.Trustpilot && !widget.querySelector('iframe')) {
+            if (widget.dataset.wwTrustpilotRendering === 'true') return;
+            widget.dataset.wwTrustpilotRendering = 'true';
+            window.Trustpilot.loadFromElement(widget, true);
+            window.setTimeout(function() {
+              widget.dataset.wwTrustpilotRendering = 'false';
+            }, 1000);
+          }
+
+          window.setTimeout(removeDuplicateIframes, 500);
+          window.setTimeout(removeDuplicateIframes, 1500);
+        }
+
+        if (window.Trustpilot) {
+          renderTrustpilotWidget();
+          return;
+        }
+
+        var existingScript = document.querySelector('script[src*="widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"]');
+
+        if (existingScript) {
+          existingScript.addEventListener('load', function() {
+            window.setTimeout(removeDuplicateIframes, 500);
+            window.setTimeout(renderTrustpilotWidget, 1500);
+          }, { once: true });
+          window.setTimeout(renderTrustpilotWidget, 1800);
+          return;
+        }
+
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.async = true;
+        script.src = '//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js';
+        script.setAttribute('data-ww-trustpilot-loader', 'true');
+        script.addEventListener('load', function() {
+          window.setTimeout(removeDuplicateIframes, 500);
+          window.setTimeout(removeDuplicateIframes, 1500);
+        });
+        document.head.appendChild(script);
+      })();
+    </script>
   {% else %}
     <div class="hero-trustpilot-{{ block.id }}__row">
       {% if block.settings.rating_text != blank %}

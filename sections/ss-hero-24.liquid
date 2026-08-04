@@ -1550,6 +1550,20 @@
         .hero-trustpilot-{{ block.id }}__widget .trustpilot-widget {
           width: min({{ block.settings.widget_width_mobile }}px, 96vw);
           max-width: 100%;
+          height: {{ block.settings.widget_height }}px !important;
+          min-height: {{ block.settings.widget_height }}px !important;
+          overflow: hidden;
+        }
+
+        .hero-trustpilot-{{ block.id }}__widget .trustpilot-widget iframe {
+          display: block !important;
+          width: 100% !important;
+          height: {{ block.settings.widget_height }}px !important;
+          min-height: {{ block.settings.widget_height }}px !important;
+        }
+
+        .hero-trustpilot-{{ block.id }}__widget .trustpilot-widget iframe:not(:first-of-type) {
+          display: none !important;
         }
 
         .hero-trustpilot-{{ block.id }}__rating,
