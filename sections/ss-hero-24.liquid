@@ -378,10 +378,18 @@
     pointer-events: auto;
   }
 
-  .section-{{ section.id }} [class*="hero-trustpilot-"],
-  .section-{{ section.id }} [class*="hero-review-text-line-"],
-  .section-{{ section.id }} [class*="hero-star-image-"],
-  .section-{{ section.id }} [class*="hero-review-"] {
+  #shopify-section-{{ section.id }} [class*="hero-trustpilot-"],
+  #shopify-section-{{ section.id }} [class*="hero-review-text-line-"],
+  #shopify-section-{{ section.id }} [class*="hero-star-image-"],
+  #shopify-section-{{ section.id }} [class*="hero-review-"],
+  .hero-content-{{ section.id }} [class*="hero-trustpilot-"],
+  .hero-content-{{ section.id }} [class*="hero-review-text-line-"],
+  .hero-content-{{ section.id }} [class*="hero-star-image-"],
+  .hero-content-{{ section.id }} [class*="hero-review-"],
+  .hero-slide-content-{{ section.id }} [class*="hero-trustpilot-"],
+  .hero-slide-content-{{ section.id }} [class*="hero-review-text-line-"],
+  .hero-slide-content-{{ section.id }} [class*="hero-star-image-"],
+  .hero-slide-content-{{ section.id }} [class*="hero-review-"] {
     display: none !important;
   }
 
