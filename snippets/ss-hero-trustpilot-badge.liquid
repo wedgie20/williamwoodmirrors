@@ -1,9 +1,11 @@
 {% assign trustpilot_slide_number = slide_number | default: block.settings.slide_number | default: 'all' %}
 {% assign trustpilot_section_id = section_id | default: '' %}
+{% assign use_live_trustpilot_widget = false %}
 
 <div
   class="hero-trustpilot-{{ block.id }}"
   data-hero-trustpilot
+  data-hero-trustpilot-block="{{ block.id }}"
   data-trustpilot-section="{{ trustpilot_section_id }}"
   data-trustpilot-slide="{{ trustpilot_slide_number }}"
   {{ block.shopify_attributes }}
@@ -12,7 +14,7 @@
     <p class="hero-trustpilot-{{ block.id }}__intro">{{ block.settings.intro_text }}</p>
   {% endif %}
 
-  {% if block.settings.use_live_widget %}
+  {% if use_live_trustpilot_widget %}
     <div id="hero-trustpilot-widget-{{ block.id }}" class="hero-trustpilot-{{ block.id }}__widget">
       <div
         class="trustpilot-widget"
@@ -35,13 +37,19 @@
         if (!widget) return;
 
         function removeDuplicateIframes() {
-          var iframes = widget.querySelectorAll('iframe');
+          var iframes = container.querySelectorAll('iframe');
           iframes.forEach(function(iframe, index) {
             if (index > 0) {
               iframe.remove();
             }
           });
         }
+
+        var cleanupObserver = new MutationObserver(function() {
+          window.clearTimeout(container._wwTrustpilotCleanupTimer);
+          container._wwTrustpilotCleanupTimer = window.setTimeout(removeDuplicateIframes, 50);
+        });
+        cleanupObserver.observe(container, { childList: true, subtree: true });
 
         function renderTrustpilotWidget() {
           removeDuplicateIframes();
