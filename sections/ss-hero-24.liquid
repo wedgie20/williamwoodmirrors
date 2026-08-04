@@ -378,6 +378,13 @@
     pointer-events: auto;
   }
 
+  .section-{{ section.id }} [class*="hero-trustpilot-"],
+  .section-{{ section.id }} [class*="hero-review-text-line-"],
+  .section-{{ section.id }} [class*="hero-star-image-"],
+  .section-{{ section.id }} [class*="hero-review-"] {
+    display: none !important;
+  }
+
   .hero-content-{{ section.id }} {
     position: relative;
     z-index: 1;
@@ -1946,6 +1953,11 @@
       {% assign button_open = false %}
 
       {% for block in section.blocks %}
+        {% assign disabled_review_block_types = 'review_text_line,review,star_rating_full,trustpilot_badge' | split: ',' %}
+        {% if disabled_review_block_types contains block.type %}
+          {% continue %}
+        {% endif %}
+
         {% case block.type %}
           {% when 'review_text_line' %}
             <div class="hero-review-text-line-{{ block.id }}" {{ block.shopify_attributes }}>
@@ -2386,6 +2398,11 @@
               >
                 {% assign has_seen_slide_button = false %}
                 {% for block in section.blocks %}
+                  {% assign disabled_review_block_types = 'review_text_line,review,star_rating_full,trustpilot_badge' | split: ',' %}
+                  {% if disabled_review_block_types contains block.type %}
+                    {% continue %}
+                  {% endif %}
+
                   {% assign block_slide = block.settings.slide_number | default: 'all' %}
                   {% if block_slide == slide_num_str or block_slide == 'all' %}
                     {% case block.type %}
