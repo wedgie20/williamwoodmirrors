@@ -1,4 +1,13 @@
-<div class="hero-trustpilot-{{ block.id }}" {{ block.shopify_attributes }}>
+{% assign trustpilot_slide_number = slide_number | default: block.settings.slide_number | default: 'all' %}
+{% assign trustpilot_section_id = section_id | default: '' %}
+
+<div
+  class="hero-trustpilot-{{ block.id }}"
+  data-hero-trustpilot
+  data-trustpilot-section="{{ trustpilot_section_id }}"
+  data-trustpilot-slide="{{ trustpilot_slide_number }}"
+  {{ block.shopify_attributes }}
+>
   {% if block.settings.intro_text != blank %}
     <p class="hero-trustpilot-{{ block.id }}__intro">{{ block.settings.intro_text }}</p>
   {% endif %}
