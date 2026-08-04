@@ -1545,33 +1545,6 @@
           flex-wrap: nowrap;
         }
 
-        .hero-trustpilot-{{ block.id }}__widget {
-          display: flex;
-          justify-content: var(--slide-buttons-justify-mobile, {{ content_horizontal_align_mobile }});
-          width: 100%;
-          min-height: {{ block.settings.widget_height }}px;
-          overflow: visible;
-        }
-
-        .hero-trustpilot-{{ block.id }}__widget .trustpilot-widget {
-          width: min({{ block.settings.widget_width_mobile }}px, 96vw);
-          max-width: 100%;
-          height: {{ block.settings.widget_height }}px !important;
-          min-height: {{ block.settings.widget_height }}px !important;
-          overflow: hidden;
-        }
-
-        .hero-trustpilot-{{ block.id }}__widget .trustpilot-widget iframe {
-          display: block !important;
-          width: 100% !important;
-          height: {{ block.settings.widget_height }}px !important;
-          min-height: {{ block.settings.widget_height }}px !important;
-        }
-
-        .hero-trustpilot-{{ block.id }}__widget .trustpilot-widget iframe:not(:first-of-type) {
-          display: none !important;
-        }
-
         .hero-trustpilot-{{ block.id }}__rating,
         .hero-trustpilot-{{ block.id }}__reviews,
         .hero-trustpilot-{{ block.id }}__brand {
@@ -1626,14 +1599,6 @@
 
           .hero-trustpilot-{{ block.id }}__row {
             justify-content: var(--slide-buttons-justify, {{ content_horizontal_align }});
-          }
-
-          .hero-trustpilot-{{ block.id }}__widget {
-            justify-content: var(--slide-buttons-justify, {{ content_horizontal_align }});
-          }
-
-          .hero-trustpilot-{{ block.id }}__widget .trustpilot-widget {
-            width: min({{ block.settings.widget_width }}px, 100%);
           }
 
           .hero-trustpilot-{{ block.id }}__rating,
@@ -4989,49 +4954,27 @@
         },
         {
           "type": "checkbox",
-          "id": "use_live_widget",
-          "label": "Use Trustpilot widget for live review count",
+          "id": "show_rating_text",
+          "label": "Show rating text",
           "default": true
         },
         {
-          "type": "select",
-          "id": "widget_theme",
-          "label": "Trustpilot widget theme",
-          "options": [
-            { "value": "dark", "label": "Dark" },
-            { "value": "light", "label": "Light" }
-          ],
-          "default": "dark"
+          "type": "checkbox",
+          "id": "show_stars",
+          "label": "Show stars",
+          "default": true
         },
         {
-          "type": "range",
-          "id": "widget_width",
-          "min": 180,
-          "max": 520,
-          "step": 10,
-          "unit": "px",
-          "label": "Trustpilot widget width",
-          "default": 430
+          "type": "checkbox",
+          "id": "show_reviews_text",
+          "label": "Show reviews text",
+          "default": true
         },
         {
-          "type": "range",
-          "id": "widget_width_mobile",
-          "min": 160,
-          "max": 360,
-          "step": 10,
-          "unit": "px",
-          "label": "Trustpilot widget width - mobile",
-          "default": 300
-        },
-        {
-          "type": "range",
-          "id": "widget_height",
-          "min": 18,
-          "max": 60,
-          "step": 1,
-          "unit": "px",
-          "label": "Trustpilot widget height",
-          "default": 24
+          "type": "checkbox",
+          "id": "show_brand_text",
+          "label": "Show brand text",
+          "default": true
         },
         {
           "type": "checkbox",

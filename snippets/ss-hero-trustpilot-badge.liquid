@@ -1,5 +1,21 @@
 {% assign trustpilot_slide_number = slide_number | default: block.settings.slide_number | default: 'all' %}
 {% assign trustpilot_section_id = section_id | default: '' %}
+{% assign show_rating_text = true %}
+{% assign show_stars = true %}
+{% assign show_reviews_text = true %}
+{% assign show_brand_text = true %}
+{% if block.settings.show_rating_text == false %}
+  {% assign show_rating_text = false %}
+{% endif %}
+{% if block.settings.show_stars == false %}
+  {% assign show_stars = false %}
+{% endif %}
+{% if block.settings.show_reviews_text == false %}
+  {% assign show_reviews_text = false %}
+{% endif %}
+{% if block.settings.show_brand_text == false %}
+  {% assign show_brand_text = false %}
+{% endif %}
 
 <div
   class="hero-trustpilot-{{ block.id }}"
@@ -12,103 +28,28 @@
     <p class="hero-trustpilot-{{ block.id }}__intro">{{ block.settings.intro_text }}</p>
   {% endif %}
 
-  {% if block.settings.use_live_widget %}
-    <div id="hero-trustpilot-widget-{{ block.id }}" class="hero-trustpilot-{{ block.id }}__widget">
-      <div
-        class="trustpilot-widget"
-        data-locale="en-GB"
-        data-template-id="5419b6ffb0d04a076446a9af"
-        data-businessunit-id="5c1ad659b7fbfa000156daec"
-        data-style-height="{{ block.settings.widget_height }}px"
-        data-style-width="100%"
-        data-theme="{{ block.settings.widget_theme }}"
-      >
-        <a href="https://uk.trustpilot.com/review/www.williamwoodmirrors.co.uk" target="_blank" rel="noopener">Trustpilot</a>
-      </div>
-    </div>
-    <script>
-      (function() {
-        var container = document.getElementById('hero-trustpilot-widget-{{ block.id }}');
-        if (!container) return;
+  <div class="hero-trustpilot-{{ block.id }}__row">
+    {% if show_rating_text and block.settings.rating_text != blank %}
+      <span class="hero-trustpilot-{{ block.id }}__rating">{{ block.settings.rating_text }}</span>
+    {% endif %}
 
-        var widget = container.querySelector('.trustpilot-widget');
-        if (!widget) return;
-
-        function removeDuplicateIframes() {
-          var iframes = widget.querySelectorAll('iframe');
-          iframes.forEach(function(iframe, index) {
-            if (index > 0) {
-              iframe.remove();
-            }
-          });
-        }
-
-        function renderTrustpilotWidget() {
-          removeDuplicateIframes();
-
-          if (window.Trustpilot && !widget.querySelector('iframe')) {
-            if (widget.dataset.wwTrustpilotRendering === 'true') return;
-            widget.dataset.wwTrustpilotRendering = 'true';
-            window.Trustpilot.loadFromElement(widget, true);
-            window.setTimeout(function() {
-              widget.dataset.wwTrustpilotRendering = 'false';
-            }, 1000);
-          }
-
-          window.setTimeout(removeDuplicateIframes, 500);
-          window.setTimeout(removeDuplicateIframes, 1500);
-        }
-
-        if (window.Trustpilot) {
-          renderTrustpilotWidget();
-          return;
-        }
-
-        var existingScript = document.querySelector('script[src*="widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"]');
-
-        if (existingScript) {
-          existingScript.addEventListener('load', function() {
-            window.setTimeout(removeDuplicateIframes, 500);
-            window.setTimeout(renderTrustpilotWidget, 1500);
-          }, { once: true });
-          window.setTimeout(renderTrustpilotWidget, 1800);
-          return;
-        }
-
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.async = true;
-        script.src = '//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js';
-        script.setAttribute('data-ww-trustpilot-loader', 'true');
-        script.addEventListener('load', function() {
-          window.setTimeout(removeDuplicateIframes, 500);
-          window.setTimeout(removeDuplicateIframes, 1500);
-        });
-        document.head.appendChild(script);
-      })();
-    </script>
-  {% else %}
-    <div class="hero-trustpilot-{{ block.id }}__row">
-      {% if block.settings.rating_text != blank %}
-        <span class="hero-trustpilot-{{ block.id }}__rating">{{ block.settings.rating_text }}</span>
-      {% endif %}
-
+    {% if show_stars %}
       <span class="hero-trustpilot-{{ block.id }}__stars" aria-hidden="true">
         {% for index in (1..5) %}
           <span class="hero-trustpilot-{{ block.id }}__star{% if index == 5 and block.settings.show_half_star %} hero-trustpilot-{{ block.id }}__star--half{% endif %}">&#9733;</span>
         {% endfor %}
       </span>
+    {% endif %}
 
-      {% if block.settings.reviews_text != blank %}
-        <span class="hero-trustpilot-{{ block.id }}__reviews">{{ block.settings.reviews_text }}</span>
-      {% endif %}
+    {% if show_reviews_text and block.settings.reviews_text != blank %}
+      <span class="hero-trustpilot-{{ block.id }}__reviews">{{ block.settings.reviews_text }}</span>
+    {% endif %}
 
-      {% if block.settings.brand_text != blank %}
-        <span class="hero-trustpilot-{{ block.id }}__brand">
-          <span class="hero-trustpilot-{{ block.id }}__brand-star" aria-hidden="true">&#9733;</span>
-          {{ block.settings.brand_text }}
-        </span>
-      {% endif %}
-    </div>
-  {% endif %}
+    {% if show_brand_text and block.settings.brand_text != blank %}
+      <span class="hero-trustpilot-{{ block.id }}__brand">
+        <span class="hero-trustpilot-{{ block.id }}__brand-star" aria-hidden="true">&#9733;</span>
+        {{ block.settings.brand_text }}
+      </span>
+    {% endif %}
+  </div>
 </div>
