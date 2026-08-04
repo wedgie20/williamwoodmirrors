@@ -1586,8 +1586,12 @@
           line-height: 1;
         }
 
-        .hero-trustpilot-{{ block.id }}__star--half {
+        .hero-trustpilot-{{ block.id }}__star--half-mobile {
           background: linear-gradient(90deg, #00b67a 72%, #dcdce6 72%);
+        }
+
+        .hero-trustpilot-{{ block.id }} .hero-trustpilot-hidden-mobile {
+          display: none !important;
         }
 
         .hero-trustpilot-{{ block.id }}__brand {
@@ -1628,8 +1632,24 @@
             font-size: calc({{ block.settings.star_size }}px * .7);
           }
 
+          .hero-trustpilot-{{ block.id }}__star--half-mobile {
+            background: #00b67a;
+          }
+
+          .hero-trustpilot-{{ block.id }}__star--half-desktop {
+            background: linear-gradient(90deg, #00b67a 72%, #dcdce6 72%);
+          }
+
           .hero-trustpilot-{{ block.id }}__brand-star {
             font-size: {{ block.settings.brand_star_size }}px;
+          }
+
+          .hero-trustpilot-{{ block.id }} .hero-trustpilot-hidden-mobile {
+            display: inline-flex !important;
+          }
+
+          .hero-trustpilot-{{ block.id }} .hero-trustpilot-hidden-desktop {
+            display: none !important;
           }
         }
       </style>
@@ -4974,33 +4994,71 @@
           "default": "Trustpilot"
         },
         {
+          "type": "header",
+          "content": "Desktop visibility"
+        },
+        {
           "type": "checkbox",
           "id": "show_rating_text",
-          "label": "Show rating text",
+          "label": "Show rating text - desktop",
           "default": true
         },
         {
           "type": "checkbox",
           "id": "show_stars",
-          "label": "Show stars",
+          "label": "Show stars - desktop",
           "default": true
         },
         {
           "type": "checkbox",
           "id": "show_reviews_text",
-          "label": "Show reviews text",
+          "label": "Show reviews text - desktop",
           "default": true
         },
         {
           "type": "checkbox",
           "id": "show_brand_text",
-          "label": "Show brand text",
+          "label": "Show brand text - desktop",
           "default": true
         },
         {
           "type": "checkbox",
           "id": "show_half_star",
-          "label": "Show partial fifth star",
+          "label": "Show partial fifth star - desktop",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Mobile visibility"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_rating_text_mobile",
+          "label": "Show rating text - mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_stars_mobile",
+          "label": "Show stars - mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_reviews_text_mobile",
+          "label": "Show reviews text - mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_brand_text_mobile",
+          "label": "Show brand text - mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_half_star_mobile",
+          "label": "Show partial fifth star - mobile",
           "default": true
         },
         {
