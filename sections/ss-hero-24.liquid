@@ -378,16 +378,6 @@
     pointer-events: auto;
   }
 
-  .hero-slide-content-{{ section.id }}:not(.is-active) [data-hero-trustpilot] {
-    display: none !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-  }
-
-  .section-{{ section.id }} [data-hero-trustpilot][hidden] {
-    display: none !important;
-  }
-
   .hero-content-{{ section.id }} {
     position: relative;
     z-index: 1;
@@ -2777,16 +2767,6 @@
       });
     }
 
-    function syncTrustpilotBadges(activeIndex) {
-      var activeSlide = String(activeIndex + 1);
-      container.querySelectorAll('[data-hero-trustpilot]').forEach(function(badge) {
-        var targetSlide = badge.getAttribute('data-trustpilot-slide');
-        var isActive = targetSlide === activeSlide;
-        badge.hidden = !isActive;
-        badge.setAttribute('aria-hidden', isActive ? 'false' : 'true');
-      });
-    }
-
     function playActiveSlideVideos(slide) {
       if (!slide) return;
       var vids = slide.querySelectorAll('video');
@@ -2818,7 +2798,6 @@
       if (dots[current]) dots[current].classList.add('is-active');
       if (contentPanels[current]) contentPanels[current].classList.add('is-active');
       setActiveShopScene(current);
-      syncTrustpilotBadges(current);
     }
 
     function next() { goTo(current + 1); }
@@ -2860,7 +2839,6 @@
     }, { passive: true });
 
     playActiveSlideVideos(slides[current]);
-    syncTrustpilotBadges(current);
     startAutoplay();
   })();
 </script>
