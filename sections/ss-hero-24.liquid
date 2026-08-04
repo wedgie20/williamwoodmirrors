@@ -81,9 +81,6 @@
   .hero-heading-heading_4gkkY * {
           font-weight: 500 !important;
       }
-  #tp-widget-wrapper {
-    display: none !important;
-  }
   /* Slide 1 - desktop only: shift 13% from left edge (overrides center auto-margin) */
   @media (min-width: 1024px) {
     .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] {
@@ -399,6 +396,16 @@
   .hero-review-text-line-review_text_line_JrmfG,
   .hero-star-image-star_rating_full_dXC44,
   .hero-review-review_JfABD {
+    display: none !important;
+  }
+
+  #shopify-section-{{ section.id }} .trustpilot-widget,
+  #shopify-section-{{ section.id }} [class*="trustpilot" i],
+  #shopify-section-{{ section.id }} [id*="trustpilot" i],
+  #shopify-section-{{ section.id }} [class*="tp-widget" i],
+  #shopify-section-{{ section.id }} [id*="tp-widget" i],
+  #shopify-section-{{ section.id }} iframe[src*="trustpilot" i],
+  #shopify-section-{{ section.id }} [src*="trustpilot" i] {
     display: none !important;
   }
 
@@ -3015,6 +3022,42 @@
   })();
 </script>
 {%- endif -%}
+
+<script>
+  (function() {
+    const section = document.getElementById('shopify-section-{{ section.id }}');
+    if (!section) return;
+
+    const trustpilotSelectors = [
+      '.trustpilot-widget',
+      '[class*="trustpilot" i]',
+      '[id*="trustpilot" i]',
+      '[class*="tp-widget" i]',
+      '[id*="tp-widget" i]',
+      'iframe[src*="trustpilot" i]',
+      '[src*="trustpilot" i]'
+    ];
+
+    const hideTrustpilot = () => {
+      section.querySelectorAll(trustpilotSelectors.join(',')).forEach((element) => {
+        element.style.setProperty('display', 'none', 'important');
+      });
+
+      section.querySelectorAll('.hero-content-{{ section.id }} > *, .hero-slide-content-{{ section.id }} > *').forEach((element) => {
+        const text = (element.textContent || '').toLowerCase();
+        if (text.includes('trustpilot') || (text.includes('excellent') && text.includes('reviews'))) {
+          element.style.setProperty('display', 'none', 'important');
+        }
+      });
+    };
+
+    hideTrustpilot();
+    document.addEventListener('shopify:section:load', hideTrustpilot);
+
+    const observer = new MutationObserver(hideTrustpilot);
+    observer.observe(section, { childList: true, subtree: true });
+  })();
+</script>
 
 {% schema %}
 {
