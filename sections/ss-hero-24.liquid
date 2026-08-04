@@ -384,6 +384,21 @@
     pointer-events: none !important;
   }
 
+  .section-{{ section.id }}:not(.is-slide-1-active) [data-hero-trustpilot],
+  .section-{{ section.id }}:not(.is-slide-1-active) [class*="trustpilot" i],
+  .section-{{ section.id }}:not(.is-slide-1-active) [id*="trustpilot" i] {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  .hero-content-{{ section.id }} [class*="trustpilot" i]:not([data-hero-trustpilot]):not([class^="hero-trustpilot-"]),
+  .hero-content-{{ section.id }} [id*="trustpilot" i]:not([data-hero-trustpilot]) {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
   .hero-content-{{ section.id }} {
     position: relative;
     z-index: 1;
@@ -1689,7 +1704,7 @@
 {% endfor %}
 
 <div
-  class="section-{{ section.id }} hero-{{ section.id }}"
+  class="section-{{ section.id }} hero-{{ section.id }}{% if layout_mode == 'slideshow' %} is-slide-1-active{% endif %}"
   style="background-color:{{ background_color }}; background-image: {{ background_gradient }};"
 >
   <div class="section-{{ section.id }}-settings">
@@ -2234,7 +2249,7 @@
             {% endunless %}
           {% when 'trustpilot_badge' %}
             {% unless layout_mode == 'slideshow' %}
-              {% render 'ss-hero-trustpilot-badge', block: block, section_id: section.id %}
+              {% render 'ss-hero-trustpilot-badge', block: block, section_id: section.id, slide_number: '1' %}
             {% endunless %}
           {% when '@app' %}
             {% unless layout_mode == 'slideshow' %}
@@ -2381,7 +2396,11 @@
                           {{ block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
                         </div>
                       {% when 'trustpilot_badge' %}
-                        {% if block_slide == slide_num_str %}
+                        {% assign trustpilot_block_slide = block_slide %}
+                        {% if trustpilot_block_slide == 'all' %}
+                          {% assign trustpilot_block_slide = '1' %}
+                        {% endif %}
+                        {% if trustpilot_block_slide == slide_num_str %}
                           {% render 'ss-hero-trustpilot-badge', block: block, section_id: section.id, slide_number: slide_num_str %}
                         {% endif %}
                       {% when '@app' %}
@@ -2739,13 +2758,15 @@
     }
 
     function syncTrustpilotBadges(activeIndex) {
-      if (!contentPanels.length) return;
-      contentPanels.forEach(function(panel, panelIndex) {
-        var isActive = panelIndex === activeIndex;
-        panel.querySelectorAll('[data-hero-trustpilot]').forEach(function(badge) {
-          badge.hidden = !isActive;
-          badge.setAttribute('aria-hidden', isActive ? 'false' : 'true');
-        });
+      var isSlideOneActive = activeIndex === 0;
+      container.classList.toggle('is-slide-1-active', isSlideOneActive);
+
+      container.querySelectorAll('[data-hero-trustpilot]').forEach(function(badge) {
+        var badgeSlide = badge.getAttribute('data-trustpilot-slide') || '1';
+        if (badgeSlide === 'all') badgeSlide = '1';
+        var isActiveBadge = isSlideOneActive && badgeSlide === '1';
+        badge.hidden = !isActiveBadge;
+        badge.setAttribute('aria-hidden', isActiveBadge ? 'false' : 'true');
       });
     }
 
