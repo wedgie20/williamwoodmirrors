@@ -1,3 +1,99 @@
-{%- comment -%}
-  Hero Trustpilot badge intentionally disabled for this branch.
-{%- endcomment -%}
+{% assign trustpilot_slide_number = slide_number | default: block.settings.slide_number | default: 'all' %}
+{% assign trustpilot_section_id = section_id | default: '' %}
+{% assign show_rating_text_desktop = true %}
+{% assign show_stars_desktop = true %}
+{% assign show_reviews_text_desktop = true %}
+{% assign show_brand_text_desktop = true %}
+{% assign show_half_star_desktop = true %}
+{% if block.settings.show_rating_text == false %}
+  {% assign show_rating_text_desktop = false %}
+{% endif %}
+{% if block.settings.show_stars == false %}
+  {% assign show_stars_desktop = false %}
+{% endif %}
+{% if block.settings.show_reviews_text == false %}
+  {% assign show_reviews_text_desktop = false %}
+{% endif %}
+{% if block.settings.show_brand_text == false %}
+  {% assign show_brand_text_desktop = false %}
+{% endif %}
+{% if block.settings.show_half_star == false %}
+  {% assign show_half_star_desktop = false %}
+{% endif %}
+
+{% assign show_rating_text_mobile = show_rating_text_desktop %}
+{% assign show_stars_mobile = show_stars_desktop %}
+{% assign show_reviews_text_mobile = show_reviews_text_desktop %}
+{% assign show_brand_text_mobile = show_brand_text_desktop %}
+{% assign show_half_star_mobile = show_half_star_desktop %}
+{% unless block.settings.show_rating_text_mobile == nil %}
+  {% assign show_rating_text_mobile = block.settings.show_rating_text_mobile %}
+{% endunless %}
+{% unless block.settings.show_stars_mobile == nil %}
+  {% assign show_stars_mobile = block.settings.show_stars_mobile %}
+{% endunless %}
+{% unless block.settings.show_reviews_text_mobile == nil %}
+  {% assign show_reviews_text_mobile = block.settings.show_reviews_text_mobile %}
+{% endunless %}
+{% unless block.settings.show_brand_text_mobile == nil %}
+  {% assign show_brand_text_mobile = block.settings.show_brand_text_mobile %}
+{% endunless %}
+{% unless block.settings.show_half_star_mobile == nil %}
+  {% assign show_half_star_mobile = block.settings.show_half_star_mobile %}
+{% endunless %}
+
+{% assign render_rating_text = false %}
+{% assign render_reviews_text = false %}
+{% assign render_brand_text = false %}
+{% if block.settings.rating_text != blank %}
+  {% if show_rating_text_desktop or show_rating_text_mobile %}
+    {% assign render_rating_text = true %}
+  {% endif %}
+{% endif %}
+{% if block.settings.reviews_text != blank %}
+  {% if show_reviews_text_desktop or show_reviews_text_mobile %}
+    {% assign render_reviews_text = true %}
+  {% endif %}
+{% endif %}
+{% if block.settings.brand_text != blank %}
+  {% if show_brand_text_desktop or show_brand_text_mobile %}
+    {% assign render_brand_text = true %}
+  {% endif %}
+{% endif %}
+
+<div
+  class="hero-trustpilot-{{ block.id }}"
+  data-hero-trustpilot
+  data-trustpilot-section="{{ trustpilot_section_id }}"
+  data-trustpilot-slide="{{ trustpilot_slide_number }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.intro_text != blank %}
+    <p class="hero-trustpilot-{{ block.id }}__intro">{{ block.settings.intro_text }}</p>
+  {% endif %}
+
+  <div class="hero-trustpilot-{{ block.id }}__row">
+    {% if render_rating_text %}
+      <span class="hero-trustpilot-{{ block.id }}__rating{% unless show_rating_text_desktop %} hero-trustpilot-hidden-desktop{% endunless %}{% unless show_rating_text_mobile %} hero-trustpilot-hidden-mobile{% endunless %}">{{ block.settings.rating_text }}</span>
+    {% endif %}
+
+    {% if show_stars_desktop or show_stars_mobile %}
+      <span class="hero-trustpilot-{{ block.id }}__stars{% unless show_stars_desktop %} hero-trustpilot-hidden-desktop{% endunless %}{% unless show_stars_mobile %} hero-trustpilot-hidden-mobile{% endunless %}" aria-hidden="true">
+        {% for index in (1..5) %}
+          <span class="hero-trustpilot-{{ block.id }}__star{% if index == 5 and show_half_star_desktop %} hero-trustpilot-{{ block.id }}__star--half-desktop{% endif %}{% if index == 5 and show_half_star_mobile %} hero-trustpilot-{{ block.id }}__star--half-mobile{% endif %}">&#9733;</span>
+        {% endfor %}
+      </span>
+    {% endif %}
+
+    {% if render_reviews_text %}
+      <span class="hero-trustpilot-{{ block.id }}__reviews{% unless show_reviews_text_desktop %} hero-trustpilot-hidden-desktop{% endunless %}{% unless show_reviews_text_mobile %} hero-trustpilot-hidden-mobile{% endunless %}">{{ block.settings.reviews_text }}</span>
+    {% endif %}
+
+    {% if render_brand_text %}
+      <span class="hero-trustpilot-{{ block.id }}__brand{% unless show_brand_text_desktop %} hero-trustpilot-hidden-desktop{% endunless %}{% unless show_brand_text_mobile %} hero-trustpilot-hidden-mobile{% endunless %}">
+        <span class="hero-trustpilot-{{ block.id }}__brand-star" aria-hidden="true">&#9733;</span>
+        {{ block.settings.brand_text }}
+      </span>
+    {% endif %}
+  </div>
+</div>

@@ -81,6 +81,7 @@
   .hero-heading-heading_4gkkY * {
           font-weight: 500 !important;
       }
+
   /* Slide 1 - desktop only: shift 13% from left edge (overrides center auto-margin) */
   @media (min-width: 1024px) {
     .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] {
@@ -377,36 +378,17 @@
     pointer-events: auto;
   }
 
-  #shopify-section-{{ section.id }} [class*="hero-trustpilot-"],
-  #shopify-section-{{ section.id }} [class*="hero-review-text-line-"],
-  #shopify-section-{{ section.id }} [class*="hero-star-image-"],
-  #shopify-section-{{ section.id }} [class*="hero-review-"],
-  .hero-content-{{ section.id }} [class*="hero-trustpilot-"],
-  .hero-content-{{ section.id }} [class*="hero-review-text-line-"],
-  .hero-content-{{ section.id }} [class*="hero-star-image-"],
-  .hero-content-{{ section.id }} [class*="hero-review-"],
-  .hero-slide-content-{{ section.id }} [class*="hero-trustpilot-"],
-  .hero-slide-content-{{ section.id }} [class*="hero-review-text-line-"],
-  .hero-slide-content-{{ section.id }} [class*="hero-star-image-"],
-  .hero-slide-content-{{ section.id }} [class*="hero-review-"] {
+  .hero-slide-content-{{ section.id }}:not(.is-active) [data-hero-trustpilot] {
     display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
   }
 
-  .hero-trustpilot-trustpilot_badge_6d336,
-  .hero-review-text-line-review_text_line_JrmfG,
-  .hero-star-image-star_rating_full_dXC44,
-  .hero-review-review_JfABD {
+  .hero-content-{{ section.id }} [class*="trustpilot" i]:not([data-hero-trustpilot]):not([class^="hero-trustpilot-"]),
+  .hero-content-{{ section.id }} [id*="trustpilot" i]:not([data-hero-trustpilot]) {
     display: none !important;
-  }
-
-  #shopify-section-{{ section.id }} .trustpilot-widget,
-  #shopify-section-{{ section.id }} [class*="trustpilot" i],
-  #shopify-section-{{ section.id }} [id*="trustpilot" i],
-  #shopify-section-{{ section.id }} [class*="tp-widget" i],
-  #shopify-section-{{ section.id }} [id*="tp-widget" i],
-  #shopify-section-{{ section.id }} iframe[src*="trustpilot" i],
-  #shopify-section-{{ section.id }} [src*="trustpilot" i] {
-    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
   }
 
   .hero-content-{{ section.id }} {
@@ -1570,33 +1552,6 @@
           flex-wrap: nowrap;
         }
 
-        .hero-trustpilot-{{ block.id }}__widget {
-          display: flex;
-          justify-content: var(--slide-buttons-justify-mobile, {{ content_horizontal_align_mobile }});
-          width: 100%;
-          min-height: {{ block.settings.widget_height }}px;
-          overflow: visible;
-        }
-
-        .hero-trustpilot-{{ block.id }}__widget .trustpilot-widget {
-          width: min({{ block.settings.widget_width_mobile }}px, 96vw);
-          max-width: 100%;
-          height: {{ block.settings.widget_height }}px !important;
-          min-height: {{ block.settings.widget_height }}px !important;
-          overflow: hidden;
-        }
-
-        .hero-trustpilot-{{ block.id }}__widget .trustpilot-widget iframe {
-          display: block !important;
-          width: 100% !important;
-          height: {{ block.settings.widget_height }}px !important;
-          min-height: {{ block.settings.widget_height }}px !important;
-        }
-
-        .hero-trustpilot-{{ block.id }}__widget .trustpilot-widget iframe:not(:first-of-type) {
-          display: none !important;
-        }
-
         .hero-trustpilot-{{ block.id }}__rating,
         .hero-trustpilot-{{ block.id }}__reviews,
         .hero-trustpilot-{{ block.id }}__brand {
@@ -1623,8 +1578,12 @@
           line-height: 1;
         }
 
-        .hero-trustpilot-{{ block.id }}__star--half {
+        .hero-trustpilot-{{ block.id }}__star--half-mobile {
           background: linear-gradient(90deg, #00b67a 72%, #dcdce6 72%);
+        }
+
+        .hero-trustpilot-{{ block.id }} .hero-trustpilot-hidden-mobile {
+          display: none !important;
         }
 
         .hero-trustpilot-{{ block.id }}__brand {
@@ -1653,14 +1612,6 @@
             justify-content: var(--slide-buttons-justify, {{ content_horizontal_align }});
           }
 
-          .hero-trustpilot-{{ block.id }}__widget {
-            justify-content: var(--slide-buttons-justify, {{ content_horizontal_align }});
-          }
-
-          .hero-trustpilot-{{ block.id }}__widget .trustpilot-widget {
-            width: min({{ block.settings.widget_width }}px, 100%);
-          }
-
           .hero-trustpilot-{{ block.id }}__rating,
           .hero-trustpilot-{{ block.id }}__reviews,
           .hero-trustpilot-{{ block.id }}__brand {
@@ -1673,8 +1624,24 @@
             font-size: calc({{ block.settings.star_size }}px * .7);
           }
 
+          .hero-trustpilot-{{ block.id }}__star--half-mobile {
+            background: #00b67a;
+          }
+
+          .hero-trustpilot-{{ block.id }}__star--half-desktop {
+            background: linear-gradient(90deg, #00b67a 72%, #dcdce6 72%);
+          }
+
           .hero-trustpilot-{{ block.id }}__brand-star {
             font-size: {{ block.settings.brand_star_size }}px;
+          }
+
+          .hero-trustpilot-{{ block.id }} .hero-trustpilot-hidden-mobile {
+            display: inline-flex !important;
+          }
+
+          .hero-trustpilot-{{ block.id }} .hero-trustpilot-hidden-desktop {
+            display: none !important;
           }
         }
       </style>
@@ -1977,11 +1944,6 @@
       {% assign button_open = false %}
 
       {% for block in section.blocks %}
-        {% assign disabled_review_block_types = 'review_text_line,review,star_rating_full,trustpilot_badge' | split: ',' %}
-        {% if disabled_review_block_types contains block.type %}
-          {% continue %}
-        {% endif %}
-
         {% case block.type %}
           {% when 'review_text_line' %}
             <div class="hero-review-text-line-{{ block.id }}" {{ block.shopify_attributes }}>
@@ -2299,7 +2261,7 @@
             {% endunless %}
           {% when 'trustpilot_badge' %}
             {% unless layout_mode == 'slideshow' %}
-              {% render 'ss-hero-trustpilot-badge', block: block, section_id: section.id %}
+              {% render 'ss-hero-trustpilot-badge', block: block, section_id: section.id, slide_number: '1' %}
             {% endunless %}
           {% when '@app' %}
             {% unless layout_mode == 'slideshow' %}
@@ -2422,11 +2384,6 @@
               >
                 {% assign has_seen_slide_button = false %}
                 {% for block in section.blocks %}
-                  {% assign disabled_review_block_types = 'review_text_line,review,star_rating_full,trustpilot_badge' | split: ',' %}
-                  {% if disabled_review_block_types contains block.type %}
-                    {% continue %}
-                  {% endif %}
-
                   {% assign block_slide = block.settings.slide_number | default: 'all' %}
                   {% if block_slide == slide_num_str or block_slide == 'all' %}
                     {% case block.type %}
@@ -2451,9 +2408,7 @@
                           {{ block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
                         </div>
                       {% when 'trustpilot_badge' %}
-                        {% if block_slide == slide_num_str %}
-                          {% render 'ss-hero-trustpilot-badge', block: block, section_id: section.id, slide_number: slide_num_str %}
-                        {% endif %}
+                        {% render 'ss-hero-trustpilot-badge', block: block, section_id: section.id, slide_number: slide_num_str %}
                       {% when '@app' %}
                         <div class="hero-app-block-{{ section.id }}" {{ block.shopify_attributes }}>
                           {% render block %}
@@ -2808,6 +2763,17 @@
       });
     }
 
+    function syncTrustpilotBadges(activeIndex) {
+      var activeSlide = String(activeIndex + 1);
+
+      container.querySelectorAll('[data-hero-trustpilot]').forEach(function(badge) {
+        var badgeSlide = badge.getAttribute('data-trustpilot-slide') || 'all';
+        var isActiveBadge = badgeSlide === 'all' || badgeSlide === activeSlide;
+        badge.hidden = !isActiveBadge;
+        badge.setAttribute('aria-hidden', isActiveBadge ? 'false' : 'true');
+      });
+    }
+
     function playActiveSlideVideos(slide) {
       if (!slide) return;
       var vids = slide.querySelectorAll('video');
@@ -2839,6 +2805,7 @@
       if (dots[current]) dots[current].classList.add('is-active');
       if (contentPanels[current]) contentPanels[current].classList.add('is-active');
       setActiveShopScene(current);
+      syncTrustpilotBadges(current);
     }
 
     function next() { goTo(current + 1); }
@@ -2880,6 +2847,7 @@
     }, { passive: true });
 
     playActiveSlideVideos(slides[current]);
+    syncTrustpilotBadges(current);
     startAutoplay();
   })();
 </script>
@@ -3022,42 +2990,6 @@
   })();
 </script>
 {%- endif -%}
-
-<script>
-  (function() {
-    const section = document.getElementById('shopify-section-{{ section.id }}');
-    if (!section) return;
-
-    const trustpilotSelectors = [
-      '.trustpilot-widget',
-      '[class*="trustpilot" i]',
-      '[id*="trustpilot" i]',
-      '[class*="tp-widget" i]',
-      '[id*="tp-widget" i]',
-      'iframe[src*="trustpilot" i]',
-      '[src*="trustpilot" i]'
-    ];
-
-    const hideTrustpilot = () => {
-      section.querySelectorAll(trustpilotSelectors.join(',')).forEach((element) => {
-        element.style.setProperty('display', 'none', 'important');
-      });
-
-      section.querySelectorAll('.hero-content-{{ section.id }} > *, .hero-slide-content-{{ section.id }} > *').forEach((element) => {
-        const text = (element.textContent || '').toLowerCase();
-        if (text.includes('trustpilot') || (text.includes('excellent') && text.includes('reviews'))) {
-          element.style.setProperty('display', 'none', 'important');
-        }
-      });
-    };
-
-    hideTrustpilot();
-    document.addEventListener('shopify:section:load', hideTrustpilot);
-
-    const observer = new MutationObserver(hideTrustpilot);
-    observer.observe(section, { childList: true, subtree: true });
-  })();
-</script>
 
 {% schema %}
 {
@@ -5046,55 +4978,71 @@
           "default": "Trustpilot"
         },
         {
+          "type": "header",
+          "content": "Desktop visibility"
+        },
+        {
           "type": "checkbox",
-          "id": "use_live_widget",
-          "label": "Use Trustpilot widget for live review count",
+          "id": "show_rating_text",
+          "label": "Show rating text - desktop",
           "default": true
         },
         {
-          "type": "select",
-          "id": "widget_theme",
-          "label": "Trustpilot widget theme",
-          "options": [
-            { "value": "dark", "label": "Dark" },
-            { "value": "light", "label": "Light" }
-          ],
-          "default": "dark"
+          "type": "checkbox",
+          "id": "show_stars",
+          "label": "Show stars - desktop",
+          "default": true
         },
         {
-          "type": "range",
-          "id": "widget_width",
-          "min": 180,
-          "max": 520,
-          "step": 10,
-          "unit": "px",
-          "label": "Trustpilot widget width",
-          "default": 430
+          "type": "checkbox",
+          "id": "show_reviews_text",
+          "label": "Show reviews text - desktop",
+          "default": true
         },
         {
-          "type": "range",
-          "id": "widget_width_mobile",
-          "min": 160,
-          "max": 360,
-          "step": 10,
-          "unit": "px",
-          "label": "Trustpilot widget width - mobile",
-          "default": 300
-        },
-        {
-          "type": "range",
-          "id": "widget_height",
-          "min": 18,
-          "max": 60,
-          "step": 1,
-          "unit": "px",
-          "label": "Trustpilot widget height",
-          "default": 24
+          "type": "checkbox",
+          "id": "show_brand_text",
+          "label": "Show brand text - desktop",
+          "default": true
         },
         {
           "type": "checkbox",
           "id": "show_half_star",
-          "label": "Show partial fifth star",
+          "label": "Show partial fifth star - desktop",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Mobile visibility"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_rating_text_mobile",
+          "label": "Show rating text - mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_stars_mobile",
+          "label": "Show stars - mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_reviews_text_mobile",
+          "label": "Show reviews text - mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_brand_text_mobile",
+          "label": "Show brand text - mobile",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_half_star_mobile",
+          "label": "Show partial fifth star - mobile",
           "default": true
         },
         {
