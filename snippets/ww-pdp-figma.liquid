@@ -566,6 +566,8 @@
   </div>
 {%- endif -%}
 
+      {%- render 'ww-trade-tier-message', mode: 'product', product: product -%}
+
       {%- form 'product', product, id: product_form_id, is: 'product-form', class: 'ww-pdp__form' -%}
         {%- if product.has_only_default_variant -%}
           <input type="hidden" disabled name="id" value="{{ current_variant.id }}">

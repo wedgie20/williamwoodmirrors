@@ -1,0 +1,154 @@
+{%- liquid
+  assign trade_is_customer = false
+  assign trade_tags = ''
+
+  if customer
+    assign trade_tags = customer.tags | join: ',' | downcase
+    if customer.metafields.trade.is_trade_customer.value == true or trade_tags contains 'trade'
+      assign trade_is_customer = true
+    endif
+  endif
+
+  assign trade_discount = customer.metafields.trade.discount_percentage.value | default: 0 | plus: 0
+  assign trade_tier = customer.metafields.trade.discount_tier.value | default: customer.metafields.trade.discount_tier | default: ''
+
+  if trade_discount == 0
+    if trade_tier contains '35'
+      assign trade_discount = 35
+    elsif trade_tier contains '33'
+      assign trade_discount = 33
+    elsif trade_tier contains '30'
+      assign trade_discount = 30
+    endif
+  endif
+
+  if trade_discount > 0
+    assign trade_is_customer = true
+  endif
+
+  assign trade_spend = customer.metafields.trade.qualifying_spend_12_months.value | default: customer.metafields.trade.qualifying_spend_12_months | default: 0 | plus: 0
+  assign trade_spend_cents = trade_spend | times: 100
+  assign trade_next_threshold = customer.metafields.trade.next_threshold.value | default: customer.metafields.trade.next_threshold | default: 0 | plus: 0
+  assign trade_next_threshold_cents = trade_next_threshold | times: 100
+
+  if trade_next_threshold_cents == 0
+    if trade_spend_cents < 99900
+      assign trade_next_threshold_cents = 99900
+    elsif trade_spend_cents < 300000
+      assign trade_next_threshold_cents = 300000
+    elsif trade_spend_cents < 500000
+      assign trade_next_threshold_cents = 500000
+    elsif trade_spend_cents < 1000000
+      assign trade_next_threshold_cents = 1000000
+    endif
+  endif
+
+  assign trade_next_discount = 0
+  if trade_next_threshold_cents == 99900
+    assign trade_next_discount = 30
+  elsif trade_next_threshold_cents == 300000
+    assign trade_next_discount = 33
+  elsif trade_next_threshold_cents == 500000
+    assign trade_next_discount = 35
+  elsif trade_next_threshold_cents == 1000000
+    assign trade_next_discount = 35
+  endif
+
+  assign trade_remaining_cents = trade_next_threshold_cents | minus: trade_spend_cents
+  assign trade_progress = 100
+  if trade_next_threshold_cents > 0
+    assign trade_progress = trade_spend_cents | times: 100.0 | divided_by: trade_next_threshold_cents | at_most: 100
+  endif
+
+  assign trade_is_top_tier = false
+  if trade_next_threshold_cents == 0 or trade_spend_cents >= 1000000
+    assign trade_is_top_tier = true
+  endif
+
+  if customer.metafields.trade.bespoke_quote_available.value == true
+    assign trade_is_top_tier = true
+  endif
+
+  if trade_discount == 0 and trade_is_top_tier
+    assign trade_discount = 35
+  endif
+
+  assign monthly_spend = customer.metafields.trade.monthly_spend_json.value
+  assign monthly_max = 1
+
+  if monthly_spend != blank
+    for month_row in monthly_spend
+      assign month_amount = month_row.amount | default: 0 | plus: 0
+      if month_amount > monthly_max
+        assign monthly_max = month_amount
+      endif
+    endfor
+  endif
+-%}
+
+{%- if trade_is_customer -%}
+  <section class="ww-trade-account" aria-label="Trade account progress">
+    <div class="ww-trade-account__header">
+      <div>
+        <p class="ww-trade-account__eyebrow">Trade account</p>
+        <h2>Your trade discount</h2>
+      </div>
+      {%- if trade_discount > 0 -%}
+        <strong>{{ trade_discount }}%</strong>
+      {%- endif -%}
+    </div>
+
+    <div class="ww-trade-account__stats">
+      <div>
+        <span>Qualifying spend</span>
+        <strong>{{ trade_spend_cents | money }}</strong>
+      </div>
+      <div>
+        <span>Current tier</span>
+        <strong>{% if trade_discount > 0 %}{{ trade_discount }}%{% else %}Pending{% endif %}</strong>
+      </div>
+      <div>
+        <span>Next tier</span>
+        <strong>{% if trade_is_top_tier %}Bespoke quote{% elsif trade_next_discount > 0 %}{{ trade_next_discount }}%{% else %}Pending{% endif %}</strong>
+      </div>
+    </div>
+
+    {%- if trade_is_top_tier -%}
+      <div class="ww-trade-account__notice">
+        <p>You qualify for 35% trade pricing. For larger projects, contact the Trade team for a bespoke quote.</p>
+        <a href="/pages/contact-us">Contact Trade</a>
+      </div>
+    {%- elsif trade_next_threshold_cents > 0 -%}
+      <div class="ww-trade-account__progress" style="--ww-trade-progress: {{ trade_progress }}%;">
+        <div>
+          <span>{{ trade_spend_cents | money }}</span>
+          <span>{{ trade_next_threshold_cents | money }}</span>
+        </div>
+        <span class="ww-trade-account__progress-track"><span></span></span>
+        <p>
+          {%- if trade_remaining_cents > 0 -%}
+            Spend {{ trade_remaining_cents | money }} more on full-priced products to reach the next tier.
+          {%- else -%}
+            Your next tier will update after qualifying orders are processed.
+          {%- endif -%}
+        </p>
+      </div>
+    {%- endif -%}
+
+    {%- if monthly_spend != blank -%}
+      <div class="ww-trade-account__chart" aria-label="Last 12 months qualifying spend">
+        {%- for month_row in monthly_spend limit: 12 -%}
+          {%- liquid
+            assign month_amount = month_row.amount | default: 0 | plus: 0
+            assign month_height = month_amount | times: 100.0 | divided_by: monthly_max | at_least: 4
+            assign month_label = month_row.month | default: ''
+          -%}
+          <div class="ww-trade-account__bar" title="{{ month_label }}: {{ month_amount | times: 100 | money }}">
+            <span style="--ww-trade-bar: {{ month_height }}%;"></span>
+            <small>{{ month_label | split: '-' | last }}</small>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </section>
+{%- endif -%}

@@ -1,0 +1,134 @@
+{%- liquid
+  assign trade_is_customer = false
+  assign trade_tags = ''
+
+  if customer
+    assign trade_tags = customer.tags | join: ',' | downcase
+    if customer.metafields.trade.is_trade_customer.value == true or trade_tags contains 'trade'
+      assign trade_is_customer = true
+    endif
+  endif
+
+  assign trade_discount = customer.metafields.trade.discount_percentage.value | default: 0 | plus: 0
+  assign trade_tier = customer.metafields.trade.discount_tier.value | default: customer.metafields.trade.discount_tier | default: ''
+
+  if trade_discount == 0
+    if trade_tier contains '35'
+      assign trade_discount = 35
+    elsif trade_tier contains '33'
+      assign trade_discount = 33
+    elsif trade_tier contains '30'
+      assign trade_discount = 30
+    endif
+  endif
+
+  if trade_discount > 0
+    assign trade_is_customer = true
+  endif
+
+  assign trade_spend = customer.metafields.trade.qualifying_spend_12_months.value | default: customer.metafields.trade.qualifying_spend_12_months | default: 0 | plus: 0
+  assign trade_spend_cents = trade_spend | times: 100
+  assign trade_next_threshold = customer.metafields.trade.next_threshold.value | default: customer.metafields.trade.next_threshold | default: 0 | plus: 0
+  assign trade_next_threshold_cents = trade_next_threshold | times: 100
+
+  if trade_next_threshold_cents == 0
+    if trade_spend_cents < 99900
+      assign trade_next_threshold_cents = 99900
+    elsif trade_spend_cents < 300000
+      assign trade_next_threshold_cents = 300000
+    elsif trade_spend_cents < 500000
+      assign trade_next_threshold_cents = 500000
+    elsif trade_spend_cents < 1000000
+      assign trade_next_threshold_cents = 1000000
+    endif
+  endif
+
+  assign trade_cart_eligible_total = 0
+  if cart != blank
+    for item in cart.items
+      assign trade_line_excluded = false
+      assign trade_product_tags = item.product.tags | join: ',' | downcase
+
+      if item.variant.compare_at_price != blank and item.variant.compare_at_price > item.variant.price
+        assign trade_line_excluded = true
+      endif
+
+      if trade_product_tags contains 'trade-exclude' or trade_product_tags contains 'trade excluded' or trade_product_tags contains 'no-trade-discount'
+        assign trade_line_excluded = true
+      endif
+
+      unless trade_line_excluded
+        assign trade_cart_eligible_total = trade_cart_eligible_total | plus: item.original_line_price
+      endunless
+    endfor
+  endif
+
+  assign trade_projected_spend_cents = trade_spend_cents | plus: trade_cart_eligible_total
+  assign trade_remaining_cents = trade_next_threshold_cents | minus: trade_projected_spend_cents
+  assign trade_is_top_tier = false
+
+  if trade_next_threshold_cents == 0 or trade_projected_spend_cents >= 1000000
+    assign trade_is_top_tier = true
+  endif
+
+  assign trade_bespoke_quote_available = customer.metafields.trade.bespoke_quote_available.value | default: false
+  if trade_projected_spend_cents >= 1000000
+    assign trade_bespoke_quote_available = true
+  endif
+
+  assign trade_display_discount = trade_discount
+  if trade_display_discount == 0 and trade_bespoke_quote_available
+    assign trade_display_discount = 35
+  endif
+
+  assign trade_mode = mode | default: 'cart'
+-%}
+
+{%- if trade_is_customer -%}
+  {%- if trade_mode == 'product' -%}
+    {%- liquid
+      assign trade_product_excluded = false
+      assign trade_product_tags = product.tags | join: ',' | downcase
+
+      if product.selected_or_first_available_variant.compare_at_price != blank and product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price
+        assign trade_product_excluded = true
+      endif
+
+      if trade_product_tags contains 'trade-exclude' or trade_product_tags contains 'trade excluded' or trade_product_tags contains 'no-trade-discount'
+        assign trade_product_excluded = true
+      endif
+    -%}
+
+    <div class="ww-trade-message ww-trade-message--product" data-ww-trade-message="product">
+      {%- if trade_product_excluded -%}
+        <p class="ww-trade-message__title">Trade account</p>
+        <p>This item is already reduced, so trade discount is not applied.</p>
+      {%- elsif trade_bespoke_quote_available -%}
+        <p class="ww-trade-message__title">{{ trade_display_discount }}% trade pricing applies</p>
+        <p>For larger projects, contact the Trade team for a bespoke quote.</p>
+      {%- elsif trade_discount > 0 -%}
+        <p class="ww-trade-message__title">{{ trade_discount }}% trade pricing applies</p>
+        <p>Your trade discount is applied automatically to full-priced products.</p>
+      {%- else -%}
+        <p class="ww-trade-message__title">Trade account active</p>
+        <p>Full-priced products count toward your next trade discount tier.</p>
+      {%- endif -%}
+    </div>
+  {%- else -%}
+    <div class="ww-trade-message ww-trade-message--{{ trade_mode }}" data-ww-trade-message="{{ trade_mode }}" data-current-spend="{{ trade_spend_cents }}" data-cart-eligible-total="{{ trade_cart_eligible_total }}" data-next-threshold="{{ trade_next_threshold_cents }}">
+      {%- if trade_bespoke_quote_available -%}
+        <p class="ww-trade-message__title">35% trade pricing applies</p>
+        <p>Your account qualifies for bespoke project support. Contact the Trade team for a tailored quote.</p>
+      {%- elsif trade_next_threshold_cents > 0 and trade_remaining_cents > 0 -%}
+        <p class="ww-trade-message__title">Trade progress</p>
+        <p>Add <strong>{{ trade_remaining_cents | money }}</strong> in full-priced products to reach your next trade tier.</p>
+      {%- elsif trade_next_threshold_cents > 0 -%}
+        <p class="ww-trade-message__title">Next trade tier reached</p>
+        <p>Your latest basket takes you to the next tier. Your account tier will update after qualifying orders are processed.</p>
+      {%- else -%}
+        <p class="ww-trade-message__title">Trade account active</p>
+        <p>Your trade discount applies automatically to eligible full-priced products.</p>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+{%- endif -%}
