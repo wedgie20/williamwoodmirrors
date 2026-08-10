@@ -9970,7 +9970,7 @@ input:checked + .popover__choice-label::after,
 
 .header__inline-navigation,
 .header__secondary-links {
-  flex: 1 1 0; /* Allows to give the same width to left and right part */
+  flex: 1 1 0 !important; 
 }
 
 .header__icon-wrapper {
