@@ -261,7 +261,7 @@
                 aria-expanded="false"
               >
                 <span class="visually-hidden">{{ 'header.general.navigation' | t }}</span>
-                {%- render 'icon' with 'header-hamburger', class: 'burger' -%}
+                {% comment %} {%- render 'icon' with 'header-hamburger', class: 'burger' -%} {% endcomment %}
                 {%- render 'icon' with 'close', class: 'close' -%}
               </button>
             {%- endif -%}
