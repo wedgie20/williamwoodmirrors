@@ -91,12 +91,12 @@
     }
 
     #shopify-section-{{ section.id }} .header__wrapper > .header__logo:not(.desktop-only) {
-      {% comment %} margin-left: 42px; {% endcomment %}
+      margin-left: 42px;
       margin-right: auto;
     }
 
     #shopify-section-{{ section.id }} .desktop-search {
-      left: 50%;
+      {% comment %} left: 50%; {% endcomment %}
       top: 50%;
       margin-left: 0 !important;
       transform: translate(-50%, -50%);
