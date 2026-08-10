@@ -9968,10 +9968,14 @@ input:checked + .popover__choice-label::after,
   align-items: center;
 }
 
+@media screen and (min-width: 741px) {
 .header__inline-navigation,
 .header__secondary-links {
   flex: 1 1 0 !important; 
 }
+}
+
+
 
 .header__icon-wrapper {
   display: block;
