@@ -82,24 +82,35 @@
   endif
 
   assign trade_mode = mode | default: 'cart'
+
+  if trade_mode == 'product'
+    assign trade_product_excluded = false
+    assign trade_product_tags = product.tags | join: ',' | downcase
+
+    if product.selected_or_first_available_variant.compare_at_price != blank and product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price
+      assign trade_product_excluded = true
+    endif
+
+    if trade_product_tags contains 'trade-exclude' or trade_product_tags contains 'trade excluded' or trade_product_tags contains 'no-trade-discount'
+      assign trade_product_excluded = true
+    endif
+
+    if product.metafields.trade.exclude_from_discount.value == true
+      assign trade_product_excluded = true
+    endif
+  endif
 -%}
 
-{%- if trade_is_customer -%}
-  {%- if trade_mode == 'product' -%}
-    {%- liquid
-      assign trade_product_excluded = false
-      assign trade_product_tags = product.tags | join: ',' | downcase
-
-      if product.selected_or_first_available_variant.compare_at_price != blank and product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price
-        assign trade_product_excluded = true
-      endif
-
-      if trade_product_tags contains 'trade-exclude' or trade_product_tags contains 'trade excluded' or trade_product_tags contains 'no-trade-discount'
-        assign trade_product_excluded = true
-      endif
-    -%}
-
-    <div class="ww-trade-message ww-trade-message--product" data-ww-trade-message="product">
+{%- if trade_mode == 'product' -%}
+  <div
+    class="ww-trade-message ww-trade-message--product"
+    data-ww-trade-message="product"
+    data-ww-trade-proxy-target
+    data-ww-trade-mode="product"
+    data-product-excluded="{{ trade_product_excluded }}"
+    {% unless trade_is_customer %}hidden{% endunless %}
+  >
+    {%- if trade_is_customer -%}
       {%- if trade_product_excluded -%}
         <p class="ww-trade-message__title">Trade account</p>
         <p>This item is already reduced, so trade discount is not applied.</p>
@@ -113,9 +124,20 @@
         <p class="ww-trade-message__title">Trade account active</p>
         <p>Full-priced products count toward your next trade discount tier.</p>
       {%- endif -%}
-    </div>
-  {%- else -%}
-    <div class="ww-trade-message ww-trade-message--{{ trade_mode }}" data-ww-trade-message="{{ trade_mode }}" data-current-spend="{{ trade_spend_cents }}" data-cart-eligible-total="{{ trade_cart_eligible_total }}" data-next-threshold="{{ trade_next_threshold_cents }}">
+    {%- endif -%}
+  </div>
+{%- else -%}
+  <div
+    class="ww-trade-message ww-trade-message--{{ trade_mode }}"
+    data-ww-trade-message="{{ trade_mode }}"
+    data-ww-trade-proxy-target
+    data-ww-trade-mode="{{ trade_mode }}"
+    data-current-spend="{{ trade_spend_cents }}"
+    data-cart-eligible-total="{{ trade_cart_eligible_total }}"
+    data-next-threshold="{{ trade_next_threshold_cents }}"
+    {% unless trade_is_customer %}hidden{% endunless %}
+  >
+    {%- if trade_is_customer -%}
       {%- if trade_bespoke_quote_available -%}
         <p class="ww-trade-message__title">35% trade pricing applies</p>
         <p>Your account qualifies for bespoke project support. Contact the Trade team for a tailored quote.</p>
@@ -129,6 +151,6 @@
         <p class="ww-trade-message__title">Trade account active</p>
         <p>Your trade discount applies automatically to eligible full-priced products.</p>
       {%- endif -%}
-    </div>
-  {%- endif -%}
+    {%- endif -%}
+  </div>
 {%- endif -%}

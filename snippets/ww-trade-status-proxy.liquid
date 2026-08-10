@@ -1,0 +1,104 @@
+<script>
+  window.WWTradeStatusProxy = window.WWTradeStatusProxy || (function () {
+    var statusPromise = null;
+
+    function formatMoneyFromCents(cents) {
+      var amount = (Number(cents) || 0) / 100;
+
+      try {
+        return new Intl.NumberFormat('en-GB', {
+          style: 'currency',
+          currency: (window.Shopify && Shopify.currency && Shopify.currency.active) || 'GBP'
+        }).format(amount);
+      } catch (error) {
+        return 'GBP ' + amount.toFixed(2);
+      }
+    }
+
+    function getStatus() {
+      if (!statusPromise) {
+        statusPromise = fetch('/apps/trade/status', {
+          credentials: 'same-origin',
+          headers: { Accept: 'application/json' }
+        })
+          .then(function (response) {
+            if (!response.ok) throw new Error('Trade status unavailable');
+            return response.json();
+          })
+          .catch(function () {
+            return { is_trade_customer: false };
+          });
+      }
+
+      return statusPromise;
+    }
+
+    function renderProduct(target, status) {
+      var discount = Number(status.current_discount || 0);
+      var isExcluded = target.getAttribute('data-product-excluded') === 'true';
+
+      if (isExcluded) {
+        target.innerHTML = '<p class="ww-trade-message__title">Trade account</p><p>This item is already reduced, so trade discount is not applied.</p>';
+      } else if (status.bespoke_quote_available) {
+        target.innerHTML = '<p class="ww-trade-message__title">' + (discount || 35) + '% trade pricing applies</p><p>For larger projects, contact the Trade team for a bespoke quote.</p>';
+      } else if (discount > 0) {
+        target.innerHTML = '<p class="ww-trade-message__title">' + discount + '% trade pricing applies</p><p>Your trade discount is applied automatically to full-priced products.</p>';
+      } else {
+        target.innerHTML = '<p class="ww-trade-message__title">Trade account active</p><p>Full-priced products count toward your next trade discount tier.</p>';
+      }
+    }
+
+    function renderCart(target, status) {
+      var cartEligibleCents = Number(target.getAttribute('data-cart-eligible-total') || 0);
+      var spendCents = Math.round(Number(status.qualifying_spend_12_months || 0) * 100);
+      var nextThresholdCents = Math.round(Number(status.next_threshold || 0) * 100);
+      var projectedSpendCents = spendCents + cartEligibleCents;
+      var remainingCents = nextThresholdCents - projectedSpendCents;
+
+      if (status.bespoke_quote_available || status.top_tier) {
+        target.innerHTML = '<p class="ww-trade-message__title">35% trade pricing applies</p><p>Your account qualifies for bespoke project support. Contact the Trade team for a tailored quote.</p>';
+      } else if (nextThresholdCents > 0 && remainingCents > 0) {
+        target.innerHTML = '<p class="ww-trade-message__title">Trade progress</p><p>Add <strong>' + formatMoneyFromCents(remainingCents) + '</strong> in full-priced products to reach your next trade tier.</p>';
+      } else if (nextThresholdCents > 0) {
+        target.innerHTML = '<p class="ww-trade-message__title">Next trade tier reached</p><p>Your latest basket takes you to the next tier. Your account tier will update after qualifying orders are processed.</p>';
+      } else {
+        target.innerHTML = '<p class="ww-trade-message__title">Trade account active</p><p>Your trade discount applies automatically to eligible full-priced products.</p>';
+      }
+    }
+
+    function renderTargets(status) {
+      var targets = document.querySelectorAll('[data-ww-trade-proxy-target]');
+      if (!targets.length) return;
+
+      targets.forEach(function (target) {
+        if (!status || !status.is_trade_customer) {
+          target.hidden = true;
+          return;
+        }
+
+        if (target.innerHTML.trim() !== '' && !target.hidden) return;
+
+        if (target.getAttribute('data-ww-trade-mode') === 'product') {
+          renderProduct(target, status);
+        } else {
+          renderCart(target, status);
+        }
+
+        target.hidden = false;
+      });
+    }
+
+    function refresh() {
+      return getStatus().then(renderTargets);
+    }
+
+    document.addEventListener('DOMContentLoaded', refresh);
+    document.addEventListener('shopify:section:load', refresh);
+    document.documentElement.addEventListener('cart:updated', refresh);
+    document.documentElement.addEventListener('cart:refresh', function () {
+      setTimeout(refresh, 250);
+    });
+
+    return { refresh: refresh };
+  })();
+</script>
