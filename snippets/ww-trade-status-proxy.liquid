@@ -1,6 +1,8 @@
 <script>
   window.WWTradeStatusProxy = window.WWTradeStatusProxy || (function () {
     var statusPromise = null;
+    var cartRefreshInFlight = false;
+    var cartRefreshAttempts = {};
 
     function formatMoneyFromCents(cents) {
       var amount = (Number(cents) || 0) / 100;
@@ -135,12 +137,107 @@
       });
     }
 
+    function cartHasTradeDiscount(cart) {
+      if (!cart) return false;
+
+      var cartLevel = cart.cart_level_discount_applications || [];
+      if (cartLevel.some(function (discount) {
+        return String(discount.title || '').toLowerCase().indexOf('trade discount') !== -1;
+      })) {
+        return true;
+      }
+
+      return (cart.items || []).some(function (item) {
+        var lineAllocations = item.line_level_discount_allocations || [];
+        var discounts = item.discounts || [];
+
+        return lineAllocations.some(function (allocation) {
+          var title = allocation.discount_application && allocation.discount_application.title;
+          return String(title || allocation.title || '').toLowerCase().indexOf('trade discount') !== -1;
+        }) || discounts.some(function (discount) {
+          return String(discount.title || '').toLowerCase().indexOf('trade discount') !== -1;
+        });
+      });
+    }
+
+    function refreshCartForDiscountMismatch(status) {
+      var discount = Number(status && status.current_discount || 0);
+
+      if (!status || !status.is_trade_customer || cartRefreshInFlight) return Promise.resolve();
+
+      return fetch('/cart.js?_=' + Date.now(), {
+        credentials: 'same-origin',
+        cache: 'no-store',
+        headers: { Accept: 'application/json' }
+      })
+        .then(function (response) {
+          if (!response.ok) throw new Error('Cart unavailable');
+          return response.json();
+        })
+        .then(function (cart) {
+          if (!cart || !cart.item_count || !(cart.items || []).length) return;
+
+          var hasTradeDiscount = cartHasTradeDiscount(cart);
+          var shouldHaveTradeDiscount = discount > 0;
+
+          if (hasTradeDiscount === shouldHaveTradeDiscount) return;
+
+          var firstItem = cart.items[0];
+          var signature = [
+            cart.token || '',
+            firstItem && firstItem.key,
+            firstItem && firstItem.quantity,
+            discount,
+            hasTradeDiscount ? 'has' : 'missing'
+          ].join('|');
+
+          if (cartRefreshAttempts[signature]) return;
+          cartRefreshAttempts[signature] = true;
+          cartRefreshInFlight = true;
+
+          return fetch('/cart/change.js', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json'
+            },
+            body: JSON.stringify({
+              id: firstItem.key,
+              quantity: firstItem.quantity,
+              sections: ['mini-cart']
+            })
+          })
+            .then(function (response) {
+              if (!response.ok) throw new Error('Cart refresh failed');
+              return response.json();
+            })
+            .then(function (cartContent) {
+              document.documentElement.dispatchEvent(new CustomEvent('cart:updated', {
+                bubbles: true,
+                detail: { cart: cartContent }
+              }));
+              document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+                bubbles: true,
+                detail: { cart: cartContent }
+              }));
+            })
+            .finally(function () {
+              cartRefreshInFlight = false;
+            });
+        })
+        .catch(function () {
+          cartRefreshInFlight = false;
+        });
+    }
+
     function refresh() {
       resetStatus();
       return getStatus().then(function (status) {
         setTradeState(status);
         renderTargets(status);
         renderTradePrices(status);
+        refreshCartForDiscountMismatch(status);
         return status;
       });
     }
