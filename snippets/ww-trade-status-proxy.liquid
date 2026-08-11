@@ -38,6 +38,28 @@
       statusPromise = null;
     }
 
+    function setTradeState(status) {
+      var discount = Number(status && status.current_discount || 0);
+
+      window.WWTradeStatus = status || { is_trade_customer: false, current_discount: 0 };
+      document.documentElement.dataset.wwTradeCustomer = status && status.is_trade_customer ? 'true' : 'false';
+      document.documentElement.dataset.wwTradeDiscount = String(discount);
+    }
+
+    function priceGroupHtml(priceCents, compareAtCents) {
+      if (compareAtCents > priceCents) {
+        return '<span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>' + formatMoneyFromCents(compareAtCents) + '</span><span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>' + formatMoneyFromCents(priceCents) + '</span>';
+      }
+
+      return '<span class="ww-pdp__price" data-ww-pdp-current-price>' + formatMoneyFromCents(priceCents) + '</span>';
+    }
+
+    function resetTradePrice(group, priceCents, compareAtCents) {
+      group.classList.remove('has-trade-price');
+      group.classList.toggle('is-discounted', compareAtCents > priceCents);
+      group.innerHTML = priceGroupHtml(priceCents, compareAtCents);
+    }
+
     function renderTradePrices(status) {
       var discount = Number(status && status.current_discount || 0);
       var groups = document.querySelectorAll('[data-ww-trade-price-group]');
@@ -48,6 +70,7 @@
         var isExcluded = group.getAttribute('data-product-excluded') === 'true' || (compareAtCents > priceCents);
 
         if (!status || !status.is_trade_customer || !(discount > 0) || !priceCents || isExcluded) {
+          resetTradePrice(group, priceCents, compareAtCents);
           return;
         }
 
@@ -115,8 +138,10 @@
     function refresh() {
       resetStatus();
       return getStatus().then(function (status) {
+        setTradeState(status);
         renderTargets(status);
         renderTradePrices(status);
+        return status;
       });
     }
 

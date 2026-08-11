@@ -12,16 +12,6 @@
   assign trade_discount = customer.metafields.trade.discount_percentage.value | default: 0 | plus: 0
   assign trade_tier = customer.metafields.trade.discount_tier.value | default: customer.metafields.trade.discount_tier | default: ''
 
-  if trade_discount == 0
-    if trade_tier contains '35'
-      assign trade_discount = 35
-    elsif trade_tier contains '33'
-      assign trade_discount = 33
-    elsif trade_tier contains '30'
-      assign trade_discount = 30
-    endif
-  endif
-
   if trade_discount > 0
     assign trade_is_customer = true
   endif
@@ -69,7 +59,7 @@
     assign trade_is_top_tier = true
   endif
 
-  if trade_discount == 0 and trade_is_top_tier
+  if trade_discount == 0 and trade_is_top_tier and trade_tier != 'not_qualified'
     assign trade_discount = 35
   endif
 
