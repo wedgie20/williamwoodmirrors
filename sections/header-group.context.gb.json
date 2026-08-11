@@ -105,25 +105,54 @@
         "menu_normal_text": "",
         "highlighted_menu_background_image": "shopify://shop_images/Banner_3_2.jpg",
         "transparent_logo": "shopify://shop_images/LC_est._WW_Logo_White.png",
+        "enable_pill_navigation": true,
         "mobile_menu_custom_image": "shopify://shop_images/Liberty_1080_1.jpg",
         "mobile_menu_custom_image_title": "Shop Full Length Mirrors",
-        "mobile_menu_custom_image_url": "https://www.williamwoodmirrors.co.uk/collections/full-length-mirrors-menu",
-        "enable_pill_navigation": true,
-        "pill_nav_bg": "rgba(0,0,0,0)"
+        "mobile_menu_custom_image_url": "https://www.williamwoodmirrors.co.uk/collections/full-length-mirrors-menu"
       },
       "blocks": {
         "pill_RqKxh": {
           "type": "pill",
           "disabled": false,
           "settings": {
-            "label": "New pill",
+            "label": "Mirrors",
             "link": "",
-            "force_active": true
+            "force_active": false
+          }
+        },
+        "pill_bEAcy": {
+          "type": "pill",
+          "disabled": false,
+          "settings": {
+            "label": "Chairs",
+            "link": "",
+            "force_active": false
+          }
+        },
+        "pill_Px4JB": {
+          "type": "pill",
+          "disabled": false,
+          "settings": {
+            "label": "Pillows",
+            "link": "",
+            "force_active": false
+          }
+        },
+        "pill_8xM6h": {
+          "type": "pill",
+          "disabled": false,
+          "settings": {
+            "label": "Summer Sale",
+            "link": "",
+            "force_active": false
           }
         }
       },
       "block_order": [
         "pill_RqKxh",
+        "pill_bEAcy",
+        "pill_Px4JB",
+        "pill_8xM6h",
         "f4e103a1-b331-47ab-a63d-abe4200831e1",
         "7a096969-06f3-4ae4-bcb6-03836dedbeb8"
       ]
