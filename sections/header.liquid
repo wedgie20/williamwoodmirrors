@@ -717,7 +717,7 @@
     {%- endcomment -%}
     {%- assign pill_blocks = section.blocks | where: 'type', 'pill' -%}
     {%- if section.settings.enable_pill_navigation and pill_blocks.size > 0 -%}
-      <div class="pill-nav-scroll" style="--pill-nav-bg: {{ section.settings.pill_nav_bg }};">
+      <div class="pill-nav-scroll">
         {%- for block in pill_blocks -%}
           {%- liquid
             assign pill_url = block.settings.link
