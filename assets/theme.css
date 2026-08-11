@@ -16273,5 +16273,40 @@ trust-badges {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.header__pill-nav.pill-nav-scroll {
+  padding: 4px 2px !important;
+}
+
+.header__pill-nav .pill-nav-item {
+  padding: .42rem .85rem !important;
+  border: 1px solid rgb(var(--pill-color, 26, 26, 26)) !important;
+  border-radius: 999px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: rgb(var(--pill-color, 26, 26, 26)) !important;
+}
+
+.header__pill-nav .pill-nav-item:hover,
+.header__pill-nav .pill-nav-item.is-active {
+  background-color: rgb(var(--pill-color, 26, 26, 26)) !important;
+  color: rgb(var(--pill-color-contrast, 255, 255, 255)) !important;
+}
+
+.header__pill-nav .pill-nav-item.is-active {
+  padding: .42rem 6.72px .85rem !important;
+}
+
+@media screen and (max-width: 740px) {
+  .header__pill-nav.pill-nav-scroll {
+    padding: 20px 0 !important;
+  }
+
+  .header__pill-nav .pill-nav-item,
+  .header__pill-nav .pill-nav-item.is-active {
+    padding: .34rem .75rem !important;
+    font-size: 12px !important;
+  }
+}
+
 
 
