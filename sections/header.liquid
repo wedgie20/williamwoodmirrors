@@ -732,7 +732,7 @@
             href="{{ pill_url | default: '#' }}"
             class="pill-nav-item{% if block.settings.force_active or is_active %} is-active{% endif %}"
             {{ block.shopify_attributes }}
-          >
+          <a>
             {{ block.settings.label | escape }}
           </a>
         {%- endfor -%}
