@@ -1,14 +1,14 @@
-.section-pill-navigation .pill-nav-section {
+.pill-nav-section {
   background: var(--pill-nav-bg, #ffffff);
   padding-top: var(--pill-nav-padding-top, 24px);
   padding-bottom: var(--pill-nav-padding-bottom, 24px);
 }
 
-.section-pill-navigation .pill-nav-wrapper {
+.pill-nav-wrapper {
   width: 100%;
 }
 
-.section-pill-navigation .pill-nav-scroll {
+.pill-nav-scroll {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -21,11 +21,11 @@
   padding: 4px 2px; /* room so focus rings aren't clipped */
 }
 
-.section-pill-navigation .pill-nav-scroll::-webkit-scrollbar {
+.pill-nav-scroll::-webkit-scrollbar {
   display: none; /* Chrome/Safari */
 }
 
-.section-pill-navigation .pill-nav-item {
+.pill-nav-item {
     flex: 0 0 auto;
     scroll-snap-align: start;
     display: inline-flex;
@@ -44,24 +44,24 @@
     transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
   }
 
-  .section-pill-navigation .pill-nav-item:hover,
-  .section-pill-navigation .pill-nav-item.is-active {
+  .pill-nav-item:hover,
+  .pill-nav-item.is-active {
     background-color: rgb(var(--pill-color, 26, 26, 26));
     color: rgb(var(--pill-color-contrast, 255, 255, 255));
   }
 
 
 @media screen and (max-width: 749px) {
-  .section-pill-navigation .pill-nav-item {
+  .pill-nav-item {
     padding: .34rem .75rem;
     font-size: 12px;
   } 
 
-  .section-pill-navigation .pill-nav-scroll {
+  .pill-nav-scroll {
       padding: 20px 0px !important;
     }
 
-  .section-pill-navigation .pill-nav-item.is-active {
+  .pill-nav-item.is-active {
     padding: .34rem .75rem;
   }
 }
