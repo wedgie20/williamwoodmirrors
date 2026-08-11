@@ -17,8 +17,9 @@
 
     function getStatus() {
       if (!statusPromise) {
-        statusPromise = fetch('/apps/trade/status', {
+        statusPromise = fetch('/apps/trade/status?_=' + Date.now(), {
           credentials: 'same-origin',
+          cache: 'no-store',
           headers: { Accept: 'application/json' }
         })
           .then(function (response) {
@@ -31,6 +32,29 @@
       }
 
       return statusPromise;
+    }
+
+    function resetStatus() {
+      statusPromise = null;
+    }
+
+    function renderTradePrices(status) {
+      var discount = Number(status && status.current_discount || 0);
+      var groups = document.querySelectorAll('[data-ww-trade-price-group]');
+
+      groups.forEach(function (group) {
+        var priceCents = Number(group.getAttribute('data-current-price-cents') || 0);
+        var compareAtCents = Number(group.getAttribute('data-compare-at-price-cents') || 0);
+        var isExcluded = group.getAttribute('data-product-excluded') === 'true' || (compareAtCents > priceCents);
+
+        if (!status || !status.is_trade_customer || !(discount > 0) || !priceCents || isExcluded) {
+          return;
+        }
+
+        var tradePriceCents = Math.round(priceCents * (100 - discount) / 100);
+        group.classList.add('is-discounted', 'has-trade-price');
+        group.innerHTML = '<span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>' + formatMoneyFromCents(priceCents) + '</span><span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>' + formatMoneyFromCents(tradePriceCents) + '</span><span class="ww-pdp__trade-price-note">Trade price</span>';
+      });
     }
 
     function renderProduct(target, status) {
@@ -89,7 +113,11 @@
     }
 
     function refresh() {
-      return getStatus().then(renderTargets);
+      resetStatus();
+      return getStatus().then(function (status) {
+        renderTargets(status);
+        renderTradePrices(status);
+      });
     }
 
     document.addEventListener('DOMContentLoaded', refresh);

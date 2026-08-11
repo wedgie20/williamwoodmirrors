@@ -496,7 +496,14 @@
       </h1>
 
       <div class="ww-pdp__price-row">
-        <span class="ww-pdp__price-group {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
+        <span
+          class="ww-pdp__price-group {% if has_variant_discount %}is-discounted{% endif %}"
+          data-ww-pdp-price-group
+          data-ww-trade-price-group
+          data-current-price-cents="{{ current_variant.price }}"
+          data-compare-at-price-cents="{{ current_variant.compare_at_price | default: 0 }}"
+          data-product-excluded="{% if has_variant_discount %}true{% else %}false{% endif %}"
+        >
           {%- if has_variant_discount -%}
             <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.compare_at_price | money }}</span>
             <span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
@@ -1233,6 +1240,14 @@
 
   .ww-pdp__price--sale {
     color: #780606;
+  }
+
+  .ww-pdp__trade-price-note {
+    font-size: 11px;
+    line-height: 1;
+    font-weight: 500;
+    color: #565656;
+    white-space: nowrap;
   }
 
   .ww-pdp__pill {
@@ -3567,6 +3582,10 @@
       var compareText = compareAt > price ? formatInstallmentMoney(compareAt) : '';
 
       if (priceGroup && price) {
+        priceGroup.dataset.currentPriceCents = String(price);
+        priceGroup.dataset.compareAtPriceCents = String(compareAt || 0);
+        priceGroup.dataset.productExcluded = compareAt > price ? 'true' : 'false';
+
         if (compareAt > price) {
           priceGroup.classList.add('is-discounted');
           priceGroup.innerHTML = '<span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>' + formatInstallmentMoney(compareAt) + '</span><span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>' + priceText + '</span>';
@@ -3574,6 +3593,10 @@
           priceGroup.classList.remove('is-discounted');
           priceGroup.innerHTML = '<span class="ww-pdp__price" data-ww-pdp-current-price>' + priceText + '</span>';
         }
+      }
+
+      if (window.WWTradeStatusProxy && typeof window.WWTradeStatusProxy.refresh === 'function') {
+        window.WWTradeStatusProxy.refresh();
       }
 
       updateStickyPrice(priceText, compareText);
