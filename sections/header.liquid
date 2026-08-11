@@ -789,42 +789,6 @@
 
 {%- comment -%}
   ------------------------------------------------------------------------------------
-  PILL NAVIGATION: scrollable row of category pills below the header
-  ------------------------------------------------------------------------------------
-{%- endcomment -%}
-
-{%- assign pill_blocks = section.blocks | where: 'type', 'pill' -%}
-
-{%- if section.settings.enable_pill_navigation and pill_blocks.size > 0 -%}
-  <div
-    class="pill-nav-section"
-    style="--pill-nav-bg: {{ section.settings.pill_nav_bg }};"
-  >
-    <div class="container">
-      <div class="pill-nav-scroll">
-        {%- for block in pill_blocks -%}
-          {%- liquid
-            assign pill_url = block.settings.link
-            assign is_active = false
-            if pill_url != blank and pill_url == request.path
-              assign is_active = true
-            endif
-          -%}
-          <a
-            href="{{ pill_url | default: '#' }}"
-            class="pill-nav-item{% if block.settings.force_active or is_active %} is-active{% endif %}"
-            {{ block.shopify_attributes }}
-          >
-            {{ block.settings.label | escape }}
-          </a>
-        {%- endfor -%}
-      </div>
-    </div>
-  </div>
-{%- endif -%}
-
-{%- comment -%}
-  ------------------------------------------------------------------------------------
     CART NOTIFICATION: it is used to show the notification when a product is added in message mode
   ------------------------------------------------------------------------------------
 {%- endcomment -%}
