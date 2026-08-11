@@ -1018,6 +1018,69 @@ display: none !important;
     height: 10px;
 }
 
+.pill-nav-scroll {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 12px 2px;
+    background: var(--pill-nav-bg, transparent);
+  }
+
+  .pill-nav-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pill-nav-item {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    padding: 12px 24px;
+    border: 1px solid #1a1a1a;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    text-decoration: none;
+    background: transparent;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  .pill-nav-item:hover {
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+
+  .pill-nav-item.is-active {
+    border-width: 2px;
+    padding: 11px 23px;
+  }
+
+  @media screen and (max-width: 740px) {
+    .pill-nav-scroll {
+      padding: 10px 2px;
+    }
+
+    .pill-nav-item {
+      padding: 10px 18px;
+      font-size: 12px;
+    }
+
+    .pill-nav-item.is-active {
+      padding: 9px 17px;
+    }
+  }
+</style>
+
 
   </style>
 
