@@ -218,6 +218,74 @@
       left: -10px;
     }
   }
+
+  .pill-nav-section {
+    background: var(--pill-nav-bg, #ffffff);
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+
+  .pill-nav-scroll {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 4px 2px;
+  }
+
+  .pill-nav-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pill-nav-item {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    padding: 12px 24px;
+    border: 1px solid #1a1a1a;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    text-decoration: none;
+    background: transparent;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  .pill-nav-item:hover {
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+
+  .pill-nav-item.is-active {
+    border-width: 2px;
+    padding: 11px 23px;
+  }
+
+  @media screen and (max-width: 740px) {
+    .pill-nav-section {
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+
+    .pill-nav-item {
+      padding: 10px 18px;
+      font-size: 12px;
+    }
+
+    .pill-nav-item.is-active {
+      padding: 9px 17px;
+    }
+  }
 </style>
 
 <store-header
@@ -700,6 +768,42 @@
 
 {%- comment -%}
   ------------------------------------------------------------------------------------
+  PILL NAVIGATION: scrollable row of category pills below the header
+  ------------------------------------------------------------------------------------
+{%- endcomment -%}
+
+{%- assign pill_blocks = section.blocks | where: 'type', 'pill' -%}
+
+{%- if section.settings.enable_pill_navigation and pill_blocks.size > 0 -%}
+  <div
+    class="pill-nav-section"
+    style="--pill-nav-bg: {{ section.settings.pill_nav_bg }};"
+  >
+    <div class="container">
+      <div class="pill-nav-scroll">
+        {%- for block in pill_blocks -%}
+          {%- liquid
+            assign pill_url = block.settings.link
+            assign is_active = false
+            if pill_url != blank and pill_url == request.path
+              assign is_active = true
+            endif
+          -%}
+          <a
+            href="{{ pill_url | default: '#' }}"
+            class="pill-nav-item{% if block.settings.force_active or is_active %} is-active{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.label | escape }}
+          </a>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{%- comment -%}
+  ------------------------------------------------------------------------------------
     CART NOTIFICATION: it is used to show the notification when a product is added in message mode
   ------------------------------------------------------------------------------------
 {%- endcomment -%}
@@ -1054,7 +1158,7 @@ display: none !important;
     {
       "type": "url",
       "id": "highlighted_menu_item",
-      "label": "Menu item link",
+      "label": "Menu item link"
     },
     {
       "type": "text",
@@ -1115,7 +1219,7 @@ display: none !important;
     {
       "type": "url",
       "id": "second_highlighted_menu_item",
-      "label": "Menu item link",
+      "label": "Menu item link"
     },
     {
       "type": "text",
@@ -1226,6 +1330,23 @@ display: none !important;
     },
     {
       "type": "header",
+      "content": "Pill navigation"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_pill_navigation",
+      "label": "Show pill navigation row",
+      "info": "Add 'Pill' blocks below to populate it.",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "pill_nav_bg",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
       "content": "Mobile Menu Custom Image"
     },
     {
@@ -1253,6 +1374,30 @@ display: none !important;
     }
   ],
   "blocks": [
+    {
+      "type": "pill",
+      "name": "Pill",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Text",
+          "default": "New pill"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "force_active",
+          "label": "Show as active",
+          "default": false,
+          "info": "Manually highlight this pill regardless of the current page."
+        }
+      ]
+    },
     {
       "type": "mega_menu",
       "name": "Mega menu",
