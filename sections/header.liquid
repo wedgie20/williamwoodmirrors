@@ -19,6 +19,8 @@
     --header-text-color: {{ settings.header_text_color.red }}, {{ settings.header_text_color.green }}, {{ settings.header_text_color.blue }};
     --header-border-color: {{ header_border_color.red }}, {{ header_border_color.green }}, {{ header_border_color.blue }};
     --reduce-header-padding: {% if section.settings.reduce_desktop_padding %}1{% else %}0{% endif %};
+    --pill-color: {{ section.settings.pill_color.red }}, {{ section.settings.pill_color.green }}, {{ section.settings.pill_color.blue }};
+    --pill-color-contrast: {{ section.settings.pill_color_transparent.red }}, {{ section.settings.pill_color_transparent.green }}, {{ section.settings.pill_color_transparent.blue }};
 
     {%- if section.settings.enable_sticky_header -%}
       position: -webkit-sticky;
