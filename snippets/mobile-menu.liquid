@@ -435,6 +435,32 @@
 </mobile-navigation>
 
 <style>
+#mobile-menu-drawer {
+  --background: 255, 255, 255;
+  --root-background: 255, 255, 255;
+  background: #ffffff !important;
+  border-right: 0 !important;
+  scrollbar-color: #8f8f8f #ffffff;
+}
+
+#mobile-menu-drawer .drawer__content {
+  background: #ffffff !important;
+  border-right: 0 !important;
+  scrollbar-color: #8f8f8f #ffffff;
+}
+
+#mobile-menu-drawer .drawer__content::-webkit-scrollbar-track {
+  background: #ffffff !important;
+}
+
+#mobile-menu-drawer .drawer__content::-webkit-scrollbar-corner {
+  background: #ffffff !important;
+}
+
+#mobile-menu-drawer .drawer__overlay {
+  background: transparent !important;
+}
+
   button.mobile-nav__link.heading.p {
     {% comment %} font-weight: 700; {% endcomment %}
 }
@@ -469,7 +495,7 @@ a.have-two-parts.mobile-nav__link .title-part-2 {
   max-width: 80%;
 }
 
-.drawer__content {
+#mobile-menu-drawer .drawer__content {
   padding: 10px;
 }
 

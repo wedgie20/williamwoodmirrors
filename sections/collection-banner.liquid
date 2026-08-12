@@ -1,4 +1,16 @@
 <style>
+  #shopify-section-{{ section.id }},
+  #shopify-section-{{ section.id }} > section,
+  #shopify-section-{{ section.id }} .container,
+  #shopify-section-{{ section.id }} .page-header,
+  #shopify-section-{{ section.id }} .page-header__text-wrapper {
+    background: #ffffff;
+  }
+
+  #shopify-section-{{ section.id }} .page-header {
+    display: flow-root;
+  }
+
   #shopify-section-{{ section.id }} .image-overlay {
     --heading-color: {{ section.settings.image_text_color.red }}, {{ section.settings.image_text_color.green }}, {{ section.settings.image_text_color.blue }};
     --text-color: {{ section.settings.image_text_color.red }}, {{ section.settings.image_text_color.green }}, {{ section.settings.image_text_color.blue }};

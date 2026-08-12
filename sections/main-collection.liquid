@@ -10,6 +10,33 @@
 {%- endfor -%}
 
 <style>
+  #shopify-section-{{ section.id }},
+  #shopify-section-{{ section.id }} > section,
+  #shopify-section-{{ section.id }} .product-facet,
+  #shopify-section-{{ section.id }} .product-facet__aside,
+  #shopify-section-{{ section.id }} .product-facet__main,
+  #shopify-section-{{ section.id }} .product-facet__meta-bar,
+  #shopify-section-{{ section.id }} .product-facet__product-list,
+  #shopify-section-{{ section.id }} .product-list__inner {
+    background: #ffffff;
+  }
+
+  #shopify-section-{{ section.id }} > section,
+  #shopify-section-{{ section.id }} > section > .container {
+    display: flow-root;
+  }
+
+  #shopify-section-{{ section.id }} .product-facet {
+    margin-top: 0;
+    padding-top: 24px;
+  }
+
+  @media screen and (min-width: 741px) {
+    #shopify-section-{{ section.id }} .product-facet {
+      padding-top: 40px;
+    }
+  }
+
   #shopify-section-{{ section.id }} {
     --section-products-per-row: {{ section.settings.mobile_products_per_row | times: 1 }};
   }
