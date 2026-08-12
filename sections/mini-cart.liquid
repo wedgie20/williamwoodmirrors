@@ -19,6 +19,7 @@
 {%- liquid
   assign free_gift_display_saving = 0
   assign free_gift_display_saving_claimed = false
+  assign free_gift_qualifying_subtotal = 0
 
   for line_item in cart.items
     assign is_free_gift_discount_line = false
@@ -35,7 +36,32 @@
       endfor
     endunless
 
-    if is_free_gift_discount_line and free_gift_display_saving_claimed == false
+    unless is_free_gift_discount_line
+      assign free_gift_qualifying_subtotal = free_gift_qualifying_subtotal | plus: line_item.final_line_price
+    endunless
+  endfor
+
+  assign free_gift_eligible = false
+  if free_gift_qualifying_subtotal >= threshold_in_cents
+    assign free_gift_eligible = true
+  endif
+
+  for line_item in cart.items
+    assign is_free_gift_discount_line = false
+
+    if line_item.product.tags contains 'freegift'
+      assign is_free_gift_discount_line = true
+    endif
+
+    unless line_item.properties == blank
+      for property in line_item.properties
+        if property.first == '_free_gift' and property.last == 'true'
+          assign is_free_gift_discount_line = true
+        endif
+      endfor
+    endunless
+
+    if free_gift_eligible and is_free_gift_discount_line and free_gift_display_saving_claimed == false
       assign free_gift_display_saving = line_item.final_line_price | divided_by: line_item.quantity
       assign free_gift_display_saving_claimed = true
     endif
@@ -123,22 +149,36 @@
       {%- liquid
         assign free_gift_claimed = false
         for item in cart.items
-          if item.final_price == 0 or item.product.tags contains 'freegift'
+          assign is_free_gift_item = false
+
+          if item.product.tags contains 'freegift'
+            assign is_free_gift_item = true
+          endif
+
+          unless item.properties == blank
+            for property in item.properties
+              if property.first == '_free_gift' and property.last == 'true'
+                assign is_free_gift_item = true
+              endif
+            endfor
+          endunless
+
+          if free_gift_eligible and is_free_gift_item
             assign free_gift_claimed = true
           endif
         endfor
 
         assign free_gift_collection = collections['free-gift']
-        assign free_gift_progress = cart.items_subtotal_price | times: 1.0 | divided_by: threshold_in_cents | at_most: 1
+        assign free_gift_progress = free_gift_qualifying_subtotal | times: 1.0 | divided_by: threshold_in_cents | at_most: 1
       -%}
 
       <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large ww-free-gift-bar" style="--progress: {{ free_gift_progress }}">
         {%- if free_gift_claimed -%}
           <div class="shipping-bar__text"><span style="color: green;">Free Gift successfully claimed</span>, courtesy of William Wood.</div>
-        {%- elsif cart.items_subtotal_price >= threshold_in_cents -%}
+        {%- elsif free_gift_eligible -%}
           <div class="shipping-bar__text"><span style="color: green;">Free Gift Unlocked.</span> Please select your Free Gift of choice <a href="{{ free_gift_collection.url | default: '/collections/free-gift' }}?utm_source=mc"><u>here</u></a></div>
         {%- else -%}
-          {%- assign remaining_amount = threshold_in_cents | minus: cart.items_subtotal_price | money -%}
+          {%- assign remaining_amount = threshold_in_cents | minus: free_gift_qualifying_subtotal | money -%}
           <div class="shipping-bar__text">You are <b>{{ remaining_amount }}</b> away from receiving a Free Gift with your purchase worth up to <b>{%- if cart.currency.iso_code == 'GBP' -%}£99 GBP{% else %}€149,95{% endif %}</b></div>
         {%- endif -%}
 
@@ -202,7 +242,7 @@
                 assign gift_unit_displayed_free = false
                 assign free_gift_display_price = line_item.final_line_price
 
-                if is_free_gift_line and free_gift_display_claimed == false
+                if free_gift_eligible and is_free_gift_line and free_gift_display_claimed == false
                   assign gift_unit_displayed_free = true
                   assign free_gift_display_claimed = true
 
