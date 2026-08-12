@@ -7129,12 +7129,18 @@ input:checked + .popover__choice-label::after,
   }
 
   #facet-filters.drawer .drawer__footer {
-    position: sticky;
+    position: fixed;
+    left: 0;
+    right: 0;
     bottom: 0;
     z-index: 3;
     padding: 12px 28px 16px;
     background: rgb(var(--background));
     border-top: 1px solid rgb(var(--border-color));
+  }
+
+  #facet-filters.drawer .drawer__content {
+    padding-bottom: 92px;
   }
 
   .mobile-toolbar__item--filters.has-filters
