@@ -2899,11 +2899,12 @@ p + .button-group,
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 2px 7px;
+  padding: 0px 6px;
   border: 1px solid #d6d6d6;
   border-radius: 999px;
   background: transparent;
   color: rgb(var(--text-color));
+  font-size: 11px;
 }
 
 .product-item__info .label--low-stock::before {
