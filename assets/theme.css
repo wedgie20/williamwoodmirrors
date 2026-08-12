@@ -7060,6 +7060,16 @@ input:checked + .popover__choice-label::after,
   margin-top: 40px;
 }
 
+.product-facet__view-results-button {
+  min-height: 48px;
+  border: 1px solid #000;
+  background: #fff;
+  color: #000;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
 [dir="ltr"] .product-facet__active-count {
   margin-left: 8px;
 }
@@ -7116,6 +7126,15 @@ input:checked + .popover__choice-label::after,
   .product-facet__active-list {
     margin-left: -18px;
     margin-right: -18px;
+  }
+
+  #facet-filters.drawer .drawer__footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 3;
+    padding: 12px 28px 16px;
+    background: rgb(var(--background));
+    border-top: 1px solid rgb(var(--border-color));
   }
 
   .mobile-toolbar__item--filters.has-filters

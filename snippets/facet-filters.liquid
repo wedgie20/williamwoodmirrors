@@ -24,9 +24,16 @@
 {%- if request.page_type == 'collection' -%}
   {%- assign page_url = collection.url -%}
   {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+  {%- assign facet_results_count = collection.products_count -%}
 {%- elsif request.page_type == 'search' -%}
   {%- assign page_url = routes.search_url -%}
   {%- assign sort_by = search.sort_by | default: search.default_sort_by -%}
+  {%- assign facet_results_count = search.results_count -%}
+{%- endif -%}
+
+{%- assign facet_results_label = 'ITEM' -%}
+{%- if facet_results_count != 1 -%}
+  {%- assign facet_results_label = 'ITEMS' -%}
 {%- endif -%}
 
 <facet-filters
@@ -476,8 +483,8 @@
   </div>
 
   <div class="drawer__footer drawer__footer--no-top-padding {% if filters_position == 'always_visible' %}hidden-lap-and-up{% endif %}">
-    <button type="button" class="button button--primary button--full" data-action="close">
-      {{ 'collection.general.view_results' | t }}
+    <button type="button" class="button button--primary button--full product-facet__view-results-button" data-action="close">
+      VIEW ({{ facet_results_count }}) {{ facet_results_label }}
     </button>
   </div>
 </facet-filters>
