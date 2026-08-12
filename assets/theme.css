@@ -16277,6 +16277,15 @@ trust-badges {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+body.template-collection,
+body.template-collection main,
+body.template-collection .shopify-section--collection-banner,
+body.template-collection .shopify-section--main-collection,
+body.template-collection .shopify-section--collection-banner + .shopify-section,
+body.template-collection .shopify-section--collection-banner ~ .shopify-section--main-collection {
+  background: #ffffff !important;
+}
+
 .header__pill-nav.pill-nav-scroll {
   padding: 4px 2px !important;
 }
