@@ -16287,9 +16287,30 @@ trust-badges {
 }
 
 .ww-trade-message--mini-cart {
-  width: 100%;
-  margin: 10px 0;
+  margin: 14px 22px 18px;
+  width: auto;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid #dedede;
+  border-radius: 0;
   text-align: left;
+}
+
+.ww-trade-message__progress {
+  height: 6px;
+  margin-top: 10px;
+  overflow: hidden;
+  background: #ececec;
+  border-radius: 999px;
+}
+
+.ww-trade-message__progress span {
+  display: block;
+  width: var(--ww-trade-message-progress, 0%);
+  height: 100%;
+  background: #954039;
+  border-radius: inherit;
+  transition: width 0.25s ease;
 }
 
 .ww-trade-message--cart {

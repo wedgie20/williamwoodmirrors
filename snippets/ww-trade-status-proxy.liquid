@@ -103,13 +103,17 @@
       var nextThresholdCents = Math.round(Number(status.next_threshold || 0) * 100);
       var projectedSpendCents = spendCents + cartEligibleCents;
       var remainingCents = nextThresholdCents - projectedSpendCents;
+      var progress = nextThresholdCents > 0 ? Math.min(Math.max(projectedSpendCents / nextThresholdCents * 100, 0), 100) : 100;
+      var progressHtml = '<div class="ww-trade-message__progress" aria-hidden="true"><span></span></div>';
+
+      target.style.setProperty('--ww-trade-message-progress', progress + '%');
 
       if (status.bespoke_quote_available || status.top_tier) {
         target.innerHTML = '<p class="ww-trade-message__title">35% trade pricing applies</p><p>Your account qualifies for bespoke project support. Contact the Trade team for a tailored quote.</p>';
       } else if (nextThresholdCents > 0 && remainingCents > 0) {
-        target.innerHTML = '<p class="ww-trade-message__title">Trade progress</p><p>Add <strong>' + formatMoneyFromCents(remainingCents) + '</strong> in full-priced products to reach your next trade tier.</p>';
+        target.innerHTML = '<p class="ww-trade-message__title">Trade progress</p><p>Add <strong>' + formatMoneyFromCents(remainingCents) + '</strong> in full-priced products to reach your next trade tier.</p>' + progressHtml;
       } else if (nextThresholdCents > 0) {
-        target.innerHTML = '<p class="ww-trade-message__title">Next trade tier reached</p><p>Your latest basket takes you to the next tier. Your account tier will update after qualifying orders are processed.</p>';
+        target.innerHTML = '<p class="ww-trade-message__title">Next trade tier reached</p><p>Your latest basket takes you to the next tier. Your account tier will update after qualifying orders are processed.</p>' + progressHtml;
       } else {
         target.innerHTML = '<p class="ww-trade-message__title">Trade account active</p><p>Your trade discount applies automatically to eligible full-priced products.</p>';
       }
@@ -125,9 +129,8 @@
           return;
         }
 
-        if (target.innerHTML.trim() !== '' && !target.hidden) return;
-
         if (target.getAttribute('data-ww-trade-mode') === 'product') {
+          if (target.innerHTML.trim() !== '' && !target.hidden) return;
           renderProduct(target, status);
         } else {
           renderCart(target, status);
