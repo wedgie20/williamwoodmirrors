@@ -942,9 +942,10 @@
   }
 
   .guarantee-grid {
-  display: grid;
+  {% comment %} display: grid; {% endcomment %}
   grid-template-columns: 1fr 1fr; /* Two columns */
   gap: 16px 24px; /* row gap, column gap */
+  display: inline-flex;
 }
 
 .guarantee-item {
@@ -959,7 +960,7 @@
 }
 
 .guarantee-grid {
-  display: grid;
+  display: inline-flex;
   grid-template-columns: 1fr 1fr; /* Two columns */
   gap: 0px 24px; /* row gap, column gap */
 }
