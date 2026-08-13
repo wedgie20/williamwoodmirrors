@@ -16287,30 +16287,84 @@ trust-badges {
 }
 
 .ww-trade-message--mini-cart {
-  margin: 14px 22px 18px;
+  margin: 14px 22px 22px;
   width: auto;
-  padding: 14px 16px;
-  background: #fff;
-  border: 1px solid #dedede;
+  padding: 8px 0 0;
+  background: transparent;
+  border: 0;
   border-radius: 0;
-  text-align: left;
+  text-align: center;
+}
+
+.ww-trade-message--mini-cart .ww-trade-message__title {
+  margin-bottom: 4px !important;
+  font-weight: 400;
+}
+
+.ww-trade-message--mini-cart .ww-trade-message__title + p {
+  max-width: 410px;
+  margin: 0 auto;
+}
+
+.ww-trade-message__milestone {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: max-content;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  margin: 12px auto 6px;
+  margin-right: calc((100% - min(100%, 392px)) / 2 - 6px);
+  padding: 5px 9px;
+  color: #111;
+  background-color: #c7f1c5;
+  border-radius: 9999px;
+  font-size: 10px;
+  line-height: 0.875rem;
+  font-weight: 400;
+}
+
+.ww-trade-message__milestone::after {
+  position: absolute;
+  right: 7px;
+  bottom: -4px;
+  z-index: -1;
+  width: 0;
+  height: 0;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid #c7f1c5;
+  border-left: 4px solid transparent;
+  content: "";
+  transform: rotate(180deg);
 }
 
 .ww-trade-message__progress {
+  position: relative;
+  display: block;
+  max-width: 392px;
   height: 6px;
-  margin-top: 10px;
+  margin: 0 auto;
   overflow: hidden;
-  background: #ececec;
-  border-radius: 999px;
+  background-color: #dededf;
+  border-radius: 4px;
 }
 
 .ww-trade-message__progress span {
   display: block;
   width: var(--ww-trade-message-progress, 0%);
   height: 100%;
-  background: #954039;
+  background: linear-gradient(90deg, #bbf3c1, #00b67a 70%, #005036);
   border-radius: inherit;
   transition: width 0.25s ease;
+}
+
+.ww-trade-message__threshold {
+  max-width: 392px;
+  margin: 4px auto 0;
+  text-align: right;
+  font-size: 11px;
+  font-weight: 700;
 }
 
 .ww-trade-message--cart {

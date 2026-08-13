@@ -104,7 +104,8 @@
       var projectedSpendCents = spendCents + cartEligibleCents;
       var remainingCents = nextThresholdCents - projectedSpendCents;
       var progress = nextThresholdCents > 0 ? Math.min(Math.max(projectedSpendCents / nextThresholdCents * 100, 0), 100) : 100;
-      var progressHtml = '<div class="ww-trade-message__progress" aria-hidden="true"><span></span></div>';
+      var isMiniCart = target.getAttribute('data-ww-trade-mode') === 'mini-cart';
+      var progressHtml = (isMiniCart ? '<div class="ww-trade-message__milestone" aria-hidden="true"><span>NEXT</span></div>' : '') + '<div class="ww-trade-message__progress" aria-hidden="true"><span></span></div>' + (isMiniCart ? '<div class="ww-trade-message__threshold">' + formatMoneyFromCents(nextThresholdCents) + '</div>' : '');
 
       target.style.setProperty('--ww-trade-message-progress', progress + '%');
 
