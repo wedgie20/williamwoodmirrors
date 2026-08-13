@@ -529,7 +529,7 @@ ul.hookpoint-tags::-webkit-scrollbar {
                       }
                     </style>
                     <!-- Start of Judge.me code -->
-                    <div class="collection-review-widget jdgm-carousel-wrapper">
+                    {% comment %} <div class="collection-review-widget jdgm-carousel-wrapper">
                       {% assign jm_metafields = shop.metafields.judgeme %}
                       <div class="jdgm-carousel-title-and-link">
                         <h2 class="jdgm-carousel-title">Community Feedback</h2>
@@ -552,7 +552,7 @@ ul.hookpoint-tags::-webkit-scrollbar {
                         </span>
                       </div>
                       {{ jm_metafields.featured_carousel }}
-                    </div>
+                    </div> {% endcomment %}
                     <!-- End of Judge.me code -->
                     {%- render 'product-card-coll',
                       product: product,
