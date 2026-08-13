@@ -35,7 +35,8 @@
     {% elsif tag contains "20000+ SOLD" %}
     <span class="label label--custom">20,000+ SOLD</span>
           {% else %}
-        <span class="label label--custom{% if tag contains '__label2' %}2{% endif %}">{{ tag | split: ':' | last }}</span>
+        {%- assign label_text = tag | split: ':' | last -%}
+        <span class="label label--custom{% if tag contains '__label2' %}2{% endif %}{% if label_text contains 'ONLY' and label_text contains 'LEFT' %} label--low-stock{% endif %}">{{ label_text }}</span>
            {% endif %}
       {%- endif -%}
     {%- endfor -%}
