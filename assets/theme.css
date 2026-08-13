@@ -13540,7 +13540,7 @@ shopify-payment-terms {
   display: block;
   margin-top: 4px;
       margin-bottom: 4px;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.35;
   font-weight: 400;
 }
@@ -13576,6 +13576,13 @@ shopify-payment-terms {
   margin-top: 6px;
   margin-bottom: 4px;
   grid-auto-flow: row;
+}
+
+@media screen and (max-width: 741px) {
+
+.product-item-meta__measurement {
+  font-size: 12px !important;
+}
 }
 
 @media screen and (min-width: 741px) {
