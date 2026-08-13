@@ -5960,6 +5960,10 @@ select:focus,
   pointer-events: none;
 }
 
+.line-item__content-wrapper .line-item__info, .product-item-meta__title  {
+  font-size: 11px;
+}
+
 @media screen and (min-width: 741px) {
   .drawer__header {
     padding-top: 26px;
