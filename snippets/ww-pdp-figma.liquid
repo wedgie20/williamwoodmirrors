@@ -59,13 +59,17 @@
   assign promo_code = ''
   assign promo_text = ''
   assign promo_note = ''
+  assign promo_line_2 = ''
+  assign promo_line_3 = ''
 
   assign home_accessories_match = product.collections | where: 'handle', 'all-accessories'
   assign full_price_match = product.collections | where: 'handle', 'all-full-price-products'
 
   if full_price_match.size > 0
     assign promo_code = 'WWAUG'
-    assign promo_text = '20% Off One Or 25% Off Any Two Or More'
+    assign promo_text = '15% Off This Item.'
+    assign promo_line_2 = '20% Off Any Two Full Priced Items - Auto Applied At Checkout'
+    assign promo_line_3 = '30% Off Three Or More Full Priced Items - Auto Applied At Checkout'
   elsif home_accessories_match.size > 0
     assign promo_note = 'Discount Automatically Applied At Checkout'
     assign promo_text = '3 for 2 On All Home Accessories'
@@ -73,6 +77,8 @@
   else
     assign promo_code =
     assign promo_text = 
+    assign promo_line_2 =
+    assign promo_line_3 =
   endif
 
   assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id
@@ -551,17 +557,28 @@
       {%- endif -%}
 
       {%- if promo_text != blank -%}
-  <div class="ww-pdp__promo">
-    <strong>{{ promo_text }}</strong>
+  <div class="ww-pdp__promo{% if promo_line_2 != blank or promo_line_3 != blank %} ww-pdp__promo--stacked{% endif %}">
+    <div class="ww-pdp__promo-main">
+      <strong>{{ promo_text }}</strong>
 
-    {%- if promo_code != blank -%}
-      <span>Code: {{ promo_code }}</span>
-      <button type="button" class="ww-pdp__code" data-ww-copy-code="{{ promo_code }}">
-        <span>{{ promo_code }}</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7V5.5A2.5 2.5 0 0 1 10.5 3h7A2.5 2.5 0 0 1 20 5.5v7a2.5 2.5 0 0 1-2.5 2.5H16v1.5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 4 16.5v-7A2.5 2.5 0 0 1 6.5 7H8Zm1.5 0h4A2.5 2.5 0 0 1 16 9.5v4h1.5a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1V7Zm-3 1.5a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-7Z"/></svg>
-      </button>
-    {%- elsif promo_note != blank -%}
-      <span>{{ promo_note }}</span>
+      {%- if promo_code != blank -%}
+        <div class="ww-pdp__promo-code-group">
+          <span>Code: {{ promo_code }}</span>
+          <button type="button" class="ww-pdp__code" data-ww-copy-code="{{ promo_code }}">
+            <span>{{ promo_code }}</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7V5.5A2.5 2.5 0 0 1 10.5 3h7A2.5 2.5 0 0 1 20 5.5v7a2.5 2.5 0 0 1-2.5 2.5H16v1.5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 4 16.5v-7A2.5 2.5 0 0 1 6.5 7H8Zm1.5 0h4A2.5 2.5 0 0 1 16 9.5v4h1.5a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1V7Zm-3 1.5a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-7Z"/></svg>
+          </button>
+        </div>
+      {%- elsif promo_note != blank -%}
+        <span>{{ promo_note }}</span>
+      {%- endif -%}
+    </div>
+
+    {%- if promo_line_2 != blank -%}
+      <p>{{ promo_line_2 }}</p>
+    {%- endif -%}
+    {%- if promo_line_3 != blank -%}
+      <p>{{ promo_line_3 }}</p>
     {%- endif -%}
   </div>
 {%- endif -%}
@@ -1395,9 +1412,9 @@
 
   .ww-pdp__promo {
     display: grid;
-    grid-template-columns: max-content 1fr max-content;
+    grid-template-columns: 1fr;
     align-items: center;
-    gap: 16px;
+    gap: 8px;
     {% comment %} min-height: 80px; {% endcomment %}
     padding: 16px 12px 16px 12px;
     margin-bottom: 14px;
@@ -1406,12 +1423,32 @@
     font-weight: 500; 
   }
 
+  .ww-pdp__promo-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
   .ww-pdp__promo strong {
     font-weight: 700;
   }
 
-  .ww-pdp__promo span {
+  .ww-pdp__promo span,
+  .ww-pdp__promo p {
     color: #444;
+  }
+
+  .ww-pdp__promo p {
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .ww-pdp__promo-code-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    white-space: nowrap;
   }
 
   .ww-pdp__code {
@@ -2489,17 +2526,11 @@
     }
 
     .ww-pdp__promo {
-      grid-template-columns: 1fr max-content;
       gap: 10px 18px;
     }
 
-    .ww-pdp__promo span {
-      grid-column: 1;
-    }
-
-    .ww-pdp__code {
-      grid-column: 2;
-      grid-row: 1 / span 2;
+    .ww-pdp__promo-main {
+      align-items: flex-start;
     }
   }
 
@@ -2615,17 +2646,11 @@
     .ww-pdp__promo {
       padding-left: 28px;
       padding-right: 28px;
-      grid-template-columns: 1fr max-content;
       gap: 10px 18px;
     }
 
-    .ww-pdp__promo span {
-      grid-column: 1;
-    }
-
-    .ww-pdp__code {
-      grid-column: 2;
-      grid-row: 1 / span 2;
+    .ww-pdp__promo-main {
+      align-items: flex-start;
     }
   }
 
@@ -2828,7 +2853,6 @@
 
     .ww-pdp__promo {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) max-content;
       min-height: 72px;
       padding: 12px 14px;
       font-size: 14px;
@@ -2837,14 +2861,12 @@
     }
 
     .ww-pdp__promo strong,
-    .ww-pdp__promo span {
-      grid-column: 1;
+    .ww-pdp__promo span,
+    .ww-pdp__promo p {
       line-height: 1.2;
     }
 
     .ww-pdp__code {
-      grid-column: 2;
-      grid-row: 1 / span 2;
       min-height: 32px;
       margin-left: 0;
       padding: 8px 12px 8px 12px;
