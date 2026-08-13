@@ -575,10 +575,10 @@
     </div>
 
     {%- if promo_line_2 != blank -%}
-      <p>{{ promo_line_2 }}</p>
+      <p>{{ promo_line_2 | replace: ' - ', ' - <span class="ww-pdp__promo-mobile-break"></span>' }}</p>
     {%- endif -%}
     {%- if promo_line_3 != blank -%}
-      <p>{{ promo_line_3 }}</p>
+      <p>{{ promo_line_3 | replace: ' - ', ' - <span class="ww-pdp__promo-mobile-break"></span>' }}</p>
     {%- endif -%}
   </div>
 {%- endif -%}
@@ -1431,6 +1431,7 @@
   }
 
   .ww-pdp__promo strong {
+    color: #444;
     font-weight: 500;
   }
 
@@ -1449,6 +1450,10 @@
     align-items: center;
     gap: 12px;
     white-space: nowrap;
+  }
+
+  .ww-pdp__promo-mobile-break {
+    display: none;
   }
 
   .ww-pdp__code {
@@ -2923,6 +2928,10 @@
     .ww-pdp__promo--stacked p {
       font-size: 13px;
       line-height: 1.35;
+    }
+
+    .ww-pdp__promo--stacked .ww-pdp__promo-mobile-break {
+      display: block;
     }
 
     .ww-pdp__add {
