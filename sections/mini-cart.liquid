@@ -314,8 +314,13 @@
                 {%- if line_item.line_level_discount_allocations != blank -%}
                   <ul class="line-item__discount-list list--unstyled" role="list">
                     {%- for discount_allocation in line_item.line_level_discount_allocations -%}
+                      {%- assign discount_title = discount_allocation.discount_application.title -%}
+                      {%- assign discount_title_downcase = discount_title | downcase -%}
+                      {%- if discount_title_downcase contains 'trade discount' -%}
+                        {%- assign discount_title = 'Trade discount' -%}
+                      {%- endif -%}
                       <li class="line-item__discount-badge discount-badge">
-                        {%- render 'icon' with 'discount-badge' -%}{{ discount_allocation.discount_application.title }} (-{% render 'format-money', amount: discount_allocation.amount %})
+                        {%- render 'icon' with 'discount-badge' -%}{{ discount_title }} (-{% render 'format-money', amount: discount_allocation.amount %})
                       </li>
                     {%- endfor -%}
                   </ul>
