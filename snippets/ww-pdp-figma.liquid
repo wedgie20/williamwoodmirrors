@@ -1431,7 +1431,7 @@
   }
 
   .ww-pdp__promo strong {
-    font-weight: 700;
+    font-weight: 500;
   }
 
   .ww-pdp__promo span,
@@ -2882,6 +2882,47 @@
     .ww-pdp__quantity,
     .ww-pdp__add {
       height: 50px;
+    }
+
+    .ww-pdp__promo--stacked {
+      padding: 14px 16px;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .ww-pdp__promo--stacked .ww-pdp__promo-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .ww-pdp__promo--stacked strong {
+      display: block;
+      max-width: none;
+    }
+
+    .ww-pdp__promo--stacked .ww-pdp__promo-code-group {
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+      white-space: normal;
+    }
+
+    .ww-pdp__promo--stacked .ww-pdp__promo-code-group > span {
+      flex: 1 1 auto;
+    }
+
+    .ww-pdp__promo--stacked .ww-pdp__code {
+      flex: 0 0 auto;
+      min-height: 36px;
+      padding: 8px 14px;
+      font-size: 13px;
+    }
+
+    .ww-pdp__promo--stacked p {
+      font-size: 13px;
+      line-height: 1.35;
     }
 
     .ww-pdp__add {
