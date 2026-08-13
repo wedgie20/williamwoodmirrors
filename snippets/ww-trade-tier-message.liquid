@@ -140,21 +140,21 @@
         <p class="ww-trade-message__title">Trade progress</p>
         <p>Add <strong>{{ trade_remaining_cents | money }}</strong> in full-priced products to reach your next trade tier.</p>
         {%- if trade_mode == 'mini-cart' -%}
-          <div class="ww-trade-message__milestone" aria-hidden="true"><span>NEXT</span></div>
+          <div class="ww-trade-message__milestone" aria-hidden="true" style="position:relative;z-index:1;display:flex;width:max-content;align-items:center;justify-content:center;margin:12px auto 6px;margin-right:calc((100% - min(100%, 392px)) / 2 - 6px);padding:5px 9px;color:#111;background-color:#c7f1c5;border-radius:9999px;font-size:10px;line-height:.875rem;font-weight:400;"><span>NEXT</span></div>
         {%- endif -%}
-        <div class="ww-trade-message__progress" aria-hidden="true"><span></span></div>
+        <div class="ww-trade-message__progress" aria-hidden="true" style="position:relative;display:block;max-width:392px;height:6px;margin:0 auto;overflow:hidden;background-color:#dededf;border-radius:4px;"><span style="display:block;width:var(--ww-trade-message-progress, 0%);height:100%;background:linear-gradient(90deg,#bbf3c1,#00b67a 70%,#005036);border-radius:inherit;transition:width .25s ease;"></span></div>
         {%- if trade_mode == 'mini-cart' -%}
-          <div class="ww-trade-message__threshold">{{ trade_next_threshold_cents | money }}</div>
+          <div class="ww-trade-message__threshold" style="max-width:392px;margin:4px auto 0;text-align:right;font-size:11px;font-weight:700;">{{ trade_next_threshold_cents | money }}</div>
         {%- endif -%}
       {%- elsif trade_next_threshold_cents > 0 -%}
         <p class="ww-trade-message__title">Next trade tier reached</p>
         <p>Your latest basket takes you to the next tier. Your account tier will update after qualifying orders are processed.</p>
         {%- if trade_mode == 'mini-cart' -%}
-          <div class="ww-trade-message__milestone" aria-hidden="true"><span>NEXT</span></div>
+          <div class="ww-trade-message__milestone" aria-hidden="true" style="position:relative;z-index:1;display:flex;width:max-content;align-items:center;justify-content:center;margin:12px auto 6px;margin-right:calc((100% - min(100%, 392px)) / 2 - 6px);padding:5px 9px;color:#111;background-color:#c7f1c5;border-radius:9999px;font-size:10px;line-height:.875rem;font-weight:400;"><span>NEXT</span></div>
         {%- endif -%}
-        <div class="ww-trade-message__progress" aria-hidden="true"><span></span></div>
+        <div class="ww-trade-message__progress" aria-hidden="true" style="position:relative;display:block;max-width:392px;height:6px;margin:0 auto;overflow:hidden;background-color:#dededf;border-radius:4px;"><span style="display:block;width:var(--ww-trade-message-progress, 0%);height:100%;background:linear-gradient(90deg,#bbf3c1,#00b67a 70%,#005036);border-radius:inherit;transition:width .25s ease;"></span></div>
         {%- if trade_mode == 'mini-cart' -%}
-          <div class="ww-trade-message__threshold">{{ trade_next_threshold_cents | money }}</div>
+          <div class="ww-trade-message__threshold" style="max-width:392px;margin:4px auto 0;text-align:right;font-size:11px;font-weight:700;">{{ trade_next_threshold_cents | money }}</div>
         {%- endif -%}
       {%- else -%}
         <p class="ww-trade-message__title">Trade account active</p>

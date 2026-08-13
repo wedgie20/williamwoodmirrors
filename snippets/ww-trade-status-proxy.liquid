@@ -105,7 +105,7 @@
       var remainingCents = nextThresholdCents - projectedSpendCents;
       var progress = nextThresholdCents > 0 ? Math.min(Math.max(projectedSpendCents / nextThresholdCents * 100, 0), 100) : 100;
       var isMiniCart = target.getAttribute('data-ww-trade-mode') === 'mini-cart';
-      var progressHtml = (isMiniCart ? '<div class="ww-trade-message__milestone" aria-hidden="true"><span>NEXT</span></div>' : '') + '<div class="ww-trade-message__progress" aria-hidden="true"><span></span></div>' + (isMiniCart ? '<div class="ww-trade-message__threshold">' + formatMoneyFromCents(nextThresholdCents) + '</div>' : '');
+      var progressHtml = (isMiniCart ? '<div class="ww-trade-message__milestone" aria-hidden="true" style="position:relative;z-index:1;display:flex;width:max-content;align-items:center;justify-content:center;margin:12px auto 6px;margin-right:calc((100% - min(100%, 392px)) / 2 - 6px);padding:5px 9px;color:#111;background-color:#c7f1c5;border-radius:9999px;font-size:10px;line-height:.875rem;font-weight:400;"><span>NEXT</span></div>' : '') + '<div class="ww-trade-message__progress" aria-hidden="true" style="position:relative;display:block;max-width:392px;height:6px;margin:0 auto;overflow:hidden;background-color:#dededf;border-radius:4px;"><span style="display:block;width:' + progress + '%;height:100%;background:linear-gradient(90deg,#bbf3c1,#00b67a 70%,#005036);border-radius:inherit;transition:width .25s ease;"></span></div>' + (isMiniCart ? '<div class="ww-trade-message__threshold" style="max-width:392px;margin:4px auto 0;text-align:right;font-size:11px;font-weight:700;">' + formatMoneyFromCents(nextThresholdCents) + '</div>' : '');
 
       target.style.setProperty('--ww-trade-message-progress', progress + '%');
 
