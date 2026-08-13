@@ -2895,6 +2895,13 @@ p + .button-group,
   color: rgb(var(--product-custom-label-2-text-color));
 }
 
+.product-item__info .product-item__label-list .label--custom:not(.label--low-stock),
+.product-item__info .product-item__label-list .label--custom2:not(.label--low-stock) {
+  border: 1px solid #d6d6d6;
+  background: transparent;
+  color: rgb(var(--text-color));
+}
+
 .product-item__info .label--low-stock {
   display: inline-flex;
   align-items: center;
