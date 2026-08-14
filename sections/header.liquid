@@ -636,7 +636,7 @@
             </svg>
           </a>
 
-          {%- if shop.customer_accounts_enabled -%}
+          {% comment %} {%- if shop.customer_accounts_enabled -%}
             <a
               href="{% if customer %}{{ routes.account_url  }}{% else %}{{ routes.account_login_url  }}{% endif %}"
               class="header__icon-wrapper tap-area hidden-phone {% unless section.settings.show_icons %}hidden-desk{% endunless %}"
@@ -645,7 +645,7 @@
               <span class="visually-hidden">{% if customer %}{{ 'header.general.account' | t }}{% else %}{{ 'header.general.login' | t }}{% endif %}</span>
               {%- render 'icon' with 'header-customer' -%}
             </a>
-          {%- endif -%}
+          {%- endif -%} {% endcomment %}
 
           <a
             href="{{ routes.cart_url  }}"
