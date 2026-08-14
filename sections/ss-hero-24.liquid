@@ -364,7 +364,7 @@
       align-items: center;
       gap: 7px;
       max-width: 100%;
-      margin-top: 16px !important;
+      margin-top: 70px !important;
     }
 
     .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] .hero-text-text_rPD4M > p {
@@ -412,6 +412,25 @@
     .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [data-hero-trustpilot] {
       max-width: 100%;
       margin-top: 4px !important;
+    }
+
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [data-hero-trustpilot] [class*="__row"] {
+      gap: 5px;
+      justify-content: center;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
+
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [data-hero-trustpilot] [class*="__rating"],
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [data-hero-trustpilot] [class*="__reviews"],
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [data-hero-trustpilot] [class*="__brand"] {
+      font-size: 11px !important;
+    }
+
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [data-hero-trustpilot] [class*="__star"]:not([class*="brand-star"]) {
+      width: 15px !important;
+      height: 15px !important;
+      font-size: 10px !important;
     }
 
     .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] {
