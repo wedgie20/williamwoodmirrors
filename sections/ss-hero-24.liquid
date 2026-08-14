@@ -433,10 +433,11 @@
 
     .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [data-hero-trustpilot] [class*="__row"],
     .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] [data-hero-trustpilot] [class*="__row"] {
-      gap: 5px;
+      gap: 4px !important;
       justify-content: center;
       flex-wrap: nowrap;
       white-space: nowrap;
+      min-width: 0;
     }
 
     .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [data-hero-trustpilot] [class*="__rating"],
@@ -445,20 +446,29 @@
     .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] [data-hero-trustpilot] [class*="__rating"],
     .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] [data-hero-trustpilot] [class*="__reviews"],
     .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] [data-hero-trustpilot] [class*="__brand"] {
-      flex: 0 0 auto;
-      font-size: 11px !important;
+      flex: 0 0 auto !important;
+      font-size: 10px !important;
+      line-height: 1 !important;
       white-space: nowrap;
     }
 
     .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [data-hero-trustpilot] [class*="__stars"],
     .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] [data-hero-trustpilot] [class*="__stars"] {
-      flex: 0 0 auto;
+      flex: 0 0 auto !important;
+      gap: 1px !important;
+      min-width: max-content;
     }
 
     .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [data-hero-trustpilot] [class*="__star"]:not([class*="brand-star"]),
     .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] [data-hero-trustpilot] [class*="__star"]:not([class*="brand-star"]) {
-      width: 15px !important;
-      height: 15px !important;
+      flex: 0 0 13px !important;
+      width: 13px !important;
+      height: 13px !important;
+      font-size: 9px !important;
+    }
+
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] [data-hero-trustpilot] [class*="brand-star"],
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] [data-hero-trustpilot] [class*="brand-star"] {
       font-size: 10px !important;
     }
 
