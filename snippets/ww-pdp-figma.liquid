@@ -64,8 +64,16 @@
 
   assign home_accessories_match = product.collections | where: 'handle', 'all-accessories'
   assign full_price_match = product.collections | where: 'handle', 'all-full-price-products'
+  assign sale_product_match = false
 
-  if full_price_match.size > 0
+  if has_variant_discount or product.tags contains 'sale'
+    assign sale_product_match = true
+  endif
+
+  if sale_product_match
+    assign promo_code = 'EXTRA20'
+    assign promo_text = '20% Extra Off This Sale Item'
+  elsif full_price_match.size > 0
     assign promo_code = 'WWAUG'
     assign promo_text = '15% Off This Item.'
     assign promo_line_2 = '20% Off Any Two Full Priced Items - Auto Applied At Checkout'
