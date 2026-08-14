@@ -27,7 +27,7 @@ background: #ffffff !important;
     visibility: visible;
   }
 
-  .bubble-count {
+  .bubble-count, .wisp > span:not(.visually-hidden) {
     height: 17px !important;
     min-width: 17px !important;
   }
