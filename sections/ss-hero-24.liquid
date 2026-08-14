@@ -263,12 +263,12 @@
       max-width: min(58vw, 820px) !important;
       align-items: var(--slide-buttons-justify, center);
       text-align: var(--slide-text-align, center) !important;
-      transform: none;
+      transform: translateY(64px);
     }
 
     .hero-slide-content-{{ section.id }}[data-slide-content-index="0"][data-slide-align="left"] {
       align-items: flex-start;
-      transform: translateX(min(0px, calc((100vw - 1200px) / -2 - 16px)));
+      transform: translate(min(0px, calc((100vw - 1200px) / -2 - 16px)), 64px);
     }
 
     .hero-slide-content-{{ section.id }}[data-slide-content-index="0"][data-slide-align="right"] {
