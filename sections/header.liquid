@@ -226,8 +226,39 @@
       top: -6px;
     }
 
+    #shopify-section-{{ section.id }} .wisp [class*="count"],
+    #shopify-section-{{ section.id }} .wisp [class*="Count"],
+    #shopify-section-{{ section.id }} .wisp [class*="badge"],
+    #shopify-section-{{ section.id }} .wisp [class*="Badge"],
+    #shopify-section-{{ section.id }} .wisp > span:not(.visually-hidden) {
+      position: absolute !important;
+      top: -6px !important;
+      right: -10px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-width: 21px !important;
+      height: 21px !important;
+      padding: 0 4px !important;
+      border-radius: 21px !important;
+      font-size: 9px !important;
+      font-weight: var(--text-font-bold-weight) !important;
+      line-height: 1 !important;
+      letter-spacing: 0 !important;
+      color: #fff !important;
+    }
+
     [dir="ltr"] #shopify-section-{{ section.id }} .header__cart-count--floating {
       right: -10px;
+    }
+
+    [dir="rtl"] #shopify-section-{{ section.id }} .wisp [class*="count"],
+    [dir="rtl"] #shopify-section-{{ section.id }} .wisp [class*="Count"],
+    [dir="rtl"] #shopify-section-{{ section.id }} .wisp [class*="badge"],
+    [dir="rtl"] #shopify-section-{{ section.id }} .wisp [class*="Badge"],
+    [dir="rtl"] #shopify-section-{{ section.id }} .wisp > span:not(.visually-hidden) {
+      right: auto !important;
+      left: -10px !important;
     }
 
     [dir="rtl"] #shopify-section-{{ section.id }} .header__cart-count--floating {
