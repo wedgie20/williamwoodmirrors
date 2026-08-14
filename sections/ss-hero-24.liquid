@@ -239,9 +239,11 @@
     .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] .hero-heading-heading_iQBFj * {
       width: 100%;
       text-align: center !important;
-      white-space: nowrap;
-      font-size: clamp(18px, 5.4vw, 22px) !important;
-      line-height: 1 !important;
+      max-width: min(330px, 100%);
+      white-space: normal;
+      overflow-wrap: break-word;
+      font-size: clamp(18px, 5vw, 21px) !important;
+      line-height: 1.08 !important;
     }
 
     .hero-slide-content-{{ section.id }}[data-slide-content-index="0"] .hero-text-text_rPD4M {
