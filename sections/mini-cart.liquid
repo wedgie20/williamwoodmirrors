@@ -22,6 +22,7 @@
   assign free_gift_paid_product_subtotal = 0
   assign free_gift_qualifying_subtotal = 0
   assign unqualified_free_gift_display_adjustment = 0
+  assign free_gift_collection = collections['free-gift']
 
   for line_item in cart.items
     assign line_has_free_gift_marker = false
@@ -41,6 +42,15 @@
         break
       endif
     endfor
+
+    if free_gift_collection != blank
+      for free_gift_product in free_gift_collection.products
+        if free_gift_product.id == line_item.product.id
+          assign line_has_free_gift_marker = true
+          break
+        endif
+      endfor
+    endif
 
     unless line_item.properties == blank
       for property in line_item.properties
@@ -85,6 +95,15 @@
         break
       endif
     endfor
+
+    if free_gift_collection != blank
+      for free_gift_product in free_gift_collection.products
+        if free_gift_product.id == line_item.product.id
+          assign line_has_free_gift_marker = true
+          break
+        endif
+      endfor
+    endif
 
     unless line_item.properties == blank
       for property in line_item.properties
@@ -131,6 +150,15 @@
         break
       endif
     endfor
+
+    if free_gift_collection != blank
+      for free_gift_product in free_gift_collection.products
+        if free_gift_product.id == line_item.product.id
+          assign line_has_free_gift_marker = true
+          break
+        endif
+      endfor
+    endif
 
     unless line_item.properties == blank
       for property in line_item.properties
@@ -264,6 +292,15 @@
             endif
           endfor
 
+          if free_gift_collection != blank
+            for free_gift_product in free_gift_collection.products
+              if free_gift_product.id == item.product.id
+                assign has_free_gift_marker = true
+                break
+              endif
+            endfor
+          endif
+
           unless item.properties == blank
             for property in item.properties
               if property.first == '_free_gift' and property.last == 'true'
@@ -360,6 +397,15 @@
                     break
                   endif
                 endfor
+
+                if free_gift_collection != blank
+                  for free_gift_product in free_gift_collection.products
+                    if free_gift_product.id == line_item.product.id
+                      assign has_free_gift_marker = true
+                      break
+                    endif
+                  endfor
+                endif
 
                 unless line_item.properties == blank
                   for property in line_item.properties
@@ -805,6 +851,15 @@
       {% break %}
     {% endif %}
   {% endfor %}
+
+  {% if free_gift_collection != blank %}
+    {% for free_gift_product in free_gift_collection.products %}
+      {% if free_gift_product.id == item.product.id %}
+        {% assign item_has_free_gift_marker = true %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
 
   {% unless item.properties == blank %}
     {% for property in item.properties %}
