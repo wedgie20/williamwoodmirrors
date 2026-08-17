@@ -62,14 +62,11 @@
     assign paid_products_qualify_for_free_gift = true
   endif
 
+  assign free_gift_qualifying_subtotal = free_gift_paid_product_subtotal
+
   for line_item in cart.items
     assign line_has_free_gift_marker = false
     assign free_gift_discount_amount = 0
-    assign line_full_price = line_item.original_line_price
-
-    if line_item.variant.compare_at_price and line_item.variant.compare_at_price > line_item.variant.price
-      assign line_full_price = line_item.variant.compare_at_price | times: line_item.quantity
-    endif
 
     if line_item.product.tags contains 'freegift'
       assign line_has_free_gift_marker = true
@@ -92,20 +89,6 @@
         endif
       endfor
     endunless
-
-    assign free_gift_line_qualifying_amount = line_full_price
-
-    if paid_products_qualify_for_free_gift and free_gift_discount_amount > 0
-      assign free_gift_line_qualifying_amount = line_full_price | minus: free_gift_discount_amount
-    elsif paid_products_qualify_for_free_gift and line_has_free_gift_marker and line_item.final_line_price == 0
-      assign free_gift_line_qualifying_amount = 0
-    endif
-
-    if free_gift_line_qualifying_amount < 0
-      assign free_gift_line_qualifying_amount = 0
-    endif
-
-    assign free_gift_qualifying_subtotal = free_gift_qualifying_subtotal | plus: free_gift_line_qualifying_amount
 
     if paid_products_qualify_for_free_gift == false and line_has_free_gift_marker and free_gift_discount_amount > 0
       assign unqualified_free_gift_display_adjustment = unqualified_free_gift_display_adjustment | plus: free_gift_discount_amount
