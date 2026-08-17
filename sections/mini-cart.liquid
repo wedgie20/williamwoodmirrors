@@ -36,6 +36,15 @@
       endfor
     endunless
 
+    unless line_item.line_level_discount_allocations == blank
+      for discount_allocation in line_item.line_level_discount_allocations
+        assign discount_title = discount_allocation.discount_application.title | downcase
+        if discount_title contains 'free gift'
+          assign is_free_gift_discount_line = true
+        endif
+      endfor
+    endunless
+
     unless is_free_gift_discount_line
       assign free_gift_qualifying_subtotal = free_gift_qualifying_subtotal | plus: line_item.original_line_price
     endunless
@@ -56,6 +65,15 @@
     unless line_item.properties == blank
       for property in line_item.properties
         if property.first == '_free_gift' and property.last == 'true'
+          assign is_free_gift_discount_line = true
+        endif
+      endfor
+    endunless
+
+    unless line_item.line_level_discount_allocations == blank
+      for discount_allocation in line_item.line_level_discount_allocations
+        assign discount_title = discount_allocation.discount_application.title | downcase
+        if discount_title contains 'free gift'
           assign is_free_gift_discount_line = true
         endif
       endfor
@@ -169,6 +187,15 @@
             endfor
           endunless
 
+          unless item.line_level_discount_allocations == blank
+            for discount_allocation in item.line_level_discount_allocations
+              assign discount_title = discount_allocation.discount_application.title | downcase
+              if discount_title contains 'free gift'
+                assign is_free_gift_item = true
+              endif
+            endfor
+          endunless
+
           if free_gift_eligible and is_free_gift_item
             assign free_gift_claimed = true
           endif
@@ -220,6 +247,15 @@
                 endfor
               endunless
 
+              unless line_item.line_level_discount_allocations == blank
+                for discount_allocation in line_item.line_level_discount_allocations
+                  assign discount_title = discount_allocation.discount_application.title | downcase
+                  if discount_title contains 'free gift'
+                    assign line_is_free_gift = true
+                  endif
+                endfor
+              endunless
+
               if line_is_free_gift and line_item.final_line_price == 0
                 assign line_is_unqualified_free_gift = true
               endif
@@ -264,6 +300,15 @@
                 unless line_item.properties == blank
                   for property in line_item.properties
                     if property.first == '_free_gift' and property.last == 'true'
+                      assign is_free_gift_line = true
+                    endif
+                  endfor
+                endunless
+
+                unless line_item.line_level_discount_allocations == blank
+                  for discount_allocation in line_item.line_level_discount_allocations
+                    assign discount_title = discount_allocation.discount_application.title | downcase
+                    if discount_title contains 'free gift'
                       assign is_free_gift_line = true
                     endif
                   endfor
