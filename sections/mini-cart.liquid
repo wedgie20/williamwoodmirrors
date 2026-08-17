@@ -1236,21 +1236,45 @@ if (!window.__wwUnqualifiedFreeGiftGuard) {
     const miniCart = document.getElementById('mini-cart');
     if (!miniCart || miniCart.dataset.freeGiftQualified === 'true') return;
 
-    const giftLine = miniCart.querySelector('[data-unqualified-free-gift-key]');
+    let giftLine = miniCart.querySelector('[data-unqualified-free-gift-key]');
+
+    if (!giftLine) {
+      giftLine = Array.from(miniCart.querySelectorAll('line-item')).find((lineItem) => {
+        return Array.from(lineItem.querySelectorAll('.line-item__discount-badge, .discount-badge')).some((badge) => {
+          return badge.textContent.trim().toLowerCase().includes('free gift');
+        });
+      });
+    }
+
     if (!giftLine || giftLine.dataset.removingFreeGift === 'true') return;
 
     const lineKey = giftLine.dataset.unqualifiedFreeGiftKey;
-    if (!lineKey) return;
+    const removeLink = giftLine.querySelector('.line-item__remove-button');
+    let body = null;
+
+    if (lineKey) {
+      body = { id: lineKey, quantity: 0, sections: ['mini-cart'] };
+    } else if (removeLink) {
+      const removeUrl = new URL(removeLink.href, window.location.origin);
+      const line = removeUrl.searchParams.get('line');
+      const id = removeUrl.searchParams.get('id');
+
+      body = { quantity: 0, sections: ['mini-cart'] };
+
+      if (line) {
+        body.line = line;
+      } else if (id) {
+        body.id = id;
+      }
+    }
+
+    if (!body) return;
 
     giftLine.dataset.removingFreeGift = 'true';
 
     try {
       const response = await fetch(`${window.themeVariables.routes.cartChangeUrl}.js`, {
-        body: JSON.stringify({
-          id: lineKey,
-          quantity: 0,
-          sections: ['mini-cart']
-        }),
+        body: JSON.stringify(body),
         credentials: 'same-origin',
         method: 'POST',
         headers: {
@@ -1285,6 +1309,11 @@ if (!window.__wwUnqualifiedFreeGiftGuard) {
   });
   document.documentElement.addEventListener('cart:refresh', function () {
     window.setTimeout(wwRemoveUnqualifiedFreeGift, 900);
+  });
+  document.addEventListener('click', function (event) {
+    if (event.target.closest('[aria-controls="mini-cart"], [href="#mini-cart"], .header__cart-icon, .header__icon-wrapper[href*="/cart"]')) {
+      window.setTimeout(wwRemoveUnqualifiedFreeGift, 600);
+    }
   });
 }
 
