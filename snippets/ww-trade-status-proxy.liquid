@@ -17,6 +17,62 @@
       }
     }
 
+    function getTradeProjection(status, cartEligibleCents) {
+      var accountSpendCents = Math.round(Number(status && status.qualifying_spend_12_months || 0) * 100);
+      var projectedSpendCents = accountSpendCents + (Number(cartEligibleCents) || 0);
+      var accountDiscount = Number(status && status.current_discount || 0);
+      var projectedDiscount = 0;
+
+      if (projectedSpendCents >= 500000) {
+        projectedDiscount = 35;
+      } else if (projectedSpendCents >= 300000) {
+        projectedDiscount = 33;
+      } else if (projectedSpendCents >= 99900) {
+        projectedDiscount = 30;
+      }
+
+      projectedDiscount = Math.max(projectedDiscount, accountDiscount);
+
+      var nextThresholdCents = 99900;
+      var nextDiscount = 30;
+
+      if (projectedDiscount >= 35 || projectedSpendCents >= 500000) {
+        nextThresholdCents = 1000000;
+        nextDiscount = 0;
+      } else if (projectedDiscount >= 33 || projectedSpendCents >= 300000) {
+        nextThresholdCents = 500000;
+        nextDiscount = 35;
+      } else if (projectedDiscount >= 30 || projectedSpendCents >= 99900) {
+        nextThresholdCents = 300000;
+        nextDiscount = 33;
+      }
+
+      return {
+        projectedSpendCents: projectedSpendCents,
+        projectedDiscount: projectedDiscount,
+        nextThresholdCents: nextThresholdCents,
+        nextDiscount: nextDiscount,
+        remainingCents: Math.max(nextThresholdCents - projectedSpendCents, 0),
+        progress: Math.min(Math.max(projectedSpendCents / 500000 * 100, 0), 100)
+      };
+    }
+
+    function renderTierProgress(progress) {
+      return '<div class="ww-trade-message__tier-bar" aria-label="Trade tier progress">' +
+        '<div class="ww-trade-message__progress" aria-hidden="true">' +
+          '<span style="width:' + progress + '%;"></span>' +
+          '<i class="ww-trade-message__breakpoint" style="left:19.98%;"></i>' +
+          '<i class="ww-trade-message__breakpoint" style="left:60%;"></i>' +
+          '<i class="ww-trade-message__breakpoint" style="left:100%;"></i>' +
+        '</div>' +
+        '<div class="ww-trade-message__breakpoint-labels" aria-hidden="true">' +
+          '<span style="left:19.98%;"><small>T1</small><strong>' + formatMoneyFromCents(99900) + '</strong></span>' +
+          '<span style="left:60%;"><small>T2</small><strong>' + formatMoneyFromCents(300000) + '</strong></span>' +
+          '<span style="left:100%;"><small>T3</small><strong>' + formatMoneyFromCents(500000) + '</strong></span>' +
+        '</div>' +
+      '</div>';
+    }
+
     function getStatus() {
       if (!statusPromise) {
         statusPromise = fetch('/apps/trade/status?_=' + Date.now(), {
@@ -99,24 +155,19 @@
 
     function renderCart(target, status) {
       var cartEligibleCents = Number(target.getAttribute('data-cart-eligible-total') || 0);
-      var spendCents = Math.round(Number(status.qualifying_spend_12_months || 0) * 100);
-      var nextThresholdCents = Math.round(Number(status.next_threshold || 0) * 100);
-      var projectedSpendCents = spendCents + cartEligibleCents;
-      var remainingCents = nextThresholdCents - projectedSpendCents;
-      var progress = nextThresholdCents > 0 ? Math.min(Math.max(projectedSpendCents / nextThresholdCents * 100, 0), 100) : 100;
-      var isMiniCart = target.getAttribute('data-ww-trade-mode') === 'mini-cart';
-      var progressHtml = (isMiniCart ? '<div class="ww-trade-message__milestone" aria-hidden="true" style="position:relative;z-index:1;display:flex;width:max-content;align-items:center;justify-content:center;margin:12px auto 6px;margin-right:calc((100% - min(100%, 392px)) / 2 - 6px);padding:5px 9px;color:#111;background-color:#c7f1c5;border-radius:9999px;font-size:10px;line-height:.875rem;font-weight:400;"><span>NEXT</span></div>' : '') + '<div class="ww-trade-message__progress" aria-hidden="true" style="position:relative;display:block;max-width:392px;height:6px;margin:0 auto;overflow:hidden;background-color:#dededf;border-radius:4px;"><span style="display:block;width:' + progress + '%;height:100%;background:linear-gradient(90deg,#bbf3c1,#00b67a 70%,#005036);border-radius:inherit;transition:width .25s ease;"></span></div>' + (isMiniCart ? '<div class="ww-trade-message__threshold" style="max-width:392px;margin:4px auto 0;text-align:right;font-size:11px;font-weight:700;">' + formatMoneyFromCents(nextThresholdCents) + '</div>' : '');
+      var projection = getTradeProjection(status, cartEligibleCents);
+      var progressHtml = renderTierProgress(projection.progress);
 
-      target.style.setProperty('--ww-trade-message-progress', progress + '%');
+      target.style.setProperty('--ww-trade-message-progress', projection.progress + '%');
 
       if (status.bespoke_quote_available || status.top_tier) {
-        target.innerHTML = '<p class="ww-trade-message__title">35% trade pricing applies</p><p>Your account qualifies for bespoke project support. Contact the Trade team for a tailored quote.</p>';
-      } else if (nextThresholdCents > 0 && remainingCents > 0) {
-        target.innerHTML = '<p class="ww-trade-message__title">Trade progress</p><p>Add <strong>' + formatMoneyFromCents(remainingCents) + '</strong> in full-priced products to reach your next trade tier.</p>' + progressHtml;
-      } else if (nextThresholdCents > 0) {
-        target.innerHTML = '<p class="ww-trade-message__title">Next trade tier reached</p><p>Your latest basket takes you to the next tier. Your account tier will update after qualifying orders are processed.</p>' + progressHtml;
+        target.innerHTML = '<p class="ww-trade-message__title">35% trade pricing applies</p><p>Your account qualifies for bespoke project support. Contact the Trade team for a tailored quote.</p>' + progressHtml;
+      } else if (projection.projectedDiscount > 0 && projection.nextDiscount > 0) {
+        target.innerHTML = '<p class="ww-trade-message__title">' + projection.projectedDiscount + '% trade pricing applies</p><p>Add <strong>' + formatMoneyFromCents(projection.remainingCents) + '</strong> in full-priced products to reach ' + projection.nextDiscount + '% trade pricing.</p>' + progressHtml;
+      } else if (projection.projectedDiscount > 0) {
+        target.innerHTML = '<p class="ww-trade-message__title">' + projection.projectedDiscount + '% trade pricing applies</p><p>Your basket qualifies for the highest automatic trade discount tier.</p>' + progressHtml;
       } else {
-        target.innerHTML = '<p class="ww-trade-message__title">Trade account active</p><p>Your trade discount applies automatically to eligible full-priced products.</p>';
+        target.innerHTML = '<p class="ww-trade-message__title">Trade progress</p><p>Add <strong>' + formatMoneyFromCents(projection.remainingCents) + '</strong> in full-priced products to unlock 30% trade pricing.</p>' + progressHtml;
       }
     }
 
@@ -164,9 +215,15 @@
       });
     }
 
-    function refreshCartForDiscountMismatch(status) {
-      var discount = Number(status && status.current_discount || 0);
+    function getCartEligibleTotalFromCart(cart) {
+      if (!cart || !cart.items) return 0;
 
+      return cart.items.reduce(function (total, item) {
+        return total + Number(item.original_line_price || item.final_line_price || 0);
+      }, 0);
+    }
+
+    function refreshCartForDiscountMismatch(status) {
       if (!status || !status.is_trade_customer || cartRefreshInFlight) return Promise.resolve();
 
       return fetch('/cart.js?_=' + Date.now(), {
@@ -182,7 +239,8 @@
           if (!cart || !cart.item_count || !(cart.items || []).length) return;
 
           var hasTradeDiscount = cartHasTradeDiscount(cart);
-          var shouldHaveTradeDiscount = discount > 0;
+          var projection = getTradeProjection(status, getCartEligibleTotalFromCart(cart));
+          var shouldHaveTradeDiscount = projection.projectedDiscount > 0;
 
           if (hasTradeDiscount === shouldHaveTradeDiscount) return;
 
@@ -191,7 +249,7 @@
             cart.token || '',
             firstItem && firstItem.key,
             firstItem && firstItem.quantity,
-            discount,
+            projection.projectedDiscount,
             hasTradeDiscount ? 'has' : 'missing'
           ].join('|');
 

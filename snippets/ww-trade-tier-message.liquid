@@ -54,11 +54,40 @@
   endif
 
   assign trade_projected_spend_cents = trade_spend_cents | plus: trade_cart_eligible_total
-  assign trade_remaining_cents = trade_next_threshold_cents | minus: trade_projected_spend_cents
-  assign trade_progress_percent = 100
-  if trade_next_threshold_cents > 0
-    assign trade_progress_percent = trade_projected_spend_cents | times: 100.0 | divided_by: trade_next_threshold_cents | at_most: 100
+  assign trade_projected_discount = 0
+  assign trade_next_unlock_cents = 99900
+  assign trade_next_unlock_discount = 30
+
+  if trade_projected_spend_cents >= 500000
+    assign trade_projected_discount = 35
+    assign trade_next_unlock_cents = 1000000
+    assign trade_next_unlock_discount = 0
+  elsif trade_projected_spend_cents >= 300000
+    assign trade_projected_discount = 33
+    assign trade_next_unlock_cents = 500000
+    assign trade_next_unlock_discount = 35
+  elsif trade_projected_spend_cents >= 99900
+    assign trade_projected_discount = 30
+    assign trade_next_unlock_cents = 300000
+    assign trade_next_unlock_discount = 33
   endif
+
+  if trade_discount > trade_projected_discount
+    assign trade_projected_discount = trade_discount
+    if trade_discount >= 35
+      assign trade_next_unlock_cents = 1000000
+      assign trade_next_unlock_discount = 0
+    elsif trade_discount >= 33
+      assign trade_next_unlock_cents = 500000
+      assign trade_next_unlock_discount = 35
+    elsif trade_discount >= 30
+      assign trade_next_unlock_cents = 300000
+      assign trade_next_unlock_discount = 33
+    endif
+  endif
+
+  assign trade_remaining_cents = trade_next_unlock_cents | minus: trade_projected_spend_cents
+  assign trade_progress_percent = trade_projected_spend_cents | times: 100.0 | divided_by: 500000 | at_most: 100
   assign trade_is_top_tier = false
 
   if trade_next_threshold_cents == 0 or trade_projected_spend_cents >= 1000000
@@ -128,37 +157,43 @@
     data-ww-trade-mode="{{ trade_mode }}"
     data-current-spend="{{ trade_spend_cents }}"
     data-cart-eligible-total="{{ trade_cart_eligible_total }}"
-    data-next-threshold="{{ trade_next_threshold_cents }}"
+    data-next-threshold="{{ trade_next_unlock_cents }}"
     style="--ww-trade-message-progress: {{ trade_progress_percent }}%;"
     {% unless trade_is_customer %}hidden{% endunless %}
   >
     {%- if trade_is_customer -%}
+      {%- capture trade_progress_html -%}
+        <div class="ww-trade-message__tier-bar" aria-label="Trade tier progress">
+          <div class="ww-trade-message__progress" aria-hidden="true">
+            <span></span>
+            <i class="ww-trade-message__breakpoint" style="left: 19.98%;"></i>
+            <i class="ww-trade-message__breakpoint" style="left: 60%;"></i>
+            <i class="ww-trade-message__breakpoint" style="left: 100%;"></i>
+          </div>
+          <div class="ww-trade-message__breakpoint-labels" aria-hidden="true">
+            <span style="left: 19.98%;"><small>T1</small><strong>{{ 99900 | money_without_trailing_zeros }}</strong></span>
+            <span style="left: 60%;"><small>T2</small><strong>{{ 300000 | money_without_trailing_zeros }}</strong></span>
+            <span style="left: 100%;"><small>T3</small><strong>{{ 500000 | money_without_trailing_zeros }}</strong></span>
+          </div>
+        </div>
+      {%- endcapture -%}
+
       {%- if trade_bespoke_quote_available -%}
         <p class="ww-trade-message__title">35% trade pricing applies</p>
         <p>Your account qualifies for bespoke project support. Contact the Trade team for a tailored quote.</p>
-      {%- elsif trade_next_threshold_cents > 0 and trade_remaining_cents > 0 -%}
-        <p class="ww-trade-message__title">Trade progress</p>
-        <p>Add <strong>{{ trade_remaining_cents | money }}</strong> in full-priced products to reach your next trade tier.</p>
-        {%- if trade_mode == 'mini-cart' -%}
-          <div class="ww-trade-message__milestone" aria-hidden="true" style="position:relative;z-index:1;display:flex;width:max-content;align-items:center;justify-content:center;margin:12px auto 6px;margin-right:calc((100% - min(100%, 392px)) / 2 - 6px);padding:5px 9px;color:#111;background-color:#c7f1c5;border-radius:9999px;font-size:10px;line-height:.875rem;font-weight:400;"><span>NEXT</span></div>
-        {%- endif -%}
-        <div class="ww-trade-message__progress" aria-hidden="true" style="position:relative;display:block;max-width:392px;height:6px;margin:0 auto;overflow:hidden;background-color:#dededf;border-radius:4px;"><span style="display:block;width:var(--ww-trade-message-progress, 0%);height:100%;background:linear-gradient(90deg,#bbf3c1,#00b67a 70%,#005036);border-radius:inherit;transition:width .25s ease;"></span></div>
-        {%- if trade_mode == 'mini-cart' -%}
-          <div class="ww-trade-message__threshold" style="max-width:392px;margin:4px auto 0;text-align:right;font-size:11px;font-weight:700;">{{ trade_next_threshold_cents | money }}</div>
-        {%- endif -%}
-      {%- elsif trade_next_threshold_cents > 0 -%}
-        <p class="ww-trade-message__title">Next trade tier reached</p>
-        <p>Your latest basket takes you to the next tier. Your account tier will update after qualifying orders are processed.</p>
-        {%- if trade_mode == 'mini-cart' -%}
-          <div class="ww-trade-message__milestone" aria-hidden="true" style="position:relative;z-index:1;display:flex;width:max-content;align-items:center;justify-content:center;margin:12px auto 6px;margin-right:calc((100% - min(100%, 392px)) / 2 - 6px);padding:5px 9px;color:#111;background-color:#c7f1c5;border-radius:9999px;font-size:10px;line-height:.875rem;font-weight:400;"><span>NEXT</span></div>
-        {%- endif -%}
-        <div class="ww-trade-message__progress" aria-hidden="true" style="position:relative;display:block;max-width:392px;height:6px;margin:0 auto;overflow:hidden;background-color:#dededf;border-radius:4px;"><span style="display:block;width:var(--ww-trade-message-progress, 0%);height:100%;background:linear-gradient(90deg,#bbf3c1,#00b67a 70%,#005036);border-radius:inherit;transition:width .25s ease;"></span></div>
-        {%- if trade_mode == 'mini-cart' -%}
-          <div class="ww-trade-message__threshold" style="max-width:392px;margin:4px auto 0;text-align:right;font-size:11px;font-weight:700;">{{ trade_next_threshold_cents | money }}</div>
-        {%- endif -%}
+        {{ trade_progress_html }}
+      {%- elsif trade_projected_discount > 0 and trade_next_unlock_discount > 0 -%}
+        <p class="ww-trade-message__title">{{ trade_projected_discount }}% trade pricing applies</p>
+        <p>Add <strong>{{ trade_remaining_cents | money }}</strong> in full-priced products to reach {{ trade_next_unlock_discount }}% trade pricing.</p>
+        {{ trade_progress_html }}
+      {%- elsif trade_projected_discount > 0 -%}
+        <p class="ww-trade-message__title">{{ trade_projected_discount }}% trade pricing applies</p>
+        <p>Your basket qualifies for the highest automatic trade discount tier.</p>
+        {{ trade_progress_html }}
       {%- else -%}
-        <p class="ww-trade-message__title">Trade account active</p>
-        <p>Your trade discount applies automatically to eligible full-priced products.</p>
+        <p class="ww-trade-message__title">Trade progress</p>
+        <p>Add <strong>{{ trade_remaining_cents | money }}</strong> in full-priced products to unlock 30% trade pricing.</p>
+        {{ trade_progress_html }}
       {%- endif -%}
     {%- endif -%}
   </div>

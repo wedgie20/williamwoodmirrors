@@ -16345,7 +16345,7 @@ trust-badges {
   max-width: 392px;
   height: 6px;
   margin: 0 auto;
-  overflow: hidden;
+  overflow: visible;
   background-color: #dededf;
   border-radius: 4px;
 }
@@ -16364,6 +16364,61 @@ trust-badges {
   margin: 4px auto 0;
   text-align: right;
   font-size: 11px;
+  font-weight: 700;
+}
+
+.ww-trade-message__tier-bar {
+  max-width: 392px;
+  margin: 16px auto 0;
+  padding-bottom: 28px;
+}
+
+.ww-trade-message__breakpoint {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border: 2px solid #00b67a;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+}
+
+.ww-trade-message__breakpoint-labels {
+  position: relative;
+  max-width: 392px;
+  height: 22px;
+  margin: 7px auto 0;
+  font-size: 10px;
+  line-height: 1.1;
+}
+
+.ww-trade-message__breakpoint-labels > span {
+  position: absolute;
+  top: 0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 48px;
+  color: #111;
+  transform: translateX(-50%);
+}
+
+.ww-trade-message__breakpoint-labels > span:last-child {
+  transform: translateX(-100%);
+  align-items: flex-end;
+}
+
+.ww-trade-message__breakpoint-labels small {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.ww-trade-message__breakpoint-labels strong {
+  font-size: 10px;
   font-weight: 700;
 }
 
