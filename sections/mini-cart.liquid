@@ -70,7 +70,13 @@
   assign display_cart_total = cart.total_price | minus: free_gift_display_saving
 -%}
 
-<cart-drawer section="{{ section.id }}" id="mini-cart" class="mini-cart drawer drawer--large" data-cart-count="{{ cart.item_count }}">
+<cart-drawer
+  section="{{ section.id }}"
+  id="mini-cart"
+  class="mini-cart drawer drawer--large"
+  data-cart-count="{{ cart.item_count }}"
+  data-free-gift-qualified="{{ free_gift_eligible }}"
+>
   <span class="drawer__overlay"></span>
   <header class="drawer__header">
     {% comment %} <p class="drawer__title heading h6" style="font-size: 13px; text-transform: capitalize !important; font-family: Ambroise;">
@@ -196,7 +202,31 @@
         {%- assign free_gift_display_claimed = false -%}
 
         {%- for line_item in cart.items -%}
-          <line-item class="line-item">
+          {%- liquid
+            assign line_is_unqualified_free_gift = false
+
+            if free_gift_eligible == false
+              assign line_is_free_gift = false
+
+              if line_item.product.tags contains 'freegift'
+                assign line_is_free_gift = true
+              endif
+
+              unless line_item.properties == blank
+                for property in line_item.properties
+                  if property.first == '_free_gift' and property.last == 'true'
+                    assign line_is_free_gift = true
+                  endif
+                endfor
+              endunless
+
+              if line_is_free_gift and line_item.final_line_price == 0
+                assign line_is_unqualified_free_gift = true
+              endif
+            endif
+          -%}
+
+          <line-item class="line-item" {% if line_is_unqualified_free_gift %}data-unqualified-free-gift-key="{{ line_item.key | escape }}"{% endif %}>
             <div class="line-item__content-wrapper">
               <a href="{{ line_item.url  }}" class="line-item__image-wrapper" tabindex="-1" aria-hidden="true">
                 <span class="line-item__loader" hidden>
@@ -1116,6 +1146,65 @@ display: none;}
 
 
 <script>
+if (!window.__wwUnqualifiedFreeGiftGuard) {
+  window.__wwUnqualifiedFreeGiftGuard = true;
+
+  async function wwRemoveUnqualifiedFreeGift() {
+    const miniCart = document.getElementById('mini-cart');
+    if (!miniCart || miniCart.dataset.freeGiftQualified === 'true') return;
+
+    const giftLine = miniCart.querySelector('[data-unqualified-free-gift-key]');
+    if (!giftLine || giftLine.dataset.removingFreeGift === 'true') return;
+
+    const lineKey = giftLine.dataset.unqualifiedFreeGiftKey;
+    if (!lineKey) return;
+
+    giftLine.dataset.removingFreeGift = 'true';
+
+    try {
+      const response = await fetch(`${window.themeVariables.routes.cartChangeUrl}.js`, {
+        body: JSON.stringify({
+          id: lineKey,
+          quantity: 0,
+          sections: ['mini-cart']
+        }),
+        credentials: 'same-origin',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const cartContent = await response.json();
+
+      document.documentElement.dispatchEvent(new CustomEvent('cart:updated', {
+        bubbles: true,
+        detail: { cart: cartContent }
+      }));
+
+      document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+        bubbles: true,
+        detail: {
+          cart: cartContent,
+          openMiniCart: miniCart.open,
+          replacementDelay: 150
+        }
+      }));
+    } catch (error) {
+      giftLine.dataset.removingFreeGift = 'false';
+      console.warn('Unable to remove unqualified free gift', error);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', wwRemoveUnqualifiedFreeGift);
+  document.documentElement.addEventListener('cart:updated', function () {
+    window.setTimeout(wwRemoveUnqualifiedFreeGift, 200);
+  });
+  document.documentElement.addEventListener('cart:refresh', function () {
+    window.setTimeout(wwRemoveUnqualifiedFreeGift, 900);
+  });
+}
+
 if (!window.__wwMiniCartCheckoutInit) {
   window.__wwMiniCartCheckoutInit = true;
 
