@@ -19,115 +19,26 @@
 {%- liquid
   assign free_gift_display_saving = 0
   assign free_gift_display_saving_claimed = false
-  assign free_gift_paid_product_subtotal = 0
   assign free_gift_qualifying_subtotal = 0
-  assign unqualified_free_gift_display_adjustment = 0
-  assign free_gift_collection = collections['free-gift']
 
   for line_item in cart.items
-    assign line_has_free_gift_marker = false
-    assign line_full_price = line_item.original_line_price
-
-    if line_item.variant.compare_at_price and line_item.variant.compare_at_price > line_item.variant.price
-      assign line_full_price = line_item.variant.compare_at_price | times: line_item.quantity
-    endif
+    assign is_free_gift_discount_line = false
 
     if line_item.product.tags contains 'freegift'
-      assign line_has_free_gift_marker = true
-    endif
-
-    for product_collection in line_item.product.collections
-      if product_collection.handle == 'free-gift'
-        assign line_has_free_gift_marker = true
-        break
-      endif
-    endfor
-
-    if free_gift_collection != blank
-      for free_gift_product in free_gift_collection.products
-        if free_gift_product.id == line_item.product.id
-          assign line_has_free_gift_marker = true
-          break
-        endif
-      endfor
+      assign is_free_gift_discount_line = true
     endif
 
     unless line_item.properties == blank
       for property in line_item.properties
         if property.first == '_free_gift' and property.last == 'true'
-          assign line_has_free_gift_marker = true
+          assign is_free_gift_discount_line = true
         endif
       endfor
     endunless
 
-    unless line_item.line_level_discount_allocations == blank
-      for discount_allocation in line_item.line_level_discount_allocations
-        assign discount_title = discount_allocation.discount_application.title | downcase
-        if discount_title contains 'free gift'
-          assign line_has_free_gift_marker = true
-        endif
-      endfor
+    unless is_free_gift_discount_line
+      assign free_gift_qualifying_subtotal = free_gift_qualifying_subtotal | plus: line_item.final_line_price
     endunless
-
-    unless line_has_free_gift_marker
-      assign free_gift_paid_product_subtotal = free_gift_paid_product_subtotal | plus: line_full_price
-    endunless
-  endfor
-
-  assign paid_products_qualify_for_free_gift = false
-  if free_gift_paid_product_subtotal >= threshold_in_cents
-    assign paid_products_qualify_for_free_gift = true
-  endif
-
-  assign free_gift_qualifying_subtotal = free_gift_paid_product_subtotal
-
-  for line_item in cart.items
-    assign line_has_free_gift_marker = false
-    assign free_gift_discount_amount = 0
-
-    if line_item.product.tags contains 'freegift'
-      assign line_has_free_gift_marker = true
-    endif
-
-    for product_collection in line_item.product.collections
-      if product_collection.handle == 'free-gift'
-        assign line_has_free_gift_marker = true
-        break
-      endif
-    endfor
-
-    if free_gift_collection != blank
-      for free_gift_product in free_gift_collection.products
-        if free_gift_product.id == line_item.product.id
-          assign line_has_free_gift_marker = true
-          break
-        endif
-      endfor
-    endif
-
-    unless line_item.properties == blank
-      for property in line_item.properties
-        if property.first == '_free_gift' and property.last == 'true'
-          assign line_has_free_gift_marker = true
-        endif
-      endfor
-    endunless
-
-    unless line_item.line_level_discount_allocations == blank
-      for discount_allocation in line_item.line_level_discount_allocations
-        assign discount_title = discount_allocation.discount_application.title | downcase
-        if discount_title contains 'free gift'
-          assign line_has_free_gift_marker = true
-          assign free_gift_discount_amount = free_gift_discount_amount | plus: discount_allocation.amount
-        endif
-      endfor
-    endunless
-
-    if paid_products_qualify_for_free_gift == false and line_has_free_gift_marker and free_gift_discount_amount > 0
-      assign unqualified_free_gift_display_adjustment = unqualified_free_gift_display_adjustment | plus: free_gift_discount_amount
-    elsif paid_products_qualify_for_free_gift == false and line_has_free_gift_marker and line_item.final_line_price == 0
-      assign unqualified_free_gift_display_adjustment = unqualified_free_gift_display_adjustment | plus: line_item.original_line_price
-    endif
   endfor
 
   assign free_gift_eligible = false
@@ -137,69 +48,29 @@
 
   for line_item in cart.items
     assign is_free_gift_discount_line = false
-    assign line_has_free_gift_marker = false
-    assign line_has_free_gift_discount = false
 
     if line_item.product.tags contains 'freegift'
-      assign line_has_free_gift_marker = true
-    endif
-
-    for product_collection in line_item.product.collections
-      if product_collection.handle == 'free-gift'
-        assign line_has_free_gift_marker = true
-        break
-      endif
-    endfor
-
-    if free_gift_collection != blank
-      for free_gift_product in free_gift_collection.products
-        if free_gift_product.id == line_item.product.id
-          assign line_has_free_gift_marker = true
-          break
-        endif
-      endfor
+      assign is_free_gift_discount_line = true
     endif
 
     unless line_item.properties == blank
       for property in line_item.properties
         if property.first == '_free_gift' and property.last == 'true'
-          assign line_has_free_gift_marker = true
+          assign is_free_gift_discount_line = true
         endif
       endfor
     endunless
 
-    unless line_item.line_level_discount_allocations == blank
-      for discount_allocation in line_item.line_level_discount_allocations
-        assign discount_title = discount_allocation.discount_application.title | downcase
-        if discount_title contains 'free gift'
-          assign line_has_free_gift_marker = true
-          assign line_has_free_gift_discount = true
-        endif
-      endfor
-    endunless
-
-    if line_has_free_gift_marker and line_has_free_gift_discount
-      assign is_free_gift_discount_line = true
-    elsif line_has_free_gift_marker and line_item.final_line_price == 0
-      assign is_free_gift_discount_line = true
-    endif
-
-    if paid_products_qualify_for_free_gift and free_gift_eligible and is_free_gift_discount_line and free_gift_display_saving_claimed == false
+    if free_gift_eligible and is_free_gift_discount_line and free_gift_display_saving_claimed == false
       assign free_gift_display_saving = line_item.final_line_price | divided_by: line_item.quantity
       assign free_gift_display_saving_claimed = true
     endif
   endfor
 
-  assign display_cart_total = cart.total_price | minus: free_gift_display_saving | plus: unqualified_free_gift_display_adjustment
+  assign display_cart_total = cart.total_price | minus: free_gift_display_saving
 -%}
 
-<cart-drawer
-  section="{{ section.id }}"
-  id="mini-cart"
-  class="mini-cart drawer drawer--large"
-  data-cart-count="{{ cart.item_count }}"
-  data-free-gift-qualified="{{ free_gift_eligible }}"
->
+<cart-drawer section="{{ section.id }}" id="mini-cart" class="mini-cart drawer drawer--large" data-cart-count="{{ cart.item_count }}">
   <span class="drawer__overlay"></span>
   <header class="drawer__header">
     {% comment %} <p class="drawer__title heading h6" style="font-size: 13px; text-transform: capitalize !important; font-family: Ambroise;">
@@ -278,50 +149,21 @@
       {%- liquid
         assign free_gift_claimed = false
         for item in cart.items
-          assign has_free_gift_marker = false
-          assign has_free_gift_discount = false
+          assign is_free_gift_item = false
 
           if item.product.tags contains 'freegift'
-            assign has_free_gift_marker = true
-          endif
-
-          for product_collection in item.product.collections
-            if product_collection.handle == 'free-gift'
-              assign has_free_gift_marker = true
-              break
-            endif
-          endfor
-
-          if free_gift_collection != blank
-            for free_gift_product in free_gift_collection.products
-              if free_gift_product.id == item.product.id
-                assign has_free_gift_marker = true
-                break
-              endif
-            endfor
+            assign is_free_gift_item = true
           endif
 
           unless item.properties == blank
             for property in item.properties
               if property.first == '_free_gift' and property.last == 'true'
-                assign has_free_gift_marker = true
+                assign is_free_gift_item = true
               endif
             endfor
           endunless
 
-          unless item.line_level_discount_allocations == blank
-            for discount_allocation in item.line_level_discount_allocations
-              assign discount_title = discount_allocation.discount_application.title | downcase
-              if discount_title contains 'free gift'
-                assign has_free_gift_marker = true
-                assign has_free_gift_discount = true
-              endif
-            endfor
-          endunless
-
-          if paid_products_qualify_for_free_gift and free_gift_eligible and has_free_gift_marker and has_free_gift_discount
-            assign free_gift_claimed = true
-          elsif paid_products_qualify_for_free_gift and free_gift_eligible and has_free_gift_marker and item.final_line_price == 0
+          if free_gift_eligible and is_free_gift_item
             assign free_gift_claimed = true
           endif
         endfor
@@ -384,64 +226,23 @@
 
               {%- liquid
                 assign is_free_gift_line = false
-                assign has_free_gift_marker = false
-                assign has_free_gift_discount = false
 
                 if line_item.product.tags contains 'freegift'
-                  assign has_free_gift_marker = true
-                endif
-
-                for product_collection in line_item.product.collections
-                  if product_collection.handle == 'free-gift'
-                    assign has_free_gift_marker = true
-                    break
-                  endif
-                endfor
-
-                if free_gift_collection != blank
-                  for free_gift_product in free_gift_collection.products
-                    if free_gift_product.id == line_item.product.id
-                      assign has_free_gift_marker = true
-                      break
-                    endif
-                  endfor
+                  assign is_free_gift_line = true
                 endif
 
                 unless line_item.properties == blank
                   for property in line_item.properties
                     if property.first == '_free_gift' and property.last == 'true'
-                      assign has_free_gift_marker = true
+                      assign is_free_gift_line = true
                     endif
                   endfor
                 endunless
-
-                unless line_item.line_level_discount_allocations == blank
-                  for discount_allocation in line_item.line_level_discount_allocations
-                    assign discount_title = discount_allocation.discount_application.title | downcase
-                    if discount_title contains 'free gift'
-                      assign has_free_gift_marker = true
-                      assign has_free_gift_discount = true
-                    endif
-                  endfor
-                endunless
-
-                if has_free_gift_marker and has_free_gift_discount
-                  assign is_free_gift_line = true
-                elsif has_free_gift_marker and line_item.final_line_price == 0
-                  assign is_free_gift_line = true
-                endif
 
                 assign gift_unit_displayed_free = false
                 assign free_gift_display_price = line_item.final_line_price
-                assign display_free_gift_as_paid = false
-                assign line_price_should_highlight = false
-                assign line_price_should_compare = false
 
-                if paid_products_qualify_for_free_gift == false and is_free_gift_line
-                  assign display_free_gift_as_paid = true
-                endif
-
-                if paid_products_qualify_for_free_gift and free_gift_eligible and is_free_gift_line and free_gift_display_claimed == false
+                if free_gift_eligible and is_free_gift_line and free_gift_display_claimed == false
                   assign gift_unit_displayed_free = true
                   assign free_gift_display_claimed = true
 
@@ -452,16 +253,6 @@
                     assign free_gift_display_price = 0
                   endif
                 endif
-
-                if display_free_gift_as_paid == false
-                  if gift_unit_displayed_free or line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price
-                    assign line_price_should_highlight = true
-                  endif
-
-                  if gift_unit_displayed_free or line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price
-                    assign line_price_should_compare = true
-                  endif
-                endif
               -%}
 
               {%- capture line_price -%}
@@ -470,12 +261,10 @@
                   to a line item though, the "real" discount takes precedence over the compare at price
                 {%- endcomment -%}
 
-                <span class="price {% if line_price_should_highlight %}price--highlight{% endif %}">
+                <span class="price {% if gift_unit_displayed_free or line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price %}price--highlight{% endif %}">
                   <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
 
-                  {%- if display_free_gift_as_paid -%}
-                    {% render 'format-money', amount: line_item.original_line_price %}
-                  {%- elsif gift_unit_displayed_free and free_gift_display_price == 0 -%}
+                  {%- if gift_unit_displayed_free and free_gift_display_price == 0 -%}
                     {{- 'cart.general.free' | t -}}
                   {%- elsif gift_unit_displayed_free -%}
                     {% render 'format-money', amount: free_gift_display_price %}
@@ -487,7 +276,7 @@
                   {%- endif -%}
                 </span>
 
-                {%- if line_price_should_compare -%}
+                {%- if gift_unit_displayed_free or line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
                   <span class="price price--compare">
                 <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
 
@@ -596,12 +385,6 @@
                 {%- if line_item.line_level_discount_allocations != blank -%}
                   <ul class="line-item__discount-list list--unstyled" role="list">
                     {%- for discount_allocation in line_item.line_level_discount_allocations -%}
-                      {%- assign discount_title_downcase = discount_allocation.discount_application.title | downcase -%}
-                      {%- if display_free_gift_as_paid -%}
-                        {%- if discount_title_downcase contains 'free gift' -%}
-                          {%- continue -%}
-                        {%- endif -%}
-                      {%- endif -%}
                       <li class="line-item__discount-badge discount-badge">
                         {%- render 'icon' with 'discount-badge' -%}{{ discount_allocation.discount_application.title }} (-{% render 'format-money', amount: discount_allocation.amount %})
                       </li>
@@ -838,52 +621,8 @@
 {% for item in cart.items %}
   {% assign item_total_saving = 0 %}
   {% assign item_savings_basis = item.final_line_price %}
-  {% assign item_has_free_gift_marker = false %}
-  {% assign item_has_free_gift_discount = false %}
 
-  {% if item.product.tags contains 'freegift' %}
-    {% assign item_has_free_gift_marker = true %}
-  {% endif %}
-
-  {% for product_collection in item.product.collections %}
-    {% if product_collection.handle == 'free-gift' %}
-      {% assign item_has_free_gift_marker = true %}
-      {% break %}
-    {% endif %}
-  {% endfor %}
-
-  {% if free_gift_collection != blank %}
-    {% for free_gift_product in free_gift_collection.products %}
-      {% if free_gift_product.id == item.product.id %}
-        {% assign item_has_free_gift_marker = true %}
-        {% break %}
-      {% endif %}
-    {% endfor %}
-  {% endif %}
-
-  {% unless item.properties == blank %}
-    {% for property in item.properties %}
-      {% if property.first == '_free_gift' and property.last == 'true' %}
-        {% assign item_has_free_gift_marker = true %}
-      {% endif %}
-    {% endfor %}
-  {% endunless %}
-
-  {% unless item.line_level_discount_allocations == blank %}
-    {% for discount_allocation in item.line_level_discount_allocations %}
-      {% assign discount_title = discount_allocation.discount_application.title | downcase %}
-      {% if discount_title contains 'free gift' %}
-        {% assign item_has_free_gift_marker = true %}
-        {% assign item_has_free_gift_discount = true %}
-      {% endif %}
-    {% endfor %}
-  {% endunless %}
-
-  {% if paid_products_qualify_for_free_gift == false and item_has_free_gift_marker and item_has_free_gift_discount %}
-    {% assign item_savings_basis = item.original_line_price %}
-  {% elsif paid_products_qualify_for_free_gift == false and item_has_free_gift_marker and item.final_line_price == 0 %}
-    {% assign item_savings_basis = item.original_line_price %}
-  {% elsif item.original_line_price > item.final_line_price %}
+  {% if item.original_line_price > item.final_line_price %}
     {% assign has_code_savings = true %}
     {% assign item_savings_basis = item.original_line_price %}
     {% assign item_total_saving = item.original_line_price | minus: item.final_line_price %}
