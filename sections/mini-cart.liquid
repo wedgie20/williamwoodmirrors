@@ -37,7 +37,7 @@
     endunless
 
     unless is_free_gift_discount_line
-      assign free_gift_qualifying_subtotal = free_gift_qualifying_subtotal | plus: line_item.final_line_price
+      assign free_gift_qualifying_subtotal = free_gift_qualifying_subtotal | plus: line_item.original_line_price
     endunless
   endfor
 
