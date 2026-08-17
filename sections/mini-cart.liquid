@@ -206,7 +206,6 @@
 
                 <img class="line-item__image" loading="sizes" sizes="(max-width: 740px) 80px, 92px" {% render 'image-attributes', image: line_item.image, sizes: '80,92,160,184,240,276' %}>
               </a>
- 
               {%- capture unit_price -%}
                 {%- if line_item.unit_price_measurement -%}
                   <div class="price text--subdued">
