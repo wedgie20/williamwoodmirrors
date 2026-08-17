@@ -523,8 +523,10 @@
                   <ul class="line-item__discount-list list--unstyled" role="list">
                     {%- for discount_allocation in line_item.line_level_discount_allocations -%}
                       {%- assign discount_title_downcase = discount_allocation.discount_application.title | downcase -%}
-                      {%- if display_free_gift_as_paid and discount_title_downcase contains 'free gift' -%}
-                        {%- continue -%}
+                      {%- if display_free_gift_as_paid -%}
+                        {%- if discount_title_downcase contains 'free gift' -%}
+                          {%- continue -%}
+                        {%- endif -%}
                       {%- endif -%}
                       <li class="line-item__discount-badge discount-badge">
                         {%- render 'icon' with 'discount-badge' -%}{{ discount_allocation.discount_application.title }} (-{% render 'format-money', amount: discount_allocation.amount %})
