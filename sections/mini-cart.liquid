@@ -19,7 +19,43 @@
 {%- liquid
   assign free_gift_display_saving = 0
   assign free_gift_display_saving_claimed = false
+  assign free_gift_paid_product_subtotal = 0
   assign free_gift_qualifying_subtotal = 0
+  assign unqualified_free_gift_display_adjustment = 0
+
+  for line_item in cart.items
+    assign line_has_free_gift_marker = false
+
+    if line_item.product.tags contains 'freegift'
+      assign line_has_free_gift_marker = true
+    endif
+
+    unless line_item.properties == blank
+      for property in line_item.properties
+        if property.first == '_free_gift' and property.last == 'true'
+          assign line_has_free_gift_marker = true
+        endif
+      endfor
+    endunless
+
+    unless line_item.line_level_discount_allocations == blank
+      for discount_allocation in line_item.line_level_discount_allocations
+        assign discount_title = discount_allocation.discount_application.title | downcase
+        if discount_title contains 'free gift'
+          assign line_has_free_gift_marker = true
+        endif
+      endfor
+    endunless
+
+    unless line_has_free_gift_marker
+      assign free_gift_paid_product_subtotal = free_gift_paid_product_subtotal | plus: line_item.original_line_price
+    endunless
+  endfor
+
+  assign paid_products_qualify_for_free_gift = false
+  if free_gift_paid_product_subtotal >= threshold_in_cents
+    assign paid_products_qualify_for_free_gift = true
+  endif
 
   for line_item in cart.items
     assign line_has_free_gift_marker = false
@@ -49,9 +85,9 @@
 
     assign free_gift_line_qualifying_amount = line_item.original_line_price
 
-    if free_gift_discount_amount > 0
+    if paid_products_qualify_for_free_gift and free_gift_discount_amount > 0
       assign free_gift_line_qualifying_amount = line_item.original_line_price | minus: free_gift_discount_amount
-    elsif line_has_free_gift_marker and line_item.final_line_price == 0
+    elsif paid_products_qualify_for_free_gift and line_has_free_gift_marker and line_item.final_line_price == 0
       assign free_gift_line_qualifying_amount = 0
     endif
 
@@ -60,6 +96,12 @@
     endif
 
     assign free_gift_qualifying_subtotal = free_gift_qualifying_subtotal | plus: free_gift_line_qualifying_amount
+
+    if paid_products_qualify_for_free_gift == false and line_has_free_gift_marker and free_gift_discount_amount > 0
+      assign unqualified_free_gift_display_adjustment = unqualified_free_gift_display_adjustment | plus: free_gift_discount_amount
+    elsif paid_products_qualify_for_free_gift == false and line_has_free_gift_marker and line_item.final_line_price == 0
+      assign unqualified_free_gift_display_adjustment = unqualified_free_gift_display_adjustment | plus: line_item.original_line_price
+    endif
   endfor
 
   assign free_gift_eligible = false
@@ -100,13 +142,13 @@
       assign is_free_gift_discount_line = true
     endif
 
-    if free_gift_eligible and is_free_gift_discount_line and free_gift_display_saving_claimed == false
+    if paid_products_qualify_for_free_gift and free_gift_eligible and is_free_gift_discount_line and free_gift_display_saving_claimed == false
       assign free_gift_display_saving = line_item.final_line_price | divided_by: line_item.quantity
       assign free_gift_display_saving_claimed = true
     endif
   endfor
 
-  assign display_cart_total = cart.total_price | minus: free_gift_display_saving
+  assign display_cart_total = cart.total_price | minus: free_gift_display_saving | plus: unqualified_free_gift_display_adjustment
 -%}
 
 <cart-drawer
@@ -219,9 +261,9 @@
             endfor
           endunless
 
-          if free_gift_eligible and has_free_gift_marker and has_free_gift_discount
+          if paid_products_qualify_for_free_gift and free_gift_eligible and has_free_gift_marker and has_free_gift_discount
             assign free_gift_claimed = true
-          elsif free_gift_eligible and has_free_gift_marker and item.final_line_price == 0
+          elsif paid_products_qualify_for_free_gift and free_gift_eligible and has_free_gift_marker and item.final_line_price == 0
             assign free_gift_claimed = true
           endif
         endfor
@@ -254,44 +296,7 @@
         {%- assign free_gift_display_claimed = false -%}
 
         {%- for line_item in cart.items -%}
-          {%- liquid
-            assign line_is_unqualified_free_gift = false
-
-            if free_gift_eligible == false
-              assign line_has_free_gift_marker = false
-              assign line_has_free_gift_discount = false
-
-              if line_item.product.tags contains 'freegift'
-                assign line_has_free_gift_marker = true
-              endif
-
-              unless line_item.properties == blank
-                for property in line_item.properties
-                  if property.first == '_free_gift' and property.last == 'true'
-                    assign line_has_free_gift_marker = true
-                  endif
-                endfor
-              endunless
-
-              unless line_item.line_level_discount_allocations == blank
-                for discount_allocation in line_item.line_level_discount_allocations
-                  assign discount_title = discount_allocation.discount_application.title | downcase
-                  if discount_title contains 'free gift'
-                    assign line_has_free_gift_marker = true
-                    assign line_has_free_gift_discount = true
-                  endif
-                endfor
-              endunless
-
-              if line_has_free_gift_marker and line_item.final_line_price == 0
-                assign line_is_unqualified_free_gift = true
-              elsif line_has_free_gift_discount
-                assign line_is_unqualified_free_gift = true
-              endif
-            endif
-          -%}
-
-          <line-item class="line-item" {% if line_is_unqualified_free_gift %}data-unqualified-free-gift-key="{{ line_item.key | escape }}"{% endif %}>
+          <line-item class="line-item">
             <div class="line-item__content-wrapper">
               <a href="{{ line_item.url  }}" class="line-item__image-wrapper" tabindex="-1" aria-hidden="true">
                 <span class="line-item__loader" hidden>
@@ -354,8 +359,15 @@
 
                 assign gift_unit_displayed_free = false
                 assign free_gift_display_price = line_item.final_line_price
+                assign display_free_gift_as_paid = false
+                assign line_price_should_highlight = false
+                assign line_price_should_compare = false
 
-                if free_gift_eligible and is_free_gift_line and free_gift_display_claimed == false
+                if paid_products_qualify_for_free_gift == false and is_free_gift_line
+                  assign display_free_gift_as_paid = true
+                endif
+
+                if paid_products_qualify_for_free_gift and free_gift_eligible and is_free_gift_line and free_gift_display_claimed == false
                   assign gift_unit_displayed_free = true
                   assign free_gift_display_claimed = true
 
@@ -366,6 +378,16 @@
                     assign free_gift_display_price = 0
                   endif
                 endif
+
+                if display_free_gift_as_paid == false
+                  if gift_unit_displayed_free or line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price
+                    assign line_price_should_highlight = true
+                  endif
+
+                  if gift_unit_displayed_free or line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price
+                    assign line_price_should_compare = true
+                  endif
+                endif
               -%}
 
               {%- capture line_price -%}
@@ -374,10 +396,12 @@
                   to a line item though, the "real" discount takes precedence over the compare at price
                 {%- endcomment -%}
 
-                <span class="price {% if gift_unit_displayed_free or line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price %}price--highlight{% endif %}">
+                <span class="price {% if line_price_should_highlight %}price--highlight{% endif %}">
                   <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
 
-                  {%- if gift_unit_displayed_free and free_gift_display_price == 0 -%}
+                  {%- if display_free_gift_as_paid -%}
+                    {% render 'format-money', amount: line_item.original_line_price %}
+                  {%- elsif gift_unit_displayed_free and free_gift_display_price == 0 -%}
                     {{- 'cart.general.free' | t -}}
                   {%- elsif gift_unit_displayed_free -%}
                     {% render 'format-money', amount: free_gift_display_price %}
@@ -389,7 +413,7 @@
                   {%- endif -%}
                 </span>
 
-                {%- if gift_unit_displayed_free or line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
+                {%- if line_price_should_compare -%}
                   <span class="price price--compare">
                 <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
 
@@ -498,6 +522,10 @@
                 {%- if line_item.line_level_discount_allocations != blank -%}
                   <ul class="line-item__discount-list list--unstyled" role="list">
                     {%- for discount_allocation in line_item.line_level_discount_allocations -%}
+                      {%- assign discount_title_downcase = discount_allocation.discount_application.title | downcase -%}
+                      {%- if display_free_gift_as_paid and discount_title_downcase contains 'free gift' -%}
+                        {%- continue -%}
+                      {%- endif -%}
                       <li class="line-item__discount-badge discount-badge">
                         {%- render 'icon' with 'discount-badge' -%}{{ discount_allocation.discount_application.title }} (-{% render 'format-money', amount: discount_allocation.amount %})
                       </li>
@@ -734,8 +762,36 @@
 {% for item in cart.items %}
   {% assign item_total_saving = 0 %}
   {% assign item_savings_basis = item.final_line_price %}
+  {% assign item_has_free_gift_marker = false %}
+  {% assign item_has_free_gift_discount = false %}
 
-  {% if item.original_line_price > item.final_line_price %}
+  {% if item.product.tags contains 'freegift' %}
+    {% assign item_has_free_gift_marker = true %}
+  {% endif %}
+
+  {% unless item.properties == blank %}
+    {% for property in item.properties %}
+      {% if property.first == '_free_gift' and property.last == 'true' %}
+        {% assign item_has_free_gift_marker = true %}
+      {% endif %}
+    {% endfor %}
+  {% endunless %}
+
+  {% unless item.line_level_discount_allocations == blank %}
+    {% for discount_allocation in item.line_level_discount_allocations %}
+      {% assign discount_title = discount_allocation.discount_application.title | downcase %}
+      {% if discount_title contains 'free gift' %}
+        {% assign item_has_free_gift_marker = true %}
+        {% assign item_has_free_gift_discount = true %}
+      {% endif %}
+    {% endfor %}
+  {% endunless %}
+
+  {% if paid_products_qualify_for_free_gift == false and item_has_free_gift_marker and item_has_free_gift_discount %}
+    {% assign item_savings_basis = item.original_line_price %}
+  {% elsif paid_products_qualify_for_free_gift == false and item_has_free_gift_marker and item.final_line_price == 0 %}
+    {% assign item_savings_basis = item.original_line_price %}
+  {% elsif item.original_line_price > item.final_line_price %}
     {% assign has_code_savings = true %}
     {% assign item_savings_basis = item.original_line_price %}
     {% assign item_total_saving = item.original_line_price | minus: item.final_line_price %}
@@ -1229,94 +1285,6 @@ display: none;}
 
 
 <script>
-if (!window.__wwUnqualifiedFreeGiftGuard) {
-  window.__wwUnqualifiedFreeGiftGuard = true;
-
-  async function wwRemoveUnqualifiedFreeGift() {
-    const miniCart = document.getElementById('mini-cart');
-    if (!miniCart || miniCart.dataset.freeGiftQualified === 'true') return;
-
-    let giftLine = miniCart.querySelector('[data-unqualified-free-gift-key]');
-
-    if (!giftLine) {
-      giftLine = Array.from(miniCart.querySelectorAll('line-item')).find((lineItem) => {
-        return Array.from(lineItem.querySelectorAll('.line-item__discount-badge, .discount-badge')).some((badge) => {
-          return badge.textContent.trim().toLowerCase().includes('free gift');
-        });
-      });
-    }
-
-    if (!giftLine || giftLine.dataset.removingFreeGift === 'true') return;
-
-    const lineKey = giftLine.dataset.unqualifiedFreeGiftKey;
-    const removeLink = giftLine.querySelector('.line-item__remove-button');
-    let body = null;
-
-    if (lineKey) {
-      body = { id: lineKey, quantity: 0, sections: ['mini-cart'] };
-    } else if (removeLink) {
-      const removeUrl = new URL(removeLink.href, window.location.origin);
-      const line = removeUrl.searchParams.get('line');
-      const id = removeUrl.searchParams.get('id');
-
-      body = { quantity: 0, sections: ['mini-cart'] };
-
-      if (line) {
-        body.line = line;
-      } else if (id) {
-        body.id = id;
-      }
-    }
-
-    if (!body) return;
-
-    giftLine.dataset.removingFreeGift = 'true';
-
-    try {
-      const response = await fetch(`${window.themeVariables.routes.cartChangeUrl}.js`, {
-        body: JSON.stringify(body),
-        credentials: 'same-origin',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-
-      const cartContent = await response.json();
-
-      document.documentElement.dispatchEvent(new CustomEvent('cart:updated', {
-        bubbles: true,
-        detail: { cart: cartContent }
-      }));
-
-      document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
-        bubbles: true,
-        detail: {
-          cart: cartContent,
-          openMiniCart: miniCart.open,
-          replacementDelay: 150
-        }
-      }));
-    } catch (error) {
-      giftLine.dataset.removingFreeGift = 'false';
-      console.warn('Unable to remove unqualified free gift', error);
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', wwRemoveUnqualifiedFreeGift);
-  document.documentElement.addEventListener('cart:updated', function () {
-    window.setTimeout(wwRemoveUnqualifiedFreeGift, 200);
-  });
-  document.documentElement.addEventListener('cart:refresh', function () {
-    window.setTimeout(wwRemoveUnqualifiedFreeGift, 900);
-  });
-  document.addEventListener('click', function (event) {
-    if (event.target.closest('[aria-controls="mini-cart"], [href="#mini-cart"], .header__cart-icon, .header__icon-wrapper[href*="/cart"]')) {
-      window.setTimeout(wwRemoveUnqualifiedFreeGift, 600);
-    }
-  });
-}
-
 if (!window.__wwMiniCartCheckoutInit) {
   window.__wwMiniCartCheckoutInit = true;
 
