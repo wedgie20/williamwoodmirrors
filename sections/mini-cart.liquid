@@ -35,6 +35,13 @@
       assign line_has_free_gift_marker = true
     endif
 
+    for product_collection in line_item.product.collections
+      if product_collection.handle == 'free-gift'
+        assign line_has_free_gift_marker = true
+        break
+      endif
+    endfor
+
     unless line_item.properties == blank
       for property in line_item.properties
         if property.first == '_free_gift' and property.last == 'true'
@@ -71,6 +78,13 @@
     if line_item.product.tags contains 'freegift'
       assign line_has_free_gift_marker = true
     endif
+
+    for product_collection in line_item.product.collections
+      if product_collection.handle == 'free-gift'
+        assign line_has_free_gift_marker = true
+        break
+      endif
+    endfor
 
     unless line_item.properties == blank
       for property in line_item.properties
@@ -110,6 +124,13 @@
     if line_item.product.tags contains 'freegift'
       assign line_has_free_gift_marker = true
     endif
+
+    for product_collection in line_item.product.collections
+      if product_collection.handle == 'free-gift'
+        assign line_has_free_gift_marker = true
+        break
+      endif
+    endfor
 
     unless line_item.properties == blank
       for property in line_item.properties
@@ -236,6 +257,13 @@
             assign has_free_gift_marker = true
           endif
 
+          for product_collection in item.product.collections
+            if product_collection.handle == 'free-gift'
+              assign has_free_gift_marker = true
+              break
+            endif
+          endfor
+
           unless item.properties == blank
             for property in item.properties
               if property.first == '_free_gift' and property.last == 'true'
@@ -325,6 +353,13 @@
                 if line_item.product.tags contains 'freegift'
                   assign has_free_gift_marker = true
                 endif
+
+                for product_collection in line_item.product.collections
+                  if product_collection.handle == 'free-gift'
+                    assign has_free_gift_marker = true
+                    break
+                  endif
+                endfor
 
                 unless line_item.properties == blank
                   for property in line_item.properties
@@ -763,6 +798,13 @@
   {% if item.product.tags contains 'freegift' %}
     {% assign item_has_free_gift_marker = true %}
   {% endif %}
+
+  {% for product_collection in item.product.collections %}
+    {% if product_collection.handle == 'free-gift' %}
+      {% assign item_has_free_gift_marker = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
 
   {% unless item.properties == blank %}
     {% for property in item.properties %}
