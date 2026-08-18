@@ -465,7 +465,7 @@
         {%- endif -%}
 
         <div class="ww-pdp__thumbs" aria-label="Product media thumbnails">
-          {%- for media in product.media limit: 10 -%}
+          {%- for media in product.media -%}
             {%- if media.preview_image != blank -%}
               <button type="button" class="ww-pdp__thumb {% if media.id == featured_media.id %}is-active{% endif %}" data-ww-pdp-thumb data-src="{{ settings.speedsize_url_pfx_https -}}{{ media.preview_image | img_url: '1800x' }}" data-alt="{{ media.alt | default: product.title | escape }}" aria-label="Show image {{ forloop.index }}">
                 <img loading="lazy" sizes="78px" {% render 'image-attributes', image: media.preview_image, sizes: '90,140,180' %}>
