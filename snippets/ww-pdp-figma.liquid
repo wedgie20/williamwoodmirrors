@@ -449,11 +449,11 @@
             <span aria-hidden="true">&rarr;</span>
           </button>
         {%- endif -%}
-
-        <div class="ww-pdp__thumbs" aria-label="Product media thumbnails">
-          <div class="ww-pdp__counter" data-ww-pdp-counter aria-label="Product media counter" aria-live="polite">
+<div class="ww-pdp__counter" data-ww-pdp-counter aria-label="Product media counter" aria-live="polite">
   <span data-ww-pdp-counter-current>1</span><span aria-hidden="true">/</span><span data-ww-pdp-counter-total>{{ product.media.size }}</span>
 </div>
+        <div class="ww-pdp__thumbs" aria-label="Product media thumbnails">
+          
           {%- for media in product.media limit: 7 -%}
             {%- if media.preview_image != blank -%}
               <button type="button" class="ww-pdp__thumb {% if media.id == featured_media.id %}is-active{% endif %}" data-ww-pdp-thumb data-src="{{ settings.speedsize_url_pfx_https -}}{{ media.preview_image | img_url: '1800x' }}" data-alt="{{ media.alt | default: product.title | escape }}" aria-label="Show image {{ forloop.index }}">
