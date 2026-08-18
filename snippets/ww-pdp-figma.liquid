@@ -3029,24 +3029,6 @@
 <script>
 
   (function () {
-  var counterEl = document.querySelector('[data-ww-pdp-counter]');
-  if (!counterEl) return;
-
-  var currentEl = counterEl.querySelector('[data-ww-pdp-counter-current]');
-
-  function updateCounter(index) {
-    // index expected as 1-based
-    currentEl.textContent = index;
-  }
-
-  // Hook this into wherever your gallery already fires on slide change.
-  // e.g. if using a custom event:
-  document.addEventListener('ww-pdp:media-change', function (e) {
-    updateCounter(e.detail.index + 1); // if 0-based
-  });
-})();
-
-  (function () {
     var root = document.querySelector('#shopify-section-{{ section.id }} [data-ww-pdp]');
     if (!root || root.dataset.ready === 'true') return;
     root.dataset.ready = 'true';
