@@ -3028,6 +3028,14 @@
 
 <script>
 
+  var counterCurrentEl = document.querySelector('[data-ww-pdp-counter-current]');
+
+var _setImageFromThumb = setImageFromThumb;
+setImageFromThumb = function (index, opts) {
+  _setImageFromThumb(index, opts);
+  if (counterCurrentEl) counterCurrentEl.textContent = index + 1;
+};
+
   (function () {
     var root = document.querySelector('#shopify-section-{{ section.id }} [data-ww-pdp]');
     if (!root || root.dataset.ready === 'true') return;
