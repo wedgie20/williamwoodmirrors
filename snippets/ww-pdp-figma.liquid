@@ -485,14 +485,16 @@
 
       <div class="ww-pdp_designed_div">
       <p class="ww-pdp__label" style="">{{ product_label }}</p>
-      <span class="ww-pdp__price-group {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
-          {%- if has_variant_discount -%}
-            <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.compare_at_price | money }}</span>
-            <span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
-          {%- else -%}
-            <span class="ww-pdp__price" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
-          {%- endif -%}
-        </span>
+      <div class="ww_price_div">
+        <span class="ww-pdp__price-group {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
+            {%- if has_variant_discount -%}
+              <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.compare_at_price | money }}</span>
+              <span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
+            {%- else -%}
+              <span class="ww-pdp__price" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
+            {%- endif -%}
+          </span>
+        </div>
       {% comment %}
 {% if product.tags contains 'in-house' %}<a class="ww-pdp__designed" href="/collections/designed-in-house-by-william-wood">Designed in-house by <strong>WILLIAM WOOD</strong></a>{% endif %}
       {% endcomment %}
