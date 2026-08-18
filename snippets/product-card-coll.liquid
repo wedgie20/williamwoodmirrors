@@ -369,7 +369,7 @@
                 {{- product.compare_at_price | money -}}
               {%- endif -%}
             </span>
-<span>(Save)</span>
+
             <span class="price price--highlight">
               <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
               {%- if settings.currency_code_enabled -%}
@@ -378,6 +378,7 @@
                 {{- product.price | money -}}
               {%- endif -%}
             </span>
+            <span>(Save)</span>
           {%- elsif product.price_varies -%}
             {%- capture price_min -%}
               {%- if settings.currency_code_enabled -%}
