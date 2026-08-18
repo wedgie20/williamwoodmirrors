@@ -328,7 +328,7 @@
             {%- if cheapest_variant.price < cheapest_variant.compare_at_price -%}
               <span class="price price--highlight">
                 <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
-                {{- 'collection.product.from_price_html' | t: price_min: price_min -}}
+                {{- 'collection.product.from_price_html' | t: price_min: price_min -}} (Save)
               </span>
 
               <span class="price price--compare">
@@ -438,7 +438,7 @@
                 <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
             </span>
-            Risk-Free: 90-Day Free Returns
+            Risk-Free: 60-Day Free Returns
           </div>
         {% comment %} <div class="guarantee-item" {% unless product.tags contains 'MarchPush' %}style="font-size: 13px;"{% else %}style="font-size: 13px; display: none;"{% endunless %}> {% endcomment %}
    <div class="guarantee-item imhere" style="display: none" {% if product.tags contains 'MarchPush' %}style="font-size: 13px;"{% else %}style="font-size: 13px; display: none;"{% endif %}>
