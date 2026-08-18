@@ -369,7 +369,7 @@
                 {{- product.compare_at_price | money -}}
               {%- endif -%}
             </span>
-
+<span>(Save)</span>
             <span class="price price--highlight">
               <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
               {%- if settings.currency_code_enabled -%}
@@ -409,7 +409,7 @@
               {%- endif -%}
             </span>
           {%- endif -%}
-           <span>(Save)</span>
+           
           {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
             <div class="price price--block text--xsmall text--subdued">
               <div class="unit-price-measurement">
