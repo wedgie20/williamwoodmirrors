@@ -460,9 +460,7 @@
           {%- endfor -%}
         </div>
 
-        <div class="ww-pdp__counter" data-ww-pdp-counter aria-label="Product media counter" aria-live="polite">
-  <span data-ww-pdp-counter-current>1</span><span aria-hidden="true">/</span><span data-ww-pdp-counter-total>{{ product.media.size }}</span>
-</div>
+        
 
         <div class="ww-pdp__media-controls">
           <button type="button" class="ww-pdp__media-btn" data-ww-pdp-zoom aria-label="Zoom product image">
@@ -3026,26 +3024,6 @@
 </style>
 
 <script>
-
-  (function () {
-  var counterEl = document.querySelector('[data-ww-pdp-counter]');
-  if (!counterEl) return;
-
-  var currentEl = counterEl.querySelector('[data-ww-pdp-counter-current]');
-
-  function updateCounter(index) {
-    // index expected as 1-based
-    currentEl.textContent = index;
-  }
-
-  // Hook this into wherever your gallery already fires on slide change.
-  // e.g. if using a custom event:
-  document.addEventListener('ww-pdp:media-change', function (e) {
-    updateCounter(e.detail.index + 1); // if 0-based
-  });
-})();
-
-
   (function () {
     var root = document.querySelector('#shopify-section-{{ section.id }} [data-ww-pdp]');
     if (!root || root.dataset.ready === 'true') return;
