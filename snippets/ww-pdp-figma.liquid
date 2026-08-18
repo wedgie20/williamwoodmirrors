@@ -484,7 +484,7 @@
       {% comment %} <div class="ww-pdp__designed">Designed in-house by <strong>WILLIAM WOOD</strong></div> {% endcomment %}
 
       <div class="ww-pdp_designed_div">
-      <p class="ww-pdp__label" style="margin-top: 0 !important">{{ product_label }}</p>
+      <p class="ww-pdp__label" style="">{{ product_label }}</p>
       <span class="ww-pdp__price-group {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
           {%- if has_variant_discount -%}
             <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.compare_at_price | money }}</span>
