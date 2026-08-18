@@ -482,7 +482,12 @@
       </nav>
 
       {% comment %} <div class="ww-pdp__designed">Designed in-house by <strong>WILLIAM WOOD</strong></div> {% endcomment %}
-
+{%- if review_count_number > 0 -%}
+        <a class="ww-pdp__reviews" href="#judgeme_product_reviews">
+          <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span>{{ review_count }} reviews</span>
+        </a>
+      {%- endif -%}
       <div class="ww-pdp_designed_div">
       <p class="ww-pdp__label" style="">{{ product_label }}</p>
       <div class="ww_price_div">
