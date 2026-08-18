@@ -402,7 +402,6 @@
           {%- else -%}
             <span class="price">
               <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
-              <span>(Save)</span>
               {%- if settings.currency_code_enabled -%}
                 {{- product.price | money_with_currency -}}
               {%- else -%}
@@ -410,6 +409,7 @@
               {%- endif -%}
             </span>
           {%- endif -%}
+           <span>(Save)</span>
           {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
             <div class="price price--block text--xsmall text--subdued">
               <div class="unit-price-measurement">
