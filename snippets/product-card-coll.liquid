@@ -352,7 +352,7 @@
                   {{- cheapest_variant.compare_at_price | money -}}
                 {%- endif -%}
               </span>
-              <span>(Save)</span>
+              
             {%- else -%}
               <span class="price">
                 <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
@@ -409,6 +409,7 @@
                 {{- product.price | money -}}
               {%- endif -%}
             </span>
+            <span>(Save)</span>
           {%- endif -%}
 
           {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
