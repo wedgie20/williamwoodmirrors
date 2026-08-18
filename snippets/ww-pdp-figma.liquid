@@ -450,7 +450,7 @@
           </button>
         {%- endif -%}
 
-        <div class="ww-pdp__thumbs" aria-label="Product media thumbnails">
+        <div class="ww-pdp__thumbs ww-pdp__thumbs_hide" aria-label="Product media thumbnails">
           <div class="ww-pdp__counter" data-ww-pdp-counter aria-label="Product media counter" aria-live="polite">
   <span data-ww-pdp-counter-current>1</span><span aria-hidden="true">/</span><span data-ww-pdp-counter-total>{{ product.media.size }}</span>
 </div>
@@ -3036,7 +3036,7 @@
   display: none;
   }
 
-  .ww-pdp__thumbs {
+  .ww-pdp__thumbs_hide {
   display: none;
 }
   
