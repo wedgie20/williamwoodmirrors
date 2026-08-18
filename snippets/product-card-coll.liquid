@@ -332,7 +332,6 @@
         <div class="price-list price-list--centered">
           {%- if product.price_varies and product.compare_at_price -%}
             {%- assign cheapest_variant = product.variants | sort: 'price' | first -%}
-
             {%- capture price_min -%}
               {%- if settings.currency_code_enabled -%}
                 {{- cheapest_variant.price | money_with_currency -}}
@@ -340,7 +339,6 @@
                 {{- cheapest_variant.price | money -}}
               {%- endif -%}
             {%- endcapture -%}
-
             {%- if cheapest_variant.price < cheapest_variant.compare_at_price -%}
               <span class="price price--highlight">
                 <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
