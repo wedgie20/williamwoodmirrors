@@ -3072,6 +3072,13 @@
       if (!options.skipUiUpdate) updateRenderedImageUi();
     }
 
+    var counterCurrentEl = document.querySelector('[data-ww-pdp-counter-current]');
+    var _setImageFromThumb = setImageFromThumb;
+    setImageFromThumb = function (index, opts) {
+      _setImageFromThumb(index, opts);
+      if (counterCurrentEl) counterCurrentEl.textContent = index + 1;
+    };
+
     function showImage(index, direction) {
       if (!mainImage || !thumbs.length) return;
       var nextIndex = (index + thumbs.length) % thumbs.length;
