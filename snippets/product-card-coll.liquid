@@ -346,14 +346,13 @@
               </span>
               <span class="price price--compare">
                 <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
-                <span>(Amount Save)</span>
-
                 {%- if settings.currency_code_enabled -%}
                   {{- cheapest_variant.compare_at_price | money_with_currency -}}
                 {%- else -%}
                   {{- cheapest_variant.compare_at_price | money -}}
                 {%- endif -%}
               </span>
+              <span>(Amount Save)</span>
             {%- else -%}
               <span class="price">
                 <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
