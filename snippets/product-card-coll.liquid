@@ -402,7 +402,7 @@
           {%- else -%}
             <span class="price">
               <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
-
+              <span>(Save)</span>
               {%- if settings.currency_code_enabled -%}
                 {{- product.price | money_with_currency -}}
               {%- else -%}
