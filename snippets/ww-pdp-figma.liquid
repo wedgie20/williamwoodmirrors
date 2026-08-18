@@ -910,6 +910,8 @@
     overflow-x: auto;
     scrollbar-width: none;
     width: auto;
+    max-width: calc((44px * 7) + (7px * 6));
+    scroll-behavior: smooth;
   }
 
   .ww-pdp__thumbs::-webkit-scrollbar {
@@ -2701,10 +2703,12 @@
       top: auto;
       bottom: 24px;
       width: auto;
+      max-width: none;
       flex-direction: row;
       gap: 7px;
       align-items: center;
       overflow: visible;
+      scroll-behavior: auto;
     }
 
     .ww-pdp__thumb {
@@ -3090,7 +3094,25 @@
       mainImage.alt = thumb.dataset.alt || '';
       thumbs.forEach(function (item) { item.classList.remove('is-active'); });
       thumb.classList.add('is-active');
+      keepActiveThumbVisible(thumb);
       if (!options.skipUiUpdate) updateRenderedImageUi();
+    }
+
+    function keepActiveThumbVisible(thumb) {
+      if (!thumb || window.matchMedia('(max-width: 999px)').matches) return;
+      var list = thumb.parentElement;
+      if (!list || list.scrollWidth <= list.clientWidth) return;
+
+      var thumbLeft = thumb.offsetLeft;
+      var thumbRight = thumbLeft + thumb.offsetWidth;
+      var visibleLeft = list.scrollLeft;
+      var visibleRight = visibleLeft + list.clientWidth;
+
+      if (thumbLeft < visibleLeft) {
+        list.scrollTo({ left: thumbLeft, behavior: 'smooth' });
+      } else if (thumbRight > visibleRight) {
+        list.scrollTo({ left: thumbRight - list.clientWidth, behavior: 'smooth' });
+      }
     }
 
     function showImage(index, direction) {
