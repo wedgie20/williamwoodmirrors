@@ -378,7 +378,9 @@
                 {{- product.price | money -}}
               {%- endif -%}
             </span>
-            <span>(Save)</span>
+            
+            <span>(Amount Save)</span>
+
           {%- elsif product.price_varies -%}
             {%- capture price_min -%}
               {%- if settings.currency_code_enabled -%}
