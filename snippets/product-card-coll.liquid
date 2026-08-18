@@ -378,7 +378,7 @@
                 {{- product.price | money -}}
               {%- endif -%}
             </span>
-            <span class="label" style="margin-left: 0px">({{ 'collection.product.discount_html' | t: savings: savings }})</span> 
+            <span class="label label-save-highlight" style="margin-left: 0px">({{ 'collection.product.discount_html' | t: savings: savings }})</span> 
             {% comment %} <span>(Amount Save)</span> {% endcomment %}
 
           {%- elsif product.price_varies -%}
