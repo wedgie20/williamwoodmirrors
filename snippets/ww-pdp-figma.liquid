@@ -569,7 +569,7 @@
     <div class="ww-pdp__promo-main">
       <strong>{{ promo_text }}</strong>
 
-      {%- if promo_code != blank -%}
+      {%- if promo_code != blank and promo_code != 'EXTRA20' -%}
         <div class="ww-pdp__promo-code-group">
           <span>Code: {{ promo_code }}</span>
           <button type="button" class="ww-pdp__code" data-ww-copy-code="{{ promo_code }}">
