@@ -330,7 +330,6 @@
 {% if request.path != "/en-international" %}
       <div class="product-item-meta__price-list-container">
         <div class="price-list price-list--centered">
-          ss
           {%- if product.price_varies and product.compare_at_price -%}
             {%- assign cheapest_variant = product.variants | sort: 'price' | first -%}
             {%- capture price_min -%}
@@ -353,6 +352,7 @@
                   {{- cheapest_variant.compare_at_price | money -}}
                 {%- endif -%}
               </span>
+              <span>(Save)</span>
             {%- else -%}
               <span class="price">
                 <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
