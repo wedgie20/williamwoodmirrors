@@ -486,7 +486,7 @@
       <div class="ww-pdp_designed_div">
       <p class="ww-pdp__label" style="">{{ product_label }}</p>
       <div class="ww_price_div">
-        <span class="ww-pdp__price-group {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
+        <span class="ww-pdp__price-group_mobile {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
             {%- if has_variant_discount -%}
               <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.compare_at_price | money }}</span>
               <span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
@@ -507,7 +507,7 @@
       </h1>
 
       <div class="ww-pdp__price-row">
-        <span class="ww-pdp__price-group ww-pdp__price-group_v2 {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
+        <span class="ww-pdp__price-group ww-pdp__price-group_desktop {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
           {%- if has_variant_discount -%}
             <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.compare_at_price | money }}</span>
             <span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
@@ -1086,7 +1086,7 @@
       padding: 0;
     }
 
-     .ww-pdp__price-group_v2 {
+     .ww-pdp__price-group_mobile {
 
     display: none !important;
   }
