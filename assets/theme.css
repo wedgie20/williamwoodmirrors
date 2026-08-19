@@ -3434,6 +3434,11 @@ p + .button-group,
   padding-bottom: 5px; /* Due to the lack of border we reduce the spacing with the moving link */
 }
 
+.new-label-pdp {
+  background: none !important;
+  padding: none !important;
+}
+
 @media screen and (max-width: 999px) {
   /* On phone and tablet, when the tab nav is contained within a section header, we stretch it to be edge to edge */
   .tabs-nav--edge2edge {
