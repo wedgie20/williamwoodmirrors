@@ -3439,6 +3439,11 @@ p + .button-group,
   padding: 0px !important;
 }
 
+.ww-review-sold {
+    display: flex;
+    justify-content: space-between;
+  }
+
 @media screen and (max-width: 999px) {
   /* On phone and tablet, when the tab nav is contained within a section header, we stretch it to be edge to edge */
   .tabs-nav--edge2edge {
@@ -3450,10 +3455,7 @@ p + .button-group,
     margin-bottom: 10px !important;
   }
 
-  .ww-review-sold {
-    display: flex;
-    justify-content: space-between;
-  }
+  
 
   .sale-save {
     font-size: 12px;
