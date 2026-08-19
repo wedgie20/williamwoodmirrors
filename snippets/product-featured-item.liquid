@@ -57,7 +57,7 @@
       {%- else -%}
         {%- capture savings -%}{{ product.compare_at_price | minus: product.price | money }}{%- endcapture -%}
       {%- endif -%}
-     <span class="label label--highlight">{{ 'collection.product.discount_html' | t: savings: savings }}</span>  
+     {% comment %} <span class="label label--highlight">{{ 'collection.product.discount_html' | t: savings: savings }}</span>   {% endcomment %}
     {%- endif -%}
   {%- endcapture -%}
     {% unless product.title contains 'PRM Hold' or product.title contains 'PRM BSLR' or product.title contains 'PRM BH' %}
@@ -339,7 +339,7 @@
                 {%- else -%}
                   {{- cheapest_variant.compare_at_price | money -}}
                 {%- endif -%}
-              </span>
+              </span> 
             {%- else -%}
               <span class="price">
                 <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
@@ -365,6 +365,8 @@
                 {{- product.price | money -}}
               {%- endif -%}
             </span>
+              <span class="label label-save-highlight" style="margin-left: 0px">({{ 'collection.product.discount_html' | t: savings: savings }})</span> 
+
           {%- elsif product.price_varies -%}
             {%- capture price_min -%}
               {%- if settings.currency_code_enabled -%}
@@ -438,7 +440,7 @@
                 <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
               </svg>
             </span>
-            Risk-Free: 90-Day Free Returns
+            Risk-Free: 60-Day Free Returns
           </div>
         {% comment %} <div class="guarantee-item" {% unless product.tags contains 'MarchPush' %}style="font-size: 13px;"{% else %}style="font-size: 13px; display: none;"{% endunless %}> {% endcomment %}
    <div class="guarantee-item imhere" style="display: none" {% if product.tags contains 'MarchPush' %}style="font-size: 13px;"{% else %}style="font-size: 13px; display: none;"{% endif %}>
