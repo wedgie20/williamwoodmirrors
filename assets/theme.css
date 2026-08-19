@@ -3444,6 +3444,13 @@ p + .button-group,
     justify-content: space-between;
   }
 
+  .ww-title-sale-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    
+  }
+
 @media screen and (max-width: 999px) {
   /* On phone and tablet, when the tab nav is contained within a section header, we stretch it to be edge to edge */
   .tabs-nav--edge2edge {
@@ -3461,12 +3468,7 @@ p + .button-group,
     font-size: 12px;
   }
 
-  .ww-title-sale-price {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    
-  }
+  
 
   .ww-pdp__price--compare {
     font-size: 12px !important;
