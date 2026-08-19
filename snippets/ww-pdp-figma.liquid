@@ -520,12 +520,13 @@
           {%- endif -%}
       </h1>
 {%- if has_variant_discount -%}
+    {%- assign savings_amount = current_variant.compare_at_price | minus: current_variant.price -%}
     <div class="sale-save">
       <span class="label label-save-highlight" style="margin-left: 0px">
-        ({{ 'collection.product.discount_html' | t: savings: savings | money }})
+        (Save {{ savings_amount | money }})
       </span>
     </div>
-  {%- endif -%}        </div>
+  {%- endif -%}      </div>
       <div class="ww-pdp__price-row">
         <span class="ww-pdp__price-group ww-pdp__price-group_desktop {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
           {%- if has_variant_discount -%}
