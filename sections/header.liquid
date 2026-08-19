@@ -716,7 +716,7 @@
                 {%- render 'icon' with 'header-tote-bag' -%}
             {%- endcase -%}
 
-            <cart-count class="header__cart-count header__cart-count--floating bubble-count">
+            <cart-count class="header__cart-count header__cart-count--floating bubble-count" {% if cart.item_count == 0 %}hidden{% endif %}>
               {{- cart.item_count -}}
             </cart-count>
           </a>
@@ -760,7 +760,7 @@
                 data-no-instant
               >
                 {{- 'header.general.cart' | t | escape -}}
-                <cart-count class="header__cart-count bubble-count">{{ cart.item_count }}</cart-count>
+                <cart-count class="header__cart-count bubble-count" {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</cart-count>
               </a>
             </li>
           </ul>

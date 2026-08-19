@@ -5812,12 +5812,18 @@ var SafeSticky = class extends HTMLElement {
   // js/custom-element/section/cart/cart-count.js
   var CartCount = class extends CustomHTMLElement {
     connectedCallback() {
-      this.rootDelegate.on("cart:updated", (event) => this.innerText = event.detail.cart["item_count"]);
-      this.rootDelegate.on("cart:refresh", (event) => this.innerText = event.detail.cart["item_count"]);
+      this.updateCount(this.innerText);
+      this.rootDelegate.on("cart:updated", (event) => this.updateCount(event.detail.cart["item_count"]));
+      this.rootDelegate.on("cart:refresh", (event) => this.updateCount(event.detail.cart["item_count"]));
       const countroot = document.getElementById('py-flip-countdown');
       if(countroot) {
      this.rootDelegate.on("cart:updated", (event) => initializeCountdown());
       }
+    }
+    updateCount(count) {
+      const itemCount = parseInt(count, 10) || 0;
+      this.innerText = itemCount;
+      this.hidden = itemCount === 0;
     }
   };
   window.customElements.define("cart-count", CartCount);
