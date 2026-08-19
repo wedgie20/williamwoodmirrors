@@ -79,7 +79,7 @@
           {{ 'templates.search.results_products_with_count' | t: count: collections.all.products_count }}
         </span>
       </div>
-      <ul
+      {% comment %} <ul
         class="suggested-links"
         role="group"
         aria-labelledby="predictive-search-pages-results"
@@ -122,7 +122,7 @@
               {{ link.title | link_to: link.url }} 
             </li>
         {%- endfor %}
-      </ul>
+      </ul> {% endcomment %}
     </div>
   </div>
 
