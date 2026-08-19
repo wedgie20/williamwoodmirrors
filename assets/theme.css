@@ -3441,6 +3441,11 @@ p + .button-group,
     margin-right: calc(-1 * var(--container-gutter));
   }
 
+  .ww-review-sold {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .sale-save {
     font-size: 12px;
   }
