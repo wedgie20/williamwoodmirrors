@@ -513,10 +513,13 @@
       {% endcomment %}
 </div>
       <h1 class="ww-pdp__title">
-        <span class="ww-pdp__title-text">{{ display_product_heading }}</span>
-        {%- if display_title_measurement != blank -%}
-          <span class="ww-pdp__title-measurement">{{ display_title_measurement }}</span>
-        {%- endif -%}
+        <div class="ww-title-sale-price">
+          <span class="ww-pdp__title-text">{{ display_product_heading }}</span>
+          {%- if display_title_measurement != blank -%}
+            <span class="ww-pdp__title-measurement">{{ display_title_measurement }}</span>
+          {%- endif -%}
+          <div class="sale"> Save</div>
+        </div>
       </h1>
 
       <div class="ww-pdp__price-row">
