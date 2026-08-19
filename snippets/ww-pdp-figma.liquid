@@ -531,7 +531,7 @@
         </a>
       {%- endif -%}
 
-      <div class="product-item {% unless product.available %}product-item--sold-out{% endunless %}" {% if reveal %}reveal{% endif %}>
+      <div class="main-product-item {% unless product.available %}product-item--sold-out{% endunless %}" {% if reveal %}reveal{% endif %}>
 {%- if product_labels != blank and reduced_content != true -%}
         <div class="product-item__label-list label-list">
           {{- product_labels -}}
