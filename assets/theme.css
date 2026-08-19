@@ -3437,6 +3437,11 @@ p + .button-group,
     margin-right: calc(-1 * var(--container-gutter));
   }
 
+  .ww-title-sale-price {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .ww-pdp__price--compare {
     font-size: 12px !important;
     font-family: Zurich, sans-serif !important;
