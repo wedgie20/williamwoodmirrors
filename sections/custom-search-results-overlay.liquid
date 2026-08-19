@@ -9,7 +9,7 @@
      {% comment %} <div class="trending-title" style="text-align: center;">
        <p style="font-family: Ambroise; text-transform: lowercase; font-size: 25px; font-weight: 300;">Trending Searches</p>
     </div> {% endcomment %}
-    <ul
+    {% comment %} <ul
       class="search-suggestion-list"
       role="group"
       aria-labelledby="predictive-search-queries"
@@ -68,7 +68,7 @@
           </li>
         {%- endif -%}
       {% comment %} {%- endif -%} {% endcomment %}
-    </ul>
+    </ul> {% endcomment %}
   </div>
 
   <div class="predictive-search__pages-wrapper">
@@ -79,7 +79,7 @@
           {{ 'templates.search.results_products_with_count' | t: count: collections.all.products_count }}
         </span>
       </div>
-      {% comment %} <ul
+      <ul
         class="suggested-links"
         role="group"
         aria-labelledby="predictive-search-pages-results"
@@ -122,7 +122,7 @@
               {{ link.title | link_to: link.url }} 
             </li>
         {%- endfor %}
-      </ul> {% endcomment %}
+      </ul>
     </div>
   </div>
 
