@@ -512,16 +512,15 @@
 {% if product.tags contains 'in-house' %}<a class="ww-pdp__designed" href="/collections/designed-in-house-by-william-wood">Designed in-house by <strong>WILLIAM WOOD</strong></a>{% endif %}
       {% endcomment %}
 </div>
+ <div class="ww-title-sale-price">
       <h1 class="ww-pdp__title">
-        <div class="ww-title-sale-price">
           <span class="ww-pdp__title-text">{{ display_product_heading }}</span>
           {%- if display_title_measurement != blank -%}
             <span class="ww-pdp__title-measurement">{{ display_title_measurement }}</span>
           {%- endif -%}
-          <div class="sale"> Save</div>
-        </div>
       </h1>
-
+      <div class="sale"> Save</div>
+        </div>
       <div class="ww-pdp__price-row">
         <span class="ww-pdp__price-group ww-pdp__price-group_desktop {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
           {%- if has_variant_discount -%}
