@@ -519,7 +519,7 @@
             <span class="ww-pdp__title-measurement">{{ display_title_measurement }}</span>
           {%- endif -%}
       </h1>
-      <div class="sale-save"> Save</div>
+      <div class="sale-save"> <span class="label label-save-highlight" style="margin-left: 0px">({{ 'product.discount_html' | t: savings: savings }})</span> </div>
         </div>
       <div class="ww-pdp__price-row">
         <span class="ww-pdp__price-group ww-pdp__price-group_desktop {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
