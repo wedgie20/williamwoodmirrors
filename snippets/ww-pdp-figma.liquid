@@ -507,6 +507,13 @@
               <span class="ww-pdp__price" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
             {%- endif -%}
           </span>
+          {%- if has_variant_discount -%}
+    <div class="sale-save">
+      <span class="label label-save-highlight" style="margin-left: 0px">
+        ({{ 'collection.product.discount_html' | t: savings: savings | money }})
+      </span>
+    </div>
+  {%- endif -%} 
         </div>
       {% comment %}
 {% if product.tags contains 'in-house' %}<a class="ww-pdp__designed" href="/collections/designed-in-house-by-william-wood">Designed in-house by <strong>WILLIAM WOOD</strong></a>{% endif %}
