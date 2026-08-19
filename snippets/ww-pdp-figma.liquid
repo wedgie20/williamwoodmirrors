@@ -508,6 +508,8 @@
     <span class="label label--custom new-label-pdp">2,000+ SOLD</span>
     {% elsif tag contains "20000+ SOLD" %}
     <span class="label label--custom new-label-pdp">20,000+ SOLD</span>
+    {% elsif tag contains 'IN DEMAND' %}
+         <span class="label label--custom new-label-pdp">This product is in high demand</span>
           {% endif %}
       {%- endif -%}
     {%- endfor -%}
