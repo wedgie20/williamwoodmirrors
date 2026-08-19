@@ -4704,8 +4704,6 @@ var SafeSticky = class extends HTMLElement {
         this.delegate.on("desktop-nav:dropdown:close", () => this.lockTransparency = false);
         this.rootDelegate.on("mobile-nav:open", () => this.lockTransparency = true);
         this.rootDelegate.on("mobile-nav:close", () => this.lockTransparency = false);
-        this.delegate.on("mouseenter", this._checkTransparentHeader.bind(this), true);
-        this.delegate.on("mouseleave", this._checkTransparentHeader.bind(this));
         if (this.isSticky) {
           this._checkTransparentHeader();
           this._onWindowScrollListener = throttle(this._checkTransparentHeader.bind(this), 100);
@@ -4751,7 +4749,7 @@ var SafeSticky = class extends HTMLElement {
       const quickSearchContent = document.getElementById('quick-search-content');
       const hasShowClass = quickSearchContent && quickSearchContent.classList.contains('show');
     
-      if (this.isTransparencyDetectionLocked || window.scrollY > this.transparentHeaderThreshold || (event && event.type === "mouseenter") || hasShowClass) {
+      if (this.isTransparencyDetectionLocked || window.scrollY > this.transparentHeaderThreshold || hasShowClass) {
         this.classList.remove("header--transparent");
       } else {
         this.classList.add("header--transparent");
