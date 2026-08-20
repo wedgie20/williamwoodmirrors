@@ -645,7 +645,7 @@
 
 
 
-
+{% comment %} 
     {%- assign low_stock_text = blank -%}
 {%- for tag in product.tags -%}
   {%- if tag contains '__label' -%}
@@ -681,7 +681,7 @@
   <span class="ww-pdp__pill ww-pdp__pill--stock ww-pdp__pill--sold-out">
     <span class="ww-pdp__pill--pulse"></span>Sold out
   </span>
-{%- endif -%}
+{%- endif -%} {% endcomment %}
 
 
     
