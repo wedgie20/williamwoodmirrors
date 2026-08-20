@@ -639,17 +639,17 @@
     <span class="ww-pdp__pill--pulse"></span>In Stock: Ready to Ship from Our UK Warehouse
   </span>
   {%- if low_stock_text != blank -%}
-    <div class="low-stock-div">
-      <span class="ww-pdp__pill ww-pdp__pill--low-stock">
-        <span class="ww-pdp__pill--pulse" style="margin-right: 8px;"></span>
-        {%- if current_variant.inventory_quantity <= 15 -%}
-          Low Stock: Only {{ current_variant.inventory_quantity }} left
-        {%- else -%}
-          Limited Availability
-        {%- endif -%}
-      </span>
-    </div>
-  {%- endif -%}
+  <div class="low-stock-div">
+    <span class="ww-pdp__pill ww-pdp__pill--low-stock">
+      <span class="ww-pdp__pill--pulse" style="margin-right: 8px;"></span>
+      {%- if current_variant.inventory_quantity > 16 -%}
+        Limited Availability
+      {%- else -%}
+        Low Stock: Only {{ current_variant.inventory_quantity }} left
+      {%- endif -%}
+    </span>
+  </div>
+{%- endif -%}
   {%- if last_chance -%}
     <div class="low-stock-div">
       <span class="ww-pdp__pill ww-pdp__pill--stock ww-pdp__pill--sold-out">
