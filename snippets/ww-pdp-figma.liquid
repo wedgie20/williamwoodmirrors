@@ -638,13 +638,6 @@
   <span class="ww-pdp__pill ww-pdp__pill--stock">
     <span class="ww-pdp__pill--pulse"></span>In Stock: Ready to Ship from Our UK Warehouse
   </span>
-  {%- if last_chance -%}
-    <div class="low-stock-div">
-      <span class="ww-pdp__pill ww-pdp__pill--stock ww-pdp__pill--sold-out">
-        <span class="ww-pdp__pill--pulse" style="margin-right: 8px;"></span>Last Chance: This product will not be restocked
-      </span>
-    </div>
-  {%- endif -%}
   {%- if low_stock_text != blank -%}
     <div class="low-stock-div">
       <span class="ww-pdp__pill ww-pdp__pill--low-stock">
@@ -654,6 +647,13 @@
         {%- else -%}
           Limited Availability
         {%- endif -%}
+      </span>
+    </div>
+  {%- endif -%}
+  {%- if last_chance -%}
+    <div class="low-stock-div">
+      <span class="ww-pdp__pill ww-pdp__pill--stock ww-pdp__pill--sold-out">
+        <span class="ww-pdp__pill--pulse" style="margin-right: 8px;"></span>Last Chance: This product will not be restocked
       </span>
     </div>
   {%- endif -%}
