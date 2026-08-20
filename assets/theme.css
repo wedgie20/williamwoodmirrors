@@ -3455,6 +3455,17 @@ p + .button-group,
     margin-bottom: 10px !important;
   }
 
+  .ww-pdp__pill--pulse::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    flex: 0 0 7px;
+    border-radius: 999px;
+    background: #00a233;
+    box-shadow: 0 0 0 0 rgba(0, 162, 51, 1);
+    animation: low-stock-amber-pulse 1.6s ease-out infinite;
+  }
+
 @media screen and (max-width: 999px) {
   /* On phone and tablet, when the tab nav is contained within a section header, we stretch it to be edge to edge */
   .tabs-nav--edge2edge {
