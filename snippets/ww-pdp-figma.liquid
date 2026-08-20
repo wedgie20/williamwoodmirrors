@@ -614,34 +614,32 @@
         {%- endif -%}
       {%- endif -%}
     {%- endfor -%}
-
-    {%- if is_preorder and preorder_delivery_text != blank -%}
-      <div class="ww-pdp__preorder-note">
-        <span aria-hidden="true" class="ww-pdp__pill--pulse"></span>
-        <p>Pre-Order: Estimated Dispatch from {{ preorder_date }}</p>
-      </div>
-    {%- elsif current_variant.available -%}
-      <span class="ww-pdp__pill ww-pdp__pill--stock">
-        <span class="ww-pdp__pill--pulse"></span>In Stock: Ready to Ship from Our UK Warehouse
-      </span>
-      {%- if low_stock_text != blank -%}
+{%- if is_preorder and preorder_delivery_text != blank -%}
+  <div class="ww-pdp__preorder-note">
+    <span aria-hidden="true" class="ww-pdp__pill--pulse"></span>
+    <p>Pre-Order: Estimated Dispatch from {{ preorder_date }}</p>
+  </div>
+{%- elsif current_variant.available -%}
+  <span class="ww-pdp__pill ww-pdp__pill--stock">
+    <span class="ww-pdp__pill--pulse"></span>In Stock: Ready to Ship from Our UK Warehouse
+  </span>
+  {%- if current_variant.inventory_quantity > 0 -%}
     <div class="low-stock-div">
       <span class="ww-pdp__pill ww-pdp__pill--low-stock">
-        <span class="ww-pdp__pill--pulse" style="margin-right: 8px"></span>
+        <span class="ww-pdp__pill--pulse"></span>
         {%- if current_variant.inventory_quantity <= 15 -%}
-          Low Stock: Only {{ current_variant.inventory_quantity }} left
+          Low stock: Only {{ current_variant.inventory_quantity }} left
         {%- else -%}
           Limited Availability
         {%- endif -%}
       </span>
     </div>
   {%- endif -%}
-    {%- else -%}
-      <span class="ww-pdp__pill ww-pdp__pill--stock ww-pdp__pill--sold-out">
-        <span class="ww-pdp__pill--pulse .ww-pdp__pill--low-stock"></span>Sold out: Get notified below when it’s back in stock
-      </span>
-    {%- endif -%}
-
+{%- else -%}
+  <span class="ww-pdp__pill ww-pdp__pill--stock ww-pdp__pill--sold-out">
+    <span class="ww-pdp__pill--pulse"></span>Sold out
+  </span>
+{%- endif -%}
 
 
 
