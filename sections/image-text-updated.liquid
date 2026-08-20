@@ -66,6 +66,21 @@
     --section-overlay-color: {{ section.settings.overlay_color.red }}, {{ section.settings.overlay_color.green }}, {{ section.settings.overlay_color.blue }};
     --section-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
   }
+
+  #shopify-section-{{ section.id }} .ww-sale-collection-promo {
+    margin: 0.85rem 0 0;
+    color: rgb(var(--text-color));
+    font-size: clamp(16px, 1.45vw, 24px);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  @media screen and (max-width: 767px) {
+    #shopify-section-{{ section.id }} .ww-sale-collection-promo {
+      margin-top: 0.6rem;
+      font-size: 15px;
+    }
+  }
 </style>
 
 <section class="section {% unless is_boxed %}section--flush{% endunless %}">
@@ -100,6 +115,12 @@
 
       {%- capture section_content -%}
         {%- assign text_alignment = section.settings.text_position | split: '_' | last -%}
+        {%- assign ww_show_sale_collection_promo = false -%}
+        {%- if collection.handle == 'sale' -%}
+          {%- if section.settings.title contains 'SALE' or section.settings.title contains 'Sale' or section.settings.title contains 'sale' or section.settings.content contains '50%' -%}
+            {%- assign ww_show_sale_collection_promo = true -%}
+          {%- endif -%}
+        {%- endif -%}
 
         <div class="image-overlay__content-wrapper">
           <div class="image-overlay__content content-box content-box--{{ section.settings.text_width }} content-box--text-{{ text_alignment }} content-box--{{ text_alignment }} text-container">
@@ -119,6 +140,10 @@
               <div class="image-overlay__text-container">
                 {%- if section.settings.content != blank-%}
                   {{- section.settings.content -}}
+                {%- endif -%}
+
+                {%- if ww_show_sale_collection_promo -%}
+                  <p class="ww-sale-collection-promo" data-ww-promo-suppressible>10% SALE Off This Sale Item</p>
                 {%- endif -%}
 
                 {%- if section.settings.button_text != blank -%}
