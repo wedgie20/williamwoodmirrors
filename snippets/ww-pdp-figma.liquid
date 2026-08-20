@@ -573,7 +573,9 @@
         </div>
       {%- endif -%}  
     </div>
-
+{%- unless is_preorder -%}
+          <span class="ww-pdp__pill ww-pdp__pill--stock{% unless current_variant.available %} ww-pdp__pill--sold-out{% endunless %}"><span></span>{% if current_variant.available %}In stock{% else %}Sold out{% endif %}</span>
+        {%- endunless -%}
    {% for block in section.blocks %}
      {% case block.type %}
        {% when '@app' %}
