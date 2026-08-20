@@ -1390,13 +1390,18 @@
     animation: low-stock-amber-pulse 1.6s ease-out infinite;
   }
 
-  {% comment %} .ww-pdp__pill--stock span {
+  .ww-pdp__pill--pulse {
+      color: rgb(var(--text-color));
+    font-size: 10px;
+  }
+
+  .ww-pdp__pill--stock span {
     width: 10px;
     height: 10px;
     margin-right: 9px;
     border-radius: 50%;
     background: currentColor;
-  } {% endcomment %}
+  }
 
   .ww-pdp__pill--stock.ww-pdp__pill--sold-out {
     border-color: #111;
