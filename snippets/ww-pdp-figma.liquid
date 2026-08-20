@@ -575,35 +575,6 @@
     </div>
 
     <div class="deliivery-message">
-      {% comment %}
-      {%- if is_preorder and preorder_delivery_text != blank -%}
-  <div class="ww-pdp__preorder-note">
-    <span aria-hidden="true" class="ww-pdp__pill--pulse"></span>
-    <p>Pre-Order: Estimated Dispatch from {{ preorder_date }}</p>
-  </div>
-{%- else -%}
-  <span class="ww-pdp__pill ww-pdp__pill--stock">
-    <span class="ww-pdp__pill--pulse"></span>In Stock: Ready to Ship from Our UK Warehouse
-  </span>
-{%- endif -%}
-     {%- unless is_preorder -%}
-          <span class="ww-pdp__pill ww-pdp__pill--stock{% unless current_variant.available %} ww-pdp__pill--sold-out{% endunless %}"><span class="ww-pdp__pill--pulse"></span>{% if current_variant.available %}In Stock: Ready to Ship from Our UK Warehouse{% else %}Sold out{% endif %}</span>
-    {%- endunless -%} {% endcomment %}
-    
-
-    {% comment %} {%- if is_preorder and preorder_delivery_text != blank -%}
-  <div class="ww-pdp__preorder-note">
-    <span aria-hidden="true" class="ww-pdp__pill--pulse"></span>
-    <p>Pre-Order: Estimated Dispatch from {{ preorder_date }}</p>
-  </div>
-  {%- elsif current_variant.available -%}
-   <span class="ww-pdp__pill ww-pdp__pill--stock">
-    <span class="ww-pdp__pill--pulse"></span>In Stock: Ready to Ship from Our UK Warehouse
-  </span>
-  {%- else -%}
-    <span class="ww-pdp__pill ww-pdp__pill--stock ww-pdp__pill--sold-out">
-      <span class="ww-pdp__pill--sold-out ww-pdp__pill--pulse"></span>Sold out: Get notified below when it’s back in stock</span>
-  {%- endif -%} {% endcomment %}
 
       {%- assign low_stock_text = blank -%}
     {%- for tag in product.tags -%}
@@ -644,43 +615,7 @@
 
 
 
-{% comment %} 
-    {%- assign low_stock_text = blank -%}
-{%- for tag in product.tags -%}
-  {%- if tag contains '__label' -%}
-    {%- assign candidate = tag | split: ':' | last -%}
-    {%- if candidate contains 'ONLY' and candidate contains 'LEFT' -%}
-      {%- assign low_stock_text = candidate -%}
-    {%- endif -%}
-  {%- endif -%}
-{%- endfor -%}
 
-{%- if is_preorder and preorder_delivery_text != blank -%}
-  <div class="ww-pdp__preorder-note">
-    <span aria-hidden="true" class="ww-pdp__pill--pulse"></span>
-    <p>Pre-Order: Estimated Dispatch from {{ preorder_date }}</p>
-  </div>
-{%- elsif current_variant.available -%}
-  <span class="ww-pdp__pill ww-pdp__pill--stock">
-    <span class="ww-pdp__pill--pulse"></span>In Stock: Ready to Ship from Our UK Warehouse
-  </span>
-  {%- if low_stock_text != blank -%}
-    <div class="low-stock-div">
-      <span class="ww-pdp__pill ww-pdp__pill--low-stock">
-        <span class="ww-pdp__pill--pulse"></span>
-        {%- if current_variant.inventory_quantity <= 15 -%}
-          Low stock: Only {{ current_variant.inventory_quantity }} left
-        {%- else -%}
-          Limited Availability
-        {%- endif -%}
-      </span>
-    </div>
-  {%- endif -%}
-{%- else -%}
-  <span class="ww-pdp__pill ww-pdp__pill--stock ww-pdp__pill--sold-out">
-    <span class="ww-pdp__pill--pulse"></span>Sold out
-  </span>
-{%- endif -%} {% endcomment %}
 
 
     
