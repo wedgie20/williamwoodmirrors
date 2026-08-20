@@ -575,7 +575,7 @@
     </div>
 
     <div class="deliivery-message">
-      {%- if is_preorder -%}
+      {%- if is_preorder and preorder_delivery_text != blank -%}
   <div class="ww-pdp__preorder-note">
     <span aria-hidden="true" class="ww-pdp__pill--pulse"></span>
     <p>Pre-order item. Expected shipping date {{ preorder_date }}</p>
@@ -657,12 +657,12 @@
         {%- if is_preorder and preorder_cart_note != blank -%}
           <input type="hidden" name="properties[Note]" value="{{ preorder_cart_note | escape }}">
         {%- endif -%}
-        {%- if is_preorder and preorder_delivery_text != blank -%}
+        {% comment %} {%- if is_preorder and preorder_delivery_text != blank -%}
           <div class="ww-pdp__preorder-note">
             <span aria-hidden="true"></span>
             <p>Pre-order item. Expected shipping date {{ preorder_date }}</p>
           </div>
-        {%- endif -%}
+        {%- endif -%} {% endcomment %}
         <div class="ww-pdp__buy-row">
           <div class="ww-pdp__quantity" data-ww-quantity>
             <button type="button" data-ww-quantity-minus aria-label="Decrease quantity">-</button>
