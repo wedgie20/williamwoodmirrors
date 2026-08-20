@@ -107,7 +107,11 @@
     }
 
     function shouldSuppressPromos(status) {
-      return !!(status && status.is_trade_customer && status.suppress_storefront_promos !== false);
+      return !!(status && status.is_trade_customer && status.suppress_storefront_promos === true);
+    }
+
+    function shouldShowTradeUi(status) {
+      return shouldSuppressPromos(status);
     }
 
     function applyPromoSuppression(status) {
@@ -189,7 +193,7 @@
         var compareAtCents = Number(group.getAttribute('data-compare-at-price-cents') || 0);
         var isExcluded = group.getAttribute('data-product-excluded') === 'true' || (compareAtCents > priceCents);
 
-        if (!status || !status.is_trade_customer || !(discount > 0) || !priceCents || isExcluded) {
+        if (!shouldShowTradeUi(status) || !(discount > 0) || !priceCents || isExcluded) {
           resetTradePrice(group, priceCents, compareAtCents);
           return;
         }
@@ -238,7 +242,7 @@
       if (!targets.length) return;
 
       targets.forEach(function (target) {
-        if (!status || !status.is_trade_customer) {
+        if (!shouldShowTradeUi(status)) {
           target.hidden = true;
           return;
         }
@@ -286,7 +290,7 @@
     }
 
     function refreshCartForDiscountMismatch(status) {
-      if (!status || !status.is_trade_customer || cartRefreshInFlight) return Promise.resolve();
+      if (!shouldShowTradeUi(status) || cartRefreshInFlight) return Promise.resolve();
 
       return fetch('/cart.js?_=' + Date.now(), {
         credentials: 'same-origin',
