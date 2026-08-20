@@ -129,10 +129,10 @@
     }
 
     function shouldSuppressPromos(status) {
-      return !!(status && status.is_trade_customer && status.suppress_storefront_promos === true);
+      return !!(status && isTradeDiscountActive(status) && status.is_trade_customer && status.suppress_storefront_promos === true);
     }
 
-    function shouldShowTradeUi(status) {
+    function isTradeCustomerSignal(status) {
       return !!(
         status &&
         (
@@ -141,6 +141,36 @@
           (status.current_tier && status.current_tier !== 'not_qualified')
         )
       );
+    }
+
+    function isTradeDiscountActive(status) {
+      if (!status) return false;
+
+      if (
+        status.trade_discount_active === false ||
+        status.discount_active === false ||
+        status.storefront_discount_active === false ||
+        status.automatic_discount_active === false
+      ) {
+        return false;
+      }
+
+      var discountStatus = String(status.discount_status || status.storefront_discount_status || status.status || '').toLowerCase();
+
+      if (
+        discountStatus === 'expired' ||
+        discountStatus === 'inactive' ||
+        discountStatus === 'disabled' ||
+        discountStatus === 'deactivated'
+      ) {
+        return false;
+      }
+
+      return true;
+    }
+
+    function shouldShowTradeUi(status) {
+      return isTradeDiscountActive(status) && isTradeCustomerSignal(status);
     }
 
     function applyPromoSuppression(status) {
@@ -231,12 +261,14 @@
       var discount = Number(status && status.current_discount || 0);
       var isTradeCustomer = !!(status && status.is_trade_customer);
       var suppressPromos = shouldSuppressPromos(status);
+      var tradeDiscountActive = isTradeDiscountActive(status);
 
       window.WWTradeStatus = status || { is_trade_customer: false, current_discount: 0, suppress_storefront_promos: false };
       document.documentElement.dataset.wwTradeCustomer = isTradeCustomer ? 'true' : 'false';
       document.documentElement.dataset.wwTradeDiscount = String(discount);
+      document.documentElement.dataset.wwTradeDiscountActive = tradeDiscountActive ? 'true' : 'false';
       document.documentElement.dataset.wwSuppressPromos = suppressPromos ? 'true' : 'false';
-      document.documentElement.classList.toggle('ww-trade-customer', isTradeCustomer);
+      document.documentElement.classList.toggle('ww-trade-customer', isTradeCustomer && tradeDiscountActive);
       document.documentElement.classList.toggle('ww-suppress-promos', suppressPromos);
       applyPromoSuppression(status);
       applySalePriceSuppression(status);
@@ -366,7 +398,7 @@
     }
 
     function refreshCartForDiscountMismatch(status) {
-      if (!shouldShowTradeUi(status) || cartRefreshInFlight) return Promise.resolve();
+      if (!isTradeCustomerSignal(status) || cartRefreshInFlight) return Promise.resolve();
 
       return fetch('/cart.js?_=' + Date.now(), {
         credentials: 'same-origin',
@@ -382,7 +414,7 @@
 
           var hasTradeDiscount = cartHasTradeDiscount(cart);
           var projection = getTradeProjection(status, getCartEligibleTotalFromCart(cart));
-          var shouldHaveTradeDiscount = projection.projectedDiscount > 0;
+          var shouldHaveTradeDiscount = shouldShowTradeUi(status) && projection.projectedDiscount > 0;
 
           if (hasTradeDiscount === shouldHaveTradeDiscount) return;
 
