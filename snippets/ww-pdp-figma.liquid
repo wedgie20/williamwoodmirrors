@@ -615,14 +615,10 @@
 
 
 
-{%- assign low_stock_text = blank -%}
 {%- assign last_chance = false -%}
 {%- for tag in product.tags -%}
   {%- if tag contains '__label' -%}
     {%- assign candidate = tag | split: ':' | last -%}
-    {%- if candidate contains 'ONLY' and candidate contains 'LEFT' -%}
-      {%- assign low_stock_text = candidate -%}
-    {%- endif -%}
     {%- if candidate == 'LAST CHANCE' -%}
       {%- assign last_chance = true -%}
     {%- endif -%}
@@ -638,18 +634,18 @@
   <span class="ww-pdp__pill ww-pdp__pill--stock">
     <span class="ww-pdp__pill--pulse"></span>In Stock: Ready to Ship from Our UK Warehouse
   </span>
-  {%- if low_stock_text != blank -%}
-    <div class="low-stock-div">
-      <span class="ww-pdp__pill ww-pdp__pill--low-stock">
-        <span class="ww-pdp__pill--pulse" style="margin-right: 8px;"></span>
-        {%- if current_variant.inventory_quantity <= 15 -%}
-          Low Stock: Only {{ current_variant.inventory_quantity }} left
-        {%- else -%}
-          Limited Availability
-        {%- endif -%}
-      </span>
-    </div>
-  {%- endif -%}
+
+  <div class="low-stock-div">
+    <span class="ww-pdp__pill ww-pdp__pill--low-stock">
+      <span class="ww-pdp__pill--pulse" style="margin-right: 8px;"></span>
+      {%- if current_variant.inventory_quantity >= 16 -%}
+        Limited Availability
+      {%- else -%}
+        Low Stock: Only {{ current_variant.inventory_quantity }} left
+      {%- endif -%}
+    </span>
+  </div>
+
   {%- if last_chance -%}
     <div class="low-stock-div">
       <span class="ww-pdp__pill ww-pdp__pill--stock ww-pdp__pill--sold-out">
@@ -659,7 +655,7 @@
   {%- endif -%}
 {%- else -%}
   <span class="ww-pdp__pill ww-pdp__pill--stock ww-pdp__pill--sold-out">
-    <span class="ww-pdp__pill--pulse"></span>Sold out: Get notified below when it’s back in stock
+    <span class="ww-pdp__pill--pulse"></span>Sold out: Get notified below when it's back in stock
   </span>
 {%- endif -%}
 
