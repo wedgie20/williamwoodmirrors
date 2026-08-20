@@ -1,3 +1,9 @@
+<style>
+  html.ww-suppress-promos [data-ww-promo-suppressible] {
+    display: none !important;
+  }
+</style>
+
 <script>
   window.WWTradeStatusProxy = window.WWTradeStatusProxy || (function () {
     var statusPromise = null;
@@ -89,7 +95,7 @@
             return response.json();
           })
           .catch(function () {
-            return { is_trade_customer: false };
+            return { is_trade_customer: false, current_discount: 0, suppress_storefront_promos: false };
           });
       }
 
@@ -100,12 +106,64 @@
       statusPromise = null;
     }
 
+    function shouldSuppressPromos(status) {
+      return !!(status && status.is_trade_customer && status.suppress_storefront_promos !== false);
+    }
+
+    function applyPromoSuppression(status) {
+      var suppress = shouldSuppressPromos(status);
+
+      document.querySelectorAll('[data-ww-promo-suppressible]').forEach(function (element) {
+        if (!element.hasAttribute('data-ww-promo-original-hidden')) {
+          element.setAttribute('data-ww-promo-original-hidden', element.hidden ? 'true' : 'false');
+        }
+
+        var shouldHide = suppress || element.getAttribute('data-ww-promo-original-hidden') === 'true';
+
+        element.hidden = shouldHide;
+        element.setAttribute('aria-hidden', shouldHide ? 'true' : 'false');
+      });
+
+      if (suppress) {
+        document.querySelectorAll('.announcement-bar__list').forEach(function (list) {
+          var items = Array.prototype.slice.call(list.querySelectorAll('announcement-bar-item'));
+          var hasVisibleItem = items.some(function (item) {
+            return !item.hidden;
+          });
+
+          if (hasVisibleItem) return;
+
+          var fallbackItem = items.find(function (item) {
+            return !item.hasAttribute('data-ww-promo-suppressible');
+          });
+
+          if (fallbackItem) {
+            fallbackItem.hidden = false;
+            fallbackItem.setAttribute('aria-hidden', 'false');
+          }
+        });
+      }
+
+      if (suppress) {
+        document.querySelectorAll('[data-free-gift-drawer].is-open').forEach(function (drawer) {
+          drawer.classList.remove('is-open');
+          drawer.setAttribute('aria-hidden', 'true');
+        });
+      }
+    }
+
     function setTradeState(status) {
       var discount = Number(status && status.current_discount || 0);
+      var isTradeCustomer = !!(status && status.is_trade_customer);
+      var suppressPromos = shouldSuppressPromos(status);
 
-      window.WWTradeStatus = status || { is_trade_customer: false, current_discount: 0 };
-      document.documentElement.dataset.wwTradeCustomer = status && status.is_trade_customer ? 'true' : 'false';
+      window.WWTradeStatus = status || { is_trade_customer: false, current_discount: 0, suppress_storefront_promos: false };
+      document.documentElement.dataset.wwTradeCustomer = isTradeCustomer ? 'true' : 'false';
       document.documentElement.dataset.wwTradeDiscount = String(discount);
+      document.documentElement.dataset.wwSuppressPromos = suppressPromos ? 'true' : 'false';
+      document.documentElement.classList.toggle('ww-trade-customer', isTradeCustomer);
+      document.documentElement.classList.toggle('ww-suppress-promos', suppressPromos);
+      applyPromoSuppression(status);
     }
 
     function priceGroupHtml(priceCents, compareAtCents) {
