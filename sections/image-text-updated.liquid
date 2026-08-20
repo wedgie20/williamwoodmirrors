@@ -68,16 +68,24 @@
   }
 
   #shopify-section-{{ section.id }} .ww-sale-collection-promo {
-    margin: 0.85rem 0 0;
+    margin: 0.15rem 0 0;
     color: rgb(var(--text-color));
     font-size: clamp(16px, 1.45vw, 24px);
     font-weight: 700;
     line-height: 1.2;
   }
 
+  #shopify-section-{{ section.id }} .ww-sale-collection-text h1 {
+    margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-sale-collection-text h1 br {
+    display: none;
+  }
+
   @media screen and (max-width: 767px) {
     #shopify-section-{{ section.id }} .ww-sale-collection-promo {
-      margin-top: 0.6rem;
+      margin-top: 0.15rem;
       font-size: 15px;
     }
   }
@@ -137,7 +145,7 @@
             {%- endif -%}
 
             {%- if section.settings.content != blank or section.settings.button_text != blank -%}
-              <div class="image-overlay__text-container">
+              <div class="image-overlay__text-container{% if ww_show_sale_collection_promo %} ww-sale-collection-text{% endif %}">
                 {%- if section.settings.content != blank-%}
                   {{- section.settings.content -}}
                 {%- endif -%}
