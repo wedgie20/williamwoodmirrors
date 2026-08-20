@@ -626,7 +626,7 @@
   {%- if current_variant.inventory_quantity > 0 -%}
     <div class="low-stock-div">
       <span class="ww-pdp__pill ww-pdp__pill--low-stock">
-        <span class="ww-pdp__pill--pulse"></span>
+        <span class="ww-pdp__pill--pulse" style="margin-right: 8px;"></span>
         {%- if current_variant.inventory_quantity <= 15 -%}
           Low stock: Only {{ current_variant.inventory_quantity }} left
         {%- else -%}
