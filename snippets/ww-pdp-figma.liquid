@@ -605,7 +605,7 @@
       <span class="ww-pdp__pill--sold-out ww-pdp__pill--pulse"></span>Sold out: Get notified below when it’s back in stock</span>
   {%- endif -%} {% endcomment %}
 
-  {%- assign low_stock_text = 'Low stock: Only' -%}
+  {%- assign low_stock_text = blank -%}
 {%- for tag in product.tags -%}
   {%- if tag contains '__label' -%}
     {%- assign candidate = tag | split: ':' | last -%}
