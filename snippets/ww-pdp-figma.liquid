@@ -625,9 +625,11 @@
     <span class="ww-pdp__pill--pulse"></span>In Stock: Ready to Ship from Our UK Warehouse
   </span>
   {%- if low_stock_text != blank -%}
+  <div class="low-sock-div">
     <span class="ww-pdp__pill ww-pdp__pill--low-stock">
       <span class="ww-pdp__pill--pulse"></span>{{ low_stock_text }}
     </span>
+  </div>
   {%- endif -%}
 {%- else -%}
   <span class="ww-pdp__pill ww-pdp__pill--stock ww-pdp__pill--sold-out">
