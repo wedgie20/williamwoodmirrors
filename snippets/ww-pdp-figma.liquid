@@ -525,13 +525,21 @@
 
       {% comment %} <div class="ww-pdp__designed">Designed in-house by <strong>WILLIAM WOOD</strong></div> {% endcomment %}
 
-      <div class="ww-review-sold">
+      {% comment %} <div class="ww-review-sold">
       {%- if review_count_number > 0 -%}
         <a class="ww-pdp__reviews" href="#judgeme_product_reviews">
           <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
           <span>{{ review_count }} Reviews</span>
         </a>
-      {%- endif -%}
+      {%- endif -%} {% endcomment %}
+
+      <div class="ww-review-sold">
+  {%- if review_count_number > 0 -%}
+    <a class="ww-pdp__reviews" href="#judgeme_product_reviews">
+      <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <span>{{ review_count }} {% if review_count_number == 1 %}Review{% else %}Reviews{% endif %}</span>
+    </a>
+  {%- endif -%}
 
       <div class="main-product-item {% unless product.available %}product-item--sold-out{% endunless %}" {% if reveal %}reveal{% endif %}>
 {%- if product_labels != blank and reduced_content != true -%}
