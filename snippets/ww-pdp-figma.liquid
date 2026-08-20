@@ -589,7 +589,7 @@
           {%- else -%}
             <span class="ww-pdp__price" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
           {%- endif -%}
-        </span> {% endcomment %}
+        </span> 
         {%- unless is_preorder -%}
           <span class="ww-pdp__pill ww-pdp__pill--stock{% unless current_variant.available %} ww-pdp__pill--sold-out{% endunless %}"><span></span>{% if current_variant.available %}In stock{% else %}Sold out{% endif %}</span>
         {%- endunless -%}
@@ -598,6 +598,7 @@
         {% if product.collections contains collections['sasso-collection'] %}
           <span class="ww-pdp__pill pill_latest">Latest Arrivals</span>
         {% endif %}
+         {% endcomment %}
       </div> 
 
       {%- if product.description != blank -%}
