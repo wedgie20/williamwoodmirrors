@@ -1379,21 +1379,38 @@
     letter-spacing: .04em;
   }
 
-  .ww-pdp__pill--pulse::before {
-    content: "";
-    width: 7px;
-    height: 7px;
-    flex: 0 0 7px;
-    border-radius: 999px;
-    background: #00a233;
-    box-shadow: 0 0 0 0 rgba(0, 162, 51, 1);
-    animation: low-stock-amber-pulse 1.6s ease-out infinite;
-  }
-
   .ww-pdp__pill--pulse {
-      color: rgb(var(--text-color));
-    font-size: 10px;
+  --pulse-color: 0, 162, 51; /* green, as R,G,B */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgb(var(--text-color));
+  font-size: 10px;
+}
+
+.ww-pdp__pill--pulse::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 999px;
+  background: rgb(var(--pulse-color));
+  box-shadow: 0 0 0 0 rgba(var(--pulse-color), 1);
+  animation: low-stock-amber-pulse 1.6s ease-out infinite;
+}
+
+@keyframes low-stock-amber-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--pulse-color), 0.7);
   }
+  70% {
+    box-shadow: 0 0 0 8px rgba(var(--pulse-color), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--pulse-color), 0);
+  }
+}
 
   .ww-pdp__pill--stock span {
     width: 10px;
