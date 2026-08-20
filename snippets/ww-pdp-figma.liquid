@@ -614,6 +614,7 @@
         {%- endif -%}
       {%- endif -%}
     {%- endfor -%}
+
 {%- if is_preorder and preorder_delivery_text != blank -%}
   <div class="ww-pdp__preorder-note">
     <span aria-hidden="true" class="ww-pdp__pill--pulse"></span>
@@ -628,7 +629,7 @@
       <span class="ww-pdp__pill ww-pdp__pill--low-stock">
         <span class="ww-pdp__pill--pulse" style="margin-right: 8px;"></span>
         {%- if current_variant.inventory_quantity <= 15 -%}
-          Low stock: Only {{ current_variant.inventory_quantity }} left
+          Low Stock: Only {{ current_variant.inventory_quantity }} left
         {%- else -%}
           Limited Availability
         {%- endif -%}
