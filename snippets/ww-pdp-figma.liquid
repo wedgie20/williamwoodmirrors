@@ -55,6 +55,15 @@
     assign has_variant_discount = true
   endif
 
+  assign ww_trade_product_tags = product.tags | join: ',' | downcase
+  assign ww_trade_explicit_excluded = false
+  if ww_trade_product_tags contains 'trade-exclude' or ww_trade_product_tags contains 'trade excluded' or ww_trade_product_tags contains 'no-trade-discount'
+    assign ww_trade_explicit_excluded = true
+  endif
+  if product.metafields.trade.exclude_from_discount.value == true
+    assign ww_trade_explicit_excluded = true
+  endif
+
 
   assign promo_code = ''
   assign promo_text = ''
@@ -502,7 +511,9 @@
           data-ww-trade-price-group
           data-current-price-cents="{{ current_variant.price }}"
           data-compare-at-price-cents="{{ current_variant.compare_at_price | default: 0 }}"
-          data-product-excluded="{% if has_variant_discount %}true{% else %}false{% endif %}"
+          data-product-sale-priced="{% if has_variant_discount %}true{% else %}false{% endif %}"
+          data-product-explicit-excluded="{% if ww_trade_explicit_excluded %}true{% else %}false{% endif %}"
+          data-product-excluded="{% if has_variant_discount or ww_trade_explicit_excluded %}true{% else %}false{% endif %}"
         >
           {%- if has_variant_discount -%}
             <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.compare_at_price | money }}</span>

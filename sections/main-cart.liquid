@@ -520,12 +520,23 @@
 
                 <span style="text-align: right;">
                   {%- assign original_subtotal = 0 -%}
+                  {%- assign ww_cart_has_trade_discount = false -%}
                   {%- for line_item in cart.items -%}
+                    {%- for discount_allocation in line_item.line_level_discount_allocations -%}
+                      {%- assign ww_discount_title = discount_allocation.discount_application.title | default: discount_allocation.title | downcase -%}
+                      {%- if ww_discount_title contains 'trade discount' -%}
+                        {%- assign ww_cart_has_trade_discount = true -%}
+                      {%- endif -%}
+                    {%- endfor -%}
                     {%- assign item_total = line_item.original_line_price -%}
                     {%- assign original_subtotal = original_subtotal | plus: item_total -%}
                   {%- endfor -%}
+                  {%- assign subtotal_display_amount = original_subtotal -%}
+                  {%- if ww_cart_has_trade_discount -%}
+                    {%- assign subtotal_display_amount = cart.total_price -%}
+                  {%- endif -%}
 
-            {% render 'format-money', amount: original_subtotal %}
+            {% render 'format-money', amount: subtotal_display_amount %}
                 </span>
               </p>
 

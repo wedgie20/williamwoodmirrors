@@ -251,29 +251,34 @@
 
     function renderTradePrices(status) {
       var discount = Number(status && status.current_discount || 0);
+      var suppressPromos = shouldSuppressPromos(status);
       var groups = document.querySelectorAll('[data-ww-trade-price-group]');
 
       groups.forEach(function (group) {
         var priceCents = Number(group.getAttribute('data-current-price-cents') || 0);
         var compareAtCents = Number(group.getAttribute('data-compare-at-price-cents') || 0);
-        var isExcluded = group.getAttribute('data-product-excluded') === 'true' || (compareAtCents > priceCents);
+        var isExplicitlyExcluded = group.getAttribute('data-product-explicit-excluded') === 'true';
+        var isSalePriced = group.getAttribute('data-product-sale-priced') === 'true' || compareAtCents > priceCents;
+        var priceBasisCents = suppressPromos && isSalePriced && compareAtCents > priceCents ? compareAtCents : priceCents;
 
-        if (!shouldShowTradeUi(status) || !(discount > 0) || !priceCents || isExcluded) {
+        if (!shouldShowTradeUi(status) || !(discount > 0) || !priceBasisCents || isExplicitlyExcluded || (isSalePriced && !suppressPromos)) {
           resetTradePrice(group, priceCents, compareAtCents);
           return;
         }
 
-        var tradePriceCents = Math.round(priceCents * (100 - discount) / 100);
+        var tradePriceCents = Math.round(priceBasisCents * (100 - discount) / 100);
         group.classList.add('is-discounted', 'has-trade-price');
-        group.innerHTML = '<span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>' + formatMoneyFromCents(priceCents) + '</span><span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>' + formatMoneyFromCents(tradePriceCents) + '</span><span class="ww-pdp__trade-price-note">Trade price</span>';
+        group.innerHTML = '<span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>' + formatMoneyFromCents(priceBasisCents) + '</span><span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>' + formatMoneyFromCents(tradePriceCents) + '</span><span class="ww-pdp__trade-price-note">Trade price</span>';
       });
     }
 
     function renderProduct(target, status) {
       var discount = Number(status.current_discount || 0);
-      var isExcluded = target.getAttribute('data-product-excluded') === 'true';
+      var suppressPromos = shouldSuppressPromos(status);
+      var isExplicitlyExcluded = target.getAttribute('data-product-explicit-excluded') === 'true';
+      var isSalePriced = target.getAttribute('data-product-sale-priced') === 'true';
 
-      if (isExcluded) {
+      if (isExplicitlyExcluded || (isSalePriced && !suppressPromos)) {
         target.innerHTML = '<p class="ww-trade-message__title">Trade account</p><p>This item is already reduced, so trade discount is not applied.</p>';
       } else if (status.bespoke_quote_available) {
         target.innerHTML = '<p class="ww-trade-message__title">' + (discount || 35) + '% trade pricing applies</p><p>For larger projects, contact the Trade team for a bespoke quote.</p>';
@@ -313,7 +318,6 @@
         }
 
         if (target.getAttribute('data-ww-trade-mode') === 'product') {
-          if (target.innerHTML.trim() !== '' && !target.hidden) return;
           renderProduct(target, status);
         } else {
           renderCart(target, status);
