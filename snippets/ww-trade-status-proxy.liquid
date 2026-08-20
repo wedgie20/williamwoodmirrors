@@ -133,7 +133,14 @@
     }
 
     function shouldShowTradeUi(status) {
-      return !!(status && status.is_trade_customer);
+      return !!(
+        status &&
+        (
+          status.is_trade_customer ||
+          Number(status.current_discount || 0) > 0 ||
+          (status.current_tier && status.current_tier !== 'not_qualified')
+        )
+      );
     }
 
     function applyPromoSuppression(status) {
