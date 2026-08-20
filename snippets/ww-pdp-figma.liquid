@@ -573,7 +573,7 @@
         </div>
       {%- endif -%}  
     </div>
-    
+
     <div class="deliivery-message">
     {%- unless is_preorder -%}
           <span class="ww-pdp__pill ww-pdp__pill--stock{% unless current_variant.available %} ww-pdp__pill--sold-out{% endunless %}"><span></span>{% if current_variant.available %}In Stock: Ready to Ship from Our UK Warehouse{% else %}Sold out{% endif %}</span>
@@ -1375,7 +1375,7 @@
   .ww-pdp__pill--stock {
     border-color: #00a233;
     color: #00a233;
-    text-transform: uppercase;
+    {% comment %} text-transform: uppercase; {% endcomment %}
     letter-spacing: .04em;
   }
 
