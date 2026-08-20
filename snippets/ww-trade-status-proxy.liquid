@@ -133,7 +133,7 @@
     }
 
     function shouldShowTradeUi(status) {
-      return shouldSuppressPromos(status);
+      return !!(status && status.is_trade_customer);
     }
 
     function applyPromoSuppression(status) {
