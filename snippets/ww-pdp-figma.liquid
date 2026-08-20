@@ -575,8 +575,8 @@
     </div>
 
     <div class="deliivery-message">
-      {% comment %} {%- if is_preorder and preorder_delivery_text != blank -%}
-  <div class="ww-pdp__preorder-note">
+      {%- if is_preorder and preorder_delivery_text != blank -%}
+  <div class="ww-pdp__preorder-note ww-pdp__pill">
     <span aria-hidden="true" class="ww-pdp__pill--pulse"></span>
     <p>Pre-Order: Estimated Dispatch from {{ preorder_date }}</p>
   </div>
@@ -584,10 +584,10 @@
   <span class="ww-pdp__pill ww-pdp__pill--stock">
     <span class="ww-pdp__pill--pulse"></span>In Stock: Ready to Ship from Our UK Warehouse
   </span>
-{%- endif -%} {% endcomment %}
-    {%- unless is_preorder -%}
+{%- endif -%}
+    {% comment %} {%- unless is_preorder -%}
           <span class="ww-pdp__pill ww-pdp__pill--stock{% unless current_variant.available %} ww-pdp__pill--sold-out{% endunless %}"><span class="ww-pdp__pill--pulse"></span>{% if current_variant.available %}In Stock: Ready to Ship from Our UK Warehouse{% else %}Sold out{% endif %}</span>
-    {%- endunless -%}
+    {%- endunless -%} {% endcomment %}
     
     
    </div>
