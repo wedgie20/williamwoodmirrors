@@ -633,7 +633,7 @@
   {%- endif -%}
 {%- else -%}
   <span class="ww-pdp__pill ww-pdp__pill--stock ww-pdp__pill--sold-out">
-    <span class="ww-pdp__pill--pulse"></span>Sold out
+    <span class="ww-pdp__pill--pulse .ww-pdp__pill--low-stock"></span>Sold out
   </span>
 {%- endif -%}
     
@@ -875,6 +875,22 @@
 
 .ww-pdp__pill--sold-out .ww-pdp__pill--pulse {
   --pulse-color: 220, 38, 38; /* red */
+}
+
+.ww-pdp__pill--low-stock .ww-pdp__pill--pulse {
+  --pulse-color: 217, 119, 6; /* amber */
+}
+
+@keyframes stock-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--pulse-color, 0, 162, 51), 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(var(--pulse-color, 0, 162, 51), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--pulse-color, 0, 162, 51), 0);
+  }
 }
 
 @keyframes stock-pulse {
