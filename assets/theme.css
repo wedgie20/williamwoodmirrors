@@ -3447,8 +3447,12 @@ p + .button-group,
   .ww-title-sale-price {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    /* align-items: baseline; */
     
+  }
+
+  .ww-pdp__title-measurement {
+    margin-bottom: 10px !important;
   }
 
 @media screen and (max-width: 999px) {
@@ -3458,9 +3462,7 @@ p + .button-group,
     margin-right: calc(-1 * var(--container-gutter));
   }
 
-  .ww-pdp__title-measurement {
-    margin-bottom: 10px !important;
-  }
+  
 
   
 
