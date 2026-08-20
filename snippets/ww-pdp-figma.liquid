@@ -581,8 +581,9 @@
      {% endcase %}
    {% endfor %}
 
+{% comment %}
       <div class="ww-pdp__price-row">
-        {% comment %} <span class="ww-pdp__price-group ww-pdp__price-group_desktop {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
+         <span class="ww-pdp__price-group ww-pdp__price-group_desktop {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
           {%- if has_variant_discount -%}
             <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.compare_at_price | money }}</span>
             <span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
@@ -598,9 +599,10 @@
         {% if product.collections contains collections['sasso-collection'] %}
           <span class="ww-pdp__pill pill_latest">Latest Arrivals</span>
         {% endif %}
-         {% endcomment %}
+         
       </div> 
-
+{% endcomment %}
+ 
       {%- if product.description != blank -%}
         {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
         <div class="product_description_dropdown">
