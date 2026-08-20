@@ -12,6 +12,18 @@
     font-weight: inherit !important;
     text-decoration: none !important;
   }
+
+  [data-ww-cart-total-suppressed] {
+    display: none;
+  }
+
+  html.ww-suppress-promos [data-ww-cart-total-current] {
+    display: none !important;
+  }
+
+  html.ww-suppress-promos [data-ww-cart-total-suppressed] {
+    display: inline !important;
+  }
 </style>
 
 <script>

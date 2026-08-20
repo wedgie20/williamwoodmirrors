@@ -657,7 +657,29 @@
 {% endif %}
 
      
-      <p class="order_info" style="font-weight: bold;"><span style="color: black;">Final Order Total:</span> <span style="text-align: right;"> {% render 'format-money', amount: cart.total_price %}</span></p>
+      {%- assign ww_suppressed_cart_total = 0 -%}
+      {%- for line_item in cart.items -%}
+        {%- assign ww_line_has_trade_discount = false -%}
+        {%- for discount_allocation in line_item.line_level_discount_allocations -%}
+          {%- assign ww_discount_title = discount_allocation.discount_application.title | downcase -%}
+          {%- if ww_discount_title contains 'trade discount' -%}
+            {%- assign ww_line_has_trade_discount = true -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if ww_line_has_trade_discount -%}
+          {%- assign ww_line_total = line_item.final_line_price -%}
+        {%- elsif line_item.original_line_price > line_item.final_line_price -%}
+          {%- assign ww_line_total = line_item.original_line_price -%}
+        {%- elsif line_item.variant.compare_at_price > line_item.variant.price -%}
+          {%- assign ww_line_total = line_item.variant.compare_at_price | times: line_item.quantity -%}
+        {%- else -%}
+          {%- assign ww_line_total = line_item.final_line_price -%}
+        {%- endif -%}
+        {%- assign ww_suppressed_cart_total = ww_suppressed_cart_total | plus: ww_line_total -%}
+      {%- endfor -%}
+
+      <p class="order_info" style="font-weight: bold;"><span style="color: black;">Final Order Total:</span> <span style="text-align: right;"><span data-ww-cart-total-current>{% render 'format-money', amount: cart.total_price %}</span><span data-ww-cart-total-suppressed>{% render 'format-money', amount: ww_suppressed_cart_total %}</span></span></p>
 
       {% assign eu_countries = "AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE" | split: "," %}
       {% if localization.country.iso_code != "GB" and eu_countries contains localization.country.iso_code %}
