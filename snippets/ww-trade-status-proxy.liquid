@@ -2,6 +2,16 @@
   html.ww-suppress-promos [data-ww-promo-suppressible] {
     display: none !important;
   }
+
+  html.ww-suppress-promos .ww-trade-suppressed-sale-price {
+    display: none !important;
+  }
+
+  html.ww-suppress-promos .ww-trade-restored-regular-price {
+    color: inherit !important;
+    font-weight: inherit !important;
+    text-decoration: none !important;
+  }
 </style>
 
 <script>
@@ -156,6 +166,48 @@
       }
     }
 
+    function lineHasTradeDiscount(element) {
+      var line = element && element.closest('.line-item, tr, .cart-item');
+      if (!line) return false;
+
+      return line.textContent.toLowerCase().indexOf('trade discount') !== -1;
+    }
+
+    function setSalePairSuppression(saleElement, regularElement, suppress) {
+      if (!saleElement || !regularElement) return;
+
+      if (!suppress) {
+        saleElement.classList.remove('ww-trade-suppressed-sale-price');
+        regularElement.classList.remove('ww-trade-restored-regular-price');
+        return;
+      }
+
+      var tradePriceGroup = saleElement.closest('[data-ww-trade-price-group]');
+      if (tradePriceGroup && tradePriceGroup.classList.contains('has-trade-price')) return;
+      if (lineHasTradeDiscount(saleElement)) return;
+
+      saleElement.classList.add('ww-trade-suppressed-sale-price');
+      regularElement.classList.add('ww-trade-restored-regular-price');
+    }
+
+    function applySalePriceSuppression(status) {
+      var suppress = shouldSuppressPromos(status);
+
+      document.querySelectorAll('.price--highlight, .ww-pdp__price--sale').forEach(function (saleElement) {
+        var parent = saleElement.parentElement;
+        if (!parent) return;
+
+        var regularElement = Array.prototype.slice.call(parent.children).find(function (child) {
+          return child !== saleElement && child.classList && (
+            child.classList.contains('price--compare') ||
+            child.classList.contains('ww-pdp__price--compare')
+          );
+        });
+
+        setSalePairSuppression(saleElement, regularElement, suppress);
+      });
+    }
+
     function setTradeState(status) {
       var discount = Number(status && status.current_discount || 0);
       var isTradeCustomer = !!(status && status.is_trade_customer);
@@ -168,6 +220,7 @@
       document.documentElement.classList.toggle('ww-trade-customer', isTradeCustomer);
       document.documentElement.classList.toggle('ww-suppress-promos', suppressPromos);
       applyPromoSuppression(status);
+      applySalePriceSuppression(status);
     }
 
     function priceGroupHtml(priceCents, compareAtCents) {
@@ -365,6 +418,7 @@
         setTradeState(status);
         renderTargets(status);
         renderTradePrices(status);
+        applySalePriceSuppression(status);
         refreshCartForDiscountMismatch(status);
         return status;
       });
