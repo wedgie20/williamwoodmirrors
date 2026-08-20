@@ -34,6 +34,10 @@
       {%- assign custom_image_inserted = false -%}
       {%- for link in menu.links -%}
         {%- assign link_title_downcase = link.title | strip | downcase -%}
+        {%- assign is_promo_menu_link = false -%}
+        {%- if link_title_downcase contains 'sale' or link_title_downcase contains 'off' or link_title_downcase contains 'bundle' or link_title_downcase contains 'free gift' or link_title_downcase contains '3 for 2' -%}
+          {%- assign is_promo_menu_link = true -%}
+        {%- endif -%}
         {%- assign mega_menu_block = '' -%}
         {%- assign mega_menu_images = '' -%}
 
@@ -86,7 +90,7 @@
           {%- endcapture -%}
         {%- endif -%}
 
-        <li class="mobile-nav__item" data-level="1">
+        <li class="mobile-nav__item" data-level="1"{% if is_promo_menu_link %} data-ww-promo-suppressible{% endif %}>
           {%- if link.links.size > 0 or mega_menu_images != blank -%}
             <button
               is="toggle-button"
