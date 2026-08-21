@@ -242,6 +242,8 @@
     #shopify-section-{{ section.id }} .wisp [class*="Count"],
     #shopify-section-{{ section.id }} .wisp [class*="badge"],
     #shopify-section-{{ section.id }} .wisp [class*="Badge"],
+    #shopify-section-{{ section.id }} .wisp .wisp_count,
+    #shopify-section-{{ section.id }} .wisp .attention_alert::before,
     #shopify-section-{{ section.id }} .wisp > span:not(.visually-hidden) {
       position: absolute !important;
       top: -3px !important;
@@ -252,7 +254,10 @@
       box-sizing: border-box !important;
       width: 12px !important;
       min-width: 12px !important;
+      max-width: 12px !important;
       height: 12px !important;
+      min-height: 12px !important;
+      max-height: 12px !important;
       padding: 0 !important;
       border-radius: 9999px !important;
       font-size: 8px !important;
@@ -270,6 +275,8 @@
     [dir="rtl"] #shopify-section-{{ section.id }} .wisp [class*="Count"],
     [dir="rtl"] #shopify-section-{{ section.id }} .wisp [class*="badge"],
     [dir="rtl"] #shopify-section-{{ section.id }} .wisp [class*="Badge"],
+    [dir="rtl"] #shopify-section-{{ section.id }} .wisp .wisp_count,
+    [dir="rtl"] #shopify-section-{{ section.id }} .wisp .attention_alert::before,
     [dir="rtl"] #shopify-section-{{ section.id }} .wisp > span:not(.visually-hidden) {
       right: auto !important;
       left: -4px !important;
