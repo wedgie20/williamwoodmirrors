@@ -399,6 +399,11 @@
 
     function renderCart(target, status) {
       var cartEligibleCents = Number(target.getAttribute('data-cart-eligible-total') || 0);
+      var restoredCartEligibleCents = Number(target.getAttribute('data-cart-restored-eligible-total') || 0);
+      if (shouldSuppressPromos(status) && restoredCartEligibleCents > 0) {
+        cartEligibleCents = restoredCartEligibleCents;
+      }
+
       var projection = getTradeProjection(status, cartEligibleCents);
       var progressHtml = renderTierProgress(projection.progress, projection.projectedSpendCents);
 

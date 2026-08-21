@@ -34,21 +34,35 @@
   endif
 
   assign trade_cart_eligible_total = 0
+  assign trade_cart_restored_eligible_total = 0
   if cart != blank
     for item in cart.items
       assign trade_line_excluded = false
+      assign trade_line_explicit_excluded = false
+      assign trade_line_sale_priced = false
       assign trade_product_tags = item.product.tags | join: ',' | downcase
 
       if item.variant.compare_at_price != blank and item.variant.compare_at_price > item.variant.price
+        assign trade_line_sale_priced = true
         assign trade_line_excluded = true
       endif
 
       if trade_product_tags contains 'trade-exclude' or trade_product_tags contains 'trade excluded' or trade_product_tags contains 'no-trade-discount'
+        assign trade_line_explicit_excluded = true
         assign trade_line_excluded = true
       endif
 
       unless trade_line_excluded
         assign trade_cart_eligible_total = trade_cart_eligible_total | plus: item.original_line_price
+      endunless
+
+      unless trade_line_explicit_excluded
+        if trade_line_sale_priced
+          assign trade_line_restored_total = item.variant.compare_at_price | times: item.quantity
+          assign trade_cart_restored_eligible_total = trade_cart_restored_eligible_total | plus: trade_line_restored_total
+        else
+          assign trade_cart_restored_eligible_total = trade_cart_restored_eligible_total | plus: item.original_line_price
+        endif
       endunless
     endfor
   endif
@@ -180,6 +194,7 @@
     data-ww-trade-mode="{{ trade_mode }}"
     data-current-spend="{{ trade_spend_cents }}"
     data-cart-eligible-total="{{ trade_cart_eligible_total }}"
+    data-cart-restored-eligible-total="{{ trade_cart_restored_eligible_total }}"
     data-next-threshold="{{ trade_next_unlock_cents }}"
     style="--ww-trade-message-progress: {{ trade_progress_percent }}%;"
     {% unless trade_is_customer %}hidden{% endunless %}
