@@ -153,7 +153,16 @@
     }
 
     function shouldSuppressPromos(status) {
-      return !!(status && isTradeDiscountActive(status) && isTruthy(status.is_trade_customer) && isTruthy(status.suppress_storefront_promos));
+      return !!(
+        status &&
+        isTradeCustomerSignal(status) &&
+        (
+          isTruthy(status.suppress_storefront_promos) ||
+          isTruthy(status.suppress_promos) ||
+          isTruthy(status.suppressStorefrontPromos) ||
+          isTruthy(status.storefront_suppression_active)
+        )
+      );
     }
 
     function isTradeCustomerSignal(status) {
