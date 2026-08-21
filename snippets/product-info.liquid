@@ -1104,6 +1104,54 @@ function scrollToFaq(e) {
         {%- endif -%}
 
         <div class="swym-wishlist-button-bar"></div>
+        <script>
+          (() => {
+            if (window.__wwMobileWishlistMounted) {
+              return;
+            }
+
+            window.__wwMobileWishlistMounted = true;
+
+            let originalParent = null;
+            let originalNextSibling = null;
+            const mobileQuery = window.matchMedia("(max-width: 739px)");
+
+            const moveWishlist = () => {
+              const mobileTarget = document.querySelector(".product__mobile-wishlist");
+              const wishlistBar = document.querySelector(".product__mobile-wishlist > .swym-wishlist-button-bar, .product-meta__reference > .swym-wishlist-button-bar");
+
+              if (!mobileTarget || !wishlistBar) {
+                return;
+              }
+
+              if (!originalParent && !wishlistBar.closest(".product__mobile-wishlist")) {
+                originalParent = wishlistBar.parentNode;
+                originalNextSibling = wishlistBar.nextSibling;
+              }
+
+              if (mobileQuery.matches) {
+                if (wishlistBar.parentNode !== mobileTarget) {
+                  mobileTarget.appendChild(wishlistBar);
+                }
+              } else if (originalParent && wishlistBar.parentNode !== originalParent) {
+                originalParent.insertBefore(wishlistBar, originalNextSibling);
+              }
+            };
+
+            document.addEventListener("DOMContentLoaded", moveWishlist);
+            window.addEventListener("resize", moveWishlist);
+
+            let attempts = 0;
+            const interval = setInterval(() => {
+              moveWishlist();
+              attempts += 1;
+
+              if (attempts > 20) {
+                clearInterval(interval);
+              }
+            }, 250);
+          })();
+        </script>
       </div>
     {%- endif -%}
     
