@@ -818,7 +818,7 @@
           <div class="delivery-info">
             {%- assign slow_delivery = false -%}
               {%- for tag in product.tags -%}
-                {%- if tag == 'slowdel' -%}
+                {%- if tag == 'SLOWDEL' -%}
                   {%- assign slow_delivery = true -%}
                 {%- endif -%}
               {%- endfor -%}
