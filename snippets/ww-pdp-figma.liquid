@@ -824,7 +824,14 @@
         </div>
         </div>
         </div>
-        <product-payment-terms form-id="{{ product_form_id }}" id="installementsid-{{ product_form_id }}">
+        
+      {%- endform -%}
+
+      
+
+
+      <div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ current_variant.price }}">
+       <product-payment-terms form-id="{{ product_form_id }}" id="installementsid-{{ product_form_id }}">
       {%- assign product_installment_form_id = 'product-installment-form-'
         | append: section.id
         | append: '-'
@@ -1018,24 +1025,6 @@ Or in 3 instalments of <span id="installment"></span> with
 
       {%- endform -%}
     </product-payment-terms>
-      {%- endform -%}
-
-      
-
-
-      <div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ current_variant.price }}">
-        <p>Pay in <span data-ww-paypal-count>3</span> interest-free payments of <span data-ww-paypal-amount>{{ payment_amount | money }}</span> with <strong class="ww-pdp__paypal">PayPal</strong> <a href="/pages/payment">Learn More</a></p>
-        <p>
-          Pay in
-          <select class="ww-pdp__installment-select" data-ww-installment-select aria-label="Choose installment count">
-            <option value="3" selected>3</option>
-            <option value="4">4</option>
-            <option value="6">6</option>
-            <option value="9">9</option>
-            <option value="12">12</option>
-          </select>
-          interest-free payments of <span data-ww-klarna-amount>{{ payment_amount | money }}</span> with <strong>Klarna.</strong> <a href="/pages/payment">Learn More</a>
-        </p>
       </div>
 
       {%- if product.description != blank -%}
