@@ -67,7 +67,7 @@
     endfor
   endif
 
-  assign trade_projected_spend_cents = trade_spend_cents | plus: trade_cart_eligible_total
+  assign trade_projected_spend_cents = trade_spend_cents | plus: trade_cart_restored_eligible_total
   assign trade_projected_discount = 0
   assign trade_next_unlock_cents = 99900
   assign trade_next_unlock_discount = 30
