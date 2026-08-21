@@ -804,11 +804,11 @@
           </div>
         {%- endif -%} {% endcomment %}
         <div class="ww-pdp__buy-row">
-          <div class="ww-pdp__quantity" data-ww-quantity>
+          {% comment %} <div class="ww-pdp__quantity" data-ww-quantity>
             <button type="button" data-ww-quantity-minus aria-label="Decrease quantity">-</button>
             <input type="number" name="quantity" min="1" value="1" inputmode="numeric" aria-label="Quantity">
             <button type="button" data-ww-quantity-plus aria-label="Increase quantity">+</button>
-          </div>
+          </div> {% endcomment %}
           <button
             type="{% if current_variant.available %}submit{% else %}button{% endif %}"
             {% unless current_variant.available %}id="BIS_trigger"{% endunless %}
