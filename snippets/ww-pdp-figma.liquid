@@ -57,6 +57,7 @@
 
 
   assign promo_code = ''
+   assign promo_title = 'The August Bank Holiday Sale'
   assign promo_text = '25% off everything — or 35% off when you buy 3+ products. <br> Plus, get a Free Gift worth up to £99 when you spend £499+.'
   assign promo_note = 'Offer applies automatically. No code required.'
 
@@ -751,6 +752,7 @@
 
       {%- if promo_text != blank -%}
   <div class="ww-pdp__promo">
+    {{ promo_title }}
     {{ promo_text }}
 
     {%- if promo_code != blank -%}
