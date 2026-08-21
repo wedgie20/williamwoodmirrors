@@ -57,23 +57,9 @@
 
 
   assign promo_code = ''
-  assign promo_text = ''
-  assign promo_note = ''
+  assign promo_text = '25% off everything — or 35% off when you buy 3+ products. <br> Plus, get a Free Gift worth up to £99 when you spend £499+.'
+  assign promo_note = 'Offer applies automatically. No code required.'
 
-  assign home_accessories_match = product.collections | where: 'handle', 'all-accessories'
-  assign full_price_match = product.collections | where: 'handle', 'all-full-price-products'
-
-  if full_price_match.size > 0
-    assign promo_code = 'WWAUG'
-    assign promo_text = '20% Off One Or 25% Off Any Two Or More'
-  elsif home_accessories_match.size > 0
-    assign promo_note = 'Discount Automatically Applied At Checkout'
-    assign promo_text = '3 for 2 On All Home Accessories'
-
-  else
-    assign promo_code = '25% off everything — or 35% off when you buy 3+ products. <br> Plus, get a Free Gift worth up to £99 when you spend £499+.'
-    assign promo_text = 'Offer applies automatically. No code required.'
-  endif
 
   assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id
 
