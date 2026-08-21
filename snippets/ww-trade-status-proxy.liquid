@@ -7,10 +7,12 @@
     display: none !important;
   }
 
-  html.ww-suppress-promos .ww-trade-restored-regular-price {
+  html.ww-suppress-promos .ww-trade-restored-regular-price,
+  html.ww-suppress-promos .ww-trade-restored-regular-price.price--compare {
     color: inherit !important;
     font-weight: inherit !important;
     text-decoration: none !important;
+    opacity: 1 !important;
   }
 
   [data-ww-cart-total-suppressed] {
@@ -31,6 +33,28 @@
     var statusPromise = null;
     var cartRefreshInFlight = false;
     var cartRefreshAttempts = {};
+    var domObserver = null;
+    var reapplyTimer = null;
+
+    function isTruthy(value) {
+      if (value === true) return true;
+      if (typeof value === 'number') return value > 0;
+      if (typeof value === 'string') {
+        return ['true', '1', 'yes', 'on', 'active'].indexOf(value.toLowerCase()) !== -1;
+      }
+
+      return false;
+    }
+
+    function isFalsey(value) {
+      if (value === false) return true;
+      if (typeof value === 'number') return value === 0;
+      if (typeof value === 'string') {
+        return ['false', '0', 'no', 'off', 'inactive', 'expired', 'disabled', 'deactivated'].indexOf(value.toLowerCase()) !== -1;
+      }
+
+      return false;
+    }
 
     function formatMoneyFromCents(cents) {
       var amount = (Number(cents) || 0) / 100;
@@ -129,14 +153,14 @@
     }
 
     function shouldSuppressPromos(status) {
-      return !!(status && isTradeDiscountActive(status) && status.is_trade_customer && status.suppress_storefront_promos === true);
+      return !!(status && isTradeDiscountActive(status) && isTruthy(status.is_trade_customer) && isTruthy(status.suppress_storefront_promos));
     }
 
     function isTradeCustomerSignal(status) {
       return !!(
         status &&
         (
-          status.is_trade_customer ||
+          isTruthy(status.is_trade_customer) ||
           Number(status.current_discount || 0) > 0 ||
           (status.current_tier && status.current_tier !== 'not_qualified')
         )
@@ -147,10 +171,10 @@
       if (!status) return false;
 
       if (
-        status.trade_discount_active === false ||
-        status.discount_active === false ||
-        status.storefront_discount_active === false ||
-        status.automatic_discount_active === false
+        isFalsey(status.trade_discount_active) ||
+        isFalsey(status.discount_active) ||
+        isFalsey(status.storefront_discount_active) ||
+        isFalsey(status.automatic_discount_active)
       ) {
         return false;
       }
@@ -242,14 +266,15 @@
     function applySalePriceSuppression(status) {
       var suppress = shouldSuppressPromos(status);
 
-      document.querySelectorAll('.price--highlight, .ww-pdp__price--sale').forEach(function (saleElement) {
+      document.querySelectorAll('.price--highlight, .ww-pdp__price--sale, [data-ww-sale-price]').forEach(function (saleElement) {
         var parent = saleElement.parentElement;
         if (!parent) return;
 
         var regularElement = Array.prototype.slice.call(parent.children).find(function (child) {
           return child !== saleElement && child.classList && (
             child.classList.contains('price--compare') ||
-            child.classList.contains('ww-pdp__price--compare')
+            child.classList.contains('ww-pdp__price--compare') ||
+            child.hasAttribute('data-ww-compare-price')
           );
         });
 
@@ -259,7 +284,7 @@
 
     function setTradeState(status) {
       var discount = Number(status && status.current_discount || 0);
-      var isTradeCustomer = !!(status && status.is_trade_customer);
+      var isTradeCustomer = isTruthy(status && status.is_trade_customer);
       var suppressPromos = shouldSuppressPromos(status);
       var tradeDiscountActive = isTradeDiscountActive(status);
 
@@ -272,6 +297,41 @@
       document.documentElement.classList.toggle('ww-suppress-promos', suppressPromos);
       applyPromoSuppression(status);
       applySalePriceSuppression(status);
+    }
+
+    function reapplyTradeState() {
+      var status = window.WWTradeStatus;
+      if (!status) return;
+
+      setTradeState(status);
+      renderTargets(status);
+      renderTradePrices(status);
+      applySalePriceSuppression(status);
+    }
+
+    function scheduleReapplyTradeState() {
+      clearTimeout(reapplyTimer);
+      reapplyTimer = setTimeout(reapplyTradeState, 80);
+    }
+
+    function startDomObserver() {
+      if (domObserver || !window.MutationObserver || !document.body) return;
+
+      domObserver = new MutationObserver(function (mutations) {
+        var shouldReapply = mutations.some(function (mutation) {
+          return Array.prototype.slice.call(mutation.addedNodes || []).some(function (node) {
+            if (!node || node.nodeType !== 1) return false;
+
+            return node.matches && (
+              node.matches('[data-ww-promo-suppressible], [data-ww-sale-price], .price--highlight, [data-ww-trade-proxy-target], [data-ww-trade-price-group], .product-item')
+            ) || node.querySelector && node.querySelector('[data-ww-promo-suppressible], [data-ww-sale-price], .price--highlight, [data-ww-trade-proxy-target], [data-ww-trade-price-group], .product-item');
+          });
+        });
+
+        if (shouldReapply) scheduleReapplyTradeState();
+      });
+
+      domObserver.observe(document.body, { childList: true, subtree: true });
     }
 
     function priceGroupHtml(priceCents, compareAtCents) {
@@ -479,8 +539,18 @@
       });
     }
 
-    document.addEventListener('DOMContentLoaded', refresh);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', refresh);
+      document.addEventListener('DOMContentLoaded', startDomObserver);
+    } else {
+      refresh();
+      startDomObserver();
+    }
     document.addEventListener('shopify:section:load', refresh);
+    document.addEventListener('shopify:section:load', scheduleReapplyTradeState);
+    document.addEventListener('facet:criteria-changed', scheduleReapplyTradeState);
+    document.addEventListener('facet:product-list-updated', scheduleReapplyTradeState);
+    document.addEventListener('collection:rerendered', scheduleReapplyTradeState);
     document.documentElement.addEventListener('cart:updated', refresh);
     document.documentElement.addEventListener('cart:refresh', function () {
       setTimeout(refresh, 250);
