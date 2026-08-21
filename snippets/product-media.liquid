@@ -143,7 +143,7 @@
       </flickity-carousel>
 
       {%- if section.settings.enable_image_zoom -%}
-        <div class="product__mobile-wishlist swym-wishlist-button-bar"></div>
+        <div class="product__mobile-wishlist"></div>
         <button {% if selected_media.media_type != 'image' %} {% endif %} is="toggle-button" aria-controls="product-{{ section.id }}-{{ product.id }}-zoom" aria-expanded="false" class="tap-area product__zoom-button">
           <span class="visually-hidden">{{ 'product.general.zoom' | t }}</span>
           {%- render 'icon' with 'image-zoom' -%}
