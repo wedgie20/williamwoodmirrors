@@ -871,6 +871,13 @@
       display: block;
       margin-top: 4px;
     }
+
+    .ww-pdp__payments .clear-pay {
+      position: relative;
+      margin-top: -3px;
+      {% comment %} top: 2.5px; {% endcomment %}
+      height: 20px !important;
+    }
   </style>
 
   {%- if cart.currency.iso_code == 'GBP' -%}
@@ -910,7 +917,7 @@
               break;
             case '4':
               logoUrl = 'https://cdn.shopify.com/s/files/1/0780/3843/files/CP_logo_badge_6328x2204_blackmint_png.png?v=1725884864';
-               logoClass += ' DB-logo';
+               logoClass += 'clear-pay';
               disclaimerText = 'Interest free fortnightly instalments';
               break;
             case '6':
