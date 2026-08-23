@@ -624,6 +624,25 @@
     <span aria-hidden="true" class="ww-pdp__pill--pulse"></span>
     <p>Pre-Order: Estimated Dispatch from {{ preorder_date }}</p>
   </div>
+
+  <div class="low-stock-div">
+    <span class="ww-pdp__pill ww-pdp__pill--low-stock">
+      <span class="ww-pdp__pill--pulse" style="margin-right: 8px;"></span>
+      {%- if current_variant.inventory_quantity >= 16 -%}
+        Limited Availability
+      {%- else -%}
+        Low Stock: Only {{ current_variant.inventory_quantity }} left
+      {%- endif -%}
+    </span>
+  </div>
+
+  {%- if last_chance -%}
+    <div class="low-stock-div">
+      <span class="ww-pdp__pill ww-pdp__pill--stock ww-pdp__pill--sold-out">
+        <span class="ww-pdp__pill--pulse" style="margin-right: 8px;"></span>Last Chance: This product will not be restocked
+      </span>
+    </div>
+  {%- endif -%}
 {%- elsif current_variant.available -%}
   <span class="ww-pdp__pill ww-pdp__pill--stock">
     <span class="ww-pdp__pill--pulse"></span>In Stock: Ready to Ship from Our UK Warehouse
