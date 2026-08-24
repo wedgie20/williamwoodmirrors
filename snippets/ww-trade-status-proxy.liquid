@@ -33,6 +33,7 @@
     var statusPromise = null;
     var cartRefreshInFlight = false;
     var cartRefreshAttempts = {};
+    var lastCartRefreshStateSignature = null;
     var cartDrawerRefreshTimers = [];
     var domObserver = null;
     var reapplyTimer = null;
@@ -207,6 +208,16 @@
       return isTradeDiscountActive(status) && isTradeCustomerSignal(status);
     }
 
+    function getCartRefreshStateSignature(status) {
+      return [
+        isTradeCustomerSignal(status) ? 'trade-customer' : 'not-trade-customer',
+        isTradeDiscountActive(status) ? 'trade-active' : 'trade-inactive',
+        shouldSuppressPromos(status) ? 'restricted' : 'open',
+        Number(status && status.current_discount || 0),
+        String(status && (status.discount_status || status.storefront_discount_status || status.status || ''))
+      ].join('|');
+    }
+
     function applyPromoSuppression(status) {
       var suppress = shouldSuppressPromos(status);
 
@@ -297,6 +308,12 @@
       var isTradeCustomer = isTruthy(status && status.is_trade_customer);
       var suppressPromos = shouldSuppressPromos(status);
       var tradeDiscountActive = isTradeDiscountActive(status);
+      var refreshStateSignature = getCartRefreshStateSignature(status);
+
+      if (lastCartRefreshStateSignature !== refreshStateSignature) {
+        cartRefreshAttempts = {};
+        lastCartRefreshStateSignature = refreshStateSignature;
+      }
 
       window.WWTradeStatus = status || { is_trade_customer: false, current_discount: 0, suppress_storefront_promos: false };
       document.documentElement.dataset.wwTradeCustomer = isTradeCustomer ? 'true' : 'false';
