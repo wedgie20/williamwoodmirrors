@@ -5827,55 +5827,9 @@ var SafeSticky = class extends HTMLElement {
     connectedCallback() {
       super.connectedCallback();
       this.nextReplacementDelay = 0;
-      this.freshCartSyncTimers = [];
-      this.freshCartSyncInFlight = false;
       this.rootDelegate.on("cart:refresh", this._rerenderCart.bind(this));
       this.addEventListener("variant:added", () => this.nextReplacementDelay = 600);
       
-    }
-    _scheduleFreshCartSync(delays = [350, 1200]) {
-      this.freshCartSyncTimers.forEach((timer) => clearTimeout(timer));
-      this.freshCartSyncTimers = delays.map((delay) => setTimeout(() => this._syncFreshCartSection(), delay));
-    }
-    async _syncFreshCartSection() {
-      if (!this.open || this.freshCartSyncInFlight) {
-        return;
-      }
-
-      this.freshCartSyncInFlight = true;
-
-      try {
-        const response = await fetch(`${window.themeVariables.routes.cartUrl}?section_id=${this.getAttribute("section")}&_=${Date.now()}`, {
-          cache: "no-store",
-          credentials: "same-origin"
-        });
-        const html = await response.text();
-        const fakeDiv = document.createElement("div");
-        fakeDiv.innerHTML = html;
-        const freshDrawer = fakeDiv.querySelector("cart-drawer");
-
-        if (!freshDrawer) {
-          return;
-        }
-
-        const content = this.querySelector(".drawer__content");
-        const previousPosition = content ? content.scrollTop : 0;
-        this.innerHTML = freshDrawer.innerHTML;
-
-        const newContent = this.querySelector(".drawer__content");
-        if (newContent) {
-          newContent.scrollTop = previousPosition;
-        }
-
-        document.documentElement.dispatchEvent(new CustomEvent("cart:drawer:updated", {
-          bubbles: true,
-          detail: { fresh: true }
-        }));
-      } catch (error) {
-        // Keep the existing drawer if the fresh sync cannot complete.
-      } finally {
-        this.freshCartSyncInFlight = false;
-      }
     }
     async _rerenderCart(event) {
       var _a;
@@ -5913,7 +5867,6 @@ var SafeSticky = class extends HTMLElement {
           this.clientWidth;
           this.open = true;
         }
-        this._scheduleFreshCartSync();
       }, ((_a = event == null ? void 0 : event.detail) == null ? void 0 : _a.replacementDelay) || this.nextReplacementDelay);
       this.nextReplacementDelay = 0;
       const countRoot = document.getElementById('py-flip-countdown');
@@ -5931,7 +5884,6 @@ var SafeSticky = class extends HTMLElement {
         case "open":
           if (this.open) {
             this.querySelector(".drawer__content").scrollTop = 0;
-            this._scheduleFreshCartSync();
             if (!MediaFeatures.prefersReducedMotion()) {
               const lineItems = Array.from(this.querySelectorAll(".line-item")), recommendationsInner = this.querySelector(".mini-cart__recommendations-inner"), bottomBar = this.querySelector(".drawer__footer"), effects = [];
               if (recommendationsInner && window.matchMedia(window.themeVariables.breakpoints.pocket).matches) {

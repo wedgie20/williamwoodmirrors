@@ -33,6 +33,7 @@
     var statusPromise = null;
     var cartRefreshInFlight = false;
     var cartRefreshAttempts = {};
+    var cartDrawerRefreshTimers = [];
     var domObserver = null;
     var reapplyTimer = null;
 
@@ -324,6 +325,16 @@
       reapplyTimer = setTimeout(reapplyTradeState, 80);
     }
 
+    function scheduleCartDrawerRefresh() {
+      cartDrawerRefreshTimers.forEach(function (timer) {
+        clearTimeout(timer);
+      });
+
+      cartDrawerRefreshTimers = [350, 1200].map(function (delay) {
+        return setTimeout(refresh, delay);
+      });
+    }
+
     function startDomObserver() {
       if (domObserver || !window.MutationObserver || !document.body) return;
 
@@ -556,6 +567,8 @@
             cart.token || '',
             firstItem && firstItem.key,
             firstItem && firstItem.quantity,
+            shouldSuppressPromos(status) ? 'restricted' : 'open',
+            shouldShowTradeUi(status) ? 'trade-active' : 'trade-inactive',
             projection.projectedDiscount,
             missingExpectedTradeDiscountLine ? 'line-missing' : (shouldSyncDiscountedCart ? 'sync' : (hasTradeDiscount ? 'has' : 'missing'))
           ].join('|');
@@ -628,6 +641,7 @@
     document.documentElement.addEventListener('cart:drawer:updated', function () {
       scheduleReapplyTradeState();
       setTimeout(scheduleReapplyTradeState, 120);
+      scheduleCartDrawerRefresh();
     });
     document.documentElement.addEventListener('cart:updated', refresh);
     document.documentElement.addEventListener('cart:refresh', function () {
