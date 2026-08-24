@@ -343,28 +343,90 @@
     endif
   endcapture
 -%}
-<div class="collection-card-title-row">
-  <div class="collection-card-title-text">
-    <strong class="collection-card-title-brand">{{ collection_card_brand | strip }}</strong>
-    {%- if collection_card_subtitle != blank -%}
-      <span class="collection-card-title-subtitle">{{ collection_card_subtitle | strip }}</span>
-    {%- endif -%}
+{%- comment -%} Desktop/tablet: unchanged title, unaffected by the mobile wishlist row below {%- endcomment -%}
+<div class="hidden-phone">
+{% if product.title contains 'Corylus Branch' %}
+  <b>Corylus Branch</b><br>100cm Pieces Brown x3
+{% elsif product.title contains 'Ella Grande - Gold' %}
+  <b>Ella Grande</b><br>Gold Ornate Floor Mirror
+{% elsif product.title contains 'Ella Grande - Champagne' %}
+  <b>Ella Grande</b><br>Champagne Ornate Floor Mirror
+{% elsif product.title contains 'Gift Card' %}
+  <b>E-Gift Card</b>
+{% elsif product.title contains 'Arcurva Noir - Extra Large' %}
+<a href="{{ product.url }}"><strong style="display: block;">Arcurva Noir</strong><span style="display: block;">Extra Large Full Length Black Irregular Mirror</span></a>
+{% elsif product.title contains 'Arcurva Noir - Large' %}
+<a href="{{ product.url }}"><strong style="display: block;">Arcurva Noir</strong><span style="display: block;">Large Full Length Black Irregular Mirror</span></a>
+{% elsif product.title contains 'Wabi-Sabi - Concrete' %}
+<a href="{{ product.url }}"><strong style="display: block;">Wabi-Sabi</strong><span style="display: block;">Concrete Irregular Wall Mirror</span></a>
+{% elsif product.title contains 'Wabi-Sabi - Large Concrete' %}
+<a href="{{ product.url }}"><strong style="display: block;">Wabi-Sabi</strong><span style="display: block;">Large Concrete Irregular Wall Mirror</span></a>
+{% elsif product.title contains 'Wabi-Sabi - Large Full Length' %}
+<a href="{{ product.url }}"><strong style="display: block;">Wabi-Sabi</strong><span style="display: block;">Large Full Length Concrete Irregular Mirror</span></a>
+{% else %}
+    {% assign title_words = card_title_without_measurement | split: ' ' %}
+  {% assign first_word = title_words[0] | replace: '-', '' %}
+  <a href="{{ product.url }}"><strong style="display: block;">{{ first_word }}</strong><span style="display: block; text-transform: inherit !important; margin-top: 2px;">{{ title_words | join: ' ' | remove: '-' | remove: first_word }}</span></a>
+{% endif %}
+</div>
+
+{%- comment -%} Mobile only: title (no link) + wishlist icon on the same row, subtitle/info stays below {%- endcomment -%}
+{%- capture card_title_brand_mobile -%}
+{% if product.title contains 'Corylus Branch' %}Corylus Branch
+{% elsif product.title contains 'Ella Grande - Gold' %}Ella Grande
+{% elsif product.title contains 'Ella Grande - Champagne' %}Ella Grande
+{% elsif product.title contains 'Gift Card' %}E-Gift Card
+{% elsif product.title contains 'Arcurva Noir - Extra Large' %}Arcurva Noir
+{% elsif product.title contains 'Arcurva Noir - Large' %}Arcurva Noir
+{% elsif product.title contains 'Wabi-Sabi - Concrete' %}Wabi-Sabi
+{% elsif product.title contains 'Wabi-Sabi - Large Concrete' %}Wabi-Sabi
+{% elsif product.title contains 'Wabi-Sabi - Large Full Length' %}Wabi-Sabi
+{% else %}
+  {% assign title_words = card_title_without_measurement | split: ' ' %}
+  {% assign first_word = title_words[0] | replace: '-', '' %}
+  {{- first_word -}}
+{% endif %}
+{%- endcapture -%}
+{%- capture card_title_subtitle_mobile -%}
+{% if product.title contains 'Corylus Branch' %}100cm Pieces Brown x3
+{% elsif product.title contains 'Ella Grande - Gold' %}Gold Ornate Floor Mirror
+{% elsif product.title contains 'Ella Grande - Champagne' %}Champagne Ornate Floor Mirror
+{% elsif product.title contains 'Gift Card' %}
+{% elsif product.title contains 'Arcurva Noir - Extra Large' %}Extra Large Full Length Black Irregular Mirror
+{% elsif product.title contains 'Arcurva Noir - Large' %}Large Full Length Black Irregular Mirror
+{% elsif product.title contains 'Wabi-Sabi - Concrete' %}Concrete Irregular Wall Mirror
+{% elsif product.title contains 'Wabi-Sabi - Large Concrete' %}Large Concrete Irregular Wall Mirror
+{% elsif product.title contains 'Wabi-Sabi - Large Full Length' %}Large Full Length Concrete Irregular Mirror
+{% else %}
+  {% assign title_words = card_title_without_measurement | split: ' ' %}
+  {% assign first_word = title_words[0] | replace: '-', '' %}
+  {{- title_words | join: ' ' | remove: '-' | remove: first_word -}}
+{% endif %}
+{%- endcapture -%}
+{%- assign card_title_brand_mobile = card_title_brand_mobile | strip -%}
+{%- assign card_title_subtitle_mobile = card_title_subtitle_mobile | strip -%}
+<div class="hidden-tablet-and-up collection-card-title-row">
+  <div class="collection-card-title-head">
+    <strong class="collection-card-title-brand" style="display: block;">{{ card_title_brand_mobile }}</strong>
+    <button
+      type="button"
+      class="collection-card-wishlist swym-button swym-add-to-wishlist"
+      aria-label="Add to Wishlist"
+      data-with-epi="true"
+      data-swaction="addToWishlist"
+      data-product-id="{{ product.id }}"
+      data-variant-id="{{ product.variants[0].id }}"
+      data-product-url="{{ shop.url }}{{ product.url }}"
+    >
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="12.6667" height="12.6667" fill="none"></rect>
+        <path d="M11.0833 0.791664H1.58325V11.875L6.33325 7.52083L11.0833 11.875V0.791664Z" stroke="currentColor" stroke-linejoin="round"></path>
+      </svg>
+    </button>
   </div>
-  <button
-    type="button"
-    class="collection-card-wishlist"
-    data-ww-card-wishlist
-    data-with-epi="true"
-    data-swaction="addToWishlist"
-    data-product-id="{{ product.id }}"
-    data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-    data-product-url="{{ shop.url }}{{ product.url }}"
-    aria-label="Add {{ product.title | escape }} to wishlist"
-  >
-    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M11.0833 0.791664H1.58325V11.875L6.33325 7.52083L11.0833 11.875V0.791664Z" stroke="currentColor" stroke-linejoin="round"></path>
-    </svg>
-  </button>
+  {%- if card_title_subtitle_mobile != blank -%}
+    <span class="collection-card-title-subtitle" style="display: block; text-transform: inherit !important; margin-top: 2px;">{{ card_title_subtitle_mobile }}</span>
+  {%- endif -%}
 </div>
 {%- if card_title_measurement != blank -%}
   <div class="product-item-meta__measurement">{{ card_title_measurement }}</div>
