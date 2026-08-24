@@ -118,6 +118,8 @@
       right: 25px;
     }
   }
+
+  {%- if section.settings.enable_scroll -%}
   .ss-announcement-bar-{{ section.id }} #orig {
     animation: marquesina-{{ section.id }} var(--animation-duration, 45s) infinite normal linear 1s;
   }
@@ -125,6 +127,25 @@
   .ss-announcement-bar-{{ section.id }} #orig.reverse {
     animation: marquesina-reverse-{{ section.id }} var(--animation-duration, 45s) infinite normal linear 2s;
   }
+  {%- else -%}
+  .ss-announcement-bar-{{ section.id }} #marq {
+    display: flex;
+    justify-content: center;
+  }
+
+  .ss-announcement-bar-{{ section.id }} #orig {
+    display: inline-block;
+    transform: none;
+  }
+
+  .ss-announcement-bar-{{ section.id }} .ss-announcement-bar__message li {
+    padding-right: 24px;
+  }
+
+  .ss-announcement-bar-{{ section.id }} .ss-announcement-bar__message li::after {
+    right: 10px;
+  }
+  {%- endif -%}
 </style>
 
 {% if section.settings.pause_hover %}
@@ -151,27 +172,33 @@
       <div class="" id="marq">
         <span id="orig">
           <ul class="ss-announcement-bar__message">
-            {% if section.blocks > 1 %}
-              {% for i in (1..6) %}
-                {% for block in section.blocks %}
-                  <li>{{ block.settings.text }}</li>
+            {%- if section.settings.enable_scroll -%}
+              {% if section.blocks > 1 %}
+                {% for i in (1..6) %}
+                  {% for block in section.blocks %}
+                    <li>{{ block.settings.text }}</li>
+                  {% endfor %}
                 {% endfor %}
-              {% endfor %}
 
-              {% for block in section.blocks limit: 1 %}
-                <!-- <li>{{ block.settings.text }}</li> -->
-              {% endfor %}
-            {% else %}
-              {% for i in (1..12) %}
-                {% for block in section.blocks %}
-                  <li>{{ block.settings.text }}</li>
+                {% for block in section.blocks limit: 1 %}
+                  <!-- <li>{{ block.settings.text }}</li> -->
                 {% endfor %}
-              {% endfor %}
+              {% else %}
+                {% for i in (1..12) %}
+                  {% for block in section.blocks %}
+                    <li>{{ block.settings.text }}</li>
+                  {% endfor %}
+                {% endfor %}
 
-              {% for block in section.blocks limit: 1 %}
-                <!-- <li>{{ block.settings.text }}</li> -->
+                {% for block in section.blocks limit: 1 %}
+                  <!-- <li>{{ block.settings.text }}</li> -->
+                {% endfor %}
+              {% endif %}
+            {%- else -%}
+              {% for block in section.blocks %}
+                <li>{{ block.settings.text }}</li>
               {% endfor %}
-            {% endif %}
+            {%- endif -%}
           </ul>
         </span>
       </div>
@@ -258,6 +285,13 @@
     {
       "type": "header",
       "content": "Animation"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_scroll",
+      "label": "Enable Auto-Scroll",
+      "default": true,
+      "info": "Turn off to show a static, centered bar instead of a scrolling marquee."
     },
     {
       "type": "range",
