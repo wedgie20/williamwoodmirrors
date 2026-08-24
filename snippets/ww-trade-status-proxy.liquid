@@ -454,6 +454,22 @@
       });
     }
 
+    function getDrawerSaleLineKeys() {
+      var saleLineKeys = {};
+
+      document.querySelectorAll('[data-ww-line-key][data-ww-line-on-sale="true"]').forEach(function (line) {
+        var key = line.getAttribute('data-ww-line-key');
+        if (key) saleLineKeys[key] = true;
+      });
+
+      return saleLineKeys;
+    }
+
+    function renderCartTradeFallbacks() {
+      // The drawer should render real Shopify cart discounts only. This hook is kept
+      // so older event paths can call it without interrupting the trade refresh pass.
+    }
+
     function cartItemHasTradeDiscount(item) {
       if (!item) return false;
 
@@ -519,9 +535,14 @@
       }
 
       var suppressPromos = shouldSuppressPromos(status);
+      var saleLineKeys = suppressPromos ? {} : getDrawerSaleLineKeys();
 
       return cart.items.some(function (item) {
         if (!item || !item.quantity || cartItemIsFreeOrGift(item)) {
+          return false;
+        }
+
+        if (!suppressPromos && saleLineKeys[item.key]) {
           return false;
         }
 
@@ -584,9 +605,13 @@
           ].join('|');
 
           cartRefreshAttempts[signature] = cartRefreshAttempts[signature] || 0;
-          if (cartRefreshAttempts[signature] >= 4) return;
+          if (cartRefreshAttempts[signature] >= 5) return;
           cartRefreshAttempts[signature] += 1;
           cartRefreshInFlight = true;
+          var updates = {};
+          cart.items.forEach(function (item) {
+            if (item && item.key) updates[item.key] = item.quantity;
+          });
 
           return fetch('/cart/update.js', {
             method: 'POST',
@@ -596,6 +621,7 @@
               Accept: 'application/json'
             },
             body: JSON.stringify({
+              updates: updates,
               attributes: {
                 _ww_trade_refresh: String(Date.now())
               },
@@ -658,7 +684,7 @@
     document.documentElement.addEventListener('cart:drawer:opened', function () {
       scheduleReapplyTradeState();
       refresh();
-      scheduleCartDrawerRefresh([200, 700, 1500, 2800]);
+      scheduleCartDrawerRefresh([200, 700, 1500, 2800, 4200]);
     });
     document.documentElement.addEventListener('cart:updated', refresh);
     document.documentElement.addEventListener('cart:refresh', function () {

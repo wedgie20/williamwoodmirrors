@@ -164,7 +164,29 @@
         <input type="hidden" name="checkout">
 
         {%- for line_item in cart.items -%}
-          <line-item class="line-item">
+          {%- assign ww_line_compare_at_price = line_item.variant.compare_at_price | default: 0 -%}
+          {%- assign ww_line_is_sale = false -%}
+          {%- if ww_line_compare_at_price > line_item.variant.price -%}
+            {%- assign ww_line_is_sale = true -%}
+          {%- endif -%}
+          {%- assign ww_line_has_trade_discount = false -%}
+          {%- for discount_allocation in line_item.line_level_discount_allocations -%}
+            {%- assign ww_line_discount_title = discount_allocation.discount_application.title | default: discount_allocation.title | downcase -%}
+            {%- if ww_line_discount_title contains 'trade discount' -%}
+              {%- assign ww_line_has_trade_discount = true -%}
+            {%- endif -%}
+          {%- endfor -%}
+
+          <line-item
+            class="line-item"
+            data-ww-line-key="{{ line_item.key | escape }}"
+            data-ww-line-on-sale="{{ ww_line_is_sale }}"
+            data-ww-line-has-trade-discount="{{ ww_line_has_trade_discount }}"
+            data-ww-line-quantity="{{ line_item.quantity }}"
+            data-ww-line-final-total="{{ line_item.final_line_price }}"
+            data-ww-line-original-total="{{ line_item.original_line_price }}"
+            data-ww-line-compare-total="{{ ww_line_compare_at_price | times: line_item.quantity }}"
+          >
             <div class="line-item__content-wrapper">
               <a href="{{ line_item.url  }}" class="line-item__image-wrapper" tabindex="-1" aria-hidden="true">
                 <span class="line-item__loader" hidden>
