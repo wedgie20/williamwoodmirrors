@@ -564,11 +564,19 @@
 
           if (!missingExpectedTradeDiscountLine && !shouldSyncDiscountedCart && hasTradeDiscount === shouldHaveTradeDiscount) return;
 
-          var firstItem = cart.items[0];
+          var lineSignature = cart.items.map(function (item) {
+            return [
+              item.key,
+              item.quantity,
+              item.original_line_price,
+              item.final_line_price,
+              cartItemHasTradeDiscount(item) ? 'trade' : 'no-trade'
+            ].join(':');
+          }).join(',');
+
           var signature = [
             cart.token || '',
-            firstItem && firstItem.key,
-            firstItem && firstItem.quantity,
+            lineSignature,
             shouldSuppressPromos(status) ? 'restricted' : 'open',
             shouldShowTradeUi(status) ? 'trade-active' : 'trade-inactive',
             projection.projectedDiscount,
@@ -576,11 +584,11 @@
           ].join('|');
 
           cartRefreshAttempts[signature] = cartRefreshAttempts[signature] || 0;
-          if (cartRefreshAttempts[signature] >= 3) return;
+          if (cartRefreshAttempts[signature] >= 4) return;
           cartRefreshAttempts[signature] += 1;
           cartRefreshInFlight = true;
 
-          return fetch('/cart/change.js', {
+          return fetch('/cart/update.js', {
             method: 'POST',
             credentials: 'same-origin',
             headers: {
@@ -588,8 +596,9 @@
               Accept: 'application/json'
             },
             body: JSON.stringify({
-              id: firstItem.key,
-              quantity: firstItem.quantity,
+              attributes: {
+                _ww_trade_refresh: String(Date.now())
+              },
               sections: ['mini-cart']
             })
           })
@@ -649,7 +658,7 @@
     document.documentElement.addEventListener('cart:drawer:opened', function () {
       scheduleReapplyTradeState();
       refresh();
-      scheduleCartDrawerRefresh([250, 800, 1600]);
+      scheduleCartDrawerRefresh([200, 700, 1500, 2800]);
     });
     document.documentElement.addEventListener('cart:updated', refresh);
     document.documentElement.addEventListener('cart:refresh', function () {
