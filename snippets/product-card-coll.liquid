@@ -2,6 +2,15 @@
 {%- assign color_white_label = 'general.label.white' | t | downcase -%}
 {%- assign quick_buy_icon_name = 'quick-buy-' | append: settings.cart_icon | replace: '_', '-' -%}
 
+<style>
+  @media screen and (max-width: 740px) {
+  .collection-card-wishlist {
+    position: absolute !important;
+    right: 0 !important;
+    top: 45% !important;
+  }
+</style>
+
 {%- if product.url contains '?' -%}
   {%- assign product_url_contains_query = true -%}
 {%- else -%}
