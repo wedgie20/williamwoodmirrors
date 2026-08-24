@@ -16585,6 +16585,7 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
     display: flex !important;
     flex-direction: row !important;
     align-items: flex-start !important;
+    justify-content: space-between !important;
     gap: 6px !important;
     width: 100% !important;
   }
@@ -16593,6 +16594,7 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
     min-width: 0;
     display: block !important;
     flex: 1 1 auto;
+    order: 1 !important;
   }
 
   body.template-collection .product-item-meta .collection-card-title-text a {
@@ -16607,13 +16609,14 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
     align-items: center !important;
     justify-content: center !important;
     flex: 0 0 16px !important;
+    order: 2 !important;
     width: 16px !important;
     min-width: 16px !important;
     max-width: 16px !important;
     height: 16px !important;
     min-height: 16px !important;
     max-height: 16px !important;
-    margin: 2px 0 0 !important;
+    margin: 2px 0 0 auto !important;
     padding: 0 !important;
     border: 0 !important;
     background: transparent !important;
