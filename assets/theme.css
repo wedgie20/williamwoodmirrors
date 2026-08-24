@@ -16576,15 +16576,15 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
   }
 }
 
-body.template-collection .product-item-meta .collection-card-wishlist,
-body.template-collection .product-item-meta .collection-card-wishlist.swym-iconbtnlink,
-body.template-collection .product-item-meta .collection-card-wishlist.swym-heart,
-body.template-collection .product-item-meta .collection-card-wishlist.swym-loaded {
+.product-item-meta .collection-card-wishlist,
+.product-item-meta .collection-card-wishlist.swym-iconbtnlink,
+.product-item-meta .collection-card-wishlist.swym-heart,
+.product-item-meta .collection-card-wishlist.swym-loaded {
   display: none !important;
 }
 
 @media screen and (max-width: 740px) {
-  body.template-collection .product-item-meta .collection-card-title-row {
+  .product-item-meta .collection-card-title-row {
     display: flex !important;
     flex-direction: row !important;
     align-items: flex-start !important;
@@ -16593,21 +16593,21 @@ body.template-collection .product-item-meta .collection-card-wishlist.swym-loade
     width: 100% !important;
   }
 
-  body.template-collection .product-item-meta .collection-card-title-text {
+  .product-item-meta .collection-card-title-text {
     min-width: 0;
     display: block !important;
     flex: 1 1 auto !important;
     order: 1 !important;
   }
 
-  body.template-collection .product-item-meta .collection-card-title-text a {
+  .product-item-meta .collection-card-title-text a {
     display: block !important;
   }
 
-  body.template-collection .product-item-meta .collection-card-title-row > .collection-card-wishlist,
-  body.template-collection .product-item-meta .collection-card-title-row > .collection-card-wishlist.swym-iconbtnlink,
-  body.template-collection .product-item-meta .collection-card-title-row > .collection-card-wishlist.swym-heart,
-  body.template-collection .product-item-meta .collection-card-title-row > .collection-card-wishlist.swym-loaded {
+  .product-item-meta .collection-card-title-row > .collection-card-wishlist,
+  .product-item-meta .collection-card-title-row > .collection-card-wishlist.swym-iconbtnlink,
+  .product-item-meta .collection-card-title-row > .collection-card-wishlist.swym-heart,
+  .product-item-meta .collection-card-title-row > .collection-card-wishlist.swym-loaded {
     position: static !important;
     display: inline-flex !important;
     align-items: center !important;
@@ -16628,14 +16628,14 @@ body.template-collection .product-item-meta .collection-card-wishlist.swym-loade
     cursor: pointer;
   }
 
-  body.template-collection .product-item-meta .collection-card-title-row > .collection-card-wishlist svg {
+  .product-item-meta .collection-card-title-row > .collection-card-wishlist svg {
     display: block !important;
     width: 13px !important;
     height: 13px !important;
   }
 
-  body.template-collection .product-item-meta .collection-card-title-row > .collection-card-wishlist.is-active svg path,
-  body.template-collection .product-item-meta .collection-card-title-row > .collection-card-wishlist.swym-added svg path {
+  .product-item-meta .collection-card-title-row > .collection-card-wishlist.is-active svg path,
+  .product-item-meta .collection-card-title-row > .collection-card-wishlist.swym-added svg path {
     fill: currentColor;
   }
 }
