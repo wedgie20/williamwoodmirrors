@@ -4241,6 +4241,7 @@ body:has(.drawer[open]) .ss-announcement-bar {
   transform: translateY(-100%);
   opacity: 0;
   pointer-events: none;
+  display: none;
 }
 
 .mobile-toolbar__item {
