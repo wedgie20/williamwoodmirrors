@@ -440,6 +440,52 @@
       });
     }
 
+    function cartItemHasTradeDiscount(item) {
+      if (!item) return false;
+
+      var lineAllocations = item.line_level_discount_allocations || [];
+      var discounts = item.discounts || [];
+
+      return lineAllocations.some(function (allocation) {
+        var title = allocation.discount_application && allocation.discount_application.title;
+        return String(title || allocation.title || '').toLowerCase().indexOf('trade discount') !== -1;
+      }) || discounts.some(function (discount) {
+        return String(discount.title || '').toLowerCase().indexOf('trade discount') !== -1;
+      });
+    }
+
+    function cartItemHasNonTradeDiscount(item) {
+      if (!item) return false;
+
+      var discounts = item.discounts || [];
+      var lineAllocations = item.line_level_discount_allocations || [];
+
+      return discounts.some(function (discount) {
+        var title = String(discount.title || '').toLowerCase();
+        return title && title.indexOf('trade discount') === -1;
+      }) || lineAllocations.some(function (allocation) {
+        var title = allocation.discount_application && allocation.discount_application.title;
+        title = String(title || allocation.title || '').toLowerCase();
+        return title && title.indexOf('trade discount') === -1;
+      });
+    }
+
+    function cartItemIsFreeOrGift(item) {
+      if (!item) return false;
+
+      if (Number(item.final_price || 0) === 0 || Number(item.final_line_price || 0) === 0) {
+        return true;
+      }
+
+      var title = String(item.title || item.product_title || '').toLowerCase();
+      var properties = item.properties || {};
+      var propertyText = Object.keys(properties).map(function (key) {
+        return [key, properties[key]].join(' ');
+      }).join(' ').toLowerCase();
+
+      return title.indexOf('free gift') !== -1 || propertyText.indexOf('free gift') !== -1;
+    }
+
     function cartHasTradeDiscount(cart) {
       if (!cart) return false;
 
@@ -450,16 +496,26 @@
         return true;
       }
 
-      return (cart.items || []).some(function (item) {
-        var lineAllocations = item.line_level_discount_allocations || [];
-        var discounts = item.discounts || [];
+      return (cart.items || []).some(cartItemHasTradeDiscount);
+    }
 
-        return lineAllocations.some(function (allocation) {
-          var title = allocation.discount_application && allocation.discount_application.title;
-          return String(title || allocation.title || '').toLowerCase().indexOf('trade discount') !== -1;
-        }) || discounts.some(function (discount) {
-          return String(discount.title || '').toLowerCase().indexOf('trade discount') !== -1;
-        });
+    function cartHasMissingExpectedTradeDiscountLine(cart, status, projection) {
+      if (!cart || !Array.isArray(cart.items) || !shouldShowTradeUi(status) || !(projection.projectedDiscount > 0)) {
+        return false;
+      }
+
+      var suppressPromos = shouldSuppressPromos(status);
+
+      return cart.items.some(function (item) {
+        if (!item || !item.quantity || cartItemIsFreeOrGift(item)) {
+          return false;
+        }
+
+        if (!suppressPromos && cartItemHasNonTradeDiscount(item)) {
+          return false;
+        }
+
+        return !cartItemHasTradeDiscount(item);
       });
     }
 
@@ -489,8 +545,10 @@
           var hasTradeDiscount = cartHasTradeDiscount(cart);
           var projection = getTradeProjection(status, getCartEligibleTotalFromCart(cart));
           var shouldHaveTradeDiscount = shouldShowTradeUi(status) && projection.projectedDiscount > 0;
+          var missingExpectedTradeDiscountLine = shouldHaveTradeDiscount && cartHasMissingExpectedTradeDiscountLine(cart, status, projection);
+          var shouldSyncDiscountedCart = shouldHaveTradeDiscount && hasTradeDiscount;
 
-          if (hasTradeDiscount === shouldHaveTradeDiscount) return;
+          if (!missingExpectedTradeDiscountLine && !shouldSyncDiscountedCart && hasTradeDiscount === shouldHaveTradeDiscount) return;
 
           var firstItem = cart.items[0];
           var signature = [
@@ -498,7 +556,7 @@
             firstItem && firstItem.key,
             firstItem && firstItem.quantity,
             projection.projectedDiscount,
-            hasTradeDiscount ? 'has' : 'missing'
+            missingExpectedTradeDiscountLine ? 'line-missing' : (shouldSyncDiscountedCart ? 'sync' : (hasTradeDiscount ? 'has' : 'missing'))
           ].join('|');
 
           if (cartRefreshAttempts[signature]) return;
