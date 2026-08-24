@@ -301,6 +301,7 @@
     assign card_title_without_measurement = card_title_without_measurement | strip
   endif
 -%}
+ <span>Wishlist</span>
 {% if product.title contains 'Corylus Branch' %}
   <b>Corylus Branch</b><br>100cm Pieces Brown x3
 {% elsif product.title contains 'Ella Grande - Gold' %}
@@ -323,7 +324,6 @@
     {% assign title_words = card_title_without_measurement | split: ' ' %}
   {% assign first_word = title_words[0] | replace: '-', '' %}
   <a href="{{ product.url }}"><strong style="display: block;">{{ first_word }}</strong><span style="display: block; text-transform: inherit !important; margin-top: 2px;">{{ title_words | join: ' ' | remove: '-' | remove: first_word }}</span></a>
-  <span>Wishlist</span>
 {% endif %}
 {%- if card_title_measurement != blank -%}
   <div class="product-item-meta__measurement">{{ card_title_measurement }}</div>
