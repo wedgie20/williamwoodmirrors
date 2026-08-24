@@ -267,6 +267,16 @@
       return line.textContent.toLowerCase().indexOf('trade discount') !== -1;
     }
 
+    function lineHasActualDiscount(element) {
+      var line = element && element.closest('[data-ww-line-key]');
+      if (!line) return false;
+
+      var finalTotal = Number(line.getAttribute('data-ww-line-final-total') || 0);
+      var originalTotal = Number(line.getAttribute('data-ww-line-original-total') || 0);
+
+      return finalTotal > 0 && originalTotal > finalTotal;
+    }
+
     function setSalePairSuppression(saleElement, regularElement, suppress) {
       if (!saleElement || !regularElement) return;
 
@@ -279,6 +289,7 @@
       var tradePriceGroup = saleElement.closest('[data-ww-trade-price-group]');
       if (tradePriceGroup && tradePriceGroup.classList.contains('has-trade-price')) return;
       if (lineHasTradeDiscount(saleElement)) return;
+      if (lineHasActualDiscount(saleElement)) return;
 
       saleElement.classList.add('ww-trade-suppressed-sale-price');
       regularElement.classList.add('ww-trade-restored-regular-price');
@@ -546,15 +557,15 @@
       return (cart.items || []).some(cartItemHasTradeDiscount);
     }
 
-    function cartHasMissingExpectedTradeDiscountLine(cart, status, projection) {
+    function getMissingExpectedTradeDiscountItems(cart, status, projection) {
       if (!cart || !Array.isArray(cart.items) || !shouldShowTradeUi(status) || !(projection.projectedDiscount > 0)) {
-        return false;
+        return [];
       }
 
       var suppressPromos = shouldSuppressPromos(status);
       var saleLineKeys = suppressPromos ? {} : getDrawerSaleLineKeys();
 
-      return cart.items.some(function (item) {
+      return cart.items.filter(function (item) {
         if (!item || !item.quantity || cartItemIsFreeOrGift(item)) {
           return false;
         }
@@ -569,6 +580,10 @@
 
         return !cartItemHasTradeDiscount(item);
       });
+    }
+
+    function cartHasMissingExpectedTradeDiscountLine(cart, status, projection) {
+      return getMissingExpectedTradeDiscountItems(cart, status, projection).length > 0;
     }
 
     function wait(ms) {
@@ -611,6 +626,33 @@
       }, 0);
     }
 
+    function pulseMissingTradeDiscountLines(missingItems) {
+      var items = (missingItems || []).filter(function (item) {
+        return item && item.key && item.quantity;
+      }).slice(0, 4);
+
+      return items.reduce(function (promise, item) {
+        return promise.then(function () {
+          return fetch('/cart/change.js', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json'
+            },
+            body: JSON.stringify({
+              id: item.key,
+              quantity: item.quantity,
+              sections: ['mini-cart']
+            })
+          }).then(function (response) {
+            if (!response.ok) throw new Error('Line refresh failed');
+            return response.json();
+          });
+        });
+      }, Promise.resolve());
+    }
+
     function refreshCartForDiscountMismatch(status) {
       if (!isTradeCustomerSignal(status) || cartRefreshInFlight) return Promise.resolve();
 
@@ -629,7 +671,8 @@
           var hasTradeDiscount = cartHasTradeDiscount(cart);
           var projection = getTradeProjection(status, getCartEligibleTotalFromCart(cart));
           var shouldHaveTradeDiscount = shouldShowTradeUi(status) && projection.projectedDiscount > 0;
-          var missingExpectedTradeDiscountLine = shouldHaveTradeDiscount && cartHasMissingExpectedTradeDiscountLine(cart, status, projection);
+          var missingExpectedTradeDiscountItems = shouldHaveTradeDiscount ? getMissingExpectedTradeDiscountItems(cart, status, projection) : [];
+          var missingExpectedTradeDiscountLine = missingExpectedTradeDiscountItems.length > 0;
           var shouldSyncDiscountedCart = shouldHaveTradeDiscount && hasTradeDiscount;
 
           if (!missingExpectedTradeDiscountLine && !shouldSyncDiscountedCart && hasTradeDiscount === shouldHaveTradeDiscount) return;
@@ -650,6 +693,7 @@
             shouldSuppressPromos(status) ? 'restricted' : 'open',
             shouldShowTradeUi(status) ? 'trade-active' : 'trade-inactive',
             projection.projectedDiscount,
+            missingExpectedTradeDiscountItems.map(function (item) { return item.key; }).join(','),
             missingExpectedTradeDiscountLine ? 'line-missing' : (shouldSyncDiscountedCart ? 'sync' : (hasTradeDiscount ? 'has' : 'missing'))
           ].join('|');
 
@@ -662,7 +706,8 @@
             if (item && item.key) updates[item.key] = item.quantity;
           });
 
-          return fetch('/cart/update.js', {
+          return pulseMissingTradeDiscountLines(missingExpectedTradeDiscountItems).then(function () {
+            return fetch('/cart/update.js', {
             method: 'POST',
             credentials: 'same-origin',
             headers: {
@@ -676,6 +721,7 @@
               },
               sections: ['mini-cart']
             })
+            });
           })
             .then(function (response) {
               if (!response.ok) throw new Error('Cart refresh failed');
