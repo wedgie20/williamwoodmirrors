@@ -16583,16 +16583,17 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
   display: none !important;
 }
 
+  .product-item__info .product-item-meta .collection-card-title-head button.collection-card-wishlist.swym-iconbtnlink.swym-heart.swym-loaded {
+    position: absolute !important;
+    right: 10px !important;
+}
 @media screen and (max-width: 740px) {
   .product-item__info,
   .product-item-meta {
     width: 100% !important;
   }
 
-  .product-item__info .product-item-meta .collection-card-title-head button.collection-card-wishlist.swym-iconbtnlink.swym-heart.swym-loaded {
-    position: absolute !important;
-    right: 10px !important;
-}
+
 
   .product-item-meta {
     position: relative !important;
