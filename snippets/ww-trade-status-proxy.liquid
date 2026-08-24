@@ -325,12 +325,14 @@
       reapplyTimer = setTimeout(reapplyTradeState, 80);
     }
 
-    function scheduleCartDrawerRefresh() {
+    function scheduleCartDrawerRefresh(delays) {
+      delays = delays || [350, 1200];
+
       cartDrawerRefreshTimers.forEach(function (timer) {
         clearTimeout(timer);
       });
 
-      cartDrawerRefreshTimers = [350, 1200].map(function (delay) {
+      cartDrawerRefreshTimers = delays.map(function (delay) {
         return setTimeout(refresh, delay);
       });
     }
@@ -573,8 +575,9 @@
             missingExpectedTradeDiscountLine ? 'line-missing' : (shouldSyncDiscountedCart ? 'sync' : (hasTradeDiscount ? 'has' : 'missing'))
           ].join('|');
 
-          if (cartRefreshAttempts[signature]) return;
-          cartRefreshAttempts[signature] = true;
+          cartRefreshAttempts[signature] = cartRefreshAttempts[signature] || 0;
+          if (cartRefreshAttempts[signature] >= 3) return;
+          cartRefreshAttempts[signature] += 1;
           cartRefreshInFlight = true;
 
           return fetch('/cart/change.js', {
@@ -642,6 +645,11 @@
       scheduleReapplyTradeState();
       setTimeout(scheduleReapplyTradeState, 120);
       scheduleCartDrawerRefresh();
+    });
+    document.documentElement.addEventListener('cart:drawer:opened', function () {
+      scheduleReapplyTradeState();
+      refresh();
+      scheduleCartDrawerRefresh([250, 800, 1600]);
     });
     document.documentElement.addEventListener('cart:updated', refresh);
     document.documentElement.addEventListener('cart:refresh', function () {

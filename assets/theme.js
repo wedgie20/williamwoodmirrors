@@ -5884,6 +5884,9 @@ var SafeSticky = class extends HTMLElement {
         case "open":
           if (this.open) {
             this.querySelector(".drawer__content").scrollTop = 0;
+            document.documentElement.dispatchEvent(new CustomEvent("cart:drawer:opened", {
+              bubbles: true
+            }));
             if (!MediaFeatures.prefersReducedMotion()) {
               const lineItems = Array.from(this.querySelectorAll(".line-item")), recommendationsInner = this.querySelector(".mini-cart__recommendations-inner"), bottomBar = this.querySelector(".drawer__footer"), effects = [];
               if (recommendationsInner && window.matchMedia(window.themeVariables.breakpoints.pocket).matches) {
