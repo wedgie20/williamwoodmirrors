@@ -219,6 +219,72 @@ ul.hookpoint-tags::-webkit-scrollbar {
     border-radius: 6px; /* This is for the track */
   }
 }
+
+/* Mobile-only wishlist icon next to the product title on collection cards.
+   NOTE: kept inline here (rather than in assets/theme.css) because theme.css edits were not
+   reliably reaching the live/preview theme for this store; this section's own <style> block does. */
+.product-item-meta .collection-card-title-row {
+  width: 100%;
+}
+
+.product-item-meta .collection-card-title-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding-right: 24px;
+}
+
+.product-item-meta .collection-card-title-brand {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.product-item-meta .collection-card-title-subtitle {
+  margin-top: 2px;
+}
+
+.product-item-meta .collection-card-wishlist {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  color: #545454;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 740px) {
+  .product-item-meta .collection-card-wishlist {
+    position: absolute !important;
+    right: 0 !important;
+    top: 45% !important;
+  }
+}
+
+.product-item-meta .collection-card-wishlist svg {
+  display: block !important;
+  width: 16px !important;
+  height: 16px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  overflow: visible;
+}
+
+.product-item-meta .collection-card-wishlist svg path {
+  fill: none !important;
+  stroke: currentColor !important;
+}
+
+.product-item-meta .collection-card-wishlist.swym-added svg path,
+.product-item-meta .collection-card-wishlist.is-active svg path {
+  fill: currentColor !important;
+}
 </style>
 
 <script>
