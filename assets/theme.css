@@ -16585,28 +16585,45 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
 
 @media screen and (max-width: 740px) {
   .product-item-meta .collection-card-title-row {
-    position: relative;
-    display: block !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
     width: 100% !important;
-    padding-right: 22px;
+    padding-right: 0 !important;
   }
 
   .product-item-meta .collection-card-title-text {
+    flex: 1 1 auto !important;
     min-width: 0;
     display: block !important;
   }
 
-  .product-item-meta .collection-card-title-text a {
+  .product-item-meta .collection-card-title-head {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
+  .product-item-meta .collection-card-title-brand {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
     display: block !important;
   }
 
-  .product-item-meta .collection-card-title-row > .collection-card-wishlist,
-  .product-item-meta .collection-card-title-row > .collection-card-wishlist.swym-iconbtnlink,
-  .product-item-meta .collection-card-title-row > .collection-card-wishlist.swym-heart,
-  .product-item-meta .collection-card-title-row > .collection-card-wishlist.swym-loaded {
-    position: absolute !important;
-    top: 2px !important;
-    right: 0 !important;
+  .product-item-meta .collection-card-title-subtitle {
+    display: block !important;
+    margin-top: 2px !important;
+    text-transform: inherit !important;
+  }
+
+  .product-item-meta .collection-card-title-head > .collection-card-wishlist,
+  .product-item-meta .collection-card-title-head > .collection-card-wishlist.swym-iconbtnlink,
+  .product-item-meta .collection-card-title-head > .collection-card-wishlist.swym-heart,
+  .product-item-meta .collection-card-title-head > .collection-card-wishlist.swym-loaded {
+    position: static !important;
+    flex: 0 0 16px !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -16616,7 +16633,7 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
     height: 16px !important;
     min-height: 16px !important;
     max-height: 16px !important;
-    margin: 0 !important;
+    margin: 2px 0 0 auto !important;
     padding: 0 !important;
     border: 0 !important;
     background: transparent !important;
@@ -16624,14 +16641,14 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
     cursor: pointer;
   }
 
-  .product-item-meta .collection-card-title-row > .collection-card-wishlist svg {
+  .product-item-meta .collection-card-title-head > .collection-card-wishlist svg {
     display: block !important;
     width: 13px !important;
     height: 13px !important;
   }
 
-  .product-item-meta .collection-card-title-row > .collection-card-wishlist.is-active svg path,
-  .product-item-meta .collection-card-title-row > .collection-card-wishlist.swym-added svg path {
+  .product-item-meta .collection-card-title-head > .collection-card-wishlist.is-active svg path,
+  .product-item-meta .collection-card-title-head > .collection-card-wishlist.swym-added svg path {
     fill: currentColor;
   }
 }
