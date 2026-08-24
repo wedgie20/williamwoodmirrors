@@ -732,7 +732,23 @@
                   d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
             </svg>
           </a>
-          
+          <a
+            href="/pages/swym-wishlist"
+            class="header__icon-wrapper tap-area header__icon-wrapper--wishlist"
+          >
+            <span class="visually-hidden">Wishlist</span>
+            <svg
+              fill="none"
+              focusable="false"
+              width="24"
+              height="24"
+              class="icon icon--picto-love"
+              viewBox="0 0 24 24"
+            >
+              <path d="M11.7141 20.1725C11.7141 20.1725 7.64436 17.2238 4.97562 13.4339C2.58295 10.0361 2.28013 6.41376 4.52636 4.89846C8.9513 1.91339 11.714 8.85173 11.714 8.85173" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M11.714 20.1725C11.714 20.1725 15.9102 17.1944 18.6618 13.3667C21.1288 9.93486 21.441 6.27638 19.125 4.74594C14.5627 1.73106 11.714 8.82942 11.714 8.82942" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </a>
             <a href="{{ routes.search_url  }}" is="toggle-link" class="cloud-search-mobile-open header__icon-wrapper tap-area {% unless section.settings.show_icons %}hidden-desk{% endunless %}" aria-label="{{ 'search.general.title' | t | escape }}" aria-controls="search-drawer" aria-expanded="false">
               <span class="visually-hidden">{{ 'search.general.title' | t }}</span>
               {%- render 'icon' with 'header-search' -%}
@@ -777,23 +793,7 @@
             </cart-count>
           </a>
 
-          <a
-            href="/pages/swym-wishlist"
-            class="header__icon-wrapper tap-area header__icon-wrapper--wishlist"
-          >
-            <span class="visually-hidden">Wishlist</span>
-            <svg
-              fill="none"
-              focusable="false"
-              width="24"
-              height="24"
-              class="icon icon--picto-love"
-              viewBox="0 0 24 24"
-            >
-              <path d="M11.7141 20.1725C11.7141 20.1725 7.64436 17.2238 4.97562 13.4339C2.58295 10.0361 2.28013 6.41376 4.52636 4.89846C8.9513 1.91339 11.714 8.85173 11.714 8.85173" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              <path d="M11.714 20.1725C11.714 20.1725 15.9102 17.1944 18.6618 13.3667C21.1288 9.93486 21.441 6.27638 19.125 4.74594C14.5627 1.73106 11.714 8.82942 11.714 8.82942" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
-          </a>
+          
           
         </div>
 
