@@ -300,30 +300,72 @@
     endcapture
     assign card_title_without_measurement = card_title_without_measurement | strip
   endif
+  assign title_words = card_title_without_measurement | split: ' '
+  assign first_word = title_words[0] | replace: '-', ''
+
+  capture collection_card_brand
+    if product.title contains 'Corylus Branch'
+      echo 'Corylus Branch'
+    elsif product.title contains 'Ella Grande - Gold' or product.title contains 'Ella Grande - Champagne'
+      echo 'Ella Grande'
+    elsif product.title contains 'Gift Card'
+      echo 'E-Gift Card'
+    elsif product.title contains 'Arcurva Noir - Extra Large' or product.title contains 'Arcurva Noir - Large'
+      echo 'Arcurva Noir'
+    elsif product.title contains 'Wabi-Sabi - Concrete' or product.title contains 'Wabi-Sabi - Large Concrete' or product.title contains 'Wabi-Sabi - Large Full Length'
+      echo 'Wabi-Sabi'
+    else
+      echo first_word
+    endif
+  endcapture
+
+  capture collection_card_subtitle
+    if product.title contains 'Corylus Branch'
+      echo '100cm Pieces Brown x3'
+    elsif product.title contains 'Ella Grande - Gold'
+      echo 'Gold Ornate Floor Mirror'
+    elsif product.title contains 'Ella Grande - Champagne'
+      echo 'Champagne Ornate Floor Mirror'
+    elsif product.title contains 'Arcurva Noir - Extra Large'
+      echo 'Extra Large Full Length Black Irregular Mirror'
+    elsif product.title contains 'Arcurva Noir - Large'
+      echo 'Large Full Length Black Irregular Mirror'
+    elsif product.title contains 'Wabi-Sabi - Concrete'
+      echo 'Concrete Irregular Wall Mirror'
+    elsif product.title contains 'Wabi-Sabi - Large Concrete'
+      echo 'Large Concrete Irregular Wall Mirror'
+    elsif product.title contains 'Wabi-Sabi - Large Full Length'
+      echo 'Large Full Length Concrete Irregular Mirror'
+    elsif product.title contains 'Gift Card'
+      echo ''
+    else
+      echo title_words | join: ' ' | remove: '-' | remove: first_word
+    endif
+  endcapture
 -%}
-{% if product.title contains 'Corylus Branch' %}
-  <b>Corylus Branch</b><br>100cm Pieces Brown x3
-{% elsif product.title contains 'Ella Grande - Gold' %}
-  <b>Ella Grande</b><br>Gold Ornate Floor Mirror
-{% elsif product.title contains 'Ella Grande - Champagne' %}
-  <b>Ella Grande</b><br>Champagne Ornate Floor Mirror
-{% elsif product.title contains 'Gift Card' %}
-  <b>E-Gift Card</b>
-{% elsif product.title contains 'Arcurva Noir - Extra Large' %}
-<a href="{{ product.url }}"><strong style="display: block;">Arcurva Noir</strong><span style="display: block;">Extra Large Full Length Black Irregular Mirror</span></a>
-{% elsif product.title contains 'Arcurva Noir - Large' %}
-<a href="{{ product.url }}"><strong style="display: block;">Arcurva Noir</strong><span style="display: block;">Large Full Length Black Irregular Mirror</span></a>
-{% elsif product.title contains 'Wabi-Sabi - Concrete' %}
-<a href="{{ product.url }}"><strong style="display: block;">Wabi-Sabi</strong><span style="display: block;">Concrete Irregular Wall Mirror</span></a>
-{% elsif product.title contains 'Wabi-Sabi - Large Concrete' %}
-<a href="{{ product.url }}"><strong style="display: block;">Wabi-Sabi</strong><span style="display: block;">Large Concrete Irregular Wall Mirror</span></a>
-{% elsif product.title contains 'Wabi-Sabi - Large Full Length' %}
-<a href="{{ product.url }}"><strong style="display: block;">Wabi-Sabi</strong><span style="display: block;">Large Full Length Concrete Irregular Mirror</span></a>
-{% else %}
-    {% assign title_words = card_title_without_measurement | split: ' ' %}
-  {% assign first_word = title_words[0] | replace: '-', '' %}
-  <a href="{{ product.url }}"><strong style="display: block;">{{ first_word }}</strong><span style="display: block; text-transform: inherit !important; margin-top: 2px;">{{ title_words | join: ' ' | remove: '-' | remove: first_word }}</span></a>
-{% endif %}
+<div class="collection-card-title-row">
+  <div class="collection-card-title-text">
+    <strong class="collection-card-title-brand">{{ collection_card_brand | strip }}</strong>
+    {%- if collection_card_subtitle != blank -%}
+      <span class="collection-card-title-subtitle">{{ collection_card_subtitle | strip }}</span>
+    {%- endif -%}
+  </div>
+  <button
+    type="button"
+    class="collection-card-wishlist"
+    data-ww-card-wishlist
+    data-with-epi="true"
+    data-swaction="addToWishlist"
+    data-product-id="{{ product.id }}"
+    data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+    data-product-url="{{ shop.url }}{{ product.url }}"
+    aria-label="Add {{ product.title | escape }} to wishlist"
+  >
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M11.0833 0.791664H1.58325V11.875L6.33325 7.52083L11.0833 11.875V0.791664Z" stroke="currentColor" stroke-linejoin="round"></path>
+    </svg>
+  </button>
+</div>
 {%- if card_title_measurement != blank -%}
   <div class="product-item-meta__measurement">{{ card_title_measurement }}</div>
 {%- endif -%}

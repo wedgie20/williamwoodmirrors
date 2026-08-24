@@ -6458,6 +6458,24 @@ window.tidioChatApi.on('ready', onTidioChatApiReady);
 document.addEventListener('tidioChat-ready', onTidioChatApiReady);
 }
 
+(() => {
+  if (window.__wwCollectionWishlistBound) {
+    return;
+  }
+
+  window.__wwCollectionWishlistBound = true;
+
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-ww-card-wishlist]");
+
+    if (!button) {
+      return;
+    }
+
+    button.classList.add("is-active");
+  });
+})();
+
 
 
 
