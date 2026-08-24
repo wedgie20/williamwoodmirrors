@@ -554,6 +554,38 @@
       });
     }
 
+    function wait(ms) {
+      return new Promise(function (resolve) {
+        setTimeout(resolve, ms);
+      });
+    }
+
+    function fetchFreshMiniCartPayload() {
+      return Promise.all([
+        fetch('/cart.js?_=' + Date.now(), {
+          credentials: 'same-origin',
+          cache: 'no-store',
+          headers: { Accept: 'application/json' }
+        }).then(function (response) {
+          if (!response.ok) throw new Error('Fresh cart unavailable');
+          return response.json();
+        }),
+        fetch('{{ routes.cart_url }}?section_id=mini-cart&_=' + Date.now(), {
+          credentials: 'same-origin',
+          cache: 'no-store'
+        }).then(function (response) {
+          if (!response.ok) throw new Error('Fresh mini-cart unavailable');
+          return response.text();
+        })
+      ]).then(function (responses) {
+        var cart = responses[0];
+        var html = responses[1];
+        cart.sections = cart.sections || {};
+        cart.sections['mini-cart'] = html;
+        return cart;
+      });
+    }
+
     function getCartEligibleTotalFromCart(cart) {
       if (!cart || !cart.items) return 0;
 
@@ -631,6 +663,13 @@
             .then(function (response) {
               if (!response.ok) throw new Error('Cart refresh failed');
               return response.json();
+            })
+            .then(function (cartContent) {
+              return wait(650)
+                .then(fetchFreshMiniCartPayload)
+                .catch(function () {
+                  return cartContent;
+                });
             })
             .then(function (cartContent) {
               document.documentElement.dispatchEvent(new CustomEvent('cart:updated', {
