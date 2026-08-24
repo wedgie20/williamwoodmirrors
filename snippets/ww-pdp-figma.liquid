@@ -578,7 +578,7 @@
 {%- assign original_price = product.selected_or_first_available_variant.price -%}
 
 {%- unless last_chance -%}
-<div class="{{ product.selected_or_first_available_variant.compare_at_price }}" {% if product.tags contains 'sale' %}{% else %}{% if compareat_price > original_price %}style="display:none;"{%  else %}{% endif %}{% endif %}>
+<span class="{{ product.selected_or_first_available_variant.compare_at_price }}" {% if product.tags contains 'sale' %}{% else %}{% if compareat_price > original_price %}style="display:none;"{%  else %}{% endif %}{% endif %}>
 
   <span class="icon" style="display: none;">
     <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 18 13" fill="none">
@@ -607,7 +607,7 @@
   {%- if discounted_decimal < 10 -%}
     {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
   {%- endif -%}
-</div>
+</span>
 {%- endunless -%}
 
 
