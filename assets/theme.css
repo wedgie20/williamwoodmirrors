@@ -16580,7 +16580,9 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
 .product-item-meta .collection-card-title-row {
   width: 100%;
 }
-
+.collection-card-title-head {
+  display: none !important;
+}
 .product-item-meta .collection-card-title-head {
   position: relative;
   display: flex;
