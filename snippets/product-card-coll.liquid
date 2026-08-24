@@ -323,12 +323,12 @@
 {% else %}
     {% assign title_words = card_title_without_measurement | split: ' ' %}
   {% assign first_word = title_words[0] | replace: '-', '' %}
-<a href="{{ product.url }}" style="display: flex; justify-content: space-between; align-items: center;">
-  <span style="display: flex; flex-direction: column;">
-    <strong style="display: block;">{{ first_word }}</strong>
-    <span style="display: block; text-transform: inherit !important; margin-top: 2px;">{{ title_words | join: ' ' | remove: '-' | remove: first_word }}</span>
+<a href="{{ product.url }}">
+  <span style="display: flex; justify-content: space-between; align-items: center;">
+    <strong>{{ first_word }}</strong>
+    <span>Wishlist</span>
   </span>
-  <span>Wishlist</span>
+  <span style="display: block; text-transform: inherit !important; margin-top: 2px;">{{ title_words | join: ' ' | remove: '-' | remove: first_word }}</span>
 </a>{% endif %}
 {%- if card_title_measurement != blank -%}
   <div class="product-item-meta__measurement">{{ card_title_measurement }}</div>
