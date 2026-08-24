@@ -13,6 +13,59 @@
     "market": "gb"
   },
   "sections": {
+    "ss_scrolling_announcement_bar_ifatw": {
+      "type": "ss-scrolling-announcement-bar",
+      "disabled": false,
+      "settings": {
+        "header-55894854812e13276d5a8af7d4d97393": null,
+        "insert_css_class_target": ".header, .pageheader, .section-header, #announcement, .toolbar, .header__wrapper",
+        "header-ff92a5f422997de6385c6ca893b31e86": null,
+        "text_size": 12,
+        "ss_font_family": "montserrat_n4",
+        "header-9a89241d7dcc28729c5509fb119dc440": null,
+        "link": "",
+        "header-1dc9f3376394fa2dd6ef2321f2d5770d": null,
+        "enable_scroll": true,
+        "animation_duration": 44,
+        "pause_hover": false,
+        "header-d30615b4f52d224031a0446edd70ba3b": null,
+        "bg": "#000000",
+        "text_color": "#fff",
+        "hover_opacity": 90,
+        "header-f960544ead648f4e8c7ab7c64a65f5c6": null,
+        "padding_horizontal": 2,
+        "padding_vertical": 1.5
+      },
+      "blocks": {
+        "text_rYYpH": {
+          "type": "text",
+          "disabled": false,
+          "settings": {
+            "text": "Men Da"
+          }
+        },
+        "text_QxTgj": {
+          "type": "text",
+          "disabled": false,
+          "settings": {
+            "text": "Free Shipping"
+          }
+        },
+        "text_MHkXi": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "Free Returns"
+          }
+        }
+      },
+      "block_order": [
+        "text_rYYpH",
+        "text_QxTgj",
+        "text_MHkXi"
+      ],
+      "name": "SS - Scrolling Announcement Bar"
+    },
     "announcement-bar": {
       "settings": {
         "announcement_text_size": "normal",
@@ -46,7 +99,7 @@
           "settings": {
             "text": "700,000+ Satisfied Customers | 31,000+ 5* Reviews",
             "learn_more_text": "",
-            "header-163bb02a5a3e9fbf30888055d249e3c4": null,
+            "header-cd1ab720529fcb788be5648e50506db7": null,
             "image": null,
             "title": "",
             "content": "",
@@ -226,59 +279,6 @@
         "f4e103a1-b331-47ab-a63d-abe4200831e1",
         "7a096969-06f3-4ae4-bcb6-03836dedbeb8"
       ]
-    },
-    "ss_scrolling_announcement_bar_ifatw": {
-      "type": "ss-scrolling-announcement-bar",
-      "disabled": false,
-      "settings": {
-        "header-9cc8c3fa2c9edd423643ddbaf63259fc": null,
-        "insert_css_class_target": ".header, .pageheader, .section-header, #announcement, .toolbar, .header__wrapper",
-        "header-42511a382c002bdfa01b3a047374a037": null,
-        "text_size": 12,
-        "ss_font_family": "montserrat_n4",
-        "header-94b884c6bee442eba0e67a66ea3c257a": null,
-        "link": "",
-        "header-699a528fead4e9918e0ef62cde1d950a": null,
-        "animation_duration": 44,
-        "animation_direction": "right",
-        "pause_hover": false,
-        "header-1e614bf2f0a429c8a085502601a8a60a": null,
-        "bg": "#000000",
-        "text_color": "#fff",
-        "hover_opacity": 90,
-        "header-320888db24b1508b85e1812626625c76": null,
-        "padding_horizontal": 2,
-        "padding_vertical": 1.5
-      },
-      "blocks": {
-        "text_rYYpH": {
-          "type": "text",
-          "disabled": false,
-          "settings": {
-            "text": "Men Day"
-          }
-        },
-        "text_QxTgj": {
-          "type": "text",
-          "disabled": true,
-          "settings": {
-            "text": "Free Shipping"
-          }
-        },
-        "text_MHkXi": {
-          "type": "text",
-          "disabled": true,
-          "settings": {
-            "text": "Free Returns"
-          }
-        }
-      },
-      "block_order": [
-        "text_rYYpH",
-        "text_QxTgj",
-        "text_MHkXi"
-      ],
-      "name": "SS - Scrolling Announcement Bar"
     }
   },
   "order": [
