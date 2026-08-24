@@ -16583,7 +16583,7 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
 
 .product-item-meta .collection-card-title-head {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 8px;
   width: 100%;
@@ -16599,14 +16599,17 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
 }
 
 .product-item-meta .collection-card-wishlist {
-  flex: 0 0 auto;
-  display: inline-flex;
+  position: static !important;
+  inset: auto !important;
+  flex: 0 0 auto !important;
+  order: 2;
+  display: inline-flex !important;
   align-items: center;
   justify-content: center;
   width: 18px;
   height: 18px;
   padding: 0;
-  margin: 0;
+  margin: 0 !important;
   border: 0;
   background: transparent;
   color: #545454;
