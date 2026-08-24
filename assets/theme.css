@@ -16598,22 +16598,29 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
   margin-top: 2px;
 }
 
-.product-item-meta .collection-card-wishlist {
+.product-item-meta .collection-card-title-head button.collection-card-wishlist {
   position: static !important;
   inset: auto !important;
-  flex: 0 0 auto !important;
-  order: 2;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  float: none !important;
+  order: 2 !important;
+  flex: 0 0 18px !important;
   display: inline-flex !important;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  padding: 0;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  max-width: 18px !important;
+  padding: 0 !important;
   margin: 0 !important;
-  border: 0;
-  background: transparent;
-  color: #545454;
-  cursor: pointer;
+  border: 0 !important;
+  background: transparent !important;
+  color: #545454 !important;
+  cursor: pointer !important;
 }
 
 .product-item-meta .collection-card-wishlist svg {
