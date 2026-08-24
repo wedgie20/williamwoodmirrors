@@ -16582,27 +16582,27 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
 
 @media screen and (max-width: 740px) {
   .collection-card-title-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: flex-start;
-    gap: 7px;
+    display: block;
   }
 
   .collection-card-title-text {
     min-width: 0;
-    grid-column: 1;
-    grid-row: 1;
+    display: inline;
+  }
+
+  .collection-card-title-text a,
+  .collection-card-title-text strong,
+  .collection-card-title-text b {
+    display: inline !important;
   }
 
   .collection-card-wishlist {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    grid-column: 2;
-    grid-row: 1;
     width: 18px;
     height: 18px;
-    margin-top: 1px;
+    margin: 0 6px 0 0;
     padding: 2px;
     border: 0;
     background: transparent;
