@@ -537,26 +537,7 @@
       </div>
       <div class="ww-pdp_designed_div">
       <p class="ww-pdp__label" style="">{{ product_label }}</p>
-      <div class="ww_price_div">
-        <span class="ww-pdp__price-group_mobile {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
-            {%- if has_variant_discount -%}
-              <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.compare_at_price | money }}</span>
-              <span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
-            {%- else -%}
-              <span class="ww-pdp__price" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
-            {%- endif -%}
-          </span>
-        </div>
-      {% comment %}
-{% if product.tags contains 'in-house' %}<a class="ww-pdp__designed" href="/collections/designed-in-house-by-william-wood">Designed in-house by <strong>WILLIAM WOOD</strong></a>{% endif %}
-      {% endcomment %}
-
-
-      {% assign collectionhandles = product.collections | map: 'handle' | join: ',' %}
-{%- assign compareat_price = product.selected_or_first_available_variant.compare_at_price -%}
-{%- assign original_price = product.selected_or_first_available_variant.price -%}
-
-{%- assign last_chance = false -%}
+      {%- assign last_chance = false -%}
 {%- for tag in product.tags -%}
   {%- if tag contains '__label' -%}
     {%- assign candidate = tag | split: ':' | last -%}
@@ -565,6 +546,34 @@
     {%- endif -%}
   {%- endif -%}
 {%- endfor -%}
+
+{%- assign show_auto_discount = false -%}
+{%- unless last_chance or has_variant_discount -%}
+  {%- assign show_auto_discount = true -%}
+  {%- assign auto_discounted_price = current_variant.price | times: 0.75 | round -%}
+{%- endunless -%}
+
+<div class="ww_price_div">
+  <span class="ww-pdp__price-group_mobile {% if has_variant_discount or show_auto_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
+    {%- if has_variant_discount -%}
+      <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.compare_at_price | money }}</span>
+      <span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
+    {%- elsif show_auto_discount -%}
+      <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.price | money }}</span>
+      <span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>{{ auto_discounted_price | money }}</span>
+    {%- else -%}
+      <span class="ww-pdp__price" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
+    {%- endif -%}
+  </span>
+</div>
+{% comment %}
+{% if product.tags contains 'in-house' %}<a class="ww-pdp__designed" href="/collections/designed-in-house-by-william-wood">Designed in-house by <strong>WILLIAM WOOD</strong></a>{% endif %}
+{% endcomment %}
+
+
+{% assign collectionhandles = product.collections | map: 'handle' | join: ',' %}
+{%- assign compareat_price = product.selected_or_first_available_variant.compare_at_price -%}
+{%- assign original_price = product.selected_or_first_available_variant.price -%}
 
 {%- unless last_chance -%}
 <div class="guarantee-item imhere_{{ product.selected_or_first_available_variant.compare_at_price }}" {% if product.tags contains 'sale' %}{% else %}{% if compareat_price > original_price %}style="display:none;"{%  else %}{% endif %}{% endif %}>
