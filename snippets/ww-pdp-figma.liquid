@@ -535,23 +535,23 @@
       {%- endif -%}
       </div>
       </div>
-      <div class="ww-pdp_designed_div">
-      <p class="ww-pdp__label" style="">{{ product_label }}</p>
-      {%- assign last_chance = false -%}
-{%- for tag in product.tags -%}
-  {%- if tag contains '__label' -%}
-    {%- assign candidate = tag | split: ':' | last -%}
-    {%- if candidate == 'LAST CHANCE' -%}
-      {%- assign last_chance = true -%}
-    {%- endif -%}
-  {%- endif -%}
-{%- endfor -%}
+<div class="ww-pdp_designed_div">
+        <p class="ww-pdp__label" style="">{{ product_label }}</p>
+                {%- assign last_chance = false -%}
+          {%- for tag in product.tags -%}
+            {%- if tag contains '__label' -%}
+              {%- assign candidate = tag | split: ':' | last -%}
+              {%- if candidate == 'LAST CHANCE' -%}
+                {%- assign last_chance = true -%}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
 
-{%- assign show_auto_discount = false -%}
-{%- unless last_chance or has_variant_discount -%}
-  {%- assign show_auto_discount = true -%}
-  {%- assign auto_discounted_price = current_variant.price | times: 0.75 | round -%}
-{%- endunless -%}
+          {%- assign show_auto_discount = false -%}
+          {%- unless last_chance or has_variant_discount -%}
+            {%- assign show_auto_discount = true -%}
+            {%- assign auto_discounted_price = current_variant.price | times: 0.75 | round -%}
+          {%- endunless -%}
 
 <div class="ww_price_div">
   <span class="ww-pdp__price-group_mobile {% if has_variant_discount or show_auto_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
