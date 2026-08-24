@@ -698,7 +698,7 @@
           ].join('|');
 
           cartRefreshAttempts[signature] = cartRefreshAttempts[signature] || 0;
-          if (cartRefreshAttempts[signature] >= 5) return;
+          if (cartRefreshAttempts[signature] >= (shouldSuppressPromos(status) ? 10 : 5)) return;
           cartRefreshAttempts[signature] += 1;
           cartRefreshInFlight = true;
           var updates = {};
@@ -728,7 +728,7 @@
               return response.json();
             })
             .then(function (cartContent) {
-              return wait(650)
+              return wait(shouldSuppressPromos(status) && missingExpectedTradeDiscountLine ? 1200 : 650)
                 .then(fetchFreshMiniCartPayload)
                 .catch(function () {
                   return cartContent;
@@ -784,9 +784,10 @@
       scheduleCartDrawerRefresh();
     });
     document.documentElement.addEventListener('cart:drawer:opened', function () {
+      cartRefreshAttempts = {};
       scheduleReapplyTradeState();
       refresh();
-      scheduleCartDrawerRefresh([200, 700, 1500, 2800, 4200]);
+      scheduleCartDrawerRefresh([100, 450, 1000, 1800, 3000, 4600, 6500]);
     });
     document.documentElement.addEventListener('cart:updated', refresh);
     document.documentElement.addEventListener('cart:refresh', function () {
