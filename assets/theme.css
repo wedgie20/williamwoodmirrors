@@ -16576,5 +16576,54 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
   }
 }
 
+/* Mobile-only wishlist icon next to the product title on collection cards */
+.product-item-meta .collection-card-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+
+.product-item-meta .collection-card-title-row .collection-card-title-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.product-item-meta .collection-card-wishlist {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  color: #545454;
+  cursor: pointer;
+}
+
+.product-item-meta .collection-card-wishlist svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.product-item-meta .collection-card-wishlist .selected {
+  display: none;
+}
+
+.product-item-meta .collection-card-wishlist.swym-added .not-selected,
+.product-item-meta .collection-card-wishlist.is-active .not-selected {
+  display: none;
+}
+
+.product-item-meta .collection-card-wishlist.swym-added .selected,
+.product-item-meta .collection-card-wishlist.is-active .selected {
+  display: block;
+}
+
 
 
