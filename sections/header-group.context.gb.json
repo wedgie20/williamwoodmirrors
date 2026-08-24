@@ -46,7 +46,7 @@
           "settings": {
             "text": "700,000+ Satisfied Customers | 31,000+ 5* Reviews",
             "learn_more_text": "",
-            "header-fa9e60d9326fe4f8cf4ecca752dbe3c9": null,
+            "header-163bb02a5a3e9fbf30888055d249e3c4": null,
             "image": null,
             "title": "",
             "content": "",
@@ -226,9 +226,63 @@
         "f4e103a1-b331-47ab-a63d-abe4200831e1",
         "7a096969-06f3-4ae4-bcb6-03836dedbeb8"
       ]
+    },
+    "ss_scrolling_announcement_bar_ifatw": {
+      "type": "ss-scrolling-announcement-bar",
+      "disabled": false,
+      "settings": {
+        "header-9cc8c3fa2c9edd423643ddbaf63259fc": null,
+        "insert_css_class_target": ".header, .pageheader, .section-header, #announcement, .toolbar, .header__wrapper",
+        "header-42511a382c002bdfa01b3a047374a037": null,
+        "text_size": 12,
+        "ss_font_family": "montserrat_n4",
+        "header-94b884c6bee442eba0e67a66ea3c257a": null,
+        "link": "",
+        "header-699a528fead4e9918e0ef62cde1d950a": null,
+        "animation_duration": 44,
+        "animation_direction": "right",
+        "pause_hover": false,
+        "header-1e614bf2f0a429c8a085502601a8a60a": null,
+        "bg": "#000000",
+        "text_color": "#fff",
+        "hover_opacity": 90,
+        "header-320888db24b1508b85e1812626625c76": null,
+        "padding_horizontal": 2,
+        "padding_vertical": 1.5
+      },
+      "blocks": {
+        "text_rYYpH": {
+          "type": "text",
+          "disabled": false,
+          "settings": {
+            "text": "Men Day"
+          }
+        },
+        "text_QxTgj": {
+          "type": "text",
+          "disabled": false,
+          "settings": {
+            "text": "Free Shipping"
+          }
+        },
+        "text_MHkXi": {
+          "type": "text",
+          "disabled": false,
+          "settings": {
+            "text": "Free Returns"
+          }
+        }
+      },
+      "block_order": [
+        "text_rYYpH",
+        "text_QxTgj",
+        "text_MHkXi"
+      ],
+      "name": "SS - Scrolling Announcement Bar"
     }
   },
   "order": [
+    "ss_scrolling_announcement_bar_ifatw",
     "announcement-bar",
     "header"
   ]
