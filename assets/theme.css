@@ -16589,7 +16589,7 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
     width: 100% !important;
   }
 
-  .product-item__info .product-item-meta .collection-card-title-head button.collection-card-wishlist.swym-iconbtnlink.swym-heart.swym-loaded {
+  .product-item__info .collection-card-title-head button.collection-card-wishlist.swym-iconbtnlink.swym-heart.swym-loaded {
     position: absolute !important;
     right: 10px !important;
 }
@@ -16636,11 +16636,19 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
     text-transform: inherit !important;
   }
 
-  .product-item-meta .collection-card-title-head > .collection-card-wishlist,
-  .product-item-meta .collection-card-title-head > .collection-card-wishlist.swym-iconbtnlink,
-  .product-item-meta .collection-card-title-head > .collection-card-wishlist.swym-heart,
-  .product-item-meta .collection-card-title-head > .collection-card-wishlist.swym-loaded {
+  .product-item-meta button.collection-card-wishlist,
+  .product-item-meta button.collection-card-wishlist.swym-iconbtnlink,
+  .product-item-meta button.collection-card-wishlist.swym-heart,
+  .product-item-meta button.collection-card-wishlist.swym-loaded,
+  .product-item-meta button.collection-card-wishlist.swym-iconbtnlink.swym-heart.swym-loaded,
+  .product-item-meta .collection-card-title-row > button.collection-card-wishlist,
+  .product-item-meta .collection-card-title-head > button.collection-card-wishlist,
+  .product-item-meta .collection-card-title-head > button.collection-card-wishlist.swym-iconbtnlink,
+  .product-item-meta .collection-card-title-head > button.collection-card-wishlist.swym-heart,
+  .product-item-meta .collection-card-title-head > button.collection-card-wishlist.swym-loaded,
+  .product-item-meta .collection-card-title-head > button.collection-card-wishlist.swym-iconbtnlink.swym-heart.swym-loaded {
     position: absolute !important;
+    top: 1px !important;
     right: 10px !important;
     flex: 0 0 16px !important;
     display: inline-flex !important;
