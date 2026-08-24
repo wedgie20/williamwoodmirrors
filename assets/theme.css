@@ -16589,9 +16589,9 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
     width: 100% !important;
   }
 
-  button.collection-card-wishlist.swym-iconbtnlink.swym-heart.swym-loaded {
-    position: absolute;
-    right: 10px;
+  .product-item-meta .collection-card-title-head button.collection-card-wishlist.swym-iconbtnlink.swym-heart.swym-loaded {
+    position: absolute !important;
+    right: 10px !important;
 }
 
   .product-item-meta {
@@ -16614,7 +16614,6 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
 
   .product-item-meta .collection-card-title-head {
     position: relative !important;
-    right:10px !important;
     display: flex !important;
     align-items: flex-start !important;
     justify-content: space-between !important;
