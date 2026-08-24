@@ -16585,19 +16585,15 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
 
 @media screen and (max-width: 740px) {
   .product-item-meta .collection-card-title-row {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: flex-start !important;
-    justify-content: space-between !important;
-    gap: 6px !important;
+    position: relative;
+    display: block !important;
     width: 100% !important;
+    padding-right: 22px;
   }
 
   .product-item-meta .collection-card-title-text {
     min-width: 0;
     display: block !important;
-    flex: 1 1 auto !important;
-    order: 1 !important;
   }
 
   .product-item-meta .collection-card-title-text a {
@@ -16608,19 +16604,19 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
   .product-item-meta .collection-card-title-row > .collection-card-wishlist.swym-iconbtnlink,
   .product-item-meta .collection-card-title-row > .collection-card-wishlist.swym-heart,
   .product-item-meta .collection-card-title-row > .collection-card-wishlist.swym-loaded {
-    position: static !important;
+    position: absolute !important;
+    top: 2px !important;
+    right: 0 !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    flex: 0 0 16px !important;
-    order: 2 !important;
     width: 16px !important;
     min-width: 16px !important;
     max-width: 16px !important;
     height: 16px !important;
     min-height: 16px !important;
     max-height: 16px !important;
-    margin: 2px 0 0 auto !important;
+    margin: 0 !important;
     padding: 0 !important;
     border: 0 !important;
     background: transparent !important;
