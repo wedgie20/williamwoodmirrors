@@ -1,8 +1,7 @@
 <style>
   {{ section.settings.ss_font_family | font_face: font_display: 'swap' }}
 
-  .ss-announcement-bar,
-  .ss-announcement-bar__message {
+  .ss-announcement-bar {
     overflow: hidden;
   }
   .ss-announcement-bar:hover {
@@ -19,57 +18,6 @@
   .announcement-bar__link:hover {
     color: var(--text-color);
   }
-  #marq {
-    width: 100%;
-    border: inset;
-    overflow: hidden;
-    white-space: nowrap;
-    box-shadow: unset;
-    border: 0;
-    box-shadow: unset;
-    border-color: currentcolor;
-    vertical-align: middle;
-  }
-  {% if section.settings.animation_direction == "left" %}
-  @keyframes marquesina-{{ section.id }} {
-    from {
-      transform: translateX(0%);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
-  @keyframes marquesina-reverse-{{ section.id }} {
-    from {
-      transform: translateX(50%);
-    }
-    to {
-      transform: translateX(0%);
-    }
-  }
-  {% else %}
-  @keyframes marquesina-{{ section.id }} {
-    from {
-      transform: translateX(-50%);
-    }
-    to {
-      transform: translateX(0%);
-    }
-  }
-  @keyframes marquesina-reverse-{{ section.id }} {
-    from {
-      transform: translateX(0%);
-    }
-    to {
-      transform: translateX(50%);
-    }
-  }
-  {% endif %}
-  .ss-announcement-bar-{{ section.id }} #orig {
-    display: inline-block;
-    overflow: hidden;
-    transform: translate(0);
-  }
 
   .ss-announcement-bar__message {
     text-align: center;
@@ -80,127 +28,100 @@
     font-family: {{section.settings.ss_font_family.family}};
     font-weight: {{section.settings.ss_font_family.weight}};
   }
-  #orig.reverse .announcement-bar__message {
-    display: flex;
-    flex-direction: row-reverse;
+
+  {%- if section.settings.enable_scroll -%}
+  /* Vertical rotating ticker: one message at a time, sliding upward */
+  #marq {
+    position: relative;
+    width: 100%;
+    height: calc({{section.settings.text_size}}px * 1.4);
+    overflow: hidden;
+  }
+  .ss-announcement-bar__message {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    list-style: none;
   }
   .ss-announcement-bar__message li {
-
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    line-height: calc({{section.settings.text_size}}px * 1.4);
+    font-size: {{section.settings.text_size}}px;
+    font-family: {{section.settings.ss_font_family.family}};
+    font-weight: {{section.settings.ss_font_family.weight}};
+    text-align: center;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+  }
+  .ss-announcement-bar__message li.active {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+  .ss-announcement-bar__message li.leaving {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  {%- else -%}
+  /* Static mode: all messages shown together on one line, no animation */
+  #marq {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .ss-announcement-bar__message {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .ss-announcement-bar__message li {
     line-height: 1;
     font-size: {{section.settings.text_size}}px;
     font-family: {{section.settings.ss_font_family.family}};
     font-weight: {{section.settings.ss_font_family.weight}};
-    display: inline-block;
-    padding-right: 114px;
     position: relative;
-
+    padding-right: 24px;
   }
-  .ss-announcement-bar__message li::after {
+  .ss-announcement-bar__message li:last-child {
+    padding-right: 0;
+  }
+  .ss-announcement-bar__message li:not(:last-child)::after {
     content: '';
     width: 3.5px;
     height: 3.5px;
     background-color: var(--text-color);
-    background-image: none;
     opacity: 0.3;
     border-radius: 50%;
     position: absolute;
-    top: 40%;
-    right: 50px;
-  }
-  @media (max-width: 480px) {
-    #marq {
-      max-height: 39px;
-    }
-    .ss-announcement-bar__message li {
-      padding-right: 55px;
-    }
-    .ss-announcement-bar__message li::after {
-      right: 25px;
-    }
-  }
-
-  {%- if section.settings.enable_scroll -%}
-  .ss-announcement-bar-{{ section.id }} #orig {
-    animation: marquesina-{{ section.id }} var(--animation-duration, 45s) infinite normal linear 1s;
-  }
-
-  .ss-announcement-bar-{{ section.id }} #orig.reverse {
-    animation: marquesina-reverse-{{ section.id }} var(--animation-duration, 45s) infinite normal linear 2s;
-  }
-  {%- else -%}
-  .ss-announcement-bar-{{ section.id }} #marq {
-    display: flex;
-    justify-content: center;
-  }
-
-  .ss-announcement-bar-{{ section.id }} #orig {
-    display: inline-block;
-    transform: none;
-  }
-
-  .ss-announcement-bar-{{ section.id }} .ss-announcement-bar__message li {
-    padding-right: 24px;
-  }
-
-  .ss-announcement-bar-{{ section.id }} .ss-announcement-bar__message li::after {
-    right: 10px;
+    top: 45%;
+    right: 8px;
   }
   {%- endif -%}
 </style>
-
-{% if section.settings.pause_hover %}
-  <style>
-    .ss-announcement-bar:hover #orig {
-      animation-play-state: paused
-    }
-  </style>
-{% endif %}
 
 <template id="marquee-announcement-bar-{{ section.id }}">
   <div
     class="ss-announcement-bar ss-announcement-bar-{{ section.id }}"
     aria-label="Announcement"
-    style="background-color: {{ section.settings.bg }}; --text-color: {{ section.settings.text_color }}; --animation-duration: {{ section.settings.animation_duration }}s;"
+    style="background-color: {{ section.settings.bg }}; --text-color: {{ section.settings.text_color }};"
   >
     {%- if section.settings.link != blank -%}
       <a
-        href="{{ section.settings.link  }}"
+        href="{{ section.settings.link }}"
         style="cursor: pointer;"
       >
     {% endif %}
     <div class="announcement-bar__link">
-      <div class="" id="marq">
-        <span id="orig">
-          <ul class="ss-announcement-bar__message">
-            {%- if section.settings.enable_scroll -%}
-              {% if section.blocks > 1 %}
-                {% for i in (1..6) %}
-                  {% for block in section.blocks %}
-                    <li>{{ block.settings.text }}</li>
-                  {% endfor %}
-                {% endfor %}
-
-                {% for block in section.blocks limit: 1 %}
-                  <!-- <li>{{ block.settings.text }}</li> -->
-                {% endfor %}
-              {% else %}
-                {% for i in (1..12) %}
-                  {% for block in section.blocks %}
-                    <li>{{ block.settings.text }}</li>
-                  {% endfor %}
-                {% endfor %}
-
-                {% for block in section.blocks limit: 1 %}
-                  <!-- <li>{{ block.settings.text }}</li> -->
-                {% endfor %}
-              {% endif %}
-            {%- else -%}
-              {% for block in section.blocks %}
-                <li>{{ block.settings.text }}</li>
-              {% endfor %}
-            {%- endif -%}
-          </ul>
-        </span>
+      <div id="marq">
+        <ul class="ss-announcement-bar__message">
+          {%- for block in section.blocks -%}
+            <li{% if forloop.first %} class="active"{% endif %}>{{ block.settings.text }}</li>
+          {%- endfor -%}
+        </ul>
       </div>
     </div>
     {%- if section.settings.link != blank -%}</a>{% endif %}
@@ -222,18 +143,46 @@
       '#marquee-announcement-bar-{{ section.id }}'
     ).content;
 
+    const insertedBar = templateContent.firstElementChild;
+
     productForm.insertAdjacentElement(
       'beforebegin',
-      templateContent.firstElementChild
+      insertedBar
     );
 
-    setTimeout(()=> {
-      var htmlElement = document.documentElement;
+    {%- if section.settings.enable_scroll -%}
+    const liItems = insertedBar.querySelectorAll('.ss-announcement-bar__message li');
 
-      if (window.getComputedStyle(htmlElement).getPropertyValue('direction') === 'rtl') {
-          document.querySelector('#orig').classList.add('reverse');
+    if (liItems.length > 1) {
+      let currentIndex = 0;
+      const holdSeconds = {{ section.settings.animation_duration }};
+
+      function rotateMessages() {
+        const current = liItems[currentIndex];
+        const nextIndex = (currentIndex + 1) % liItems.length;
+        const next = liItems[nextIndex];
+
+        current.classList.remove('active');
+        current.classList.add('leaving');
+        next.classList.add('active');
+
+        setTimeout(() => {
+          current.classList.remove('leaving');
+        }, 600);
+
+        currentIndex = nextIndex;
       }
-    }, 1000);
+
+      let intervalId = setInterval(rotateMessages, holdSeconds * 1000);
+
+      {%- if section.settings.pause_hover -%}
+      insertedBar.addEventListener('mouseenter', () => clearInterval(intervalId));
+      insertedBar.addEventListener('mouseleave', () => {
+        intervalId = setInterval(rotateMessages, holdSeconds * 1000);
+      });
+      {%- endif -%}
+    }
+    {%- endif -%}
   });
 </script>
 
@@ -289,35 +238,19 @@
     {
       "type": "checkbox",
       "id": "enable_scroll",
-      "label": "Enable Auto-Scroll",
+      "label": "Enable Rotating Messages",
       "default": true,
-      "info": "Turn off to show a static, centered bar instead of a scrolling marquee."
+      "info": "On: messages rotate one at a time, sliding upward. Off: all messages shown together on one static line."
     },
     {
       "type": "range",
       "id": "animation_duration",
-      "label": "Scrolling speed",
-      "info": "⚡ <----> 🐌",
-      "min": 10,
-      "max": 200,
-      "step": 2,
-      "default": 44
-    },
-    {
-      "type": "select",
-      "id": "animation_direction",
-      "label": "Animation Direction",
-      "default": "right",
-      "options": [
-        {
-          "label": "Left",
-          "value": "left"
-        },
-        {
-          "label": "Right",
-          "value": "right"
-        }
-      ]
+      "label": "Seconds per message",
+      "info": "How long each message stays visible before the next slides up.",
+      "min": 2,
+      "max": 15,
+      "step": 1,
+      "default": 4
     },
     {
       "type": "checkbox",
