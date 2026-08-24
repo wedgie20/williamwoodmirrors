@@ -150,9 +150,9 @@
                   {{- section.settings.content -}}
                 {%- endif -%}
 
-                {%- if ww_show_sale_collection_promo -%}
+                {% comment %} {%- if ww_show_sale_collection_promo -%}
                   <p class="ww-sale-collection-promo" data-ww-promo-suppressible>Extra 10% off Sale items. Use code: SALE10</p>
-                {%- endif -%}
+                {%- endif -%} {% endcomment %}
 
                 {%- if section.settings.button_text != blank -%}
                   {%- if section.settings.link_style == 'link' -%}
