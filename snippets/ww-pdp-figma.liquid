@@ -625,7 +625,7 @@
           </span>
         </div>
       {% else %}
-        <span class="saved-price" {% if product.tags contains 'sale' %}style=""{% else %}{% if compareat_price > original_price %}style="display:none;"{%  else %}style="margin-bottom: 5px !important;"{% endif %}{% endif %}>
+        <span class="saved-price" {% if product.tags contains 'sale' %}style=""{% else %}{% if compareat_price > original_price %}style="display:none;"{%  else %}style=""{% endif %}{% endif %}>
   {% if compareat_price > 0 %}
     {%- assign original_saved = compareat_price | minus: original_price -%}
     {%- assign dissavedprice = original_price | minus: pricewholenumber -%}
