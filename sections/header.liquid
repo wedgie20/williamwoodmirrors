@@ -848,7 +848,7 @@
       ------------------------------------------------------------------------------------
     {%- endcomment -%}
     {%- assign pill_blocks = section.blocks | where: 'type', 'pill' -%}
-    {%- if request.page_type != 'product' and section.settings.enable_pill_navigation and pill_blocks.size > 0 -%}
+    {%- if request.page_type != 'product' and request.page_type != 'collection' and section.settings.enable_pill_navigation and pill_blocks.size > 0 -%}
       <div class="header__pill-nav pill-nav-scroll">
         {%- for block in pill_blocks -%}
           {%- liquid
