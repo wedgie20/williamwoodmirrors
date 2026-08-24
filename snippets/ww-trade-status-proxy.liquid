@@ -315,6 +315,7 @@
       setTradeState(status);
       renderTargets(status);
       renderTradePrices(status);
+      renderCartTradeFallbacks(status);
       applySalePriceSuppression(status);
     }
 
@@ -605,6 +606,7 @@
         setTradeState(status);
         renderTargets(status);
         renderTradePrices(status);
+        renderCartTradeFallbacks(status);
         applySalePriceSuppression(status);
         refreshCartForDiscountMismatch(status);
         return status;
@@ -623,6 +625,10 @@
     document.addEventListener('facet:criteria-changed', scheduleReapplyTradeState);
     document.addEventListener('facet:product-list-updated', scheduleReapplyTradeState);
     document.addEventListener('collection:rerendered', scheduleReapplyTradeState);
+    document.documentElement.addEventListener('cart:drawer:updated', function () {
+      scheduleReapplyTradeState();
+      setTimeout(scheduleReapplyTradeState, 120);
+    });
     document.documentElement.addEventListener('cart:updated', refresh);
     document.documentElement.addEventListener('cart:refresh', function () {
       setTimeout(refresh, 250);

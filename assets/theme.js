@@ -5854,6 +5854,10 @@ var SafeSticky = class extends HTMLElement {
           await animation.finished;
         }
         this.innerHTML = fakeDiv.querySelector("cart-drawer").innerHTML;
+        document.documentElement.dispatchEvent(new CustomEvent("cart:drawer:updated", {
+          bubbles: true,
+          detail: { cart: cartContent }
+        }));
         if (cartContent && cartContent["item_count"] === 0) {
           this.querySelector(".drawer__content").animate({ opacity: [0, 1], transform: ["translateY(40px)", "translateY(0)"] }, { duration: 450, easing: "cubic-bezier(0.33, 1, 0.68, 1)" });
         } else {
