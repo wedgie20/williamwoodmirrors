@@ -608,8 +608,6 @@
     {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
   {%- endif -%}
 </div>
-{%- endunless -%}
-
 
 </div>
     <div class="ww-title-sale-price">
@@ -646,6 +644,10 @@
 </span>
       {%- endif -%}  
     </div>
+{%- endunless -%}
+
+
+
 
     <div class="deliivery-message">
 
