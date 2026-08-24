@@ -821,28 +821,6 @@
      {% endcase %}
    {% endfor %}
 
-{% comment %}
-      <div class="ww-pdp__price-row">
-         <span class="ww-pdp__price-group ww-pdp__price-group_desktop {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
-          {%- if has_variant_discount -%}
-            <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.compare_at_price | money }}</span>
-            <span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
-          {%- else -%}
-            <span class="ww-pdp__price" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
-          {%- endif -%}
-        </span> 
-        {%- unless is_preorder -%}
-          <span class="ww-pdp__pill ww-pdp__pill--stock{% unless current_variant.available %} ww-pdp__pill--sold-out{% endunless %}"><span></span>{% if current_variant.available %}In stock{% else %}Sold out{% endif %}</span>
-        {%- endunless -%}
-        <span class="ww-pdp__pill">Free Mainland UK Delivery</span>
-        <span class="ww-pdp__pill">Crafted in limited quantities</span>
-        {% if product.collections contains collections['sasso-collection'] %}
-          <span class="ww-pdp__pill pill_latest">Latest Arrivals</span>
-        {% endif %}
-         
-      </div> 
-{% endcomment %}
-
       
 
       {%- if promo_text != blank -%}
