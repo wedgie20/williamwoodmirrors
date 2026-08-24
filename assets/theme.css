@@ -16576,5 +16576,48 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
   }
 }
 
+.collection-card-wishlist {
+  display: none;
+}
+
+@media screen and (max-width: 740px) {
+  .collection-card-title-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+  }
+
+  .collection-card-title-text {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .collection-card-wishlist {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    margin-top: 1px;
+    padding: 2px;
+    border: 0;
+    background: transparent;
+    color: currentColor;
+    cursor: pointer;
+  }
+
+  .collection-card-wishlist svg {
+    display: block;
+    width: 14px;
+    height: 14px;
+  }
+
+  .collection-card-wishlist.is-active svg path,
+  .collection-card-wishlist.swym-added svg path {
+    fill: currentColor;
+  }
+}
+
 
 
