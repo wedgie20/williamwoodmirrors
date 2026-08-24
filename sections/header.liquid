@@ -737,23 +737,7 @@
               {%- render 'icon' with 'header-search' -%}
             </a>
 
-          <a
-            href="/pages/swym-wishlist"
-            class="header__icon-wrapper tap-area header__icon-wrapper--wishlist"
-          >
-            <span class="visually-hidden">Wishlist</span>
-            <svg
-              fill="none"
-              focusable="false"
-              width="24"
-              height="24"
-              class="icon icon--picto-love"
-              viewBox="0 0 24 24"
-            >
-              <path d="M11.7141 20.1725C11.7141 20.1725 7.64436 17.2238 4.97562 13.4339C2.58295 10.0361 2.28013 6.41376 4.52636 4.89846C8.9513 1.91339 11.714 8.85173 11.714 8.85173" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-              <path d="M11.714 20.1725C11.714 20.1725 15.9102 17.1944 18.6618 13.3667C21.1288 9.93486 21.441 6.27638 19.125 4.74594C14.5627 1.73106 11.714 8.82942 11.714 8.82942" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
-          </a>
+          
 
           {% comment %} {%- if shop.customer_accounts_enabled -%}
             <a
@@ -790,6 +774,23 @@
             <cart-count class="header__cart-count header__cart-count--floating bubble-count" {% if cart.item_count == 0 %}hidden{% endif %}>
               {{- cart.item_count -}}
             </cart-count>
+          </a>
+          <a
+            href="/pages/swym-wishlist"
+            class="header__icon-wrapper tap-area header__icon-wrapper--wishlist"
+          >
+            <span class="visually-hidden">Wishlist</span>
+            <svg
+              fill="none"
+              focusable="false"
+              width="24"
+              height="24"
+              class="icon icon--picto-love"
+              viewBox="0 0 24 24"
+            >
+              <path d="M11.7141 20.1725C11.7141 20.1725 7.64436 17.2238 4.97562 13.4339C2.58295 10.0361 2.28013 6.41376 4.52636 4.89846C8.9513 1.91339 11.714 8.85173 11.714 8.85173" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M11.714 20.1725C11.714 20.1725 15.9102 17.1944 18.6618 13.3667C21.1288 9.93486 21.441 6.27638 19.125 4.74594C14.5627 1.73106 11.714 8.82942 11.714 8.82942" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
           </a>
         </div>
 
