@@ -326,7 +326,12 @@
 <a href="{{ product.url }}">
   <span style="display: flex; justify-content: space-between; align-items: center;">
     <strong>{{ first_word }}</strong>
-    <span>Wishlist</span>
+    <span aria-label="Wishlist">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="12.6667" height="12.6667" fill="none"></rect>
+        <path d="M11.0833 0.791664H1.58325V11.875L6.33325 7.52083L11.0833 11.875V0.791664Z" stroke="currentColor" stroke-linejoin="round"></path>
+      </svg>
+    </span>
   </span>
   <span style="display: block; text-transform: inherit !important; margin-top: 2px;">{{ title_words | join: ' ' | remove: '-' | remove: first_word }}</span>
 </a>{% endif %}
