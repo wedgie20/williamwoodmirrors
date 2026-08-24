@@ -155,7 +155,7 @@
 
     if (liItems.length > 1) {
       let currentIndex = 0;
-      const holdSeconds = {{ section.settings.animation_duration }};
+      const holdSeconds = {{ section.settings.message_hold_seconds }};
 
       function rotateMessages() {
         const current = liItems[currentIndex];
@@ -244,7 +244,7 @@
     },
     {
       "type": "range",
-      "id": "animation_duration",
+      "id": "message_hold_seconds",
       "label": "Seconds per message",
       "info": "How long each message stays visible before the next slides up.",
       "min": 2,
