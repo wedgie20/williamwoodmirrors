@@ -605,8 +605,6 @@
   {%- if discounted_decimal < 10 -%}
     {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
   {%- endif -%}
-  <span><b style="font-size: 13px;">Now - </b></span>
-  <span style="color: #780606;"><b style="font-size: 13px;">{{ cart.currency.symbol }}{{ discounted_whole }}.{{ discounted_decimal }}</b></span>
 </div>
 <p class="saved-price" {% if product.tags contains 'sale' %}style="margin-bottom: 5px !important;"{% else %}{% if compareat_price > original_price %}style="display:none;"{%  else %}style="margin-bottom: 5px !important;"{% endif %}{% endif %}>
   {% if compareat_price > 0 %}
