@@ -838,7 +838,7 @@ replaceLastPathSegment('blackfriday-signup');
       const currentScroll = window.scrollY;
 
       // Always show header when at or near the top
-      if (currentScroll <= 50) {
+      {% comment %} if (currentScroll <= 50) {
         if (announcement) announcement.classList.remove("hide-on-scroll");
         if (facetToolbar) facetToolbar.classList.remove("hide-on-scroll");
         if (mainbody) mainbody.classList.remove("enabled-scroll-handler");
@@ -857,7 +857,30 @@ replaceLastPathSegment('blackfriday-signup');
       }
 
       lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-    });
+    }); {% endcomment %}
+
+    window.addEventListener("scroll", function () {
+  if (window.disableScrollHandler) return;
+  const currentScroll = window.scrollY;
+
+  // Always show header when at or near the top
+  if (currentScroll <= 50) {
+    if (announcement) announcement.classList.remove("hide-on-scroll");
+    if (mainbody) mainbody.classList.remove("enabled-scroll-handler");
+  } 
+  // Hide header when scrolling down
+  else if (currentScroll > lastScrollTop) {
+    if (announcement) announcement.classList.add("hide-on-scroll");
+    if (mainbody) mainbody.classList.add("enabled-scroll-handler");
+  } 
+  // Show header when scrolling up
+  else {
+    if (announcement) announcement.classList.remove("hide-on-scroll");
+    if (mainbody) mainbody.classList.remove("enabled-scroll-handler");
+  }
+
+  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+});
 
     // Check URL for filter parameters and activate matching tags
     const customFilterTags = document.querySelectorAll('.custom-filter-tag');
