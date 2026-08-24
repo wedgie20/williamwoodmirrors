@@ -553,6 +553,8 @@
             {%- assign auto_discounted_price = current_variant.price | times: 0.75 | round -%}
           {%- endunless -%}
 
+        </div>
+
 <div class="ww_price_div">
   <span class="ww-pdp__price-group_mobile {% if has_variant_discount or show_auto_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
     {%- if has_variant_discount -%}
