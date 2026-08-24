@@ -16578,6 +16578,10 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
 
 /* Mobile-only wishlist icon next to the product title on collection cards */
 .product-item-meta .collection-card-title-row {
+  width: 100%;
+}
+
+.product-item-meta .collection-card-title-head {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -16585,9 +16589,13 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
   width: 100%;
 }
 
-.product-item-meta .collection-card-title-row .collection-card-title-text {
+.product-item-meta .collection-card-title-brand {
   flex: 1 1 auto;
   min-width: 0;
+}
+
+.product-item-meta .collection-card-title-subtitle {
+  margin-top: 2px;
 }
 
 .product-item-meta .collection-card-wishlist {
