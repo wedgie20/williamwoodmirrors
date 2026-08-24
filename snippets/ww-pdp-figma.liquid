@@ -71,8 +71,8 @@
   endif
 
   if sale_product_match
-    assign promo_code = 'SALE10'
-    assign promo_text = 'Extra 10% off Sale items. Code: SALE10'
+    assign promo_code = ''
+    assign promo_text = ''
   elsif full_price_match.size > 0
     assign promo_code = 'WWAUG'
     assign promo_text = '15% Off This Item.'
