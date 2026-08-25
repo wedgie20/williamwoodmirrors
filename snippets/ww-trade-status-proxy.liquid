@@ -672,7 +672,7 @@
       }, 0);
     }
 
-    function getLineRefreshProperties(item) {
+    function getLineRefreshProperties(item, status) {
       var properties = {};
       var source = item && item.properties || {};
 
@@ -682,16 +682,15 @@
       });
 
       properties._ww_trade_recalc = [
-        Date.now(),
+        getCartRefreshStateSignature(status),
         item && item.variant_id || '',
-        item && item.quantity || '',
-        item && item.key || ''
+        item && item.quantity || ''
       ].join(':');
 
       return properties;
     }
 
-    function pulseMissingTradeDiscountLines(missingItems) {
+    function pulseMissingTradeDiscountLines(missingItems, status) {
       var items = (missingItems || []).filter(function (item) {
         return item && item.key && item.quantity;
       }).slice(0, 4);
@@ -708,7 +707,7 @@
             body: JSON.stringify({
               id: item.key,
               quantity: item.quantity,
-              properties: getLineRefreshProperties(item),
+              properties: getLineRefreshProperties(item, status),
               sections: ['mini-cart']
             })
           }).then(function (response) {
@@ -862,7 +861,7 @@
           return fetchFreshMiniCartPayload();
         }
 
-        return pulseMissingTradeDiscountLines(mismatch.missingItems)
+        return pulseMissingTradeDiscountLines(mismatch.missingItems, status)
           .then(function () {
             return wait(650);
           })
@@ -925,7 +924,7 @@
           return updateCartForTradeRefresh(status, updates)
             .then(function (cartContent) {
               return wait(350).then(function () {
-                return pulseMissingTradeDiscountLines(mismatch.missingItems);
+                return pulseMissingTradeDiscountLines(mismatch.missingItems, status);
               }).then(function () {
                 return cartContent;
               });
