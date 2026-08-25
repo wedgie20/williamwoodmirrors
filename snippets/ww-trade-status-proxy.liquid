@@ -76,60 +76,249 @@
       }
     }
 
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, function (character) {
+        return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+        }[character];
+      });
+    }
+
+    function firstDefined() {
+      for (var index = 0; index < arguments.length; index += 1) {
+        if (arguments[index] !== undefined && arguments[index] !== null && arguments[index] !== '') {
+          return arguments[index];
+        }
+      }
+
+      return null;
+    }
+
+    function normalizePercentage(value) {
+      var number = Number(value);
+
+      if (!isFinite(number) || number <= 0) return 0;
+
+      return number;
+    }
+
+    function normalizeTierThresholdCents(tier) {
+      var centsValue = firstDefined(
+        tier.minimum_spend_cents,
+        tier.minimum_qualifying_spend_cents,
+        tier.threshold_cents,
+        tier.min_spend_cents,
+        tier.amount_cents
+      );
+
+      if (centsValue !== null) {
+        centsValue = Number(centsValue);
+        return isFinite(centsValue) ? Math.max(Math.round(centsValue), 0) : null;
+      }
+
+      var poundsValue = firstDefined(
+        tier.minimum_spend,
+        tier.minimum_qualifying_spend,
+        tier.threshold,
+        tier.min_spend,
+        tier.amount
+      );
+
+      if (poundsValue === null) return null;
+
+      poundsValue = Number(poundsValue);
+
+      return isFinite(poundsValue) ? Math.max(Math.round(poundsValue * 100), 0) : null;
+    }
+
+    function normalizeTierDiscount(tier) {
+      var discount = normalizePercentage(firstDefined(
+        tier.discount_percentage,
+        tier.discountPercent,
+        tier.discount_percent,
+        tier.discount,
+        tier.percentage
+      ));
+
+      if (discount > 0) return discount;
+
+      var tierText = String(firstDefined(tier.key, tier.handle, tier.name, tier.title, tier.label, '')).toLowerCase();
+      var match = tierText.match(/(?:trade[_\s-]*)?(\d+(?:\.\d+)?)/);
+
+      return match ? normalizePercentage(match[1]) : 0;
+    }
+
+    function isBespokeTier(tier) {
+      return /bespoke|quote|custom/.test(String(firstDefined(tier.key, tier.handle, tier.name, tier.title, tier.label, '')).toLowerCase());
+    }
+
+    function getRawTradeTiers(status) {
+      if (!status) return null;
+
+      return firstDefined(
+        status.tiers,
+        status.trade_tiers,
+        status.tradeTiers,
+        status.tier_config,
+        status.tierConfig,
+        status.tier_thresholds,
+        status.tierThresholds,
+        status.thresholds,
+        status.settings && status.settings.tiers,
+        status.config && status.config.tiers,
+        status.trade_settings && status.trade_settings.tiers,
+        status.tradeSettings && status.tradeSettings.tiers
+      );
+    }
+
+    function normalizeTradeTiers(status) {
+      var source = getRawTradeTiers(status);
+      var rawTiers = [];
+
+      if (Array.isArray(source)) {
+        rawTiers = source;
+      } else if (source && typeof source === 'object') {
+        Object.keys(source).forEach(function (key) {
+          var value = source[key];
+
+          if (value && typeof value === 'object') {
+            rawTiers.push(Object.assign({ key: key }, value));
+          } else {
+            rawTiers.push({ key: key, minimum_spend: value });
+          }
+        });
+      }
+
+      var tiersByDiscount = {};
+
+      rawTiers.forEach(function (tier) {
+        if (!tier || isBespokeTier(tier)) return;
+
+        var thresholdCents = normalizeTierThresholdCents(tier);
+        var discount = normalizeTierDiscount(tier);
+
+        if (thresholdCents === null || discount <= 0) return;
+
+        var discountKey = String(discount);
+        var normalizedTier = {
+          thresholdCents: thresholdCents,
+          discount: discount
+        };
+
+        if (!tiersByDiscount[discountKey] || thresholdCents < tiersByDiscount[discountKey].thresholdCents) {
+          tiersByDiscount[discountKey] = normalizedTier;
+        }
+      });
+
+      var tiers = Object.keys(tiersByDiscount)
+        .map(function (discountKey) {
+          return tiersByDiscount[discountKey];
+        })
+        .sort(function (first, second) {
+          return first.thresholdCents - second.thresholdCents || first.discount - second.discount;
+        });
+
+      if (tiers.length) return tiers;
+
+      return [
+        { thresholdCents: 0, discount: 30 },
+        { thresholdCents: 300000, discount: 33 },
+        { thresholdCents: 500000, discount: 35 }
+      ];
+    }
+
+    function formatPercentage(value) {
+      var number = Number(value) || 0;
+
+      if (Math.round(number) === number) return String(number);
+
+      return String(Number(number.toFixed(2)));
+    }
+
     function getTradeProjection(status, cartEligibleCents) {
       var accountSpendCents = Math.round(Number(status && status.qualifying_spend_12_months || 0) * 100);
       var projectedSpendCents = accountSpendCents + (Number(cartEligibleCents) || 0);
       var accountDiscount = getEffectiveTradeDiscount(status);
-      var projectedDiscount = isTradeCustomerSignal(status) && isTradeDiscountActive(status) ? 30 : 0;
+      var tiers = normalizeTradeTiers(status);
+      var tradeActive = isTradeCustomerSignal(status) && isTradeDiscountActive(status);
+      var projectedDiscount = 0;
 
-      if (projectedSpendCents >= 500000) {
-        projectedDiscount = 35;
-      } else if (projectedSpendCents >= 300000) {
-        projectedDiscount = 33;
+      if (tradeActive) {
+        tiers.forEach(function (tier) {
+          if (projectedSpendCents >= tier.thresholdCents) {
+            projectedDiscount = Math.max(projectedDiscount, tier.discount);
+          }
+        });
       }
 
-      projectedDiscount = Math.max(projectedDiscount, accountDiscount);
+      projectedDiscount = tradeActive ? Math.max(projectedDiscount, accountDiscount) : 0;
 
-      var nextThresholdCents = 300000;
-      var nextDiscount = 33;
+      var nextTier = tiers.find(function (tier) {
+        return tier.discount > projectedDiscount && tier.thresholdCents > projectedSpendCents;
+      });
+      var nextThresholdCents = nextTier ? nextTier.thresholdCents : Math.max.apply(null, tiers.map(function (tier) { return tier.thresholdCents; }));
+      var nextDiscount = nextTier ? nextTier.discount : 0;
+      var maxProgressCents = Math.max.apply(null, tiers.map(function (tier) { return tier.thresholdCents; }));
 
-      if (projectedDiscount >= 35 || projectedSpendCents >= 500000) {
-        nextThresholdCents = 1000000;
-        nextDiscount = 0;
-      } else if (projectedDiscount >= 33 || projectedSpendCents >= 300000) {
-        nextThresholdCents = 500000;
-        nextDiscount = 35;
-      } else if (projectedDiscount >= 30) {
-        nextThresholdCents = 300000;
-        nextDiscount = 33;
+      if (!isFinite(nextThresholdCents)) {
+        nextThresholdCents = 0;
+      }
+
+      if (!isFinite(maxProgressCents) || maxProgressCents <= 0) {
+        maxProgressCents = nextThresholdCents > 0 ? nextThresholdCents : 1;
       }
 
       return {
+        tiers: tiers,
         projectedSpendCents: projectedSpendCents,
         projectedDiscount: projectedDiscount,
         nextThresholdCents: nextThresholdCents,
         nextDiscount: nextDiscount,
         remainingCents: Math.max(nextThresholdCents - projectedSpendCents, 0),
-        progress: Math.min(Math.max(projectedSpendCents / 500000 * 100, 0), 100)
+        progress: Math.min(Math.max(projectedSpendCents / maxProgressCents * 100, 0), 100),
+        maxProgressCents: maxProgressCents
       };
     }
 
-    function renderTierProgress(progress, projectedSpendCents) {
-      var tier30Reached = true;
-      var tier33Reached = projectedSpendCents >= 300000;
-      var tier35Reached = projectedSpendCents >= 500000;
+    function getTierPosition(tier, maxProgressCents) {
+      if (!maxProgressCents || maxProgressCents <= 0) return 0;
+
+      return Math.min(Math.max(tier.thresholdCents / maxProgressCents * 100, 0), 100);
+    }
+
+    function renderTierProgress(projection) {
+      var tiers = projection.tiers && projection.tiers.length ? projection.tiers : normalizeTradeTiers();
+      var maxProgressCents = projection.maxProgressCents || Math.max.apply(null, tiers.map(function (tier) { return tier.thresholdCents; })) || 1;
+      var progress = projection.progress;
+      var projectedSpendCents = projection.projectedSpendCents;
+      var markersHtml = tiers.map(function (tier) {
+        var position = getTierPosition(tier, maxProgressCents);
+        var positionText = String(Number(position.toFixed(4)));
+        var transform = position <= 0 ? 'translate(0,-50%)' : position >= 100 ? 'translate(-100%,-50%)' : 'translate(-50%,-50%)';
+        var reached = projectedSpendCents >= tier.thresholdCents;
+
+        return '<i class="ww-trade-message__breakpoint" style="position:absolute;top:50%;left:' + positionText + '%;z-index:2;width:10px;height:10px;background:' + (reached ? '#00b67a' : '#fff') + ';border:2px solid #00b67a;border-radius:999px;transform:' + transform + ';"></i>';
+      }).join('');
+      var labelsHtml = tiers.map(function (tier) {
+        var position = getTierPosition(tier, maxProgressCents);
+        var positionText = String(Number(position.toFixed(4)));
+        var transform = position <= 0 ? 'translateX(0)' : position >= 100 ? 'translateX(-100%)' : 'translateX(-50%)';
+        var justify = position >= 100 ? 'justify-content:flex-end;' : '';
+
+        return '<span style="position:absolute;top:0;left:' + positionText + '%;display:inline-flex;align-items:center;' + justify + 'min-width:54px;color:#111;transform:' + transform + ';"><strong style="font-size:10px;font-weight:700;">' + escapeHtml(formatPercentage(tier.discount)) + '%</strong></span>';
+      }).join('');
 
       return '<div class="ww-trade-message__tier-bar" aria-label="Trade tier progress" style="max-width:392px;margin:18px auto 0;padding-bottom:30px;">' +
         '<div class="ww-trade-message__progress" aria-hidden="true" style="position:relative;display:block;width:100%;height:6px;margin:0 auto;overflow:visible;background-color:#dededf;border-radius:4px;">' +
           '<span style="display:block;width:' + progress + '%;height:100%;background:linear-gradient(90deg,#bbf3c1,#00b67a 70%,#005036);border-radius:inherit;transition:width .25s ease;"></span>' +
-          '<i class="ww-trade-message__breakpoint" style="position:absolute;top:50%;left:0%;z-index:2;width:10px;height:10px;background:' + (tier30Reached ? '#00b67a' : '#fff') + ';border:2px solid #00b67a;border-radius:999px;transform:translate(0,-50%);"></i>' +
-          '<i class="ww-trade-message__breakpoint" style="position:absolute;top:50%;left:60%;z-index:2;width:10px;height:10px;background:' + (tier33Reached ? '#00b67a' : '#fff') + ';border:2px solid #00b67a;border-radius:999px;transform:translate(-50%,-50%);"></i>' +
-          '<i class="ww-trade-message__breakpoint" style="position:absolute;top:50%;left:100%;z-index:2;width:10px;height:10px;background:' + (tier35Reached ? '#00b67a' : '#fff') + ';border:2px solid #00b67a;border-radius:999px;transform:translate(-100%,-50%);"></i>' +
+          markersHtml +
         '</div>' +
         '<div class="ww-trade-message__breakpoint-labels" aria-hidden="true" style="position:relative;width:100%;height:16px;margin:8px auto 0;font-size:10px;line-height:1.1;">' +
-          '<span style="position:absolute;top:0;left:0%;display:inline-flex;align-items:center;min-width:54px;color:#111;transform:translateX(0);"><strong style="font-size:10px;font-weight:700;">30%</strong></span>' +
-          '<span style="position:absolute;top:0;left:60%;display:inline-flex;align-items:center;min-width:54px;color:#111;transform:translateX(-50%);"><strong style="font-size:10px;font-weight:700;">33%</strong></span>' +
-          '<span style="position:absolute;top:0;left:100%;display:inline-flex;align-items:center;justify-content:flex-end;min-width:54px;color:#111;transform:translateX(-100%);"><strong style="font-size:10px;font-weight:700;">35%</strong></span>' +
+          labelsHtml +
         '</div>' +
       '</div>';
     }
@@ -461,7 +650,7 @@
       }
 
       var projection = getTradeProjection(status, cartEligibleCents);
-      var progressHtml = renderTierProgress(projection.progress, projection.projectedSpendCents);
+      var progressHtml = renderTierProgress(projection);
 
       target.style.setProperty('--ww-trade-message-progress', projection.progress + '%');
 
