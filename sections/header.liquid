@@ -178,16 +178,16 @@
   }
 
   #shopify-section-{{ section.id }} .header__icon-wrapper--wishlist {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    display: flex !important;
+    {% comment %} align-items: center !important; {% endcomment %}
+    {% comment %} justify-content: center !important; {% endcomment %}
   }
 
   #shopify-section-{{ section.id }} .header__icon-wrapper--wishlist svg {
-    width: 18px !important;
+    width: 20px !important;
     height: 18px !important;
-    flex: 0 0 18px !important;
-    transform: translateY(-2px);
+    {% comment %} flex: 0 0 18px !important; {% endcomment %}
+    {% comment %} transform: translateY(-2px); {% endcomment %}
   }
 
   /* While the header is transparent (floating over the hero image, no solid background yet),
