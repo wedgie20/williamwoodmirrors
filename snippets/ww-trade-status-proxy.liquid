@@ -672,6 +672,25 @@
       }, 0);
     }
 
+    function getLineRefreshProperties(item) {
+      var properties = {};
+      var source = item && item.properties || {};
+
+      Object.keys(source).forEach(function (key) {
+        if (key === '_ww_trade_recalc') return;
+        properties[key] = source[key];
+      });
+
+      properties._ww_trade_recalc = [
+        Date.now(),
+        item && item.variant_id || '',
+        item && item.quantity || '',
+        item && item.key || ''
+      ].join(':');
+
+      return properties;
+    }
+
     function pulseMissingTradeDiscountLines(missingItems) {
       var items = (missingItems || []).filter(function (item) {
         return item && item.key && item.quantity;
@@ -689,6 +708,7 @@
             body: JSON.stringify({
               id: item.key,
               quantity: item.quantity,
+              properties: getLineRefreshProperties(item),
               sections: ['mini-cart']
             })
           }).then(function (response) {
