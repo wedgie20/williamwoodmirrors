@@ -5871,10 +5871,14 @@ var SafeSticky = class extends HTMLElement {
       this.nextReplacementDelay = 0;
       const countRoot = document.getElementById('py-flip-countdown');
       if(countRoot) {
-       initializeCountdown();
+       if (typeof initializeCountdown === 'function') {
+         initializeCountdown();
+       }
       }
         setTimeout(function(){
-  initializeCountdown();
+  if (typeof initializeCountdown === 'function') {
+    initializeCountdown();
+  }
   }, 3000);
 
     }

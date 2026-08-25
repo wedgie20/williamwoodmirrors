@@ -79,7 +79,7 @@
     function getTradeProjection(status, cartEligibleCents) {
       var accountSpendCents = Math.round(Number(status && status.qualifying_spend_12_months || 0) * 100);
       var projectedSpendCents = accountSpendCents + (Number(cartEligibleCents) || 0);
-      var accountDiscount = Number(status && status.current_discount || 0);
+      var accountDiscount = getEffectiveTradeDiscount(status);
       var projectedDiscount = 0;
 
       if (projectedSpendCents >= 500000) {
@@ -177,7 +177,7 @@
         status &&
         (
           isTruthy(status.is_trade_customer) ||
-          Number(status.current_discount || 0) > 0 ||
+          getEffectiveTradeDiscount(status) > 0 ||
           (status.current_tier && status.current_tier !== 'not_qualified')
         )
       );
@@ -218,7 +218,7 @@
         isTradeCustomerSignal(status) ? 'trade-customer' : 'not-trade-customer',
         isTradeDiscountActive(status) ? 'trade-active' : 'trade-inactive',
         shouldSuppressPromos(status) ? 'restricted' : 'open',
-        Number(status && status.current_discount || 0),
+        getEffectiveTradeDiscount(status),
         String(status && (status.discount_status || status.storefront_discount_status || status.status || ''))
       ].join('|');
     }
@@ -320,7 +320,7 @@
     }
 
     function setTradeState(status) {
-      var discount = Number(status && status.current_discount || 0);
+      var discount = getEffectiveTradeDiscount(status);
       var isTradeCustomer = isTruthy(status && status.is_trade_customer);
       var suppressPromos = shouldSuppressPromos(status);
       var tradeDiscountActive = isTradeDiscountActive(status);
@@ -415,7 +415,7 @@
     }
 
     function renderTradePrices(status) {
-      var discount = Number(status && status.current_discount || 0);
+      var discount = getEffectiveTradeDiscount(status);
       var suppressPromos = shouldSuppressPromos(status);
       var groups = document.querySelectorAll('[data-ww-trade-price-group]');
 
@@ -438,7 +438,7 @@
     }
 
     function renderProduct(target, status) {
-      var discount = Number(status.current_discount || 0);
+      var discount = getEffectiveTradeDiscount(status);
       var suppressPromos = shouldSuppressPromos(status);
       var isExplicitlyExcluded = target.getAttribute('data-product-explicit-excluded') === 'true';
       var isSalePriced = target.getAttribute('data-product-sale-priced') === 'true';
@@ -724,10 +724,32 @@
         _ww_trade_refresh: String(Date.now()),
         _ww_trade_customer: isTradeCustomerSignal(status) ? 'true' : 'false',
         _ww_trade_discount_active: shouldShowTradeUi(status) ? 'true' : 'false',
-        _ww_trade_discount_percentage: String(Number(status && status.current_discount || 0)),
+        _ww_trade_discount_percentage: String(getEffectiveTradeDiscount(status)),
         _ww_trade_discount_restriction_active: shouldSuppressPromos(status) ? 'true' : 'false',
         _ww_trade_state_signature: getCartRefreshStateSignature(status)
       };
+    }
+
+    function getEffectiveTradeDiscount(status) {
+      if (!status) return 0;
+
+      var explicitDiscount = Number(
+        status.current_discount ||
+        status.discount_percentage ||
+        status.discount ||
+        status.currentDiscount ||
+        0
+      );
+
+      if (explicitDiscount > 0) return explicitDiscount;
+
+      var tier = String(status.current_tier || status.discount_tier || status.tier || '').toLowerCase();
+
+      if (tier.indexOf('35') !== -1) return 35;
+      if (tier.indexOf('33') !== -1) return 33;
+      if (tier.indexOf('30') !== -1) return 30;
+
+      return 0;
     }
 
     function updateCartForTradeRefresh(status, updates) {
