@@ -413,6 +413,13 @@
       });
     }
 
+    function syncTradeProductFormBeforeSubmit(event) {
+      var form = event.target && event.target.closest && event.target.closest('form[action*="/cart/add"]');
+      if (!form || !window.WWTradeStatus) return;
+
+      syncTradeProductFormProperties(window.WWTradeStatus);
+    }
+
     function scheduleCartDrawerRefresh(delays) {
       delays = delays || [350, 1200];
 
@@ -1078,6 +1085,7 @@
     }
     document.addEventListener('shopify:section:load', refresh);
     document.addEventListener('shopify:section:load', scheduleReapplyTradeState);
+    document.addEventListener('submit', syncTradeProductFormBeforeSubmit, true);
     document.addEventListener('facet:criteria-changed', scheduleReapplyTradeState);
     document.addEventListener('facet:product-list-updated', scheduleReapplyTradeState);
     document.addEventListener('collection:rerendered', scheduleReapplyTradeState);
