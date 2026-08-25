@@ -409,7 +409,7 @@
 {%- assign card_title_subtitle_mobile = card_title_subtitle_mobile | strip -%}
 <div class="hidden-tablet-and-up collection-card-title-row">
   <div class="collection-card-title-head">
-    <strong class="collection-card-title-brand" style="display: block;">{{ card_title_brand_mobile }}</strong>
+    <a href="{{ product.url }}" class="collection-card-title-brand" style="display: block;"><strong>{{ card_title_brand_mobile }}</strong></a>
     <button
       type="button"
       class="collection-card-wishlist swym-button swym-add-to-wishlist"
@@ -427,11 +427,11 @@
     </button>
   </div>
   {%- if card_title_subtitle_mobile != blank -%}
-    <span class="collection-card-title-subtitle" style="display: block; text-transform: inherit !important; margin-top: 2px;">{{ card_title_subtitle_mobile }}</span>
+    <a href="{{ product.url }}" class="collection-card-title-subtitle" style="display: block; text-transform: inherit !important; margin-top: 2px;">{{ card_title_subtitle_mobile }}</a>
   {%- endif -%}
 </div>
 {%- if card_title_measurement != blank -%}
-  <div class="product-item-meta__measurement">{{ card_title_measurement }}</div>
+  <a href="{{ product.url }}" class="product-item-meta__measurement">{{ card_title_measurement }}</a>
 {%- endif -%}
 {% if request.path != "/en-international" %}
       <div class="product-item-meta__price-list-container">
