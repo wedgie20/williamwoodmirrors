@@ -749,7 +749,29 @@
               <rect width="12.6667" height="12.6667" fill="none"></rect>
               <path d="M11.0833 0.791664H1.58325V11.875L6.33325 7.52083L11.0833 11.875V0.791664Z" stroke="currentColor" stroke-linejoin="round"></path>
             </svg>
+            <span id="swym-header-wishlist-count" class="bubble-count header__cart-count--floating" hidden>0</span>
           </a>
+          <script>
+            window.SwymCallbacks = window.SwymCallbacks || [];
+            window.SwymCallbacks.push(function (swat) {
+              function updateHeaderWishlistCount() {
+                swat.fetch(function (products) {
+                  var countEl = document.getElementById('swym-header-wishlist-count');
+                  if (!countEl) return;
+                  var count = products ? products.length : 0;
+                  countEl.textContent = count;
+                  countEl.hidden = count === 0;
+                });
+              }
+
+              updateHeaderWishlistCount();
+
+              if (swat.evtLayer) {
+                swat.evtLayer.addEventListener('sw:addedtowishlist', updateHeaderWishlistCount);
+                swat.evtLayer.addEventListener('sw:removedfromwishlist', updateHeaderWishlistCount);
+              }
+            });
+          </script>
             <a href="{{ routes.search_url  }}" is="toggle-link" class="cloud-search-mobile-open header__icon-wrapper tap-area {% unless section.settings.show_icons %}hidden-desk{% endunless %}" aria-label="{{ 'search.general.title' | t | escape }}" aria-controls="search-drawer" aria-expanded="false">
               <span class="visually-hidden">{{ 'search.general.title' | t }}</span>
               {%- render 'icon' with 'header-search' -%}
