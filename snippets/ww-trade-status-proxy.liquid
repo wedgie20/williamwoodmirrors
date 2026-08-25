@@ -38,6 +38,10 @@
     var domObserver = null;
     var reapplyTimer = null;
     var queuedCartRefreshStatus = null;
+    var tradeDiscountRetryTimer = null;
+    var tradeDiscountRetryCount = 0;
+    var tradeDiscountRetrySignature = null;
+    var lastResolvedCartRenderSignature = null;
 
     function isTruthy(value) {
       if (value === true) return true;
@@ -324,6 +328,7 @@
 
       if (lastCartRefreshStateSignature !== refreshStateSignature) {
         cartRefreshAttempts = {};
+        lastResolvedCartRenderSignature = null;
         lastCartRefreshStateSignature = refreshStateSignature;
       }
 
@@ -364,6 +369,15 @@
       cartDrawerRefreshTimers = delays.map(function (delay) {
         return setTimeout(refresh, delay);
       });
+    }
+
+    function clearTradeDiscountRetry() {
+      if (tradeDiscountRetryTimer) {
+        clearTimeout(tradeDiscountRetryTimer);
+        tradeDiscountRetryTimer = null;
+      }
+      tradeDiscountRetryCount = 0;
+      tradeDiscountRetrySignature = null;
     }
 
     function startDomObserver() {
@@ -715,6 +729,17 @@
       });
     }
 
+    function dispatchCartContent(cartContent) {
+      document.documentElement.dispatchEvent(new CustomEvent('cart:updated', {
+        bubbles: true,
+        detail: { cart: cartContent }
+      }));
+      document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+        bubbles: true,
+        detail: { cart: cartContent }
+      }));
+    }
+
     function getDiscountMismatch(cart, status) {
       var projection = getTradeProjection(status, getCartEligibleTotalFromCart(cart));
       var shouldHaveTradeDiscount = shouldShowTradeUi(status) && projection.projectedDiscount > 0;
@@ -731,6 +756,54 @@
       };
     }
 
+    function getCartLineSignature(cart) {
+      if (!cart || !Array.isArray(cart.items)) return '';
+
+      return cart.items.map(function (item) {
+        return [
+          item.key,
+          item.quantity,
+          item.original_line_price,
+          item.final_line_price,
+          cartItemHasTradeDiscount(item) ? 'trade' : 'no-trade'
+        ].join(':');
+      }).join(',');
+    }
+
+    function getMismatchRetrySignature(cart, status, mismatch) {
+      return [
+        cart && cart.token || '',
+        getCartLineSignature(cart),
+        shouldSuppressPromos(status) ? 'restricted' : 'open',
+        shouldShowTradeUi(status) ? 'trade-active' : 'trade-inactive',
+        mismatch && mismatch.projection ? mismatch.projection.projectedDiscount : 0,
+        mismatch && mismatch.missingItems ? mismatch.missingItems.map(function (item) { return item.key; }).join(',') : ''
+      ].join('|');
+    }
+
+    function scheduleTradeDiscountRetry(status, signature) {
+      if (!shouldShowTradeUi(status)) {
+        clearTradeDiscountRetry();
+        return;
+      }
+
+      if (tradeDiscountRetrySignature !== signature) {
+        tradeDiscountRetrySignature = signature;
+        tradeDiscountRetryCount = 0;
+      }
+
+      if (tradeDiscountRetryCount >= 18 || tradeDiscountRetryTimer) return;
+
+      var delays = [1200, 1800, 2600, 4000, 6000, 8500, 12000, 16000, 22000, 30000, 40000, 50000, 60000, 60000, 60000, 60000, 60000, 60000];
+      var delay = delays[Math.min(tradeDiscountRetryCount, delays.length - 1)];
+      tradeDiscountRetryCount += 1;
+
+      tradeDiscountRetryTimer = setTimeout(function () {
+        tradeDiscountRetryTimer = null;
+        refreshCartForDiscountMismatch(status);
+      }, delay);
+    }
+
     function waitForResolvedTradeCart(status, attemptsRemaining) {
       attemptsRemaining = attemptsRemaining == null ? 4 : attemptsRemaining;
 
@@ -738,6 +811,12 @@
         var mismatch = getDiscountMismatch(cart, status);
 
         if (mismatch.isResolved || !attemptsRemaining) {
+          if (mismatch.isResolved) {
+            clearTradeDiscountRetry();
+            lastResolvedCartRenderSignature = getMismatchRetrySignature(cart, status, mismatch);
+          } else {
+            scheduleTradeDiscountRetry(status, getMismatchRetrySignature(cart, status, mismatch));
+          }
           return fetchFreshMiniCartPayload();
         }
 
@@ -768,17 +847,17 @@
           var mismatch = getDiscountMismatch(cart, status);
           var shouldSyncDiscountedCart = mismatch.shouldHaveTradeDiscount && mismatch.hasTradeDiscount && !mismatch.isResolved;
 
-          if (mismatch.isResolved || (!mismatch.hasMissingLine && !shouldSyncDiscountedCart)) return;
+          if (mismatch.isResolved) {
+            clearTradeDiscountRetry();
+            var resolvedRenderSignature = getMismatchRetrySignature(cart, status, mismatch);
+            if (lastResolvedCartRenderSignature === resolvedRenderSignature) return;
+            lastResolvedCartRenderSignature = resolvedRenderSignature;
+            return fetchFreshMiniCartPayload().then(dispatchCartContent);
+          }
 
-          var lineSignature = cart.items.map(function (item) {
-            return [
-              item.key,
-              item.quantity,
-              item.original_line_price,
-              item.final_line_price,
-              cartItemHasTradeDiscount(item) ? 'trade' : 'no-trade'
-            ].join(':');
-          }).join(',');
+          if (!mismatch.hasMissingLine && !shouldSyncDiscountedCart) return;
+
+          var lineSignature = getCartLineSignature(cart);
 
           var signature = [
             cart.token || '',
@@ -791,7 +870,10 @@
           ].join('|');
 
           cartRefreshAttempts[signature] = cartRefreshAttempts[signature] || 0;
-          if (cartRefreshAttempts[signature] >= (shouldSuppressPromos(status) ? 10 : 5)) return;
+          if (cartRefreshAttempts[signature] >= (shouldSuppressPromos(status) ? 10 : 5)) {
+            scheduleTradeDiscountRetry(status, getMismatchRetrySignature(cart, status, mismatch));
+            return fetchFreshMiniCartPayload().then(dispatchCartContent);
+          }
           cartRefreshAttempts[signature] += 1;
           var updates = {};
           cart.items.forEach(function (item) {
@@ -816,14 +898,7 @@
                 });
             })
             .then(function (cartContent) {
-              document.documentElement.dispatchEvent(new CustomEvent('cart:updated', {
-                bubbles: true,
-                detail: { cart: cartContent }
-              }));
-              document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
-                bubbles: true,
-                detail: { cart: cartContent }
-              }));
+              dispatchCartContent(cartContent);
             });
         })
         .catch(function () {
