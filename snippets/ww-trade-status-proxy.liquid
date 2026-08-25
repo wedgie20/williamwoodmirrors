@@ -109,10 +109,15 @@
     function normalizeTierThresholdCents(tier) {
       var centsValue = firstDefined(
         tier.minimum_spend_cents,
+        tier.minimumSpendCents,
         tier.minimum_qualifying_spend_cents,
+        tier.minimumQualifyingSpendCents,
         tier.threshold_cents,
+        tier.thresholdCents,
         tier.min_spend_cents,
-        tier.amount_cents
+        tier.minSpendCents,
+        tier.amount_cents,
+        tier.amountCents
       );
 
       if (centsValue !== null) {
@@ -122,9 +127,15 @@
 
       var poundsValue = firstDefined(
         tier.minimum_spend,
+        tier.minimumSpend,
         tier.minimum_qualifying_spend,
+        tier.minimumQualifyingSpend,
+        tier.minimum,
         tier.threshold,
+        tier.thresholdAmount,
         tier.min_spend,
+        tier.minSpend,
+        tier.spend,
         tier.amount
       );
 
@@ -138,6 +149,7 @@
     function normalizeTierDiscount(tier) {
       var discount = normalizePercentage(firstDefined(
         tier.discount_percentage,
+        tier.discountPercentage,
         tier.discountPercent,
         tier.discount_percent,
         tier.discount,
