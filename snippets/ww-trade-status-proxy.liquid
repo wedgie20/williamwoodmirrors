@@ -341,6 +341,7 @@
       document.documentElement.classList.toggle('ww-suppress-promos', suppressPromos);
       applyPromoSuppression(status);
       applySalePriceSuppression(status);
+      syncTradeProductFormProperties(status);
     }
 
     function reapplyTradeState() {
@@ -357,6 +358,59 @@
     function scheduleReapplyTradeState() {
       clearTimeout(reapplyTimer);
       reapplyTimer = setTimeout(reapplyTradeState, 80);
+    }
+
+    function setHiddenPropertyInput(form, key, value) {
+      var name = 'properties[' + key + ']';
+      var input = form.querySelector('input[name="' + name + '"]');
+
+      if (!input) {
+        input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        form.appendChild(input);
+      }
+
+      input.value = String(value);
+    }
+
+    function clearTradePropertyInputs(form) {
+      form.querySelectorAll('input[name^="properties[_ww_trade_"]').forEach(function (input) {
+        input.remove();
+      });
+    }
+
+    function syncTradeProductFormProperties(status) {
+      var discount = getEffectiveTradeDiscount(status);
+      var tradeActive = shouldShowTradeUi(status) && discount > 0;
+      var restrictionActive = shouldSuppressPromos(status);
+
+      document.querySelectorAll('form[action*="/cart/add"]').forEach(function (form) {
+        var container = form.closest('.ww-pdp, .product, .shopify-section') || document;
+        var priceGroup = container.querySelector('[data-ww-trade-price-group]');
+        if (!priceGroup) {
+          clearTradePropertyInputs(form);
+          return;
+        }
+
+        var currentPriceCents = Number(priceGroup.getAttribute('data-current-price-cents') || 0);
+        var compareAtPriceCents = Number(priceGroup.getAttribute('data-compare-at-price-cents') || 0);
+        var saleSuppressed = restrictionActive && compareAtPriceCents > currentPriceCents;
+
+        if (!tradeActive) {
+          clearTradePropertyInputs(form);
+          return;
+        }
+
+        setHiddenPropertyInput(form, '_ww_trade_customer', 'true');
+        setHiddenPropertyInput(form, '_ww_trade_discount_active', 'true');
+        setHiddenPropertyInput(form, '_ww_trade_discount_percentage', discount);
+        setHiddenPropertyInput(form, '_ww_trade_discount_restriction_active', restrictionActive ? 'true' : 'false');
+        setHiddenPropertyInput(form, '_ww_trade_sale_suppressed', saleSuppressed ? 'true' : 'false');
+        setHiddenPropertyInput(form, '_ww_trade_regular_price_cents', saleSuppressed ? compareAtPriceCents : currentPriceCents);
+        setHiddenPropertyInput(form, '_ww_trade_sale_price_cents', currentPriceCents);
+        setHiddenPropertyInput(form, '_ww_trade_state_signature', getCartRefreshStateSignature(status));
+      });
     }
 
     function scheduleCartDrawerRefresh(delays) {
@@ -672,19 +726,65 @@
       }, 0);
     }
 
+    function escapeSelectorValue(value) {
+      if (window.CSS && typeof CSS.escape === 'function') {
+        return CSS.escape(value);
+      }
+
+      return String(value).replace(/["\\]/g, '\\$&');
+    }
+
+    function getDrawerLineData(item) {
+      var key = item && item.key;
+      var line = key ? document.querySelector('[data-ww-line-key="' + escapeSelectorValue(key) + '"]') : null;
+      var quantity = Number(item && item.quantity || 1) || 1;
+      var compareTotal = line ? Number(line.getAttribute('data-ww-line-compare-total') || 0) : 0;
+      var originalTotal = Number(item && item.original_line_price || 0);
+      var finalTotal = Number(item && item.final_line_price || 0);
+      var salePriced = line ? line.getAttribute('data-ww-line-on-sale') === 'true' : compareTotal > originalTotal;
+
+      return {
+        salePriced: salePriced,
+        compareTotal: compareTotal,
+        compareUnit: compareTotal > 0 ? Math.round(compareTotal / quantity) : 0,
+        originalTotal: originalTotal,
+        finalTotal: finalTotal
+      };
+    }
+
     function getLineRefreshProperties(item, status) {
       var properties = {};
       var source = item && item.properties || {};
+      var lineData = getDrawerLineData(item);
+      var discount = getEffectiveTradeDiscount(status);
+      var restrictionActive = shouldSuppressPromos(status);
+      var sourceSaleSuppressed = String(source._ww_trade_sale_suppressed || '').toLowerCase() === 'true';
+      var sourceRegularPriceCents = Number(source._ww_trade_regular_price_cents || 0);
+      var sourceRegularLinePriceCents = Number(source._ww_trade_regular_line_price_cents || 0);
+      var saleSuppressed = restrictionActive && (lineData.salePriced || sourceSaleSuppressed);
+      var regularPriceCents = saleSuppressed && lineData.compareUnit > 0 ? lineData.compareUnit : (sourceRegularPriceCents || Number(item && item.price || 0));
+      var regularLinePriceCents = saleSuppressed && lineData.compareTotal > 0 ? lineData.compareTotal : (sourceRegularLinePriceCents || lineData.originalTotal);
 
       Object.keys(source).forEach(function (key) {
         if (key === '_ww_trade_recalc') return;
         properties[key] = source[key];
       });
 
+      properties._ww_trade_customer = isTradeCustomerSignal(status) ? 'true' : 'false';
+      properties._ww_trade_discount_active = shouldShowTradeUi(status) ? 'true' : 'false';
+      properties._ww_trade_discount_percentage = String(discount);
+      properties._ww_trade_discount_restriction_active = restrictionActive ? 'true' : 'false';
+      properties._ww_trade_sale_suppressed = saleSuppressed ? 'true' : 'false';
+      properties._ww_trade_regular_price_cents = String(regularPriceCents);
+      properties._ww_trade_regular_line_price_cents = String(regularLinePriceCents);
+      properties._ww_trade_sale_line_price_cents = String(lineData.originalTotal);
+      properties._ww_trade_state_signature = getCartRefreshStateSignature(status);
+
       properties._ww_trade_recalc = [
         getCartRefreshStateSignature(status),
         item && item.variant_id || '',
-        item && item.quantity || ''
+        item && item.quantity || '',
+        regularLinePriceCents
       ].join(':');
 
       return properties;
