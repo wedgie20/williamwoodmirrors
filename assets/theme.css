@@ -2961,7 +2961,7 @@ font-size: 8px: !important;
   font-style: var(--text-font-style);
   font-weight: var(--text-font-bold-weight);
   font-size: 10px;
-  /* text-transform: uppercase; */
+  text-transform: capitalize;
   letter-spacing: 0.5px;
   border-radius: min(var(--block-border-radius), 2px);
 }
