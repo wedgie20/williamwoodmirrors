@@ -80,20 +80,18 @@
       var accountSpendCents = Math.round(Number(status && status.qualifying_spend_12_months || 0) * 100);
       var projectedSpendCents = accountSpendCents + (Number(cartEligibleCents) || 0);
       var accountDiscount = getEffectiveTradeDiscount(status);
-      var projectedDiscount = 0;
+      var projectedDiscount = isTradeCustomerSignal(status) && isTradeDiscountActive(status) ? 30 : 0;
 
       if (projectedSpendCents >= 500000) {
         projectedDiscount = 35;
       } else if (projectedSpendCents >= 300000) {
         projectedDiscount = 33;
-      } else if (projectedSpendCents >= 99900) {
-        projectedDiscount = 30;
       }
 
       projectedDiscount = Math.max(projectedDiscount, accountDiscount);
 
-      var nextThresholdCents = 99900;
-      var nextDiscount = 30;
+      var nextThresholdCents = 300000;
+      var nextDiscount = 33;
 
       if (projectedDiscount >= 35 || projectedSpendCents >= 500000) {
         nextThresholdCents = 1000000;
@@ -101,7 +99,7 @@
       } else if (projectedDiscount >= 33 || projectedSpendCents >= 300000) {
         nextThresholdCents = 500000;
         nextDiscount = 35;
-      } else if (projectedDiscount >= 30 || projectedSpendCents >= 99900) {
+      } else if (projectedDiscount >= 30) {
         nextThresholdCents = 300000;
         nextDiscount = 33;
       }
@@ -117,19 +115,19 @@
     }
 
     function renderTierProgress(progress, projectedSpendCents) {
-      var tier30Reached = projectedSpendCents >= 99900;
+      var tier30Reached = true;
       var tier33Reached = projectedSpendCents >= 300000;
       var tier35Reached = projectedSpendCents >= 500000;
 
       return '<div class="ww-trade-message__tier-bar" aria-label="Trade tier progress" style="max-width:392px;margin:18px auto 0;padding-bottom:30px;">' +
         '<div class="ww-trade-message__progress" aria-hidden="true" style="position:relative;display:block;width:100%;height:6px;margin:0 auto;overflow:visible;background-color:#dededf;border-radius:4px;">' +
           '<span style="display:block;width:' + progress + '%;height:100%;background:linear-gradient(90deg,#bbf3c1,#00b67a 70%,#005036);border-radius:inherit;transition:width .25s ease;"></span>' +
-          '<i class="ww-trade-message__breakpoint" style="position:absolute;top:50%;left:19.98%;z-index:2;width:10px;height:10px;background:' + (tier30Reached ? '#00b67a' : '#fff') + ';border:2px solid #00b67a;border-radius:999px;transform:translate(-50%,-50%);"></i>' +
+          '<i class="ww-trade-message__breakpoint" style="position:absolute;top:50%;left:0%;z-index:2;width:10px;height:10px;background:' + (tier30Reached ? '#00b67a' : '#fff') + ';border:2px solid #00b67a;border-radius:999px;transform:translate(0,-50%);"></i>' +
           '<i class="ww-trade-message__breakpoint" style="position:absolute;top:50%;left:60%;z-index:2;width:10px;height:10px;background:' + (tier33Reached ? '#00b67a' : '#fff') + ';border:2px solid #00b67a;border-radius:999px;transform:translate(-50%,-50%);"></i>' +
           '<i class="ww-trade-message__breakpoint" style="position:absolute;top:50%;left:100%;z-index:2;width:10px;height:10px;background:' + (tier35Reached ? '#00b67a' : '#fff') + ';border:2px solid #00b67a;border-radius:999px;transform:translate(-100%,-50%);"></i>' +
         '</div>' +
         '<div class="ww-trade-message__breakpoint-labels" aria-hidden="true" style="position:relative;width:100%;height:16px;margin:8px auto 0;font-size:10px;line-height:1.1;">' +
-          '<span style="position:absolute;top:0;left:19.98%;display:inline-flex;align-items:center;min-width:54px;color:#111;transform:translateX(-50%);"><strong style="font-size:10px;font-weight:700;">30%</strong></span>' +
+          '<span style="position:absolute;top:0;left:0%;display:inline-flex;align-items:center;min-width:54px;color:#111;transform:translateX(0);"><strong style="font-size:10px;font-weight:700;">30%</strong></span>' +
           '<span style="position:absolute;top:0;left:60%;display:inline-flex;align-items:center;min-width:54px;color:#111;transform:translateX(-50%);"><strong style="font-size:10px;font-weight:700;">33%</strong></span>' +
           '<span style="position:absolute;top:0;left:100%;display:inline-flex;align-items:center;justify-content:flex-end;min-width:54px;color:#111;transform:translateX(-100%);"><strong style="font-size:10px;font-weight:700;">35%</strong></span>' +
         '</div>' +
@@ -474,7 +472,7 @@
       } else if (projection.projectedDiscount > 0) {
         target.innerHTML = '<p class="ww-trade-message__title">' + projection.projectedDiscount + '% trade pricing applies</p><p>Your basket qualifies for the highest automatic trade discount tier.</p>' + progressHtml;
       } else {
-        target.innerHTML = '<p class="ww-trade-message__title">Trade progress</p><p>Add <strong>' + formatMoneyFromCents(projection.remainingCents) + '</strong> in full-priced products to unlock <strong>30%</strong> trade pricing.</p>' + progressHtml;
+        target.innerHTML = '<p class="ww-trade-message__title">Trade progress</p><p>Add <strong>' + formatMoneyFromCents(projection.remainingCents) + '</strong> in full-priced products to reach <strong>33%</strong> trade pricing.</p>' + progressHtml;
       }
     }
 

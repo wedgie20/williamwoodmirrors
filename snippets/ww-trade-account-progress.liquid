@@ -22,9 +22,7 @@
   assign trade_next_threshold_cents = trade_next_threshold | times: 100
 
   if trade_next_threshold_cents == 0
-    if trade_spend_cents < 99900
-      assign trade_next_threshold_cents = 99900
-    elsif trade_spend_cents < 300000
+    if trade_spend_cents < 300000
       assign trade_next_threshold_cents = 300000
     elsif trade_spend_cents < 500000
       assign trade_next_threshold_cents = 500000
@@ -34,9 +32,7 @@
   endif
 
   assign trade_next_discount = 0
-  if trade_next_threshold_cents == 99900
-    assign trade_next_discount = 30
-  elsif trade_next_threshold_cents == 300000
+  if trade_next_threshold_cents == 300000
     assign trade_next_discount = 33
   elsif trade_next_threshold_cents == 500000
     assign trade_next_discount = 35
@@ -59,8 +55,12 @@
     assign trade_is_top_tier = true
   endif
 
-  if trade_discount == 0 and trade_is_top_tier and trade_tier != 'not_qualified'
-    assign trade_discount = 35
+  if trade_discount == 0 and trade_is_customer and trade_tier != 'not_qualified'
+    if trade_is_top_tier
+      assign trade_discount = 35
+    else
+      assign trade_discount = 30
+    endif
   endif
 
   assign monthly_spend = customer.metafields.trade.monthly_spend_json.value
