@@ -37,6 +37,7 @@
     var cartDrawerRefreshTimers = [];
     var domObserver = null;
     var reapplyTimer = null;
+    var queuedCartRefreshStatus = null;
 
     function isTruthy(value) {
       if (value === true) return true;
@@ -593,28 +594,40 @@
     }
 
     function fetchFreshMiniCartPayload() {
-      return Promise.all([
-        fetch('/cart.js?_=' + Date.now(), {
-          credentials: 'same-origin',
-          cache: 'no-store',
-          headers: { Accept: 'application/json' }
-        }).then(function (response) {
+      return fetch('/cart.js?_=' + Date.now(), {
+        credentials: 'same-origin',
+        cache: 'no-store',
+        headers: { Accept: 'application/json' }
+      })
+        .then(function (response) {
           if (!response.ok) throw new Error('Fresh cart unavailable');
           return response.json();
-        }),
-        fetch('{{ routes.cart_url }}?section_id=mini-cart&_=' + Date.now(), {
-          credentials: 'same-origin',
-          cache: 'no-store'
-        }).then(function (response) {
-          if (!response.ok) throw new Error('Fresh mini-cart unavailable');
-          return response.text();
         })
-      ]).then(function (responses) {
-        var cart = responses[0];
-        var html = responses[1];
-        cart.sections = cart.sections || {};
-        cart.sections['mini-cart'] = html;
-        return cart;
+        .then(function (cart) {
+          return fetch('{{ routes.cart_url }}?section_id=mini-cart&_=' + Date.now(), {
+            credentials: 'same-origin',
+            cache: 'no-store'
+          })
+            .then(function (response) {
+              if (!response.ok) throw new Error('Fresh mini-cart unavailable');
+              return response.text();
+            })
+            .then(function (html) {
+              cart.sections = cart.sections || {};
+              cart.sections['mini-cart'] = html;
+              return cart;
+            });
+        });
+    }
+
+    function fetchCart() {
+      return fetch('/cart.js?_=' + Date.now(), {
+        credentials: 'same-origin',
+        cache: 'no-store',
+        headers: { Accept: 'application/json' }
+      }).then(function (response) {
+        if (!response.ok) throw new Error('Cart unavailable');
+        return response.json();
       });
     }
 
@@ -653,29 +666,56 @@
       }, Promise.resolve());
     }
 
-    function refreshCartForDiscountMismatch(status) {
-      if (!isTradeCustomerSignal(status) || cartRefreshInFlight) return Promise.resolve();
+    function getDiscountMismatch(cart, status) {
+      var projection = getTradeProjection(status, getCartEligibleTotalFromCart(cart));
+      var shouldHaveTradeDiscount = shouldShowTradeUi(status) && projection.projectedDiscount > 0;
+      var missingExpectedTradeDiscountItems = shouldHaveTradeDiscount ? getMissingExpectedTradeDiscountItems(cart, status, projection) : [];
+      var hasTradeDiscount = cartHasTradeDiscount(cart);
 
-      return fetch('/cart.js?_=' + Date.now(), {
-        credentials: 'same-origin',
-        cache: 'no-store',
-        headers: { Accept: 'application/json' }
-      })
-        .then(function (response) {
-          if (!response.ok) throw new Error('Cart unavailable');
-          return response.json();
-        })
+      return {
+        projection: projection,
+        shouldHaveTradeDiscount: shouldHaveTradeDiscount,
+        missingItems: missingExpectedTradeDiscountItems,
+        hasMissingLine: missingExpectedTradeDiscountItems.length > 0,
+        hasTradeDiscount: hasTradeDiscount,
+        isResolved: !missingExpectedTradeDiscountItems.length && hasTradeDiscount === shouldHaveTradeDiscount
+      };
+    }
+
+    function waitForResolvedTradeCart(status, attemptsRemaining) {
+      attemptsRemaining = attemptsRemaining == null ? 4 : attemptsRemaining;
+
+      return fetchCart().then(function (cart) {
+        var mismatch = getDiscountMismatch(cart, status);
+
+        if (mismatch.isResolved || !attemptsRemaining) {
+          return fetchFreshMiniCartPayload();
+        }
+
+        return wait(650).then(function () {
+          return waitForResolvedTradeCart(status, attemptsRemaining - 1);
+        });
+      });
+    }
+
+    function refreshCartForDiscountMismatch(status) {
+      if (!isTradeCustomerSignal(status)) return Promise.resolve();
+
+      if (cartRefreshInFlight) {
+        queuedCartRefreshStatus = status;
+        return Promise.resolve();
+      }
+
+      cartRefreshInFlight = true;
+
+      return fetchCart()
         .then(function (cart) {
           if (!cart || !cart.item_count || !(cart.items || []).length) return;
 
-          var hasTradeDiscount = cartHasTradeDiscount(cart);
-          var projection = getTradeProjection(status, getCartEligibleTotalFromCart(cart));
-          var shouldHaveTradeDiscount = shouldShowTradeUi(status) && projection.projectedDiscount > 0;
-          var missingExpectedTradeDiscountItems = shouldHaveTradeDiscount ? getMissingExpectedTradeDiscountItems(cart, status, projection) : [];
-          var missingExpectedTradeDiscountLine = missingExpectedTradeDiscountItems.length > 0;
-          var shouldSyncDiscountedCart = shouldHaveTradeDiscount && hasTradeDiscount;
+          var mismatch = getDiscountMismatch(cart, status);
+          var shouldSyncDiscountedCart = mismatch.shouldHaveTradeDiscount && mismatch.hasTradeDiscount && !mismatch.isResolved;
 
-          if (!missingExpectedTradeDiscountLine && !shouldSyncDiscountedCart && hasTradeDiscount === shouldHaveTradeDiscount) return;
+          if (mismatch.isResolved || (!mismatch.hasMissingLine && !shouldSyncDiscountedCart)) return;
 
           var lineSignature = cart.items.map(function (item) {
             return [
@@ -692,21 +732,20 @@
             lineSignature,
             shouldSuppressPromos(status) ? 'restricted' : 'open',
             shouldShowTradeUi(status) ? 'trade-active' : 'trade-inactive',
-            projection.projectedDiscount,
-            missingExpectedTradeDiscountItems.map(function (item) { return item.key; }).join(','),
-            missingExpectedTradeDiscountLine ? 'line-missing' : (shouldSyncDiscountedCart ? 'sync' : (hasTradeDiscount ? 'has' : 'missing'))
+            mismatch.projection.projectedDiscount,
+            mismatch.missingItems.map(function (item) { return item.key; }).join(','),
+            mismatch.hasMissingLine ? 'line-missing' : (shouldSyncDiscountedCart ? 'sync' : (mismatch.hasTradeDiscount ? 'has' : 'missing'))
           ].join('|');
 
           cartRefreshAttempts[signature] = cartRefreshAttempts[signature] || 0;
           if (cartRefreshAttempts[signature] >= (shouldSuppressPromos(status) ? 10 : 5)) return;
           cartRefreshAttempts[signature] += 1;
-          cartRefreshInFlight = true;
           var updates = {};
           cart.items.forEach(function (item) {
             if (item && item.key) updates[item.key] = item.quantity;
           });
 
-          return pulseMissingTradeDiscountLines(missingExpectedTradeDiscountItems).then(function () {
+          return pulseMissingTradeDiscountLines(mismatch.missingItems).then(function () {
             return fetch('/cart/update.js', {
             method: 'POST',
             credentials: 'same-origin',
@@ -728,8 +767,10 @@
               return response.json();
             })
             .then(function (cartContent) {
-              return wait(shouldSuppressPromos(status) && missingExpectedTradeDiscountLine ? 1200 : 650)
-                .then(fetchFreshMiniCartPayload)
+              return wait(shouldSuppressPromos(status) && mismatch.hasMissingLine ? 800 : 500)
+                .then(function () {
+                  return waitForResolvedTradeCart(status);
+                })
                 .catch(function () {
                   return cartContent;
                 });
@@ -743,13 +784,19 @@
                 bubbles: true,
                 detail: { cart: cartContent }
               }));
-            })
-            .finally(function () {
-              cartRefreshInFlight = false;
             });
         })
         .catch(function () {
+        })
+        .finally(function () {
           cartRefreshInFlight = false;
+          if (queuedCartRefreshStatus) {
+            var nextStatus = queuedCartRefreshStatus;
+            queuedCartRefreshStatus = null;
+            setTimeout(function () {
+              refreshCartForDiscountMismatch(nextStatus);
+            }, 100);
+          }
         });
     }
 
