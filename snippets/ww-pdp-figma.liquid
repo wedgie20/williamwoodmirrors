@@ -896,7 +896,7 @@
             {%- if current_variant.available -%}
               {%- if is_preorder -%}
                 <span>Pre-order</span>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 1-8.5 12h1.7A7.5 7.5 0 1 0 12 4.5c-2 0-3.8.8-5.1 2.1L9 8.7H3.8V3.5l2 2A9 9 0 0 1 12 3Zm.8 4.5v4.2l3.2 1.9-.8 1.3-3.9-2.3V7.5h1.5Z"/></svg>
+                {% comment %} <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 1-8.5 12h1.7A7.5 7.5 0 1 0 12 4.5c-2 0-3.8.8-5.1 2.1L9 8.7H3.8V3.5l2 2A9 9 0 0 1 12 3Zm.8 4.5v4.2l3.2 1.9-.8 1.3-3.9-2.3V7.5h1.5Z"/></svg> {% endcomment %}
               {%- else -%}
                 Add to bag
               {%- endif -%}
