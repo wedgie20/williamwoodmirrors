@@ -1184,6 +1184,20 @@
         line-height: 35px !important;
   }
 
+  /* When the product is already saved to the wishlist, turn the icon black; otherwise leave it as-is. */
+  .ww-pdp_wishlist_btn.swym-added,
+  .ww-pdp_wishlist_btn.swym-added *,
+  .ww-pdp_wishlist_btn.is-active,
+  .ww-pdp_wishlist_btn.is-active * {
+    color: #000 !important;
+  }
+
+  .ww-pdp_wishlist_btn.swym-added svg path,
+  .ww-pdp_wishlist_btn.is-active svg path {
+    fill: currentColor !important;
+    stroke: currentColor !important;
+  }
+
 .ww-pdp__pill--pulse {
   position: relative;
   display: inline-block;

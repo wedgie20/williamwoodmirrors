@@ -1104,6 +1104,19 @@ function scrollToFaq(e) {
         {%- endif -%}
 
         <div class="swym-wishlist-button-bar"></div>
+        <style>
+          /* PDP wishlist icon (mobile + desktop): turn it black once the product is saved to the wishlist,
+             leave it unchanged otherwise. Swym adds the "swym-added" class to the toggled element itself. */
+          .swym-wishlist-button-bar .swym-added,
+          .swym-wishlist-button-bar .swym-added * {
+            color: #000 !important;
+          }
+
+          .swym-wishlist-button-bar .swym-added svg path {
+            fill: currentColor !important;
+            stroke: currentColor !important;
+          }
+        </style>
         <script>
           (() => {
             if (window.__wwMobileWishlistMounted) {
