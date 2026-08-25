@@ -185,6 +185,13 @@
     }
   }
 
+  /* While the header is transparent (floating over the hero image, no solid background yet),
+     show the wishlist count as a black number on a white badge instead of the default black badge. */
+  #shopify-section-{{ section.id }} .header--transparent #swym-header-wishlist-count {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
   #shopify-section-{{ section.id }} .wisp [class*="count"],
   #shopify-section-{{ section.id }} .wisp [class*="Count"],
   #shopify-section-{{ section.id }} .wisp [class*="badge"],
