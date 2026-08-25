@@ -3025,6 +3025,27 @@
       display: none;
     }
 
+    .ww-pdp-sticky-atc__button [data-pp-message],
+    .ww-pdp-sticky-atc__button .paypal-messages,
+    .ww-pdp-sticky-atc__button product-payment-terms,
+    .ww-pdp-sticky-atc__button .shopify-payment-terms,
+    .ww-pdp-sticky-atc__button .shopify-installments,
+    .ww-pdp-sticky-atc__button [id^="paypal-upstream-messaging"],
+    .ww-pdp-sticky-atc__button [id^="zoid-paypal-message"],
+    .ww-pdp-sticky-atc__button iframe[name^="__zoid__paypal_message"] {
+      display: none !important;
+      visibility: hidden !important;
+      width: 0 !important;
+      min-width: 0 !important;
+      max-width: 0 !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      max-height: 0 !important;
+      overflow: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
     .ww-pdp-sticky-atc__button {
       display: flex;
       align-items: center;
@@ -4118,6 +4139,21 @@
       return (compareText ? '<span class="ww-pdp-sticky-atc__price-compare">' + compareText + '</span>' : '') + '<span class="ww-pdp-sticky-atc__price-current">' + priceText + '</span>';
     }
 
+    function isMobileStickyAtc() {
+      return window.matchMedia && window.matchMedia('(max-width: 999px)').matches;
+    }
+
+    var cleaningStickyPaymentMessages = false;
+
+    function removeStickyPaymentMessages() {
+      if (cleaningStickyPaymentMessages || !stickyAddButton || !isMobileStickyAtc()) return;
+      cleaningStickyPaymentMessages = true;
+      stickyAddButton.querySelectorAll('[data-pp-message], .paypal-messages, product-payment-terms, .shopify-payment-terms, .shopify-installments, [id^="paypal-upstream-messaging"], [id^="zoid-paypal-message"], iframe[name^="__zoid__paypal_message"]').forEach(function (node) {
+        node.remove();
+      });
+      cleaningStickyPaymentMessages = false;
+    }
+
     function updateStickyPrice(priceText, compareText) {
       if (!stickyPrice || !priceText) return;
       stickyPrice.classList.toggle('is-discounted', !!compareText);
@@ -4133,6 +4169,7 @@
       if (stickyMobileLabel) {
         stickyMobileLabel.classList.toggle('is-discounted', !!compareText);
         stickyMobileLabel.innerHTML = available ? stickyPriceHtml(priceText, compareText) + '<span aria-hidden="true">-</span><span>' + addToBagLabel + '</span>' : soldOutWaitlistLabel;
+        removeStickyPaymentMessages();
       }
     }
 
@@ -4246,9 +4283,17 @@
         {{ current_variant.available | json }}
       );
       updateStickyVisibility();
+      removeStickyPaymentMessages();
+      setTimeout(removeStickyPaymentMessages, 250);
+      setTimeout(removeStickyPaymentMessages, 1000);
+      if (stickyMobileLabel && window.MutationObserver) {
+        new MutationObserver(removeStickyPaymentMessages).observe(stickyMobileLabel, { childList: true, subtree: true });
+      }
       window.addEventListener('scroll', updateStickyVisibility, { passive: true });
       window.addEventListener('resize', updateStickyVisibility);
+      window.addEventListener('resize', removeStickyPaymentMessages);
       window.addEventListener('load', updateStickyVisibility);
+      window.addEventListener('load', removeStickyPaymentMessages);
     }
 
     function updateSelectedVariantDisplay(option) {
