@@ -499,6 +499,26 @@
       // so older event paths can call it without interrupting the trade refresh pass.
     }
 
+    function getDiscountAmount(discount) {
+      if (!discount) return 0;
+
+      return Number(
+        discount.amount ||
+        discount.total_allocated_amount ||
+        discount.allocated_amount ||
+        0
+      );
+    }
+
+    function discountHasTitle(discount, titlePattern) {
+      if (!discount) return false;
+
+      var title = discount.discount_application && discount.discount_application.title;
+      title = String(title || discount.title || discount.code || '').toLowerCase();
+
+      return title.indexOf(titlePattern) !== -1;
+    }
+
     function cartItemHasTradeDiscount(item) {
       if (!item) return false;
 
@@ -506,10 +526,9 @@
       var discounts = item.discounts || [];
 
       return lineAllocations.some(function (allocation) {
-        var title = allocation.discount_application && allocation.discount_application.title;
-        return String(title || allocation.title || '').toLowerCase().indexOf('trade discount') !== -1;
+        return discountHasTitle(allocation, 'trade discount') && getDiscountAmount(allocation) > 0;
       }) || discounts.some(function (discount) {
-        return String(discount.title || '').toLowerCase().indexOf('trade discount') !== -1;
+        return discountHasTitle(discount, 'trade discount') && getDiscountAmount(discount) > 0;
       });
     }
 
@@ -521,11 +540,11 @@
 
       return discounts.some(function (discount) {
         var title = String(discount.title || '').toLowerCase();
-        return title && title.indexOf('trade discount') === -1;
+        return title && title.indexOf('trade discount') === -1 && getDiscountAmount(discount) > 0;
       }) || lineAllocations.some(function (allocation) {
         var title = allocation.discount_application && allocation.discount_application.title;
         title = String(title || allocation.title || '').toLowerCase();
-        return title && title.indexOf('trade discount') === -1;
+        return title && title.indexOf('trade discount') === -1 && getDiscountAmount(allocation) > 0;
       });
     }
 
@@ -550,7 +569,7 @@
 
       var cartLevel = cart.cart_level_discount_applications || [];
       if (cartLevel.some(function (discount) {
-        return String(discount.title || '').toLowerCase().indexOf('trade discount') !== -1;
+        return discountHasTitle(discount, 'trade discount') && getDiscountAmount(discount) > 0;
       })) {
         return true;
       }
@@ -692,9 +711,13 @@
           return fetchFreshMiniCartPayload();
         }
 
-        return wait(650).then(function () {
-          return waitForResolvedTradeCart(status, attemptsRemaining - 1);
-        });
+        return pulseMissingTradeDiscountLines(mismatch.missingItems)
+          .then(function () {
+            return wait(650);
+          })
+          .then(function () {
+            return waitForResolvedTradeCart(status, attemptsRemaining - 1);
+          });
       });
     }
 
