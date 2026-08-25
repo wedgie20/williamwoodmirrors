@@ -685,6 +685,36 @@
       }, Promise.resolve());
     }
 
+    function getTradeCartAttributes(status) {
+      return {
+        _ww_trade_refresh: String(Date.now()),
+        _ww_trade_customer: isTradeCustomerSignal(status) ? 'true' : 'false',
+        _ww_trade_discount_active: shouldShowTradeUi(status) ? 'true' : 'false',
+        _ww_trade_discount_percentage: String(Number(status && status.current_discount || 0)),
+        _ww_trade_discount_restriction_active: shouldSuppressPromos(status) ? 'true' : 'false',
+        _ww_trade_state_signature: getCartRefreshStateSignature(status)
+      };
+    }
+
+    function updateCartForTradeRefresh(status, updates) {
+      return fetch('/cart/update.js', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          updates: updates || {},
+          attributes: getTradeCartAttributes(status),
+          sections: ['mini-cart']
+        })
+      }).then(function (response) {
+        if (!response.ok) throw new Error('Cart refresh failed');
+        return response.json();
+      });
+    }
+
     function getDiscountMismatch(cart, status) {
       var projection = getTradeProjection(status, getCartEligibleTotalFromCart(cart));
       var shouldHaveTradeDiscount = shouldShowTradeUi(status) && projection.projectedDiscount > 0;
@@ -768,26 +798,13 @@
             if (item && item.key) updates[item.key] = item.quantity;
           });
 
-          return pulseMissingTradeDiscountLines(mismatch.missingItems).then(function () {
-            return fetch('/cart/update.js', {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-              'Content-Type': 'application/json',
-              Accept: 'application/json'
-            },
-            body: JSON.stringify({
-              updates: updates,
-              attributes: {
-                _ww_trade_refresh: String(Date.now())
-              },
-              sections: ['mini-cart']
-            })
-            });
-          })
-            .then(function (response) {
-              if (!response.ok) throw new Error('Cart refresh failed');
-              return response.json();
+          return updateCartForTradeRefresh(status, updates)
+            .then(function (cartContent) {
+              return wait(350).then(function () {
+                return pulseMissingTradeDiscountLines(mismatch.missingItems);
+              }).then(function () {
+                return cartContent;
+              });
             })
             .then(function (cartContent) {
               return wait(shouldSuppressPromos(status) && mismatch.hasMissingLine ? 800 : 500)
