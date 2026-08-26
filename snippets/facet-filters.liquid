@@ -126,59 +126,7 @@
 
           <div class="product-facet__filter-item {{ filter_label_downcase | handle }} {% if filter_label_downcase contains 'height' %}visually-hidden{% endif %}">
             {%- if filter.type == 'list' or filter.type == 'price_range' -%}
-              <button
-                type="button"
-                is="toggle-button"
-                class="collapsible-toggle text--strong"
-                aria-controls="facet-filter-{{ filter.param_name | escape }}"
-                aria-expanded="{% if is_filter_group_open %}true{% else %}false{% endif %}"
-              >
-                {% if filter_label_downcase contains 'width' %}
-                  Enter Your Dimensions
-                {% else %}
-                  {{- filter.label -}}
-                {% endif %}
-                {%- case filter.type -%}
-                  {%- when 'list' -%}
-                    {% if filter_label_downcase contains 'height' or filter_label_downcase contains 'width' %}
-                      <span
-                        class="collapsible-toggle__selected-value text--subdued text--small number-of-matches"
-                      ></span>
-                      <span
-                        class="collapsible-toggle__selected-value text--subdued text--small hidden-tablet-and-up filter-selected-value"
-                      ></span>
-                    {% endif %}
-
-                    {% unless filter_label_downcase contains 'height' or filter_label_downcase contains 'width' %}
-                      {%- if filter.active_values.size > 0 -%}
-                        <span class="collapsible-toggle__selected-value text--subdued text--small hidden-tablet-and-up">
-                          {{- filter.active_values | map: 'label' | join: ', ' -}}
-                        </span>
-                      {%- endif -%}
-                    {% endunless %}
-
-                  {%- when 'price_range' -%}
-                    {%- assign min_value_formatted = filter.min_value.value
-                      | default: 0
-                      | money_without_trailing_zeros
-                    -%}
-                    {%- assign max_value_formatted = filter.max_value.value
-                      | default: filter.range_max
-                      | money_without_trailing_zeros
-                    -%}
-
-                    {%- if filter.min_value.value or filter.max_value.value -%}
-                      <span class="collapsible-toggle__selected-value text--subdued text--small hidden-tablet-and-up">
-                        {{-
-                          'collection.general.price_filter'
-                          | t: min_price: min_value_formatted, max_price: max_value_formatted
-                        -}}
-                      </span>
-                    {%- endif -%}
-                {%- endcase -%}
-
-                {%- render 'icon' with 'chevron', inline: true -%}
-              </button>
+             
             {%- elsif filter.type == 'boolean' -%}
               {%- if filter.true_value -%}
                 <div class="collapsible-toggle text--strong">
