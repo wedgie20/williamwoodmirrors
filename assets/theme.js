@@ -6464,6 +6464,66 @@ document.addEventListener('tidioChat-ready', onTidioChatApiReady);
   }
 
   window.__wwCollectionWishlistBound = true;
+  const wishlistButtonSelector = "[data-ww-card-wishlist]";
+  const selectedWishlistKeys = /* @__PURE__ */ new Set();
+  let lastWishlistClickAt = 0;
+  let wishlistSyncQueued = false;
+
+  const getWishlistButtonKey = (button) => {
+    if (!button) {
+      return "";
+    }
+
+    return [
+      button.getAttribute("data-product-id") || "",
+      button.getAttribute("data-variant-id") || "",
+      button.getAttribute("data-product-url") || ""
+    ].join("|");
+  };
+
+  const rememberCurrentWishlistState = () => {
+    document.querySelectorAll(`${wishlistButtonSelector}.is-active, ${wishlistButtonSelector}.swym-added`).forEach((button) => {
+      const key = getWishlistButtonKey(button);
+
+      if (key) {
+        selectedWishlistKeys.add(key);
+      }
+    });
+  };
+
+  const setWishlistButtonState = (button, isSelected) => {
+    button.classList.toggle("is-active", isSelected);
+    button.setAttribute("aria-pressed", isSelected ? "true" : "false");
+
+    if (!isSelected) {
+      button.classList.remove("swym-added");
+    }
+  };
+
+  const syncWishlistButtons = () => {
+    document.querySelectorAll(wishlistButtonSelector).forEach((button) => {
+      setWishlistButtonState(button, selectedWishlistKeys.has(getWishlistButtonKey(button)));
+    });
+  };
+
+  const scheduleWishlistSync = () => {
+    requestAnimationFrame(syncWishlistButtons);
+    window.setTimeout(syncWishlistButtons, 100);
+    window.setTimeout(syncWishlistButtons, 500);
+    window.setTimeout(syncWishlistButtons, 1500);
+  };
+
+  const queueWishlistSync = () => {
+    if (wishlistSyncQueued) {
+      return;
+    }
+
+    wishlistSyncQueued = true;
+    requestAnimationFrame(() => {
+      wishlistSyncQueued = false;
+      syncWishlistButtons();
+    });
+  };
 
   document.addEventListener("click", (event) => {
     const button = event.target.closest("[data-ww-card-wishlist]");
@@ -6472,8 +6532,43 @@ document.addEventListener('tidioChat-ready', onTidioChatApiReady);
       return;
     }
 
-    button.classList.add("is-active");
+    rememberCurrentWishlistState();
+
+    const key = getWishlistButtonKey(button);
+
+    if (key) {
+      selectedWishlistKeys.add(key);
+      lastWishlistClickAt = Date.now();
+    }
+
+    setWishlistButtonState(button, true);
+    scheduleWishlistSync();
+  }, true);
+
+  const observer = new MutationObserver((mutations) => {
+    const hasWishlistMutation = mutations.some((mutation) => {
+      return mutation.target && mutation.target.matches && mutation.target.matches(wishlistButtonSelector);
+    });
+
+    if (!hasWishlistMutation) {
+      return;
+    }
+
+    if (Date.now() - lastWishlistClickAt > 5000) {
+      rememberCurrentWishlistState();
+    }
+
+    queueWishlistSync();
   });
+
+  observer.observe(document.documentElement, {
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["class"]
+  });
+
+  rememberCurrentWishlistState();
+  scheduleWishlistSync();
 })();
 
 
