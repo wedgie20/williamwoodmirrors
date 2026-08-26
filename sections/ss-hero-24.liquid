@@ -1426,14 +1426,14 @@
       <style>
         .hero-review-text-line-{{ block.id }} {
           margin-top: {{ block.settings.margin_top_mobile }}px;
-          display: flex;
-          flex-direction: row;
+          {% comment %} display: flex;
+          flex-direction: row; {% endcomment %}
           gap: 7px;
           align-items: {{ content_horizontal_align_mobile }};
         }
 
         .hero-review-text-line-row-{{ block.id }} {
-          display: flex;
+          {% comment %} display: flex; {% endcomment %}
           align-items: center;
           {% comment %} gap: 10px; {% endcomment %}
           flex-wrap: wrap;
@@ -1647,7 +1647,10 @@
       </style>
 
     {% when 'melrose_hero' %}
+      
       <style>
+
+        
         .hero-melrose-{{ block.id }} {
           margin-top: {{ block.settings.margin_top | default: 0 }}px;
         }
@@ -2730,6 +2733,14 @@
     {%- endif -%}
   {%- endfor -%}
 {%- endif -%}
+
+<style>
+
+  .hero-review-separator-review_text_line_mEHx7 {
+        display: none !important;
+        }
+
+  </style>
 
 {% if layout_mode == 'slideshow' %}
 <script>
