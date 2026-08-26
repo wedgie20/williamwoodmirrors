@@ -321,6 +321,8 @@ document.addEventListener("DOMContentLoaded", function() {
     <span class="label_sold_items">2,000+ Sold</span>
     {% elsif tag contains "20000+ SOLD" %}
     <span class="label_sold_items">20,000+ Sold</span>
+    {% elsif tag contains "900+ SOLD" %}
+    <span class="label label--custom">900+ Sold</span>
           {% elsif tag contains "SOLD" %}
         <span class="label_sold_items tag_{{ tag | split: ':' | last | downcase | handle }} {% if tag contains '__label2' %}2{% endif %}">{{ tag | split: ':' | last | replace: 'SOLD', 'Sold' }}</span>
            {% endif %}
