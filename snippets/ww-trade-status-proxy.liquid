@@ -15,6 +15,18 @@
     opacity: 1 !important;
   }
 
+  .ww-trade-restricted-price {
+    color: #780606 !important;
+    font-weight: 700;
+  }
+
+  .ww-trade-restricted-price-note {
+    color: #565656;
+    font-size: 11px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
   [data-ww-cart-total-suppressed] {
     display: none;
   }
@@ -481,28 +493,106 @@
       return finalTotal > 0 && originalTotal > finalTotal;
     }
 
-    function setSalePairSuppression(saleElement, regularElement, suppress) {
+    function removeRestrictedTradePrice(parent) {
+      if (!parent) return;
+
+      parent.querySelectorAll('[data-ww-trade-restricted-price], [data-ww-trade-restricted-price-note]').forEach(function (element) {
+        element.remove();
+      });
+    }
+
+    function getElementCents(element, attributeName) {
+      if (!element) return 0;
+
+      return Number(element.getAttribute(attributeName) || 0);
+    }
+
+    function upsertRestrictedTradePrice(saleElement, regularElement, discount) {
+      var parent = saleElement && saleElement.parentElement;
+      if (!parent || !(discount > 0)) return;
+
+      var saleCents = getElementCents(saleElement, 'data-current-price-cents');
+      var compareAtCents = getElementCents(saleElement, 'data-compare-at-price-cents') || getElementCents(regularElement, 'data-compare-at-price-cents');
+
+      if (!(compareAtCents > saleCents)) {
+        removeRestrictedTradePrice(parent);
+        return;
+      }
+
+      var tradePriceCents = Math.round(compareAtCents * (100 - discount) / 100);
+      var tradePriceElement = parent.querySelector('[data-ww-trade-restricted-price]');
+      var noteElement = parent.querySelector('[data-ww-trade-restricted-price-note]');
+
+      if (!tradePriceElement) {
+        tradePriceElement = document.createElement('span');
+        tradePriceElement.className = saleElement.className;
+        tradePriceElement.classList.remove('ww-trade-suppressed-sale-price');
+        tradePriceElement.classList.add('ww-trade-restricted-price');
+        tradePriceElement.setAttribute('data-ww-trade-restricted-price', '');
+      }
+
+      var isFromPrice = /\bfrom\b/i.test(saleElement.textContent || '');
+      tradePriceElement.textContent = (isFromPrice ? 'From ' : '') + formatMoneyFromCents(tradePriceCents);
+
+      if (!noteElement) {
+        noteElement = document.createElement('span');
+        noteElement.className = 'ww-trade-restricted-price-note';
+        noteElement.setAttribute('data-ww-trade-restricted-price-note', '');
+        noteElement.textContent = 'Trade price';
+      }
+
+      var anchorElement = regularElement || saleElement;
+      if (tradePriceElement.parentElement !== parent) {
+        anchorElement.insertAdjacentElement('afterend', tradePriceElement);
+      }
+
+      if (noteElement.parentElement !== parent) {
+        tradePriceElement.insertAdjacentElement('afterend', noteElement);
+      }
+    }
+
+    function setSalePairSuppression(saleElement, regularElement, status) {
       if (!saleElement || !regularElement) return;
+
+      var suppress = shouldSuppressPromos(status);
+      var discount = getEffectiveTradeDiscount(status);
+      var parent = saleElement.parentElement;
 
       if (!suppress) {
         saleElement.classList.remove('ww-trade-suppressed-sale-price');
         regularElement.classList.remove('ww-trade-restored-regular-price');
+        removeRestrictedTradePrice(parent);
         return;
       }
 
       var tradePriceGroup = saleElement.closest('[data-ww-trade-price-group]');
-      if (tradePriceGroup && tradePriceGroup.classList.contains('has-trade-price')) return;
-      if (lineHasTradeDiscount(saleElement)) return;
-      if (lineHasActualDiscount(saleElement)) return;
+      if (tradePriceGroup && tradePriceGroup.classList.contains('has-trade-price')) {
+        removeRestrictedTradePrice(parent);
+        return;
+      }
+      if (lineHasTradeDiscount(saleElement)) {
+        removeRestrictedTradePrice(parent);
+        return;
+      }
+      if (lineHasActualDiscount(saleElement)) {
+        removeRestrictedTradePrice(parent);
+        return;
+      }
 
       saleElement.classList.add('ww-trade-suppressed-sale-price');
       regularElement.classList.add('ww-trade-restored-regular-price');
+
+      if (shouldShowTradeUi(status) && discount > 0) {
+        upsertRestrictedTradePrice(saleElement, regularElement, discount);
+      } else {
+        removeRestrictedTradePrice(parent);
+      }
     }
 
     function applySalePriceSuppression(status) {
-      var suppress = shouldSuppressPromos(status);
-
       document.querySelectorAll('.price--highlight, .ww-pdp__price--sale, [data-ww-sale-price]').forEach(function (saleElement) {
+        if (saleElement.hasAttribute('data-ww-trade-restricted-price')) return;
+
         var parent = saleElement.parentElement;
         if (!parent) return;
 
@@ -514,7 +604,7 @@
           );
         });
 
-        setSalePairSuppression(saleElement, regularElement, suppress);
+        setSalePairSuppression(saleElement, regularElement, status);
       });
     }
 
