@@ -40,6 +40,8 @@
     <span class="label label--custom">1,000+ Sold</span>
     {% elsif tag contains "900+ SOLD" %}
     <span class="label label--custom">900+ Sold</span>
+     {% elsif tag contains "700+ SOLD" %}
+    <span class="label label--custom">700+ Sold</span>
           {% else %}
         {%- assign label_text = tag | split: ':' | last -%}
 <span class="label label--custom{% if tag contains '__label2' %}2{% endif %}{% if label_text contains 'ONLY' and label_text contains 'LEFT' %} label--low-stock{% endif %}">{{ label_text | downcase }}</span>
