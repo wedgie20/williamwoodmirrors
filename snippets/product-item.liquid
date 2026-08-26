@@ -20,6 +20,8 @@
     <span class="label label--custom">12,000+ Sold</span>
 {% elsif tag contains "10000+ SOLD" %}
     <span class="label label--custom">10,000+ Sold</span>
+    {% elsif tag contains "11000+ SOLD" %}
+    <span class="label label--custom new-label-pdp">11,000+ Sold</span>
 {% elsif tag contains "7000+ SOLD" %}
     <span class="label label--custom">7,000+ Sold</span>
 {% elsif tag contains "5000+ SOLD" %}
@@ -34,6 +36,8 @@
     <span class="label label--custom">2,000+ Sold</span>
     {% elsif tag contains "20000+ SOLD" %}
     <span class="label label--custom">20,000+ Sold</span>
+    {% elsif tag contains "900+ SOLD" %}
+    <span class="label label--custom">900+ Sold</span>
           {% else %}
         {%- assign label_text = tag | split: ':' | last -%}
         <span class="label label--custom{% if tag contains '__label2' %}2{% endif %}{% if label_text contains 'ONLY' and label_text contains 'LEFT' %} label--low-stock{% endif %}">{{ label_text }}</span>
