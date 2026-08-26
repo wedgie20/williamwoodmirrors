@@ -626,6 +626,7 @@
       document.documentElement.dataset.wwTradeDiscount = String(discount);
       document.documentElement.dataset.wwTradeDiscountActive = tradeDiscountActive ? 'true' : 'false';
       document.documentElement.dataset.wwSuppressPromos = suppressPromos ? 'true' : 'false';
+      document.documentElement.classList.remove('ww-trade-status-pending');
       document.documentElement.classList.toggle('ww-trade-customer', isTradeCustomer && tradeDiscountActive);
       document.documentElement.classList.toggle('ww-suppress-promos', suppressPromos);
       applyPromoSuppression(status);

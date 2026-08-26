@@ -16,6 +16,13 @@
 <!doctype html>
 
 {%- assign direction = 'ltr' -%}
+{%- assign ww_trade_is_customer = false -%}
+{%- if customer -%}
+  {%- assign ww_trade_tags = customer.tags | join: ',' | downcase -%}
+  {%- if customer.metafields.trade.is_trade_customer.value == true or customer.metafields.trade.discount_percentage.value > 0 or ww_trade_tags contains 'trade' -%}
+    {%- assign ww_trade_is_customer = true -%}
+  {%- endif -%}
+{%- endif -%}
 {%- case request.locale.iso_code -%}
   {%- when 'ar', 'arc', 'dv', 'fa', 'ha', 'he', 'kwh', 'ks', 'ku', 'ps', 'ur', 'yi' -%}
     {%- assign direction = 'rtl' -%}
@@ -24,7 +31,7 @@
 
 
 
-<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ direction }}">
+<html class="no-js{% if ww_trade_is_customer %} ww-trade-status-pending{% endif %}" lang="{{ request.locale.iso_code }}" dir="{{ direction }}">
   <head>
 
     <!-- Start of Inteligems scripts -->
@@ -197,6 +204,26 @@
 
     {% render 'css-variables', direction: direction %}
     {% render 'js-variables', direction: direction %}
+
+    {%- if ww_trade_is_customer -%}
+      <style>
+        html.ww-trade-status-pending [data-ww-promo-suppressible],
+        html.ww-trade-status-pending [data-ww-sale-price],
+        html.ww-trade-status-pending .price--highlight,
+        html.ww-trade-status-pending .ww-pdp__price--sale {
+          display: none !important;
+        }
+
+        html.ww-trade-status-pending [data-ww-compare-price],
+        html.ww-trade-status-pending .price--compare,
+        html.ww-trade-status-pending .ww-pdp__price--compare {
+          color: inherit !important;
+          font-weight: inherit !important;
+          text-decoration: none !important;
+          opacity: 1 !important;
+        }
+      </style>
+    {%- endif -%}
 
     <style>
       .formobile{
