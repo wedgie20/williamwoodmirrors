@@ -1098,13 +1098,14 @@
   {%- endif -%}
 </div>
 
-{% for block in section.blocks %}
-
-     {% case block.type %}
-       {% when '@app' %}
-         {% render block %}
-     {% endcase %}
-   {% endfor %}
+{%- if current_variant.available and is_preorder != true -%}
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when '@app' %}
+        {% render block %}
+    {% endcase %}
+  {% endfor %}
+{%- endif -%}
 
       {%- if product.description != blank -%}
         {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
