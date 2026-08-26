@@ -1054,12 +1054,11 @@
 {% if request.page_type == 'product' %}
   {% unless product.title contains 'Gift' %}
 <style>
-body:has(.drawer[open]) .ss-announcement-bar,
-body:has(#quick-search-content.show) .ss-announcement-bar,
-body:has(predictive-search.show) .ss-announcement-bar {
-  display: none !important;
+body:has(.drawer[open]) .announcement-bar__link,
+body:has(#quick-search-content.show) .announcement-bar__link,
+body:has(predictive-search.show) .announcement-bar__link {
+  display: none;
 }
-
   @media (min-width: 769px) {
 .header__logo-image {
   display: block !important;
