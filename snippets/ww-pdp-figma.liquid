@@ -974,7 +974,8 @@
       {%- endform -%}
 
 
-      <div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ current_variant.price }}">
+      <div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ effective_price }}">
+
   <style>
     .ww-pdp__payments .klarna-logo, .ww-pdp__payments .clear-pay{
       position: relative;
