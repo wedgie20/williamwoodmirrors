@@ -1106,6 +1106,14 @@
   {%- endif -%}
 </div>
 
+{% for block in section.blocks %}
+
+     {% case block.type %}
+       {% when '@app' %}
+         {% render block %}
+     {% endcase %}
+   {% endfor %}
+
       {%- if product.description != blank -%}
         {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
         <div class="product_description_dropdown">
