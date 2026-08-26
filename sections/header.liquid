@@ -1054,8 +1054,9 @@
 {% if request.page_type == 'product' %}
   {% unless product.title contains 'Gift' %}
 <style>
- body:has(.drawer[open]) .ss-announcement-bar,
-body:has(#quick-search-content.show) .ss-announcement-bar {
+body:has(.drawer[open]) .ss-announcement-bar,
+body:has(#quick-search-content.show) .ss-announcement-bar,
+body:has(predictive-search.show) .ss-announcement-bar {
   display: none;
 }
 
