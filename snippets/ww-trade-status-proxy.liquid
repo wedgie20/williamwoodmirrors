@@ -15,6 +15,16 @@
     opacity: 1 !important;
   }
 
+  html.ww-suppress-promos .ww-trade-restored-regular-price.ww-trade-struck-regular-price,
+  html.ww-suppress-promos .ww-trade-restored-regular-price.ww-trade-struck-regular-price.price--compare {
+    text-decoration: line-through !important;
+    opacity: .65 !important;
+  }
+
+  html.ww-suppress-promos [data-ww-promo-suppressible].ww-trade-labels-restored {
+    display: flex !important;
+  }
+
   .ww-trade-restricted-price {
     color: #780606 !important;
     font-weight: 700;
@@ -499,12 +509,60 @@
       parent.querySelectorAll('[data-ww-trade-restricted-price], [data-ww-trade-restricted-price-note]').forEach(function (element) {
         element.remove();
       });
+
+      parent.classList.remove('ww-trade-restricted-price-list');
     }
 
     function getElementCents(element, attributeName) {
       if (!element) return 0;
 
       return Number(element.getAttribute(attributeName) || 0);
+    }
+
+    function getProductItem(element) {
+      return element && element.closest('product-item, .product-item, .updated-product-item');
+    }
+
+    function restoreTradeRestrictedLabels(productItem) {
+      if (!productItem) return;
+
+      productItem.querySelectorAll('[data-ww-promo-suppressible].ww-trade-labels-restored').forEach(function (labelList) {
+        labelList.classList.remove('ww-trade-labels-restored');
+
+        var saveLabel = labelList.querySelector('[data-ww-trade-save-label]');
+        if (saveLabel) {
+          saveLabel.removeAttribute('data-ww-trade-save-label');
+
+          if (saveLabel.hasAttribute('data-ww-original-label-html')) {
+            saveLabel.innerHTML = saveLabel.getAttribute('data-ww-original-label-html');
+            saveLabel.removeAttribute('data-ww-original-label-html');
+          }
+        }
+      });
+    }
+
+    function upsertTradeRestrictedLabels(saleElement, savingCents) {
+      var productItem = getProductItem(saleElement);
+      if (!productItem || !(savingCents > 0)) return;
+
+      var labelList = productItem.querySelector('[data-ww-promo-suppressible]');
+      if (!labelList) return;
+
+      labelList.classList.add('ww-trade-labels-restored');
+
+      var saveLabel = labelList.querySelector('[data-ww-trade-save-label]') || labelList.querySelector('.label--highlight');
+      if (!saveLabel) {
+        saveLabel = document.createElement('span');
+        saveLabel.className = 'label label--highlight';
+        labelList.appendChild(saveLabel);
+      }
+
+      if (!saveLabel.hasAttribute('data-ww-original-label-html')) {
+        saveLabel.setAttribute('data-ww-original-label-html', saveLabel.innerHTML);
+      }
+
+      saveLabel.setAttribute('data-ww-trade-save-label', '');
+      saveLabel.textContent = 'SAVE ' + formatMoneyFromCents(savingCents);
     }
 
     function upsertRestrictedTradePrice(saleElement, regularElement, discount) {
@@ -516,10 +574,12 @@
 
       if (!(compareAtCents > saleCents)) {
         removeRestrictedTradePrice(parent);
+        restoreTradeRestrictedLabels(getProductItem(saleElement));
         return;
       }
 
       var tradePriceCents = Math.round(compareAtCents * (100 - discount) / 100);
+      var savingCents = Math.max(compareAtCents - tradePriceCents, 0);
       var tradePriceElement = parent.querySelector('[data-ww-trade-restricted-price]');
       var noteElement = parent.querySelector('[data-ww-trade-restricted-price-note]');
 
@@ -542,6 +602,8 @@
       }
 
       var anchorElement = regularElement || saleElement;
+      parent.classList.add('ww-trade-restricted-price-list');
+
       if (tradePriceElement.parentElement !== parent) {
         anchorElement.insertAdjacentElement('afterend', tradePriceElement);
       }
@@ -549,6 +611,8 @@
       if (noteElement.parentElement !== parent) {
         tradePriceElement.insertAdjacentElement('afterend', noteElement);
       }
+
+      upsertTradeRestrictedLabels(saleElement, savingCents);
     }
 
     function setSalePairSuppression(saleElement, regularElement, status) {
@@ -561,21 +625,26 @@
       if (!suppress) {
         saleElement.classList.remove('ww-trade-suppressed-sale-price');
         regularElement.classList.remove('ww-trade-restored-regular-price');
+        regularElement.classList.remove('ww-trade-struck-regular-price');
         removeRestrictedTradePrice(parent);
+        restoreTradeRestrictedLabels(getProductItem(saleElement));
         return;
       }
 
       var tradePriceGroup = saleElement.closest('[data-ww-trade-price-group]');
       if (tradePriceGroup && tradePriceGroup.classList.contains('has-trade-price')) {
         removeRestrictedTradePrice(parent);
+        restoreTradeRestrictedLabels(getProductItem(saleElement));
         return;
       }
       if (lineHasTradeDiscount(saleElement)) {
         removeRestrictedTradePrice(parent);
+        restoreTradeRestrictedLabels(getProductItem(saleElement));
         return;
       }
       if (lineHasActualDiscount(saleElement)) {
         removeRestrictedTradePrice(parent);
+        restoreTradeRestrictedLabels(getProductItem(saleElement));
         return;
       }
 
@@ -583,9 +652,12 @@
       regularElement.classList.add('ww-trade-restored-regular-price');
 
       if (shouldShowTradeUi(status) && discount > 0) {
+        regularElement.classList.add('ww-trade-struck-regular-price');
         upsertRestrictedTradePrice(saleElement, regularElement, discount);
       } else {
+        regularElement.classList.remove('ww-trade-struck-regular-price');
         removeRestrictedTradePrice(parent);
+        restoreTradeRestrictedLabels(getProductItem(saleElement));
       }
     }
 
