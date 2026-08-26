@@ -766,21 +766,47 @@
           <script>
             window.SwymCallbacks = window.SwymCallbacks || [];
             window.SwymCallbacks.push(function (swat) {
-              function updateHeaderWishlistCount() {
+              function getHeaderWishlistCountEl() {
+                return document.getElementById('swym-header-wishlist-count');
+              }
+
+              function setHeaderWishlistCount(count) {
+                var countEl = getHeaderWishlistCountEl();
+                if (!countEl) return;
+
+                count = Math.max(parseInt(count, 10) || 0, 0);
+                countEl.textContent = count;
+                countEl.hidden = count === 0;
+              }
+
+              function getCurrentHeaderWishlistCount() {
+                var countEl = getHeaderWishlistCountEl();
+                if (!countEl) return 0;
+
+                return parseInt(countEl.textContent, 10) || 0;
+              }
+
+              function fetchHeaderWishlistCount() {
                 swat.fetch(function (products) {
-                  var countEl = document.getElementById('swym-header-wishlist-count');
-                  if (!countEl) return;
-                  var count = products ? products.length : 0;
-                  countEl.textContent = count;
-                  countEl.hidden = count === 0;
+                  setHeaderWishlistCount(products ? products.length : 0);
                 });
               }
 
-              updateHeaderWishlistCount();
+              function adjustHeaderWishlistCount(delta) {
+                setHeaderWishlistCount(getCurrentHeaderWishlistCount() + delta);
+                window.setTimeout(fetchHeaderWishlistCount, 1500);
+                window.setTimeout(fetchHeaderWishlistCount, 5000);
+              }
+
+              fetchHeaderWishlistCount();
 
               if (swat.evtLayer) {
-                swat.evtLayer.addEventListener('sw:addedtowishlist', updateHeaderWishlistCount);
-                swat.evtLayer.addEventListener('sw:removedfromwishlist', updateHeaderWishlistCount);
+                swat.evtLayer.addEventListener('sw:addedtowishlist', function () {
+                  adjustHeaderWishlistCount(1);
+                });
+                swat.evtLayer.addEventListener('sw:removedfromwishlist', function () {
+                  adjustHeaderWishlistCount(-1);
+                });
               }
             });
           </script>
