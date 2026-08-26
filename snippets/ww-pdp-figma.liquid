@@ -890,88 +890,6 @@
   </div>
 {%- endif -%}
 
-      {%- form 'product', product, id: product_form_id, is: 'product-form', class: 'ww-pdp__form' -%}
-        {%- if product.has_only_default_variant -%}
-          <input type="hidden" disabled name="id" value="{{ current_variant.id }}">
-        {%- else -%}
-          <div class="ww-pdp__variant">
-            <label for="{{ product_form_id }}-id">Choose option</label>
-            <select id="{{ product_form_id }}-id" name="id">
-              {%- for variant in product.variants -%}
-                <option value="{{ variant.id }}" data-price="{{ variant.price }}" data-compare-at="{{ variant.compare_at_price | default: 0 }}" data-available="{{ variant.available }}" {% if variant.id == current_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
-                  {{ variant.title }}{% unless variant.available %} - Sold out{% endunless %}
-                </option>
-              {%- endfor -%}
-            </select>
-          </div>
-        {%- endif -%}
-        {%- if is_preorder and preorder_cart_note != blank -%}
-          <input type="hidden" name="properties[Note]" value="{{ preorder_cart_note | escape }}">
-        {%- endif -%}
-        {% comment %} {%- if is_preorder and preorder_delivery_text != blank -%}
-          <div class="ww-pdp__preorder-note">
-            <span aria-hidden="true"></span>
-            <p>Pre-order item. Expected shipping date {{ preorder_date }}</p>
-          </div>
-        {%- endif -%} {% endcomment %}
-        <div class="ww-pdp__buy-row">
-          {% comment %} <div class="ww-pdp__quantity" data-ww-quantity>
-            <button type="button" data-ww-quantity-minus aria-label="Decrease quantity">-</button>
-            <input type="number" name="quantity" min="1" value="1" inputmode="numeric" aria-label="Quantity">
-            <button type="button" data-ww-quantity-plus aria-label="Increase quantity">+</button>
-          </div> {% endcomment %}
-          <button
-            type="{% if current_variant.available %}submit{% else %}button{% endif %}"
-            {% unless current_variant.available %}id="BIS_trigger"{% endunless %}
-            class="ww-pdp__add{% if is_preorder %} ww-pdp__add--preorder{% endif %}"
-            {% unless current_variant.available %}data-ww-open-waitlist aria-disabled="false"{% endunless %}
-          >
-            {%- if current_variant.available -%}
-              {%- if is_preorder -%}
-                <span>Pre-order</span>
-                {% comment %} <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 1-8.5 12h1.7A7.5 7.5 0 1 0 12 4.5c-2 0-3.8.8-5.1 2.1L9 8.7H3.8V3.5l2 2A9 9 0 0 1 12 3Zm.8 4.5v4.2l3.2 1.9-.8 1.3-3.9-2.3V7.5h1.5Z"/></svg> {% endcomment %}
-              {%- else -%}
-                Add to bag
-              {%- endif -%}
-            {%- else -%}
-              Sold out: join waitlist
-            {%- endif -%}
-          </button>
-
-          
-            {%- assign slow_delivery = false -%}
-              {%- for tag in product.tags -%}
-                {%- if tag == 'SLOWDEL' -%}
-                  {%- assign slow_delivery = true -%}
-                {%- endif -%}
-              {%- endfor -%}
-
-              {%- if current_variant.available and is_preorder != true -%}
-                <div class="delivery-info">
-                  <span class="ww-pdp__pill ww-pdp__pill--stock">
-                    {%- if slow_delivery -%}
-                      Usually dispatched in 1-3 Business Days
-                    {%- else -%}
-                      Usually dispatched in 1-3 Business Days
-                    {%- endif -%}
-                  </span>
-                </div>
-              {%- endif -%}
-          
-              
-
-          <div class="guarantee-items main-item" style="justify-content: space-evenly;">
-       <div id="price-divider-container" class="customer-text" style="text-align: center !important; margin-top:  10px;">
-          <p>Risk-Free: 30-Day Free Returns</p>
-        </div>
-
-         <div id="price-divider-container" class="customer-text" style="text-align: center !important; margin-top:  10px;">
-          <p>100% Money-Back Guarantee</p>
-        </div>
-        </div>
-        </div>
-        
-      {%- endform -%}
 {%- assign effective_price = current_variant.price -%}
 {%- unless last_chance or current_variant.compare_at_price -%}
   {%- assign effective_price = current_variant.price | times: 0.75 | round -%}
@@ -1101,6 +1019,90 @@
     </script>
   {%- endif -%}
 </div>
+
+      {%- form 'product', product, id: product_form_id, is: 'product-form', class: 'ww-pdp__form' -%}
+        {%- if product.has_only_default_variant -%}
+          <input type="hidden" disabled name="id" value="{{ current_variant.id }}">
+        {%- else -%}
+          <div class="ww-pdp__variant">
+            <label for="{{ product_form_id }}-id">Choose option</label>
+            <select id="{{ product_form_id }}-id" name="id">
+              {%- for variant in product.variants -%}
+                <option value="{{ variant.id }}" data-price="{{ variant.price }}" data-compare-at="{{ variant.compare_at_price | default: 0 }}" data-available="{{ variant.available }}" {% if variant.id == current_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
+                  {{ variant.title }}{% unless variant.available %} - Sold out{% endunless %}
+                </option>
+              {%- endfor -%}
+            </select>
+          </div>
+        {%- endif -%}
+        {%- if is_preorder and preorder_cart_note != blank -%}
+          <input type="hidden" name="properties[Note]" value="{{ preorder_cart_note | escape }}">
+        {%- endif -%}
+        {% comment %} {%- if is_preorder and preorder_delivery_text != blank -%}
+          <div class="ww-pdp__preorder-note">
+            <span aria-hidden="true"></span>
+            <p>Pre-order item. Expected shipping date {{ preorder_date }}</p>
+          </div>
+        {%- endif -%} {% endcomment %}
+        <div class="ww-pdp__buy-row">
+          {% comment %} <div class="ww-pdp__quantity" data-ww-quantity>
+            <button type="button" data-ww-quantity-minus aria-label="Decrease quantity">-</button>
+            <input type="number" name="quantity" min="1" value="1" inputmode="numeric" aria-label="Quantity">
+            <button type="button" data-ww-quantity-plus aria-label="Increase quantity">+</button>
+          </div> {% endcomment %}
+          <button
+            type="{% if current_variant.available %}submit{% else %}button{% endif %}"
+            {% unless current_variant.available %}id="BIS_trigger"{% endunless %}
+            class="ww-pdp__add{% if is_preorder %} ww-pdp__add--preorder{% endif %}"
+            {% unless current_variant.available %}data-ww-open-waitlist aria-disabled="false"{% endunless %}
+          >
+            {%- if current_variant.available -%}
+              {%- if is_preorder -%}
+                <span>Pre-order</span>
+                {% comment %} <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 1-8.5 12h1.7A7.5 7.5 0 1 0 12 4.5c-2 0-3.8.8-5.1 2.1L9 8.7H3.8V3.5l2 2A9 9 0 0 1 12 3Zm.8 4.5v4.2l3.2 1.9-.8 1.3-3.9-2.3V7.5h1.5Z"/></svg> {% endcomment %}
+              {%- else -%}
+                Add to bag
+              {%- endif -%}
+            {%- else -%}
+              Sold out: join waitlist
+            {%- endif -%}
+          </button>
+
+          
+            {%- assign slow_delivery = false -%}
+              {%- for tag in product.tags -%}
+                {%- if tag == 'SLOWDEL' -%}
+                  {%- assign slow_delivery = true -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+              {%- if current_variant.available and is_preorder != true -%}
+                <div class="delivery-info">
+                  <span class="ww-pdp__pill ww-pdp__pill--stock">
+                    {%- if slow_delivery -%}
+                      Usually dispatched in 1-3 Business Days
+                    {%- else -%}
+                      Usually dispatched in 1-3 Business Days
+                    {%- endif -%}
+                  </span>
+                </div>
+              {%- endif -%}
+          
+              
+
+          <div class="guarantee-items main-item" style="justify-content: space-evenly;">
+       <div id="price-divider-container" class="customer-text" style="text-align: center !important; margin-top:  10px;">
+          <p>Risk-Free: 30-Day Free Returns</p>
+        </div>
+
+         <div id="price-divider-container" class="customer-text" style="text-align: center !important; margin-top:  10px;">
+          <p>100% Money-Back Guarantee</p>
+        </div>
+        </div>
+        </div>
+        
+      {%- endform -%}
+
 
 {%- if current_variant.available and is_preorder != true -%}
   {% for block in section.blocks %}
