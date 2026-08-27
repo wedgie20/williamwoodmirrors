@@ -460,52 +460,23 @@
               </div>
 
               <div class="line-item__price-list-container text--small hidden-phone">
-  {%- if settings.show_vendor -%}
-    <span class="product-item-meta__vendor heading heading--xxsmall" style="visibility: hidden">x</span>
-  {%- endif -%}
+                {%- if settings.show_vendor -%}
+                  {%- comment -%}
+                    IMPLEMENTATION NOTE: in the design, the price is aligned in regards of the product title (not the brand). It was a
+                    bit hard to do as we cannot set a fixed margin, so I am actually adding an empty vendor to simulate the same height
+                  {%- endcomment -%}
+                  <span class="product-item-meta__vendor heading heading--xxsmall" style="visibility: hidden">x</span>
+                {%- endif -%}
 
-  {%- assign line_last_chance = false -%}
-  {%- for tag in line_item.product.tags -%}
-    {%- if tag contains '__label' -%}
-      {%- assign line_candidate = tag | split: ':' | last -%}
-      {%- if line_candidate == 'LAST CHANCE' -%}
-        {%- assign line_last_chance = true -%}
-      {%- endif -%}
-    {%- endif -%}
-  {%- endfor -%}
-
-  {%- assign line_original_price = line_item.variant.price -%}
-  {%- assign line_has_real_discount = false -%}
-  {%- if line_item.variant.compare_at_price > line_item.variant.price -%}
-    {%- assign line_has_real_discount = true -%}
-  {%- endif -%}
-
-  {%- assign line_show_auto_discount = false -%}
-  {%- unless line_last_chance or line_has_real_discount -%}
-    {%- assign line_show_auto_discount = true -%}
-  {%- endunless -%}
-
-  {%- if line_has_real_discount -%}
-    {%- assign line_pricewholenumber = line_original_price | times: 0.90 -%}
-    {%- assign line_compare_total = line_item.variant.compare_at_price | times: line_item.quantity -%}
-  {%- elsif line_show_auto_discount -%}
-    {%- assign line_pricewholenumber = line_original_price | times: 0.75 -%}
-    {%- assign line_compare_total = line_original_price | times: line_item.quantity -%}
-  {%- else -%}
-    {%- assign line_pricewholenumber = line_original_price -%}
-  {%- endif -%}
-
-  {%- assign line_discounted_line_total = line_pricewholenumber | times: line_item.quantity | round -%}
-
-  <div class="price-list price-list--stack">
-    {%- if line_has_real_discount or line_show_auto_discount -%}
-      <span class="price price--compare" style="text-decoration: line-through; opacity: 0.6;">{% render 'format-money', amount: line_compare_total %}</span>
-      <span class="price price--sale">{% render 'format-money', amount: line_discounted_line_total %}</span>
-    {%- else -%}
-      {% render 'format-money', amount: line_discounted_line_total %}
-    {%- endif -%}
-  </div>
-</div>
+                <div class="price-list price-list--stack">
+                  {%- assign current_path = request.path -%}
+{%- unless current_path contains '/en-fr' or current_path contains '/en-de' or current_path contains '/en-nl'-%}
+                  {{- line_price -}}
+                  {% else %}
+                   {{- line_price -}}
+                  {% endunless %}
+                </div>
+              </div>
             </div>
           </line-item>
         {%- endfor -%}
@@ -606,29 +577,37 @@
     width: 100%;">
   
   <p class="order_info" style="display: flex; justify-content: space-between;">
-  <span style="color: black;">
-    Subtotal (
-    {%- assign item_label = 'item' -%}
-    {%- if cart.item_count != 1 -%}
-      {%- assign item_label = 'items' -%}
-    {%- endif -%}
-    {{ cart.item_count }} {{ item_label }}):
-  </span>
-
-  <span style="text-align: right;">
-    {%- assign original_subtotal = 0 -%}
-    {%- for line_item in cart.items -%}
-      {%- if line_item.variant.compare_at_price > line_item.variant.price -%}
-        {%- assign item_total = line_item.variant.compare_at_price | times: line_item.quantity -%}
-      {%- else -%}
-        {%- assign item_total = line_item.variant.price | times: line_item.quantity -%}
+    <span style="color: black;">
+      Subtotal (
+      {%- assign item_label = 'item' -%}
+      {%- if cart.item_count != 1 -%}
+        {%- assign item_label = 'items' -%}
       {%- endif -%}
-      {%- assign original_subtotal = original_subtotal | plus: item_total -%}
-    {%- endfor -%}
+      {{ cart.item_count }} {{ item_label }}):
+    </span>
 
-    {% render 'format-money', amount: original_subtotal %}
-  </span>
-</p>
+    <span style="text-align: right;">
+      {%- assign original_subtotal = 0 -%}
+      {%- for line_item in cart.items -%}
+    {%- if line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
+                {% if line_item.variant.compare_at_price > line_item.variant.price %}
+               {% assign item_total = line_item.variant.compare_at_price | times: line_item.quantity %}
+                {% else %}
+                  {%- assign item_total = line_item.original_line_price -%}
+                {% endif %}
+            {%- else -%}
+                {%- assign item_total = line_item.final_line_price -%}
+                {%- endif -%}
+        {%- assign original_subtotal = original_subtotal | plus: item_total -%}
+      {%- endfor -%}
+
+{% render 'format-money', amount: original_subtotal %}
+    </span>
+
+    {% comment %} <span style="text-align: right;">
+      {% render 'format-money', amount: display_cart_total %}
+    </span> {% endcomment %}
+  </p>
 
  
 
@@ -660,16 +639,6 @@
   {% assign item_total_saving = 0 %}
   {% assign item_savings_basis = item.final_line_price %}
 
-  {%- assign line_last_chance = false -%}
-  {%- for tag in item.product.tags -%}
-    {%- if tag contains '__label' -%}
-      {%- assign line_candidate = tag | split: ':' | last -%}
-      {%- if line_candidate == 'LAST CHANCE' -%}
-        {%- assign line_last_chance = true -%}
-      {%- endif -%}
-    {%- endif -%}
-  {%- endfor -%}
-
   {% if item.original_line_price > item.final_line_price %}
     {% assign has_code_savings = true %}
     {% assign item_savings_basis = item.original_line_price %}
@@ -677,10 +646,6 @@
   {% elsif item.variant.compare_at_price and item.variant.compare_at_price > item.variant.price %}
     {% assign item_savings_basis = item.variant.compare_at_price | times: item.quantity %}
     {% assign item_total_saving = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity %}
-  {% elsif line_last_chance == false %}
-    {% assign item_savings_basis = item.variant.price | times: item.quantity %}
-    {% assign auto_discounted_unit = item.variant.price | times: 0.75 %}
-    {% assign item_total_saving = item.variant.price | minus: auto_discounted_unit | times: item.quantity | round %}
   {% endif %}
 
   {% assign savings_basis = savings_basis | plus: item_savings_basis %}
@@ -755,35 +720,10 @@
 {% endif %}
 
      
-     {%- assign display_cart_total = 0 -%}
-{%- for line_item in cart.items -%}
-
-  {%- assign line_last_chance = false -%}
-  {%- for tag in line_item.product.tags -%}
-    {%- if tag contains '__label' -%}
-      {%- assign line_candidate = tag | split: ':' | last -%}
-      {%- if line_candidate == 'LAST CHANCE' -%}
-        {%- assign line_last_chance = true -%}
-      {%- endif -%}
-    {%- endif -%}
-  {%- endfor -%}
-
-  {%- if line_item.variant.compare_at_price > line_item.variant.price -%}
-    {%- assign line_unit_price = line_item.variant.price | times: 0.90 -%}
-  {%- elsif line_last_chance -%}
-    {%- assign line_unit_price = line_item.variant.price -%}
-  {%- else -%}
-    {%- assign line_unit_price = line_item.variant.price | times: 0.75 -%}
-  {%- endif -%}
-
-  {%- assign line_total = line_unit_price | times: line_item.quantity | round -%}
-  {%- assign display_cart_total = display_cart_total | plus: line_total -%}
-{%- endfor -%}
-
-<p class="order_info" style="font-weight: bold"><span style="color: black;">
-    Final Order Total:
-  </span> <span style="text-align: right;"> {% render 'format-money', amount: display_cart_total %}</span></p>
-<p class=""  style="color: black; margin-top: 0 !important;">{% assign installment_amount = display_cart_total | divided_by: 3 %}Or in 3 <b>interest free</b> instalments of <strong>{% render 'format-money', amount: installment_amount %}</strong> with Klarna
+      <p class="order_info" style="font-weight: bold"><span style="color: black;">
+        Final Order Total:
+      </span> <span style="text-align: right;"> {% render 'format-money', amount: display_cart_total %}</span></p>
+        <p class=""  style="color: black; margin-top: 0 !important;">{% assign installment_amount = display_cart_total | divided_by: 3 %}Or in 3 <b>interest free</b> instalments of <strong>{% render 'format-money', amount: installment_amount %}</strong> with Klarna
 </p>
         {% comment %} <div id="price-divider-container" class="customer-text" style="text-align: center !important;">
           {% assign installment_amount = display_cart_total | divided_by: 3 %}
