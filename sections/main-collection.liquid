@@ -259,11 +259,42 @@ ul.hookpoint-tags::-webkit-scrollbar {
   cursor: pointer;
 }
 
+@media screen and (min-width: 741px) {
+  .product-item-meta {
+    position: relative !important;
+  }
+
+  .product-item-meta .collection-card-title-row--desktop {
+    position: relative !important;
+    padding-right: 24px !important;
+  }
+
+  .product-item-meta .collection-card-title-row--desktop > button.collection-card-wishlist--desktop {
+    position: absolute !important;
+    right: 0 !important;
+    top: 0 !important;
+    left: auto !important;
+    transform: none !important;
+    display: inline-flex !important;
+    width: 16px !important;
+    min-width: 16px !important;
+    max-width: 16px !important;
+    height: 16px !important;
+    min-height: 16px !important;
+    max-height: 16px !important;
+    z-index: 2 !important;
+  }
+}
+
 @media screen and (max-width: 740px) {
   .product-item-meta .collection-card-wishlist {
     position: absolute !important;
     right: 0 !important;
     top: 0 !important;
+  }
+
+  .product-item-meta .collection-card-wishlist--desktop {
+    display: none !important;
   }
 }
 

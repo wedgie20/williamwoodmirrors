@@ -16591,6 +16591,68 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
   display: none !important;
 }
 
+@media screen and (min-width: 741px) {
+  .product-item-meta {
+    position: relative !important;
+  }
+
+  .product-item-meta .collection-card-title-row--desktop {
+    position: relative !important;
+    padding-right: 24px !important;
+  }
+
+  .product-item-meta button.collection-card-wishlist--desktop,
+  .product-item-meta button.collection-card-wishlist--desktop.swym-iconbtnlink,
+  .product-item-meta button.collection-card-wishlist--desktop.swym-heart,
+  .product-item-meta button.collection-card-wishlist--desktop.swym-loaded,
+  .product-item-meta button.collection-card-wishlist--desktop.swym-iconbtnlink.swym-heart.swym-loaded {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+    transform: none !important;
+    z-index: 2 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 16px !important;
+    min-width: 16px !important;
+    max-width: 16px !important;
+    height: 16px !important;
+    min-height: 16px !important;
+    max-height: 16px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    color: #545454 !important;
+    cursor: pointer;
+  }
+
+  .product-item-meta .collection-card-title-row--desktop > button.collection-card-wishlist--desktop {
+    right: 0 !important;
+  }
+
+  .product-item-meta button.collection-card-wishlist--desktop svg {
+    display: block !important;
+    width: 13px !important;
+    height: 13px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    overflow: visible;
+  }
+
+  .product-item-meta button.collection-card-wishlist--desktop svg path {
+    fill: none !important;
+    stroke: currentColor !important;
+  }
+
+  .product-item-meta button.collection-card-wishlist--desktop.is-active svg path,
+  .product-item-meta button.collection-card-wishlist--desktop.swym-added svg path {
+    fill: currentColor !important;
+  }
+}
+
 @media screen and (max-width: 740px) {
   .product-item__info,
   .product-item-meta {
@@ -16665,6 +16727,14 @@ body.template-collection .shopify-section--collection-banner ~ .shopify-section-
     background: transparent !important;
     color: currentColor !important;
     cursor: pointer;
+  }
+
+  .product-item-meta button.collection-card-wishlist--desktop,
+  .product-item-meta button.collection-card-wishlist--desktop.swym-iconbtnlink,
+  .product-item-meta button.collection-card-wishlist--desktop.swym-heart,
+  .product-item-meta button.collection-card-wishlist--desktop.swym-loaded,
+  .product-item-meta button.collection-card-wishlist--desktop.swym-iconbtnlink.swym-heart.swym-loaded {
+    display: none !important;
   }
 
   .product-item-meta .collection-card-title-row > button.collection-card-wishlist,

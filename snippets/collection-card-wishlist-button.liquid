@@ -1,0 +1,17 @@
+<button
+  type="button"
+  class="collection-card-wishlist {{ wishlist_class }} swym-button swym-add-to-wishlist"
+  aria-label="Add to Wishlist"
+  aria-pressed="false"
+  data-ww-card-wishlist
+  data-with-epi="true"
+  data-swaction="addToWishlist"
+  data-product-id="{{ product.id }}"
+  data-variant-id="{{ product.variants[0].id }}"
+  data-product-url="{{ shop.url }}{{ product.url }}"
+>
+  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="12.6667" height="12.6667" fill="none"></rect>
+    <path d="M11.0833 0.791664H1.58325V11.875L6.33325 7.52083L11.0833 11.875V0.791664Z" stroke="currentColor" stroke-linejoin="round"></path>
+  </svg>
+</button>

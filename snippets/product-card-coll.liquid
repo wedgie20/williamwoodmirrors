@@ -352,7 +352,7 @@
   endcapture
 -%}
 {%- comment -%} Desktop/tablet: unchanged title, unaffected by the mobile wishlist row below {%- endcomment -%}
-<div class="hidden-phone">
+<div class="hidden-phone collection-card-title-row--desktop">
 {% if product.title contains 'Corylus Branch' %}
   <b>Corylus Branch</b><br>100cm Pieces Brown x3
 {% elsif product.title contains 'Ella Grande - Gold' %}
@@ -376,6 +376,7 @@
   {% assign first_word = title_words[0] | replace: '-', '' %}
   <a href="{{ product.url }}"><strong style="display: block;">{{ first_word }}</strong><span style="display: block; text-transform: inherit !important; margin-top: 2px;">{{ title_words | join: ' ' | remove: '-' | remove: first_word }}</span></a>
 {% endif %}
+{%- render 'collection-card-wishlist-button', product: product, wishlist_class: 'collection-card-wishlist--desktop' -%}
 </div>
 
 {%- comment -%} Mobile only: title (no link) + wishlist icon on the same row, subtitle/info stays below {%- endcomment -%}
