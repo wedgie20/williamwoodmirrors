@@ -741,10 +741,35 @@
 {% endif %}
 
      
-      <p class="order_info" style="font-weight: bold"><span style="color: black;">
-        Final Order Total:
-      </span> <span style="text-align: right;"> {% render 'format-money', amount: display_cart_total %}</span></p>
-        <p class=""  style="color: black; margin-top: 0 !important;">{% assign installment_amount = display_cart_total | divided_by: 3 %}Or in 3 <b>interest free</b> instalments of <strong>{% render 'format-money', amount: installment_amount %}</strong> with Klarna
+     {%- assign display_cart_total = 0 -%}
+{%- for line_item in cart.items -%}
+
+  {%- assign line_last_chance = false -%}
+  {%- for tag in line_item.product.tags -%}
+    {%- if tag contains '__label' -%}
+      {%- assign line_candidate = tag | split: ':' | last -%}
+      {%- if line_candidate == 'LAST CHANCE' -%}
+        {%- assign line_last_chance = true -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if line_item.variant.compare_at_price > line_item.variant.price -%}
+    {%- assign line_unit_price = line_item.variant.price | times: 0.90 -%}
+  {%- elsif line_last_chance -%}
+    {%- assign line_unit_price = line_item.variant.price -%}
+  {%- else -%}
+    {%- assign line_unit_price = line_item.variant.price | times: 0.75 -%}
+  {%- endif -%}
+
+  {%- assign line_total = line_unit_price | times: line_item.quantity | round -%}
+  {%- assign display_cart_total = display_cart_total | plus: line_total -%}
+{%- endfor -%}
+
+<p class="order_info" style="font-weight: bold"><span style="color: black;">
+    Final Order Total:
+  </span> <span style="text-align: right;"> {% render 'format-money', amount: display_cart_total %}</span></p>
+<p class=""  style="color: black; margin-top: 0 !important;">{% assign installment_amount = display_cart_total | divided_by: 3 %}Or in 3 <b>interest free</b> instalments of <strong>{% render 'format-money', amount: installment_amount %}</strong> with Klarna
 </p>
         {% comment %} <div id="price-divider-container" class="customer-text" style="text-align: center !important;">
           {% assign installment_amount = display_cart_total | divided_by: 3 %}
