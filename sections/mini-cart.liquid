@@ -460,23 +460,52 @@
               </div>
 
               <div class="line-item__price-list-container text--small hidden-phone">
-                {%- if settings.show_vendor -%}
-                  {%- comment -%}
-                    IMPLEMENTATION NOTE: in the design, the price is aligned in regards of the product title (not the brand). It was a
-                    bit hard to do as we cannot set a fixed margin, so I am actually adding an empty vendor to simulate the same height
-                  {%- endcomment -%}
-                  <span class="product-item-meta__vendor heading heading--xxsmall" style="visibility: hidden">x</span>
-                {%- endif -%}
+  {%- if settings.show_vendor -%}
+    <span class="product-item-meta__vendor heading heading--xxsmall" style="visibility: hidden">x</span>
+  {%- endif -%}
 
-                <div class="price-list price-list--stack">
-                  {%- assign current_path = request.path -%}
-{%- unless current_path contains '/en-fr' or current_path contains '/en-de' or current_path contains '/en-nl'-%}
-                  {{- line_price -}}
-                  {% else %}
-                   {{- line_price -}}
-                  {% endunless %}
-                </div>
-              </div>
+  {%- assign line_last_chance = false -%}
+  {%- for tag in line_item.product.tags -%}
+    {%- if tag contains '__label' -%}
+      {%- assign line_candidate = tag | split: ':' | last -%}
+      {%- if line_candidate == 'LAST CHANCE' -%}
+        {%- assign line_last_chance = true -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- assign line_original_price = line_item.variant.price -%}
+  {%- assign line_has_real_discount = false -%}
+  {%- if line_item.variant.compare_at_price > line_item.variant.price -%}
+    {%- assign line_has_real_discount = true -%}
+  {%- endif -%}
+
+  {%- assign line_show_auto_discount = false -%}
+  {%- unless line_last_chance or line_has_real_discount -%}
+    {%- assign line_show_auto_discount = true -%}
+  {%- endunless -%}
+
+  {%- if line_has_real_discount -%}
+    {%- assign line_pricewholenumber = line_original_price | times: 0.90 -%}
+    {%- assign line_compare_total = line_item.variant.compare_at_price | times: line_item.quantity -%}
+  {%- elsif line_show_auto_discount -%}
+    {%- assign line_pricewholenumber = line_original_price | times: 0.75 -%}
+    {%- assign line_compare_total = line_original_price | times: line_item.quantity -%}
+  {%- else -%}
+    {%- assign line_pricewholenumber = line_original_price -%}
+  {%- endif -%}
+
+  {%- assign line_discounted_line_total = line_pricewholenumber | times: line_item.quantity | round -%}
+
+  <div class="price-list price-list--stack">
+    {%- if line_has_real_discount or line_show_auto_discount -%}
+      <span class="price price--compare" style="text-decoration: line-through; opacity: 0.6;">{% render 'format-money', amount: line_compare_total %}</span>
+      <span class="price price--sale">{% render 'format-money', amount: line_discounted_line_total %}</span>
+    {%- else -%}
+      {% render 'format-money', amount: line_discounted_line_total %}
+    {%- endif -%}
+  </div>
+</div>
             </div>
           </line-item>
         {%- endfor -%}
