@@ -490,6 +490,118 @@
       }
     }
 
+    function splitMobileMenuLabel(label) {
+      var parts = String(label || '').replace(/\s+/g, ' ').trim().split(' - ');
+      var primary = (parts.shift() || '').trim();
+
+      return {
+        primary: primary,
+        detail: parts.join(' - ').trim()
+      };
+    }
+
+    function getDirectMobileMenuLink(item) {
+      if (!item || !item.children) return null;
+
+      for (var index = 0; index < item.children.length; index += 1) {
+        if (item.children[index].classList && item.children[index].classList.contains('mobile-nav__link')) {
+          return item.children[index];
+        }
+      }
+
+      return null;
+    }
+
+    function readMobileMenuOriginalLabel(link) {
+      var highlightedBold = link.querySelector('.highlighted_bold_text');
+      var highlightedNormal = link.querySelector('.highlighted_normal_text');
+
+      if (highlightedBold) {
+        var highlightedPrimary = highlightedBold.textContent.replace(/\s+/g, ' ').trim();
+        var highlightedDetail = highlightedNormal ? highlightedNormal.textContent.replace(/\s+/g, ' ').trim() : '';
+
+        return highlightedPrimary + (highlightedDetail ? ' - ' + highlightedDetail : '');
+      }
+
+      var clone = link.cloneNode(true);
+      var plus = clone.querySelector('.animated-plus');
+
+      if (plus) plus.remove();
+
+      return clone.textContent.replace(/\s+/g, ' ').trim();
+    }
+
+    function renderMobileMenuTradeLabel(link, label) {
+      var labelParts = splitMobileMenuLabel(label);
+      var hasDetail = !!labelParts.detail;
+      var highlightedBold = link.querySelector('.highlighted_bold_text');
+      var highlightedNormal = link.querySelector('.highlighted_normal_text');
+
+      link.classList.toggle('have-two-parts', hasDetail);
+
+      if (highlightedBold) {
+        highlightedBold.textContent = labelParts.primary;
+
+        if (highlightedNormal) {
+          highlightedNormal.textContent = labelParts.detail;
+          highlightedNormal.hidden = !hasDetail;
+        }
+
+        return;
+      }
+
+      var plus = link.querySelector('.animated-plus');
+
+      Array.prototype.slice.call(link.childNodes).forEach(function (node) {
+        if (node !== plus) {
+          link.removeChild(node);
+        }
+      });
+
+      if (hasDetail) {
+        var primarySpan = document.createElement('span');
+        primarySpan.className = 'title-part-1';
+        primarySpan.textContent = labelParts.primary + ' - ';
+
+        var detailSpan = document.createElement('span');
+        detailSpan.className = 'title-part-2';
+        detailSpan.textContent = labelParts.detail;
+
+        link.insertBefore(primarySpan, plus || null);
+        link.insertBefore(detailSpan, plus || null);
+      } else {
+        link.insertBefore(document.createTextNode(labelParts.primary), plus || null);
+      }
+    }
+
+    function applyMobileMenuTradeLabels(status) {
+      var suppressPromos = shouldSuppressPromos(status);
+      var showTradeDiscountLabel = suppressPromos && shouldShowTradeUi(status);
+
+      document.querySelectorAll('#mobile-menu-drawer .mobile-nav__item[data-level="1"]').forEach(function (item) {
+        var link = getDirectMobileMenuLink(item);
+
+        if (!link) return;
+        if (link.tagName === 'A' && (link.getAttribute('href') || '').indexOf('#') !== -1) return;
+
+        if (!link.hasAttribute('data-ww-mobile-menu-original-title')) {
+          link.setAttribute('data-ww-mobile-menu-original-title', readMobileMenuOriginalLabel(link));
+        }
+
+        var originalLabel = link.getAttribute('data-ww-mobile-menu-original-title') || '';
+        var originalParts = splitMobileMenuLabel(originalLabel);
+        var nextLabel = originalLabel;
+
+        if (showTradeDiscountLabel) {
+          nextLabel = originalParts.primary + ' - Trade Discount';
+        } else if (suppressPromos) {
+          nextLabel = originalParts.primary;
+        }
+
+        renderMobileMenuTradeLabel(link, nextLabel);
+      });
+    }
+
     function lineHasTradeDiscount(element) {
       var line = element && element.closest('.line-item, tr, .cart-item');
       if (!line) return false;
@@ -743,6 +855,7 @@
       document.documentElement.classList.toggle('ww-trade-customer', isTradeCustomer && tradeDiscountActive);
       document.documentElement.classList.toggle('ww-suppress-promos', suppressPromos);
       applyPromoSuppression(status);
+      applyMobileMenuTradeLabels(status);
       applySalePriceSuppression(status);
     }
 
