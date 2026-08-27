@@ -586,6 +586,22 @@
       }
     }
 
+    function isMobileMenuPromoLink(link, originalLabel, originalParts) {
+      var label = String(originalLabel || '').toLowerCase();
+      var href = String(link && link.getAttribute('href') || '').toLowerCase();
+
+      return !!(
+        (originalParts && originalParts.detail) ||
+        (link && link.classList && link.classList.contains('makeit_highlighted')) ||
+        label.indexOf('sale') !== -1 ||
+        label.indexOf('offer') !== -1 ||
+        label.indexOf('free gift') !== -1 ||
+        href.indexOf('sale') !== -1 ||
+        href.indexOf('offer') !== -1 ||
+        href.indexOf('free-gift') !== -1
+      );
+    }
+
     function applyMobileMenuTradeLabels(status) {
       var suppressPromos = shouldSuppressPromos(status);
       var showTradeDiscountLabel = shouldShowTradeUi(status);
@@ -602,9 +618,10 @@
 
         var originalLabel = link.getAttribute('data-ww-mobile-menu-original-title') || '';
         var originalParts = splitMobileMenuLabel(originalLabel);
+        var isPromoLink = isMobileMenuPromoLink(link, originalLabel, originalParts);
         var nextLabel = originalLabel;
 
-        if (showTradeDiscountLabel) {
+        if (showTradeDiscountLabel && (suppressPromos || !isPromoLink)) {
           nextLabel = originalParts.primary + ' - Trade Discount';
         } else if (suppressPromos) {
           nextLabel = originalParts.primary;
