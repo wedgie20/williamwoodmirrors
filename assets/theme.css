@@ -15623,19 +15623,28 @@ shopify-payment-terms {
 }
 
 @media screen and (min-width: 1000px) {
+  .text-with-icons__dots[animation-timer] .dots-nav__item[aria-current="true"] {
+    animation: textWithIconsDotAnimation var(--section-autoplay-duration, 5s) linear;
+    animation-play-state: var(--section-animation-play-state, running);
+  }
+
+  @keyframes textWithIconsDotAnimation {
+    from {
+      opacity: 0.3;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
   .text-with-icons__list {
-    display: grid;
-    grid-gap: 48px;
-    gap: 48px;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(200px, 400px);
-    justify-content: center;
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: calc(-1 * var(--container-gutter));
+    margin-right: calc(-1 * var(--container-gutter));
   }
 
   .text-with-icons__item {
-    padding: 0; /* Spacing is already added by the grid */
+    padding: 0 48px;
   }
 
   .text-with-icons__content-wrapper .heading + p {

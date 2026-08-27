@@ -78,6 +78,13 @@
               </button>
             {%- endfor -%}
           </page-dots>
+          <page-dots animation-timer class="text-with-icons__dots dots-nav dots-nav--centered hidden-pocket">
+            {%- for block in section.blocks -%}
+              <button class="dots-nav__item tap-area" {% if forloop.first %}aria-current="true"{% endif%}>
+                <span class="visually-hidden">{{ 'general.accessibility.go_to_slide' | t: num: forloop.index }}</span>
+              </button>
+            {%- endfor -%}
+          </page-dots>
         {%- endif -%}
       </native-carousel>
     </div>
