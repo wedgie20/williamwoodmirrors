@@ -105,7 +105,7 @@
                   {%- endif -%}
                 </span>
               {%- else -%}
-                <span class="price">
+                <span class="price" data-ww-regular-price data-current-price-cents="{{ product.selected_or_first_available_variant.price }}" data-compare-at-price-cents="0">
                   <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
 
                   {%- if settings.currency_code_enabled -%}

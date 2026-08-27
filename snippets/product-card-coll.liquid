@@ -356,7 +356,7 @@
                 {%- endif -%}
               </span>
             {%- else -%}
-              <span class="price">
+              <span class="price" data-ww-regular-price data-current-price-cents="{{ cheapest_variant.price }}" data-compare-at-price-cents="0">
                 <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
                 {{- 'collection.product.from_price_html' | t: price_min: price_min -}}
               </span>
@@ -397,12 +397,12 @@
               {%- endif -%}
             {%- endcapture -%}
 
-            <span class="price">
+            <span class="price" data-ww-regular-price data-current-price-cents="{{ product.price_min }}" data-compare-at-price-cents="0">
               <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
               {{- 'collection.product.from_price_html' | t: price_min: price_min, price_max: price_max -}}
             </span>
           {%- else -%}
-            <span class="price">
+            <span class="price" data-ww-regular-price data-current-price-cents="{{ product.price }}" data-compare-at-price-cents="0">
               <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
 
               {%- if settings.currency_code_enabled -%}

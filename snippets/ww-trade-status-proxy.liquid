@@ -15,8 +15,20 @@
     opacity: 1 !important;
   }
 
+  html.ww-trade-customer [data-ww-regular-price].ww-trade-restored-regular-price {
+    color: inherit !important;
+    font-weight: inherit !important;
+    text-decoration: none !important;
+    opacity: 1 !important;
+  }
+
   html.ww-suppress-promos .ww-trade-restored-regular-price.ww-trade-struck-regular-price,
   html.ww-suppress-promos .ww-trade-restored-regular-price.ww-trade-struck-regular-price.price--compare {
+    text-decoration: line-through !important;
+    opacity: .65 !important;
+  }
+
+  html.ww-trade-customer [data-ww-regular-price].ww-trade-restored-regular-price.ww-trade-struck-regular-price {
     text-decoration: line-through !important;
     opacity: .65 !important;
   }
@@ -645,6 +657,11 @@
       productItem.querySelectorAll('[data-ww-promo-suppressible].ww-trade-labels-restored').forEach(function (labelList) {
         labelList.classList.remove('ww-trade-labels-restored');
 
+        if (labelList.hasAttribute('data-ww-trade-created-label-list')) {
+          labelList.remove();
+          return;
+        }
+
         var saveLabel = labelList.querySelector('[data-ww-trade-save-label]');
         if (saveLabel) {
           saveLabel.removeAttribute('data-ww-trade-save-label');
@@ -662,7 +679,21 @@
       if (!productItem || !(savingCents > 0)) return;
 
       var labelList = productItem.querySelector('[data-ww-promo-suppressible]');
-      if (!labelList) return;
+      if (!labelList) {
+        var meta = productItem.querySelector('.product-item-meta') || productItem;
+        var labelAnchor = meta.querySelector('.product-item-meta__reviews-badge') || meta.querySelector('.product-item-meta__price-list-container');
+
+        labelList = document.createElement('div');
+        labelList.className = 'product-item__label-list label-list';
+        labelList.setAttribute('data-ww-promo-suppressible', '');
+        labelList.setAttribute('data-ww-trade-created-label-list', '');
+
+        if (labelAnchor && labelAnchor.parentElement === meta) {
+          labelAnchor.insertAdjacentElement('afterend', labelList);
+        } else {
+          meta.appendChild(labelList);
+        }
+      }
 
       labelList.classList.add('ww-trade-labels-restored');
 
@@ -687,9 +718,18 @@
       return scope ? scope.querySelector('[data-ww-trade-inline-save-label]') : null;
     }
 
+    function getInlineSaveLabelScope(saleElement) {
+      return saleElement && saleElement.closest('.price-list, [data-product-price-list], .product-meta__price-list-container');
+    }
+
     function restoreInlineTradeSaveLabel(saleElement) {
       var saveLabel = getInlineSaveLabel(saleElement);
       if (!saveLabel) return;
+
+      if (saveLabel.hasAttribute('data-ww-trade-inline-save-label-created')) {
+        saveLabel.remove();
+        return;
+      }
 
       saveLabel.classList.remove('ww-trade-inline-save-label-restored');
 
@@ -700,8 +740,17 @@
     }
 
     function upsertInlineTradeSaveLabel(saleElement, savingCents) {
+      var scope = getInlineSaveLabelScope(saleElement);
       var saveLabel = getInlineSaveLabel(saleElement);
-      if (!saveLabel || !(savingCents > 0)) return;
+      if (!(savingCents > 0) || !scope) return;
+
+      if (!saveLabel) {
+        saveLabel = document.createElement('span');
+        saveLabel.className = 'label label--highlight';
+        saveLabel.setAttribute('data-ww-trade-inline-save-label', '');
+        saveLabel.setAttribute('data-ww-trade-inline-save-label-created', '');
+        scope.appendChild(saveLabel);
+      }
 
       if (!saveLabel.hasAttribute('data-ww-original-label-html')) {
         saveLabel.setAttribute('data-ww-original-label-html', saveLabel.innerHTML);
@@ -711,22 +760,23 @@
       saveLabel.textContent = 'Save ' + formatMoneyFromCents(savingCents);
     }
 
-    function upsertRestrictedTradePrice(saleElement, regularElement, discount) {
+    function upsertRestrictedTradePrice(saleElement, regularElement, discount, priceBasisOverrideCents) {
       var parent = saleElement && saleElement.parentElement;
       if (!parent || !(discount > 0)) return;
 
       var saleCents = getElementCents(saleElement, 'data-current-price-cents');
       var compareAtCents = getElementCents(saleElement, 'data-compare-at-price-cents') || getElementCents(regularElement, 'data-compare-at-price-cents');
+      var priceBasisCents = Number(priceBasisOverrideCents || 0) || compareAtCents;
 
-      if (!(compareAtCents > saleCents)) {
+      if (!(priceBasisCents > 0) || (!priceBasisOverrideCents && !(compareAtCents > saleCents))) {
         removeRestrictedTradePrice(parent);
         restoreTradeRestrictedLabels(getProductItem(saleElement));
         restoreInlineTradeSaveLabel(saleElement);
         return;
       }
 
-      var tradePriceCents = Math.round(compareAtCents * (100 - discount) / 100);
-      var savingCents = Math.max(compareAtCents - tradePriceCents, 0);
+      var tradePriceCents = Math.round(priceBasisCents * (100 - discount) / 100);
+      var savingCents = Math.max(priceBasisCents - tradePriceCents, 0);
       var tradePriceElement = parent.querySelector('[data-ww-trade-restricted-price]');
       var noteElement = parent.querySelector('[data-ww-trade-restricted-price-note]');
 
@@ -734,6 +784,8 @@
         tradePriceElement = document.createElement('span');
         tradePriceElement.className = saleElement.className;
         tradePriceElement.classList.remove('ww-trade-suppressed-sale-price');
+        tradePriceElement.classList.remove('ww-trade-restored-regular-price');
+        tradePriceElement.classList.remove('ww-trade-struck-regular-price');
         tradePriceElement.classList.add('ww-trade-restricted-price');
         tradePriceElement.setAttribute('data-ww-trade-restricted-price', '');
       }
@@ -761,6 +813,46 @@
 
       upsertTradeRestrictedLabels(saleElement, savingCents);
       upsertInlineTradeSaveLabel(saleElement, savingCents);
+    }
+
+    function resetRegularPriceTradeTreatment(regularElement) {
+      var parent = regularElement && regularElement.parentElement;
+      if (!parent) return;
+
+      regularElement.classList.remove('ww-trade-restored-regular-price');
+      regularElement.classList.remove('ww-trade-struck-regular-price');
+      removeRestrictedTradePrice(parent);
+      restoreTradeRestrictedLabels(getProductItem(regularElement));
+      restoreInlineTradeSaveLabel(regularElement);
+    }
+
+    function setRegularPriceTradeTreatment(regularElement, status) {
+      if (!regularElement || regularElement.hasAttribute('data-ww-trade-restricted-price')) return;
+
+      var discount = getEffectiveTradeDiscount(status);
+      var priceCents = getElementCents(regularElement, 'data-current-price-cents');
+      var parent = regularElement.parentElement;
+
+      if (!parent) return;
+
+      if (!shouldShowTradeUi(status) || !(discount > 0) || !(priceCents > 0)) {
+        resetRegularPriceTradeTreatment(regularElement);
+        return;
+      }
+
+      var tradePriceGroup = regularElement.closest('[data-ww-trade-price-group]');
+      if (tradePriceGroup && tradePriceGroup.classList.contains('has-trade-price')) {
+        resetRegularPriceTradeTreatment(regularElement);
+        return;
+      }
+      if (lineHasTradeDiscount(regularElement) || lineHasActualDiscount(regularElement)) {
+        resetRegularPriceTradeTreatment(regularElement);
+        return;
+      }
+
+      regularElement.classList.add('ww-trade-restored-regular-price');
+      regularElement.classList.add('ww-trade-struck-regular-price');
+      upsertRestrictedTradePrice(regularElement, regularElement, discount, priceCents);
     }
 
     function setSalePairSuppression(saleElement, regularElement, status) {
@@ -830,6 +922,10 @@
         });
 
         setSalePairSuppression(saleElement, regularElement, status);
+      });
+
+      document.querySelectorAll('[data-ww-regular-price]').forEach(function (regularElement) {
+        setRegularPriceTradeTreatment(regularElement, status);
       });
     }
 
@@ -906,8 +1002,8 @@
             if (!node || node.nodeType !== 1) return false;
 
             return node.matches && (
-              node.matches('[data-ww-promo-suppressible], [data-ww-sale-price], .price--highlight, [data-ww-trade-proxy-target], [data-ww-trade-price-group], .product-item')
-            ) || node.querySelector && node.querySelector('[data-ww-promo-suppressible], [data-ww-sale-price], .price--highlight, [data-ww-trade-proxy-target], [data-ww-trade-price-group], .product-item');
+              node.matches('[data-ww-promo-suppressible], [data-ww-sale-price], [data-ww-regular-price], .price--highlight, [data-ww-trade-proxy-target], [data-ww-trade-price-group], .product-item')
+            ) || node.querySelector && node.querySelector('[data-ww-promo-suppressible], [data-ww-sale-price], [data-ww-regular-price], .price--highlight, [data-ww-trade-proxy-target], [data-ww-trade-price-group], .product-item');
           });
         });
 
