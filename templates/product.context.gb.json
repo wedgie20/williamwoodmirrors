@@ -1379,7 +1379,7 @@
     },
     "17266470579eb0696b": {
       "type": "apps",
-      "disabled": false,
+      "disabled": true,
       "custom_css": [
         ".rebuy-product-grid {text-align: left;}"
       ],
@@ -2055,6 +2055,52 @@
         "title2": "Follow @williamwood"
       },
       "blocks": {}
+    },
+    "17878192898df4b485": {
+      "type": "apps",
+      "disabled": false,
+      "settings": {
+        "include_trustpilot": false,
+        "include_horizontal_margins": true,
+        "include_vertical_margins": true
+      },
+      "blocks": {
+        "foursixty_shoppable_social_ugc_custom_collage_hwRkM": {
+          "type": "shopify://apps/foursixty-shoppable-social-ugc/blocks/custom_collage/e2616dfe-fbb6-4e7d-874d-d250b973556d",
+          "disabled": false,
+          "settings": {
+            "header-6c874044e395e851b859b91b82749a51": null,
+            "foreground_color": "#ffffff",
+            "background_color": "#000000",
+            "background_color_alpha": 90,
+            "header-8c9a41330703b29c4065c6fe56ea3422": null,
+            "post_spacing": 1,
+            "hover_margin": 0,
+            "header-226065dd9c76f57a448aeca53292cb28": null,
+            "target_blank": false,
+            "show_icon": true,
+            "show_text": false,
+            "show_date": false,
+            "header-95350bac740222e4ff4a14137cafd2bd": null,
+            "call_to_action": "SHOP IT",
+            "shop_type": "button",
+            "header-a4e2a630b9906f524bf5cac3787f689b": null,
+            "body_font_size": 14,
+            "body_font": "sans_serif_n4",
+            "accent_font_size": 14,
+            "accent_font": "sans_serif_n4",
+            "header-602f4ad67a4693deb9a33dbd99404891": null,
+            "disable_filter": false,
+            "override_feed_id": "",
+            "arbitrary_attributes": "",
+            "custom_css": "",
+            "custom_js": ""
+          }
+        }
+      },
+      "block_order": [
+        "foursixty_shoppable_social_ugc_custom_collage_hwRkM"
+      ]
     }
   },
   "order": [
@@ -2075,6 +2121,7 @@
     "1662736476a1d5736f",
     "custom_liquid_9X3BD",
     "17266470579eb0696b",
+    "17878192898df4b485",
     "1664500680eee3b37a",
     "1721117569940993f4"
   ]
