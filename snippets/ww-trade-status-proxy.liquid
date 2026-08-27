@@ -744,6 +744,8 @@
       var saveLabel = getInlineSaveLabel(saleElement);
       if (!(savingCents > 0) || !scope) return;
 
+      if (!saveLabel && getProductItem(saleElement)) return;
+
       if (!saveLabel) {
         saveLabel = document.createElement('span');
         saveLabel.className = 'label label--highlight';
