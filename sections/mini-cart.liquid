@@ -606,37 +606,29 @@
     width: 100%;">
   
   <p class="order_info" style="display: flex; justify-content: space-between;">
-    <span style="color: black;">
-      Subtotal (
-      {%- assign item_label = 'item' -%}
-      {%- if cart.item_count != 1 -%}
-        {%- assign item_label = 'items' -%}
+  <span style="color: black;">
+    Subtotal (
+    {%- assign item_label = 'item' -%}
+    {%- if cart.item_count != 1 -%}
+      {%- assign item_label = 'items' -%}
+    {%- endif -%}
+    {{ cart.item_count }} {{ item_label }}):
+  </span>
+
+  <span style="text-align: right;">
+    {%- assign original_subtotal = 0 -%}
+    {%- for line_item in cart.items -%}
+      {%- if line_item.variant.compare_at_price > line_item.variant.price -%}
+        {%- assign item_total = line_item.variant.compare_at_price | times: line_item.quantity -%}
+      {%- else -%}
+        {%- assign item_total = line_item.variant.price | times: line_item.quantity -%}
       {%- endif -%}
-      {{ cart.item_count }} {{ item_label }}):
-    </span>
+      {%- assign original_subtotal = original_subtotal | plus: item_total -%}
+    {%- endfor -%}
 
-    <span style="text-align: right;">
-      {%- assign original_subtotal = 0 -%}
-      {%- for line_item in cart.items -%}
-    {%- if line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
-                {% if line_item.variant.compare_at_price > line_item.variant.price %}
-               {% assign item_total = line_item.variant.compare_at_price | times: line_item.quantity %}
-                {% else %}
-                  {%- assign item_total = line_item.original_line_price -%}
-                {% endif %}
-            {%- else -%}
-                {%- assign item_total = line_item.final_line_price -%}
-                {%- endif -%}
-        {%- assign original_subtotal = original_subtotal | plus: item_total -%}
-      {%- endfor -%}
-
-{% render 'format-money', amount: original_subtotal %}
-    </span>
-
-    {% comment %} <span style="text-align: right;">
-      {% render 'format-money', amount: display_cart_total %}
-    </span> {% endcomment %}
-  </p>
+    {% render 'format-money', amount: original_subtotal %}
+  </span>
+</p>
 
  
 
