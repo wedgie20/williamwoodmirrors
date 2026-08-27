@@ -588,7 +588,7 @@
 
     function applyMobileMenuTradeLabels(status) {
       var suppressPromos = shouldSuppressPromos(status);
-      var showTradeDiscountLabel = suppressPromos && shouldShowTradeUi(status);
+      var showTradeDiscountLabel = shouldShowTradeUi(status);
 
       document.querySelectorAll('#mobile-menu-drawer .mobile-nav__item[data-level="1"]').forEach(function (item) {
         var link = getDirectMobileMenuLink(item);
