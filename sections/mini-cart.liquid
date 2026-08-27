@@ -660,6 +660,16 @@
   {% assign item_total_saving = 0 %}
   {% assign item_savings_basis = item.final_line_price %}
 
+  {%- assign line_last_chance = false -%}
+  {%- for tag in item.product.tags -%}
+    {%- if tag contains '__label' -%}
+      {%- assign line_candidate = tag | split: ':' | last -%}
+      {%- if line_candidate == 'LAST CHANCE' -%}
+        {%- assign line_last_chance = true -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+
   {% if item.original_line_price > item.final_line_price %}
     {% assign has_code_savings = true %}
     {% assign item_savings_basis = item.original_line_price %}
@@ -667,6 +677,10 @@
   {% elsif item.variant.compare_at_price and item.variant.compare_at_price > item.variant.price %}
     {% assign item_savings_basis = item.variant.compare_at_price | times: item.quantity %}
     {% assign item_total_saving = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity %}
+  {% elsif line_last_chance == false %}
+    {% assign item_savings_basis = item.variant.price | times: item.quantity %}
+    {% assign auto_discounted_unit = item.variant.price | times: 0.75 %}
+    {% assign item_total_saving = item.variant.price | minus: auto_discounted_unit | times: item.quantity | round %}
   {% endif %}
 
   {% assign savings_basis = savings_basis | plus: item_savings_basis %}
