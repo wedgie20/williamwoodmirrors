@@ -4252,6 +4252,10 @@ body:has(predictive-search.show) .ss-announcement-bar {
   display: none;
 } */
 
+.ss-countdown-bar {
+  font-family: Zurich, sans-serif !important;
+}
+
 body:has(.drawer[open]) .ss-announcement-bar,
 body:has(.drawer[open]) .ss-countdown-bar,
 body:has(#quick-search-content.show) .ss-announcement-bar,
