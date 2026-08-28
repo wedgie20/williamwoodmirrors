@@ -551,6 +551,14 @@
         .trim();
     }
 
+    function normalizeMobileMenuLabel(label) {
+      return String(label || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
     function renderMobileMenuTradeLabel(link, label) {
       var labelParts = splitMobileMenuLabel(label);
       var hasDetail = !!labelParts.detail;
@@ -632,31 +640,45 @@
         link.setAttribute('data-ww-mobile-menu-original-title', originalLabel);
 
         var originalParts = splitMobileMenuLabel(originalLabel);
-        var originalPrimary = originalParts.primary.toLowerCase();
+        var originalPrimary = normalizeMobileMenuLabel(originalParts.primary);
+        var originalFullLabel = normalizeMobileMenuLabel(originalLabel);
         var hiddenForTradeCustomer = isTradeCustomer && (
-          originalPrimary === 'bundle offers' ||
-          originalPrimary === 'free gift'
+          originalFullLabel.indexOf('bundle offers') !== -1 ||
+          originalFullLabel.indexOf('free gift') !== -1
         );
 
-        item.hidden = hiddenForTradeCustomer;
-        item.toggleAttribute('aria-hidden', hiddenForTradeCustomer);
+        if (hiddenForTradeCustomer) {
+          item.hidden = true;
+          item.setAttribute('aria-hidden', 'true');
+          item.style.setProperty('display', 'none', 'important');
+        } else {
+          item.hidden = false;
+          item.removeAttribute('aria-hidden');
+          item.style.removeProperty('display');
+        }
+
         if (hiddenForTradeCustomer) return;
 
         var isPromoLink = isMobileMenuPromoLink(link, originalLabel, originalParts);
         var nextLabel = originalLabel;
+        var showLastChance = isTradeCustomer && originalFullLabel.indexOf('summer sale') !== -1;
 
-        if (isTradeCustomer && originalPrimary === 'summer sale') {
+        link.classList.toggle('ww-mobile-menu-trade-last-chance', showLastChance);
+
+        if (showLastChance) {
           nextLabel = 'Last Chance';
+          link.style.setProperty('font-weight', '700', 'important');
           if (link.tagName === 'A') {
             link.setAttribute('href', '/collections/last-chance');
           }
         } else {
+          link.style.removeProperty('font-weight');
           if (link.tagName === 'A' && link.hasAttribute('data-ww-mobile-menu-original-href')) {
             link.setAttribute('href', link.getAttribute('data-ww-mobile-menu-original-href') || '');
           }
         }
 
-        if (suppressPromos && isPromoLink && !(isTradeCustomer && originalPrimary === 'summer sale')) {
+        if (suppressPromos && isPromoLink && !showLastChance) {
           nextLabel = originalParts.primary;
         }
 
