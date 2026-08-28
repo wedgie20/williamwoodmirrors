@@ -21,6 +21,17 @@
   }
 </style>
 
+{%- assign ww_collection_banner_title = collection.title -%}
+{%- if collection.handle == 'sale' and customer -%}
+  {%- assign ww_trade_customer_tags = customer.tags | join: ',' | downcase -%}
+  {%- assign ww_collection_banner_title_downcase = ww_collection_banner_title | downcase -%}
+  {%- if customer.metafields.trade.is_trade_customer.value == true or customer.metafields.trade.discount_percentage.value > 0 or ww_trade_customer_tags contains 'trade' -%}
+    {%- if ww_collection_banner_title_downcase contains 'summer sale' or ww_collection_banner_title_downcase contains 'spring sale' -%}
+      {%- assign ww_collection_banner_title = 'Last Chance' -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}
+
 <section>
   {%- comment -%}
   ------------------------------------------------------------------------------------------
@@ -65,7 +76,7 @@
           <div class="image-overlay__content content-box content-box--{{ section.settings.text_width }} content-box--text-center content-box--center text-container">
             {%- if section.settings.show_collection_title -%}
               <h1 class="heading h1 {% if collection.handle == 'aurelia' %}aurelia-heading{% endif %}">
-                <split-lines {% if collection.handle == 'aurelia' %}aurelia-heading{% endif %} reveal>{{ collection.title }}</split-lines>
+                <split-lines {% if collection.handle == 'aurelia' %}aurelia-heading{% endif %} reveal>{{ ww_collection_banner_title }}</split-lines>
               </h1>
             {%- endif -%}
 
@@ -93,7 +104,7 @@
 
         <div class="page-header__text-wrapper text-container">
           {%- if section.settings.show_collection_title -%}
-            <h1 class="heading h1 ">{{ collection.title }}</h1>
+            <h1 class="heading h1 ">{{ ww_collection_banner_title }}</h1>
           {%- endif -%}
 
           {%- if section.settings.show_collection_description and collection.description != blank -%}
