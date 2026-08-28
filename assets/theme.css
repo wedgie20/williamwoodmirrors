@@ -4244,8 +4244,20 @@ body.enabled-scroll-handler .mobile-toolbar{
 .ss-announcement-bar {
   transition: transform 0.4s ease, opacity 0.4s ease;
 }
-body:has(.drawer[open]) .ss-announcement-bar, body:has(#quick-search-content.show) .ss-announcement-bar,
+/* body:has(.drawer[open]) .ss-announcement-bar, body:has(#quick-search-content.show) .ss-announcement-bar,
 body:has(predictive-search.show) .ss-announcement-bar {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+  display: none;
+} */
+
+body:has(.drawer[open]) .ss-announcement-bar,
+body:has(.drawer[open]) .ss-countdown-bar,
+body:has(#quick-search-content.show) .ss-announcement-bar,
+body:has(#quick-search-content.show) .ss-countdown-bar,
+body:has(predictive-search.show) .ss-announcement-bar,
+body:has(predictive-search.show) .ss-countdown-bar {
   transform: translateY(-100%);
   opacity: 0;
   pointer-events: none;
