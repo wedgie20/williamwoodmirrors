@@ -503,35 +503,6 @@ safe-sticky {
         display: none !important;
       }
 
-      html.ww-essential-countdown-visible [id^="shopify-section-sections--"][id$="__header"] .header,
-      html.ww-essential-countdown-visible .shopify-section--header .header {
-        --header-background: 255, 255, 255 !important;
-        --header-text-color: 0, 0, 0 !important;
-        --header-border-color: 229, 229, 229 !important;
-        --header-transparent-bubble-text-color: 255, 255, 255 !important;
-        --pill-color: 0, 0, 0 !important;
-        --pill-color-contrast: 255, 255, 255 !important;
-        background: #fff !important;
-        color: #000 !important;
-      }
-
-      html.ww-essential-countdown-visible [id^="shopify-section-sections--"][id$="__header"] .header__logo-image:not(.header__logo-image--transparent),
-      html.ww-essential-countdown-visible .shopify-section--header .header__logo-image:not(.header__logo-image--transparent) {
-        display: block !important;
-        opacity: 1 !important;
-      }
-
-      html.ww-essential-countdown-visible [id^="shopify-section-sections--"][id$="__header"] .header__logo-image--transparent,
-      html.ww-essential-countdown-visible .shopify-section--header .header__logo-image--transparent {
-        display: none !important;
-        opacity: 0 !important;
-      }
-
-      html.ww-essential-countdown-visible [id^="shopify-section-sections--"][id$="__header"] .pill-nav-section,
-      html.ww-essential-countdown-visible .shopify-section--header .pill-nav-section {
-        background: #fff !important;
-      }
-
       @media screen and (max-width: 740px) {
         .ww-essential-countdown-bar {
           min-height: 40px !important;
@@ -579,7 +550,6 @@ safe-sticky {
 
         function syncTimerBanner() {
           var announcement = document.querySelector('[id^="shopify-section-sections--"][id$="__announcement-bar"]');
-          var header = document.querySelector('[id^="shopify-section-sections--"][id$="__header"] .header, .shopify-section--header .header');
           var announcementMessage = announcement ? announcement.querySelector('.announcement-bar__message') : null;
           var candidates = Array.prototype.slice.call(document.querySelectorAll(timerSelectors));
           var timerBar = candidates.find(isTopBarTimer);
@@ -589,10 +559,6 @@ safe-sticky {
           });
 
           document.documentElement.classList.toggle('ww-essential-countdown-visible', !!timerBar);
-
-          if (header && timerBar) {
-            header.classList.remove('header--transparent');
-          }
 
           if (announcementMessage) {
             document.documentElement.style.setProperty('--ww-announcement-font-size', window.getComputedStyle(announcementMessage).fontSize);
