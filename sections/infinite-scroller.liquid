@@ -82,7 +82,7 @@
       {% if logo %}
         {% assign images_count = images_count | plus: 1  %}
         <div class="logo-slide">
-          <img src="{{ logo | img_url: section.settings.image_size }}" alt="{{ logo.alt }}">
+          <img src="{{ settings.speedsize_url_pfx_https -}}{{ logo | img_url: section.settings.image_size }}" alt="{{ logo.alt }}">
         </div>
       {% endif %}
     {% endfor %}

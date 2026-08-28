@@ -53,7 +53,7 @@
     overflow: hidden;
     box-shadow: {{ section.settings.video_shadow }};
     {% if section.settings.poster_image != blank and section.settings.autoplay == false %}
-    background-image: url('{{ section.settings.poster_image | image_url: width: 1920 }}');
+    background-image: url('{{ settings.speedsize_url_pfx_https -}}{{ section.settings.poster_image | image_url: width: 1920 }}');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -236,7 +236,7 @@
         {% endif %}
         
         {% if section.settings.description != blank %}
-          <div class="video-section__description">{{ section.settings.description }}</div>
+          <div class="video-section__description">{{ section.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</div>
         {% endif %}
       </div>
     {% endif %}
@@ -255,12 +255,12 @@
           {% if section.settings.loop %}loop{% endif %}
           {% if section.settings.show_controls %}controls{% endif %}
           {% unless section.settings.autoplay %}preload="metadata"{% else %}preload="auto"{% endunless %}
-          {% if section.settings.poster_image != blank and section.settings.autoplay == false %}poster="{{ section.settings.poster_image | image_url: width: 1920 }}"{% endif %}
+          {% if section.settings.poster_image != blank and section.settings.autoplay == false %}poster="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.poster_image | image_url: width: 1920 }}"{% endif %}
           playsinline
           webkit-playsinline
         >
-          <source src="{{ section.settings.video.sources[1].url }}" type="video/mp4">
-          <source src="{{ section.settings.video.sources[0].url }}" type="video/webm">
+          <source src="{{ section.settings.video.sources[1].url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}" type="video/mp4">
+          <source src="{{ section.settings.video.sources[0].url | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}" type="video/webm">
           Your browser does not support the video tag.
         </video>
 
@@ -268,7 +268,7 @@
           {% if section.settings.poster_image != blank %}
             <div 
               class="video-section__poster" 
-              style="background-image: url('{{ section.settings.poster_image | image_url: width: 1920 }}');"
+              style="background-image: url('{{ settings.speedsize_url_pfx_https -}}{{ section.settings.poster_image | image_url: width: 1920 }}');"
               id="{{ video_id   }}-poster"
               role="img"
               aria-label="{{ section.settings.poster_image.alt | default: section.settings.title }}"
@@ -304,9 +304,9 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const video = document.getElementById('{{ video_id }}');
-  const poster = document.getElementById('{{ video_id }}-poster');
-  const playButton = document.getElementById('{{ video_id }}-play-btn');
+  const video = document.getElementById('{{ video_id | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}');
+  const poster = document.getElementById('{{ video_id | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}-poster');
+  const playButton = document.getElementById('{{ video_id | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}-play-btn');
 
   // Force poster visibility on mobile
   if (poster && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
