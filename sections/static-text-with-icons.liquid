@@ -49,7 +49,7 @@ IMPLEMENTATION NOTE: This section is similar to the dynamic "Text with icons" se
                 <div class="text-with-icons__icon-wrapper">
                   {%- if block.settings.custom_icon != blank -%}
                     {% capture custom_icon_width %}{{ block.settings.custom_icon_width | times: 2 }}x{% endcapture %}
-                    <img class="text-with-icons__custom-icon" style="max-width: {{ block.settings.custom_icon_width }}px" width="{{ block.settings.custom_icon.width }}" height="{{ block.settings.custom_icon.height }}" src="{{ block.settings.custom_icon | img_url: custom_icon_width }}" alt="{{ block.settings.custom_icon.alt | escape }}">
+                    <img class="text-with-icons__custom-icon" style="max-width: {{ block.settings.custom_icon_width }}px" width="{{ block.settings.custom_icon.width }}" height="{{ block.settings.custom_icon.height }}" src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.custom_icon | img_url: custom_icon_width }}" alt="{{ block.settings.custom_icon.alt | escape }}">
                   {%- else -%}
                     {%- render 'icon' with block.settings.icon -%}
                   {%- endif -%}
@@ -62,7 +62,7 @@ IMPLEMENTATION NOTE: This section is similar to the dynamic "Text with icons" se
                     {%- endif -%}
 
                     {%- if block.settings.content != blank -%}
-                      {{- block.settings.content -}}
+                      {{- block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
                     {%- endif -%}
                   </div>
                 {%- endif -%}

@@ -311,7 +311,7 @@ For inquiries or permissions, contact daniel@section.store
             {% if block.settings.image != blank or block.settings.icon != "none" %}
               <div class="tabs-icon-{{ section.id }}">
                 {% if block.settings.image != blank %}
-                  <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.image.alt }}">
+                  <img src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image | image_url }}" alt="{{ block.settings.image.alt }}">
                 {% elsif block.settings.icon != "none" %}
                   {% case block.settings.icon %}
                     {% when 'atc' %}
@@ -577,9 +577,9 @@ For inquiries or permissions, contact daniel@section.store
         {% for block in section.blocks %}
           <div class="tabs-item-{{ section.id }} {% if forloop.first %}active{% endif %}" data-id="{{ block.id }}">
             {% if block.settings.product_description %}
-              {{ product.content }}
+              {{ product.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
             {% else %}
-              {{ block.settings.content }}
+              {{ block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
             {% endif %}
           </div>
         {% endfor %}
