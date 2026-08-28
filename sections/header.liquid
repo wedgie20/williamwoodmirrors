@@ -4,10 +4,15 @@
     need to touch this code, make sure to do it with EXTRA CARE as it may have some unwanted side effects
 {%- endcomment -%}
 
+{%- assign use_transparent_header = false -%}
+{%- if request.page_type == 'product' and section.settings.enable_transparent_header -%}
+  {%- assign use_transparent_header = true -%}
+{%- endif -%}
+
 <style>
   :root {
     --enable-sticky-header: {% if section.settings.enable_sticky_header %}1{% else %}0{% endif %};
-    --enable-transparent-header: {% if request.page_type == 'index' or request.page_type == 'product' and section.settings.enable_transparent_header %}1{% else %}0{% endif %};
+    --enable-transparent-header: {% if use_transparent_header %}1{% else %}0{% endif %};
     --loading-bar-background: {{ settings.header_text_color.red }}, {{ settings.header_text_color.green }}, {{ settings.header_text_color.blue }}; /* Prevent the loading bar to be invisible */
   }
 
@@ -33,7 +38,7 @@
     z-index: 111;
   }
 
-  {%- if request.page_type == 'index' and section.settings.enable_transparent_header -%}
+  {%- if request.page_type == 'index' and use_transparent_header -%}
     #shopify-section-{{ section.id }} {
       margin-bottom: calc(-1 * (var(--header-height, 0px) + var(--enable-sticky-announcement-bar) * var(--announcement-bar-height, 0px)));
     }
@@ -447,12 +452,12 @@
   {% if section.settings.enable_sticky_header %}
     sticky
   {% endif %}
-  {% if request.page_type == 'index' or request.page_type == 'product' and section.settings.enable_transparent_header %}
+  {% if use_transparent_header %}
 
     transparent
   {% endif %}
   class="header {% if settings.background == settings.header_background %}header--bordered{% endif %} 
-  {% if request.page_type == 'index' or request.page_type == 'product' and section.settings.enable_transparent_header %}header--transparent{% endif %}"
+  {% if use_transparent_header %}header--transparent{% endif %}"
   role="banner"
 >
 
@@ -540,7 +545,7 @@
             {%- capture logo_size -%}{{ section.settings.logo_max_width | at_least: section.settings.mobile_logo_max_width | times: 2 | append: 'x' }}{%- endcapture -%}
             <span class="visually-hidden">{{ shop.name }}</span>
             <img class="header__logo-image" width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}" src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.logo | img_url: logo_size }}" alt="{{ section.settings.logo.alt | escape }}">
-            {%- if request.page_type == 'index' or request.page_type == 'product' and section.settings.enable_transparent_header and section.settings.transparent_logo != blank -%}
+            {%- if use_transparent_header and section.settings.transparent_logo != blank -%}
               <img class="header__logo-image header__logo-image--transparent" width="{{ section.settings.transparent_logo.width }}" height="{{ section.settings.transparent_logo.height }}" src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.transparent_logo | img_url: logo_size }}" alt="{{ section.settings.transparent_logo.alt | escape }}">
             {%- endif -%}
             {%- else -%}
