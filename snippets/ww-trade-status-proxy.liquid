@@ -604,7 +604,6 @@
 
     function applyMobileMenuTradeLabels(status) {
       var suppressPromos = shouldSuppressPromos(status);
-      var showTradeDiscountLabel = shouldShowTradeUi(status);
 
       document.querySelectorAll('#mobile-menu-drawer .mobile-nav__item[data-level="1"]').forEach(function (item) {
         var link = getDirectMobileMenuLink(item);
@@ -616,14 +615,19 @@
           link.setAttribute('data-ww-mobile-menu-original-title', readMobileMenuOriginalLabel(link));
         }
 
-        var originalLabel = link.getAttribute('data-ww-mobile-menu-original-title') || '';
+        var originalLabel = (link.getAttribute('data-ww-mobile-menu-original-title') || '')
+          .replace(/\s*-\s*Trade Discount\b/gi, '')
+          .replace(/\bTrade Discount\b/gi, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+
+        link.setAttribute('data-ww-mobile-menu-original-title', originalLabel);
+
         var originalParts = splitMobileMenuLabel(originalLabel);
         var isPromoLink = isMobileMenuPromoLink(link, originalLabel, originalParts);
         var nextLabel = originalLabel;
 
-        if (showTradeDiscountLabel && (suppressPromos || !isPromoLink)) {
-          nextLabel = originalParts.primary + ' - Trade Discount';
-        } else if (suppressPromos) {
+        if (suppressPromos && isPromoLink) {
           nextLabel = originalParts.primary;
         }
 
