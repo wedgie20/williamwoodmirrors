@@ -3145,7 +3145,9 @@ background: #efefef;
     }
 
     .ww-pdp-sticky-atc__mobile-label .ww-pdp-sticky-atc__price-compare {
-      display: none;
+      display: inline-flex;
+      color: rgba(255, 255, 255, .72);
+      text-decoration: line-through;
     }
 
     .ww-pdp-sticky-atc__button [data-pp-message],
@@ -4467,8 +4469,8 @@ background: #efefef;
       stickyBar.classList.add('is-hidden');
       stickyBar.hidden = false;
       updateStickyButtonLabel(
-        {{ current_variant.price | money | json }},
-        {%- if has_variant_discount -%}{{ current_variant.compare_at_price | money | json }}{%- else -%}''{%- endif -%},
+        {%- if show_auto_discount -%}{{ auto_discounted_price | money | json }}{%- else -%}{{ current_variant.price | money | json }}{%- endif -%},
+        {%- if has_variant_discount -%}{{ current_variant.compare_at_price | money | json }}{%- elsif show_auto_discount -%}{{ current_variant.price | money | json }}{%- else -%}''{%- endif -%},
         {{ current_variant.available | json }}
       );
       updateStickyVisibility();
