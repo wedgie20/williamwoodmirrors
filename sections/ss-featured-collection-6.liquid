@@ -871,7 +871,7 @@ For inquiries or permissions, contact daniel@section.store
               <a href="{{ product.url  }}" class="collection-slide-{{ section.id }} swiper-slide">
               <div class="collection-image-{{ section.id }} {% if product.media.size > 1 %}collection-first-image-{{ section.id }}{% endif %}">
                 {% if product.featured_image != blank %}
-                  <img src="{{ settings.speedsize_url_pfx_https -}}{{ product.featured_image | image_url }}" alt="{{ product.featured_image.alt }}" {% if lazy %}loading="lazy"{% endif %}>
+                  <img src="{{ product.featured_image | image_url }}" alt="{{ product.featured_image.alt }}" {% if lazy %}loading="lazy"{% endif %}>
                 {% else %}
                   {{ 'image' | placeholder_svg_tag }}
                 {% endif %}
@@ -881,7 +881,7 @@ For inquiries or permissions, contact daniel@section.store
                   {% if product.media.size > 1 %}
                     {% for media in product.media %}
                       {% if forloop.index == 2 %}
-                        <img src="{{ settings.speedsize_url_pfx_https -}}{{ media | image_url }}" alt="{{ media.alt }}" {% if lazy %}loading="lazy"{% endif %}>
+                        <img src="{{ media | image_url }}" alt="{{ media.alt }}" {% if lazy %}loading="lazy"{% endif %}>
                       {% endif %}
                     {% endfor %}
                   {% endif %}
@@ -942,9 +942,9 @@ For inquiries or permissions, contact daniel@section.store
             <{% if block.settings.product != blank %}a href="{{ block.settings.product.url  }}"{% else %}div{% endif %} class="collection-slide-{{ section.id }} swiper-slide">
               <div class="collection-image-{{ section.id }} {% if block.settings.second_image != blank or block.settings.product.media.size > 1 %}collection-first-image-{{ section.id }}{% endif %}">
                 {% if block.settings.image != blank %}
-                  <img src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image | image_url }}" alt="{{ block.settings.image.alt }}" {% if lazy %}loading="lazy"{% endif %}>
+                  <img src="{{ block.settings.image | image_url }}" alt="{{ block.settings.image.alt }}" {% if lazy %}loading="lazy"{% endif %}>
                 {% elsif block.settings.product.featured_image != blank %}
-                  <img src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.product.featured_image | image_url }}" alt="{{ block.settings.product.featured_image.alt }}" {% if lazy %}loading="lazy"{% endif %}>
+                  <img src="{{ block.settings.product.featured_image | image_url }}" alt="{{ block.settings.product.featured_image.alt }}" {% if lazy %}loading="lazy"{% endif %}>
                 {% else %}
                   {{ 'image' | placeholder_svg_tag }}
                 {% endif %}
@@ -952,11 +952,11 @@ For inquiries or permissions, contact daniel@section.store
               {% if block.settings.second_image != blank or block.settings.product.media.size > 1 %}
                 <div class="collection-image-{{ section.id }} collection-second-image-{{ section.id }}">
                   {% if block.settings.second_image != blank %}
-                    <img src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.second_image | image_url }}" alt="{{ block.settings.second_image.alt }}" {% if lazy %}loading="lazy"{% endif %}>
+                    <img src="{{ block.settings.second_image | image_url }}" alt="{{ block.settings.second_image.alt }}" {% if lazy %}loading="lazy"{% endif %}>
                   {% elsif block.settings.product.media.size > 1 %}
                     {% for media in block.settings.product.media %}
                       {% if forloop.index == 2 %}
-                        <img src="{{ settings.speedsize_url_pfx_https -}}{{ media | image_url }}" alt="{{ media.alt }}" {% if lazy %}loading="lazy"{% endif %}>
+                        <img src="{{ media | image_url }}" alt="{{ media.alt }}" {% if lazy %}loading="lazy"{% endif %}>
                       {% endif %}
                     {% endfor %}
                   {% endif %}

@@ -56,14 +56,14 @@ or change the format of some info
       "name": {{ product.vendor | json }}
     },
     "name": {{ product.title | json }},
-    "description": {{ product.description | strip_html | json | replace: settings.speedsize_shopify_cdn_url_escaped, settings.speedsize_url_pfx_shopify_cdn_escaped | replace: settings.speedsize_shop_domain_cdn_escaped, settings.speedsize_url_pfx_shop_domain_cdn_escaped | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated_escaped, settings.speedsize_url_pfx_escaped }},
+    "description": {{ product.description | strip_html | json }},
     "category": {{ product.type | json }},
     "url": "{{ product.url }}",
     "sku": {{ product.selected_or_first_available_variant.sku | json }},
     "image": {
       "@type": "ImageObject",
-      "url": "{{ settings.speedsize_url_pfx -}}https:{{ page_image | image_url: width: 1024 }}",
-      "image": "{{ settings.speedsize_url_pfx -}}https:{{ page_image | image_url: width: 1024 }}",
+      "url": "https:{{ page_image | image_url: width: 1024 }}",
+      "image": "https:{{ page_image | image_url: width: 1024 }}",
       "name": {{ page_image.alt | json }},
       "width": "1024",
       "height": "1024"
@@ -82,8 +82,8 @@ or change the format of some info
     "dateModified": "{{ article.published_at | date: '%Y-%m-%dT%T' }}",
     "image": {
       "@type": "ImageObject",
-      "url": "{{ settings.speedsize_url_pfx -}}https:{{ page_image | image_url: width: 1024 }}",
-      "image": "{{ settings.speedsize_url_pfx -}}https:{{ page_image | image_url: width: 1024 }}",
+      "url": "https:{{ page_image | image_url: width: 1024 }}",
+      "image": "https:{{ page_image | image_url: width: 1024 }}",
       "name": {{ page_image.alt | json }},
       "width": "1024",
       "height": "1024"

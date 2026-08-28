@@ -98,7 +98,7 @@
                               "qty_limit" : "{{ newQty }}" , "qty_selector" : "{{ item.qty_selector }}" , "badge_text" : "{{ item.badge_text }}" ,
                               "badge_txt_color" : "{{ item.badge_txt_color }}" , "badge_bg_color": "{{ item.badge_bg_color }}" ,
                               "check_cart_product" : "{{ item.check_cart_product }}",
-                              "image" : "{{ settings.speedsize_url_pfx_https -}}{{ _upsell_product_details.images[0] | img_url : '100x' }}" ,
+                              "image" : "{{ _upsell_product_details.images[0] | img_url : '100x' }}" ,
                               "variants" : [{{ item_product_variant | remove_last : ',' }}] }, 
                     {% endfor %}
              {% elsif item.triggered_on == _kd_page and item.display_for == '2' %}
@@ -140,7 +140,7 @@
                             "qty_limit" : "{{ newQty }}" , "qty_selector" : "{{ item.qty_selector }}" ,
                             "badge_text" : "{{ item.badge_text }}" , "badge_txt_color" : "{{ item.badge_txt_color }}" ,
                             "badge_bg_color": "{{ item.badge_bg_color }}" , "check_cart_product" : "{{ item.check_cart_product }}", 
-                             "image" : "{{ settings.speedsize_url_pfx_https -}}{{ _upsell_product_details.images[0] | img_url : '100x' }}" ,
+                             "image" : "{{ _upsell_product_details.images[0] | img_url : '100x' }}" ,
                             "variants" : [{{ item_product_variant  | remove_last : ',' }}] },
                         {% endfor %}
             {% elsif item.triggered_on == _kd_page and item.display_for == '3' %}
@@ -191,7 +191,7 @@
                                     "qty_limit" : "{{ newQty }}" , "qty_selector" : "{{ item.qty_selector }}" ,
                                     "badge_text" : "{{ item.badge_text }}" , "badge_txt_color" : "{{ item.badge_txt_color }}" ,
                                     "badge_bg_color": "{{ item.badge_bg_color }}" , "check_cart_product" : "{{ item.check_cart_product }}",
-                                     "image" : "{{ settings.speedsize_url_pfx_https -}}{{ _upsell_product_details.images[0] | img_url : '100x' }}" ,
+                                     "image" : "{{ _upsell_product_details.images[0] | img_url : '100x' }}" ,
                                     "variants" : [{{ item_product_variant | remove_last : ',' }}] }, 
                             {% endfor %} 
                    {% endfor %} 

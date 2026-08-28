@@ -105,7 +105,7 @@
     <link rel="canonical" href="{{ canonical_url  }}">
 
     {%- if settings.favicon -%}
-      <link rel="shortcut icon" href="{{ settings.speedsize_url_pfx_https -}}{{ settings.favicon | img_url: '96x96' }}" type="image/png">
+      <link rel="shortcut icon" href="{{ settings.favicon | img_url: '96x96' }}" type="image/png">
     {%- endif -%}
 
     {%- comment -%} Few prefech to increase performance on commonly used third-parties {%- endcomment -%}
@@ -511,9 +511,6 @@ replaceLastPathSegment('blackfriday-signup');
 </style>
 {% endif %}
     
-    <!-- SpeedsizeAppHeadSnippet ADDED AUTOMATICALLY - PLEASE DO NOT REMOVE OR MODIFY WHILE SPEEDSIZE'S APP IS ENABLED! -->
-    <link rel="preconnect" href="https://scdn.speedsize.com/" data-speedsize="auto">
-    <!-- endSpeedsizeAppHeadSnippet -->
   </head>
 
   {%- assign feature_classes = '' -%}

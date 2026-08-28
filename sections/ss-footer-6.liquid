@@ -1017,7 +1017,7 @@ For inquiries or permissions, contact daniel@section.store
         margin-left: auto;
         margin-right: auto;
         width: 100%;
-        max-width: {{ block.settings.image_width_mobile | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}%;
+        max-width: {{ block.settings.image_width_mobile }}%;
       }
 
       .footer-logo-image-{{ block.id }} img {
@@ -1052,7 +1052,7 @@ For inquiries or permissions, contact daniel@section.store
         }
 
         .footer-logo-image-{{ block.id }} {
-          max-width: {{ block.settings.image_width | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}%;
+          max-width: {{ block.settings.image_width }}%;
         }
 
         .footer-logo-text-{{ block.id }} * {
@@ -1321,7 +1321,7 @@ For inquiries or permissions, contact daniel@section.store
             <div class="footer-logo-{{ block.id }}">
               {% if block.settings.logo != blank %}
                 <a href="{{ shop.url  }}" class="footer-logo-image-{{ block.id }}">
-                  <img src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.logo | image_url }}" alt="{{ block.settings.logo.alt }}" {% if lazy %}loading="lazy"{% endif %}>
+                  <img src="{{ block.settings.logo | image_url }}" alt="{{ block.settings.logo.alt }}" {% if lazy %}loading="lazy"{% endif %}>
                 </a>
               {% endif %}
               {% if block.settings.text != blank %}
@@ -1384,7 +1384,7 @@ For inquiries or permissions, contact daniel@section.store
                         {% if block.settings.stars_icon != blank %}
                           {% assign stars_count_round = block.settings.stars_count | round: 0 %}
                           {% for item in (1..stars_count_round) %}
-                            <img src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.stars_icon | image_url }}" alt="{{ block.settings.stars_icon.alt }}" {% if lazy %}loading="lazy"{% endif %}>
+                            <img src="{{ block.settings.stars_icon | image_url }}" alt="{{ block.settings.stars_icon.alt }}" {% if lazy %}loading="lazy"{% endif %}>
                           {% endfor %}
                         {% else %}
                           {% if block.settings.stars_count > 0 %}

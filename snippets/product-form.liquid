@@ -20,7 +20,7 @@
 
     <!-- Product Image (Center) -->
     <div class="floating-product-image">
-      <img src="{{ settings.speedsize_url_pfx_https -}}{{ product.featured_image | image_url: width: 100 }}"
+      <img src="{{ product.featured_image | image_url: width: 100 }}"
            alt="{{ product.title | escape }}"
            width="50"
            height="50">
@@ -688,7 +688,7 @@ document.addEventListener('DOMContentLoaded', function () {
             class="product-form__image product-form__image--{{ block.settings.image_alignment   }}"
             {{ block.shopify_attributes }}
           >
-            {%- capture image_sizes -%}{{ block.settings.image_width | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}, {{ block.settings.image_width | times: 2 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}, {{ block.settings.image_width | times: 3 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}{%- endcapture -%}
+            {%- capture image_sizes -%}{{ block.settings.image_width }}, {{ block.settings.image_width | times: 2 }}, {{ block.settings.image_width | times: 3 }}{%- endcapture -%}
             <img
               loading="lazy"
               style="max-width: {{ block.settings.image_width   }}px"
@@ -847,7 +847,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <div style="
         {% if product_status_has_content == blank %}display: none;{% endif %}
-        background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), url('{{ settings.speedsize_url_pfx_https -}}{{ block.settings.background_image | img_url: 'master' }}');
+        background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), url('{{ block.settings.background_image | img_url: 'master' }}');
         background-size: cover;
         background-position: center;
         color: white;
@@ -993,7 +993,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 
                 {%- if benefit_icon != blank and benefit_text != blank -%}
                   <div class="benefit-item-{{ block.id }}">
-                    <img class="benefit-icon-{{ block.id }}" src="{{ settings.speedsize_url_pfx_https -}}{{ benefit_icon | img_url: 'master' }}" alt="{{ benefit_text | escape }}" loading="lazy">
+                    <img class="benefit-icon-{{ block.id }}" src="{{ benefit_icon | img_url: 'master' }}" alt="{{ benefit_text | escape }}" loading="lazy">
                     <span class="benefit-text-{{ block.id }}">{{ benefit_text }}</span>
                   </div>
                 {%- endif -%}
@@ -1029,7 +1029,7 @@ document.addEventListener('DOMContentLoaded', function () {
       {%- when 'description' -%}
         {%- if product.description != blank -%}
           <div class="product-form__description rte" {{ block.shopify_attributes }}>
-            {{- product.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
+            {{- product.description -}}
           </div>
         {%- endif -%}
 
@@ -1395,7 +1395,7 @@ document.addEventListener('DOMContentLoaded', function () {
               {% if product.tags contains '__label:LIMITED OFFER' %}
                 <div class="custom_delivery_message">
                   <img
-                    src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Screenshot_2024-01-05_at_20.27.18.png?v=1704479146"
+                    src="https://cdn.shopify.com/s/files/1/0780/3843/files/Screenshot_2024-01-05_at_20.27.18.png?v=1704479146"
                     alt=""
                   >
                   <span>{{ 'product.form.limited_offer' | t }}</span>
@@ -1404,7 +1404,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
               {% if product.tags contains '__label:IN DEMAND' %}
                 <div class="custom_delivery_message custom_delivery_message--preorder">
-                  <img src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Selling_Fast.png?v=1682855465" alt="">
+                  <img src="https://cdn.shopify.com/s/files/1/0780/3843/files/Selling_Fast.png?v=1682855465" alt="">
                   <span>{{ 'product.form.selling_fast' | t }}</span>
                 </div>
               {% endif %}
@@ -1645,7 +1645,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <div class="drawer__content drawer__content--padded-start">
       <div class="rte">
-        {{- size_chart_page.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
+        {{- size_chart_page.content -}}
       </div>
     </div>
   </drawer-content>
@@ -1669,7 +1669,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <div class="popover__content">
       <div class="rte">
-        {{- size_chart_page.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
+        {{- size_chart_page.content -}}
       </div>
     </div>
   </popover-content>
@@ -1703,7 +1703,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <div class="drawer__content drawer__content--padded-start">
       <div class="rte">
-        {{- section.settings.question_mark_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
+        {{- section.settings.question_mark_content -}}
       </div>
     </div>
   </drawer-content>
@@ -1730,7 +1730,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <div class="popover__content">
       <div class="rte">
-        {{- section.settings.question_mark_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
+        {{- section.settings.question_mark_content -}}
       </div>
     </div>
   </popover-content>

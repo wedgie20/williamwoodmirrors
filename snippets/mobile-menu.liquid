@@ -74,11 +74,11 @@
 
                 {%- if mega_menu_block.settings[image_link_setting] != blank -%}
                   <a href="{{ mega_menu_block.settings[image_link_setting]  }}" class="mobile-nav__image-push">
-                    {{- image_push | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
+                    {{- image_push -}}
                   </a>
                 {%- else -%}
                   <div class="mobile-nav__image-push">
-                    {{- image_push | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
+                    {{- image_push -}}
                   </div>
                 {%- endif -%}
               {%- endif -%}
@@ -139,7 +139,7 @@
               {%- if mega_menu_images != blank -%}
                 <div class="mobile-nav__images-wrapper {% if images_count >= 3 %}mobile-nav__images-wrapper--tight{% endif %} hide-scrollbar">
                   <div class="mobile-nav__images-scroller">
-                    {{- mega_menu_images | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
+                    {{- mega_menu_images -}}
                   </div>
                 </div>
               {%- endif -%}
@@ -155,7 +155,7 @@
               class="makeit_highlighted mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
             
             >
-              <div class="highlighted_item" style="background: {{ section.settings.highlighted_menu_bg_color }}; color: {{ section.settings.highlighted_menu_text_color }};{% if section.settings.highlighted_menu_background_image != blank %} background-image: url('{{ settings.speedsize_url_pfx_https -}}{{ section.settings.highlighted_menu_background_image | img_url: 'master' }}'); background-size: cover; background-position: center; {% endif %}">
+              <div class="highlighted_item" style="background: {{ section.settings.highlighted_menu_bg_color }}; color: {{ section.settings.highlighted_menu_text_color }};{% if section.settings.highlighted_menu_background_image != blank %} background-image: url('{{ section.settings.highlighted_menu_background_image | img_url: 'master' }}'); background-size: cover; background-position: center; {% endif %}">
              <span class="highlighted_bold_text">
               {{ section.settings.menu_bold_text | default: link.title }}
              </span>
@@ -181,7 +181,7 @@
               class="makeit_highlighted mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
             
             >
-              <div class="highlighted_item" style="background: {{ section.settings.second_highlighted_menu_bg_color }}; color: {{ section.settings.second_highlighted_menu_text_color }}; background-image: url('{{ settings.speedsize_url_pfx_https -}}{{ section.settings.second_highlighted_menu_background_image | img_url: 'master' }}'); background-size: cover; background-position: center;">
+              <div class="highlighted_item" style="background: {{ section.settings.second_highlighted_menu_bg_color }}; color: {{ section.settings.second_highlighted_menu_text_color }}; background-image: url('{{ section.settings.second_highlighted_menu_background_image | img_url: 'master' }}'); background-size: cover; background-position: center;">
              <span class="highlighted_bold_text">
               {{ section.settings.second_menu_bold_text | default: link.title }}
              </span>
@@ -237,24 +237,24 @@
                   <a href="{{ section.settings.mobile_menu_custom_image_url }}" class="mobile-menu-custom-image-link">
                     <img 
                       class="mobile-menu-custom-image" 
-                      src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.mobile_menu_custom_image | img_url: '600x' }}"
+                      src="{{ section.settings.mobile_menu_custom_image | img_url: '600x' }}"
                       alt="{{ section.settings.mobile_menu_custom_image_title | escape }}"
                       loading="lazy"
                     >
                     {%- if section.settings.mobile_menu_custom_image_title != blank -%}
-                      <p class="mobile-menu-custom-image-title">{{ section.settings.mobile_menu_custom_image_title | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                      <p class="mobile-menu-custom-image-title">{{ section.settings.mobile_menu_custom_image_title }}</p>
                     {%- endif -%}
                   </a>
                 {%- else -%}
                   <div class="mobile-menu-custom-image-link">
                     <img 
                       class="mobile-menu-custom-image" 
-                      src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.mobile_menu_custom_image | img_url: '600x' }}"
+                      src="{{ section.settings.mobile_menu_custom_image | img_url: '600x' }}"
                       alt="{{ section.settings.mobile_menu_custom_image_title | escape }}"
                       loading="lazy"
                     >
                     {%- if section.settings.mobile_menu_custom_image_title != blank -%}
-                      <p class="mobile-menu-custom-image-title">{{ section.settings.mobile_menu_custom_image_title | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
+                      <p class="mobile-menu-custom-image-title">{{ section.settings.mobile_menu_custom_image_title }}</p>
                     {%- endif -%}
                   </div>
                 {%- endif -%}

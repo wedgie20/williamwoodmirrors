@@ -287,7 +287,7 @@
                 <{% if block.settings.bubble_link != blank %}a href="{{ block.settings.bubble_link  }}"{% else %}div{% endif %} class="circle-icon-{{ section.id }}">
                   
                   {%- if block.settings.bubble_img -%}
-                    <img src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.bubble_img | image_url }}" alt="{{ block.settings.bubble_img.alt }}" {% if lazy %}loading="lazy"{% endif %}>
+                    <img src="{{ block.settings.bubble_img | image_url }}" alt="{{ block.settings.bubble_img.alt }}" {% if lazy %}loading="lazy"{% endif %}>
                   {%- else -%}
                     {{ 'image' | placeholder_svg_tag }}
                   {%- endif -%}
