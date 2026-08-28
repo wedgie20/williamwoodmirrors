@@ -1181,10 +1181,13 @@
 <div class="ww-pdp-sticky-atc" data-ww-pdp-sticky-atc hidden>
   <div class="ww-pdp-sticky-atc__inner">
     <p class="ww-pdp-sticky-atc__title">{{ product_heading }}</p>
-    <span class="ww-pdp-sticky-atc__price {% if has_variant_discount %}is-discounted{% endif %}" data-ww-sticky-price>
+    <span class="ww-pdp-sticky-atc__price {% if has_variant_discount or show_auto_discount %}is-discounted{% endif %}" data-ww-sticky-price>
       {%- if has_variant_discount -%}
         <span class="ww-pdp-sticky-atc__price-compare" data-ww-sticky-compare-price>{{ current_variant.compare_at_price | money }}</span>
         <span class="ww-pdp-sticky-atc__price-current" data-ww-sticky-current-price>{{ current_variant.price | money }}</span>
+      {%- elsif show_auto_discount -%}
+        <span class="ww-pdp-sticky-atc__price-compare" data-ww-sticky-compare-price>{{ current_variant.price | money }}</span>
+        <span class="ww-pdp-sticky-atc__price-current" data-ww-sticky-current-price>{{ auto_discounted_price | money }}</span>
       {%- else -%}
         <span class="ww-pdp-sticky-atc__price-current" data-ww-sticky-current-price>{{ current_variant.price | money }}</span>
       {%- endif -%}
@@ -1196,12 +1199,12 @@
     </div>
     <button type="button" class="ww-pdp-sticky-atc__button{% if is_preorder %} ww-pdp-sticky-atc__button--preorder{% endif %}" data-ww-sticky-add data-ww-sold-out="{% unless current_variant.available %}true{% else %}false{% endunless %}">
       <span class="ww-pdp-sticky-atc__desktop-label">{%- if current_variant.available -%}{%- if is_preorder -%}Pre-order{%- else -%}Add to bag{%- endif -%}{%- else -%}Sold out: join waitlist{%- endif -%}</span>
-      <span class="ww-pdp-sticky-atc__mobile-label {% if has_variant_discount %}is-discounted{% endif %}">
+      <span class="ww-pdp-sticky-atc__mobile-label {% if has_variant_discount or show_auto_discount %}is-discounted{% endif %}">
         {%- if current_variant.available -%}
-          {%- if has_variant_discount -%}
-            <span class="ww-pdp-sticky-atc__price-compare" data-ww-sticky-mobile-compare-price>{{ current_variant.compare_at_price | money }}</span>
+          {%- if has_variant_discount or show_auto_discount -%}
+            <span class="ww-pdp-sticky-atc__price-compare" data-ww-sticky-mobile-compare-price>{% if has_variant_discount %}{{ current_variant.compare_at_price | money }}{% else %}{{ current_variant.price | money }}{% endif %}</span>
           {%- endif -%}
-          <span class="ww-pdp-sticky-atc__price-current" data-ww-sticky-mobile-current-price>{{ current_variant.price | money }}</span>
+          <span class="ww-pdp-sticky-atc__price-current" data-ww-sticky-mobile-current-price>{% if show_auto_discount %}{{ auto_discounted_price | money }}{% else %}{{ current_variant.price | money }}{% endif %}</span>
           <span aria-hidden="true">-  </span>
           <span>{%- if is_preorder -%}Pre-order{%- else -%}Add to bag{%- endif -%}</span>
         {%- else -%}
@@ -4288,6 +4291,7 @@ background: #efefef;
     var stickyQuantityInput = stickyQuantity ? stickyQuantity.querySelector('input') : null;
     var mainQuantityInput = root.querySelector('.ww-pdp__quantity input[name="quantity"]');
     var isPreorder = {{ is_preorder | json }};
+    var shouldShowAutoDiscount = {{ show_auto_discount | json }};
     var addToBagLabel = isPreorder ? 'Pre-order' : 'Add to bag';
     var soldOutWaitlistLabel = 'Sold out: join waitlist';
 
@@ -4297,6 +4301,21 @@ background: #efefef;
 
     function stickyPriceHtml(priceText, compareText) {
       return (compareText ? '<span class="ww-pdp-sticky-atc__price-compare">' + compareText + '</span>' : '') + '<span class="ww-pdp-sticky-atc__price-current">' + priceText + '</span>';
+    }
+
+    function getDisplayPriceState(price, compareAt) {
+      var displayedPrice = price;
+      var displayedCompareAt = compareAt > price ? compareAt : 0;
+
+      if (!displayedCompareAt && shouldShowAutoDiscount) {
+        displayedCompareAt = price;
+        displayedPrice = Math.round(price * 0.75);
+      }
+
+      return {
+        priceText: displayedPrice ? formatInstallmentMoney(displayedPrice) : '',
+        compareText: displayedCompareAt > displayedPrice ? formatInstallmentMoney(displayedCompareAt) : ''
+      };
     }
 
     function isMobileStickyAtc() {
@@ -4471,13 +4490,14 @@ background: #efefef;
       var price = parseInt(option.dataset.price || '0', 10);
       var compareAt = parseInt(option.dataset.compareAt || '0', 10);
       var available = option.dataset.available === 'true';
-      var priceText = price ? formatInstallmentMoney(price) : '';
-      var compareText = compareAt > price ? formatInstallmentMoney(compareAt) : '';
+      var displayPriceState = getDisplayPriceState(price, compareAt);
+      var priceText = displayPriceState.priceText;
+      var compareText = displayPriceState.compareText;
 
       if (priceGroup && price) {
-        if (compareAt > price) {
+        if (compareText) {
           priceGroup.classList.add('is-discounted');
-          priceGroup.innerHTML = '<span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>' + formatInstallmentMoney(compareAt) + '</span><span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>' + priceText + '</span>';
+          priceGroup.innerHTML = '<span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>' + compareText + '</span><span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>' + priceText + '</span>';
         } else {
           priceGroup.classList.remove('is-discounted');
           priceGroup.innerHTML = '<span class="ww-pdp__price" data-ww-pdp-current-price>' + priceText + '</span>';
