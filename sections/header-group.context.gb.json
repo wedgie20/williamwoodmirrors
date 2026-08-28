@@ -17,22 +17,22 @@
       "type": "ss-scrolling-announcement-bar",
       "disabled": false,
       "settings": {
-        "header-88533d52cc7c430dff30338f1d6740ed": null,
+        "header-95e53853ee89b6908b7b067ff09ba8a0": null,
         "insert_css_class_target": ".header, .pageheader, .section-header, #announcement, .toolbar, .header__wrapper",
-        "header-357d9d90df79da6be4f9c6dcb81d4588": null,
+        "header-d4c48515fb30b862cbba88a9b5d80f34": null,
         "text_size": 12,
         "ss_font_family": "montserrat_n4",
-        "header-eed44a009eb8fc50a66a92473451f1ca": null,
+        "header-a3db89205f1fc77e6afe889603a0c3ea": null,
         "link": "",
-        "header-6bfc1f53fb89b3c2bae0534d73ca13cc": null,
+        "header-16c2140ef221c03586b236802516030a": null,
         "enable_scroll": true,
         "message_hold_seconds": 4,
         "pause_hover": false,
-        "header-720cba3f0afe0a4fa23dc8350ec85455": null,
+        "header-8469c0f7713e47c902b68db27c6c4034": null,
         "bg": "#000000",
         "text_color": "#fff",
         "hover_opacity": 90,
-        "header-c1b6f8d71492606448df0e86b7775fa1": null,
+        "header-02bd3e38845d32919f6c8535d34f1d25": null,
         "padding_horizontal": 1,
         "padding_vertical": 1.5
       },
@@ -105,7 +105,7 @@
           "settings": {
             "text": "700,000+ Satisfied Customers | 31,000+ 5* Reviews",
             "learn_more_text": "",
-            "header-9c84353e18f1b59494562777840fd134": null,
+            "header-7ab906b3b6b0ab366306e8b9416c4767": null,
             "image": null,
             "title": "",
             "content": "",
@@ -279,11 +279,33 @@
         "f4e103a1-b331-47ab-a63d-abe4200831e1",
         "7a096969-06f3-4ae4-bcb6-03836dedbeb8"
       ]
+    },
+    "1787910165ef174e90": {
+      "type": "apps",
+      "disabled": false,
+      "settings": {
+        "include_trustpilot": false,
+        "include_horizontal_margins": true,
+        "include_vertical_margins": true
+      },
+      "blocks": {
+        "essential_countdown_timer_app_block_yCDNe": {
+          "type": "shopify://apps/essential-countdown-timer/blocks/app-block/722378e8-5a70-4eae-aa89-9e44e8e9f6de",
+          "disabled": false,
+          "settings": {
+            "id": "cmtcs5l7b00232kpm96l1cg7n"
+          }
+        }
+      },
+      "block_order": [
+        "essential_countdown_timer_app_block_yCDNe"
+      ]
     }
   },
   "order": [
     "ss_scrolling_announcement_bar_ifatw",
     "announcement-bar",
-    "header"
+    "header",
+    "1787910165ef174e90"
   ]
 }
