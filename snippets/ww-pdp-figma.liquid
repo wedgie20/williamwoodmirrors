@@ -2690,6 +2690,15 @@ background: #efefef;
     display: none;
   }
 
+  @media screen and (min-width: 1000px) {
+    .ww-pdp-sticky-atc {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+  }
+
   .foursixty-section .section__header .heading {
     max-width: 820px;
     margin-left: auto;
@@ -4269,6 +4278,7 @@ background: #efefef;
     var variantSelect = root.querySelector('.ww-pdp__variant select[name="id"]');
     var priceGroup = root.querySelector('[data-ww-pdp-price-group]');
     var stockPill = root.querySelector('.ww-pdp__pill--stock');
+    var productForm = root.querySelector('form.ww-pdp__form');
     var addButton = root.querySelector('.ww-pdp__add');
     var stickyBar = document.querySelector('#shopify-section-{{ section.id }} [data-ww-pdp-sticky-atc]');
     var stickyPrice = stickyBar ? stickyBar.querySelector('[data-ww-sticky-price]') : null;
@@ -4388,7 +4398,7 @@ background: #efefef;
       }
     }
 
-    if (stickyAddButton && addButton) {
+    if (stickyAddButton && (addButton || productForm)) {
       stickyAddButton.addEventListener('click', function () {
         if (stickyAddButton.dataset.wwSoldOut === 'true') {
           if (addButton && addButton.hasAttribute('data-ww-open-waitlist')) {
@@ -4400,7 +4410,11 @@ background: #efefef;
         }
         if (stickyAddButton.disabled) return;
         syncQuantityInputs(stickyQuantityInput, stickyQuantityInput ? stickyQuantityInput.value : (mainQuantityInput ? mainQuantityInput.value : 1));
-        addButton.click();
+        if (productForm && typeof productForm.requestSubmit === 'function') {
+          productForm.requestSubmit(addButton || undefined);
+        } else if (addButton) {
+          addButton.click();
+        }
       });
     }
 
@@ -4413,18 +4427,24 @@ background: #efefef;
     }
 
     function updateStickyVisibility() {
-      if (!stickyBar || !addButton) return;
-      var addRect = addButton.getBoundingClientRect();
+      if (!stickyBar) return;
+      if (!isMobileStickyAtc()) {
+        stickyBar.hidden = true;
+        stickyBar.classList.add('is-hidden');
+        return;
+      }
+
       var footer = document.querySelector('.shopify-section--footer, footer');
       var footerRect = footer ? footer.getBoundingClientRect() : null;
       var footerVisible = footerRect ? footerRect.top < window.innerHeight : false;
-      var addButtonVisible = addRect.top < window.innerHeight && addRect.bottom > 0;
+      var addRect = addButton ? addButton.getBoundingClientRect() : null;
+      var addButtonVisible = addRect ? addRect.top < window.innerHeight && addRect.bottom > 0 : false;
       var shouldShow = !addButtonVisible && !footerVisible;
       stickyBar.hidden = false;
       stickyBar.classList.toggle('is-hidden', !shouldShow);
     }
 
-    if (stickyBar && addButton) {
+    if (stickyBar && (addButton || productForm)) {
       stickyBar.classList.add('is-hidden');
       stickyBar.hidden = false;
       updateStickyButtonLabel(
