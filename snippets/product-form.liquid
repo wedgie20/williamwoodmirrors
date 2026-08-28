@@ -73,6 +73,10 @@
 @media (min-width: 1024px) {
   :root { --fa-header-offset: 20px; } /* fallback */
   .floating-add-to-cart {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
     top: var(--fa-header-offset, 20px);
     bottom: auto;
     transform: translateX(-50%) translateY(-120%); /* start hidden above */
@@ -171,6 +175,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Debounced visibility check - prevents rapid state changes
   function updateFloatingVisibility() {
+    if (window.innerWidth >= DESKTOP_BP) {
+      hideFloating();
+      lastVisibleState = null;
+      return;
+    }
+
     const mainButton = $('.product-form__add-button');
     const mainVisible = isElementInViewport(mainButton);
     
@@ -186,6 +196,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function showFloating() {
+    if (window.innerWidth >= DESKTOP_BP) return;
     if (!floatingCart || isVisible) return;
     
     // Use CSS classes instead of inline transforms for smoother animation
