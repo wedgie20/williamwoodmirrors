@@ -10,9 +10,11 @@
   .countdown-bar__link {
     display: block;
     width: 100%;
-    padding: {{ section.settings.padding_vertical }}rem {{ section.settings.padding_horizontal }}rem;
+    {% comment %} padding: {{ section.settings.padding_vertical }}rem {{ section.settings.padding_horizontal }}rem; {% endcomment %}
     text-decoration: none;
     color: var(--text-color);
+    padding-top: 16px;
+    padding-bottom: 6px;
   }
   .countdown-bar__link:hover {
     color: var(--text-color);
