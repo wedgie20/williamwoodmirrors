@@ -92,7 +92,7 @@
     <div class="countdown-bar__link">
       <div class="countdown-bar__inner">
         {%- if section.settings.description != blank -%}
-          <p class="countdown-bar__description">{{ section.settings.description }}</p>
+          <p class="countdown-bar__description">{{ section.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
         {%- endif -%}
         <div class="countdown-bar__timer" data-countdown-timer>
           <div class="countdown-bar__unit">

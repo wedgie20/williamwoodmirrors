@@ -118,7 +118,7 @@
             {%- if section.settings.content != blank or section.settings.button_text != blank -%}
               <div class="image-overlay__text-container">
                 {%- if section.settings.content != blank-%}
-                  {{- section.settings.content -}}
+                  {{- section.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
                 {%- endif -%}
 
                 {%- if section.settings.button_text != blank -%}
