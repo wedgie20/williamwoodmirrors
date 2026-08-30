@@ -57,7 +57,7 @@
 
 
   assign promo_code = ''
-   assign promo_title = 'The August Bank Holiday Sale (Ends Soon)'
+   assign promo_title = 'The August Bank Holiday Sale (Ends Tomorrow)'
   assign promo_text = '25% off everything or 35% off when you buy 3+ products. <br> Plus, get a Free Gift worth up to £99 when you spend £499+.'
   assign promo_note = 'Offers applies automatically. <b>No code required.</b>'
 
@@ -445,7 +445,7 @@
 <div class="ww-pdp__thumbs ww-pdp__thumbs_hide" aria-label="Product media thumbnails">
           {%- for media in product.media -%}
             {%- if media.preview_image != blank -%}
-              <button type="button" class="ww-pdp__thumb {% if media.id == featured_media.id %}is-active{% endif %}" data-ww-pdp-thumb data-src="{{ media.preview_image | img_url: '1800x' }}" data-alt="{{ media.alt | default: product.title | escape }}" aria-label="Show image {{ forloop.index }}">
+              <button type="button" class="ww-pdp__thumb {% if media.id == featured_media.id %}is-active{% endif %}" data-ww-pdp-thumb data-src="{{ settings.speedsize_url_pfx_https -}}{{ media.preview_image | img_url: '1800x' }}" data-alt="{{ media.alt | default: product.title | escape }}" aria-label="Show image {{ forloop.index }}">
                 <img loading="lazy" sizes="78px" {% render 'image-attributes', image: media.preview_image, sizes: '90,140,180' %}>
               </button> 
             {%- endif -%}
@@ -968,27 +968,27 @@
 
           switch (selectedValue) {
             case '3':
-              logoUrl = 'https://cdn.shopify.com/s/files/1/0780/3843/files/Marketing_Badge_With_Clear_Space.png?v=1747229079';
+              logoUrl = 'https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Marketing_Badge_With_Clear_Space.png?v=1747229079';
               logoClass += ' klarna-logo';
               disclaimerText = 'Interest free monthly instalments';
               break;
             case '4':
-              logoUrl = 'https://cdn.shopify.com/s/files/1/0780/3843/files/CP_logo_badge_6328x2204_blackmint_png.png?v=1725884864';
+              logoUrl = 'https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/CP_logo_badge_6328x2204_blackmint_png.png?v=1725884864';
                logoClass += ' clear-pay';
               disclaimerText = 'Interest free fortnightly instalments';
               break;
             case '6':
-              logoUrl = 'https://cdn.shopify.com/s/files/1/0780/3843/files/dividebuy-logo-full-colour-rgb-scaled-Picsart-BackgroundRemover.png?v=1787395468';
+              logoUrl = 'https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/dividebuy-logo-full-colour-rgb-scaled-Picsart-BackgroundRemover.png?v=1787395468';
               logoClass += ' DB-logo';
               disclaimerText = 'Only available on orders £300 or more';
               break;
             case '9':
-              logoUrl = 'https://cdn.shopify.com/s/files/1/0780/3843/files/dividebuy-logo-full-colour-rgb-scaled-Picsart-BackgroundRemover.png?v=1787395468';
+              logoUrl = 'https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/dividebuy-logo-full-colour-rgb-scaled-Picsart-BackgroundRemover.png?v=1787395468';
               logoClass += ' DB-logo';
               disclaimerText = 'Only available on orders £450 or more';
               break;
             case '12':
-              logoUrl = 'https://cdn.shopify.com/s/files/1/0780/3843/files/dividebuy-logo-full-colour-rgb-scaled-Picsart-BackgroundRemover.png?v=1787395468';
+              logoUrl = 'https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/dividebuy-logo-full-colour-rgb-scaled-Picsart-BackgroundRemover.png?v=1787395468';
               logoClass += ' DB-logo';
               disclaimerText = 'Only available on orders £600 or more';
               break;
@@ -1006,7 +1006,7 @@
   {%- else -%}
     <p>
       Or in 3 instalments of <span id="ww-installment-amount-eur"></span> with
-      <img src="https://cdn.shopify.com/s/files/1/0780/3843/files/Marketing_Badge_With_Clear_Space_1.png?v=1725885242" class="klarna-logo" alt="Klarna">
+      <img src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Marketing_Badge_With_Clear_Space_1.png?v=1725885242" class="klarna-logo" alt="Klarna">
     </p>
 
     <script>
@@ -1136,7 +1136,7 @@
           </button>
           <div class="key-details-content">
             <div class="ww-pdp__accordion-inner">
-              {{ description_key_details_items }}
+              {{ description_key_details_items | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
             </div>
           </div>
         </div>
