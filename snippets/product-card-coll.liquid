@@ -561,7 +561,7 @@
               {{- 'collection.product.from_price_html' | t: price_min: auto_sale_price_min -}}
             </span>
             <span class="label label-save-highlight" style="margin-left: 0px">(Save {% if settings.currency_code_enabled %}{{ auto_savings | money_with_currency }}{% else %}{{ auto_savings | money }}{% endif %})</span>
-          {% comment %} {%- else -%}
+          {%- else -%}
             {%- assign auto_compare_price = product.price -%}
             {%- assign auto_sale_price = auto_compare_price | times: 0.75 | round -%}
             {%- assign auto_savings = auto_compare_price | minus: auto_sale_price -%}
@@ -571,7 +571,7 @@
                 {{- auto_compare_price | money_with_currency -}}
               {%- else -%}
                 {{- auto_compare_price | money -}}
-              {%- endif -%} {% endcomment %}
+              {%- endif -%}
             </span>
             <span class="price price--highlight">
               <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
