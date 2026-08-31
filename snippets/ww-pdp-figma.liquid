@@ -607,7 +607,7 @@
     </span>
   </div>
 </div>
-<div class="ww-pdp_designed_div">
+{% comment %} <div class="ww-pdp_designed_div">
         <p class="ww-pdp__label">{{ product_label }}</p>
                 {%- assign last_chance = false -%}
           {%- for tag in product.tags -%}
@@ -678,7 +678,7 @@
     {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
   {%- endif -%}
 </div>
-{%- endunless -%}
+{%- endunless -%} {% endcomment %}
 
 
 </div>
