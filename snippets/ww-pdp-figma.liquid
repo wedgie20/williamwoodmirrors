@@ -593,50 +593,8 @@
       {%- endif -%}
       </div>
       </div>
-      <div class="ww-pdp_designed_div">
-  <p class="ww-pdp__label">{{ product_label }}</p>
-
-  <div class="ww_price_div">
-    <span class="ww-pdp__price-group_mobile {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
-      {%- if has_variant_discount -%}
-        <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.compare_at_price | money }}</span>
-        <span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
-      {%- else -%}
-        <span class="ww-pdp__price" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
-      {%- endif -%}
-    </span>
-  </div>
-  {% comment %}
-  {% if product.tags contains 'in-house' %}<a class="ww-pdp__designed" href="/collections/designed-in-house-by-william-wood">Designed in-house by <strong>WILLIAM WOOD</strong></a>{% endif %}
-  {% endcomment %}
-
-
-  {% assign collectionhandles = product.collections | map: 'handle' | join: ',' %}
-  {%- assign compareat_price = product.selected_or_first_available_variant.compare_at_price -%}
-  {%- assign original_price = product.selected_or_first_available_variant.price -%}
-
-  <div class="guarantee-item imhere_{{ product.selected_or_first_available_variant.compare_at_price }}" {% if product.tags contains 'sale' %}{% else %}{% if compareat_price > original_price %}style="display:none;"{%  else %}{% endif %}{% endif %}>
-
-    <span class="icon" style="display: none;">
-      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 18 13" fill="none">
-        <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-      </svg>
-    </span>
-
-    {%- if product.selected_or_first_available_variant.compare_at_price -%}
-      {%- assign pricewholenumber = original_price | times: 0.90 -%}
-      {%- assign discounted_price = original_price | times: 0.90 | divided_by: 100.0 -%}
-      {%- assign discounted_whole = discounted_price | floor -%}
-      {%- assign discounted_decimal = discounted_price | minus: discounted_whole | times: 100 | round -%}
-      {%- if discounted_decimal < 10 -%}
-        {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
-      {%- endif -%}
-    {%- else -%}
-      {%- assign compareat_price = 0 -%}
-    {%- endif -%}
-  </div>
-</div>
-{% comment %} <div class="ww-pdp_designed_div">
+      
+<div class="ww-pdp_designed_div">
         <p class="ww-pdp__label">{{ product_label }}</p>
                 {%- assign last_chance = false -%}
           {%- for tag in product.tags -%}
@@ -707,7 +665,7 @@
     {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
   {%- endif -%}
 </div>
-{%- endunless -%} {% endcomment %}
+{%- endunless -%}
 
 
 </div>
