@@ -786,7 +786,7 @@
   {%- assign effective_price = current_variant.price | times: 0.75 | round -%}
 {%- endunless -%}
 
-<div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ effective_price }}">
+<div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ current_variant.price }}">
 
   <style>
     .ww-pdp__payments .klarna-logo, .ww-pdp__payments .clear-pay{
