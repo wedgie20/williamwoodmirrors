@@ -595,19 +595,19 @@
       </div>
 
       <div class="ww-pdp_designed_div">
-  <p class="ww-pdp__label">{{ product_label }}</p>
+        <p class="ww-pdp__label">{{ product_label }}</p>
 
-  <div class="ww_price_div">
-    <span class="ww-pdp__price-group_mobile {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
-      {%- if has_variant_discount -%}
-        <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.compare_at_price | money }}</span>
-        <span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
-      {%- else -%}
-        <span class="ww-pdp__price" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
-      {%- endif -%}
-    </span>
-  </div>
-</div>
+        <div class="ww_price_div">
+          <span class="ww-pdp__price-group_mobile {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
+            {%- if has_variant_discount -%}
+              <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.compare_at_price | money }}</span>
+              <span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
+            {%- else -%}
+              <span class="ww-pdp__price" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
+            {%- endif -%}
+          </span>
+        </div>
+      </div>
 
 
 {% comment %} <div class="ww-pdp_designed_div">
