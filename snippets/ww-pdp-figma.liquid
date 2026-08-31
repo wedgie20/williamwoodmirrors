@@ -596,20 +596,6 @@
       
   <div class="ww-pdp_designed_div">
     <p class="ww-pdp__label">{{ product_label }}</p>
-      {%- assign last_chance = false -%}
-      {%- for tag in product.tags -%}
-        {%- if tag contains '__label' -%}
-          {%- assign candidate = tag | split: ':' | last -%}
-          {%- if candidate == 'LAST CHANCE' -%}
-            {%- assign last_chance = true -%}
-          {%- endif -%}
-        {%- endif -%}
-      {%- endfor -%}
-      {%- assign show_auto_discount = false -%}
-      {%- unless last_chance or has_variant_discount -%}
-        {%- assign show_auto_discount = true -%}
-        {%- assign auto_discounted_price = current_variant.price | times: 0.75 | round -%}
-      {%- endunless -%}
 
     <div class="ww_price_div">
       <span class="ww-pdp__price-group_mobile {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
@@ -631,35 +617,23 @@
     {%- assign original_price = product.selected_or_first_available_variant.price -%}
 
     {%- unless last_chance -%}
-  <div class="guarantee-item imhere_{{ product.selected_or_first_available_variant.compare_at_price }}" {% if product.tags contains 'sale' %}{% else %}{% if compareat_price > original_price %}style="display:none;"{%  else %}{% endif %}{% endif %}>
-
+<div class="guarantee-item imhere_{{ product.selected_or_first_available_variant.compare_at_price }}" {% if product.tags contains 'sale' %}{% else %}{% if compareat_price > original_price %}style="display:none;"{%  else %}{% endif %}{% endif %}>
   <span class="icon" style="display: none;">
     <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 18 13" fill="none">
       <path d="M17.2 1.06006L6.19995 12.0601L1.19995 7.06006" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
     </svg>
   </span>
-  {% if product.selected_or_first_available_variant.compare_at_price %}
-
-  {% else %}
-    {%- assign compareat_price = 0 -%}
-  {% endif %}
-
-
-  {% if product.selected_or_first_available_variant.compare_at_price %}
-
-    {%- assign pricewholenumber = original_price | times: 0.90 -%}
-    {%- assign discounted_price = original_price | times: 0.90 | divided_by: 100.0 -%}
-  {% else %}
-
-    {%- assign pricewholenumber = original_price | times: 0.75 -%}
-    {%- assign discounted_price = original_price | times: 0.75 | divided_by: 100.0 -%}
-  {% endif %}
-
+  {%- if product.selected_or_first_available_variant.compare_at_price -%}
+  {%- assign pricewholenumber = original_price | times: 0.90 -%}
+  {%- assign discounted_price = original_price | times: 0.90 | divided_by: 100.0 -%}
   {%- assign discounted_whole = discounted_price | floor -%}
   {%- assign discounted_decimal = discounted_price | minus: discounted_whole | times: 100 | round -%}
   {%- if discounted_decimal < 10 -%}
     {%- assign discounted_decimal = discounted_decimal | prepend: '0' -%}
   {%- endif -%}
+{%- else -%}
+  {%- assign compareat_price = 0 -%}
+{%- endif -%}
 </div>
 {%- endunless -%}
 
