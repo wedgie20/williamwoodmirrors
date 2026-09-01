@@ -717,16 +717,7 @@
             <span class="ww-pdp__title-measurement">{{ display_title_measurement }}</span>
           {%- endif -%}
       </h1>
-
-      {%- if has_variant_discount -%}
-  {%- assign savings_amount = current_variant.compare_at_price | minus: current_variant.price -%}
-  <div class="sale-save">
-    <span class="" style="padding: 0px">
-      Save {{ savings_amount | money }}
-    </span>
-  </div>
-{%- endif -%}
-    {% comment %} {%- if has_variant_discount -%}
+    {%- if has_variant_discount -%}
         {%- assign savings_amount = current_variant.compare_at_price | minus: current_variant.price -%}
         <div class="sale-save">
           <span class="" style="padding: 0px">
@@ -751,7 +742,7 @@
   {%- endif -%}
    <span style="color: #780606;">Save {{ cart.currency.symbol }}{{ saved_whole }}.{{ saved_decimal }}</span>
 </span>
-      {%- endif -%}   {% endcomment %}
+      {%- endif -%}  
     </div>
 
     <div class="deliivery-message">
