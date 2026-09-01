@@ -56,10 +56,15 @@
   endif
 
 
-  assign promo_code = ''
-   assign promo_title = 'Bundle & Save'
-  assign promo_text = '20% off 2 products or 30% off when you buy 3+ products. <br> Plus, get a Free Gift worth up to £99 when you spend £499+.'
-  assign promo_note = 'Offers applies automatically. No code required.</b>'
+  assign promo_box_enabled = true
+  if section.settings.show_promo_box == false
+    assign promo_box_enabled = false
+  endif
+
+  assign promo_code = section.settings.promo_code | default: ''
+  assign promo_title = section.settings.promo_heading | default: 'Bundle & Save'
+  assign promo_text = section.settings.promo_text | default: '20% off 2 products or 30% off when you buy 3+ products. <br> Plus, get a Free Gift worth up to £99 when you spend £499+.'
+  assign promo_note = section.settings.promo_note | default: 'Offers apply automatically. No code required.'
 
 
   assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id
@@ -764,10 +769,10 @@
 
       
 
-      {%- if promo_text != blank -%}
+      {%- if promo_box_enabled and promo_text != blank -%}
   <div class="ww-pdp__promo">
     <strong>{{ promo_title }}</strong><br><br>
-    <span>{{ promo_text }}</span><br><br>
+    <span>{{ promo_text | newline_to_br }}</span><br><br>
 
     {%- if promo_code != blank -%}
       <span>Code: {{ promo_code }}</span>
@@ -776,7 +781,7 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7V5.5A2.5 2.5 0 0 1 10.5 3h7A2.5 2.5 0 0 1 20 5.5v7a2.5 2.5 0 0 1-2.5 2.5H16v1.5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 4 16.5v-7A2.5 2.5 0 0 1 6.5 7H8Zm1.5 0h4A2.5 2.5 0 0 1 16 9.5v4h1.5a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1V7Zm-3 1.5a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-7Z"/></svg>
       </button><br>
     {%- elsif promo_note != blank -%}
-      <span>{{ promo_note }}</span>
+      <span>{{ promo_note | newline_to_br }}</span>
     {%- endif -%}
   </div>
 {%- endif -%}
