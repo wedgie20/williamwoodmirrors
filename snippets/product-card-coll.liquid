@@ -470,7 +470,7 @@
               
             {%- else -%}
               {%- assign auto_compare_price = cheapest_variant.price -%}
-              {%- assign auto_sale_price = auto_compare_price | times: 0.75 | round -%}
+              {%- assign auto_sale_price = auto_compare_price | times: 0.85 | round -%}
               {%- assign auto_savings = auto_compare_price | minus: auto_sale_price -%}
               {%- capture auto_compare_price_min -%}
                 {%- if settings.currency_code_enabled -%}
