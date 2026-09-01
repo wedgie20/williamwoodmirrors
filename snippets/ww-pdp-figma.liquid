@@ -961,23 +961,22 @@
 
           
             {%- assign slow_delivery = false -%}
-              {%- for tag in product.tags -%}
-                {%- if tag == 'SLOWDEL' -%}
-                  {%- assign slow_delivery = true -%}
-                {%- endif -%}
-              {%- endfor -%}
+{%- for tag in product.tags -%}
+  {%- if tag == 'SLOWDEL' -%}
+    {%- assign slow_delivery = true -%}
+  {%- endif -%}
+{%- endfor -%}
 
-              {%- if current_variant.available and is_preorder != true -%}
-                <div class="delivery-info">
-                  <span class="ww-pdp__pill ww-pdp__pill--stock">
-                    {%- if slow_delivery -%}
-                      Usually Dispatched in 4-7 Business Days
-                    {%- else -%}
-                      Usually Dispatched in 1-3 Business Days
-                    {%- endif -%}
-                  </span>
-                </div>
-              {%- endif -%}
+{%- if current_variant.available and is_preorder != true -%}
+  <div class="delivery-info">
+    {%- if slow_delivery -%}
+      Usually Dispatched in 4-7 Business Days
+    {%- else -%}
+      Usually Dispatched in 1-3 Business Days
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
           
               
 
