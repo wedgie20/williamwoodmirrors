@@ -1057,7 +1057,14 @@
       {%- endform -%}
 
 
-{%- if current_variant.available and is_preorder != true -%}
+{%- assign slow_delivery = false -%}
+{%- for tag in product.tags -%}
+  {%- if tag == 'SLOWDEL' -%}
+    {%- assign slow_delivery = true -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if current_variant.available and is_preorder != true and slow_delivery != true -%}
   {% for block in section.blocks %}
     {% case block.type %}
       {% when '@app' %}
