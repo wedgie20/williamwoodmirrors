@@ -670,8 +670,8 @@
     {%- assign discounted_price = original_price | times: 0.90 | divided_by: 100.0 -%}
   {% else %}
 
-    {%- assign pricewholenumber = original_price | times: 0.75 -%}
-    {%- assign discounted_price = original_price | times: 0.75 | divided_by: 100.0 -%}
+    {%- assign pricewholenumber = original_price | times: 0.85 -%}
+    {%- assign discounted_price = original_price | times: 0.85 | divided_by: 100.0 -%}
   {% endif %}
 
   {%- assign discounted_whole = discounted_price | floor -%}
