@@ -62,7 +62,10 @@
   endif
 
   assign promo_code = section.settings.promo_code | default: ''
-  assign promo_title = section.settings.promo_heading | default: 'Bundle & Save'
+  assign promo_title = section.settings.promo_heading | default: 'Bundle & Save (Limited time only)'
+  if promo_title == 'Bundle & Save'
+    assign promo_title = 'Bundle & Save (Limited time only)'
+  endif
   assign promo_text = section.settings.promo_text | default: '20% off 2 products or 30% off when you buy 3+ products. <br> Plus, get a Free Gift worth up to £99 when you spend £499+.'
   assign promo_note = section.settings.promo_note | default: 'Offers apply automatically. No code required.'
 
@@ -847,7 +850,10 @@
             {%- liquid
               assign promo_block_visible = false
               assign promo_target = promo_block.settings.show_when | default: 'all'
-              assign block_promo_title = promo_block.settings.promo_heading | default: 'Bundle & Save'
+              assign block_promo_title = promo_block.settings.promo_heading | default: 'Bundle & Save (Limited time only)'
+              if block_promo_title == 'Bundle & Save'
+                assign block_promo_title = 'Bundle & Save (Limited time only)'
+              endif
               assign block_promo_text = promo_block.settings.promo_text
               assign block_promo_note = promo_block.settings.promo_note
               assign block_promo_code = promo_block.settings.promo_code | default: ''
