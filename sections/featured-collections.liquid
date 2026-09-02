@@ -163,6 +163,11 @@ translate: 0 -300%;
       {%- endif -%}
 
       <div class="featured-collections">
+        {%- assign show_card_auto_discount = false -%}
+        {%- if request.page_type == 'index' -%}
+          {%- assign show_card_auto_discount = true -%}
+        {%- endif -%}
+
         {%- for block in section.blocks -%}
           {%- assign collection = block.settings.collection -%}
           {%- assign smallest_image_aspect_ratio = 0 -%}
@@ -179,7 +184,7 @@ translate: 0 -300%;
                     {%- assign smallest_image_aspect_ratio = smallest_image_aspect_ratio | at_least: product.featured_media.aspect_ratio   -%}
                   {%- endif -%}
 
-                  {%- render 'product-featured-item', product: product, collection: collection, show_cta: section.settings.show_cta, block: block, sizes_attribute: sizes_attribute, reveal: settings.stagger_products_apparition -%}
+                  {%- render 'product-featured-item', product: product, collection: collection, show_cta: section.settings.show_cta, block: block, sizes_attribute: sizes_attribute, reveal: settings.stagger_products_apparition, show_card_auto_discount: show_card_auto_discount -%}
                 {%- else -%}
                   {%- assign smallest_image_aspect_ratio = 1 -%}
 

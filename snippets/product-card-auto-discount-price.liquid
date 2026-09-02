@@ -1,0 +1,28 @@
+{%- liquid
+  assign auto_discount_rate = auto_discount_rate | default: 15
+  assign auto_discount_price_prefix = price_prefix | default: ''
+  assign source_price = price | default: product.price
+  assign discount_multiplier = 100 | minus: auto_discount_rate
+  assign auto_discounted_price = source_price | times: discount_multiplier | divided_by: 100
+  assign auto_discount_savings = source_price | minus: auto_discounted_price
+-%}
+
+<span class="price price--compare">
+  <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
+  {%- if settings.currency_code_enabled -%}
+    {{- auto_discount_price_prefix -}}{{- source_price | money_with_currency -}}
+  {%- else -%}
+    {{- auto_discount_price_prefix -}}{{- source_price | money -}}
+  {%- endif -%}
+</span>
+
+<span class="price price--highlight">
+  <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+  {%- if settings.currency_code_enabled -%}
+    {{- auto_discount_price_prefix -}}{{- auto_discounted_price | money_with_currency -}}
+  {%- else -%}
+    {{- auto_discount_price_prefix -}}{{- auto_discounted_price | money -}}
+  {%- endif -%}
+</span>
+
+<span class="label label-save-highlight" style="margin-left: 0px">(Save {{ auto_discount_savings | money }})</span>
