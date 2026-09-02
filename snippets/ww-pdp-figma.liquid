@@ -3048,11 +3048,13 @@ background: #efefef;
   }
 
   @media screen and (max-width: 999px) {
-    .ww-pdp-sticky-atc {
-      width: 100vw;
-      padding: 0;
-      background: #fff !important;
-      box-shadow: 0 -1px 0 rgba(0, 0, 0, .08);
+    .ww-pdp-sticky-atc,
+    .ww-pdp-sticky-atc[hidden],
+    .ww-pdp-sticky-atc.is-hidden {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
     }
 
     .ww-pdp__detail-item p, .ww-pdp__detail-item em, .ww-pdp__detail-item strong {
