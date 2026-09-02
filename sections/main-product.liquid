@@ -231,6 +231,84 @@
       "type": "@app"
     },
     {
+      "type": "promo_box",
+      "name": "PDP promo box",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "enabled",
+          "label": "Show promo box",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "promo_heading",
+          "label": "Promo box title",
+          "default": "Bundle & Save"
+        },
+        {
+          "type": "textarea",
+          "id": "promo_text",
+          "label": "Promo box text",
+          "default": "20% off 2 products or 30% off when you buy 3+ products.\nPlus, get a Free Gift worth up to £99 when you spend £499+."
+        },
+        {
+          "type": "textarea",
+          "id": "promo_note",
+          "label": "Promo box note",
+          "default": "Offers apply automatically. No code required."
+        },
+        {
+          "type": "text",
+          "id": "promo_code",
+          "label": "Promo code",
+          "info": "Leave blank to show the promo note instead."
+        },
+        {
+          "type": "select",
+          "id": "show_when",
+          "label": "Show when",
+          "options": [
+            {
+              "value": "all",
+              "label": "All products"
+            },
+            {
+              "value": "product",
+              "label": "Selected product"
+            },
+            {
+              "value": "collection",
+              "label": "Product is in collection"
+            },
+            {
+              "value": "tag",
+              "label": "Product has tag"
+            }
+          ],
+          "default": "all"
+        },
+        {
+          "type": "product",
+          "id": "target_product",
+          "label": "Target product",
+          "info": "Used when Show when is Selected product."
+        },
+        {
+          "type": "collection",
+          "id": "target_collection",
+          "label": "Target collection",
+          "info": "Used when Show when is Product is in collection."
+        },
+        {
+          "type": "text",
+          "id": "target_tags",
+          "label": "Target product tags",
+          "info": "Used when Show when is Product has tag. Separate multiple tags with commas."
+        }
+      ]
+    },
+    {
       "type": "review_banner",
       "name": "Review Banner",
       "settings": [
@@ -1389,22 +1467,10 @@
           "label": "Background Image"
         },
 
-         {
+        {
           "type": "header",
           "content": "Offers Messages"
         },
-        {
-  "type": "text",
-  "id": "promo_heading",
-  "label": "Offers Heading",
-  "default": "Special Offers"
-},
-        {
-  "type": "textarea",
-  "id": "promo_text",
-  "label": "Offers Text",
-  "default": "Buy 1 item and receive 15% off, code SE15 (Limited Time Only)\nor\nBuy 2 items and receive 25% off, no code required\nor\nBuy 3 items or more and receive 30% off, no code required\n\n+\n\nFree Gift with your purchase worth up to £99 GBP when you spend £299 GBP or more"
-},
 {
   "type": "text",
   "id": "sale_heading",
@@ -1804,6 +1870,44 @@
       "id": "help_page",
       "label": "Help page",
       "info": "Feature a page to help your customers"
+    },
+    {
+      "type": "header",
+      "content": "Default PDP promo box"
+    },
+    {
+      "type": "paragraph",
+      "content": "Used only when no PDP promo box blocks have been added. For multiple or targeted boxes, add PDP promo box blocks."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_promo_box",
+      "label": "Show default promo box",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "promo_heading",
+      "label": "Promo box title",
+      "default": "Bundle & Save"
+    },
+    {
+      "type": "textarea",
+      "id": "promo_text",
+      "label": "Promo box text",
+      "default": "20% off 2 products or 30% off when you buy 3+ products.\nPlus, get a Free Gift worth up to £99 when you spend £499+."
+    },
+    {
+      "type": "textarea",
+      "id": "promo_note",
+      "label": "Promo box note",
+      "default": "Offers apply automatically. No code required."
+    },
+    {
+      "type": "text",
+      "id": "promo_code",
+      "label": "Promo code",
+      "info": "Leave blank to show the promo note instead."
     },
     {
       "type": "header",
