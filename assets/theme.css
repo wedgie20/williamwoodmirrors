@@ -15622,20 +15622,31 @@ shopify-payment-terms {
   margin-top: 26px;
 }
 
-@media screen and (min-width: 1000px) {
+@keyframes textWithIconsDotAnimation {
+  from {
+    opacity: 0.3;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 999px) {
+  .text-with-icons__item[hidden] {
+    display: block !important;
+  }
+
   .text-with-icons__dots[animation-timer] .dots-nav__item[aria-current="true"] {
     animation: textWithIconsDotAnimation var(--section-autoplay-duration, 5s) linear;
     animation-play-state: var(--section-animation-play-state, running);
   }
+}
 
-  @keyframes textWithIconsDotAnimation {
-    from {
-      opacity: 0.3;
-    }
-
-    to {
-      opacity: 1;
-    }
+@media screen and (min-width: 1000px) {
+  .text-with-icons__dots[animation-timer] .dots-nav__item[aria-current="true"] {
+    animation: textWithIconsDotAnimation var(--section-autoplay-duration, 5s) linear;
+    animation-play-state: var(--section-animation-play-state, running);
   }
 
   .text-with-icons__list {

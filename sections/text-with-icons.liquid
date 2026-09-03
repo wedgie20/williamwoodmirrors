@@ -71,7 +71,7 @@
         </div>
 
         {%- if section.blocks.size > 1 -%}
-          <page-dots class="text-with-icons__dots dots-nav dots-nav--centered hidden-lap-and-up">
+          <page-dots animation-timer class="text-with-icons__dots dots-nav dots-nav--centered hidden-lap-and-up">
             {%- for block in section.blocks -%}
               <button class="dots-nav__item tap-area" {% if forloop.first %}aria-current="true"{% endif%}>
                 <span class="visually-hidden">{{ 'general.accessibility.go_to_slide' | t: num: forloop.index }}</span>
