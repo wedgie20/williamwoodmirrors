@@ -628,17 +628,20 @@
             {%- endif -%}
           {%- endfor -%}
 
-          {%- assign show_auto_discount = true -%}
-          {%- assign auto_discounted_price = current_variant.price | times: 0.85 | round -%}
+          {%- assign show_auto_discount = false -%}
+          {%- unless last_chance or has_variant_discount -%}
+            {%- assign show_auto_discount = true -%}
+            {%- assign auto_discounted_price = current_variant.price | times: 0.85 | round -%}
+          {%- endunless -%}
 
 <div class="ww_price_div">
   <span class="ww-pdp__price-group_mobile {% if has_variant_discount or show_auto_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
-    {%- if show_auto_discount -%}
-      <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.price | money }}</span>
-      <span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>{{ auto_discounted_price | money }}</span>
-    {%- elsif has_variant_discount -%}
+    {%- if has_variant_discount -%}
       <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.compare_at_price | money }}</span>
       <span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
+    {%- elsif show_auto_discount -%}
+      <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.price | money }}</span>
+      <span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>{{ auto_discounted_price | money }}</span>
     {%- else -%}
       <span class="ww-pdp__price" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
     {%- endif -%}
@@ -1228,12 +1231,12 @@
   <div class="ww-pdp-sticky-atc__inner">
     <p class="ww-pdp-sticky-atc__title">{{ product_heading }}</p>
     <span class="ww-pdp-sticky-atc__price {% if has_variant_discount or show_auto_discount %}is-discounted{% endif %}" data-ww-sticky-price>
-      {%- if show_auto_discount -%}
-        <span class="ww-pdp-sticky-atc__price-compare" data-ww-sticky-compare-price>{{ current_variant.price | money }}</span>
-        <span class="ww-pdp-sticky-atc__price-current" data-ww-sticky-current-price>{{ auto_discounted_price | money }}</span>
-      {%- elsif has_variant_discount -%}
+      {%- if has_variant_discount -%}
         <span class="ww-pdp-sticky-atc__price-compare" data-ww-sticky-compare-price>{{ current_variant.compare_at_price | money }}</span>
         <span class="ww-pdp-sticky-atc__price-current" data-ww-sticky-current-price>{{ current_variant.price | money }}</span>
+      {%- elsif show_auto_discount -%}
+        <span class="ww-pdp-sticky-atc__price-compare" data-ww-sticky-compare-price>{{ current_variant.price | money }}</span>
+        <span class="ww-pdp-sticky-atc__price-current" data-ww-sticky-current-price>{{ auto_discounted_price | money }}</span>
       {%- else -%}
         <span class="ww-pdp-sticky-atc__price-current" data-ww-sticky-current-price>{{ current_variant.price | money }}</span>
       {%- endif -%}
@@ -1248,7 +1251,7 @@
       <span class="ww-pdp-sticky-atc__mobile-label {% if has_variant_discount or show_auto_discount %}is-discounted{% endif %}">
         {%- if current_variant.available -%}
           {%- if has_variant_discount or show_auto_discount -%}
-            <span class="ww-pdp-sticky-atc__price-compare" data-ww-sticky-mobile-compare-price>{% if show_auto_discount %}{{ current_variant.price | money }}{% else %}{{ current_variant.compare_at_price | money }}{% endif %}</span>
+            <span class="ww-pdp-sticky-atc__price-compare" data-ww-sticky-mobile-compare-price>{% if has_variant_discount %}{{ current_variant.compare_at_price | money }}{% else %}{{ current_variant.price | money }}{% endif %}</span>
           {%- endif -%}
           <span class="ww-pdp-sticky-atc__price-current" data-ww-sticky-mobile-current-price>{% if show_auto_discount %}{{ auto_discounted_price | money }}{% else %}{{ current_variant.price | money }}{% endif %}</span>
           <span aria-hidden="true">-  </span>
@@ -4357,9 +4360,9 @@ background: #efefef;
       var displayedPrice = price;
       var displayedCompareAt = compareAt > price ? compareAt : 0;
 
-      if (shouldShowAutoDiscount) {
+      if (!displayedCompareAt && shouldShowAutoDiscount) {
         displayedCompareAt = price;
-        displayedPrice = Math.round(price * 0.85);
+        displayedPrice = Math.round(price * 0.75);
       }
 
       return {
@@ -4518,7 +4521,7 @@ background: #efefef;
       stickyBar.hidden = false;
       updateStickyButtonLabel(
         {%- if show_auto_discount -%}{{ auto_discounted_price | money | json }}{%- else -%}{{ current_variant.price | money | json }}{%- endif -%},
-        {%- if show_auto_discount -%}{{ current_variant.price | money | json }}{%- elsif has_variant_discount -%}{{ current_variant.compare_at_price | money | json }}{%- else -%}''{%- endif -%},
+        {%- if has_variant_discount -%}{{ current_variant.compare_at_price | money | json }}{%- elsif show_auto_discount -%}{{ current_variant.price | money | json }}{%- else -%}''{%- endif -%},
         {{ current_variant.available | json }}
       );
       updateStickyVisibility();
