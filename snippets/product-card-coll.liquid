@@ -469,32 +469,7 @@
               </span>
               
             {%- else -%}
-              {%- assign auto_compare_price = cheapest_variant.price -%}
-              {%- assign auto_sale_price = auto_compare_price | times: 0.85 | round -%}
-              {%- assign auto_savings = auto_compare_price | minus: auto_sale_price -%}
-              {%- capture auto_compare_price_min -%}
-                {%- if settings.currency_code_enabled -%}
-                  {{- auto_compare_price | money_with_currency -}}
-                {%- else -%}
-                  {{- auto_compare_price | money -}}
-                {%- endif -%}
-              {%- endcapture -%}
-              {%- capture auto_sale_price_min -%}
-                {%- if settings.currency_code_enabled -%}
-                  {{- auto_sale_price | money_with_currency -}}
-                {%- else -%}
-                  {{- auto_sale_price | money -}}
-                {%- endif -%}
-              {%- endcapture -%}
-              <span class="price price--compare">
-                <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
-                {{- 'collection.product.from_price_html' | t: price_min: auto_compare_price_min -}}
-              </span>
-              <span class="price price--highlight">
-                <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
-                {{- 'collection.product.from_price_html' | t: price_min: auto_sale_price_min -}}
-              </span>
-              <span class="label label-save-highlight" style="margin-left: 0px">(Save {% if settings.currency_code_enabled %}{{ auto_savings | money_with_currency }}{% else %}{{ auto_savings | money }}{% endif %})</span>
+              {%- render 'product-card-auto-discount-price', product: product, price: cheapest_variant.price, auto_discount_rate: 15, price_prefix: 'From ' -%}
             {%- endif -%}
           {%- elsif product.price < product.compare_at_price -%}
             <span class="price price--compare">
@@ -535,104 +510,11 @@
               {%- endif -%}
             {%- endcapture -%}
 
-            {%- assign auto_compare_price = product.price_min -%}
-            {%- assign auto_sale_price = auto_compare_price | times: 0.85 | round -%}
-            {%- assign auto_savings = auto_compare_price | minus: auto_sale_price -%}
-            {%- capture auto_compare_price_min -%}
-              {%- if settings.currency_code_enabled -%}
-                {{- auto_compare_price | money_with_currency -}}
-              {%- else -%}
-                {{- auto_compare_price | money -}}
-              {%- endif -%}
-            {%- endcapture -%}
-            {%- capture auto_sale_price_min -%}
-              {%- if settings.currency_code_enabled -%}
-                {{- auto_sale_price | money_with_currency -}}
-              {%- else -%}
-                {{- auto_sale_price | money -}}
-              {%- endif -%}
-            {%- endcapture -%}
-            <span class="price price--compare">
-              <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
-              {{- 'collection.product.from_price_html' | t: price_min: auto_compare_price_min -}}
-            </span>
-            <span class="price price--highlight">
-              <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
-              {{- 'collection.product.from_price_html' | t: price_min: auto_sale_price_min -}}
-            </span>
-            <span class="label label-save-highlight" style="margin-left: 0px">(Save {% if settings.currency_code_enabled %}{{ auto_savings | money_with_currency }}{% else %}{{ auto_savings | money }}{% endif %})</span>
+            {%- render 'product-card-auto-discount-price', product: product, price: product.price_min, auto_discount_rate: 15, price_prefix: 'From ' -%}
           {%- else -%}
-            {%- assign auto_compare_price = product.price -%}
-            {%- assign auto_sale_price = auto_compare_price | times: 0.85 | round -%}
-            {%- assign auto_savings = auto_compare_price | minus: auto_sale_price -%}
-            <span class="price price--compare">
-              <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
-              {%- if settings.currency_code_enabled -%}
-                {{- auto_compare_price | money_with_currency -}}
-              {%- else -%}
-                {{- auto_compare_price | money -}}
-              {%- endif -%}
-            </span>
-            <span class="price price--highlight">
-              <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
-              {%- if settings.currency_code_enabled -%}
-                {{- auto_sale_price | money_with_currency -}}
-              {%- else -%}
-                {{- auto_sale_price | money -}}
-              {%- endif -%}
-            </span>
-            <span class="label label-save-highlight" style="margin-left: 0px">(Save {% if settings.currency_code_enabled %}{{ auto_savings | money_with_currency }}{% else %}{{ auto_savings | money }}{% endif %})</span>
+            {%- render 'product-card-auto-discount-price', product: product, price: product.price, auto_discount_rate: 15 -%}
           {%- endif -%}
 
-            {% comment %} {%- assign auto_compare_price = product.price_min -%}
-            {%- assign auto_sale_price = auto_compare_price | times: 0.75 | round -%}
-            {%- assign auto_savings = auto_compare_price | minus: auto_sale_price -%}
-            {%- capture auto_compare_price_min -%}
-              {%- if settings.currency_code_enabled -%}
-                {{- auto_compare_price | money_with_currency -}}
-              {%- else -%}
-                {{- auto_compare_price | money -}}
-              {%- endif -%}
-            {%- endcapture -%}
-            {%- capture auto_sale_price_min -%}
-              {%- if settings.currency_code_enabled -%}
-                {{- auto_sale_price | money_with_currency -}}
-              {%- else -%}
-                {{- auto_sale_price | money -}}
-              {%- endif -%}
-            {%- endcapture -%}
-            <span class="price price--compare">
-              <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
-              {{- 'collection.product.from_price_html' | t: price_min: auto_compare_price_min -}}
-            </span>
-            <span class="price price--highlight">
-              <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
-              {{- 'collection.product.from_price_html' | t: price_min: auto_sale_price_min -}}
-            </span>
-            <span class="label label-save-highlight" style="margin-left: 0px">(Save {% if settings.currency_code_enabled %}{{ auto_savings | money_with_currency }}{% else %}{{ auto_savings | money }}{% endif %})</span>
-          {%- else -%}
-            {%- assign auto_compare_price = product.price -%}
-            {%- assign auto_sale_price = auto_compare_price | times: 0.75 | round -%}
-            {%- assign auto_savings = auto_compare_price | minus: auto_sale_price -%}
-            <span class="price price--compare">
-              <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
-              {%- if settings.currency_code_enabled -%}
-                {{- auto_compare_price | money_with_currency -}}
-              {%- else -%}
-                {{- auto_compare_price | money -}}
-              {%- endif -%}
-            </span>
-            <span class="price price--highlight">
-              <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
-              {%- if settings.currency_code_enabled -%}
-                {{- auto_sale_price | money_with_currency -}}
-              {%- else -%}
-                {{- auto_sale_price | money -}}
-              {%- endif -%}
-            </span>
-            <span class="label label-save-highlight" style="margin-left: 0px">(Save {% if settings.currency_code_enabled %}{{ auto_savings | money_with_currency }}{% else %}{{ auto_savings | money }}{% endif %})</span>
-          {%- endif -%} {% endcomment %}
-           
           {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
             <div class="price price--block text--xsmall text--subdued">
               <div class="unit-price-measurement">
