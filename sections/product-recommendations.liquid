@@ -93,7 +93,8 @@
                   {%- render 'product-item',
                     product: product,
                     sizes_attribute: sizes_attribute,
-                    reveal: settings.stagger_products_apparition
+                    reveal: settings.stagger_products_apparition,
+                    show_card_auto_discount: true
                   -%}
                 {%- endfor -%}
               {%- else -%}
@@ -106,7 +107,8 @@
                   {%- render 'product-item',
                     product: product,
                     sizes_attribute: sizes_attribute,
-                    reveal: settings.stagger_products_apparition
+                    reveal: settings.stagger_products_apparition,
+                    show_card_auto_discount: true
                   -%}
                 {%- endfor -%}
               {%- endif -%}

@@ -932,10 +932,7 @@
         </div>
       {%- endif -%}
 
-{%- assign effective_price = current_variant.price -%}
-{%- unless last_chance or current_variant.compare_at_price -%}
-  {%- assign effective_price = current_variant.price | times: 0.85 | round -%}
-{%- endunless -%}
+{%- assign effective_price = auto_discounted_price -%}
 
 <div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ effective_price }}">
 

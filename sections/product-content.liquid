@@ -318,7 +318,7 @@
           <div class="scroller__inner">
             <div class="product-content__featured-products-list">
               {%- for product in featured_products_block.settings.products -%}
-                {%- render 'product-item', product: product, reduced_content: true, reduced_font_size: true, sizes_attribute: '(max-width: 740px) 105px, 215px' -%}
+                {%- render 'product-item', product: product, reduced_content: true, reduced_font_size: true, sizes_attribute: '(max-width: 740px) 105px, 215px', show_card_auto_discount: true -%}
               {%- endfor -%}
             </div>
           </div>
