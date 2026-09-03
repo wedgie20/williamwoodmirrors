@@ -519,29 +519,19 @@
             {% assign total_saving = 0 %}
 
             {% for item in cart.items %}
-              {% comment %} Calculate original subtotal {% endcomment %}
-              {% if item.variant.compare_at_price and item.variant.compare_at_price > 0 %}
-                {% assign item_original_total = item.variant.compare_at_price | times: item.quantity %}
-              {% else %}
-                {% assign item_original_total = item.variant.price | times: item.quantity %}
-              {% endif %}
+              {% comment %} Calculate subtotal from the real cart price, not compare-at pricing {% endcomment %}
+              {% assign item_original_total = item.original_line_price %}
               {% assign original_subtotal = original_subtotal | plus: item_original_total %}
               
-              {% comment %} Calculate savings from both product discounts AND line discounts {% endcomment %}
-              {% assign product_saving = 0 %}
+              {% comment %} Calculate savings from line/cart discounts only {% endcomment %}
               {% assign line_saving = 0 %}
-              
-              {% comment %} Product-level savings (compare_at_price vs price) {% endcomment %}
-              {% if item.variant.compare_at_price and item.variant.compare_at_price > item.variant.price %}
-                {% assign product_saving = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity %}
-              {% endif %}
               
               {% comment %} Cart/quantity-level savings (original_line_price vs final_line_price) {% endcomment %}
               {% if item.original_line_price > item.final_line_price %}
                 {% assign line_saving = item.original_line_price | minus: item.final_line_price %}
               {% endif %}
               
-              {% assign item_total_saving = product_saving | plus: line_saving %}
+              {% assign item_total_saving = line_saving %}
               {% assign total_saving = total_saving | plus: item_total_saving %}
             {% endfor %}
 

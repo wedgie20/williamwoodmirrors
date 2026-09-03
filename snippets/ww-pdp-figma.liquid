@@ -4360,9 +4360,9 @@ background: #efefef;
       var displayedPrice = price;
       var displayedCompareAt = compareAt > price ? compareAt : 0;
 
-      if (!displayedCompareAt && shouldShowAutoDiscount) {
+      if (shouldShowAutoDiscount) {
         displayedCompareAt = price;
-        displayedPrice = Math.round(price * 0.75);
+        displayedPrice = Math.round(price * 0.85);
       }
 
       return {
@@ -4521,7 +4521,7 @@ background: #efefef;
       stickyBar.hidden = false;
       updateStickyButtonLabel(
         {%- if show_auto_discount -%}{{ auto_discounted_price | money | json }}{%- else -%}{{ current_variant.price | money | json }}{%- endif -%},
-        {%- if has_variant_discount -%}{{ current_variant.compare_at_price | money | json }}{%- elsif show_auto_discount -%}{{ current_variant.price | money | json }}{%- else -%}''{%- endif -%},
+        {%- if show_auto_discount -%}{{ current_variant.price | money | json }}{%- elsif has_variant_discount -%}{{ current_variant.compare_at_price | money | json }}{%- else -%}''{%- endif -%},
         {{ current_variant.available | json }}
       );
       updateStickyVisibility();
