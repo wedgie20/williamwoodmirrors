@@ -662,11 +662,12 @@
 {% endif %}
 
      {%- if cart.currency.iso_code == 'GBP' -%}
-       <p class="order_info"><span style="color: black;">Mainland UK Delivery:</span> <span style="text-align: right; color: #008000;">Free, Fast & 100% Insured</span></p>
-       <p class="order_info"><span style="color: black;">30-Day Returns:</span> <span style="text-align: right; color: #008000;">Free</span></p>
+       <p class="order_info"><span style="color: black;">UK Delivery:</span> <span style="text-align: right; color: #008000;">Free, Safe & 100% Insured</span></p>
+       <p class="order_info"><span style="color: black;">Easy 30-Day Returns:</span> <span style="text-align: right; color: #008000;">Free</span></p>
        {% else %}
             <p class="order_info"><span style="color: black;">Delivery:</span> <span style="text-align: right; color: #008000;">Delivery Fee / Calculated at Checkout</span></p>
 {% endif %}
+
 
 
 {% assign has_non_preorder = false %}
@@ -711,9 +712,13 @@
      
       <p class="order_info" style="font-weight: bold"><span style="color: black;">
         Final Order Total:
-      </span> <span style="text-align: right;"> {% render 'format-money', amount: display_cart_total %}</span></p>
+      </span> <span style="text-align: right; color: black;"> {% render 'format-money', amount: display_cart_total %}</span></p>
+
         <p class=""  style="color: black; margin-top: 0 !important;">{% assign installment_amount = display_cart_total | divided_by: 3 %}Or in 3 <b>interest free</b> instalments of <strong>{% render 'format-money', amount: installment_amount %}</strong> with Klarna
 </p>
+<p style="text-align: left !important; color: #780606; font-weight: bold;">Items in your bag aren’t held. Checkout to secure your order.</p>
+
+
         {% comment %} <div id="price-divider-container" class="customer-text" style="text-align: center !important;">
           {% assign installment_amount = display_cart_total | divided_by: 3 %}
           Or in 3 <b>interest free</b> instalments of <strong>{% render 'format-money', amount: installment_amount %}</strong> with Klarna
@@ -778,7 +783,7 @@
       {%- endif -%}
 <div class="guarantee-item" style="justify-content: space-evenly; margin-top:  10px;">
 
-  <p  class="customer-text" style="text-align: center !important; margin-top:  20px;">Join the 94% of customers who trust William Wood with their home</p>
+  <p  class="customer-text" style="text-align: center !important; margin-top:  20px;"><strong>94%</strong> of customers recommend William Wood</p>
        {% comment %} <div id="price-divider-container" class="customer-text" style="text-align: center !important; margin-top:  10px;">
           <p>Risk-Free: 30-Day Free Returns</p>
         </div>
@@ -918,7 +923,7 @@
               </svg>
             </span> {% endcomment %}
             {% comment %} Your order plants one tree with no extra cost, in partnershp with EcoDrive {% endcomment %}
-            <span class="">Your order plants one tree at no extra cost, in partnershp with</span> <img class="ecodrive-image"  src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/ECD-Wordmark-Black-800ppi-PNG.png?v=1757767007">
+            {% comment %} <span class="">Your order plants one tree at no extra cost, in partnershp with</span> <img class="ecodrive-image"  src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/ECD-Wordmark-Black-800ppi-PNG.png?v=1757767007"> {% endcomment %}
           </div>
         </div>
 
