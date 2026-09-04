@@ -935,7 +935,10 @@
         </div>
       {%- endif -%}
 
-{%- assign effective_price = auto_discounted_price -%}
+{%- assign effective_price = current_variant.price -%}
+{%- if show_auto_discount and auto_discounted_price != blank -%}
+  {%- assign effective_price = auto_discounted_price -%}
+{%- endif -%}
 
  {%- if product.tags contains 'mirror' -%}
   <div class="ww-pdp__benefits">
@@ -1009,7 +1012,7 @@
   {%- if cart.currency.iso_code == 'GBP' -%}
     <p>
       Or in
-      <select id="ww-installments-select" aria-label="Choose installment count">
+      <select id="ww-installments-select" data-ww-installment-select aria-label="Choose installment count">
         <option value="3" selected>3</option>
         <option value="4">4</option>
         <option value="6">6</option>
@@ -1023,19 +1026,20 @@
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         const wrapper = document.querySelector('[data-ww-installments]');
-        const price = parseInt(wrapper.getAttribute('data-price-cents'), 10);
         const select = document.getElementById('ww-installments-select');
         const amountDisplay = document.getElementById('ww-installment-amount');
         const disclaimerDisplay = document.getElementById('ww-installment-disclaimer');
 
         function updateInstallment() {
-          const selectedValue = select.value;
+          const price = parseInt(wrapper && wrapper.dataset ? wrapper.dataset.priceCents : '', 10);
+          const selectedValue = parseInt(select.value || '3', 10);
+          if (!Number.isFinite(price) || !price || !Number.isFinite(selectedValue) || !selectedValue) return;
           const installment = (price / selectedValue) / 100;
           let logoUrl = '';
           let logoClass = 'logo';
           let disclaimerText = '';
 
-          switch (selectedValue) {
+          switch (String(selectedValue)) {
             case '3':
               logoUrl = 'https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Marketing_Badge_With_Clear_Space.png?v=1747229079';
               logoClass += ' klarna-logo';
@@ -1081,7 +1085,8 @@
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         const wrapper = document.querySelector('[data-ww-installments]');
-        const price = parseInt(wrapper.getAttribute('data-price-cents'), 10);
+        const price = parseInt(wrapper && wrapper.dataset ? wrapper.dataset.priceCents : '', 10);
+        if (!Number.isFinite(price) || !price) return;
         const installment = (price / 3) / 100;
         document.getElementById('ww-installment-amount-eur').innerHTML = `<strong>${installment.toFixed(2)}</strong>`;
       });
@@ -4393,6 +4398,8 @@ background: #efefef;
       }
 
       return {
+        priceCents: displayedPrice,
+        compareCents: displayedCompareAt,
         priceText: displayedPrice ? formatInstallmentMoney(displayedPrice) : '',
         compareText: displayedCompareAt > displayedPrice ? formatInstallmentMoney(displayedCompareAt) : ''
       };
@@ -4610,7 +4617,7 @@ background: #efefef;
       updateStickyVisibility();
 
       root.querySelectorAll('[data-ww-installments]').forEach(function (box) {
-        box.dataset.priceCents = price || box.dataset.priceCents;
+        box.dataset.priceCents = displayPriceState.priceCents || price || box.dataset.priceCents;
         var select = box.querySelector('[data-ww-installment-select]');
         if (select) select.dispatchEvent(new Event('change', { bubbles: true }));
       });
