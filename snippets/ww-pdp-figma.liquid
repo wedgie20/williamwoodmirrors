@@ -937,13 +937,16 @@
 
 {%- assign effective_price = auto_discounted_price -%}
 
- <div class="ww-pdp__benefits">
+ {%- if product.tags contains 'mirror' -%}
+  <div class="ww-pdp__benefits">
     <div class="ww-pdp__benefits__content">
       <strong>Benefits</strong>
-      <p>
-      <p>
+      <p> Maximises natural ligh </p>
+      <p> Part of your daily routine</p>
+      <p> Made with safety-first, shatterproof glass</p>
     </div>
   </div>
+{%- endif -%}
 
 
 <div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ effective_price }}">
