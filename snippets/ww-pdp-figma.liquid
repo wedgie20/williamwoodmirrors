@@ -893,13 +893,13 @@
             {%- if promo_block_visible and block_promo_text != blank -%}
               <div class="ww-pdp__promo" {{ promo_block.shopify_attributes }}>
                 {%- if block_promo_title != blank -%}
-  {%- if block_promo_title contains '(Limited time only)' -%}
-    <strong>{{ block_promo_title | remove: '(Limited time only)' | strip | escape }}</strong> <strong>(Limited time only)</strong><br><br>
-  {%- else -%}
-    <strong>{{ block_promo_title | escape }}</strong><br><br>
-  {%- endif -%}
-{%- endif -%}
-<span>{{ block_promo_text | newline_to_br }}</span><br><br>
+                  {%- if block_promo_title contains '(Limited time only)' -%}
+                    <strong>{{ block_promo_title | remove: '(Limited time only)' | strip | escape }}</strong> <span>(Limited time only)</span><br><br>
+                  {%- else -%}
+                    <strong>{{ block_promo_title | escape }}</strong><br><br>
+                  {%- endif -%}
+                {%- endif -%}
+                <span>{{ block_promo_text | newline_to_br }}</span><br><br>
 
                 {%- if block_promo_code != blank -%}
                   <span>Code: {{ block_promo_code }}</span>
