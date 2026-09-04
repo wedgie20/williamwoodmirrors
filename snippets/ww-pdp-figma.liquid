@@ -63,7 +63,7 @@
 
   assign promo_code = section.settings.promo_code | default: ''
   assign promo_title = section.settings.promo_heading | default: 'Bundle & Save (Limited time only)'
-  if promo_title == 'Bundle & Save'
+  if promo_title == 'Bundle & Save (Limited time only)'
     assign promo_title = 'Bundle & Save (Limited time only)'
   endif
   assign promo_text = section.settings.promo_text | default: '20% off 2 products or 30% off when you buy 3+ products. <br> Plus, get a Free Gift worth up to £99 when you spend £499+.'
