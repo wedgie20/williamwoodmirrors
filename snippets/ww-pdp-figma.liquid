@@ -894,7 +894,7 @@
               <div class="ww-pdp__promo" {{ promo_block.shopify_attributes }}>
                 {%- if block_promo_title != blank -%}
                   {%- if block_promo_title contains '(Limited time only)' -%}
-                    <strong>{{ block_promo_title | remove: '(Limited time only)' | strip | escape }}</strong> <span>(Limited time only)</span><br><br>
+                    <strong>{{ block_promo_title | remove: '(Limited time only)' | strip | escape }}</strong> <strong>(Limited time only)</strong><br><br>
                   {%- else -%}
                     <strong>{{ block_promo_title | escape }}</strong><br><br>
                   {%- endif -%}
