@@ -937,6 +937,14 @@
 
 {%- assign effective_price = auto_discounted_price -%}
 
+ <div class="ww-pdp__benefits">
+    <div class="ww-pdp__benefits__content">
+      <p>
+      <p>
+    </div>
+  </div>
+
+
 <div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ effective_price }}">
 
   <style>
@@ -2106,14 +2114,14 @@
   }
 
   .ww-pdp__promo,
-  .ww-pdp__payments {
+  .ww-pdp__payments, .ww-pdp__benefits {
     border: 1px solid #dedede;
     border-radius: 6px;
     background: #fff;
     background: #efefef
   }
 
-  .ww-pdp__promo {
+  .ww-pdp__promo, .ww-pdp__benefits {
     {% comment %} display: grid;
     grid-template-columns: max-content 1fr max-content;
     align-items: center;
