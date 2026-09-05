@@ -940,7 +940,7 @@
   {%- assign effective_price = auto_discounted_price -%}
 {%- endif -%}
 
- {%- if product.tags contains 'mirror' -%}
+ {% comment %} {%- if product.tags contains 'mirror' -%}
   <div class="ww-pdp__benefits">
     <div class="ww-pdp__benefits__content">
       <strong> Benefits </strong>
@@ -951,6 +951,45 @@
       {% comment %} <li>Creates the illusion of more space</li>
       <li> Part of your daily routine</li> {% endcomment %}
       <li> Made with safety-first, shatterproof glass</li>
+      </ul>
+    </div>
+    <div class="ww-pdp__benefits__content">
+      <strong> Benefits </strong>
+      <ul>
+      <li> Creates a stylish focal point </li>
+      <li> Brings your living space together </li>
+      <li>Keeps everyday essentials within reach</li>
+      {% comment %} <li>Creates the illusion of more space</li>
+      <li> Part of your daily routine</li> {% endcomment %}
+      <li> Adds practical surface space</li>
+      </ul>
+    </div>
+  </div>
+{%- endif -%} {% endcomment %}
+
+{%- if product.tags contains 'mirror' -%}
+  <div class="ww-pdp__benefits">
+    <div class="ww-pdp__benefits__content">
+      <strong> Benefits </strong>
+      <ul>
+        <li> Makes your space feel bigger </li>
+        <li> Maximises natural light </li>
+        <li> Elevates your daily routine </li>
+        <li> Made with safety-first, shatterproof glass </li>
+      </ul>
+    </div>
+  </div>
+{%- endif -%}
+
+{%- if product.tags contains 'coffeetable' -%}
+  <div class="ww-pdp__benefits">
+    <div class="ww-pdp__benefits__content">
+      <strong> Benefits </strong>
+      <ul>
+        <li> Creates a stylish focal point </li>
+        <li> Brings your living space together </li>
+        <li> Keeps everyday essentials within reach </li>
+        <li> Adds practical surface space </li>
       </ul>
     </div>
   </div>
