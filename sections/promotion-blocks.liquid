@@ -210,7 +210,7 @@
 
                         {%- if product != blank -%}
                           <native-carousel-item {% if shown_products > 0 %}hidden{% endif %} class="promotion-block__product-list-item">
-                            {%- render 'product-item', product: product, reduced_content: true, sizes_attribute: '150px', show_card_auto_discount: true -%}
+                            {%- render 'product-item', product: product, reduced_content: true, sizes_attribute: '150px' -%}
                             {%- assign shown_products = shown_products | plus: 1 -%}
                           </native-carousel-item>
                         {%- endif -%}
