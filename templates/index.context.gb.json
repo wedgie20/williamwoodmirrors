@@ -210,11 +210,11 @@
           "disabled": false,
           "settings": {
             "slide_number": "1",
-            "heading": "<p>25% Off Two Or More</p>",
+            "heading": "<p>30% Off Any Three Or More</p>",
             "heading_custom": true,
             "heading_font": "josefin_sans_n4",
             "custom_heading_font": "GothamBlack",
-            "heading_size": 50,
+            "heading_size": 36,
             "heading_size_mobile": 26,
             "heading_height": 100,
             "heading_mt": 2,
@@ -224,21 +224,59 @@
             "heading_border_color": "#ffffff"
           }
         },
-        "heading_HqW8X": {
+        "heading_f9Xg4": {
           "type": "heading",
           "disabled": false,
           "settings": {
             "slide_number": "1",
-            "heading": "<p><em>Just the one? Take 20% Off.</em></p>",
+            "heading": "<p>Buy Two Products For 20% Off</p>",
             "heading_custom": true,
             "heading_font": "josefin_sans_n4",
-            "custom_heading_font": "Gotham Book",
-            "heading_size": 34,
+            "custom_heading_font": "GothamBlack",
+            "heading_size": 22,
             "heading_size_mobile": 20,
             "heading_height": 100,
             "heading_mt": 20,
             "heading_mt_mobile": 10,
-            "header-3fc7c736520db22d9d1c5abc6fb19e23": null,
+            "header-4070583ff1ea2db5a21d69f3710d703d": null,
+            "heading_color": "#ffffff",
+            "heading_border_color": "#ffffff"
+          }
+        },
+        "heading_pnKQh": {
+          "type": "heading",
+          "disabled": false,
+          "settings": {
+            "slide_number": "1",
+            "heading": "<p>Just The One? Take 15% Off</p>",
+            "heading_custom": true,
+            "heading_font": "josefin_sans_n4",
+            "custom_heading_font": "GothamBlack",
+            "heading_size": 22,
+            "heading_size_mobile": 20,
+            "heading_height": 100,
+            "heading_mt": 20,
+            "heading_mt_mobile": 10,
+            "header-4070583ff1ea2db5a21d69f3710d703d": null,
+            "heading_color": "#ffffff",
+            "heading_border_color": "#ffffff"
+          }
+        },
+        "heading_bzK3x": {
+          "type": "heading",
+          "disabled": false,
+          "settings": {
+            "slide_number": "1",
+            "heading": "<p>Offer Automatically Applied At Checkout</p>",
+            "heading_custom": true,
+            "heading_font": "josefin_sans_n4",
+            "custom_heading_font": "Gotham Book",
+            "heading_size": 14,
+            "heading_size_mobile": 20,
+            "heading_height": 100,
+            "heading_mt": 20,
+            "heading_mt_mobile": 10,
+            "header-4070583ff1ea2db5a21d69f3710d703d": null,
             "heading_color": "#ffffff",
             "heading_border_color": "#ffffff"
           }
@@ -318,40 +356,6 @@
             "header-3eda35d36c3ae78c29a761cb29f7627e": null,
             "heading_color": "#ffffff",
             "heading_border_color": "#ffffff"
-          }
-        },
-        "text_rPD4M": {
-          "type": "text",
-          "disabled": false,
-          "settings": {
-            "slide_number": "1",
-            "text": "<p>Use Code: WWAUG</p>",
-            "text_custom": true,
-            "text_font": "josefin_sans_n4",
-            "custom_text_font": "GothamBlack",
-            "text_size": 30,
-            "text_size_mobile": 20,
-            "text_height": 80,
-            "text_mt": 20,
-            "text_mt_mobile": 10,
-            "text_color": "#ffffff"
-          }
-        },
-        "text_pNkHj": {
-          "type": "text",
-          "disabled": false,
-          "settings": {
-            "slide_number": "1",
-            "text": "<p>Limited Time Only.</p>",
-            "text_custom": true,
-            "text_font": "josefin_sans_n4",
-            "custom_text_font": "Gotham Book",
-            "text_size": 20,
-            "text_size_mobile": 16,
-            "text_height": 100,
-            "text_mt": 26,
-            "text_mt_mobile": 18,
-            "text_color": "#ffffff"
           }
         },
         "text_nxnfh": {
@@ -472,15 +476,15 @@
           "disabled": false,
           "settings": {
             "slide_number": "2",
-            "button": "SHOP NOW",
-            "url": "shopify://collections/sasso-collection",
+            "button": "SHOP LATEST ARRIVALS",
+            "url": "shopify://collections/new-in",
             "button_custom": true,
             "button_font": "josefin_sans_n4",
             "custom_button_font": "Zurich, sans-serif",
             "button_size": 12,
             "button_size_mobile": 11,
             "button_height": 100,
-            "button_padding_horizontal": 50,
+            "button_padding_horizontal": 30,
             "button_padding_horizontal_mobile": 50,
             "button_padding_vertical": 16,
             "button_padding_vertical_mobile": 14,
@@ -637,19 +641,38 @@
             "text_mt_mobile": 0,
             "text_color": "#ffffff"
           }
+        },
+        "heading_Rbirt": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "slide_number": "1",
+            "heading": "<p>Just The One? Take 15% Off</p>",
+            "heading_custom": true,
+            "heading_font": "josefin_sans_n4",
+            "custom_heading_font": "Gotham Book",
+            "heading_size": 18,
+            "heading_size_mobile": 20,
+            "heading_height": 100,
+            "heading_mt": 20,
+            "heading_mt_mobile": 10,
+            "header-4070583ff1ea2db5a21d69f3710d703d": null,
+            "heading_color": "#ffffff",
+            "heading_border_color": "#ffffff"
+          }
         }
       },
       "block_order": [
         "heading_zft4N",
         "heading_6AA6M",
         "heading_iQBFj",
-        "heading_HqW8X",
+        "heading_f9Xg4",
+        "heading_pnKQh",
+        "heading_bzK3x",
         "heading_EW8kY",
         "heading_djHVr",
         "heading_FKtci",
         "heading_qEAnV",
-        "text_rPD4M",
-        "text_pNkHj",
         "text_nxnfh",
         "button_6Cgpi",
         "button_JrjWq",
@@ -659,7 +682,8 @@
         "text_hnCjX",
         "trustpilot_badge_slide_1",
         "trustpilot_badge_rfMDi",
-        "text_KFpPT"
+        "text_KFpPT",
+        "heading_Rbirt"
       ],
       "name": "SS - Hero #24"
     },
