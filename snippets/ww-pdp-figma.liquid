@@ -787,6 +787,19 @@ endif
           endif
         endfor
       -%}
+{%- if product.tags contains 'mirror' -%}
+  <div class="ww-pdp__promo">
+    <strong>25% Off All Mirrors</strong> <strong>(Ends Soon)</strong><br><br>
+    <span>25% off all mirrors with code MIRROR25.</span><br><br>
+    <span>Code: MIRROR25</span>
+    <button type="button" class="ww-pdp__code" data-ww-copy-code="MIRROR25">
+      <span>MIRROR25</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7V5.5A2.5 2.5 0 0 1 10.5 3h7A2.5 2.5 0 0 1 20 5.5v7a2.5 2.5 0 0 1-2.5 2.5H16v1.5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 4 16.5v-7A2.5 2.5 0 0 1 6.5 7H8Zm1.5 0h4A2.5 2.5 0 0 1 16 9.5v4h1.5a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1V7Zm-3 1.5a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-7Z"/></svg>
+    </button><br><br>
+    <span>Plus, get a Free Gift worth up to £99 when you spend £499+.</span><br><br>
+    <strong>Ends Soon</strong>
+  </div>
+{%- else -%}
 
       {%- if has_promo_box_blocks -%}
         {%- for promo_block in section.blocks -%}
@@ -888,6 +901,7 @@ endif
     <span>{{ promo_free_gift_text }}</span>
   </div>
 {%- endunless -%}
+{%- endif -%}
 
             {% comment %} {%- if promo_block_visible and block_promo_text != blank -%}
               <div class="ww-pdp__promo" {{ promo_block.shopify_attributes }}>
