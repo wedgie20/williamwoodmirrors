@@ -787,6 +787,11 @@ endif
           endif
         endfor
       -%}
+      {%- assign is_full_price = true -%}
+{%- if current_variant.compare_at_price > current_variant.price -%}
+  {%- assign is_full_price = false -%}
+{%- endif -%}
+
 {%- if product.tags contains 'mirror' and is_full_price == false -%}
   <div class="ww-pdp__promo">
     <strong>Bundle & Save</strong> <strong>(Ends Soon)</strong><br><br>
