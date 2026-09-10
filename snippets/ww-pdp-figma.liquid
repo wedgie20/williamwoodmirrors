@@ -829,7 +829,57 @@
               endif
             -%}
 
-            {%- if promo_block_visible and block_promo_text != blank -%}
+            {%- assign is_full_price = true -%}
+{%- if current_variant.compare_at_price > current_variant.price -%}
+  {%- assign is_full_price = false -%}
+{%- endif -%}
+
+{%- if promo_block_visible and block_promo_text != blank and is_full_price -%}
+  <div class="ww-pdp__promo" {{ promo_block.shopify_attributes }}>
+    {%- if block_promo_title != blank -%}
+      {%- if block_promo_title contains '(Limited time only)' -%}
+        <strong>{{ block_promo_title | remove: '(Limited time only)' | strip | escape }}</strong> <strong>(Limited time only)</strong><br><br>
+      {%- else -%}
+        <strong>{{ block_promo_title | escape }}</strong><br><br>
+      {%- endif -%}
+    {%- endif -%}
+    <span>{{ block_promo_text | newline_to_br }}</span><br><br>
+
+    {%- if block_promo_code != blank -%}
+      <span>Code: {{ block_promo_code }}</span>
+      <button type="button" class="ww-pdp__code" data-ww-copy-code="{{ block_promo_code | escape }}">
+        <span>{{ block_promo_code | escape }}</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7V5.5A2.5 2.5 0 0 1 10.5 3h7A2.5 2.5 0 0 1 20 5.5v7a2.5 2.5 0 0 1-2.5 2.5H16v1.5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 4 16.5v-7A2.5 2.5 0 0 1 6.5 7H8Zm1.5 0h4A2.5 2.5 0 0 1 16 9.5v4h1.5a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1V7Zm-3 1.5a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-7Z"/></svg>
+      </button><br>
+    {%- elsif block_promo_note != blank -%}
+      <span>{{ block_promo_note | newline_to_br }}</span>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+{%- endif -%}
+{%- endfor -%}
+{%- elsif promo_box_enabled and promo_text != blank and is_full_price -%}
+  <div class="ww-pdp__promo">
+    {%- if promo_title contains '(Limited time only)' -%}
+      <strong>{{ promo_title | remove: '(Limited time only)' | strip | escape }}</strong> <span>(Limited time only)</span><br><br>
+    {%- else -%}
+      <strong>{{ promo_title | escape }}</strong><br><br>
+    {%- endif -%}
+    <span>{{ promo_text | newline_to_br }}</span><br><br>
+
+    {%- if promo_code != blank -%}
+      <span>Code: {{ promo_code }}</span>
+      <button type="button" class="ww-pdp__code" data-ww-copy-code="{{ promo_code | escape }}">
+        <span>{{ promo_code | escape }}</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7V5.5A2.5 2.5 0 0 1 10.5 3h7A2.5 2.5 0 0 1 20 5.5v7a2.5 2.5 0 0 1-2.5 2.5H16v1.5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 4 16.5v-7A2.5 2.5 0 0 1 6.5 7H8Zm1.5 0h4A2.5 2.5 0 0 1 16 9.5v4h1.5a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1V7Zm-3 1.5a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-7Z"/></svg>
+      </button><br>
+    {%- elsif promo_note != blank -%}
+      <span>{{ promo_note | newline_to_br }}</span>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+            {% comment %} {%- if promo_block_visible and block_promo_text != blank -%}
               <div class="ww-pdp__promo" {{ promo_block.shopify_attributes }}>
                 {%- if block_promo_title != blank -%}
                   {%- if block_promo_title contains '(Limited time only)' -%}
@@ -872,7 +922,7 @@
             <span>{{ promo_note | newline_to_br }}</span>
           {%- endif -%}
         </div>
-      {%- endif -%}
+      {%- endif -%} {% endcomment %}
 
 {%- assign effective_price = current_variant.price -%}
 
