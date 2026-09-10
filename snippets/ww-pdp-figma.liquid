@@ -852,6 +852,7 @@ endif
     <span>Plus, get a Free Gift worth up to £99 when you spend £499+.</span><br><br>
     <strong>Ends Soon</strong>
   </div>
+  {%- endif -%}
 {%- else -%}
 {%- if promo_block_visible and block_promo_text != blank and is_full_price -%}
   <div class="ww-pdp__promo" {{ promo_block.shopify_attributes }}>
@@ -874,7 +875,6 @@ endif
       <span>{{ block_promo_note | newline_to_br }}</span>
     {%- endif -%}
   </div>
-{%- endif -%}
 {%- endif -%}
 {%- endif -%}
 {%- endfor -%}
