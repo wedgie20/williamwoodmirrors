@@ -867,7 +867,9 @@ assign promo_free_gift_text = 'Plus, get a Free Gift worth up to £99 when you s
       <strong>{{ promo_title | escape }}</strong><br><br>
     {%- endif -%}
     <span>{{ promo_text | newline_to_br }}</span><br><br>
-
+{%- unless is_full_price -%}
+  <span>{{ promo_free_gift_text }}</span><br><br>
+{%- endunless -%}
     {%- if promo_code != blank -%}
       <span>Code: {{ promo_code }}</span>
       <button type="button" class="ww-pdp__code" data-ww-copy-code="{{ promo_code | escape }}">
