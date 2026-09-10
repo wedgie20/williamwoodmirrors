@@ -787,7 +787,7 @@ endif
           endif
         endfor
       -%}
-{%- if product.tags contains 'mirror' -%}
+{%- if product.tags contains 'mirror' and is_full_price == false -%}
   <div class="ww-pdp__promo">
     <strong>Bundle & Save</strong> <strong>(Ends Soon)</strong><br><br>
     <span>25% off all mirrors with code: <strong>MIRROR25</strong>, ends soon.</span><br>
