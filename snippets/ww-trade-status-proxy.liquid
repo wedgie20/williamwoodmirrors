@@ -681,7 +681,7 @@
         });
       });
 
-      document.querySelectorAll('main p, main h1, main h2, main h3, main h4, main h5, main h6, main span, main strong, main b').forEach(function (element) {
+      document.querySelectorAll('body p, body h1, body h2, body h3, body h4, body h5, body h6, body span, body strong, body b').forEach(function (element) {
         var normalizedText = normalizeMobileMenuLabel(element.textContent);
         var shouldHideLine = (
           normalizedText === 'bundle save' ||
@@ -1170,8 +1170,8 @@
             if (!node || node.nodeType !== 1) return false;
 
             return node.matches && (
-              node.matches('[data-ww-promo-suppressible], [data-ww-sale-price], [data-ww-regular-price], .price--highlight, [data-ww-trade-proxy-target], [data-ww-trade-price-group], .product-item, .shopify-section--rich-text, .rich-text-custom-section, .text-container')
-            ) || node.querySelector && node.querySelector('[data-ww-promo-suppressible], [data-ww-sale-price], [data-ww-regular-price], .price--highlight, [data-ww-trade-proxy-target], [data-ww-trade-price-group], .product-item, .shopify-section--rich-text, .rich-text-custom-section, .text-container');
+              node.matches('[data-ww-promo-suppressible], [data-ww-sale-price], [data-ww-regular-price], .price--highlight, [data-ww-trade-proxy-target], [data-ww-trade-price-group], .product-item, .shopify-section--rich-text, .rich-text-custom-section, .text-container, [data-ww-trade-collection-promo-copy]')
+            ) || node.querySelector && node.querySelector('[data-ww-promo-suppressible], [data-ww-sale-price], [data-ww-regular-price], .price--highlight, [data-ww-trade-proxy-target], [data-ww-trade-price-group], .product-item, .shopify-section--rich-text, .rich-text-custom-section, .text-container, [data-ww-trade-collection-promo-copy]');
           });
         });
 
