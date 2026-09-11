@@ -17,35 +17,50 @@
 -%}
 
 {%- if ww_trade_filtered_has_promo -%}
-  {%- assign ww_trade_filtered_paragraphs = ww_trade_filtered_content | split: '</p>' -%}
+  {%- assign ww_trade_filtered_output = ww_trade_filtered_content -%}
 
-  {%- for ww_trade_filtered_paragraph in ww_trade_filtered_paragraphs -%}
-    {%- assign ww_trade_filtered_paragraph_stripped = ww_trade_filtered_paragraph | strip -%}
-
-    {%- if ww_trade_filtered_paragraph_stripped == blank -%}
-      {%- continue -%}
-    {%- endif -%}
-
-    {%- assign ww_trade_filtered_paragraph_html = ww_trade_filtered_paragraph | append: '</p>' -%}
-    {%- assign ww_trade_filtered_text = ww_trade_filtered_paragraph_html | strip_html | replace: '&nbsp;', ' ' | replace: '&#160;', ' ' | strip | downcase -%}
-    {%- assign ww_trade_filtered_is_promo_line = false -%}
-
-    {%- if ww_trade_filtered_text contains 'bundle' and ww_trade_filtered_text contains 'save' -%}
-      {%- assign ww_trade_filtered_is_promo_line = true -%}
-    {%- elsif ww_trade_filtered_text contains '15% off 1 product' or ww_trade_filtered_text contains '20% off 2 products' or ww_trade_filtered_text contains '30% off when you buy 3' -%}
-      {%- assign ww_trade_filtered_is_promo_line = true -%}
-    {%- elsif ww_trade_filtered_text contains 'no code required' and ww_trade_filtered_text contains 'limited time only' -%}
-      {%- assign ww_trade_filtered_is_promo_line = true -%}
-    {%- endif -%}
-
-    {%- if ww_trade_filtered_is_promo_line and ww_trade_filtered_is_customer -%}
-      {%- continue -%}
-    {%- elsif ww_trade_filtered_is_promo_line -%}
-      {{- ww_trade_filtered_paragraph_html | replace_first: '<p', '<p data-ww-trade-collection-promo-copy' -}}
-    {%- else -%}
-      {{- ww_trade_filtered_paragraph_html -}}
-    {%- endif -%}
-  {%- endfor -%}
+  {%- if ww_trade_filtered_is_customer -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p><strong>Bundle &amp; Save</strong></p>', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p><strong>Bundle & Save</strong></p>', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p><b>Bundle &amp; Save</b></p>', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p><b>Bundle & Save</b></p>', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p>Bundle &amp; Save</p>', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p>Bundle & Save</p>', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p>15% off 1 product or 20% off 2 products or 30% off when you buy 3+ products.</p>', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p>15% off 1 product or 20% off 2 products or 30% off when you buy 3+ products</p>', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p>No code required. Limited time only.</p>', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p>No code required. Limited time only</p>', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<strong>Bundle &amp; Save</strong>', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<strong>Bundle & Save</strong>', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<b>Bundle &amp; Save</b>', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<b>Bundle & Save</b>', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: 'Bundle &amp; Save', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: 'Bundle & Save', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '15% off 1 product or 20% off 2 products or 30% off when you buy 3+ products.', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '15% off 1 product or 20% off 2 products or 30% off when you buy 3+ products', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: 'No code required. Limited time only.', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: 'No code required. Limited time only', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p><strong></strong></p>', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p><b></b></p>', '' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p></p>', '' -%}
+    {{- ww_trade_filtered_output -}}
+  {%- else -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p><strong>Bundle &amp; Save</strong></p>', '<p data-ww-trade-collection-promo-copy><strong>Bundle &amp; Save</strong></p>' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p><strong>Bundle & Save</strong></p>', '<p data-ww-trade-collection-promo-copy><strong>Bundle & Save</strong></p>' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p><b>Bundle &amp; Save</b></p>', '<p data-ww-trade-collection-promo-copy><b>Bundle &amp; Save</b></p>' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p><b>Bundle & Save</b></p>', '<p data-ww-trade-collection-promo-copy><b>Bundle & Save</b></p>' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p>Bundle &amp; Save</p>', '<p data-ww-trade-collection-promo-copy>Bundle &amp; Save</p>' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p>Bundle & Save</p>', '<p data-ww-trade-collection-promo-copy>Bundle & Save</p>' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p>15% off 1 product or 20% off 2 products or 30% off when you buy 3+ products.</p>', '<p data-ww-trade-collection-promo-copy>15% off 1 product or 20% off 2 products or 30% off when you buy 3+ products.</p>' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<p>No code required. Limited time only.</p>', '<p data-ww-trade-collection-promo-copy>No code required. Limited time only.</p>' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<strong>Bundle &amp; Save</strong>', '<strong><span data-ww-trade-collection-promo-copy>Bundle &amp; Save</span></strong>' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<strong>Bundle & Save</strong>', '<strong><span data-ww-trade-collection-promo-copy>Bundle & Save</span></strong>' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<b>Bundle &amp; Save</b>', '<b><span data-ww-trade-collection-promo-copy>Bundle &amp; Save</span></b>' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '<b>Bundle & Save</b>', '<b><span data-ww-trade-collection-promo-copy>Bundle & Save</span></b>' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: '15% off 1 product or 20% off 2 products or 30% off when you buy 3+ products.', '<span data-ww-trade-collection-promo-copy>15% off 1 product or 20% off 2 products or 30% off when you buy 3+ products.</span>' -%}
+    {%- assign ww_trade_filtered_output = ww_trade_filtered_output | replace: 'No code required. Limited time only.', '<span data-ww-trade-collection-promo-copy>No code required. Limited time only.</span>' -%}
+    {{- ww_trade_filtered_output -}}
+  {%- endif -%}
 {%- else -%}
   {{- ww_trade_filtered_content -}}
 {%- endif -%}

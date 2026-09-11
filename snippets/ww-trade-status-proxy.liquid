@@ -677,15 +677,16 @@
         var normalizedText = normalizeMobileMenuLabel(element.textContent);
         var shouldHideLine = (
           normalizedText === 'bundle save' ||
-          normalizedText.indexOf('15 off 1 product') !== -1 ||
-          normalizedText.indexOf('20 off 2 products') !== -1 ||
-          normalizedText.indexOf('30 off when you buy 3 products') !== -1 ||
-          normalizedText.indexOf('no code required limited time only') !== -1
+          normalizedText === '15 off 1 product or 20 off 2 products or 30 off when you buy 3 products' ||
+          normalizedText === 'no code required limited time only'
         );
 
         if (!shouldHideLine) return;
 
-        setTradeCollectionPromoVisibility(element.closest('p, h1, h2, h3, h4, h5, h6, li') || element, true);
+        var lineContainer = element.closest('p, h1, h2, h3, h4, h5, h6, li');
+        var target = lineContainer && normalizeMobileMenuLabel(lineContainer.textContent) === normalizedText ? lineContainer : element;
+
+        setTradeCollectionPromoVisibility(target, true);
       });
     }
 
