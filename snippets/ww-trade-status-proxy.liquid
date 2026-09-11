@@ -3,6 +3,11 @@
     display: none !important;
   }
 
+  html:not([data-ww-trade-customer]) [data-ww-trade-collection-promo-copy],
+  html[data-ww-trade-customer="true"] [data-ww-trade-collection-promo-copy] {
+    display: none !important;
+  }
+
   html.ww-suppress-promos .ww-trade-suppressed-sale-price {
     display: none !important;
   }
@@ -1084,7 +1089,7 @@
 
     function setTradeState(status) {
       var discount = getEffectiveTradeDiscount(status);
-      var isTradeCustomer = isTruthy(status && status.is_trade_customer);
+      var isTradeCustomer = isTradeCustomerSignal(status);
       var suppressPromos = shouldSuppressPromos(status);
       var tradeDiscountActive = isTradeDiscountActive(status);
       var refreshStateSignature = getCartRefreshStateSignature(status);

@@ -11,7 +11,8 @@
 {%- endif -%}
 
 {%- assign ww_rich_text_has_trade_collection_promo = false -%}
-{%- if request.page_type == 'collection' and section.settings.content contains 'Bundle' and section.settings.content contains 'No code required' -%}
+{%- assign ww_rich_text_content_downcase = section.settings.content | downcase -%}
+{%- if request.page_type == 'collection' and ww_rich_text_content_downcase contains 'bundle' and ww_rich_text_content_downcase contains 'no code required' -%}
   {%- assign ww_rich_text_has_trade_collection_promo = true -%}
 {%- endif -%}
 
@@ -52,7 +53,8 @@
   }
 
   {%- if ww_rich_text_has_trade_collection_promo -%}
-    html:not([data-ww-trade-customer]) #shopify-section-{{ section.id }} [data-ww-trade-collection-promo-copy] {
+    html:not([data-ww-trade-customer]) #shopify-section-{{ section.id }} [data-ww-trade-collection-promo-copy],
+    html[data-ww-trade-customer="true"] #shopify-section-{{ section.id }} [data-ww-trade-collection-promo-copy] {
       display: none !important;
     }
   {%- endif -%}
@@ -83,26 +85,11 @@
                 {%- assign ww_rich_text_is_trade_customer = true -%}
               {%- endif -%}
             {%- endif -%}
-            {%- if ww_rich_text_is_trade_customer -%}
-              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p><strong>Bundle &amp; Save</strong></p>', '' -%}
-              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p><strong>Bundle & Save</strong></p>', '' -%}
-              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p><b>Bundle &amp; Save</b></p>', '' -%}
-              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p><b>Bundle & Save</b></p>', '' -%}
-              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p>Bundle &amp; Save</p>', '' -%}
-              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p>Bundle & Save</p>', '' -%}
-              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p>15% off 1 product or 20% off 2 products or 30% off when you buy 3+ products.</p>', '' -%}
-              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p>No code required. Limited time only.</p>', '' -%}
-            {%- elsif ww_rich_text_has_trade_collection_promo -%}
-              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p><strong>Bundle &amp; Save</strong></p>', '<p data-ww-trade-collection-promo-copy><strong>Bundle &amp; Save</strong></p>' -%}
-              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p><strong>Bundle & Save</strong></p>', '<p data-ww-trade-collection-promo-copy><strong>Bundle & Save</strong></p>' -%}
-              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p><b>Bundle &amp; Save</b></p>', '<p data-ww-trade-collection-promo-copy><b>Bundle &amp; Save</b></p>' -%}
-              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p><b>Bundle & Save</b></p>', '<p data-ww-trade-collection-promo-copy><b>Bundle & Save</b></p>' -%}
-              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p>Bundle &amp; Save</p>', '<p data-ww-trade-collection-promo-copy>Bundle &amp; Save</p>' -%}
-              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p>Bundle & Save</p>', '<p data-ww-trade-collection-promo-copy>Bundle & Save</p>' -%}
-              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p>15% off 1 product or 20% off 2 products or 30% off when you buy 3+ products.</p>', '<p data-ww-trade-collection-promo-copy>15% off 1 product or 20% off 2 products or 30% off when you buy 3+ products.</p>' -%}
-              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p>No code required. Limited time only.</p>', '<p data-ww-trade-collection-promo-copy>No code required. Limited time only.</p>' -%}
+            {%- if ww_rich_text_has_trade_collection_promo -%}
+              {%- render 'ww-trade-filtered-promo-copy', content: ww_rich_text_content -%}
+            {%- else -%}
+              {{- ww_rich_text_content -}}
             {%- endif -%}
-            {{- ww_rich_text_content -}}
           {%- endif -%}
 
           {%- if section.settings.button_text != blank -%}

@@ -217,7 +217,12 @@
         {%- endif -%}
 
         {%- if section.settings.description != blank -%}
-          <div class="collection-banner__description">{{ section.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</div>
+          <div class="collection-banner__description">
+            {%- capture ww_collection_banner_description_content -%}
+              {{- section.settings.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
+            {%- endcapture -%}
+            {%- render 'ww-trade-filtered-promo-copy', content: ww_collection_banner_description_content -%}
+          </div>
         {%- endif -%}
 
         {%- if section.settings.button_text != blank and section.settings.button_link != blank -%}

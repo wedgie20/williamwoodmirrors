@@ -1,0 +1,51 @@
+{%- liquid
+  assign ww_trade_filtered_content = content | default: ''
+  assign ww_trade_filtered_content_downcase = ww_trade_filtered_content | downcase
+  assign ww_trade_filtered_has_promo = false
+  assign ww_trade_filtered_is_customer = false
+
+  if request.page_type == 'collection' and ww_trade_filtered_content_downcase contains 'bundle' and ww_trade_filtered_content_downcase contains 'no code required'
+    assign ww_trade_filtered_has_promo = true
+  endif
+
+  if request.page_type == 'collection' and customer
+    assign ww_trade_filtered_tags = customer.tags | join: ',' | downcase
+    if customer.metafields.trade.is_trade_customer.value == true or customer.metafields.trade.discount_percentage.value > 0 or ww_trade_filtered_tags contains 'trade'
+      assign ww_trade_filtered_is_customer = true
+    endif
+  endif
+-%}
+
+{%- if ww_trade_filtered_has_promo -%}
+  {%- assign ww_trade_filtered_paragraphs = ww_trade_filtered_content | split: '</p>' -%}
+
+  {%- for ww_trade_filtered_paragraph in ww_trade_filtered_paragraphs -%}
+    {%- assign ww_trade_filtered_paragraph_stripped = ww_trade_filtered_paragraph | strip -%}
+
+    {%- if ww_trade_filtered_paragraph_stripped == blank -%}
+      {%- continue -%}
+    {%- endif -%}
+
+    {%- assign ww_trade_filtered_paragraph_html = ww_trade_filtered_paragraph | append: '</p>' -%}
+    {%- assign ww_trade_filtered_text = ww_trade_filtered_paragraph_html | strip_html | replace: '&nbsp;', ' ' | replace: '&#160;', ' ' | strip | downcase -%}
+    {%- assign ww_trade_filtered_is_promo_line = false -%}
+
+    {%- if ww_trade_filtered_text contains 'bundle' and ww_trade_filtered_text contains 'save' -%}
+      {%- assign ww_trade_filtered_is_promo_line = true -%}
+    {%- elsif ww_trade_filtered_text contains '15% off 1 product' or ww_trade_filtered_text contains '20% off 2 products' or ww_trade_filtered_text contains '30% off when you buy 3' -%}
+      {%- assign ww_trade_filtered_is_promo_line = true -%}
+    {%- elsif ww_trade_filtered_text contains 'no code required' and ww_trade_filtered_text contains 'limited time only' -%}
+      {%- assign ww_trade_filtered_is_promo_line = true -%}
+    {%- endif -%}
+
+    {%- if ww_trade_filtered_is_promo_line and ww_trade_filtered_is_customer -%}
+      {%- continue -%}
+    {%- elsif ww_trade_filtered_is_promo_line -%}
+      {{- ww_trade_filtered_paragraph_html | replace_first: '<p', '<p data-ww-trade-collection-promo-copy' -}}
+    {%- else -%}
+      {{- ww_trade_filtered_paragraph_html -}}
+    {%- endif -%}
+  {%- endfor -%}
+{%- else -%}
+  {{- ww_trade_filtered_content -}}
+{%- endif -%}

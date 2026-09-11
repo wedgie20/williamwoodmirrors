@@ -205,6 +205,13 @@
     {% render 'css-variables', direction: direction %}
     {% render 'js-variables', direction: direction %}
 
+    <style>
+      html:not([data-ww-trade-customer]) [data-ww-trade-collection-promo-copy],
+      html[data-ww-trade-customer="true"] [data-ww-trade-collection-promo-copy] {
+        display: none !important;
+      }
+    </style>
+
     {%- if ww_trade_is_customer -%}
       <style>
         html.ww-trade-status-pending [data-ww-promo-suppressible],
