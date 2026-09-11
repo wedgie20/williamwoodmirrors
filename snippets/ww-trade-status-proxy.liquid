@@ -677,7 +677,8 @@
         var originalFullLabel = normalizeMobileMenuLabel(originalLabel);
         var hiddenForTradeCustomer = isTradeCustomer && (
           originalFullLabel.indexOf('bundle offers') !== -1 ||
-          originalFullLabel.indexOf('free gift') !== -1
+          originalFullLabel.indexOf('free gift') !== -1 ||
+          originalFullLabel.indexOf('end of season sale') !== -1
         );
 
         if (hiddenForTradeCustomer) {

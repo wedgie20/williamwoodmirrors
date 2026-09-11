@@ -42,7 +42,7 @@
       {%- assign custom_image_inserted = false -%}
       {%- for link in menu.links -%}
         {%- assign link_title_downcase = link.title | strip | downcase -%}
-        {%- if ww_mobile_menu_trade_is_customer and link_title_downcase == 'end of season sale' -%}
+        {%- if ww_mobile_menu_trade_is_customer and link_title_downcase contains 'end of season sale' -%}
           {%- continue -%}
         {%- endif -%}
         {%- assign ww_mobile_menu_link_title = link.title -%}
