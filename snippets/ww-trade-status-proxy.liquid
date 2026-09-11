@@ -668,19 +668,6 @@
 
       if (!isTradeCustomer || !isCollectionPage) return;
 
-      document.querySelectorAll('.shopify-section--rich-text .text-container, .rich-text-custom-section .text-container, main .text-container, main .content-box').forEach(function (container) {
-        var children = Array.prototype.slice.call(container.children || []);
-        var promoStartIndex = children.findIndex(function (child) {
-          return normalizeMobileMenuLabel(child.textContent).indexOf('bundle save') !== -1;
-        });
-
-        if (promoStartIndex === -1) return;
-
-        children.slice(promoStartIndex, promoStartIndex + 3).forEach(function (child) {
-          setTradeCollectionPromoVisibility(child, true);
-        });
-      });
-
       document.querySelectorAll('body p, body h1, body h2, body h3, body h4, body h5, body h6, body span, body strong, body b').forEach(function (element) {
         var normalizedText = normalizeMobileMenuLabel(element.textContent);
         var shouldHideLine = (
