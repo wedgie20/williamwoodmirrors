@@ -72,6 +72,14 @@
   if lazy
     assign loading_attribute = 'lazy'
   endif
+
+  assign ww_hero_is_trade_customer = false
+  if customer
+    assign ww_hero_trade_tags = customer.tags | join: ',' | downcase
+    if customer.metafields.trade.is_trade_customer.value == true or customer.metafields.trade.discount_percentage.value > 0 or ww_hero_trade_tags contains 'trade'
+      assign ww_hero_is_trade_customer = true
+    endif
+  endif
 -%}
 
 {%- style -%}
@@ -2186,7 +2194,14 @@
             {% unless layout_mode == 'slideshow' %}
             {% assign hero_slide = block.settings.slide_number | default: 'all' %}
             {% if hero_slide == 'all' or hero_slide == '1' %}
-            {% if block.settings.heading != blank %}
+            {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
+            {% assign show_block_for_account = true %}
+            {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
+              {% assign show_block_for_account = false %}
+            {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
+              {% assign show_block_for_account = false %}
+            {% endif %}
+            {% if show_block_for_account and block.settings.heading != blank %}
               <div class="hero-heading-{{ block.id }}">
                 {{ block.settings.heading }}
               </div>
@@ -2197,7 +2212,14 @@
             {% unless layout_mode == 'slideshow' %}
             {% assign hero_slide = block.settings.slide_number | default: 'all' %}
             {% if hero_slide == 'all' or hero_slide == '1' %}
-            {% if block.settings.text != blank %}
+            {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
+            {% assign show_block_for_account = true %}
+            {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
+              {% assign show_block_for_account = false %}
+            {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
+              {% assign show_block_for_account = false %}
+            {% endif %}
+            {% if show_block_for_account and block.settings.text != blank %}
               <div class="hero-text-{{ block.id }}">
                 {{ block.settings.text }}
               </div>
@@ -2392,13 +2414,27 @@
                           {% assign has_seen_slide_button = true %}
                         {% endif %}
                       {% when 'heading' %}
-                        {% if block.settings.heading != blank %}
+                        {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
+                        {% assign show_block_for_account = true %}
+                        {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
+                          {% assign show_block_for_account = false %}
+                        {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
+                          {% assign show_block_for_account = false %}
+                        {% endif %}
+                        {% if show_block_for_account and block.settings.heading != blank %}
                           <div class="hero-heading-{{ block.id }}" {{ block.shopify_attributes }}>
                             {{ block.settings.heading }}
                           </div>
                         {% endif %}
                       {% when 'text' %}
-                        {% if block.settings.text != blank %}
+                        {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
+                        {% assign show_block_for_account = true %}
+                        {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
+                          {% assign show_block_for_account = false %}
+                        {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
+                          {% assign show_block_for_account = false %}
+                        {% endif %}
+                        {% if show_block_for_account and block.settings.text != blank %}
                           <div class="hero-text-{{ block.id }}{% if slide_num_str == '1' and has_seen_slide_button %} hero-text-after-buttons{% endif %}" {{ block.shopify_attributes }}>
                             {{ block.settings.text }}
                           </div>
@@ -4146,6 +4182,18 @@
           "info": "In Slideshow mode, show this block on a specific slide or all slides."
         },
         {
+          "type": "select",
+          "id": "account_visibility",
+          "label": "Account visibility",
+          "default": "all",
+          "options": [
+            { "label": "All accounts (default)", "value": "all" },
+            { "label": "Trade account", "value": "trade" },
+            { "label": "Normal account", "value": "normal" }
+          ],
+          "info": "Choose whether this text appears for trade customers, normal customers, or everyone."
+        },
+        {
           "type": "richtext",
           "id": "heading",
           "label": "Heading",
@@ -4266,6 +4314,18 @@
             { "label": "Slide 5", "value": "5" }
           ],
           "info": "In Slideshow mode, show this block on a specific slide or all slides."
+        },
+        {
+          "type": "select",
+          "id": "account_visibility",
+          "label": "Account visibility",
+          "default": "all",
+          "options": [
+            { "label": "All accounts (default)", "value": "all" },
+            { "label": "Trade account", "value": "trade" },
+            { "label": "Normal account", "value": "normal" }
+          ],
+          "info": "Choose whether this text appears for trade customers, normal customers, or everyone."
         },
         {
           "type": "richtext",
