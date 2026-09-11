@@ -64,6 +64,7 @@
 
   assign home_accessories_match = product.collections | where: 'handle', 'all-accessories'
   assign full_price_match = product.collections | where: 'handle', 'all-full-price-products'
+  assign full_price_mirrors_match = product.collections | where: 'handle', 'full-priced-mirrors'
   assign sale_product_match = false
 
   if has_variant_discount or product.tags contains 'sale'
@@ -77,6 +78,10 @@
     assign promo_note = 'Discount Automatically Applied At Checkout'
     assign promo_text = '3 for 2 On All Home Accessories'
   elsif full_price_match.size > 0
+    assign promo_code = 'MIRROR25'
+    assign promo_text = '25% Off This Item With Code<br>Free Gift When You Spend £499+'
+    assign promo_line_2 = '20% Off Any Two Full Priced Items - Auto Applied At Checkout'
+    assign promo_line_3 = '30% Off Three Or More Full Priced Items - Auto Applied At Checkout'  elsif full_price_match.size > 0
     assign promo_code = 'S15'
     assign promo_text = '15% Off This Item With Code<br>Free Gift When You Spend £499+'
     assign promo_line_2 = '20% Off Any Two Full Priced Items - Auto Applied At Checkout'
