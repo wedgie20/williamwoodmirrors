@@ -636,6 +636,52 @@
       });
     }
 
+    function setTradeCollectionPromoVisibility(element, hide) {
+      if (!element) return;
+
+      if (hide) {
+        element.setAttribute('data-ww-trade-collection-promo-copy', '');
+        element.hidden = true;
+        element.setAttribute('aria-hidden', 'true');
+        element.style.setProperty('display', 'none', 'important');
+        return;
+      }
+
+      if (!element.hasAttribute('data-ww-trade-collection-promo-copy')) return;
+
+      element.hidden = false;
+      element.removeAttribute('aria-hidden');
+      element.style.removeProperty('display');
+      element.removeAttribute('data-ww-trade-collection-promo-copy');
+    }
+
+    function applyTradeCollectionPromoCopy(status) {
+      var pathname = window.location && window.location.pathname ? window.location.pathname.replace(/\/+$/, '') : '';
+      var isCollectionPage = pathname === '/collections' || pathname.indexOf('/collections/') === 0;
+      var isTradeCustomer = isTradeCustomerSignal(status);
+
+      if (!isCollectionPage && !document.querySelector('[data-ww-trade-collection-promo-copy]')) return;
+
+      document.querySelectorAll('[data-ww-trade-collection-promo-copy]').forEach(function (element) {
+        setTradeCollectionPromoVisibility(element, isTradeCustomer);
+      });
+
+      if (!isTradeCustomer || !isCollectionPage) return;
+
+      document.querySelectorAll('.shopify-section--rich-text .text-container, .rich-text-custom-section .text-container').forEach(function (container) {
+        var children = Array.prototype.slice.call(container.children || []);
+        var promoStartIndex = children.findIndex(function (child) {
+          return normalizeMobileMenuLabel(child.textContent).indexOf('bundle save') !== -1;
+        });
+
+        if (promoStartIndex === -1) return;
+
+        children.slice(promoStartIndex).forEach(function (child) {
+          setTradeCollectionPromoVisibility(child, true);
+        });
+      });
+    }
+
     function isMobileMenuPromoLink(link, originalLabel, originalParts) {
       var label = String(originalLabel || '').toLowerCase();
       var href = String(link && link.getAttribute('href') || '').toLowerCase();
@@ -1058,6 +1104,7 @@
       applyPromoSuppression(status);
       applyMobileMenuTradeLabels(status);
       applyTradeCollectionCopy(status);
+      applyTradeCollectionPromoCopy(status);
       applySalePriceSuppression(status);
     }
 
@@ -1108,8 +1155,8 @@
             if (!node || node.nodeType !== 1) return false;
 
             return node.matches && (
-              node.matches('[data-ww-promo-suppressible], [data-ww-sale-price], [data-ww-regular-price], .price--highlight, [data-ww-trade-proxy-target], [data-ww-trade-price-group], .product-item')
-            ) || node.querySelector && node.querySelector('[data-ww-promo-suppressible], [data-ww-sale-price], [data-ww-regular-price], .price--highlight, [data-ww-trade-proxy-target], [data-ww-trade-price-group], .product-item');
+              node.matches('[data-ww-promo-suppressible], [data-ww-sale-price], [data-ww-regular-price], .price--highlight, [data-ww-trade-proxy-target], [data-ww-trade-price-group], .product-item, .shopify-section--rich-text, .rich-text-custom-section, .text-container')
+            ) || node.querySelector && node.querySelector('[data-ww-promo-suppressible], [data-ww-sale-price], [data-ww-regular-price], .price--highlight, [data-ww-trade-proxy-target], [data-ww-trade-price-group], .product-item, .shopify-section--rich-text, .rich-text-custom-section, .text-container');
           });
         });
 
