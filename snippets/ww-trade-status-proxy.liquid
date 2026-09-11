@@ -668,7 +668,7 @@
 
       if (!isTradeCustomer || !isCollectionPage) return;
 
-      document.querySelectorAll('.shopify-section--rich-text .text-container, .rich-text-custom-section .text-container').forEach(function (container) {
+      document.querySelectorAll('.shopify-section--rich-text .text-container, .rich-text-custom-section .text-container, main .text-container, main .content-box').forEach(function (container) {
         var children = Array.prototype.slice.call(container.children || []);
         var promoStartIndex = children.findIndex(function (child) {
           return normalizeMobileMenuLabel(child.textContent).indexOf('bundle save') !== -1;
@@ -676,9 +676,24 @@
 
         if (promoStartIndex === -1) return;
 
-        children.slice(promoStartIndex).forEach(function (child) {
+        children.slice(promoStartIndex, promoStartIndex + 3).forEach(function (child) {
           setTradeCollectionPromoVisibility(child, true);
         });
+      });
+
+      document.querySelectorAll('main p, main h1, main h2, main h3, main h4, main h5, main h6, main span, main strong, main b').forEach(function (element) {
+        var normalizedText = normalizeMobileMenuLabel(element.textContent);
+        var shouldHideLine = (
+          normalizedText === 'bundle save' ||
+          normalizedText.indexOf('15 off 1 product') !== -1 ||
+          normalizedText.indexOf('20 off 2 products') !== -1 ||
+          normalizedText.indexOf('30 off when you buy 3 products') !== -1 ||
+          normalizedText.indexOf('no code required limited time only') !== -1
+        );
+
+        if (!shouldHideLine) return;
+
+        setTradeCollectionPromoVisibility(element.closest('p, h1, h2, h3, h4, h5, h6, li') || element, true);
       });
     }
 
