@@ -10,6 +10,11 @@
   {%- assign blends_with_background = true -%}
 {%- endif -%}
 
+{%- assign ww_rich_text_has_trade_collection_promo = false -%}
+{%- if request.page_type == 'collection' and section.settings.content contains 'Bundle' and section.settings.content contains 'No code required' -%}
+  {%- assign ww_rich_text_has_trade_collection_promo = true -%}
+{%- endif -%}
+
 <style>
   #shopify-section-{{ section.id }} {
     {%- if section.settings.background == 'rgba(0,0,0,0)' -%}
@@ -45,6 +50,12 @@
 
     --section-background: {{ section_background.red }}, {{ section_background.green }}, {{ section_background.blue }};
   }
+
+  {%- if ww_rich_text_has_trade_collection_promo -%}
+    html:not([data-ww-trade-customer]) #shopify-section-{{ section.id }} [data-ww-trade-collection-promo-copy] {
+      display: none !important;
+    }
+  {%- endif -%}
 </style>
 
 <section class="section {% unless blends_with_background or is_boxed %}section--flush{% endunless %} rich-text-custom-section">
@@ -81,6 +92,15 @@
               {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p>Bundle & Save</p>', '' -%}
               {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p>15% off 1 product or 20% off 2 products or 30% off when you buy 3+ products.</p>', '' -%}
               {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p>No code required. Limited time only.</p>', '' -%}
+            {%- elsif ww_rich_text_has_trade_collection_promo -%}
+              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p><strong>Bundle &amp; Save</strong></p>', '<p data-ww-trade-collection-promo-copy><strong>Bundle &amp; Save</strong></p>' -%}
+              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p><strong>Bundle & Save</strong></p>', '<p data-ww-trade-collection-promo-copy><strong>Bundle & Save</strong></p>' -%}
+              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p><b>Bundle &amp; Save</b></p>', '<p data-ww-trade-collection-promo-copy><b>Bundle &amp; Save</b></p>' -%}
+              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p><b>Bundle & Save</b></p>', '<p data-ww-trade-collection-promo-copy><b>Bundle & Save</b></p>' -%}
+              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p>Bundle &amp; Save</p>', '<p data-ww-trade-collection-promo-copy>Bundle &amp; Save</p>' -%}
+              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p>Bundle & Save</p>', '<p data-ww-trade-collection-promo-copy>Bundle & Save</p>' -%}
+              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p>15% off 1 product or 20% off 2 products or 30% off when you buy 3+ products.</p>', '<p data-ww-trade-collection-promo-copy>15% off 1 product or 20% off 2 products or 30% off when you buy 3+ products.</p>' -%}
+              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p>No code required. Limited time only.</p>', '<p data-ww-trade-collection-promo-copy>No code required. Limited time only.</p>' -%}
             {%- endif -%}
             {{- ww_rich_text_content -}}
           {%- endif -%}
