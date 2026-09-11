@@ -73,6 +73,9 @@
               {%- endif -%}
             {%- endif -%}
             {%- if ww_rich_text_is_trade_customer -%}
+              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p>Choosing the right finishing touch shouldn&rsquo;t feel difficult. Explore the mirrors and furniture thousands of our customers love most, proven designs chosen to transform your space and make your home unforgettable.</p>', '' -%}
+              {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p>Choosing the right finishing touch shouldn&#39;t feel difficult. Explore the mirrors and furniture thousands of our customers love most, proven designs chosen to transform your space and make your home unforgettable.</p>', '' -%}
+              {%- assign ww_rich_text_content = ww_rich_text_content | replace: "<p>Choosing the right finishing touch shouldn't feel difficult. Explore the mirrors and furniture thousands of our customers love most, proven designs chosen to transform your space and make your home unforgettable.</p>", '' -%}
               {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p><strong>Bundle &amp; Save</strong></p>', '' -%}
               {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p><strong>Bundle & Save</strong></p>', '' -%}
               {%- assign ww_rich_text_content = ww_rich_text_content | replace: '<p><b>Bundle &amp; Save</b></p>', '' -%}

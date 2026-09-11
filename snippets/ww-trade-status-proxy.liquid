@@ -676,7 +676,7 @@
 
         if (promoStartIndex === -1) return;
 
-        children.slice(promoStartIndex, promoStartIndex + 3).forEach(function (child) {
+        children.slice(Math.max(promoStartIndex - 1, 0), promoStartIndex + 3).forEach(function (child) {
           setTradeCollectionPromoVisibility(child, true);
         });
       });
@@ -688,7 +688,8 @@
           normalizedText.indexOf('15 off 1 product') !== -1 ||
           normalizedText.indexOf('20 off 2 products') !== -1 ||
           normalizedText.indexOf('30 off when you buy 3 products') !== -1 ||
-          normalizedText.indexOf('no code required limited time only') !== -1
+          normalizedText.indexOf('no code required limited time only') !== -1 ||
+          normalizedText.indexOf('choosing the right finishing touch shouldn') !== -1
         );
 
         if (!shouldHideLine) return;
