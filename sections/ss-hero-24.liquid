@@ -2242,14 +2242,25 @@
             {% unless layout_mode == 'slideshow' %}
             {% assign hero_slide = block.settings.slide_number | default: 'all' %}
             {% if hero_slide == 'all' or hero_slide == '1' %}
+            {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
+            {% assign show_block_for_account = true %}
+            {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
+              {% assign show_block_for_account = false %}
+            {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
+              {% assign show_block_for_account = false %}
+            {% endif %}
             {% assign next_index = forloop.index0 | plus: 1 %}
             {% assign next_block = section.blocks[next_index] %}
+            {% assign should_render_button = false %}
+            {% if show_block_for_account and block.settings.button != blank %}
+              {% assign should_render_button = true %}
+            {% endif %}
 
-            {% unless button_open %}
-              <div class="hero-buttons-{{ section.id }}">
-            {% endunless %}
+            {% if should_render_button %}
+              {% unless button_open %}
+                <div class="hero-buttons-{{ section.id }}">
+              {% endunless %}
 
-            {% if block.settings.button != blank %}
               <a href="{{ block.settings.url }}" class="hero-button-{{ block.id }}">
                 <p class="hero-button-inner-{{ block.id }}">
                   {{ block.settings.button }}
@@ -2264,11 +2275,11 @@
                   {% endif %}
                 </p>
               </a>
+
+              {% assign button_open = true %}
             {% endif %}
 
-            {% assign button_open = true %}
-
-            {% if next_block.type != 'button' %}
+            {% if button_open and next_block.type != 'button' %}
               </div>
               {% assign button_open = false %}
             {% endif %}
@@ -2410,7 +2421,14 @@
                   {% if block_slide == slide_num_str or block_slide == 'all' %}
                     {% case block.type %}
                       {% when 'button' %}
-                        {% if block.settings.button != blank %}
+                        {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
+                        {% assign show_block_for_account = true %}
+                        {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
+                          {% assign show_block_for_account = false %}
+                        {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
+                          {% assign show_block_for_account = false %}
+                        {% endif %}
+                        {% if show_block_for_account and block.settings.button != blank %}
                           {% assign has_seen_slide_button = true %}
                         {% endif %}
                       {% when 'heading' %}
@@ -2458,8 +2476,17 @@
                   {% assign block_slide = block.settings.slide_number | default: 'all' %}
                   {% if block.type == 'button' and block.settings.button != blank %}
                     {% if block_slide == slide_num_str or block_slide == 'all' %}
-                      {% assign has_slide_buttons = true %}
-                      {% break %}
+                      {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
+                      {% assign show_block_for_account = true %}
+                      {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
+                        {% assign show_block_for_account = false %}
+                      {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
+                        {% assign show_block_for_account = false %}
+                      {% endif %}
+                      {% if show_block_for_account %}
+                        {% assign has_slide_buttons = true %}
+                        {% break %}
+                      {% endif %}
                     {% endif %}
                   {% endif %}
                 {% endfor %}
@@ -2470,6 +2497,14 @@
                       {% assign block_slide = block.settings.slide_number | default: 'all' %}
                       {% if block.type == 'button' and block.settings.button != blank %}
                         {% if block_slide == slide_num_str or block_slide == 'all' %}
+                          {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
+                          {% assign show_block_for_account = true %}
+                          {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
+                            {% assign show_block_for_account = false %}
+                          {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
+                            {% assign show_block_for_account = false %}
+                          {% endif %}
+                          {% if show_block_for_account %}
                           <a href="{{ block.settings.url }}" class="hero-button-{{ block.id }}">
                             <p class="hero-button-inner-{{ block.id }}">
                               {{ block.settings.button }}
@@ -2481,6 +2516,7 @@
                               {% endif %}
                             </p>
                           </a>
+                          {% endif %}
                         {% endif %}
                       {% endif %}
                     {% endfor %}
@@ -4789,6 +4825,18 @@
             { "label": "Slide 5", "value": "5" }
           ],
           "info": "In Slideshow mode, show this block on a specific slide or all slides."
+        },
+        {
+          "type": "select",
+          "id": "account_visibility",
+          "label": "Account visibility",
+          "default": "all",
+          "options": [
+            { "label": "All accounts (default)", "value": "all" },
+            { "label": "Trade account", "value": "trade" },
+            { "label": "Normal account", "value": "normal" }
+          ],
+          "info": "Choose whether this button appears for trade customers, normal customers, or everyone."
         },
         {
           "type": "text",
