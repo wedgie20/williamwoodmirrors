@@ -45,6 +45,14 @@
   assign content_vertical_align = section.settings.content_vertical_align
   assign content_vertical_align_mobile = section.settings.content_vertical_align_mobile
 
+  if layout_mode != 'slideshow'
+    assign content_max_width = section.settings.slide_content_max_width_1 | default: content_max_width
+    assign content_align = section.settings.slide_content_align_1 | default: content_align
+    assign content_align_mobile = section.settings.slide_content_align_mobile_1 | default: content_align_mobile
+    assign content_vertical_align = section.settings.slide_content_vertical_align_1 | default: content_vertical_align
+    assign content_vertical_align_mobile = section.settings.slide_content_vertical_align_mobile_1 | default: content_vertical_align_mobile
+  endif
+
   assign loading_attribute = 'eager'
   if lazy
     assign loading_attribute = 'lazy'
@@ -2294,6 +2302,8 @@
             {% endunless %}
           {% when 'trustpilot_badge' %}
             {% unless layout_mode == 'slideshow' %}
+              {% assign hero_slide = block.settings.slide_number | default: 'all' %}
+              {% if hero_slide == 'all' or hero_slide == '1' %}
               {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
               {% assign show_block_for_account = true %}
               {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
@@ -2303,6 +2313,7 @@
               {% endif %}
               {% if show_block_for_account %}
                 {% render 'ss-hero-trustpilot-badge', block: block, section_id: section.id, slide_number: '1' %}
+              {% endif %}
               {% endif %}
             {% endunless %}
           {% when '@app' %}
