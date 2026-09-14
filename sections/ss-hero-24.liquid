@@ -2294,7 +2294,16 @@
             {% endunless %}
           {% when 'trustpilot_badge' %}
             {% unless layout_mode == 'slideshow' %}
-              {% render 'ss-hero-trustpilot-badge', block: block, section_id: section.id, slide_number: '1' %}
+              {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
+              {% assign show_block_for_account = true %}
+              {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
+                {% assign show_block_for_account = false %}
+              {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
+                {% assign show_block_for_account = false %}
+              {% endif %}
+              {% if show_block_for_account %}
+                {% render 'ss-hero-trustpilot-badge', block: block, section_id: section.id, slide_number: '1' %}
+              {% endif %}
             {% endunless %}
           {% when '@app' %}
             {% unless layout_mode == 'slideshow' %}
@@ -2462,7 +2471,16 @@
                           {{ block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
                         </div>
                       {% when 'trustpilot_badge' %}
-                        {% render 'ss-hero-trustpilot-badge', block: block, section_id: section.id, slide_number: slide_num_str %}
+                        {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
+                        {% assign show_block_for_account = true %}
+                        {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
+                          {% assign show_block_for_account = false %}
+                        {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
+                          {% assign show_block_for_account = false %}
+                        {% endif %}
+                        {% if show_block_for_account %}
+                          {% render 'ss-hero-trustpilot-badge', block: block, section_id: section.id, slide_number: slide_num_str %}
+                        {% endif %}
                       {% when '@app' %}
                         <div class="hero-app-block-{{ section.id }}" {{ block.shopify_attributes }}>
                           {% render block %}
@@ -5061,6 +5079,18 @@
       "type": "trustpilot_badge",
       "name": "Trustpilot Badge",
       "settings": [
+        {
+          "type": "select",
+          "id": "account_visibility",
+          "label": "Account visibility",
+          "default": "all",
+          "options": [
+            { "label": "All accounts (default)", "value": "all" },
+            { "label": "Trade account", "value": "trade" },
+            { "label": "Normal account", "value": "normal" }
+          ],
+          "info": "Choose whether this badge appears for trade customers, normal customers, or everyone."
+        },
         {
           "type": "text",
           "id": "intro_text",
