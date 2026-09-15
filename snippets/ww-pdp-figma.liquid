@@ -64,7 +64,7 @@
 
   assign home_accessories_match = product.collections | where: 'handle', 'all-accessories'
   assign full_price_match = product.collections | where: 'handle', 'all-full-price-products'
-  assign full_price_mirrors_match = product.collections | where: 'handle', 'full-priced-mirrors'
+  assign sale_match = product.collections | where: 'handle', 'sale'
   assign sale_product_match = false
 
   if has_variant_discount or product.tags contains 'sale'
@@ -77,6 +77,11 @@
   elsif home_accessories_match.size > 0
     assign promo_note = 'Discount Automatically Applied At Checkout'
     assign promo_text = '3 for 2 On All Home Accessories' 
+  elsif sale_match.size > 0
+    assign promo_code = 'SALE10'
+    assign promo_text = 'Exta 10% Off This Item With Code'
+    assign promo_line_2 = '<strong>Plus Receive A Free Gift When You Spend £499+</strong>'
+    assign promo_line_3 = 
   elsif full_price_match.size > 0
     assign promo_code = 'S15'
     assign promo_text = '15% Off This Item With Code'
