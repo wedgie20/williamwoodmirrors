@@ -137,7 +137,7 @@
         {% for product in settings.defualt_collection.products %}
           <li>
             {% comment %} {% render 'product-item' with product: product %} {% endcomment %}
-             {% render 'product-item-updated' with product: product, forloop_index: forloop.index, show_card_auto_discount: true %}
+             {% render 'product-item-updated' with product, product: product, forloop_index: forloop.index, show_card_auto_discount: true %}
           </li>
         {% endfor %}
       </ul>
@@ -367,3 +367,15 @@ if (typeof window.setupInfiniteScrollForSearch === 'undefined') {
   }
 </style>
 {% endif %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'product-item-updated' with product: product, forloop_index: forloop.index,
+    show_card_auto_discount: true %}"
+  to: "{% render 'product-item-updated' with product, product: product, forloop_index:
+    forloop.index, show_card_auto_discount: true %}"
+  position: 6000..6127
+{% endcomment %}

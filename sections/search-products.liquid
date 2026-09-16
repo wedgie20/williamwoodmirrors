@@ -11,7 +11,7 @@
       {% if result.object_type == 'product' %}
         <li>
           {% comment %} {% render 'product-item' with product: result %} {% endcomment %}
-           {% render 'product-item-updated' with product: result, forloop_index: forloop.index, show_card_auto_discount: true %}
+           {% render 'product-item-updated' with product, product: result, forloop_index: forloop.index, show_card_auto_discount: true %}
         </li>
       {% endif %}
     {%- endfor -%}
@@ -207,3 +207,15 @@ if (typeof window.setupInfiniteScrollForSearch === 'undefined') {
   }
 </style>
 {% endif %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'product-item-updated' with product: result, forloop_index: forloop.index,
+    show_card_auto_discount: true %}"
+  to: "{% render 'product-item-updated' with product, product: result, forloop_index:
+    forloop.index, show_card_auto_discount: true %}"
+  position: 525..651
+{% endcomment %}
