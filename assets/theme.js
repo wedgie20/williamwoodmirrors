@@ -6587,10 +6587,6 @@ document.addEventListener('tidioChat-ready', onTidioChatApiReady);
       }
     });
 
-    if (!keys.size && pendingWishlistKey && Date.now() - pendingWishlistAt < 120000) {
-      keys.add(pendingWishlistKey);
-    }
-
     return keys;
   };
 
@@ -6665,8 +6661,6 @@ document.addEventListener('tidioChat-ready', onTidioChatApiReady);
       pendingWishlistKey = key;
       pendingWishlistAt = Date.now();
       lastWishlistClickAt = Date.now();
-      selectedWishlistKeys.add(key);
-      scheduleWishlistSync([key]);
     }
   }, true);
 
