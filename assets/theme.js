@@ -6466,6 +6466,7 @@ document.addEventListener('tidioChat-ready', onTidioChatApiReady);
   window.__wwCollectionWishlistBound = true;
   const wishlistButtonSelector = "[data-ww-card-wishlist]";
   const selectedWishlistKeys = /* @__PURE__ */ new Set();
+  const queuedWishlistKeys = /* @__PURE__ */ new Set();
   let lastWishlistClickAt = 0;
   let pendingWishlistKey = "";
   let pendingWishlistAt = 0;
@@ -6483,14 +6484,16 @@ document.addEventListener('tidioChat-ready', onTidioChatApiReady);
     ].join("|");
   };
 
-  const rememberCurrentWishlistState = () => {
-    document.querySelectorAll(`${wishlistButtonSelector}.is-active, ${wishlistButtonSelector}.swym-added`).forEach((button) => {
-      const key = getWishlistButtonKey(button);
+  const normalizeWishlistUrl = (url) => {
+    if (!url) {
+      return "";
+    }
 
-      if (key) {
-        selectedWishlistKeys.add(key);
-      }
-    });
+    try {
+      return new URL(String(url), window.location.origin).pathname.replace(/\/$/, "");
+    } catch (error) {
+      return String(url).split("?")[0].replace(/\/$/, "");
+    }
   };
 
   const setWishlistButtonState = (button, isSelected) => {
@@ -6502,47 +6505,64 @@ document.addEventListener('tidioChat-ready', onTidioChatApiReady);
     }
   };
 
-  const syncWishlistButtons = () => {
+  const syncWishlistButtonKeys = (keys) => {
+    if (!keys || !keys.length) {
+      return;
+    }
+
     document.querySelectorAll(wishlistButtonSelector).forEach((button) => {
-      setWishlistButtonState(button, selectedWishlistKeys.has(getWishlistButtonKey(button)));
+      const key = getWishlistButtonKey(button);
+
+      if (keys.includes(key)) {
+        setWishlistButtonState(button, selectedWishlistKeys.has(key));
+      }
     });
   };
 
   const findWishlistButtonKeysFromEvent = (event) => {
     const detail = event && (event.detail || event);
-    const fields = [];
-    const collectFields = (value, depth = 0) => {
+    const productIds = /* @__PURE__ */ new Set();
+    const variantIds = /* @__PURE__ */ new Set();
+    const productUrls = /* @__PURE__ */ new Set();
+
+    const collectFields = (value, depth = 0, fieldType = "") => {
       if (value === void 0 || value === null || value === "" || depth > 3) {
         return;
       }
 
       if (typeof value !== "object") {
-        fields.push(String(value));
+        const fieldValue = String(value);
+
+        if (fieldType === "product") {
+          productIds.add(fieldValue);
+        } else if (fieldType === "variant") {
+          variantIds.add(fieldValue);
+        } else if (fieldType === "url") {
+          productUrls.add(normalizeWishlistUrl(fieldValue));
+        }
+
         return;
       }
 
       if (Array.isArray(value)) {
-        value.forEach((item) => collectFields(item, depth + 1));
+        value.forEach((item) => collectFields(item, depth + 1, fieldType));
         return;
       }
 
-      [
-        "product_id",
-        "productId",
-        "empi",
-        "id",
-        "variant_id",
-        "variantId",
-        "epi",
-        "du",
-        "product_url",
-        "productUrl"
-      ].forEach((key) => {
-        collectFields(value[key], depth + 1);
+      ["product_id", "productId", "empi"].forEach((key) => {
+        collectFields(value[key], depth + 1, "product");
+      });
+
+      ["variant_id", "variantId", "epi"].forEach((key) => {
+        collectFields(value[key], depth + 1, "variant");
+      });
+
+      ["du", "product_url", "productUrl"].forEach((key) => {
+        collectFields(value[key], depth + 1, "url");
       });
 
       ["detail", "data", "d", "product", "item", "items"].forEach((key) => {
-        collectFields(value[key], depth + 1);
+        collectFields(value[key], depth + 1, fieldType);
       });
     };
 
@@ -6553,9 +6573,12 @@ document.addEventListener('tidioChat-ready', onTidioChatApiReady);
     document.querySelectorAll(wishlistButtonSelector).forEach((button) => {
       const productId = button.getAttribute("data-product-id") || "";
       const variantId = button.getAttribute("data-variant-id") || "";
-      const productUrl = button.getAttribute("data-product-url") || "";
+      const productUrl = normalizeWishlistUrl(button.getAttribute("data-product-url") || "");
+      const hasProductMatch = productId && productIds.has(productId);
+      const hasVariantMatch = variantId && variantIds.has(variantId);
+      const hasUrlMatch = productUrl && productUrls.has(productUrl);
 
-      if (fields.includes(productId) || fields.includes(variantId) || fields.includes(productUrl)) {
+      if (hasUrlMatch || (hasProductMatch && (!variantIds.size || hasVariantMatch)) || (!productIds.size && hasVariantMatch)) {
         const key = getWishlistButtonKey(button);
 
         if (key) {
@@ -6572,7 +6595,9 @@ document.addEventListener('tidioChat-ready', onTidioChatApiReady);
   };
 
   const updateWishlistKeysFromEvent = (event, isSelected) => {
-    findWishlistButtonKeysFromEvent(event).forEach((key) => {
+    const keys = findWishlistButtonKeysFromEvent(event);
+
+    keys.forEach((key) => {
       if (isSelected) {
         selectedWishlistKeys.add(key);
       } else {
@@ -6582,25 +6607,44 @@ document.addEventListener('tidioChat-ready', onTidioChatApiReady);
 
     pendingWishlistKey = "";
     pendingWishlistAt = 0;
-    scheduleWishlistSync();
+    scheduleWishlistSync(keys);
   };
 
-  const scheduleWishlistSync = () => {
-    requestAnimationFrame(syncWishlistButtons);
-    window.setTimeout(syncWishlistButtons, 100);
-    window.setTimeout(syncWishlistButtons, 500);
-    window.setTimeout(syncWishlistButtons, 1500);
+  const scheduleWishlistSync = (keys) => {
+    const keysToSync = Array.from(keys || []).filter(Boolean);
+
+    if (!keysToSync.length) {
+      return;
+    }
+
+    requestAnimationFrame(() => syncWishlistButtonKeys(keysToSync));
+    window.setTimeout(() => syncWishlistButtonKeys(keysToSync), 100);
+    window.setTimeout(() => syncWishlistButtonKeys(keysToSync), 500);
+    window.setTimeout(() => syncWishlistButtonKeys(keysToSync), 1500);
   };
 
-  const queueWishlistSync = () => {
+  const queueWishlistSync = (keys) => {
+    Array.from(keys || []).forEach((key) => {
+      if (key) {
+        queuedWishlistKeys.add(key);
+      }
+    });
+
+    if (!queuedWishlistKeys.size) {
+      return;
+    }
+
     if (wishlistSyncQueued) {
       return;
     }
 
     wishlistSyncQueued = true;
     requestAnimationFrame(() => {
+      const keysToSync = Array.from(queuedWishlistKeys);
+
+      queuedWishlistKeys.clear();
       wishlistSyncQueued = false;
-      syncWishlistButtons();
+      syncWishlistButtonKeys(keysToSync);
     });
   };
 
@@ -6611,8 +6655,6 @@ document.addEventListener('tidioChat-ready', onTidioChatApiReady);
       return;
     }
 
-    rememberCurrentWishlistState();
-
     const key = getWishlistButtonKey(button);
 
     if (key) {
@@ -6620,9 +6662,6 @@ document.addEventListener('tidioChat-ready', onTidioChatApiReady);
       pendingWishlistAt = Date.now();
       lastWishlistClickAt = Date.now();
     }
-
-    setWishlistButtonState(button, selectedWishlistKeys.has(key));
-    scheduleWishlistSync();
   }, true);
 
   const bindSwymWishlistEvents = (swat) => {
@@ -6640,19 +6679,45 @@ document.addEventListener('tidioChat-ready', onTidioChatApiReady);
   bindSwymWishlistEvents(window._swat);
 
   const observer = new MutationObserver((mutations) => {
-    const hasWishlistMutation = mutations.some((mutation) => {
-      return mutation.target && mutation.target.matches && mutation.target.matches(wishlistButtonSelector);
+    const changedKeys = /* @__PURE__ */ new Set();
+    const now = Date.now();
+
+    mutations.forEach((mutation) => {
+      const button = mutation.target && mutation.target.matches && mutation.target.matches(wishlistButtonSelector)
+        ? mutation.target
+        : null;
+
+      if (!button) {
+        return;
+      }
+
+      const key = getWishlistButtonKey(button);
+
+      if (!key) {
+        return;
+      }
+
+      const isSelected = button.classList.contains("is-active") || button.classList.contains("swym-added");
+      const isPendingKey = key === pendingWishlistKey && now - pendingWishlistAt < 120000;
+
+      if (isPendingKey) {
+        if (isSelected) {
+          selectedWishlistKeys.add(key);
+        } else {
+          selectedWishlistKeys.delete(key);
+        }
+      } else if (now - lastWishlistClickAt > 5000) {
+        if (isSelected) {
+          selectedWishlistKeys.add(key);
+        } else {
+          selectedWishlistKeys.delete(key);
+        }
+      }
+
+      changedKeys.add(key);
     });
 
-    if (!hasWishlistMutation) {
-      return;
-    }
-
-    if (Date.now() - lastWishlistClickAt > 5000) {
-      rememberCurrentWishlistState();
-    }
-
-    queueWishlistSync();
+    queueWishlistSync(changedKeys);
   });
 
   observer.observe(document.documentElement, {
@@ -6661,8 +6726,6 @@ document.addEventListener('tidioChat-ready', onTidioChatApiReady);
     attributeFilter: ["class"]
   });
 
-  rememberCurrentWishlistState();
-  scheduleWishlistSync();
 })();
 
 
