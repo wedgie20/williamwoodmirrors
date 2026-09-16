@@ -6665,6 +6665,8 @@ document.addEventListener('tidioChat-ready', onTidioChatApiReady);
       pendingWishlistKey = key;
       pendingWishlistAt = Date.now();
       lastWishlistClickAt = Date.now();
+      selectedWishlistKeys.add(key);
+      scheduleWishlistSync([key]);
     }
   }, true);
 
@@ -6707,8 +6709,6 @@ document.addEventListener('tidioChat-ready', onTidioChatApiReady);
       if (isPendingKey) {
         if (isSelected) {
           selectedWishlistKeys.add(key);
-        } else {
-          selectedWishlistKeys.delete(key);
         }
       } else if (now - lastWishlistClickAt > 5000) {
         if (isSelected) {
