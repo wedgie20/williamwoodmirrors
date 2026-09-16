@@ -1,1 +1,29 @@
 {{ page.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+
+{%- unless page.content contains 'swym-wishlist-render-container' -%}
+  <div id="swym-wishlist-render-container"></div>
+{%- endunless -%}
+
+<script>
+  window.SwymCallbacks = window.SwymCallbacks || [];
+  window.SwymCallbacks.push(function (swat) {
+    var wishlistContainer = document.getElementById('swym-wishlist-render-container');
+
+    if (
+      !wishlistContainer ||
+      !swat ||
+      !swat.ui ||
+      typeof swat.ui.renderWishlistInContainer !== 'function'
+    ) {
+      return;
+    }
+
+    var queryParams = {};
+
+    if (swat.utils && typeof swat.utils.getEncodedAsObject === 'function') {
+      queryParams = swat.utils.getEncodedAsObject(window.location.search);
+    }
+
+    swat.ui.renderWishlistInContainer(wishlistContainer, queryParams);
+  });
+</script>
