@@ -6597,6 +6597,10 @@ document.addEventListener('tidioChat-ready', onTidioChatApiReady);
   const updateWishlistKeysFromEvent = (event, isSelected) => {
     const keys = findWishlistButtonKeysFromEvent(event);
 
+    if (isSelected && pendingWishlistKey && Date.now() - pendingWishlistAt < 120000) {
+      keys.add(pendingWishlistKey);
+    }
+
     keys.forEach((key) => {
       if (isSelected) {
         selectedWishlistKeys.add(key);
