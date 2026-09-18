@@ -68,7 +68,7 @@ if promo_title == 'Save'
 endif
 assign promo_text = section.settings.promo_text | default: '25% off 2 products or 30% off when you buy 3+ products.'
 assign promo_note = section.settings.promo_note | default: 'Offers apply automatically. No code required.'
-assign promo_free_gift_text = ' Extra 10% Off With Code: <b>SALE10</b>25% off 2 products or <strong>30% off when you buy 3+ products.</strong>  <br> Get a Free Gift worth up to £99 when you spend £499+.'
+assign promo_free_gift_text = ' Extra 10% Off With Code: <b>SALE10</b><br>25% off 2 products or <strong>30% off when you buy 3+ products.</strong>  <br> Get a Free Gift worth up to £99 when you spend £499+.'
 
 assign is_full_price = true
 if current_variant.compare_at_price > current_variant.price
