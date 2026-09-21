@@ -204,7 +204,7 @@
           v-html="freeShippingHelperMessage()"></div>
       </div>
 
-      <div v-else-if="progressBarEnabled()" class="rebuy-cart__progress-bar-container above">
+      <div v-else-if="false && progressBarEnabled()" class="rebuy-cart__progress-bar-container above">
         <div v-for="bar in settings.progress_bar.bars" v-if="isValidBar(bar)">
           <div class="rebuy-cart__progress-step-wrapper" v-bind:class="[ 'count-' + bar.tiers.length ]">
             <div v-for="tier in bar.tiers" class="rebuy-cart__progress-step"
@@ -424,7 +424,7 @@
         </div>
       </div>
 
-      <div v-if="progressBarEnabled()" class="rebuy-cart__progress-bar-container below">
+      <div v-if="false && progressBarEnabled()" class="rebuy-cart__progress-bar-container below">
         <div class="rebuy-cart__progress-free-products" v-for="bar in settings.progress_bar.bars"
           v-if="isValidBar(bar) && getBarLayout(bar) == 'below' && earnedProducts(bar).length > 0">
           <div class="rebuy-cart__progress-free-products-title">Free Gifts</div>
