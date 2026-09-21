@@ -109,7 +109,9 @@
         When the first product is added, Shopify replaces the drawer HTML with innerHTML,
         so script tags inside the injected CTL markup do not execute.
       {%- endcomment -%}
-      {%- render 'ww-ctl-cart' -%}
+      <div class="ww-complete-the-look-wrapper" hidden>
+        {%- render 'ww-ctl-cart' -%}
+      </div>
     </div>
   {%- else -%}
     <div class="drawer__content">
@@ -495,7 +497,9 @@
 
       {%- endif -%}
 
-      {%- render 'ww-ctl-cart' -%}
+      <div class="ww-complete-the-look-wrapper" hidden>
+        {%- render 'ww-ctl-cart' -%}
+      </div>
     </div>
 
     <footer class="mini-cart__drawer-footer drawer__footer drawer__footer--tight drawer__footer--bordered">
