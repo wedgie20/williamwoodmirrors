@@ -16,6 +16,8 @@
           "type": "shopify://apps/dividebuy-spread-the-cost/blocks/dividebuyproduct/3ea5bc0e-1a15-490b-b431-d3ea9a2cd3da",
           "disabled": true,
           "settings": {
+            "integration_type": "legacy",
+            "widget_service_api_key": "",
             "finproms_text": "or_from",
             "include_cart_total": true,
             "alignment": "left",
@@ -151,6 +153,12 @@
             "text": "Klarna or Clearpay available at checkout – Tap for information",
             "description": "Pay in 3 instalments at no extra cost"
           }
+        },
+        "bogos_io_free_gift_mix_match_view_geHp3B": {
+          "type": "shopify://apps/bogos-io-free-gift/blocks/mix-match-view/0432bba6-720a-4e95-be5a-b868386f7aa6",
+          "settings": {
+            "product": ""
+          }
         }
       },
       "block_order": [
@@ -171,7 +179,8 @@
         "stories_z3hwyH",
         "usp_list_DD8pzP",
         "planet_shopify_planet_PVEqkE",
-        "spread_payments_ciptAV"
+        "spread_payments_ciptAV",
+        "bogos_io_free_gift_mix_match_view_geHp3B"
       ],
       "settings": {
         "question_mark_title": "WHY IS THERE A LONGER DELIVERY TIME?",
@@ -183,6 +192,11 @@
         "show_sticky_add_to_cart": true,
         "show_share_buttons": true,
         "help_page": "",
+        "show_promo_box": true,
+        "promo_heading": "Bundle & Save (Limited time only)",
+        "promo_text": "15% off this product with code <strong>S15</strong>. <br> 20% off 2 products or 30% off when you buy 3+ products. Automatically applied at checkout. \nPlus, get a Free Gift worth up to £99 when you spend £499+.",
+        "promo_note": "Limited time only.",
+        "promo_code": "",
         "enable_video_autoplay": true,
         "enable_video_looping": false,
         "enable_image_zoom": true,
@@ -264,13 +278,13 @@
         "logos_shown": 3,
         "logo_spacing": 10,
         "animation_speed": 10,
+        "animation_speed_mobile": 15,
         "background_color": "#efefef",
         "image_size": "200x200"
       }
     },
     "multi_column_yFeQDG": {
       "type": "multi-column",
-      "disabled": true,
       "blocks": {
         "item_UDdzRJ": {
           "type": "item",
@@ -339,6 +353,7 @@
         "item_yb9H76",
         "item_fWNi8d"
       ],
+      "disabled": true,
       "settings": {
         "reveal_on_scroll": true,
         "stack_items": true,
@@ -542,7 +557,12 @@
       "blocks": {
         "88872f58-1e05-42d4-896f-c1ba92be5321": {
           "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
         }
       },
       "block_order": [
