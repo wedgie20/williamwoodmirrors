@@ -146,50 +146,6 @@
   </div>
 </free-shipping-bar> {% endcomment %}
 
-      {%- liquid
-        assign free_gift_claimed = false
-        for item in cart.items
-          assign is_free_gift_item = false
-
-          if item.product.tags contains 'freegift'
-            assign is_free_gift_item = true
-          endif
-
-          unless item.properties == blank
-            for property in item.properties
-              if property.first == '_free_gift' and property.last == 'true'
-                assign is_free_gift_item = true
-              endif
-            endfor
-          endunless
-
-          if free_gift_eligible and is_free_gift_item
-            assign free_gift_claimed = true
-          endif
-        endfor
-
-        assign free_gift_collection = collections['free-gift']
-        assign free_gift_progress = free_gift_qualifying_subtotal | times: 1.0 | divided_by: threshold_in_cents | at_most: 1
-      -%}
-
-      <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large ww-free-gift-bar" style="--progress: {{ free_gift_progress }}">
-        {%- if free_gift_claimed -%}
-          <div class="shipping-bar__text"><span style="color: green;">Free Gift successfully claimed</span>, courtesy of William Wood.</div>
-        {%- elsif free_gift_eligible -%}
-          <div class="shipping-bar__text"><span style="color: green;">Free Gift Unlocked.</span> Please select your Free Gift of choice <a href="{{ free_gift_collection.url | default: '/collections/free-gift' }}?utm_source=mc"><u>here</u></a></div>
-        {%- else -%}
-          {%- assign remaining_amount = threshold_in_cents | minus: free_gift_qualifying_subtotal | money -%}
-          <div class="shipping-bar__text">You are <b>{{ remaining_amount }}</b> away from receiving a Free Gift with your purchase worth up to <b>{%- if cart.currency.iso_code == 'GBP' -%}£99 GBP{% else %}€149,95{% endif %}</b></div>
-        {%- endif -%}
-
-        <div class="cart-milestones-bar_Cart">
-          <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'free-gift' %}</span><p>FREE</p>
-        </div>
-
-        <span class="shipping-bar__progress imhere"></span>
-        <div class="shipping_threshold">{{ threshold_in_cents | money }}</div>
-      </free-shipping-bar>
-
       <form id="mini-cart-form" action="{{ routes.cart_url }}" novalidate method="post">
         <input type="hidden" name="checkout">
 
