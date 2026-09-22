@@ -893,6 +893,12 @@
             </article>
           {%- endfor -%}
         </div>
+
+        <div class="ww-free-gift-drawer__footer">
+          <a href="{{ free_gift_collection.url | default: '/collections/free-gift' }}" class="ww-free-gift-drawer__view-all">
+            VIEW ALL FREE GIFTS
+          </a>
+        </div>
       {%- else -%}
         <div class="ww-free-gift-drawer__empty">
           Free gifts are not available right now.
@@ -1088,6 +1094,33 @@
     padding: 28px;
     font-size: 14px;
     text-align: center;
+  }
+
+  .ww-free-gift-drawer__footer {
+    padding: 20px 24px 28px;
+    border-top: 1px solid #e6e6e6;
+  }
+
+  .ww-free-gift-drawer__view-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    width: 100%;
+    border: 1px solid #000;
+    background: #fff;
+    color: #000;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .ww-free-gift-drawer__view-all:hover {
+    background: #000;
+    color: #fff;
   }
 
   @media screen and (max-width: 480px) {
