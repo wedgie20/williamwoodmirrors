@@ -23,20 +23,6 @@
         "button_text_color": "#000000"
       },
       "blocks": {
-        "host_moment_20": {
-          "type": "message",
-          "disabled": true,
-          "settings": {
-            "text": "25% Off Full Price Mirrors",
-            "learn_more_text": "Shop Now",
-            "header-cfd581e6fb3379d5c4274b99424fb822": null,
-            "image": null,
-            "title": "25% Off Mirrors",
-            "content": "<p>Apply Code <strong>MIRROR25</strong> At Checkout</p>",
-            "button_text": "Shop Now",
-            "button_link": "shopify://collections/full-priced-mirrors"
-          }
-        },
         "c4b45150-0e14-460e-8c47-88fd9bd72b02": {
           "disabled": false,
           "settings": {
@@ -44,14 +30,17 @@
             "learn_more_text": "Shop Now",
             "title": "15% Off 1 | 20% Off 2 | 30% Off 3+ Full Priced Products",
             "content": "",
-            "button_text": "Shop Now",
-            "button_link": "shopify://collections/best-sellers-old"
+            "button_text": "",
+            "button_link": ""
           }
         },
         "3f097275-f772-44d9-b5f7-6d6999645314": {
           "disabled": false,
           "settings": {
-            "text": "Free Gift When You Spend £499+"
+            "text": "Your Choice Of Free Gift With All Orders Over £499 - Choose Here",
+            "learn_more_text": "",
+            "button_text": "Choose Now",
+            "button_link": "shopify://collections/free-gift"
           }
         },
         "message_wc4BFE": {
@@ -85,7 +74,6 @@
         }
       },
       "block_order": [
-        "host_moment_20",
         "c4b45150-0e14-460e-8c47-88fd9bd72b02",
         "3f097275-f772-44d9-b5f7-6d6999645314",
         "message_wc4BFE",
