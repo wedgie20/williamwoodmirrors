@@ -116,7 +116,7 @@
   {%- else -%}
     <div class="drawer__content">
 
-{% comment %} <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large" style="--progress: {{ cart.items_subtotal_price | times: 1.0 | divided_by: threshold_in_cents | at_most: 1 }}">
+<free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large" style="--progress: {{ cart.items_subtotal_price | times: 1.0 | divided_by: threshold_in_cents | at_most: 1 }}">
   {%- assign free_gift_claimed = false -%}
   {%- for item in cart.items -%}
     {%- if item.final_price == 0 -%}
@@ -129,7 +129,7 @@
     <div class="shipping-bar__text"><img src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_GiftIcon.png?v=1734096314" width="20" height="20" alt="Gift Icon" style="margin-right: 5px;">Free Gift <span style="color:green">successfully</span> claimed, courtesy of William Wood.</div>
   {%- else -%}
     {%- if cart.items_subtotal_price >= threshold_in_cents -%}
-      <div class="shipping-bar__text"><img src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_GiftIcon.png?v=1734096314" width="20" height="20" alt="Gift Icon" style="margin-right: 5px;"><span style="color: green;">Free Gift Unlocked.</span> Please select your Free Gift of choice <a href="/collections/free-gift?utm_source=mc"><u>here</u></a></div>
+      <div class="shipping-bar__text"><img src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_GiftIcon.png?v=1734096314" width="20" height="20" alt="Gift Icon" style="margin-right: 5px;"><span style="color: green;">Free Gift Unlocked.</span> Please select your Free Gift of choice <a href="/collections/free-gift?utm_source=mc" data-ww-free-gift-open aria-controls="ww-free-gift-drawer" aria-expanded="false"><u>here</u></a></div>
     {%- else -%}
       {%- assign remaining_amount = threshold_in_cents | minus: cart.items_subtotal_price | money -%}
       <div class="shipping-bar__text"><img src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_GiftIcon.png?v=1734096314" width="20" height="20" alt="Gift Icon" style="margin-right: 5px;">You are <b>{{ remaining_amount }}</b> away from receiving a Free Gift with your purchase worth up to <b>{%- if cart.currency.iso_code == 'GBP' -%}£99 GBP {% else %} €149,95{% endif %}</b></div>
@@ -146,7 +146,7 @@
   <div class="shipping_threshold">
     {{ threshold_in_cents | money }}
   </div>
-</free-shipping-bar> {% endcomment %}
+</free-shipping-bar>
 
       <form id="mini-cart-form" action="{{ routes.cart_url }}" novalidate method="post">
         <input type="hidden" name="checkout">
@@ -835,6 +835,78 @@
     <img style="width: 30px; height: 20px !important;" src="https://cdn.shopify.com/shopifycloud/admin-ui-foundations/payment-icons/0e6f3.svg">
   {% endunless %}
 </div>
+
+<div class="ww-free-gift-drawer-shell" data-ww-free-gift-shell hidden>
+  <button type="button" class="ww-free-gift-drawer__overlay" data-ww-free-gift-close aria-label="{{ 'general.accessibility.close' | t | escape }}"></button>
+
+  <aside id="ww-free-gift-drawer" class="ww-free-gift-drawer" data-ww-free-gift-drawer aria-hidden="true">
+    {%- assign free_gift_collection = collections['free-gift'] -%}
+    {%- assign free_gift_count = free_gift_collection.all_products_count | default: free_gift_collection.products_count | default: free_gift_collection.products.size | default: 0 -%}
+
+    <div class="ww-free-gift-drawer__header">
+      <h2 class="ww-free-gift-drawer__title">SELECT YOUR FREE GIFT ({{ free_gift_count }})</h2>
+      <button type="button" class="ww-free-gift-drawer__close" data-ww-free-gift-close aria-label="{{ 'general.accessibility.close' | t | escape }}">
+        {%- render 'icon' with 'close' -%}
+      </button>
+    </div>
+
+    <div class="ww-free-gift-drawer__content">
+      {%- if free_gift_collection != blank and free_gift_collection.products_count > 0 -%}
+        <div class="ww-free-gift-grid">
+          {%- for free_gift_product in free_gift_collection.products limit: 12 -%}
+            {%- assign free_gift_variant = free_gift_product.selected_or_first_available_variant -%}
+            {%- assign matching_gift_line = cart.items | where: 'product_id', free_gift_product.id | first -%}
+
+            <article class="ww-free-gift-card">
+              <a href="{{ free_gift_product.url }}" class="ww-free-gift-card__image">
+                {%- if free_gift_product.featured_image -%}
+                  {{
+                    free_gift_product.featured_image
+                    | image_url: width: 520
+                    | image_tag:
+                      loading: 'lazy',
+                      class: 'ww-free-gift-card__img',
+                      alt: free_gift_product.title
+                  }}
+                {%- endif -%}
+              </a>
+
+              <div class="ww-free-gift-card__body">
+                <a href="{{ free_gift_product.url }}" class="ww-free-gift-card__title">{{ free_gift_product.title }}</a>
+                <p class="ww-free-gift-card__price">{{ free_gift_product.price | money }}</p>
+
+                {%- if matching_gift_line != blank -%}
+                  <button type="button" class="ww-free-gift-card__button" disabled>IN BAG</button>
+                {%- elsif free_gift_product.available and free_gift_variant != blank -%}
+                  <form action="{{ routes.cart_add_url }}" method="post" data-ww-free-gift-form>
+                    <input type="hidden" name="id" value="{{ free_gift_variant.id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="properties[_free_gift]" value="true">
+                    <button type="submit" class="ww-free-gift-card__button" data-ww-free-gift-submit>ADD TO CART</button>
+                  </form>
+                {%- else -%}
+                  <button type="button" class="ww-free-gift-card__button" disabled>SOLD OUT</button>
+                {%- endif -%}
+
+                <a href="{{ free_gift_product.url }}" class="ww-free-gift-card__details">View details &rarr;</a>
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+
+        <div class="ww-free-gift-drawer__footer">
+          <a href="{{ free_gift_collection.url | default: '/collections/free-gift' }}" class="ww-free-gift-drawer__view-all">
+            VIEW ALL FREE GIFTS
+          </a>
+        </div>
+      {%- else -%}
+        <div class="ww-free-gift-drawer__empty">
+          Free gifts are not available right now.
+        </div>
+      {%- endif -%}
+    </div>
+  </aside>
+</div>
  
   <style>
 .payment-methods-list.payment-methods-list--auto {
@@ -851,6 +923,223 @@
   
 </cart-drawer>
 <style>
+  .ww-free-gift-drawer-shell[hidden] {
+    display: none;
+  }
+
+  .ww-free-gift-drawer-shell {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+  }
+
+  .ww-free-gift-drawer__overlay {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    background: rgba(0, 0, 0, 0.62);
+    cursor: pointer;
+  }
+
+  .ww-free-gift-drawer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(470px, 100vw);
+    background: #fff;
+    color: #000;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 250ms ease;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.16);
+  }
+
+  .ww-free-gift-drawer-shell.is-open .ww-free-gift-drawer {
+    transform: translateX(0);
+  }
+
+  .ww-free-gift-drawer__header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 24px 28px;
+    background: #fff;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .ww-free-gift-drawer__title {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+  }
+
+  .ww-free-gift-drawer__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #000;
+    cursor: pointer;
+  }
+
+  .ww-free-gift-drawer__content {
+    padding-bottom: 28px;
+  }
+
+  .ww-free-gift-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .ww-free-gift-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .ww-free-gift-card:nth-child(odd) {
+    border-right: 1px solid #e6e6e6;
+  }
+
+  .ww-free-gift-card__image {
+    display: block;
+    aspect-ratio: 1 / 1;
+    background: #f2f2f2;
+    overflow: hidden;
+  }
+
+  .ww-free-gift-card__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ww-free-gift-card__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 16px 16px 18px;
+  }
+
+  .ww-free-gift-card__title {
+    display: block;
+    min-height: 44px;
+    color: #000;
+    font-size: 15px;
+    line-height: 1.35;
+    text-decoration: none;
+  }
+
+  .ww-free-gift-card__price {
+    margin: 8px 0 18px;
+    font-size: 14px;
+  }
+
+  .ww-free-gift-card form {
+    width: 100%;
+    margin: 0;
+  }
+
+  .ww-free-gift-card__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
+    padding: 0 12px;
+    border: 1px solid #000;
+    background: #000;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .ww-free-gift-card__button[disabled] {
+    border-color: #d8d8d8;
+    background: #d8d8d8;
+    color: #fff;
+    cursor: default;
+  }
+
+  .ww-free-gift-card__details {
+    display: inline-block;
+    align-self: center;
+    margin-top: 12px;
+    color: #333;
+    font-size: 13px;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .ww-free-gift-drawer__empty {
+    padding: 28px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .ww-free-gift-drawer__footer {
+    padding: 20px 24px 28px;
+    border-top: 1px solid #e6e6e6;
+  }
+
+  .ww-free-gift-drawer__view-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    width: 100%;
+    border: 1px solid #000;
+    background: #fff;
+    color: #000;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .ww-free-gift-drawer__view-all:hover {
+    background: #000;
+    color: #fff;
+  }
+
+  @media screen and (max-width: 480px) {
+    .ww-free-gift-drawer__header {
+      padding: 20px;
+    }
+
+    .ww-free-gift-drawer__title {
+      font-size: 16px;
+    }
+
+    .ww-free-gift-card__body {
+      padding: 14px 12px 16px;
+    }
+
+    .ww-free-gift-card__title {
+      font-size: 14px;
+    }
+  }
   
  
   .mini-cart__drawer-footer {
@@ -1098,6 +1387,137 @@ if (!window.__wwMiniCartCheckoutInit) {
 }
 
 
+</script>
+
+<script>
+if (!window.__wwFreeGiftDrawerInit) {
+  window.__wwFreeGiftDrawerInit = true;
+
+  const wwGetFreeGiftShell = () => document.querySelector('[data-ww-free-gift-shell]');
+
+  const wwOpenFreeGiftDrawer = () => {
+    const shell = wwGetFreeGiftShell();
+    if (!shell) return;
+
+    const drawer = shell.querySelector('[data-ww-free-gift-drawer]');
+    const triggers = document.querySelectorAll('[data-ww-free-gift-open]');
+
+    shell.hidden = false;
+    requestAnimationFrame(() => shell.classList.add('is-open'));
+
+    if (drawer) drawer.setAttribute('aria-hidden', 'false');
+    triggers.forEach((trigger) => trigger.setAttribute('aria-expanded', 'true'));
+  };
+
+  const wwCloseFreeGiftDrawer = () => {
+    const shell = wwGetFreeGiftShell();
+    if (!shell) return;
+
+    const drawer = shell.querySelector('[data-ww-free-gift-drawer]');
+    const triggers = document.querySelectorAll('[data-ww-free-gift-open]');
+
+    shell.classList.remove('is-open');
+    if (drawer) drawer.setAttribute('aria-hidden', 'true');
+    triggers.forEach((trigger) => trigger.setAttribute('aria-expanded', 'false'));
+
+    window.setTimeout(() => {
+      if (!shell.classList.contains('is-open')) shell.hidden = true;
+    }, 260);
+  };
+
+  document.addEventListener('click', (event) => {
+    const opener = event.target.closest('[data-ww-free-gift-open]');
+    if (opener) {
+      event.preventDefault();
+      wwOpenFreeGiftDrawer();
+      return;
+    }
+
+    if (event.target.closest('[data-ww-free-gift-close]')) {
+      event.preventDefault();
+      wwCloseFreeGiftDrawer();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') wwCloseFreeGiftDrawer();
+  });
+
+  document.addEventListener('submit', (event) => {
+    const form = event.target.closest('[data-ww-free-gift-form]');
+    if (!form) return;
+
+    event.preventDefault();
+
+    const submitButton = form.querySelector('[data-ww-free-gift-submit]');
+    if (!submitButton || submitButton.disabled) return;
+
+    const originalLabel = submitButton.textContent;
+    const routes = (window.themeVariables && window.themeVariables.routes) || {};
+    const settings = (window.themeVariables && window.themeVariables.settings) || {};
+    const addUrl = routes.cartAddUrl ? `${routes.cartAddUrl}.js` : '/cart/add.js';
+    const cartUrl = routes.cartUrl ? `${routes.cartUrl}.js` : '/cart.js';
+    const formData = new FormData(form);
+
+    formData.append('sections', 'mini-cart');
+    formData.append('sections_url', window.location.pathname);
+
+    submitButton.disabled = true;
+    submitButton.textContent = 'ADDING...';
+
+    fetch(addUrl, {
+      method: 'POST',
+      body: formData,
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+      .then((response) => response.json().then((data) => ({ ok: response.ok, data })))
+      .then((result) => {
+        if (!result.ok) {
+          submitButton.textContent = (result.data && result.data.description) || 'TRY AGAIN';
+          window.setTimeout(() => {
+            submitButton.textContent = originalLabel;
+            submitButton.disabled = false;
+          }, 1800);
+          return null;
+        }
+
+        form.dispatchEvent(new CustomEvent('variant:added', {
+          bubbles: true,
+          detail: {
+            variant: Object.prototype.hasOwnProperty.call(result.data, 'items') ? result.data.items[0] : result.data
+          }
+        }));
+
+        submitButton.textContent = 'ADDED';
+        wwCloseFreeGiftDrawer();
+
+        return fetch(cartUrl)
+          .then((response) => response.json())
+          .then((cartContent) => {
+            document.documentElement.dispatchEvent(new CustomEvent('cart:updated', {
+              bubbles: true,
+              detail: { cart: cartContent }
+            }));
+
+            cartContent.sections = result.data.sections;
+            document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+              bubbles: true,
+              detail: {
+                cart: cartContent,
+                openMiniCart: settings.cartType === 'drawer'
+              }
+            }));
+          });
+      })
+      .catch(() => {
+        submitButton.textContent = 'TRY AGAIN';
+        window.setTimeout(() => {
+          submitButton.textContent = originalLabel;
+          submitButton.disabled = false;
+        }, 1800);
+      });
+  });
+}
 </script>
 
 
