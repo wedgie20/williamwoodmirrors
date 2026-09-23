@@ -5852,6 +5852,10 @@ var SafeSticky = class extends HTMLElement {
           await animation.finished;
         }
         this.innerHTML = fakeDiv.querySelector("cart-drawer").innerHTML;
+        document.documentElement.dispatchEvent(new CustomEvent("cart:drawer:updated", {
+          bubbles: true,
+          detail: { cart: cartContent }
+        }));
         if (cartContent && cartContent["item_count"] === 0) {
           this.querySelector(".drawer__content").animate({ opacity: [0, 1], transform: ["translateY(40px)", "translateY(0)"] }, { duration: 450, easing: "cubic-bezier(0.33, 1, 0.68, 1)" });
         } else {
@@ -5878,6 +5882,9 @@ var SafeSticky = class extends HTMLElement {
         case "open":
           if (this.open) {
             this.querySelector(".drawer__content").scrollTop = 0;
+            document.documentElement.dispatchEvent(new CustomEvent("cart:drawer:opened", {
+              bubbles: true
+            }));
             if (!MediaFeatures.prefersReducedMotion()) {
               const lineItems = Array.from(this.querySelectorAll(".line-item")), recommendationsInner = this.querySelector(".mini-cart__recommendations-inner"), bottomBar = this.querySelector(".drawer__footer"), effects = [];
               if (recommendationsInner && window.matchMedia(window.themeVariables.breakpoints.pocket).matches) {
