@@ -57,7 +57,7 @@
           {%- if section.settings.image -%}
             <img class="gift-card__image" loading="lazy" sizes="(max-width: 740px) 280px, 360px" {% render 'image-attributes', image: section.settings.image, sizes: '280,360,560,720,840,1080' %}>
           {%- else -%}
-            <img class="gift-card__image gift-card__image--default" src="{{ 'gift-card/card.jpg' | shopify_asset_url }}" alt="{{ 'gift_card.issued.illustration' | t | escape }}">
+            <img class="gift-card__image gift-card__image--default" src="{{ settings.speedsize_url_pfx_https -}}{{ 'gift-card/card.jpg' | shopify_asset_url }}" alt="{{ 'gift_card.issued.illustration' | t | escape }}">
           {%- endif -%}
         </div>
 

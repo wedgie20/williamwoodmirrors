@@ -62,7 +62,7 @@
 <img src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_LogosPackage_v1.0-07_06990ab2-9d06-4c80-846f-de0d7c989d0c.png?v=1717584248" style="width: 150px; height: auto;">
                 <div class="footer__item-content">
                   {%- if block.settings.content != blank -%}
-                    {{- block.settings.content -}}
+                    {{- block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
                   {%- endif -%}
 
                   {%- render 'social-media' -%}
@@ -75,7 +75,7 @@
 
                 <div class="footer__item-content">
                   {%- if block.settings.content != blank -%}
-                    {{- block.settings.content -}}
+                    {{- block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
                   {%- endif -%}
 
                   {%- form 'customer', id: 'footer-newsletter', class: 'footer__newsletter-form form' -%}
@@ -223,9 +223,9 @@
 
 <br>
 <div style="display: flex; justify-content: center; align-items: center; gap: 10vw;">
-  {% comment %} <img src="https://cdn.shopify.com/s/files/1/0780/3843/files/images.png?v=1732012032" style="height: 80px; filter: grayscale(100%);" class="sustainabilityBadge">
-  <img src="https://cdn.shopify.com/s/files/1/0780/3843/files/5.png?v=1732011182" style="height: 80px; filter: grayscale(100%);" class="sustainabilityBadge"> {% endcomment %}
-  <img src="https://cdn.shopify.com/s/files/1/0780/3843/files/planet.png?v=1732012181" style="height: 80px; filter: grayscale(100%);" class="sustainabilityBadge">
+  {% comment %} <img src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/images.png?v=1732012032" style="height: 80px; filter: grayscale(100%);" class="sustainabilityBadge">
+  <img src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/5.png?v=1732011182" style="height: 80px; filter: grayscale(100%);" class="sustainabilityBadge"> {% endcomment %}
+  <img src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/planet.png?v=1732012181" style="height: 80px; filter: grayscale(100%);" class="sustainabilityBadge">
 </div>
       <br>
 
