@@ -1,0 +1,232 @@
+{%- liquid
+  assign trade_is_customer = false
+  assign trade_tags = ''
+
+  if customer
+    assign trade_tags = customer.tags | join: ',' | downcase
+    if customer.metafields.trade.is_trade_customer.value == true or trade_tags contains 'trade'
+      assign trade_is_customer = true
+    endif
+  endif
+
+  assign trade_discount = customer.metafields.trade.discount_percentage.value | default: 0 | plus: 0
+  assign trade_tier = customer.metafields.trade.discount_tier.value | default: customer.metafields.trade.discount_tier | default: ''
+
+  if trade_discount > 0
+    assign trade_is_customer = true
+  endif
+
+  assign trade_spend = customer.metafields.trade.qualifying_spend_12_months.value | default: customer.metafields.trade.qualifying_spend_12_months | default: 0 | plus: 0
+  assign trade_spend_cents = trade_spend | times: 100
+  assign trade_next_threshold = customer.metafields.trade.next_threshold.value | default: customer.metafields.trade.next_threshold | default: 0 | plus: 0
+  assign trade_next_threshold_cents = trade_next_threshold | times: 100
+
+  if trade_next_threshold_cents == 0
+    if trade_spend_cents < 300000
+      assign trade_next_threshold_cents = 300000
+    elsif trade_spend_cents < 500000
+      assign trade_next_threshold_cents = 500000
+    elsif trade_spend_cents < 1000000
+      assign trade_next_threshold_cents = 1000000
+    endif
+  endif
+
+  assign trade_cart_eligible_total = 0
+  assign trade_cart_restored_eligible_total = 0
+  if cart != blank
+    for item in cart.items
+      assign trade_line_excluded = false
+      assign trade_line_explicit_excluded = false
+      assign trade_line_sale_priced = false
+      assign trade_product_tags = item.product.tags | join: ',' | downcase
+
+      if item.variant.compare_at_price != blank and item.variant.compare_at_price > item.variant.price
+        assign trade_line_sale_priced = true
+        assign trade_line_excluded = true
+      endif
+
+      if trade_product_tags contains 'trade-exclude' or trade_product_tags contains 'trade excluded' or trade_product_tags contains 'no-trade-discount'
+        assign trade_line_explicit_excluded = true
+        assign trade_line_excluded = true
+      endif
+
+      unless trade_line_excluded
+        assign trade_cart_eligible_total = trade_cart_eligible_total | plus: item.original_line_price
+      endunless
+
+      unless trade_line_explicit_excluded
+        if trade_line_sale_priced
+          assign trade_line_restored_total = item.variant.compare_at_price | times: item.quantity
+          assign trade_cart_restored_eligible_total = trade_cart_restored_eligible_total | plus: trade_line_restored_total
+        else
+          assign trade_cart_restored_eligible_total = trade_cart_restored_eligible_total | plus: item.original_line_price
+        endif
+      endunless
+    endfor
+  endif
+
+  assign trade_projected_spend_cents = trade_spend_cents | plus: trade_cart_restored_eligible_total
+  assign trade_projected_discount = 0
+  assign trade_next_unlock_cents = 300000
+  assign trade_next_unlock_discount = 33
+
+  if trade_is_customer
+    assign trade_projected_discount = 30
+  endif
+
+  if trade_projected_spend_cents >= 500000
+    assign trade_projected_discount = 35
+    assign trade_next_unlock_cents = 1000000
+    assign trade_next_unlock_discount = 0
+  elsif trade_projected_spend_cents >= 300000
+    assign trade_projected_discount = 33
+    assign trade_next_unlock_cents = 500000
+    assign trade_next_unlock_discount = 35
+  endif
+
+  if trade_discount > trade_projected_discount
+    assign trade_projected_discount = trade_discount
+    if trade_discount >= 35
+      assign trade_next_unlock_cents = 1000000
+      assign trade_next_unlock_discount = 0
+    elsif trade_discount >= 33
+      assign trade_next_unlock_cents = 500000
+      assign trade_next_unlock_discount = 35
+    elsif trade_discount >= 30
+      assign trade_next_unlock_cents = 300000
+      assign trade_next_unlock_discount = 33
+    endif
+  endif
+
+  assign trade_remaining_cents = trade_next_unlock_cents | minus: trade_projected_spend_cents
+  assign trade_progress_percent = trade_projected_spend_cents | times: 100.0 | divided_by: 500000 | at_most: 100
+  assign trade_tier_30_reached = trade_is_customer
+  assign trade_tier_33_reached = false
+  assign trade_tier_35_reached = false
+
+  if trade_projected_spend_cents >= 300000
+    assign trade_tier_33_reached = true
+  endif
+
+  if trade_projected_spend_cents >= 500000
+    assign trade_tier_35_reached = true
+  endif
+
+  assign trade_is_top_tier = false
+
+  if trade_next_threshold_cents == 0 or trade_projected_spend_cents >= 1000000
+    assign trade_is_top_tier = true
+  endif
+
+  assign trade_bespoke_quote_available = customer.metafields.trade.bespoke_quote_available.value | default: false
+  if trade_projected_spend_cents >= 1000000
+    assign trade_bespoke_quote_available = true
+  endif
+
+  assign trade_display_discount = trade_discount
+  if trade_display_discount == 0 and trade_bespoke_quote_available and trade_tier != 'not_qualified'
+    assign trade_display_discount = 35
+  endif
+
+  assign trade_mode = mode | default: 'cart'
+
+  if trade_mode == 'product'
+    assign trade_product_excluded = false
+    assign trade_product_sale_priced = false
+    assign trade_product_explicit_excluded = false
+    assign trade_product_tags = product.tags | join: ',' | downcase
+
+    if product.selected_or_first_available_variant.compare_at_price != blank and product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price
+      assign trade_product_sale_priced = true
+      assign trade_product_excluded = true
+    endif
+
+    if trade_product_tags contains 'trade-exclude' or trade_product_tags contains 'trade excluded' or trade_product_tags contains 'no-trade-discount'
+      assign trade_product_explicit_excluded = true
+      assign trade_product_excluded = true
+    endif
+
+    if product.metafields.trade.exclude_from_discount.value == true
+      assign trade_product_explicit_excluded = true
+      assign trade_product_excluded = true
+    endif
+  endif
+-%}
+
+{%- if trade_mode == 'product' -%}
+  <div
+    class="ww-trade-message ww-trade-message--product"
+    data-ww-trade-message="product"
+    data-ww-trade-proxy-target
+    data-ww-trade-mode="product"
+    data-product-excluded="{{ trade_product_excluded }}"
+    data-product-sale-priced="{{ trade_product_sale_priced }}"
+    data-product-explicit-excluded="{{ trade_product_explicit_excluded }}"
+    {% unless trade_is_customer %}hidden{% endunless %}
+  >
+    {%- if trade_is_customer -%}
+      {%- if trade_product_excluded -%}
+        <p class="ww-trade-message__title">Trade account</p>
+        <p>This item is already reduced, so trade discount is not applied.</p>
+      {%- elsif trade_bespoke_quote_available -%}
+        <p class="ww-trade-message__title">{{ trade_display_discount }}% trade pricing applies</p>
+        <p>For larger projects, contact the Trade team for a bespoke quote.</p>
+      {%- elsif trade_discount > 0 -%}
+        <p class="ww-trade-message__title">{{ trade_discount }}% trade pricing applies</p>
+        <p>Your trade discount is applied automatically to full-priced products.</p>
+      {%- else -%}
+        <p class="ww-trade-message__title">Trade account active</p>
+        <p>Full-priced products count toward your next trade discount tier.</p>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+{%- else -%}
+  <div
+    class="ww-trade-message ww-trade-message--{{ trade_mode }}"
+    data-ww-trade-message="{{ trade_mode }}"
+    data-ww-trade-proxy-target
+    data-ww-trade-mode="{{ trade_mode }}"
+    data-current-spend="{{ trade_spend_cents }}"
+    data-cart-eligible-total="{{ trade_cart_eligible_total }}"
+    data-cart-restored-eligible-total="{{ trade_cart_restored_eligible_total }}"
+    data-next-threshold="{{ trade_next_unlock_cents }}"
+    style="--ww-trade-message-progress: {{ trade_progress_percent }}%;"
+    {% unless trade_is_customer %}hidden{% endunless %}
+  >
+    {%- if trade_is_customer -%}
+      {%- capture trade_progress_html -%}
+        <div class="ww-trade-message__tier-bar" aria-label="Trade tier progress" style="max-width:392px;margin:18px auto 0;padding-bottom:30px;">
+          <div class="ww-trade-message__progress" aria-hidden="true" style="position:relative;display:block;width:100%;height:6px;margin:0 auto;overflow:visible;background-color:#dededf;border-radius:4px;">
+            <span style="display:block;width:var(--ww-trade-message-progress, 0%);height:100%;background:linear-gradient(90deg,#bbf3c1,#00b67a 70%,#005036);border-radius:inherit;transition:width .25s ease;"></span>
+            <i class="ww-trade-message__breakpoint" style="position:absolute;top:50%;left:0%;z-index:2;width:10px;height:10px;background:{% if trade_tier_30_reached %}#00b67a{% else %}#fff{% endif %};border:2px solid #00b67a;border-radius:999px;transform:translate(0,-50%);"></i>
+            <i class="ww-trade-message__breakpoint" style="position:absolute;top:50%;left:60%;z-index:2;width:10px;height:10px;background:{% if trade_tier_33_reached %}#00b67a{% else %}#fff{% endif %};border:2px solid #00b67a;border-radius:999px;transform:translate(-50%,-50%);"></i>
+            <i class="ww-trade-message__breakpoint" style="position:absolute;top:50%;left:100%;z-index:2;width:10px;height:10px;background:{% if trade_tier_35_reached %}#00b67a{% else %}#fff{% endif %};border:2px solid #00b67a;border-radius:999px;transform:translate(-100%,-50%);"></i>
+          </div>
+          <div class="ww-trade-message__breakpoint-labels" aria-hidden="true" style="position:relative;width:100%;height:16px;margin:8px auto 0;font-size:10px;line-height:1.1;">
+            <span style="position:absolute;top:0;left:0%;display:inline-flex;align-items:center;min-width:54px;color:#111;transform:translateX(0);"><strong style="font-size:10px;font-weight:700;">30%</strong></span>
+            <span style="position:absolute;top:0;left:60%;display:inline-flex;align-items:center;min-width:54px;color:#111;transform:translateX(-50%);"><strong style="font-size:10px;font-weight:700;">33%</strong></span>
+            <span style="position:absolute;top:0;left:100%;display:inline-flex;align-items:center;justify-content:flex-end;min-width:54px;color:#111;transform:translateX(-100%);"><strong style="font-size:10px;font-weight:700;">35%</strong></span>
+          </div>
+        </div>
+      {%- endcapture -%}
+
+      {%- if trade_bespoke_quote_available -%}
+        <p class="ww-trade-message__title">35% trade pricing applies</p>
+        <p>Your account qualifies for bespoke project support. Contact the Trade team for a tailored quote.</p>
+        {{ trade_progress_html }}
+      {%- elsif trade_projected_discount > 0 and trade_next_unlock_discount > 0 -%}
+        <p class="ww-trade-message__title">{{ trade_projected_discount }}% trade pricing applies</p>
+        <p>Add <strong>{{ trade_remaining_cents | money }}</strong> in full-priced products to reach <strong>{{ trade_next_unlock_discount }}%</strong> trade pricing.</p>
+        {{ trade_progress_html }}
+      {%- elsif trade_projected_discount > 0 -%}
+        <p class="ww-trade-message__title">{{ trade_projected_discount }}% trade pricing applies</p>
+        <p>Your basket qualifies for the highest automatic trade discount tier.</p>
+        {{ trade_progress_html }}
+      {%- else -%}
+        <p class="ww-trade-message__title">Trade progress</p>
+        <p>Add <strong>{{ trade_remaining_cents | money }}</strong> in full-priced products to reach <strong>33%</strong> trade pricing.</p>
+        {{ trade_progress_html }}
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+{%- endif -%}

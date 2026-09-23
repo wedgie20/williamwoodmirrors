@@ -75,10 +75,10 @@
                           <div class="product-item-meta__price-list-container text--small">
                             <div class="price-list">
                               {%- if product.compare_at_price_min > product.price_min -%}
-                                <span class="price price--highlight">{{ product.price_min | money }}</span>
-                                <span class="price price--compare">{{ product.compare_at_price_min | money }}</span>
+                                <span class="price price--highlight" data-ww-sale-price data-current-price-cents="{{ product.price_min }}" data-compare-at-price-cents="{{ product.compare_at_price_min }}">{{ product.price_min | money }}</span>
+                                <span class="price price--compare" data-ww-compare-price data-compare-at-price-cents="{{ product.compare_at_price_min }}">{{ product.compare_at_price_min | money }}</span>
                               {%- else -%}
-                                <span class="price">{{ product.price_min | money }}</span>
+                                <span class="price" data-ww-regular-price data-current-price-cents="{{ product.price_min }}" data-compare-at-price-cents="0">{{ product.price_min | money }}</span>
                               {%- endif -%}
 
                               {%- if product.selected_or_first_available_variant.unit_price_measurement -%}

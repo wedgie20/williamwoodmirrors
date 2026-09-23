@@ -5315,10 +5315,10 @@ var SafeSticky = class extends HTMLElement {
       } else {
         productPrices.innerHTML = "";
         if (variant["compare_at_price"] > variant["price"]) {
-          productPrices.innerHTML += `<span class="price price--highlight ${this.priceClass}"><span class="visually-hidden">${window.themeVariables.strings.productSalePrice}</span>${formatMoney(variant["price"], currencyFormat)}</span>`;
-          productPrices.innerHTML += `<span class="price price--compare"><span class="visually-hidden">${window.themeVariables.strings.productRegularPrice}</span>${formatMoney(variant["compare_at_price"], currencyFormat)}</span>`;
+          productPrices.innerHTML += `<span class="price price--highlight ${this.priceClass}" data-ww-sale-price data-current-price-cents="${variant["price"]}" data-compare-at-price-cents="${variant["compare_at_price"]}"><span class="visually-hidden">${window.themeVariables.strings.productSalePrice}</span>${formatMoney(variant["price"], currencyFormat)}</span>`;
+          productPrices.innerHTML += `<span class="price price--compare" data-ww-compare-price data-compare-at-price-cents="${variant["compare_at_price"]}"><span class="visually-hidden">${window.themeVariables.strings.productRegularPrice}</span>${formatMoney(variant["compare_at_price"], currencyFormat)}</span>`;
         } else {
-          productPrices.innerHTML += `<span class="price ${this.priceClass}"><span class="visually-hidden">${window.themeVariables.strings.productSalePrice}</span>${formatMoney(variant["price"], currencyFormat)}</span>`;
+          productPrices.innerHTML += `<span class="price ${this.priceClass}" data-ww-regular-price data-current-price-cents="${variant["price"]}" data-compare-at-price-cents="0"><span class="visually-hidden">${window.themeVariables.strings.productSalePrice}</span>${formatMoney(variant["price"], currencyFormat)}</span>`;
         }
         if (variant["unit_price_measurement"]) {
           let referenceValue = "";
@@ -5852,6 +5852,10 @@ var SafeSticky = class extends HTMLElement {
           await animation.finished;
         }
         this.innerHTML = fakeDiv.querySelector("cart-drawer").innerHTML;
+        document.documentElement.dispatchEvent(new CustomEvent("cart:drawer:updated", {
+          bubbles: true,
+          detail: { cart: cartContent }
+        }));
         if (cartContent && cartContent["item_count"] === 0) {
           this.querySelector(".drawer__content").animate({ opacity: [0, 1], transform: ["translateY(40px)", "translateY(0)"] }, { duration: 450, easing: "cubic-bezier(0.33, 1, 0.68, 1)" });
         } else {
@@ -5865,10 +5869,14 @@ var SafeSticky = class extends HTMLElement {
       this.nextReplacementDelay = 0;
       const countRoot = document.getElementById('py-flip-countdown');
       if(countRoot) {
-       initializeCountdown();
+       if (typeof initializeCountdown === 'function') {
+         initializeCountdown();
+       }
       }
         setTimeout(function(){
-  initializeCountdown();
+  if (typeof initializeCountdown === 'function') {
+    initializeCountdown();
+  }
   }, 3000);
 
     }
@@ -5878,6 +5886,9 @@ var SafeSticky = class extends HTMLElement {
         case "open":
           if (this.open) {
             this.querySelector(".drawer__content").scrollTop = 0;
+            document.documentElement.dispatchEvent(new CustomEvent("cart:drawer:opened", {
+              bubbles: true
+            }));
             if (!MediaFeatures.prefersReducedMotion()) {
               const lineItems = Array.from(this.querySelectorAll(".line-item")), recommendationsInner = this.querySelector(".mini-cart__recommendations-inner"), bottomBar = this.querySelector(".drawer__footer"), effects = [];
               if (recommendationsInner && window.matchMedia(window.themeVariables.breakpoints.pocket).matches) {

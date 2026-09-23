@@ -10,6 +10,12 @@
   {%- assign blends_with_background = true -%}
 {%- endif -%}
 
+{%- assign ww_rich_text_has_trade_collection_promo = false -%}
+{%- assign ww_rich_text_content_downcase = section.settings.content | downcase -%}
+{%- if request.page_type == 'collection' and ww_rich_text_content_downcase contains 'bundle' and ww_rich_text_content_downcase contains 'no code required' -%}
+  {%- assign ww_rich_text_has_trade_collection_promo = true -%}
+{%- endif -%}
+
 <style>
   #shopify-section-{{ section.id }} {
     {%- if section.settings.background == 'rgba(0,0,0,0)' -%}
@@ -45,6 +51,13 @@
 
     --section-background: {{ section_background.red }}, {{ section_background.green }}, {{ section_background.blue }};
   }
+
+  {%- if ww_rich_text_has_trade_collection_promo -%}
+    html:not([data-ww-trade-customer]) #shopify-section-{{ section.id }} [data-ww-trade-collection-promo-copy],
+    html[data-ww-trade-customer="true"] #shopify-section-{{ section.id }} [data-ww-trade-collection-promo-copy] {
+      display: none !important;
+    }
+  {%- endif -%}
 </style>
 
 <section class="section {% unless blends_with_background or is_boxed %}section--flush{% endunless %} rich-text-custom-section">
@@ -64,7 +77,19 @@
           {%- endif -%}
 
           {%- if section.settings.content != blank -%}
-            {{- section.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
+            {%- assign ww_rich_text_content = section.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -%}
+            {%- assign ww_rich_text_is_trade_customer = false -%}
+            {%- if request.page_type == 'collection' and customer -%}
+              {%- assign ww_rich_text_trade_tags = customer.tags | join: ',' | downcase -%}
+              {%- if customer.metafields.trade.is_trade_customer.value == true or customer.metafields.trade.discount_percentage.value > 0 or ww_rich_text_trade_tags contains 'trade' -%}
+                {%- assign ww_rich_text_is_trade_customer = true -%}
+              {%- endif -%}
+            {%- endif -%}
+            {%- if ww_rich_text_has_trade_collection_promo -%}
+              {%- render 'ww-trade-filtered-promo-copy', content: ww_rich_text_content -%}
+            {%- else -%}
+              {{- ww_rich_text_content -}}
+            {%- endif -%}
           {%- endif -%}
 
           {%- if section.settings.button_text != blank -%}

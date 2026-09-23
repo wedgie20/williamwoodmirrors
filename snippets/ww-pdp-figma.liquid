@@ -55,6 +55,15 @@
     assign has_variant_discount = true
   endif
 
+  assign ww_trade_product_tags = product.tags | join: ',' | downcase
+  assign ww_trade_explicit_excluded = false
+  if ww_trade_product_tags contains 'trade-exclude' or ww_trade_product_tags contains 'trade excluded' or ww_trade_product_tags contains 'no-trade-discount'
+    assign ww_trade_explicit_excluded = true
+  endif
+  if product.metafields.trade.exclude_from_discount.value == true
+    assign ww_trade_explicit_excluded = true
+  endif
+
 
   assign promo_code = ''
   assign promo_text = ''
@@ -509,7 +518,16 @@
       </h1>
 
       <div class="ww-pdp__price-row">
-        <span class="ww-pdp__price-group {% if has_variant_discount %}is-discounted{% endif %}" data-ww-pdp-price-group>
+        <span
+          class="ww-pdp__price-group {% if has_variant_discount %}is-discounted{% endif %}"
+          data-ww-pdp-price-group
+          data-ww-trade-price-group
+          data-current-price-cents="{{ current_variant.price }}"
+          data-compare-at-price-cents="{{ current_variant.compare_at_price | default: 0 }}"
+          data-product-sale-priced="{% if has_variant_discount %}true{% else %}false{% endif %}"
+          data-product-explicit-excluded="{% if ww_trade_explicit_excluded %}true{% else %}false{% endif %}"
+          data-product-excluded="{% if has_variant_discount or ww_trade_explicit_excluded %}true{% else %}false{% endif %}"
+        >
           {%- if has_variant_discount -%}
             <span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>{{ current_variant.compare_at_price | money }}</span>
             <span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>{{ current_variant.price | money }}</span>
@@ -564,7 +582,7 @@
       {%- endif -%}
 
       {%- if promo_text != blank -%}
-  <div class="ww-pdp__promo{% if promo_line_2 != blank or promo_line_3 != blank %} ww-pdp__promo--stacked{% endif %}">
+  <div class="ww-pdp__promo{% if promo_line_2 != blank or promo_line_3 != blank %} ww-pdp__promo--stacked{% endif %}" data-ww-promo-suppressible>
     <div class="ww-pdp__promo-main">
       <strong>{{ promo_text }}</strong>
 
@@ -588,6 +606,8 @@
     {%- endif -%}
   </div>
 {%- endif -%}
+
+      {%- render 'ww-trade-tier-message', mode: 'product', product: product -%}
 
       {%- form 'product', product, id: product_form_id, is: 'product-form', class: 'ww-pdp__form' -%}
         {%- if product.has_only_default_variant -%}
@@ -1258,6 +1278,14 @@
     color: #780606;
   }
 
+  .ww-pdp__trade-price-note {
+    font-size: 11px;
+    line-height: 1;
+    font-weight: 500;
+    color: #565656;
+    white-space: nowrap;
+  }
+
   .ww-pdp__pill {
     display: inline-flex;
     align-items: center;
@@ -1462,6 +1490,25 @@
 
   .ww-pdp__promo-mobile-break {
     display: none;
+  }
+
+  .ww-pdp .ww-trade-message--product {
+    margin: 0 0 24px;
+    padding: 16px 12px;
+    background: #fff;
+    border: 1px solid #dedede;
+    border-radius: 0;
+    font-size: 14px;
+    font-family: "Gotham Book";
+    font-weight: 500;
+  }
+
+  .ww-pdp .ww-trade-message--product p {
+    margin: 0;
+  }
+
+  .ww-pdp .ww-trade-message--product p + p {
+    margin-top: 6px;
   }
 
   .ww-pdp__code {
@@ -3666,6 +3713,10 @@
       var compareText = compareAt > price ? formatInstallmentMoney(compareAt) : '';
 
       if (priceGroup && price) {
+        priceGroup.dataset.currentPriceCents = String(price);
+        priceGroup.dataset.compareAtPriceCents = String(compareAt || 0);
+        priceGroup.dataset.productExcluded = compareAt > price ? 'true' : 'false';
+
         if (compareAt > price) {
           priceGroup.classList.add('is-discounted');
           priceGroup.innerHTML = '<span class="ww-pdp__price ww-pdp__price--compare" data-ww-pdp-compare-price>' + formatInstallmentMoney(compareAt) + '</span><span class="ww-pdp__price ww-pdp__price--sale" data-ww-pdp-current-price>' + priceText + '</span>';
@@ -3673,6 +3724,10 @@
           priceGroup.classList.remove('is-discounted');
           priceGroup.innerHTML = '<span class="ww-pdp__price" data-ww-pdp-current-price>' + priceText + '</span>';
         }
+      }
+
+      if (window.WWTradeStatusProxy && typeof window.WWTradeStatusProxy.refresh === 'function') {
+        window.WWTradeStatusProxy.refresh();
       }
 
       updateStickyPrice(priceText, compareText);
