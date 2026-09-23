@@ -2,9 +2,9 @@
 
 
 {%- if current_path contains '/en-fr' or current_path contains '/en-de' or current_path contains '/en-nl'-%}
-  {%- assign free_shipping_calculated_threshold = 49900 -%}
+  {%- assign free_shipping_calculated_threshold = 34900 -%}
 {%- else -%}
-  {%- assign free_shipping_calculated_threshold = 49900 -%}
+  {%- assign free_shipping_calculated_threshold = 34900 -%}
 {%- endif -%}
 
 {%- assign threshold_in_cents = free_shipping_calculated_threshold -%}
@@ -15,61 +15,6 @@
     {%- assign calculated_total_price = calculated_total_price | minus: line_item.final_line_price -%}
   {%- endunless -%}
 {%- endfor -%}
-
-{%- liquid
-  assign free_gift_display_saving = 0
-  assign free_gift_display_saving_claimed = false
-  assign free_gift_qualifying_subtotal = 0
-
-  for line_item in cart.items
-    assign is_free_gift_discount_line = false
-
-    if line_item.product.tags contains 'freegift'
-      assign is_free_gift_discount_line = true
-    endif
-
-    unless line_item.properties == blank
-      for property in line_item.properties
-        if property.first == '_free_gift' and property.last == 'true'
-          assign is_free_gift_discount_line = true
-        endif
-      endfor
-    endunless
-
-    unless is_free_gift_discount_line
-      assign free_gift_qualifying_subtotal = free_gift_qualifying_subtotal | plus: line_item.final_line_price
-    endunless
-  endfor
-
-  assign free_gift_eligible = false
-  if free_gift_qualifying_subtotal >= threshold_in_cents
-    assign free_gift_eligible = true
-  endif
-
-  for line_item in cart.items
-    assign is_free_gift_discount_line = false
-
-    if line_item.product.tags contains 'freegift'
-      assign is_free_gift_discount_line = true
-    endif
-
-    unless line_item.properties == blank
-      for property in line_item.properties
-        if property.first == '_free_gift' and property.last == 'true'
-          assign is_free_gift_discount_line = true
-        endif
-      endfor
-    endunless
-
-    if free_gift_eligible and is_free_gift_discount_line and free_gift_display_saving_claimed == false
-      assign free_gift_display_saving = line_item.final_line_price | divided_by: line_item.quantity
-      assign free_gift_display_saving_claimed = true
-    endif
-  endfor
-
-  assign display_cart_total = cart.total_price | minus: free_gift_display_saving
--%}
-
 <cart-drawer section="{{ section.id }}" id="mini-cart" class="mini-cart drawer drawer--large" data-cart-count="{{ cart.item_count }}">
   <span class="drawer__overlay"></span>
   <header class="drawer__header">
@@ -109,16 +54,14 @@
         When the first product is added, Shopify replaces the drawer HTML with innerHTML,
         so script tags inside the injected CTL markup do not execute.
       {%- endcomment -%}
-      <div class="ww-complete-the-look-wrapper" hidden>
-        {%- render 'ww-ctl-cart' -%}
-      </div>
+      {%- render 'ww-ctl-cart' -%}
     </div>
   {%- else -%}
     <div class="drawer__content">
 
       {%- render 'ww-trade-tier-message', mode: 'mini-cart' -%}
 
-<free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large" style="--progress: {{ cart.items_subtotal_price | times: 1.0 | divided_by: threshold_in_cents | at_most: 1 }}">
+{% comment %} <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large" style="--progress: {{ cart.items_subtotal_price | times: 1.0 | divided_by: threshold_in_cents | at_most: 1 }}">
   {%- assign free_gift_claimed = false -%}
   {%- for item in cart.items -%}
     {%- if item.final_price == 0 -%}
@@ -131,7 +74,7 @@
     <div class="shipping-bar__text"><img src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_GiftIcon.png?v=1734096314" width="20" height="20" alt="Gift Icon" style="margin-right: 5px;">Free Gift <span style="color:green">successfully</span> claimed, courtesy of William Wood.</div>
   {%- else -%}
     {%- if cart.items_subtotal_price >= threshold_in_cents -%}
-      <div class="shipping-bar__text"><img src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_GiftIcon.png?v=1734096314" width="20" height="20" alt="Gift Icon" style="margin-right: 5px;"><span style="color: green;">Free Gift Unlocked.</span> Please select your Free Gift of choice <a href="/collections/free-gift?utm_source=mc" data-ww-free-gift-open aria-controls="ww-free-gift-drawer" aria-expanded="false"><u>here</u></a></div>
+      <div class="shipping-bar__text"><img src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_GiftIcon.png?v=1734096314" width="20" height="20" alt="Gift Icon" style="margin-right: 5px;"><span style="color: green;">Free Gift Unlocked.</span> Please select your Free Gift of choice <a href="/collections/free-gift?utm_source=mc"><u>here</u></a></div>
     {%- else -%}
       {%- assign remaining_amount = threshold_in_cents | minus: cart.items_subtotal_price | money -%}
       <div class="shipping-bar__text"><img src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/WW_24_GiftIcon.png?v=1734096314" width="20" height="20" alt="Gift Icon" style="margin-right: 5px;">You are <b>{{ remaining_amount }}</b> away from receiving a Free Gift with your purchase worth up to <b>{%- if cart.currency.iso_code == 'GBP' -%}£99 GBP {% else %} €149,95{% endif %}</b></div>
@@ -148,12 +91,77 @@
   <div class="shipping_threshold">
     {{ threshold_in_cents | money }}
   </div>
-</free-shipping-bar>
+</free-shipping-bar> {% endcomment %}
+
+      {%- liquid
+        assign free_gift_claimed = false
+        for item in cart.items
+          if item.final_price == 0 or item.product.tags contains 'freegift'
+            assign free_gift_claimed = true
+          endif
+        endfor
+
+        assign free_gift_collection = collections['free-gift']
+        assign free_gift_products_count = free_gift_collection.products.size
+        assign free_gift_progress = cart.items_subtotal_price | times: 1.0 | divided_by: threshold_in_cents | at_most: 1
+      -%}
+
+      {% comment %} <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large ww-free-gift-bar" style="--progress: {{ free_gift_progress }}">
+        {%- if free_gift_claimed -%}
+          <div class="shipping-bar__text"><span style="color: green;">Free Gift successfully claimed</span>, courtesy of William Wood.</div>
+        {%- elsif cart.items_subtotal_price >= threshold_in_cents -%}
+          <div class="shipping-bar__text"><span style="color: green;">Free Gift Unlocked.</span> Please select your Free Gift of choice <a href="{{ free_gift_collection.url | default: '/collections/free-gift' }}?utm_source=mc" data-free-gift-trigger><u>here</u></a></div>
+        {%- else -%}
+          {%- assign remaining_amount = threshold_in_cents | minus: cart.items_subtotal_price | money -%}
+          <div class="shipping-bar__text">You are <b>{{ remaining_amount }}</b> away from receiving a Free Gift with your purchase worth up to <b>{%- if cart.currency.iso_code == 'GBP' -%}£99 GBP{% else %}€149,95{% endif %}</b></div>
+        {%- endif -%}
+
+        <div class="cart-milestones-bar_Cart">
+          <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'free-gift' %}</span><p>FREE</p>
+        </div>
+
+        <span class="shipping-bar__progress imhere"></span>
+        <div class="shipping_threshold">{{ threshold_in_cents | money }}</div>
+      </free-shipping-bar> {% endcomment %}
+
+      <aside class="ww-free-gift-drawer" data-free-gift-drawer data-ww-promo-suppressible aria-hidden="true">
+        <div class="ww-free-gift-drawer__header">
+          <p>SELECT YOUR FREE GIFT ({{ free_gift_products_count }})</p>
+          <button type="button" class="ww-free-gift-drawer__close" data-free-gift-close aria-label="Close free gift selector">
+            {%- render 'icon' with 'close' -%}
+          </button>
+        </div>
+
+        <div class="ww-free-gift-drawer__grid">
+          {%- for gift_product in free_gift_collection.products -%}
+            {%- assign gift_variant = gift_product.selected_or_first_available_variant -%}
+            <article class="ww-free-gift-card">
+              <a class="ww-free-gift-card__image" href="{{ gift_product.url }}">
+                {%- if gift_product.featured_media -%}
+                  <img loading="lazy" {% render 'image-attributes', image: gift_product.featured_media.preview_image, sizes: '240,320,480,640' %}>
+                {%- endif -%}
+              </a>
+              <div class="ww-free-gift-card__body">
+                <a class="ww-free-gift-card__title" href="{{ gift_product.url }}">{{ gift_product.title }}</a>
+                <p class="ww-free-gift-card__price">{% render 'format-money', amount: gift_product.price %}</p>
+                {%- if gift_variant and gift_variant.available -%}
+                  <form action="{{ routes.cart_add_url }}" method="post" class="ww-free-gift-card__form" data-free-gift-form>
+                    <input type="hidden" name="id" value="{{ gift_variant.id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit">ADD TO CART</button>
+                  </form>
+                {%- else -%}
+                  <button type="button" class="ww-free-gift-card__sold-out" disabled>SOLD OUT</button>
+                {%- endif -%}
+                <a class="ww-free-gift-card__details" href="{{ gift_product.url }}">View details →</a>
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+      </aside>
 
       <form id="mini-cart-form" action="{{ routes.cart_url }}" novalidate method="post">
         <input type="hidden" name="checkout">
-
-        {%- assign free_gift_display_claimed = false -%}
 
         {%- for line_item in cart.items -%}
           {%- assign ww_line_compare_at_price = line_item.variant.compare_at_price | default: 0 -%}
@@ -188,6 +196,7 @@
 
                 <img class="line-item__image" loading="sizes" sizes="(max-width: 740px) 80px, 92px" {% render 'image-attributes', image: line_item.image, sizes: '80,92,160,184,240,276' %}>
               </a>
+
               {%- capture unit_price -%}
                 {%- if line_item.unit_price_measurement -%}
                   <div class="price text--subdued">
@@ -205,51 +214,16 @@
                 {%- endif -%}
               {%- endcapture -%}
 
-              {%- liquid
-                assign is_free_gift_line = false
-
-                if line_item.product.tags contains 'freegift'
-                  assign is_free_gift_line = true
-                endif
-
-                unless line_item.properties == blank
-                  for property in line_item.properties
-                    if property.first == '_free_gift' and property.last == 'true'
-                      assign is_free_gift_line = true
-                    endif
-                  endfor
-                endunless
-
-                assign gift_unit_displayed_free = false
-                assign free_gift_display_price = line_item.final_line_price
-
-                if free_gift_eligible and is_free_gift_line and free_gift_display_claimed == false
-                  assign gift_unit_displayed_free = true
-                  assign free_gift_display_claimed = true
-
-                  if line_item.quantity > 1
-                    assign charged_gift_unit_price = line_item.final_line_price | divided_by: line_item.quantity
-                    assign free_gift_display_price = line_item.final_line_price | minus: charged_gift_unit_price
-                  else
-                    assign free_gift_display_price = 0
-                  endif
-                endif
-              -%}
-
               {%- capture line_price -%}
                 {%- comment -%}
                 IMPLEMENTATION NOTE: The designer wanted to show the "compare at price" on cart. In case an automatic discount is applied
                   to a line item though, the "real" discount takes precedence over the compare at price
                 {%- endcomment -%}
 
-                <span class="price {% if gift_unit_displayed_free or line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price %}price--highlight{% endif %}">
+                <span class="price {% if line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price %}price--highlight{% endif %}">
                   <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
 
-                  {%- if gift_unit_displayed_free and free_gift_display_price == 0 -%}
-                    {{- 'cart.general.free' | t -}}
-                  {%- elsif gift_unit_displayed_free -%}
-                    {% render 'format-money', amount: free_gift_display_price %}
-                  {%- elsif line_item.final_line_price == 0 -%}
+                  {%- if line_item.final_line_price == 0 -%}
                     {{- 'cart.general.free' | t -}}
                   {%- else -%}
                    {% render 'format-money', amount: line_item.final_line_price %}
@@ -257,13 +231,11 @@
                   {%- endif -%}
                 </span>
 
-                {%- if gift_unit_displayed_free or line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
+                {%- if line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
                   <span class="price price--compare">
                 <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
 
-                {% if gift_unit_displayed_free %}
-                  {% render 'format-money', amount: line_item.original_line_price %}
-                {% elsif line_item.original_line_price > line_item.final_line_price %}
+                {% if line_item.original_line_price > line_item.final_line_price %}
                   {% render 'format-money', amount: line_item.original_line_price %}
                 {% elsif line_item.variant.compare_at_price > line_item.variant.price %}
                   {% assign compare_price_total = line_item.variant.compare_at_price | times: line_item.quantity %}
@@ -528,9 +500,7 @@
 
       {%- endif -%}
 
-      <div class="ww-complete-the-look-wrapper" hidden>
-        {%- render 'ww-ctl-cart' -%}
-      </div>
+      {%- render 'ww-ctl-cart' -%}
     </div>
 
     <footer class="mini-cart__drawer-footer drawer__footer drawer__footer--tight drawer__footer--bordered">
@@ -603,12 +573,12 @@
         {%- endif -%}
         {%- assign original_subtotal = original_subtotal | plus: item_total -%}
       {%- endfor -%}
-      {%- assign subtotal_display_amount = original_subtotal | minus: free_gift_display_saving -%}
+      {%- assign subtotal_display_amount = original_subtotal -%}
       {%- if ww_cart_has_trade_discount -%}
-        {%- assign subtotal_display_amount = display_cart_total -%}
+        {%- assign subtotal_display_amount = cart.total_price -%}
       {%- endif -%}
 
-      {% render 'format-money', amount: subtotal_display_amount %}
+{% render 'format-money', amount: subtotal_display_amount %}
     </span>
   </p>
 
@@ -655,7 +625,6 @@
   {% assign total_saving = total_saving | plus: item_total_saving %}
 {% endfor %}
 
-{% assign total_saving = total_saving | plus: free_gift_display_saving %}
 
 {% if total_saving > 0 %}
   {% assign savings_label = 'Product Savings:' %}
@@ -742,10 +711,9 @@
         {%- endif -%}
         {%- assign ww_suppressed_cart_total = ww_suppressed_cart_total | plus: ww_line_total -%}
       {%- endfor -%}
-      {%- assign ww_suppressed_cart_total = ww_suppressed_cart_total | minus: free_gift_display_saving -%}
 
-      <p class="order_info" style="font-weight: bold;"><span style="color: black;">Final Order Total:</span> <span style="text-align: right;"><span data-ww-cart-total-current>{% render 'format-money', amount: display_cart_total %}</span><span data-ww-cart-total-suppressed>{% render 'format-money', amount: ww_suppressed_cart_total %}</span></span></p>
-      
+      <p class="order_info" style="font-weight: bold;"><span style="color: black;">Final Order Total:</span> <span style="text-align: right;"><span data-ww-cart-total-current>{% render 'format-money', amount: cart.total_price %}</span><span data-ww-cart-total-suppressed>{% render 'format-money', amount: ww_suppressed_cart_total %}</span></span></p>
+
       {% assign eu_countries = "AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE" | split: "," %}
       {% if localization.country.iso_code != "GB" and eu_countries contains localization.country.iso_code %}
         <p style="font-weight: bold; color: black;">Duties & Taxes Paid</p>
@@ -805,7 +773,7 @@
       {%- endif -%}
 
         <div id="price-divider-container" class="customer-text" style="text-align: center !important; margin-top:  10px;">
-          {% assign installment_amount = display_cart_total | divided_by: 3 %}
+          {% assign installment_amount = cart.total_price | divided_by: 3 %}
           Or in 3 <b>interest free</b> instalments of <strong>{% render 'format-money', amount: installment_amount %}</strong> with Klarna
         </div>
 
@@ -919,78 +887,6 @@
     <img style="width: 30px; height: 20px !important;" src="https://cdn.shopify.com/shopifycloud/admin-ui-foundations/payment-icons/0e6f3.svg">
   {% endunless %}
 </div>
-
-<div class="ww-free-gift-drawer-shell" data-ww-free-gift-shell hidden>
-  <button type="button" class="ww-free-gift-drawer__overlay" data-ww-free-gift-close aria-label="{{ 'general.accessibility.close' | t | escape }}"></button>
-
-  <aside id="ww-free-gift-drawer" class="ww-free-gift-drawer" data-ww-free-gift-drawer aria-hidden="true">
-    {%- assign free_gift_collection = collections['free-gift'] -%}
-    {%- assign free_gift_count = free_gift_collection.all_products_count | default: free_gift_collection.products_count | default: free_gift_collection.products.size | default: 0 -%}
-
-    <div class="ww-free-gift-drawer__header">
-      <h2 class="ww-free-gift-drawer__title">SELECT YOUR FREE GIFT ({{ free_gift_count }})</h2>
-      <button type="button" class="ww-free-gift-drawer__close" data-ww-free-gift-close aria-label="{{ 'general.accessibility.close' | t | escape }}">
-        {%- render 'icon' with 'close' -%}
-      </button>
-    </div>
-
-    <div class="ww-free-gift-drawer__content">
-      {%- if free_gift_collection != blank and free_gift_collection.products_count > 0 -%}
-        <div class="ww-free-gift-grid">
-          {%- for free_gift_product in free_gift_collection.products limit: 12 -%}
-            {%- assign free_gift_variant = free_gift_product.selected_or_first_available_variant -%}
-            {%- assign matching_gift_line = cart.items | where: 'product_id', free_gift_product.id | first -%}
-
-            <article class="ww-free-gift-card">
-              <a href="{{ free_gift_product.url }}" class="ww-free-gift-card__image">
-                {%- if free_gift_product.featured_image -%}
-                  {{
-                    free_gift_product.featured_image
-                    | image_url: width: 520
-                    | image_tag:
-                      loading: 'lazy',
-                      class: 'ww-free-gift-card__img',
-                      alt: free_gift_product.title | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx
-                  }}
-                {%- endif -%}
-              </a>
-
-              <div class="ww-free-gift-card__body">
-                <a href="{{ free_gift_product.url }}" class="ww-free-gift-card__title">{{ free_gift_product.title }}</a>
-                <p class="ww-free-gift-card__price">{{ free_gift_product.price | money }}</p>
-
-                {%- if matching_gift_line != blank -%}
-                  <button type="button" class="ww-free-gift-card__button" disabled>IN BAG</button>
-                {%- elsif free_gift_product.available and free_gift_variant != blank -%}
-                  <form action="{{ routes.cart_add_url }}" method="post" data-ww-free-gift-form>
-                    <input type="hidden" name="id" value="{{ free_gift_variant.id }}">
-                    <input type="hidden" name="quantity" value="1">
-                    <input type="hidden" name="properties[_free_gift]" value="true">
-                    <button type="submit" class="ww-free-gift-card__button" data-ww-free-gift-submit>ADD TO CART</button>
-                  </form>
-                {%- else -%}
-                  <button type="button" class="ww-free-gift-card__button" disabled>SOLD OUT</button>
-                {%- endif -%}
-
-                <a href="{{ free_gift_product.url }}" class="ww-free-gift-card__details">View details &rarr;</a>
-              </div>
-            </article>
-          {%- endfor -%}
-        </div>
-
-        <div class="ww-free-gift-drawer__footer">
-          <a href="{{ free_gift_collection.url | default: '/collections/free-gift' }}" class="ww-free-gift-drawer__view-all">
-            VIEW ALL FREE GIFTS
-          </a>
-        </div>
-      {%- else -%}
-        <div class="ww-free-gift-drawer__empty">
-          Free gifts are not available right now.
-        </div>
-      {%- endif -%}
-    </div>
-  </aside>
-</div>
  
   <style>
 .payment-methods-list.payment-methods-list--auto {
@@ -1007,223 +903,6 @@
   
 </cart-drawer>
 <style>
-  .ww-free-gift-drawer-shell[hidden] {
-    display: none;
-  }
-
-  .ww-free-gift-drawer-shell {
-    position: fixed;
-    inset: 0;
-    z-index: 100000;
-  }
-
-  .ww-free-gift-drawer__overlay {
-    position: absolute;
-    inset: 0;
-    border: 0;
-    background: rgba(0, 0, 0, 0.62);
-    cursor: pointer;
-  }
-
-  .ww-free-gift-drawer {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: min(470px, 100vw);
-    background: #fff;
-    color: #000;
-    overflow-y: auto;
-    transform: translateX(100%);
-    transition: transform 250ms ease;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.16);
-  }
-
-  .ww-free-gift-drawer-shell.is-open .ww-free-gift-drawer {
-    transform: translateX(0);
-  }
-
-  .ww-free-gift-drawer__header {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-    padding: 24px 28px;
-    background: #fff;
-    border-bottom: 1px solid #e6e6e6;
-  }
-
-  .ww-free-gift-drawer__title {
-    margin: 0;
-    font-size: 18px;
-    line-height: 1.2;
-    letter-spacing: 0.08em;
-    font-weight: 700;
-  }
-
-  .ww-free-gift-drawer__close {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    color: #000;
-    cursor: pointer;
-  }
-
-  .ww-free-gift-drawer__content {
-    padding-bottom: 28px;
-  }
-
-  .ww-free-gift-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0;
-  }
-
-  .ww-free-gift-card {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    border-bottom: 1px solid #e6e6e6;
-  }
-
-  .ww-free-gift-card:nth-child(odd) {
-    border-right: 1px solid #e6e6e6;
-  }
-
-  .ww-free-gift-card__image {
-    display: block;
-    aspect-ratio: 1 / 1;
-    background: #f2f2f2;
-    overflow: hidden;
-  }
-
-  .ww-free-gift-card__img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .ww-free-gift-card__body {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    padding: 16px 16px 18px;
-  }
-
-  .ww-free-gift-card__title {
-    display: block;
-    min-height: 44px;
-    color: #000;
-    font-size: 15px;
-    line-height: 1.35;
-    text-decoration: none;
-  }
-
-  .ww-free-gift-card__price {
-    margin: 8px 0 18px;
-    font-size: 14px;
-  }
-
-  .ww-free-gift-card form {
-    width: 100%;
-    margin: 0;
-  }
-
-  .ww-free-gift-card__button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    min-height: 44px;
-    padding: 0 12px;
-    border: 1px solid #000;
-    background: #000;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: 0.08em;
-    text-align: center;
-    text-transform: uppercase;
-    cursor: pointer;
-  }
-
-  .ww-free-gift-card__button[disabled] {
-    border-color: #d8d8d8;
-    background: #d8d8d8;
-    color: #fff;
-    cursor: default;
-  }
-
-  .ww-free-gift-card__details {
-    display: inline-block;
-    align-self: center;
-    margin-top: 12px;
-    color: #333;
-    font-size: 13px;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .ww-free-gift-drawer__empty {
-    padding: 28px;
-    font-size: 14px;
-    text-align: center;
-  }
-
-  .ww-free-gift-drawer__footer {
-    padding: 20px 24px 28px;
-    border-top: 1px solid #e6e6e6;
-  }
-
-  .ww-free-gift-drawer__view-all {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 48px;
-    width: 100%;
-    border: 1px solid #000;
-    background: #fff;
-    color: #000;
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: 0.08em;
-    text-align: center;
-    text-decoration: none;
-  }
-
-  .ww-free-gift-drawer__view-all:hover {
-    background: #000;
-    color: #fff;
-  }
-
-  @media screen and (max-width: 480px) {
-    .ww-free-gift-drawer__header {
-      padding: 20px;
-    }
-
-    .ww-free-gift-drawer__title {
-      font-size: 16px;
-    }
-
-    .ww-free-gift-card__body {
-      padding: 14px 12px 16px;
-    }
-
-    .ww-free-gift-card__title {
-      font-size: 14px;
-    }
-  }
   
  
   .mini-cart__drawer-footer {
@@ -1444,14 +1123,201 @@ display: none;}
   display: block;
   padding: 10px 26px 12px;
 }
+
+.ww-free-gift-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1002;
+  width: min(100vw, 520px);
+  height: 100vh;
+  background: #fff;
+  transform: translateX(100%);
+  transition: transform 0.28s ease;
+  overflow-y: auto;
+  box-shadow: -12px 0 32px rgba(0, 0, 0, 0.14);
+}
+
+.ww-free-gift-drawer.is-open {
+  transform: translateX(0);
+}
+
+.ww-free-gift-drawer__header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 72px;
+  padding: 0 28px;
+  background: #fff;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.ww-free-gift-drawer__header p {
+  margin: 0;
+  color: #000;
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.ww-free-gift-drawer__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  color: #000;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.ww-free-gift-drawer__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ww-free-gift-card {
+  min-width: 0;
+  border-right: 1px solid #e4e4e4;
+  border-bottom: 1px solid #e4e4e4;
+  background: #fff;
+}
+
+.ww-free-gift-card:nth-child(2n) {
+  border-right: 0;
+}
+
+.ww-free-gift-card__image {
+  display: block;
+  aspect-ratio: 1 / 1;
+  background: #f5f2ed;
+  overflow: hidden;
+}
+
+.ww-free-gift-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ww-free-gift-card__body {
+  display: flex;
+  flex-direction: column;
+  min-height: 198px;
+  padding: 12px 14px 16px;
+}
+
+.ww-free-gift-card__title {
+  min-height: 48px;
+  color: #000;
+  font-size: 13px;
+  line-height: 1.28;
+  text-decoration: none;
+}
+
+.ww-free-gift-card__price {
+  margin: 8px 0 16px;
+  color: #000;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.ww-free-gift-card__form,
+.ww-free-gift-card__sold-out {
+  margin-top: auto;
+}
+
+.ww-free-gift-card__form button,
+.ww-free-gift-card__sold-out {
+  width: 100%;
+  min-height: 38px;
+  color: #fff;
+  background: #080808;
+  border: 0;
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: center;
+  cursor: pointer;
+}
+
+.ww-free-gift-card__form button[disabled],
+.ww-free-gift-card__sold-out {
+  background: #9b9b9b;
+  cursor: not-allowed;
+}
+
+.ww-free-gift-card__details {
+  display: block;
+  margin-top: 10px;
+  color: #000;
+  font-size: 11px;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: underline;
+}
+
+@media (max-width: 520px) {
+  .ww-free-gift-drawer {
+    width: 100vw;
+  }
+
+  .ww-free-gift-drawer__header {
+    min-height: 64px;
+    padding: 0 18px;
+  }
+
+  .ww-free-gift-drawer__header p {
+    font-size: 14px;
+  }
+
+  .ww-free-gift-card__body {
+    padding: 10px 12px 14px;
+  }
+}
 </style>
 
 
 <script>
-if (!window.__wwMiniCartCheckoutInit) {
-  window.__wwMiniCartCheckoutInit = true;
+if (!window.__wwFreeGiftDrawerInit) {
+  window.__wwFreeGiftDrawerInit = true;
 
   document.addEventListener('click', function (event) {
+    const trigger = event.target.closest('[data-free-gift-trigger], #mini-cart .shipping-bar__text a[href*="/collections/free-gift"], #mini-cart .shipping-bar__text a[href*="/pages/free-gift"]');
+
+    if (trigger) {
+      const drawer = document.querySelector('#mini-cart [data-free-gift-drawer]');
+
+      if (drawer) {
+        event.preventDefault();
+        drawer.classList.add('is-open');
+        drawer.setAttribute('aria-hidden', 'false');
+      }
+
+      return;
+    }
+
+    const close = event.target.closest('[data-free-gift-close]');
+
+    if (close) {
+      const drawer = close.closest('[data-free-gift-drawer]');
+
+      if (drawer) {
+        drawer.classList.remove('is-open');
+        drawer.setAttribute('aria-hidden', 'true');
+      }
+
+      return;
+    }
+
     const button = event.target.closest('.checkout-action-button');
 
     if (!button) return; // clicked element isn't the button
@@ -1468,140 +1334,67 @@ if (!window.__wwMiniCartCheckoutInit) {
       window.location.href = '/checkout';
     }, 300);
   });
-}
 
+  document.addEventListener('submit', async function (event) {
+    const form = event.target.closest('[data-free-gift-form]');
 
-</script>
-
-<script>
-if (!window.__wwFreeGiftDrawerInit) {
-  window.__wwFreeGiftDrawerInit = true;
-
-  const wwGetFreeGiftShell = () => document.querySelector('[data-ww-free-gift-shell]');
-
-  const wwOpenFreeGiftDrawer = () => {
-    const shell = wwGetFreeGiftShell();
-    if (!shell) return;
-
-    const drawer = shell.querySelector('[data-ww-free-gift-drawer]');
-    const triggers = document.querySelectorAll('[data-ww-free-gift-open]');
-
-    shell.hidden = false;
-    requestAnimationFrame(() => shell.classList.add('is-open'));
-
-    if (drawer) drawer.setAttribute('aria-hidden', 'false');
-    triggers.forEach((trigger) => trigger.setAttribute('aria-expanded', 'true'));
-  };
-
-  const wwCloseFreeGiftDrawer = () => {
-    const shell = wwGetFreeGiftShell();
-    if (!shell) return;
-
-    const drawer = shell.querySelector('[data-ww-free-gift-drawer]');
-    const triggers = document.querySelectorAll('[data-ww-free-gift-open]');
-
-    shell.classList.remove('is-open');
-    if (drawer) drawer.setAttribute('aria-hidden', 'true');
-    triggers.forEach((trigger) => trigger.setAttribute('aria-expanded', 'false'));
-
-    window.setTimeout(() => {
-      if (!shell.classList.contains('is-open')) shell.hidden = true;
-    }, 260);
-  };
-
-  document.addEventListener('click', (event) => {
-    const opener = event.target.closest('[data-ww-free-gift-open]');
-    if (opener) {
-      event.preventDefault();
-      wwOpenFreeGiftDrawer();
-      return;
-    }
-
-    if (event.target.closest('[data-ww-free-gift-close]')) {
-      event.preventDefault();
-      wwCloseFreeGiftDrawer();
-    }
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') wwCloseFreeGiftDrawer();
-  });
-
-  document.addEventListener('submit', (event) => {
-    const form = event.target.closest('[data-ww-free-gift-form]');
     if (!form) return;
 
     event.preventDefault();
 
-    const submitButton = form.querySelector('[data-ww-free-gift-submit]');
-    if (!submitButton || submitButton.disabled) return;
+    const submitButton = form.querySelector('button[type="submit"]');
 
-    const originalLabel = submitButton.textContent;
-    const routes = (window.themeVariables && window.themeVariables.routes) || {};
-    const settings = (window.themeVariables && window.themeVariables.settings) || {};
-    const addUrl = routes.cartAddUrl ? `${routes.cartAddUrl}.js` : '/cart/add.js';
-    const cartUrl = routes.cartUrl ? `${routes.cartUrl}.js` : '/cart.js';
-    const formData = new FormData(form);
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.setAttribute('aria-busy', 'true');
+    }
 
-    formData.append('sections', 'mini-cart');
-    formData.append('sections_url', window.location.pathname);
+    try {
+      const productForm = new FormData(form);
+      productForm.append('sections', 'mini-cart');
 
-    submitButton.disabled = true;
-    submitButton.textContent = 'ADDING...';
-
-    fetch(addUrl, {
-      method: 'POST',
-      body: formData,
-      headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    })
-      .then((response) => response.json().then((data) => ({ ok: response.ok, data })))
-      .then((result) => {
-        if (!result.ok) {
-          submitButton.textContent = (result.data && result.data.description) || 'TRY AGAIN';
-          window.setTimeout(() => {
-            submitButton.textContent = originalLabel;
-            submitButton.disabled = false;
-          }, 1800);
-          return null;
+      const response = await fetch(`${window.themeVariables.routes.cartAddUrl}.js`, {
+        method: 'POST',
+        body: productForm,
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
         }
-
-        form.dispatchEvent(new CustomEvent('variant:added', {
-          bubbles: true,
-          detail: {
-            variant: Object.prototype.hasOwnProperty.call(result.data, 'items') ? result.data.items[0] : result.data
-          }
-        }));
-
-        submitButton.textContent = 'ADDED';
-        wwCloseFreeGiftDrawer();
-
-        return fetch(cartUrl)
-          .then((response) => response.json())
-          .then((cartContent) => {
-            document.documentElement.dispatchEvent(new CustomEvent('cart:updated', {
-              bubbles: true,
-              detail: { cart: cartContent }
-            }));
-
-            cartContent.sections = result.data.sections;
-            document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
-              bubbles: true,
-              detail: {
-                cart: cartContent,
-                openMiniCart: settings.cartType === 'drawer'
-              }
-            }));
-          });
-      })
-      .catch(() => {
-        submitButton.textContent = 'TRY AGAIN';
-        window.setTimeout(() => {
-          submitButton.textContent = originalLabel;
-          submitButton.disabled = false;
-        }, 1800);
       });
+
+      const responseJson = await response.json();
+
+      if (!response.ok) {
+        throw new Error(responseJson.description || 'Unable to add free gift');
+      }
+
+      const cartResponse = await fetch(`${window.themeVariables.routes.cartUrl}.js`);
+      const cartContent = await cartResponse.json();
+      cartContent.sections = responseJson.sections;
+
+      document.documentElement.dispatchEvent(new CustomEvent('cart:updated', {
+        bubbles: true,
+        detail: { cart: cartContent }
+      }));
+
+      document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+        bubbles: true,
+        detail: {
+          cart: cartContent,
+          openMiniCart: true
+        }
+      }));
+    } catch (error) {
+      console.error(error);
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.removeAttribute('aria-busy');
+      }
+    }
   });
 }
+
+
 </script>
 
 
