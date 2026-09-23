@@ -4,6 +4,24 @@
   {%- assign blends_with_background = true -%}
 {%- endif -%}
 
+{%- assign ww_featured_trade_is_customer = false -%}
+{%- if customer -%}
+  {%- assign ww_featured_trade_tags = customer.tags | join: ',' | downcase -%}
+  {%- if customer.metafields.trade.is_trade_customer.value == true or customer.metafields.trade.discount_percentage.value > 0 or ww_featured_trade_tags contains 'trade' -%}
+    {%- assign ww_featured_trade_is_customer = true -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- assign ww_featured_trade_collection = collections['best-sellers-old'] -%}
+{%- if ww_featured_trade_collection == blank -%}
+  {%- assign ww_featured_trade_collection = collections['best-sellers'] -%}
+{%- endif -%}
+
+{%- assign ww_featured_trade_home_override = false -%}
+{%- if request.page_type == 'index' and ww_featured_trade_is_customer and ww_featured_trade_collection != blank -%}
+  {%- assign ww_featured_trade_home_override = true -%}
+{%- endif -%}
+
 <style>
 
    #shopify-section-{{ section.id }} .product-item__cta-wrapper .product-item__cta{
@@ -149,9 +167,19 @@ translate: 0 -300%;
                   <div class="tabs-nav__item-list">
                     {%- for block in section.blocks -%}
                       {%- capture on_boarding_title -%}{{ 'general.onboarding.collection_title' | t }} {{ forloop.index }}{%- endcapture -%}
+                      {%- assign ww_featured_tab_collection = block.settings.collection -%}
+                      {%- assign ww_featured_tab_label = block.settings.label | default: ww_featured_tab_collection.title | default: on_boarding_title -%}
+                      {%- assign ww_featured_tab_label_downcase = ww_featured_tab_label | downcase -%}
+                      {%- assign ww_featured_tab_collection_handle = ww_featured_tab_collection.handle | downcase -%}
+
+                      {%- if ww_featured_trade_home_override -%}
+                        {%- if ww_featured_tab_collection_handle == 'sale' or ww_featured_tab_label_downcase contains 'sale' -%}
+                          {%- assign ww_featured_tab_label = 'BEST SELLERS' -%}
+                        {%- endif -%}
+                      {%- endif -%}
 
                       <button type="button" class="tabs-nav__item heading heading--small" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="block-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
-                        {{- block.settings.label | default: block.settings.collection.title | default: on_boarding_title -}}
+                        {{- ww_featured_tab_label -}}
                       </button>
                     {%- endfor -%}
                   </div>
@@ -165,6 +193,18 @@ translate: 0 -300%;
       <div class="featured-collections">
         {%- for block in section.blocks -%}
           {%- assign collection = block.settings.collection -%}
+          {%- assign ww_featured_collection_label = block.settings.label | default: collection.title -%}
+          {%- assign ww_featured_collection_label_downcase = ww_featured_collection_label | downcase -%}
+          {%- assign ww_featured_collection_handle = collection.handle | downcase -%}
+          {%- assign ww_featured_button_url = block.settings.button_url | default: collection.url -%}
+
+          {%- if ww_featured_trade_home_override -%}
+            {%- if ww_featured_collection_handle == 'sale' or ww_featured_collection_label_downcase contains 'sale' -%}
+              {%- assign collection = ww_featured_trade_collection -%}
+              {%- assign ww_featured_button_url = collection.url -%}
+            {%- endif -%}
+          {%- endif -%}
+
           {%- assign smallest_image_aspect_ratio = 0 -%}
 
           <product-list {% if settings.stagger_products_apparition %}stagger-apparition{% endif %} {% unless forloop.first %}hidden{% endunless %} id="block-{{ section.id }}-{{ block.id }}" class="product-list product-list--center">
@@ -219,7 +259,7 @@ translate: 0 -300%;
 
             {%- if block.settings.button_text != blank -%}
               <div class="section__footer">
-                <a class="button action-button button--primary" href="{{ block.settings.button_url | default: collection.url  }}">{{ block.settings.button_text }}</a>
+                <a class="button action-button button--primary" href="{{ ww_featured_button_url }}">{{ block.settings.button_text }}</a>
               </div>
             {%- endif -%}
           </product-list>
