@@ -414,7 +414,7 @@ display: block !important;
           <a href="/collections/january-sale">
           {%- if block.settings.button_1_link != blank and block.settings.button_1_text == blank and block.settings.button_2_text == blank -%}
             <a class="slideshow__slide-inner" href="{{ block.settings.button_1_link  }}">
-              {{- slide_content  -}}
+              {{- slide_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx  -}}
             </a>
           {%- else -%}
             <div class="slideshow__slide-inner">

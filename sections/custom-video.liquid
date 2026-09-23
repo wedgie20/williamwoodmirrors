@@ -49,9 +49,9 @@
     position: relative;
     width: 100%;
     margin-top: {{ section.settings.content_spacing }}px;
-    border-radius: {{ section.settings.video_border_radius | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
+    border-radius: {{ section.settings.video_border_radius }}px;
     overflow: hidden;
-    box-shadow: {{ section.settings.video_shadow | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }};
+    box-shadow: {{ section.settings.video_shadow }};
     {% if section.settings.poster_image != blank and section.settings.autoplay == false %}
     background-image: url('{{ settings.speedsize_url_pfx_https -}}{{ section.settings.poster_image | image_url: width: 1920 }}');
     background-size: cover;
@@ -64,7 +64,7 @@
     width: 100%;
     height: auto;
     display: block;
-    border-radius: {{ section.settings.video_border_radius | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
+    border-radius: {{ section.settings.video_border_radius }}px;
   }
 
   .video-section__poster {
@@ -207,9 +207,9 @@
     position: relative;
     width: 100%;
     height: 0;
-    padding-bottom: {{ section.settings.video_aspect_ratio | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}%;
+    padding-bottom: {{ section.settings.video_aspect_ratio }}%;
     overflow: hidden;
-    border-radius: {{ section.settings.video_border_radius | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
+    border-radius: {{ section.settings.video_border_radius }}px;
   }
 
   .video-section__aspect-ratio .video-section__video,

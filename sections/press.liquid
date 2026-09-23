@@ -34,7 +34,7 @@
           {%- for block in section.blocks -%}
             <press-item {% unless forloop.first %}hidden{% endunless %} id="block-{{ section.id }}-{{ block.id }}" class="press-list__item" {{ block.shopify_attributes }}>
               <blockquote class="press-list__item-content blockquote blockquote--center">
-                <split-lines {% if section.settings.reveal_on_scroll or forloop.first == false %}reveal-visibility{% endif %}>{{ block.settings.content | escape }}</split-lines>
+                <split-lines {% if section.settings.reveal_on_scroll or forloop.first == false %}reveal-visibility{% endif %}>{{ block.settings.content | escape | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</split-lines>
               </blockquote>
             </press-item>
           {%- endfor -%}

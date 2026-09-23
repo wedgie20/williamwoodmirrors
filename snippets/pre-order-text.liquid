@@ -19,7 +19,7 @@
       {% endif %}
 
       {% if block.settings.short_description != blank %}
-        <p><b>{{ block.settings.short_description }}</b></p>
+        <p><b>{{ block.settings.short_description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</b></p>
       {% else %}
         <p><b>{{ short_description }}</b></p>
       {% endif %}
