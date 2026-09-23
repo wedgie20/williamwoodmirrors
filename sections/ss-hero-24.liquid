@@ -609,7 +609,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: {{ bg_image_overlay_color | hex_to_rgba: bg_image_overlay | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }};
+    background-color: {{ bg_image_overlay_color | hex_to_rgba: bg_image_overlay }};
     z-index: 2;
     pointer-events: none;
   }
@@ -1318,6 +1318,14 @@
       }
     }
   {%- endif -%}
+  @media (max-width: 1023px) {
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] .hero-buttons-{{ section.id }} {
+      Width: 100%;
+      justify-content: center !important;
+      align-self: center !important;
+  }
+  
+}
 {%- endstyle -%}
 
 {% unless full_width %}
@@ -1468,16 +1476,16 @@
         }
 
         .hero-author-image-{{ block.id }} {
-          border: {{ block.settings.image_border_thickness | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px solid {{ block.settings.image_border_color | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }};
-          border-radius: {{ block.settings.image_radius | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
+          border: {{ block.settings.image_border_thickness }}px solid {{ block.settings.image_border_color }};
+          border-radius: {{ block.settings.image_radius }}px;
           overflow: hidden;
-          width: {{ block.settings.image_size_mobile | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
-          height: {{ block.settings.image_size_mobile | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
+          width: {{ block.settings.image_size_mobile }}px;
+          height: {{ block.settings.image_size_mobile }}px;
           background-color: {{ background_color }};
         }
 
         .hero-author-image-{{ block.id }}:not(:first-child) {
-          margin-left: -{{ block.settings.image_size_mobile | times: 0.3 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
+          margin-left: -{{ block.settings.image_size_mobile | times: 0.3 }}px;
         }
 
         .hero-review-text-{{ block.id }},
@@ -1509,12 +1517,12 @@
           }
 
           .hero-author-image-{{ block.id }} {
-            width: {{ block.settings.image_size | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
-            height: {{ block.settings.image_size | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
+            width: {{ block.settings.image_size }}px;
+            height: {{ block.settings.image_size }}px;
           }
 
           .hero-author-image-{{ block.id }}:not(:first-child) {
-            margin-left: -{{ block.settings.image_size | times: 0.3 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
+            margin-left: -{{ block.settings.image_size | times: 0.3 }}px;
           }
 
           .hero-review-text-{{ block.id }},
@@ -1818,8 +1826,8 @@
     {% when 'star_rating_full' %}
       <style>
         .hero-star-image-{{ block.id }} {
-          margin-top: {{ block.settings.star_image_mt_mobile | times: 0.75 | round: 0 | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
-          width: {{ block.settings.star_image_width_mobile | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}%;
+          margin-top: {{ block.settings.star_image_mt_mobile | times: 0.75 | round: 0 }}px;
+          width: {{ block.settings.star_image_width_mobile }}%;
           max-width: 100%;
         }
 
@@ -1831,8 +1839,8 @@
 
         @media(min-width: 1024px) {
           .hero-star-image-{{ block.id }} {
-            margin-top: {{ block.settings.star_image_mt | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}px;
-            width: {{ block.settings.star_image_width | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}%;
+            margin-top: {{ block.settings.star_image_mt }}px;
+            width: {{ block.settings.star_image_width }}%;
           }
         }
       </style>
