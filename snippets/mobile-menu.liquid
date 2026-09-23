@@ -64,11 +64,11 @@
                   <img class="mobile-nav__image" loading="lazy" sizes="270px" {% render 'image-attributes', image: mega_menu_block.settings[image_setting], sizes: '270,540,810' %}>
 
                   {%- if mega_menu_block.settings[image_heading_setting] != '' -%}
-                    <p class="mobile-nav__image-heading heading heading--xsmall">{{ mega_menu_block.settings[image_heading_setting] }}</p>
+                    <p class="mobile-nav__image-heading heading heading--xsmall">{{ mega_menu_block.settings[image_heading_setting] | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</p>
                   {%- endif -%}
 
                   {%- if mega_menu_block.settings[image_text_setting] != '' -%}
-                    <span class="mobile-nav__image-text text--xsmall">{{ mega_menu_block.settings[image_text_setting] }}</span>
+                    <span class="mobile-nav__image-text text--xsmall">{{ mega_menu_block.settings[image_text_setting] | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}</span>
                   {%- endif -%}
                 {%- endcapture -%}
 
