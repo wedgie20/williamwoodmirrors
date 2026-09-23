@@ -535,44 +535,7 @@
     -ms-flex-direction: column;
     flex-direction: column;
     width: 100%;">
-  
-  <p class="order_info" style="display: flex; justify-content: space-between;">
-    <span style="color: black;">
-      Subtotal (
-      {%- assign item_label = 'item' -%}
-      {%- if cart.item_count != 1 -%}
-        {%- assign item_label = 'items' -%}
-      {%- endif -%}
-      {{ cart.item_count }} {{ item_label }}):
-    </span>
 
-    <span style="text-align: right;">
-      {% render 'format-money', amount: display_cart_total %}
-    </span>
-  </p>
-
- 
-
-
-
-     {% comment %}
-     {% assign total_saving = 0 %}
-            {% for item in cart.items %}
-              {% assign compare_price = item.variant.compare_at_price | default: 0 %}
-              {% assign current_price = item.variant.price | default: 0 %}
-              
-              {% if compare_price > current_price and compare_price > 0 %}
-                {% assign saving = compare_price | minus: current_price | times: item.quantity %}
-                {% assign total_saving = total_saving | plus: saving %}
-              {% endif %}
-            {% endfor %}
-     
-            
-            {% if total_saving > 0 %}
-              <p class="order_info"><span style="color: black;">Savings:</span> <span style="text-align: right;">{{ total_saving | money }}</span></p>
-            {% endif %}
-{% endcomment %}
-     
 {% assign total_saving = 0 %}
 {% assign savings_basis = 0 %}
 {% assign has_code_savings = false %}
@@ -595,6 +558,43 @@
 {% endfor %}
 
 {% assign total_saving = total_saving | plus: free_gift_display_saving %}
+  
+  <p class="order_info" style="display: flex; justify-content: space-between;">
+    <span style="color: black;">
+      Subtotal (
+      {%- assign item_label = 'item' -%}
+      {%- if cart.item_count != 1 -%}
+        {%- assign item_label = 'items' -%}
+      {%- endif -%}
+      {{ cart.item_count }} {{ item_label }}):
+    </span>
+
+    <span style="text-align: right;">
+      {% render 'format-money', amount: savings_basis %}
+    </span>
+  </p>
+
+ 
+
+
+
+     {% comment %}
+     {% assign total_saving = 0 %}
+            {% for item in cart.items %}
+              {% assign compare_price = item.variant.compare_at_price | default: 0 %}
+              {% assign current_price = item.variant.price | default: 0 %}
+              
+              {% if compare_price > current_price and compare_price > 0 %}
+                {% assign saving = compare_price | minus: current_price | times: item.quantity %}
+                {% assign total_saving = total_saving | plus: saving %}
+              {% endif %}
+            {% endfor %}
+     
+            
+            {% if total_saving > 0 %}
+              <p class="order_info"><span style="color: black;">Savings:</span> <span style="text-align: right;">{{ total_saving | money }}</span></p>
+{% endif %}
+{% endcomment %}
 
 {% if total_saving > 0 %}
   {% assign savings_label = 'Product Savings:' %}
