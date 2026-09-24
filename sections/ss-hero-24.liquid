@@ -951,32 +951,34 @@
   .hero-mobile-search-form-{{ section.id }} {
     display: flex;
     align-items: center;
+    gap: 14px;
     width: 100%;
-    height: 44px;
-    padding: 0 8px 0 16px;
+    height: 62px;
+    padding: 0 24px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.82);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+    background: rgba(232, 229, 222, 0.68);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: none;
   }
 
   .hero-mobile-search-input-{{ section.id }} {
     flex: 1;
     min-width: 0;
-    height: 100%;
+    height: auto;
     border: 0;
     padding: 0;
     background: transparent;
-    color: #111;
+    color: #ffffff;
     font-family: inherit;
-    font-size: 13px;
-    line-height: 1;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.2;
     outline: none;
   }
 
   .hero-mobile-search-input-{{ section.id }}::placeholder {
-    color: rgba(17, 17, 17, 0.68);
+    color: #ffffff;
     opacity: 1;
   }
 
@@ -984,21 +986,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    flex: 0 0 32px;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
     border: 0;
-    border-radius: 50%;
     background: transparent;
-    color: #111;
+    color: #ffffff;
     cursor: pointer;
     padding: 0;
   }
 
   .hero-mobile-search-submit-{{ section.id }} svg {
     display: block;
-    width: 18px;
-    height: 18px;
+    width: 34px;
+    height: 34px;
   }
 
   .hero-shop-scene-btn-wrap-{{ section.id }} {
@@ -1344,7 +1345,7 @@
       transform: translateX(-50%);
       z-index: 10;
       display: block;
-      width: min(320px, calc(100vw - 48px));
+      width: calc(100vw - 48px);
     }
 
     .hero-shop-scene-btn-wrap-{{ section.id }} {
@@ -3018,20 +3019,20 @@
     <form action="{{ routes.search_url }}" method="get" role="search" class="hero-mobile-search-form-{{ section.id }}">
       <input type="hidden" name="type" value="product">
       <input type="hidden" name="options[prefix]" value="last">
+      <button class="hero-mobile-search-submit-{{ section.id }}" type="submit" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"></circle>
+          <path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+        </svg>
+      </button>
       <input
         class="hero-mobile-search-input-{{ section.id }}"
         type="search"
         name="q"
-        placeholder="Search for a product..."
-        aria-label="Search for a product"
+        placeholder="What are you looking for?"
+        aria-label="What are you looking for?"
         autocomplete="off"
       >
-      <button class="hero-mobile-search-submit-{{ section.id }}" type="submit" aria-label="Search">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"></circle>
-          <path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-        </svg>
-      </button>
     </form>
   </div>
 
