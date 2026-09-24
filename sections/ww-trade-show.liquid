@@ -9,12 +9,12 @@
     {%- if section.settings.hero_mobile_image != blank -%}
       <source
         media="(max-width: 749px)"
-        srcset="{{ section.settings.hero_mobile_image | image_url: width: 900 }}">
+        srcset="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.hero_mobile_image | image_url: width: 900 }}">
     {%- endif -%}
     {%- if section.settings.hero_image != blank -%}
       <img
         class="ww-trade-hero__image"
-        src="{{ section.settings.hero_image | image_url: width: 2400 }}"
+        src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.hero_image | image_url: width: 2400 }}"
         alt="{{ section.settings.hero_title | escape }}"
         width="{{ section.settings.hero_image.width }}"
         height="{{ section.settings.hero_image.height }}">

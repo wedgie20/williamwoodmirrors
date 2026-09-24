@@ -18,7 +18,7 @@
             <div class="ww-trade-why__image">
               {%- if block.settings.image != blank -%}
                 <img
-                  src="{{ block.settings.image | image_url: width: 900 }}"
+                  src="{{ settings.speedsize_url_pfx_https -}}{{ block.settings.image | image_url: width: 900 }}"
                   alt="{{ block.settings.title | escape }}"
                   loading="lazy"
                   width="{{ block.settings.image.width }}"
