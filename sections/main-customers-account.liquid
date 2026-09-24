@@ -53,6 +53,8 @@
 
   <div class="account account--order-list">
     <div class="container container--small">
+      {%- render 'ww-trade-account-progress' -%}
+
       {%- if customer.orders.size == 0 -%}
         <div class="page-header page-header--small {% if section.blocks.size == 1 %}page-header--alone{% endif %}">
           <div class="page-header__text-wrapper text-container">
