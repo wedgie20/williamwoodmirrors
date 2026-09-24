@@ -50,14 +50,22 @@
       <div class="announcement-bar__list">
         {%- for block in section.blocks -%}
           {%- assign has_extra_content = false -%}
+          {%- assign announcement_text_downcase = block.settings.text | default: '' | downcase -%}
+          {%- assign announcement_content_downcase = block.settings.content | default: '' | downcase -%}
+          {%- assign announcement_link_downcase = block.settings.button_link | default: '' | downcase -%}
+          {%- assign is_promo_announcement = false -%}
 
           {%- if block.settings.content != blank or block.settings.image != blank -%}
             {%- assign has_extra_content = true -%}
           {%- endif -%}
 
+          {%- if announcement_text_downcase contains 'off' or announcement_content_downcase contains 'code' or announcement_link_downcase contains 'all-full-price-products' or announcement_link_downcase contains 'sale' -%}
+            {%- assign is_promo_announcement = true -%}
+          {%- endif -%}
+
           
 
-          <announcement-bar-item {% unless forloop.first %}hidden{% endunless %} {% if has_extra_content %}has-content{% endif %} class="announcement-bar__item" {{ block.shopify_attributes }}>
+          <announcement-bar-item {% unless forloop.first %}hidden{% endunless %} {% if has_extra_content %}has-content{% endif %} class="announcement-bar__item" {% if is_promo_announcement %}data-ww-promo-suppressible{% endif %} {{ block.shopify_attributes }}>
             {%- case section.settings.announcement_text_size -%}
               {%- when 'small' -%}
                 {%- assign text_size_class = 'text--xsmall' -%}
