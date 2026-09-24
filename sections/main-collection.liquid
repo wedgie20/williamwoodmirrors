@@ -620,10 +620,7 @@ ul.hookpoint-tags::-webkit-scrollbar {
 
 {% if collection.metafields.custom.description_text_section %}
   <div class="collection-description">
-    {%- capture ww_collection_metafield_description_content -%}
-      {{ collection.metafields.custom.description_text_section | metafield_tag }}
-    {%- endcapture -%}
-    {%- render 'ww-trade-filtered-promo-copy', content: ww_collection_metafield_description_content -%}
+    {{ collection.metafields.custom.description_text_section | metafield_tag | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
   </div>
 {% endif %}
 

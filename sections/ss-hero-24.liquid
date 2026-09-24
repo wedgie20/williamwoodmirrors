@@ -45,14 +45,6 @@
   assign content_vertical_align = section.settings.content_vertical_align
   assign content_vertical_align_mobile = section.settings.content_vertical_align_mobile
 
-  if layout_mode != 'slideshow'
-    assign content_max_width = section.settings.slide_content_max_width_1 | default: content_max_width
-    assign content_align = section.settings.slide_content_align_1 | default: content_align
-    assign content_align_mobile = section.settings.slide_content_align_mobile_1 | default: content_align_mobile
-    assign content_vertical_align = section.settings.slide_content_vertical_align_1 | default: content_vertical_align
-    assign content_vertical_align_mobile = section.settings.slide_content_vertical_align_mobile_1 | default: content_vertical_align_mobile
-  endif
-
   assign loading_attribute = 'eager'
   if lazy
     assign loading_attribute = 'lazy'
@@ -79,14 +71,6 @@
   assign loading_attribute = 'eager'
   if lazy
     assign loading_attribute = 'lazy'
-  endif
-
-  assign ww_hero_is_trade_customer = false
-  if customer
-    assign ww_hero_trade_tags = customer.tags | join: ',' | downcase
-    if customer.metafields.trade.is_trade_customer.value == true or customer.metafields.trade.discount_percentage.value > 0 or ww_hero_trade_tags contains 'trade'
-      assign ww_hero_is_trade_customer = true
-    endif
   endif
 -%}
 
@@ -2706,14 +2690,7 @@
             {% unless layout_mode == 'slideshow' %}
             {% assign hero_slide = block.settings.slide_number | default: 'all' %}
             {% if hero_slide == 'all' or hero_slide == '1' %}
-            {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
-            {% assign show_block_for_account = true %}
-            {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
-              {% assign show_block_for_account = false %}
-            {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
-              {% assign show_block_for_account = false %}
-            {% endif %}
-            {% if show_block_for_account and block.settings.heading != blank %}
+            {% if block.settings.heading != blank %}
               <div class="hero-heading-{{ block.id }}">
                 {{ block.settings.heading }}
               </div>
@@ -2724,14 +2701,7 @@
             {% unless layout_mode == 'slideshow' %}
             {% assign hero_slide = block.settings.slide_number | default: 'all' %}
             {% if hero_slide == 'all' or hero_slide == '1' %}
-            {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
-            {% assign show_block_for_account = true %}
-            {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
-              {% assign show_block_for_account = false %}
-            {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
-              {% assign show_block_for_account = false %}
-            {% endif %}
-            {% if show_block_for_account and block.settings.text != blank %}
+            {% if block.settings.text != blank %}
               <div class="hero-text-{{ block.id }}">
                 {{ block.settings.text }}
               </div>
@@ -2754,25 +2724,14 @@
             {% unless layout_mode == 'slideshow' %}
             {% assign hero_slide = block.settings.slide_number | default: 'all' %}
             {% if hero_slide == 'all' or hero_slide == '1' %}
-            {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
-            {% assign show_block_for_account = true %}
-            {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
-              {% assign show_block_for_account = false %}
-            {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
-              {% assign show_block_for_account = false %}
-            {% endif %}
             {% assign next_index = forloop.index0 | plus: 1 %}
             {% assign next_block = section.blocks[next_index] %}
-            {% assign should_render_button = false %}
-            {% if show_block_for_account and block.settings.button != blank %}
-              {% assign should_render_button = true %}
-            {% endif %}
 
-            {% if should_render_button %}
-              {% unless button_open %}
-                <div class="hero-buttons-{{ section.id }}">
-              {% endunless %}
+            {% unless button_open %}
+              <div class="hero-buttons-{{ section.id }}">
+            {% endunless %}
 
+            {% if block.settings.button != blank %}
               <a href="{{ block.settings.url }}" class="hero-button-{{ block.id }}">
                 <p class="hero-button-inner-{{ block.id }}">
                   {{ block.settings.button }}
@@ -2787,11 +2746,11 @@
                   {% endif %}
                 </p>
               </a>
-
-              {% assign button_open = true %}
             {% endif %}
 
-            {% if button_open and next_block.type != 'button' %}
+            {% assign button_open = true %}
+
+            {% if next_block.type != 'button' %}
               </div>
               {% assign button_open = false %}
             {% endif %}
@@ -2806,19 +2765,7 @@
             {% endunless %}
           {% when 'trustpilot_badge' %}
             {% unless layout_mode == 'slideshow' %}
-              {% assign hero_slide = block.settings.slide_number | default: 'all' %}
-              {% if hero_slide == 'all' or hero_slide == '1' %}
-              {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
-              {% assign show_block_for_account = true %}
-              {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
-                {% assign show_block_for_account = false %}
-              {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
-                {% assign show_block_for_account = false %}
-              {% endif %}
-              {% if show_block_for_account %}
-                {% render 'ss-hero-trustpilot-badge', block: block, section_id: section.id, slide_number: '1' %}
-              {% endif %}
-              {% endif %}
+              {% render 'ss-hero-trustpilot-badge', block: block, section_id: section.id, slide_number: '1' %}
             {% endunless %}
           {% when '@app' %}
             {% unless layout_mode == 'slideshow' %}
@@ -2947,38 +2894,17 @@
                   {% if block_slide == slide_num_str or block_slide == 'all' %}
                     {% case block.type %}
                       {% when 'button' %}
-                        {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
-                        {% assign show_block_for_account = true %}
-                        {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
-                          {% assign show_block_for_account = false %}
-                        {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
-                          {% assign show_block_for_account = false %}
-                        {% endif %}
-                        {% if show_block_for_account and block.settings.button != blank %}
+                        {% if block.settings.button != blank %}
                           {% assign has_seen_slide_button = true %}
                         {% endif %}
                       {% when 'heading' %}
-                        {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
-                        {% assign show_block_for_account = true %}
-                        {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
-                          {% assign show_block_for_account = false %}
-                        {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
-                          {% assign show_block_for_account = false %}
-                        {% endif %}
-                        {% if show_block_for_account and block.settings.heading != blank %}
+                        {% if block.settings.heading != blank %}
                           <div class="hero-heading-{{ block.id }}" {{ block.shopify_attributes }}>
                             {{ block.settings.heading }}
                           </div>
                         {% endif %}
                       {% when 'text' %}
-                        {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
-                        {% assign show_block_for_account = true %}
-                        {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
-                          {% assign show_block_for_account = false %}
-                        {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
-                          {% assign show_block_for_account = false %}
-                        {% endif %}
-                        {% if show_block_for_account and block.settings.text != blank %}
+                        {% if block.settings.text != blank %}
                           <div class="hero-text-{{ block.id }}{% if slide_num_str == '1' and has_seen_slide_button %} hero-text-after-buttons{% endif %}" {{ block.shopify_attributes }}>
                             {{ block.settings.text }}
                           </div>
@@ -2988,16 +2914,7 @@
                           {{ block.settings.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
                         </div>
                       {% when 'trustpilot_badge' %}
-                        {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
-                        {% assign show_block_for_account = true %}
-                        {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
-                          {% assign show_block_for_account = false %}
-                        {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
-                          {% assign show_block_for_account = false %}
-                        {% endif %}
-                        {% if show_block_for_account %}
-                          {% render 'ss-hero-trustpilot-badge', block: block, section_id: section.id, slide_number: slide_num_str %}
-                        {% endif %}
+                        {% render 'ss-hero-trustpilot-badge', block: block, section_id: section.id, slide_number: slide_num_str %}
                       {% when '@app' %}
                         <div class="hero-app-block-{{ section.id }}" {{ block.shopify_attributes }}>
                           {% render block %}
@@ -3011,17 +2928,8 @@
                   {% assign block_slide = block.settings.slide_number | default: 'all' %}
                   {% if block.type == 'button' and block.settings.button != blank %}
                     {% if block_slide == slide_num_str or block_slide == 'all' %}
-                      {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
-                      {% assign show_block_for_account = true %}
-                      {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
-                        {% assign show_block_for_account = false %}
-                      {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
-                        {% assign show_block_for_account = false %}
-                      {% endif %}
-                      {% if show_block_for_account %}
-                        {% assign has_slide_buttons = true %}
-                        {% break %}
-                      {% endif %}
+                      {% assign has_slide_buttons = true %}
+                      {% break %}
                     {% endif %}
                   {% endif %}
                 {% endfor %}
@@ -3032,14 +2940,6 @@
                       {% assign block_slide = block.settings.slide_number | default: 'all' %}
                       {% if block.type == 'button' and block.settings.button != blank %}
                         {% if block_slide == slide_num_str or block_slide == 'all' %}
-                          {% assign account_visibility = block.settings.account_visibility | default: 'all' %}
-                          {% assign show_block_for_account = true %}
-                          {% if account_visibility == 'trade' and ww_hero_is_trade_customer == false %}
-                            {% assign show_block_for_account = false %}
-                          {% elsif account_visibility == 'normal' and ww_hero_is_trade_customer %}
-                            {% assign show_block_for_account = false %}
-                          {% endif %}
-                          {% if show_block_for_account %}
                           <a href="{{ block.settings.url }}" class="hero-button-{{ block.id }}">
                             <p class="hero-button-inner-{{ block.id }}">
                               {{ block.settings.button }}
@@ -3051,7 +2951,6 @@
                               {% endif %}
                             </p>
                           </a>
-                          {% endif %}
                         {% endif %}
                       {% endif %}
                     {% endfor %}
@@ -4774,18 +4673,6 @@
           "info": "In Slideshow mode, show this block on a specific slide or all slides."
         },
         {
-          "type": "select",
-          "id": "account_visibility",
-          "label": "Account visibility",
-          "default": "all",
-          "options": [
-            { "label": "All accounts (default)", "value": "all" },
-            { "label": "Trade account", "value": "trade" },
-            { "label": "Normal account", "value": "normal" }
-          ],
-          "info": "Choose whether this text appears for trade customers, normal customers, or everyone."
-        },
-        {
           "type": "richtext",
           "id": "heading",
           "label": "Heading",
@@ -4906,18 +4793,6 @@
             { "label": "Slide 5", "value": "5" }
           ],
           "info": "In Slideshow mode, show this block on a specific slide or all slides."
-        },
-        {
-          "type": "select",
-          "id": "account_visibility",
-          "label": "Account visibility",
-          "default": "all",
-          "options": [
-            { "label": "All accounts (default)", "value": "all" },
-            { "label": "Trade account", "value": "trade" },
-            { "label": "Normal account", "value": "normal" }
-          ],
-          "info": "Choose whether this text appears for trade customers, normal customers, or everyone."
         },
         {
           "type": "richtext",
@@ -5383,18 +5258,6 @@
           "info": "In Slideshow mode, show this block on a specific slide or all slides."
         },
         {
-          "type": "select",
-          "id": "account_visibility",
-          "label": "Account visibility",
-          "default": "all",
-          "options": [
-            { "label": "All accounts (default)", "value": "all" },
-            { "label": "Trade account", "value": "trade" },
-            { "label": "Normal account", "value": "normal" }
-          ],
-          "info": "Choose whether this button appears for trade customers, normal customers, or everyone."
-        },
-        {
           "type": "text",
           "id": "button",
           "label": "Button label",
@@ -5617,18 +5480,6 @@
       "type": "trustpilot_badge",
       "name": "Trustpilot Badge",
       "settings": [
-        {
-          "type": "select",
-          "id": "account_visibility",
-          "label": "Account visibility",
-          "default": "all",
-          "options": [
-            { "label": "All accounts (default)", "value": "all" },
-            { "label": "Trade account", "value": "trade" },
-            { "label": "Normal account", "value": "normal" }
-          ],
-          "info": "Choose whether this badge appears for trade customers, normal customers, or everyone."
-        },
         {
           "type": "text",
           "id": "intro_text",

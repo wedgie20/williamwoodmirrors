@@ -21,17 +21,6 @@
   }
 </style>
 
-{%- assign ww_collection_banner_title = collection.title -%}
-{%- if collection.handle == 'sale' and customer -%}
-  {%- assign ww_trade_customer_tags = customer.tags | join: ',' | downcase -%}
-  {%- assign ww_collection_banner_title_downcase = ww_collection_banner_title | downcase -%}
-  {%- if customer.metafields.trade.is_trade_customer.value == true or customer.metafields.trade.discount_percentage.value > 0 or ww_trade_customer_tags contains 'trade' -%}
-    {%- if ww_collection_banner_title_downcase contains 'summer sale' or ww_collection_banner_title_downcase contains 'spring sale' -%}
-      {%- assign ww_collection_banner_title = 'Last Chance' -%}
-    {%- endif -%}
-  {%- endif -%}
-{%- endif -%}
-
 <section>
   {%- comment -%}
   ------------------------------------------------------------------------------------------
@@ -76,13 +65,12 @@
           <div class="image-overlay__content content-box content-box--{{ section.settings.text_width }} content-box--text-center content-box--center text-container">
             {%- if section.settings.show_collection_title -%}
               <h1 class="heading h1 {% if collection.handle == 'aurelia' %}aurelia-heading{% endif %}">
-                <split-lines {% if collection.handle == 'aurelia' %}aurelia-heading{% endif %} reveal>{{ ww_collection_banner_title }}</split-lines>
+                <split-lines {% if collection.handle == 'aurelia' %}aurelia-heading{% endif %} reveal>{{ collection.title }}</split-lines>
               </h1>
             {%- endif -%}
 
             {%- if section.settings.show_collection_description and collection.description != blank -%}
               <div class="image-overlay__text-container imhere" reveal contryname="{{ localization.country }}">
-                {%- capture ww_collection_description_content -%}
                 {% if localization.country == 'United Kingdom' %}
                  {{- collection.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
                 {% else %}
@@ -92,8 +80,6 @@
                            {{- collection.description | replace: '£299 GBP', '€360 EUR' | replace: '£99 GBP', '€120 EUR' | replace: '<strong>Note - <meta charset="utf-8">To receive your Free Gift, please ensure to add it to your bag before you purchase.', '' | replace: "If there's no Free Gift in your bag, it won't be included with your order.", '' | replace: 'Select Free Gifts are available only in December.', 'Select Free Gifts are available only in December, secure yours before they are gone.' | replace: 'Free UK &amp; Northern Ireland Delivery + 30 Days Free Returns.<br><br>', ''  | replace: 'Spend €360 EUR or more and select one Free Gift of your choice worth up to €120 EUR, courtesy of William Wood.', '<p data-mce-fragment="1">Spend <meta charset="utf-8"><span data-mce-fragment="1">€360</span>&nbsp;EUR&nbsp;<span data-mce-fragment="1">or more and select one complimentary Free Gift of your choice worth up to&nbsp;€120&nbsp;EUR</span>, courtesy of William Wood.</p>' | replace: '<br><br>', '<br>' | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
                 {% endif %}
                   {% endif %}
-                {%- endcapture -%}
-                {%- render 'ww-trade-filtered-promo-copy', content: ww_collection_description_content -%}
               </div>
             {%- endif -%}
           </div>
@@ -107,15 +93,12 @@
 
         <div class="page-header__text-wrapper text-container">
           {%- if section.settings.show_collection_title -%}
-            <h1 class="heading h1 ">{{ ww_collection_banner_title }}</h1>
+            <h1 class="heading h1 ">{{ collection.title }}</h1>
           {%- endif -%}
 
           {%- if section.settings.show_collection_description and collection.description != blank -%}
             <div>
-              {%- capture ww_collection_description_content -%}
-                {{- collection.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
-              {%- endcapture -%}
-              {%- render 'ww-trade-filtered-promo-copy', content: ww_collection_description_content -%}
+              {{- collection.description | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
             </div>
           {%- endif -%}
         </div>

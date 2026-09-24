@@ -4,14 +4,6 @@
     {%- assign direction = 'rtl' -%}
 {%- endcase -%}
 
-{%- assign ww_mobile_menu_trade_is_customer = false -%}
-{%- if customer -%}
-  {%- assign ww_mobile_menu_trade_tags = customer.tags | join: ',' | downcase -%}
-  {%- if customer.metafields.trade.is_trade_customer.value == true or customer.metafields.trade.discount_percentage.value > 0 or ww_mobile_menu_trade_tags contains 'trade' -%}
-    {%- assign ww_mobile_menu_trade_is_customer = true -%}
-  {%- endif -%}
-{%- endif -%}
-
 <mobile-navigation
   append-body
   id="mobile-menu-drawer"
@@ -42,16 +34,6 @@
       {%- assign custom_image_inserted = false -%}
       {%- for link in menu.links -%}
         {%- assign link_title_downcase = link.title | strip | downcase -%}
-        {%- if ww_mobile_menu_trade_is_customer and link_title_downcase contains 'end of season sale' -%}
-          {%- continue -%}
-        {%- endif -%}
-        {%- assign ww_mobile_menu_link_title = link.title -%}
-        {%- if ww_mobile_menu_trade_is_customer -%}
-          {%- if link_title_downcase contains 'summer sale' or link_title_downcase contains 'spring sale' -%}
-            {%- assign ww_mobile_menu_link_title = 'Last Chance' -%}
-          {%- endif -%}
-        {%- endif -%}
-
         {%- assign mega_menu_block = '' -%}
         {%- assign mega_menu_images = '' -%}
 
@@ -112,7 +94,7 @@
               aria-controls="mobile-menu-{{ forloop.index }}"
               aria-expanded="false"
             >
-              {{- ww_mobile_menu_link_title -}}
+              {{- link.title -}}
               <span class="animated-plus"></span>
             </button>
 
@@ -175,7 +157,7 @@
             >
               <div class="highlighted_item" style="background: {{ section.settings.highlighted_menu_bg_color }}; color: {{ section.settings.highlighted_menu_text_color }};{% if section.settings.highlighted_menu_background_image != blank %} background-image: url('{{ settings.speedsize_url_pfx_https -}}{{ section.settings.highlighted_menu_background_image | img_url: 'master' }}'); background-size: cover; background-position: center; {% endif %}">
              <span class="highlighted_bold_text">
-              {{ section.settings.menu_bold_text | default: ww_mobile_menu_link_title }}
+              {{ section.settings.menu_bold_text | default: link.title }}
              </span>
              <span class="highlighted_normal_text">{{ section.settings.menu_normal_text }}</span>
              {%- if highlight_now >= highlight_start and highlight_now < highlight_end and section.settings.show_highlighted_menu_timer -%}
@@ -201,7 +183,7 @@
             >
               <div class="highlighted_item" style="background: {{ section.settings.second_highlighted_menu_bg_color }}; color: {{ section.settings.second_highlighted_menu_text_color }}; background-image: url('{{ settings.speedsize_url_pfx_https -}}{{ section.settings.second_highlighted_menu_background_image | img_url: 'master' }}'); background-size: cover; background-position: center;">
              <span class="highlighted_bold_text">
-              {{ section.settings.second_menu_bold_text | default: ww_mobile_menu_link_title }}
+              {{ section.settings.second_menu_bold_text | default: link.title }}
              </span>
              <span class="highlighted_normal_text">{{ section.settings.second_menu_normal_text }}</span>
              {%- if second_highlight_now >= second_highlight_start and second_highlight_now < second_highlight_end and section.settings.show_second_highlighted_menu_timer -%}
@@ -216,27 +198,27 @@
             </a>
             
             {% else %}
-            {%- assign link_title_handle = ww_mobile_menu_link_title | strip | handle -%}
+            {%- assign link_title_handle = link.title | strip | handle -%}
             <a
               href="{{ link.url  }}"
-              class="{% if ww_mobile_menu_link_title contains ' - ' %}have-two-parts{% endif %} mobile-nav__link{% if link_title_handle == 'lamps' %} mobile-nav__link--regular{% endif %} heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
+              class="{% if link.title contains ' - ' %}have-two-parts{% endif %} mobile-nav__link{% if link_title_handle == 'lamps' %} mobile-nav__link--regular{% endif %} heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
             >
             {% if localization.country.iso_code != 'GB' %}
-              {%- if ww_mobile_menu_link_title contains ' - ' -%}
-  {%- assign title_parts = ww_mobile_menu_link_title | split: ' - ' -%}
+              {%- if link.title contains ' - ' -%}
+  {%- assign title_parts = link.title | split: ' - ' -%}
   <span class="title-part-1">{{ title_parts[0] | replace: '£100 GBP', '€120' }} - </span>
   <span class="title-part-2">{{ title_parts[1] | replace: '£100 GBP', '€120' }}</span>
 {%- else -%}
- {{- ww_mobile_menu_link_title | replace: '£100 GBP', '€120'  -}}
+ {{- link.title | replace: '£100 GBP', '€120'  -}}
 {%- endif -%}
                
               {% else %}
-               {%- if ww_mobile_menu_link_title contains ' - ' -%}
-  {%- assign title_parts = ww_mobile_menu_link_title | split: ' - ' -%}
+               {%- if link.title contains ' - ' -%}
+  {%- assign title_parts = link.title | split: ' - ' -%}
   <span class="title-part-1">{{ title_parts[0] }} - </span>
   <span class="title-part-2">{{ title_parts[1] }}</span>
 {%- else -%}
-  {{- ww_mobile_menu_link_title -}}
+  {{- link.title -}}
 {%- endif -%}
               {% endif %}
             </a>
@@ -457,12 +439,12 @@
     {% comment %} font-weight: 700; {% endcomment %}
 }
 
-  .mobile-nav__link.have-two-parts {
+  a.have-two-parts.mobile-nav__link {
     place-content: flex-start;
     gap: 5px;
 }
 
-.mobile-nav__link.have-two-parts .title-part-2 {
+a.have-two-parts.mobile-nav__link .title-part-2 {
     color: #780606;
 }
 

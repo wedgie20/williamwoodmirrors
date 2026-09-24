@@ -171,18 +171,8 @@
             {%- endif -%}
 
             {%- if block.settings.title != blank -%}
-              {%- assign ww_trade_banner_title = block.settings.title -%}
-              {%- if collection.handle == 'sale' and customer -%}
-                {%- assign ww_trade_customer_tags = customer.tags | join: ',' | downcase -%}
-                {%- assign ww_trade_banner_title_downcase = ww_trade_banner_title | downcase -%}
-                {%- if customer.metafields.trade.is_trade_customer.value == true or customer.metafields.trade.discount_percentage.value > 0 or ww_trade_customer_tags contains 'trade' -%}
-                  {%- if ww_trade_banner_title_downcase contains 'summer sale' or ww_trade_banner_title_downcase contains 'spring sale' -%}
-                    {%- assign ww_trade_banner_title = 'Last Chance' -%}
-                  {%- endif -%}
-                {%- endif -%}
-              {%- endif -%}
               <h3 class="heading heading--large imhere">
-                <split-lines {% if section.settings.transition_type != 'fade' %}reveal{% endif %}>{{ ww_trade_banner_title | escape }}</split-lines>
+                <split-lines {% if section.settings.transition_type != 'fade' %}reveal{% endif %}>{{ block.settings.title | escape }}</split-lines>
               </h3>
             {%- endif -%}
 
