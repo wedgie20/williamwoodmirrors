@@ -1,0 +1,1182 @@
+{%- liquid
+  assign profession_options = section.settings.profession_options | split: ','
+  assign country_options = section.settings.country_options | split: ','
+  assign contact_options = section.settings.contact_options | split: ','
+  assign address_suggestion_rows = section.settings.address_suggestions | newline_to_br | split: '<br />'
+-%}
+
+<section class="ww-trade-application" data-ww-trade-application>
+  <div class="ww-trade-application__container">
+    <header class="ww-trade-application__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="ww-trade-application__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h1>{{ section.settings.heading }}</h1>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <div class="ww-trade-application__intro">{{ section.settings.body }}</div>
+      {%- endif -%}
+    </header>
+
+    <div class="ww-trade-application__panel">
+      {%- form 'contact', id: 'ww-trade-application-form', class: 'ww-trade-application__form', autocomplete: 'on' -%}
+        <input type="hidden" name="contact[Form]" value="Trade application">
+        <input type="hidden" name="contact[Trade application source]" value="{{ page.title | default: 'Trade application' | escape }}">
+        <input type="hidden" id="trade-application-contact-name" name="contact[name]" value="">
+        <input type="hidden" name="contact[body]" value="Trade application submitted.">
+
+        {%- if form.posted_successfully? -%}
+          <div class="ww-trade-application__success" role="status" tabindex="-1">
+            <h2>{{ section.settings.success_heading }}</h2>
+            <div>{{ section.settings.success_text }}</div>
+          </div>
+        {%- else -%}
+          {%- if form.errors -%}
+            <div class="ww-trade-application__error" role="alert">
+              {{- form.errors | default_errors -}}
+            </div>
+          {%- endif -%}
+
+          <div class="ww-trade-application__fieldset">
+            <h2>{{ section.settings.details_heading }}</h2>
+            <p class="ww-trade-application__signin">
+              {{ section.settings.sign_in_text }}
+              <a href="{{ routes.account_login_url }}">{{ section.settings.sign_in_link_text }}</a>
+            </p>
+
+            <div class="ww-trade-application__grid">
+              <div class="ww-trade-application__field">
+                <label for="trade-application-email">Email address <span aria-hidden="true">*</span></label>
+                <input id="trade-application-email" type="email" name="contact[email]" autocomplete="email" required>
+              </div>
+
+              <div class="ww-trade-application__field">
+                <label for="trade-application-first-name">First name <span aria-hidden="true">*</span></label>
+                <input id="trade-application-first-name" type="text" name="contact[First name]" autocomplete="given-name" required>
+              </div>
+
+              <div class="ww-trade-application__field">
+                <label for="trade-application-last-name">Last name <span aria-hidden="true">*</span></label>
+                <input id="trade-application-last-name" type="text" name="contact[Last name]" autocomplete="family-name" required>
+              </div>
+
+              <div class="ww-trade-application__field">
+                <label for="trade-application-phone">Phone <span aria-hidden="true">*</span></label>
+                <input id="trade-application-phone" type="tel" name="contact[Phone number]" autocomplete="tel" required>
+              </div>
+
+              <div class="ww-trade-application__field">
+                <label for="trade-application-preferred-contact">Preferred contact <span aria-hidden="true">*</span></label>
+                <select id="trade-application-preferred-contact" name="contact[Preferred contact]" autocomplete="on" required>
+                  <option value="" selected disabled></option>
+                  {%- for option in contact_options -%}
+                    {%- assign trimmed_option = option | strip -%}
+                    {%- if trimmed_option != blank -%}
+                      <option value="{{ trimmed_option | escape }}">{{ trimmed_option }}</option>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="ww-trade-application__fieldset">
+            <h2>{{ section.settings.company_heading }}</h2>
+
+            <div class="ww-trade-application__grid">
+              <div class="ww-trade-application__field">
+                <label for="trade-application-company">Company name <span aria-hidden="true">*</span></label>
+                <input id="trade-application-company" type="text" name="contact[Company name]" autocomplete="organization" required>
+              </div>
+
+              <div class="ww-trade-application__field">
+                <label for="trade-application-company-number">Company number</label>
+                <input id="trade-application-company-number" type="text" name="contact[Company number]" autocomplete="on">
+              </div>
+
+              <div class="ww-trade-application__field">
+                <label for="trade-application-website">Company website (optional)</label>
+                <input id="trade-application-website" type="url" name="contact[Company website]" autocomplete="url" inputmode="url">
+              </div>
+
+              <div class="ww-trade-application__field">
+                <label for="trade-application-profession">Business Type <span aria-hidden="true">*</span></label>
+                <select id="trade-application-profession" name="contact[Business Type]" autocomplete="on" required>
+                  <option value="" selected disabled></option>
+                  {%- for option in profession_options -%}
+                    {%- assign trimmed_option = option | strip -%}
+                    {%- if trimmed_option != blank -%}
+                      <option value="{{ trimmed_option | escape }}">{{ trimmed_option }}</option>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </select>
+              </div>
+
+              <div class="ww-trade-application__file">
+                <label for="trade-application-portfolio">Portfolio (optional)</label>
+                <input id="trade-application-portfolio" type="file" name="contact[Portfolio]" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+              </div>
+            </div>
+          </div>
+
+          <div class="ww-trade-application__fieldset">
+            <h2>{{ section.settings.address_heading }}</h2>
+
+            <div class="ww-trade-application__address">
+              <div class="ww-trade-application__field ww-trade-application__field--full">
+                <label for="trade-application-company-address">Company address <span aria-hidden="true">*</span></label>
+                <input id="trade-application-company-address" type="text" name="contact[Company address]" autocomplete="street-address" required data-address-search>
+              </div>
+
+              <div class="ww-trade-application__address-results" data-address-results hidden></div>
+
+              <button type="button" class="ww-trade-application__manual-toggle" data-manual-address-toggle>
+                {{ section.settings.manual_address_text }}
+              </button>
+
+              <div class="ww-trade-application__manual-address" data-manual-address hidden>
+                <div class="ww-trade-application__field">
+                  <label for="trade-application-country">Country <span aria-hidden="true">*</span></label>
+                  <select id="trade-application-country" name="contact[Country]" autocomplete="country-name" data-manual-required>
+                    <option value="" selected disabled></option>
+                    {%- for country in country_options -%}
+                      {%- assign trimmed_country = country | strip -%}
+                      {%- if trimmed_country != blank -%}
+                        <option value="{{ trimmed_country | escape }}">{{ trimmed_country }}</option>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </select>
+                </div>
+
+                <div class="ww-trade-application__field">
+                  <label for="trade-application-address-1">Line 1 <span aria-hidden="true">*</span></label>
+                  <input id="trade-application-address-1" type="text" name="contact[Line 1]" autocomplete="address-line1" data-manual-required>
+                </div>
+
+                <div class="ww-trade-application__field">
+                  <label for="trade-application-address-2">Line 2 (optional)</label>
+                  <input id="trade-application-address-2" type="text" name="contact[Line 2]" autocomplete="address-line2">
+                </div>
+
+                <div class="ww-trade-application__field">
+                  <label for="trade-application-city">Town/City <span aria-hidden="true">*</span></label>
+                  <input id="trade-application-city" type="text" name="contact[Town/City]" autocomplete="address-level2" data-manual-required>
+                </div>
+
+                <div class="ww-trade-application__field">
+                  <label for="trade-application-postcode">Postcode <span aria-hidden="true">*</span></label>
+                  <input id="trade-application-postcode" type="text" name="contact[Postcode]" autocomplete="postal-code" data-manual-required>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ww-trade-application__fieldset">
+            <h2>{{ section.settings.account_heading }}</h2>
+
+            <div class="ww-trade-application__account">
+              <div class="ww-trade-application__field">
+                <label for="trade-application-password">Password <span aria-hidden="true">*</span></label>
+                <input id="trade-application-password" type="password" autocomplete="new-password" required data-account-password>
+              </div>
+
+              <div class="ww-trade-application__field">
+                <label for="trade-application-confirm-password">Confirm Password <span aria-hidden="true">*</span></label>
+                <input id="trade-application-confirm-password" type="password" autocomplete="new-password" required data-account-confirm-password>
+              </div>
+
+              <div class="ww-trade-application__marketing">
+                <p>{{ section.settings.marketing_question }}</p>
+                <div class="ww-trade-application__marketing-options">
+                  <label>
+                    <input type="radio" name="contact[Marketing opt in]" value="Yes" required>
+                    <span>Yes</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="contact[Marketing opt in]" value="No" required>
+                    <span>No</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="ww-trade-application__submit">
+            {{ section.settings.submit_text }}
+          </button>
+
+          {%- if section.settings.terms_text != blank -%}
+            <div class="ww-trade-application__terms">
+              {{ section.settings.terms_text }}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} .ww-trade-application {
+    --ww-trade-text-font: "Gotham Book", var(--text-font-family, Arial, sans-serif);
+    --ww-trade-heading-font: "Gotham Book", var(--text-font-family, Arial, sans-serif);
+    --ww-trade-heading-weight: var(--heading-font-weight, 700);
+    --ww-trade-bold-weight: var(--text-font-bold-weight, 700);
+    --ww-trade-body-size: var(--base-font-size, 14px);
+    --ww-trade-field-gap: 14px;
+    --ww-trade-field-radius: 999px;
+    background: #efefef;
+    color: #000;
+    font-family: var(--ww-trade-text-font);
+    font-size: var(--ww-trade-body-size);
+    line-height: 1.65;
+    padding: 70px 0 100px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application *,
+  #shopify-section-{{ section.id }} .ww-trade-application *::before,
+  #shopify-section-{{ section.id }} .ww-trade-application *::after {
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-gutter);
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__header {
+    max-width: 760px;
+    margin: 0 auto 48px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__eyebrow {
+    margin: 0 0 14px;
+    font-family: var(--ww-trade-text-font);
+    font-size: 12px;
+    font-weight: var(--ww-trade-bold-weight);
+    line-height: 1.4;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application h1 {
+    margin: 0;
+    font-family: var(--ww-trade-heading-font);
+    font-size: 42px;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__intro {
+    max-width: 660px;
+    margin-top: 18px;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__intro p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__panel {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0;
+    background: transparent;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__fieldset + .ww-trade-application__fieldset {
+    margin-top: 54px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application h2 {
+    margin: 0 0 20px;
+    font-family: var(--ww-trade-heading-font);
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__signin {
+    margin: -4px 0 28px;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__signin a {
+    color: inherit;
+    font-weight: var(--ww-trade-bold-weight);
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__grid {
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__field {
+    position: relative;
+    display: block;
+    margin-top: var(--ww-trade-field-gap);
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__field:first-child {
+    margin-top: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__field--full {
+    grid-column: auto;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__field > label {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    z-index: 2;
+    max-width: calc(100% - 32px);
+    color: #000;
+    font-family: var(--ww-trade-text-font);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.2;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: top .16s ease, font-size .16s ease, transform .16s ease;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__field > label span {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application input:not([type="hidden"]):not([type="checkbox"]):not([type="file"]),
+  #shopify-section-{{ section.id }} .ww-trade-application select,
+  #shopify-section-{{ section.id }} .ww-trade-application textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 17px 16px 6px;
+    border: 1px solid #bdbdbd;
+    border-radius: var(--ww-trade-field-radius);
+    background: #fff;
+    color: #000;
+    font-family: var(--ww-trade-text-font);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.35;
+    box-shadow: none;
+    outline: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application select {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, #000 50%), linear-gradient(135deg, #000 50%, transparent 50%);
+    background-position: calc(100% - 24px) 50%, calc(100% - 16px) 50%;
+    background-size: 8px 8px, 8px 8px;
+    background-repeat: no-repeat;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__file {
+    margin-top: var(--ww-trade-field-gap);
+    padding: 14px 20px 18px;
+    border: 1px solid #bdbdbd;
+    border-radius: 28px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__file label {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__file input[type="file"] {
+    width: auto;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    font-size: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__address {
+    position: relative;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__address-results {
+    position: absolute;
+    top: calc(48px + var(--ww-trade-field-gap));
+    right: 0;
+    left: 0;
+    z-index: 25;
+    max-height: 272px;
+    overflow-y: auto;
+    border: 1px solid #bdbdbd;
+    border-radius: 0 0 22px 22px;
+    background: #fff;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, .16);
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__address-results[hidden] {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__address-option,
+  #shopify-section-{{ section.id }} .ww-trade-application__address-message {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    min-height: 38px;
+    padding: 8px 14px;
+    border: 0;
+    border-radius: 0;
+    background: #fff;
+    color: #000;
+    font-family: var(--ww-trade-text-font);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.35;
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__address-option {
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__address-option:hover,
+  #shopify-section-{{ section.id }} .ww-trade-application__address-option:focus-visible {
+    background: #efefef;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__address-option strong {
+    font-weight: var(--ww-trade-bold-weight);
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__address-option span:last-child {
+    color: #7d7d7d;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__manual-toggle {
+    display: block;
+    width: 100%;
+    min-height: 48px;
+    margin-top: var(--ww-trade-field-gap);
+    padding: 14px 20px;
+    border: 1px solid #bdbdbd;
+    border-radius: 999px;
+    background: #efefef;
+    color: #000;
+    font-family: var(--ww-trade-text-font);
+    font-size: 14px;
+    font-weight: var(--ww-trade-bold-weight);
+    line-height: 1.35;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__manual-toggle[hidden] {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__manual-address {
+    margin-top: var(--ww-trade-field-gap);
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__manual-address[hidden] {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application textarea {
+    min-height: 86px;
+    padding-top: 22px;
+    padding-bottom: 10px;
+    resize: vertical;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application input:not([type="hidden"]):not([type="checkbox"]):not([type="file"]):focus,
+  #shopify-section-{{ section.id }} .ww-trade-application select:focus,
+  #shopify-section-{{ section.id }} .ww-trade-application textarea:focus {
+    border-color: #000;
+    border-width: 2px;
+    position: relative;
+    z-index: 1;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__field:focus-within > label,
+  #shopify-section-{{ section.id }} .ww-trade-application__field:has(input:-webkit-autofill) > label,
+  #shopify-section-{{ section.id }} .ww-trade-application__field.ww-field-focused > label,
+  #shopify-section-{{ section.id }} .ww-trade-application__field.ww-field-filled > label {
+    top: -6px;
+    left: 14px;
+    padding: 0 4px;
+    background: #efefef;
+    font-size: 10px;
+    transform: none;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__account {
+    border: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__account .ww-trade-application__field {
+    margin-top: var(--ww-trade-field-gap);
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__account .ww-trade-application__field:first-child {
+    margin-top: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing {
+    margin-top: var(--ww-trade-field-gap);
+    padding: 14px 20px 12px;
+    border: 1px solid #bdbdbd;
+    border-radius: 28px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing p {
+    max-width: 760px;
+    margin: 0 0 16px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-options label {
+    position: relative;
+    display: inline-flex;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-options input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-options span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    min-height: 34px;
+    padding: 8px 22px;
+    border-radius: 999px;
+    background: #efefef;
+    color: #000;
+    font-family: var(--ww-trade-text-font);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-options input:checked + span,
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-options input:focus-visible + span {
+    outline: 1px solid #000;
+    outline-offset: 2px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 220px;
+    min-height: 52px;
+    margin-top: 44px;
+    padding: 15px 32px;
+    border: 1px solid #000;
+    border-radius: 999px;
+    background: #000;
+    color: #fff;
+    font-family: var(--ww-trade-text-font);
+    font-size: 12px;
+    font-weight: var(--ww-trade-bold-weight);
+    line-height: 1;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__terms {
+    max-width: 760px;
+    margin-top: 22px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__terms p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__terms a,
+  #shopify-section-{{ section.id }} .ww-trade-application__terms strong {
+    color: inherit;
+    font-weight: var(--ww-trade-bold-weight);
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__success,
+  #shopify-section-{{ section.id }} .ww-trade-application__error {
+    padding: 26px;
+    border: 1px solid #000;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__success h2 {
+    margin-bottom: 10px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__success p,
+  #shopify-section-{{ section.id }} .ww-trade-application__error p,
+  #shopify-section-{{ section.id }} .ww-trade-application__error ul {
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .ww-trade-application {
+      padding: 48px 0 68px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-application,
+    #shopify-section-{{ section.id }} .ww-trade-application p,
+    #shopify-section-{{ section.id }} .ww-trade-application span,
+    #shopify-section-{{ section.id }} .ww-trade-application a,
+    #shopify-section-{{ section.id }} .ww-trade-application button,
+    #shopify-section-{{ section.id }} .ww-trade-application input,
+    #shopify-section-{{ section.id }} .ww-trade-application select,
+    #shopify-section-{{ section.id }} .ww-trade-application textarea {
+      font-family: var(--ww-trade-text-font);
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-application h1,
+    #shopify-section-{{ section.id }} .ww-trade-application h2,
+    #shopify-section-{{ section.id }} .ww-trade-application h3 {
+      font-family: var(--ww-trade-heading-font);
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-application h1 {
+      font-size: 34px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-application__intro,
+    #shopify-section-{{ section.id }} .ww-trade-application__signin {
+      font-size: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-application h2 {
+      font-size: 26px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-application__field > label {
+      left: 14px;
+      font-size: 13px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-application input:not([type="hidden"]):not([type="checkbox"]):not([type="file"]),
+    #shopify-section-{{ section.id }} .ww-trade-application select,
+    #shopify-section-{{ section.id }} .ww-trade-application textarea {
+      min-height: 46px;
+      padding: 16px 14px 6px;
+      font-size: 12px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-application textarea {
+      min-height: 78px;
+      padding-top: 21px;
+      padding-bottom: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-application__address-results {
+      top: calc(46px + var(--ww-trade-field-gap));
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-application__submit {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    var section = document.querySelector('#shopify-section-{{ section.id }} [data-ww-trade-application]');
+    if (!section) {
+      return;
+    }
+
+    var form = section.querySelector('#ww-trade-application-form');
+    var firstName = section.querySelector('#trade-application-first-name');
+    var lastName = section.querySelector('#trade-application-last-name');
+    var contactName = section.querySelector('#trade-application-contact-name');
+    var password = section.querySelector('[data-account-password]');
+    var confirmPassword = section.querySelector('[data-account-confirm-password]');
+    var addressSearch = section.querySelector('[data-address-search]');
+    var addressResults = section.querySelector('[data-address-results]');
+    var manualAddress = section.querySelector('[data-manual-address]');
+    var manualAddressToggle = section.querySelector('[data-manual-address-toggle]');
+    var manualRequiredFields = manualAddress ? manualAddress.querySelectorAll('[data-manual-required]') : [];
+    var addressSuggestions = {{ section.settings.address_suggestions | json }}
+      .split(/\r?\n/)
+      .map(function(row) {
+        var parts = row.split('|').map(function(part) {
+          return part.trim();
+        });
+
+        return {
+          label: parts[0] || '',
+          line1: parts[1] || '',
+          line2: parts[2] || '',
+          city: parts[3] || '',
+          postcode: parts[4] || '',
+          country: parts[5] || ''
+        };
+      })
+      .filter(function(address) {
+        return address.label;
+      });
+    var addressLookupEnabled = {{ section.settings.address_lookup_enabled | json }};
+    var addressLookupEndpoint = {{ section.settings.address_lookup_endpoint | json }};
+    var addressLookupTimer = null;
+    var addressLookupController = null;
+
+    section.querySelectorAll('.ww-trade-application__field').forEach(function(field) {
+      var control = field.querySelector('input, select, textarea');
+
+      if (!control) {
+        return;
+      }
+
+      function syncFieldState() {
+        field.classList.toggle('ww-field-filled', Boolean(control.value));
+      }
+
+      control.addEventListener('focus', function() {
+        field.classList.add('ww-field-focused');
+      });
+
+      control.addEventListener('blur', function() {
+        field.classList.remove('ww-field-focused');
+        syncFieldState();
+      });
+
+      control.addEventListener('input', syncFieldState);
+      control.addEventListener('change', syncFieldState);
+      syncFieldState();
+    });
+
+    function syncControl(control) {
+      if (!control) {
+        return;
+      }
+
+      control.dispatchEvent(new Event('input', { bubbles: true }));
+      control.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    function openManualAddress() {
+      if (!manualAddress) {
+        return;
+      }
+
+      manualAddress.hidden = false;
+      if (manualAddressToggle) {
+        manualAddressToggle.hidden = true;
+      }
+      manualRequiredFields.forEach(function(field) {
+        field.required = true;
+      });
+    }
+
+    function setAddressControl(selector, value) {
+      var control = section.querySelector(selector);
+
+      if (!control || !value) {
+        return;
+      }
+
+      control.value = value;
+      syncControl(control);
+    }
+
+    function closeAddressResults() {
+      if (!addressResults) {
+        return;
+      }
+
+      addressResults.hidden = true;
+      addressResults.innerHTML = '';
+    }
+
+    function normalizeAddressText(value) {
+      return String(value || '').trim().toLowerCase();
+    }
+
+    function fillAddress(address) {
+      if (!address || !address.label) {
+        return;
+      }
+
+      if (addressSearch) {
+        addressSearch.value = address.label;
+        syncControl(addressSearch);
+      }
+
+      openManualAddress();
+      setAddressControl('#trade-application-address-1', address.line1);
+      setAddressControl('#trade-application-address-2', address.line2);
+      setAddressControl('#trade-application-city', address.city);
+      setAddressControl('#trade-application-postcode', address.postcode);
+      setAddressControl('#trade-application-country', address.country || 'United Kingdom');
+      closeAddressResults();
+    }
+
+    function createAddressResult(address) {
+      var button = document.createElement('button');
+      var primary = document.createElement('strong');
+      var secondary = document.createElement('span');
+
+      button.type = 'button';
+      button.className = 'ww-trade-application__address-option';
+      primary.textContent = address.primary || address.line1 || address.label;
+      secondary.textContent = address.secondary || [address.city, address.postcode].filter(Boolean).join(', ');
+      button.appendChild(primary);
+
+      if (secondary.textContent) {
+        button.appendChild(secondary);
+      }
+
+      button.addEventListener('click', function() {
+        fillAddress(address);
+      });
+
+      return button;
+    }
+
+    function renderAddressResults(addresses, message) {
+      if (!addressResults) {
+        return;
+      }
+
+      addressResults.innerHTML = '';
+
+      if (message) {
+        var messageElement = document.createElement('div');
+        messageElement.className = 'ww-trade-application__address-message';
+        messageElement.textContent = message;
+        addressResults.appendChild(messageElement);
+        addressResults.hidden = false;
+        return;
+      }
+
+      if (!addresses.length) {
+        closeAddressResults();
+        return;
+      }
+
+      addresses.slice(0, 7).forEach(function(address) {
+        addressResults.appendChild(createAddressResult(address));
+      });
+      addressResults.hidden = false;
+    }
+
+    function getLocalAddressResults(query) {
+      var normalizedQuery = normalizeAddressText(query);
+
+      if (!normalizedQuery) {
+        return [];
+      }
+
+      return addressSuggestions.filter(function(address) {
+        return normalizeAddressText(address.label).indexOf(normalizedQuery) !== -1;
+      });
+    }
+
+    function mapLookupAddress(item) {
+      var address = item.address || {};
+      var houseNumber = address.house_number || '';
+      var road = address.road || address.pedestrian || address.footway || address.path || address.neighbourhood || '';
+      var line1 = [houseNumber, road].filter(Boolean).join(' ') || item.name || item.display_name || '';
+      var city = address.city || address.town || address.village || address.hamlet || address.county || '';
+      var postcode = address.postcode || '';
+      var country = address.country || 'United Kingdom';
+      var label = item.display_name || [line1, city, postcode].filter(Boolean).join(', ');
+
+      return {
+        label: label,
+        primary: line1,
+        secondary: [city, postcode].filter(Boolean).join(', '),
+        line1: line1,
+        line2: '',
+        city: city,
+        postcode: postcode,
+        country: country
+      };
+    }
+
+    function fetchAddressResults(query) {
+      var localResults = getLocalAddressResults(query);
+
+      if (!addressLookupEnabled || !addressLookupEndpoint || query.trim().length < 3) {
+        renderAddressResults(localResults);
+        return;
+      }
+
+      if (addressLookupController) {
+        addressLookupController.abort();
+      }
+
+      addressLookupController = new AbortController();
+
+      fetch(addressLookupEndpoint + encodeURIComponent(query.trim()), {
+        method: 'GET',
+        signal: addressLookupController.signal,
+        headers: {
+          Accept: 'application/json'
+        }
+      })
+        .then(function(response) {
+          if (!response.ok) {
+            throw new Error('Address lookup failed');
+          }
+
+          return response.json();
+        })
+        .then(function(data) {
+          var remoteResults = Array.isArray(data)
+            ? data.map(mapLookupAddress)
+            : [];
+
+          renderAddressResults(remoteResults.length ? remoteResults : localResults);
+        })
+        .catch(function(error) {
+          if (error.name === 'AbortError') {
+          return;
+        }
+
+          renderAddressResults(localResults);
+        });
+    }
+
+    if (manualAddressToggle) {
+      manualAddressToggle.addEventListener('click', openManualAddress);
+    }
+
+    if (addressSearch) {
+      function handleAddressInput() {
+        var query = addressSearch.value.trim();
+        var selectedAddress = addressSuggestions.find(function(address) {
+          return normalizeAddressText(address.label) === normalizeAddressText(query);
+        });
+
+        window.clearTimeout(addressLookupTimer);
+
+        if (selectedAddress) {
+          fillAddress(selectedAddress);
+          return;
+        }
+
+        if (query.length < 2) {
+          closeAddressResults();
+          return;
+        }
+
+        addressLookupTimer = window.setTimeout(function() {
+          fetchAddressResults(query);
+        }, 250);
+      }
+
+      addressSearch.addEventListener('input', handleAddressInput);
+      addressSearch.addEventListener('focus', handleAddressInput);
+    }
+
+    function validatePasswords() {
+      if (!password || !confirmPassword) {
+        return;
+      }
+
+      confirmPassword.setCustomValidity(
+        password.value && confirmPassword.value && password.value !== confirmPassword.value
+          ? 'Passwords do not match.'
+          : ''
+      );
+    }
+
+    if (password && confirmPassword) {
+      password.addEventListener('input', validatePasswords);
+      confirmPassword.addEventListener('input', validatePasswords);
+    }
+
+    document.addEventListener('click', function(event) {
+      if (addressResults && addressSearch && !addressResults.contains(event.target) && event.target !== addressSearch) {
+        closeAddressResults();
+      }
+    });
+
+    if (!form || !firstName || !lastName || !contactName) {
+      return;
+    }
+
+    form.addEventListener('submit', function() {
+      validatePasswords();
+      contactName.value = [firstName.value, lastName.value].filter(Boolean).join(' ').trim();
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Trade application form",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "William Wood Trade"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Trade application"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Intro text",
+      "default": "<p>Complete the form below and our trade team will review your application before coming back to you.</p>"
+    },
+    {
+      "type": "text",
+      "id": "details_heading",
+      "label": "Details heading",
+      "default": "Your details"
+    },
+    {
+      "type": "text",
+      "id": "sign_in_text",
+      "label": "Sign in text",
+      "default": "Purchased with us before?"
+    },
+    {
+      "type": "text",
+      "id": "sign_in_link_text",
+      "label": "Sign in link text",
+      "default": "Sign In"
+    },
+    {
+      "type": "text",
+      "id": "company_heading",
+      "label": "Company heading",
+      "default": "Company"
+    },
+    {
+      "type": "text",
+      "id": "address_heading",
+      "label": "Address heading",
+      "default": "Address"
+    },
+    {
+      "type": "text",
+      "id": "manual_address_text",
+      "label": "Manual address button text",
+      "default": "Enter address manually"
+    },
+    {
+      "type": "checkbox",
+      "id": "address_lookup_enabled",
+      "label": "Enable live address lookup",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "address_lookup_endpoint",
+      "label": "Address lookup endpoint",
+      "info": "The search term is appended to this URL.",
+      "default": "https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=7&countrycodes=gb&q="
+    },
+    {
+      "type": "text",
+      "id": "account_heading",
+      "label": "Account heading",
+      "default": "Account"
+    },
+    {
+      "type": "textarea",
+      "id": "profession_options",
+      "label": "Business type options",
+      "default": "Sole Trader, Ltd Company"
+    },
+    {
+      "type": "textarea",
+      "id": "contact_options",
+      "label": "Preferred contact options",
+      "default": "Email, Phone"
+    },
+    {
+      "type": "textarea",
+      "id": "country_options",
+      "label": "Country options",
+      "default": "United Kingdom, United States, Afghanistan, Albania, Algeria, American Samoa, Andorra, Angola, Anguilla, Antarctica, Antigua and Barbuda, Argentina, Armenia, Aruba, Australia, Austria, Belgium, Brazil, Canada, China, Denmark, France, Germany, Ireland, Italy, Netherlands, New Zealand, Norway, Portugal, Spain, Sweden, Switzerland, United Arab Emirates, Other"
+    },
+    {
+      "type": "textarea",
+      "id": "address_suggestions",
+      "label": "Address suggestions",
+      "info": "One address per line. Format: Search label | Line 1 | Line 2 | Town/City | Postcode | Country",
+      "default": "51, 51 Exmouth Market London, EC1R 4QL | 51 Exmouth Market |  | London | EC1R 4QL | United Kingdom\n5/1, Cunningham Street Dundee, DD4 6QR | 5/1 Cunningham Street |  | Dundee | DD4 6QR | United Kingdom\n5/1, Niddry Street Edinburgh, EH1 1LG | 5/1 Niddry Street |  | Edinburgh | EH1 1LG | United Kingdom\n5/1, Blackfriars Street Edinburgh, EH1 1NB | 5/1 Blackfriars Street |  | Edinburgh | EH1 1NB | United Kingdom\n5/1, Old Fishmarket Close Edinburgh, EH1 1AE | 5/1 Old Fishmarket Close |  | Edinburgh | EH1 1AE | United Kingdom\n5/1, Victoria Street Edinburgh, EH1 2HE | 5/1 Victoria Street |  | Edinburgh | EH1 2HE | United Kingdom\n5/1, Brown's Place Edinburgh, EH1 2HX | 5/1 Brown's Place |  | Edinburgh | EH1 2HX | United Kingdom"
+    },
+    {
+      "type": "textarea",
+      "id": "marketing_question",
+      "label": "Marketing question",
+      "default": "Are you happy to receive exclusive trade newsletters, invites to trade events, marketing communications, exclusive offers by email"
+    },
+    {
+      "type": "text",
+      "id": "submit_text",
+      "label": "Submit button text",
+      "default": "Submit"
+    },
+    {
+      "type": "richtext",
+      "id": "terms_text",
+      "label": "Terms text",
+      "default": "<p>By creating our account you agree to our <strong>Terms &amp; Conditions</strong> and <strong>Privacy Policy</strong></p>"
+    },
+    {
+      "type": "text",
+      "id": "success_heading",
+      "label": "Success heading",
+      "default": "Trade account application created"
+    },
+    {
+      "type": "richtext",
+      "id": "success_text",
+      "label": "Success text",
+      "default": "<p>Thank you. Your trade account application has been created. Our team will review your details and come back to you later.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trade application form"
+    }
+  ]
+}
+{% endschema %}
