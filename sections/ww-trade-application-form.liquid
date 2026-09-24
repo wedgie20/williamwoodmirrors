@@ -189,15 +189,11 @@
               </div>
 
               <div class="ww-trade-application__marketing">
-                <p>{{ section.settings.marketing_question }}</p>
                 <div class="ww-trade-application__marketing-options">
-                  <label>
-                    <input type="radio" name="contact[Marketing opt in]" value="Yes" required>
-                    <span>Yes</span>
-                  </label>
-                  <label>
-                    <input type="radio" name="contact[Marketing opt in]" value="No" required>
-                    <span>No</span>
+                  <label class="ww-trade-application__marketing-checkbox">
+                    <input type="checkbox" name="contact[Marketing opt in]" value="Yes" checked>
+                    <span class="ww-trade-application__marketing-box" aria-hidden="true"></span>
+                    <span class="ww-trade-application__marketing-label">{{ section.settings.marketing_question }}</span>
                   </label>
                 </div>
               </div>
@@ -535,56 +531,72 @@
 
   #shopify-section-{{ section.id }} .ww-trade-application__marketing {
     margin-top: var(--ww-trade-field-gap);
-    padding: 14px 20px 12px;
+    padding: 18px 20px;
     border: 1px solid #bdbdbd;
     border-radius: 28px;
     background: #fff;
   }
 
-  #shopify-section-{{ section.id }} .ww-trade-application__marketing p {
-    max-width: 760px;
-    margin: 0 0 16px;
-    font-size: 14px;
-    line-height: 1.45;
-  }
-
   #shopify-section-{{ section.id }} .ww-trade-application__marketing-options {
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
   }
 
-  #shopify-section-{{ section.id }} .ww-trade-application__marketing-options label {
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-checkbox {
     position: relative;
     display: inline-flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
   }
 
-  #shopify-section-{{ section.id }} .ww-trade-application__marketing-options input {
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-checkbox input {
     position: absolute;
     width: 1px;
     height: 1px;
     opacity: 0;
   }
 
-  #shopify-section-{{ section.id }} .ww-trade-application__marketing-options span {
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-box {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 64px;
-    min-height: 34px;
-    padding: 8px 22px;
-    border-radius: 999px;
-    background: #efefef;
-    color: #000;
+    width: 20px;
+    height: 20px;
+    flex: 0 0 20px;
+    margin-top: 2px;
+    border: 1px solid #000;
+    border-radius: 3px;
+    background: #fff;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-box::after {
+    content: "";
+    width: 10px;
+    height: 6px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    opacity: 0;
+    transform: translateY(-1px) rotate(-45deg);
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-label {
+    max-width: 760px;
+    color: #111;
     font-family: var(--ww-trade-text-font);
     font-size: 14px;
     font-weight: 400;
-    line-height: 1;
-    cursor: pointer;
+    line-height: 1.45;
   }
 
-  #shopify-section-{{ section.id }} .ww-trade-application__marketing-options input:checked + span,
-  #shopify-section-{{ section.id }} .ww-trade-application__marketing-options input:focus-visible + span {
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-checkbox input:checked + .ww-trade-application__marketing-box {
+    background: #000;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-checkbox input:checked + .ww-trade-application__marketing-box::after {
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__marketing-checkbox input:focus-visible + .ww-trade-application__marketing-box {
     outline: 1px solid #000;
     outline-offset: 2px;
   }
