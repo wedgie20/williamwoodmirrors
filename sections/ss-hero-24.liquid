@@ -951,14 +951,14 @@
   .hero-mobile-search-form-{{ section.id }} {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
     width: 100%;
-    height: 62px;
-    padding: 0 24px;
+    height: 52px;
+    padding: 0 18px;
     border-radius: 999px;
-    background: rgba(232, 229, 222, 0.68);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    background: rgba(226, 216, 202, 0.62);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     box-shadow: none;
   }
 
@@ -969,16 +969,16 @@
     border: 0;
     padding: 0;
     background: transparent;
-    color: #ffffff;
+    color: rgba(90, 78, 66, 0.86);
     font-family: inherit;
-    font-size: 24px;
+    font-size: 15px;
     font-weight: 400;
     line-height: 1.2;
     outline: none;
   }
 
   .hero-mobile-search-input-{{ section.id }}::placeholder {
-    color: #ffffff;
+    color: rgba(90, 78, 66, 0.72);
     opacity: 1;
   }
 
@@ -986,20 +986,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
-    flex: 0 0 36px;
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
     border: 0;
     background: transparent;
-    color: #ffffff;
+    color: rgba(255, 255, 255, 0.9);
     cursor: pointer;
     padding: 0;
   }
 
   .hero-mobile-search-submit-{{ section.id }} svg {
     display: block;
-    width: 34px;
-    height: 34px;
+    width: 22px;
+    height: 22px;
   }
 
   .hero-shop-scene-btn-wrap-{{ section.id }} {
@@ -1345,7 +1345,7 @@
       transform: translateX(-50%);
       z-index: 10;
       display: block;
-      width: calc(100vw - 48px);
+      width: min(384px, calc(100vw - 48px));
     }
 
     .hero-shop-scene-btn-wrap-{{ section.id }} {
@@ -3029,8 +3029,8 @@
         class="hero-mobile-search-input-{{ section.id }}"
         type="search"
         name="q"
-        placeholder="What are you looking for?"
-        aria-label="What are you looking for?"
+        placeholder="Search for a product..."
+        aria-label="Search for a product"
         autocomplete="off"
       >
     </form>
