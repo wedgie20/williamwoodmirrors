@@ -164,9 +164,9 @@
 <section class="collection-banner">
   <div class="collection-banner__image-wrapper">
     {%- if section.settings.image != blank -%}
-      <img
-        class="collection-banner__image collection-banner__image--desktop"
-        src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.image | image_url: width: 2000 }}"
+      <img 
+        class="collection-banner__image collection-banner__image--desktop" 
+        src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.image | image_url: width: 2000 }}" 
         alt="{{ section.settings.title | escape }}"
         loading="eager"
         width="{{ section.settings.image.width }}"
@@ -177,18 +177,18 @@
     {%- endif -%}
 
     {%- if section.settings.mobile_image != blank -%}
-      <img
-        class="collection-banner__image collection-banner__image--mobile"
-        src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.mobile_image | image_url: width: 1000 }}"
+      <img 
+        class="collection-banner__image collection-banner__image--mobile" 
+        src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.mobile_image | image_url: width: 1000 }}" 
         alt="{{ section.settings.title | escape }}"
         loading="eager"
         width="{{ section.settings.mobile_image.width }}"
         height="{{ section.settings.mobile_image.height }}"
       >
     {%- elsif section.settings.image != blank -%}
-      <img
-        class="collection-banner__image collection-banner__image--mobile"
-        src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.image | image_url: width: 1000 }}"
+      <img 
+        class="collection-banner__image collection-banner__image--mobile" 
+        src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.image | image_url: width: 1000 }}" 
         alt="{{ section.settings.title | escape }}"
         loading="eager"
       >
