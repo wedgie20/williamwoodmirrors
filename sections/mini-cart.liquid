@@ -115,23 +115,57 @@
       -%}
 
       {%- unless ww_trade_is_customer -%}
-      <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large ww-free-gift-bar" style="--progress: {{ free_gift_progress }}">
-        {%- if free_gift_claimed -%}
-          <div class="shipping-bar__text"><span style="color: green;">Free Gift successfully claimed</span>, courtesy of William Wood.</div>
-        {%- elsif cart.items_subtotal_price >= threshold_in_cents -%}
-          <div class="shipping-bar__text"><span style="color: green;">Free Gift Unlocked.</span> Please select your Free Gift of choice <a href="{{ free_gift_collection.url | default: '/collections/free-gift' }}?utm_source=mc" data-free-gift-trigger><u>here</u></a></div>
-        {%- else -%}
-          {%- assign remaining_amount = threshold_in_cents | minus: cart.items_subtotal_price | money -%}
-          <div class="shipping-bar__text">You are <b>{{ remaining_amount }}</b> away from receiving a Free Gift with your purchase worth up to <b>{%- if cart.currency.iso_code == 'GBP' -%}£99 GBP{% else %}€149,95{% endif %}</b></div>
-        {%- endif -%}
+      {%- comment -%}
+  Milestones (cart values are in pence/cents)
+  Set shipping_threshold_in_cents per currency if you sell in EUR too.
+{%- endcomment -%}
+{%- assign shipping_threshold_in_cents = 19900 -%}
+{%- if cart.currency.iso_code != 'GBP' -%}
+  {%- assign shipping_threshold_in_cents = 23900 -%} {%- comment -%} adjust EUR value {%- endcomment -%}
+{%- endif -%}
 
-        <div class="cart-milestones-bar_Cart">
-          <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'free-gift' %}</span><p>FREE</p>
-        </div>
+{%- assign subtotal = cart.items_subtotal_price -%}
+{%- assign shipping_unlocked = false -%}
+{%- if subtotal >= shipping_threshold_in_cents -%}{%- assign shipping_unlocked = true -%}{%- endif -%}
+{%- assign shipping_marker_pos = shipping_threshold_in_cents | times: 100.0 | divided_by: threshold_in_cents -%}
 
-        <span class="shipping-bar__progress imhere"></span>
-        <div class="shipping_threshold">{{ threshold_in_cents | money }}</div>
-      </free-shipping-bar>
+<free-shipping-bar
+  threshold="{{ threshold_in_cents }}"
+  shipping-threshold="{{ shipping_threshold_in_cents }}"
+  class="shipping-bar shipping-bar--large ww-free-gift-bar"
+  style="--progress: {{ free_gift_progress }}; --shipping-marker: {{ shipping_marker_pos | round: 2 }}%">
+
+  {%- if free_gift_claimed -%}
+    <div class="shipping-bar__text"><span style="color: green;">Free Gift successfully claimed</span>, courtesy of William Wood.</div>
+
+  {%- elsif subtotal >= threshold_in_cents -%}
+    <div class="shipping-bar__text"><span style="color: green;">Free Shipping &amp; Free Gift Unlocked.</span> Please select your Free Gift of choice <a href="{{ free_gift_collection.url | default: '/collections/free-gift' }}?utm_source=mc" data-free-gift-trigger><u>here</u></a></div>
+
+  {%- elsif shipping_unlocked -%}
+    {%- assign remaining_amount = threshold_in_cents | minus: subtotal | money -%}
+    <div class="shipping-bar__text"><span style="color: green;">Free Shipping Unlocked!</span> You are <b>{{ remaining_amount }}</b> away from a Free Gift worth up to <b>{%- if cart.currency.iso_code == 'GBP' -%}£99 GBP{% else %}€149,95{% endif %}</b></div>
+
+  {%- else -%}
+    {%- assign remaining_shipping = shipping_threshold_in_cents | minus: subtotal | money -%}
+    <div class="shipping-bar__text">You are <b>{{ remaining_shipping }}</b> away from <b>Free Shipping</b>, then a Free Gift worth up to <b>{%- if cart.currency.iso_code == 'GBP' -%}£99 GBP{% else %}€149,95{% endif %}</b></div>
+  {%- endif -%}
+
+  <div class="cart-milestones-bar_Cart">
+    <span class="milestone milestone--shipping {% if shipping_unlocked %}is-reached{% endif %}"
+          style="left: var(--shipping-marker);">
+      <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'icon-truck' %}</span>
+      <p>FREE SHIPPING</p>
+    </span>
+    <span class="milestone milestone--gift {% if subtotal >= threshold_in_cents %}is-reached{% endif %}">
+      <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'free-gift' %}</span>
+      <p>FREE</p>
+    </span>
+  </div>
+
+  <span class="shipping-bar__progress imhere"></span>
+  <div class="shipping_threshold shipping_threshold--shipping" style="left: var(--shipping-marker);">{{ shipping_threshold_in_cents | money }}</div>
+  <div class="shipping_threshold">{{ threshold_in_cents | money }}</div>
+</free-shipping-bar>
       {%- endunless -%}
 
       <form id="mini-cart-form" action="{{ routes.cart_url }}" novalidate method="post">
