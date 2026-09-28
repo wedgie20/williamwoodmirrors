@@ -45,6 +45,14 @@
   assign content_vertical_align = section.settings.content_vertical_align
   assign content_vertical_align_mobile = section.settings.content_vertical_align_mobile
 
+  if layout_mode != 'slideshow'
+    assign content_max_width = section.settings.slide_content_max_width_1 | default: content_max_width
+    assign content_align = section.settings.slide_content_align_1 | default: content_align
+    assign content_align_mobile = section.settings.slide_content_align_mobile_1 | default: content_align_mobile
+    assign content_vertical_align = section.settings.slide_content_vertical_align_1 | default: content_vertical_align
+    assign content_vertical_align_mobile = section.settings.slide_content_vertical_align_mobile_1 | default: content_vertical_align_mobile
+  endif
+
   assign loading_attribute = 'eager'
   if lazy
     assign loading_attribute = 'lazy'
@@ -119,14 +127,24 @@
   .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] .hero-text-text_nxnfh,
   .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] .hero-text-text_nxnfh * {
     color: #ffffff !important;
-    text-align: center !important;
+    text-align: var(--slide-text-align-mobile, center) !important;
     text-transform: uppercase;
     letter-spacing: 0.02em;
   }
 
+  @media (min-width: 1024px) {
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] .hero-heading-heading_EW8kY,
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] .hero-heading-heading_EW8kY *,
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] .hero-heading-heading_djHVr,
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] .hero-heading-heading_djHVr *,
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] .hero-text-text_nxnfh,
+    .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] .hero-text-text_nxnfh * {
+      text-align: var(--slide-text-align, var(--slide-text-align-mobile, center)) !important;
+    }
+  }
+
   .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] .hero-heading-heading_EW8kY * {
     font-family: GothamBlack, "Gotham Book", var(--font-body-family, sans-serif) !important;
-    font-size: clamp(20px, 1.7vw, 28px) !important;
     line-height: 1 !important;
     font-weight: 700 !important;
     white-space: nowrap;
@@ -134,7 +152,6 @@
 
   .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] .hero-heading-heading_djHVr * {
     font-family: GothamBlack, "Gotham Book", var(--font-body-family, sans-serif) !important;
-    font-size: clamp(38px, 3.6vw, 56px) !important;
     line-height: 0.92 !important;
     font-weight: 700 !important;
     white-space: nowrap;
@@ -507,13 +524,11 @@
     }
 
     .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] .hero-heading-heading_EW8kY * {
-      font-size: clamp(16px, 5vw, 21px) !important;
       line-height: 1 !important;
       white-space: nowrap;
     }
 
     .hero-slide-content-{{ section.id }}[data-slide-content-index="1"] .hero-heading-heading_djHVr * {
-      font-size: clamp(30px, 8.8vw, 38px) !important;
       line-height: 0.95 !important;
       white-space: nowrap;
     }
