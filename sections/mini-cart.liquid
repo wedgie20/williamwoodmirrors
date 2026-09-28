@@ -2,9 +2,9 @@
 
 
 {%- if current_path contains '/en-fr' or current_path contains '/en-de' or current_path contains '/en-nl'-%}
-  {%- assign free_shipping_calculated_threshold = 34900 -%}
+  {%- assign free_shipping_calculated_threshold = 49900 -%}
 {%- else -%}
-  {%- assign free_shipping_calculated_threshold = 34900 -%}
+  {%- assign free_shipping_calculated_threshold = 49900 -%}
 {%- endif -%}
 
 {%- assign threshold_in_cents = free_shipping_calculated_threshold -%}
@@ -104,9 +104,18 @@
         assign free_gift_collection = collections['free-gift']
         assign free_gift_products_count = free_gift_collection.products.size
         assign free_gift_progress = cart.items_subtotal_price | times: 1.0 | divided_by: threshold_in_cents | at_most: 1
+
+        assign ww_trade_is_customer = false
+        if customer
+          assign ww_trade_tags = customer.tags | join: ',' | downcase
+          if customer.metafields.trade.is_trade_customer.value == true or customer.metafields.trade.discount_percentage.value > 0 or ww_trade_tags contains 'trade'
+            assign ww_trade_is_customer = true
+          endif
+        endif
       -%}
 
-      {% comment %} <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large ww-free-gift-bar" style="--progress: {{ free_gift_progress }}">
+      {%- unless ww_trade_is_customer -%}
+      <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large ww-free-gift-bar" style="--progress: {{ free_gift_progress }}">
         {%- if free_gift_claimed -%}
           <div class="shipping-bar__text"><span style="color: green;">Free Gift successfully claimed</span>, courtesy of William Wood.</div>
         {%- elsif cart.items_subtotal_price >= threshold_in_cents -%}
@@ -122,43 +131,8 @@
 
         <span class="shipping-bar__progress imhere"></span>
         <div class="shipping_threshold">{{ threshold_in_cents | money }}</div>
-      </free-shipping-bar> {% endcomment %}
-
-      <aside class="ww-free-gift-drawer" data-free-gift-drawer data-ww-promo-suppressible aria-hidden="true">
-        <div class="ww-free-gift-drawer__header">
-          <p>SELECT YOUR FREE GIFT ({{ free_gift_products_count }})</p>
-          <button type="button" class="ww-free-gift-drawer__close" data-free-gift-close aria-label="Close free gift selector">
-            {%- render 'icon' with 'close' -%}
-          </button>
-        </div>
-
-        <div class="ww-free-gift-drawer__grid">
-          {%- for gift_product in free_gift_collection.products -%}
-            {%- assign gift_variant = gift_product.selected_or_first_available_variant -%}
-            <article class="ww-free-gift-card">
-              <a class="ww-free-gift-card__image" href="{{ gift_product.url }}">
-                {%- if gift_product.featured_media -%}
-                  <img loading="lazy" {% render 'image-attributes', image: gift_product.featured_media.preview_image, sizes: '240,320,480,640' %}>
-                {%- endif -%}
-              </a>
-              <div class="ww-free-gift-card__body">
-                <a class="ww-free-gift-card__title" href="{{ gift_product.url }}">{{ gift_product.title }}</a>
-                <p class="ww-free-gift-card__price">{% render 'format-money', amount: gift_product.price %}</p>
-                {%- if gift_variant and gift_variant.available -%}
-                  <form action="{{ routes.cart_add_url }}" method="post" class="ww-free-gift-card__form" data-free-gift-form>
-                    <input type="hidden" name="id" value="{{ gift_variant.id }}">
-                    <input type="hidden" name="quantity" value="1">
-                    <button type="submit">ADD TO CART</button>
-                  </form>
-                {%- else -%}
-                  <button type="button" class="ww-free-gift-card__sold-out" disabled>SOLD OUT</button>
-                {%- endif -%}
-                <a class="ww-free-gift-card__details" href="{{ gift_product.url }}">View details →</a>
-              </div>
-            </article>
-          {%- endfor -%}
-        </div>
-      </aside>
+      </free-shipping-bar>
+      {%- endunless -%}
 
       <form id="mini-cart-form" action="{{ routes.cart_url }}" novalidate method="post">
         <input type="hidden" name="checkout">
@@ -502,6 +476,50 @@
 
       {%- render 'ww-ctl-cart' -%}
     </div>
+
+    {%- comment -%}
+      This lives outside .drawer__content (overflow-x: hidden) on purpose: #mini-cart carries
+      `transform` at all times, which makes it the containing block for `position: fixed`
+      descendants. If this stayed inside .drawer__content, its overflow-x: hidden would clip
+      the drawer the moment it's positioned alongside (to the left of) the mini-cart on desktop.
+    {%- endcomment -%}
+    {%- unless ww_trade_is_customer -%}
+      <aside class="ww-free-gift-drawer" data-free-gift-drawer data-ww-promo-suppressible aria-hidden="true">
+        <div class="ww-free-gift-drawer__header">
+          <p>SELECT YOUR FREE GIFT ({{ free_gift_products_count }})</p>
+          <button type="button" class="ww-free-gift-drawer__close" data-free-gift-close aria-label="Close free gift selector">
+            {%- render 'icon' with 'close' -%}
+          </button>
+        </div>
+
+        <div class="ww-free-gift-drawer__grid">
+          {%- for gift_product in free_gift_collection.products -%}
+            {%- assign gift_variant = gift_product.selected_or_first_available_variant -%}
+            <article class="ww-free-gift-card">
+              <a class="ww-free-gift-card__image" href="{{ gift_product.url }}">
+                {%- if gift_product.featured_media -%}
+                  <img loading="lazy" {% render 'image-attributes', image: gift_product.featured_media.preview_image, sizes: '240,320,480,640' %}>
+                {%- endif -%}
+              </a>
+              <div class="ww-free-gift-card__body">
+                <a class="ww-free-gift-card__title" href="{{ gift_product.url }}">{{ gift_product.title }}</a>
+                <p class="ww-free-gift-card__price">{% render 'format-money', amount: gift_product.price %}</p>
+                {%- if gift_variant and gift_variant.available -%}
+                  <form action="{{ routes.cart_add_url }}" method="post" class="ww-free-gift-card__form" data-free-gift-form>
+                    <input type="hidden" name="id" value="{{ gift_variant.id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit">ADD TO CART</button>
+                  </form>
+                {%- else -%}
+                  <button type="button" class="ww-free-gift-card__sold-out" disabled>SOLD OUT</button>
+                {%- endif -%}
+                <a class="ww-free-gift-card__details" href="{{ gift_product.url }}">View details →</a>
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+      </aside>
+    {%- endunless -%}
 
     <footer class="mini-cart__drawer-footer drawer__footer drawer__footer--tight drawer__footer--bordered">
       {%- capture shipping_tax_note -%}{{ 'cart.general.shipping_tax_note' | t }}{%- endcapture -%}
@@ -1133,13 +1151,31 @@ display: none;}
   height: 100vh;
   background: #fff;
   transform: translateX(100%);
-  transition: transform 0.28s ease;
+  transition: transform 1s cubic-bezier(0.75, 0, 0.175, 1);
   overflow-y: auto;
   box-shadow: -12px 0 32px rgba(0, 0, 0, 0.14);
 }
 
 .ww-free-gift-drawer.is-open {
   transform: translateX(0);
+}
+
+@media (min-width: 741px) {
+  /*
+    `right` stays 0 here on purpose - the closed state's translateX(100%) shifts the
+    drawer off-screen relative to wherever `right` puts it, so changing `right` itself
+    would also move the CLOSED position and could land it back on top of the mini-cart
+    (that's what happened before this comment existed). Instead, only the OPEN state
+    is shifted further left, by the mini-cart's real measured width, so the closed/
+    hidden position is untouched and this drawer stays off-screen until opened.
+    --ww-free-gift-offset is set inline (px) by the open handler below, measured from
+    #mini-cart's actual rendered width at click time; 500px is the fallback, matching
+    .drawer--large's max-width.
+  */
+  .ww-free-gift-drawer.is-open {
+    transform: translateX(calc(-1 * var(--ww-free-gift-offset, 500px)));
+    box-shadow: -12px 0 32px rgba(0, 0, 0, 0.14), 12px 0 32px rgba(0, 0, 0, 0.08);
+  }
 }
 
 .ww-free-gift-drawer__header {
@@ -1298,6 +1334,20 @@ if (!window.__wwFreeGiftDrawerInit) {
 
       if (drawer) {
         event.preventDefault();
+
+        if (window.innerWidth >= 741) {
+          const miniCart = document.getElementById('mini-cart');
+          const miniCartWidth = miniCart ? miniCart.getBoundingClientRect().width : 0;
+
+          if (miniCartWidth > 0) {
+            drawer.style.setProperty('--ww-free-gift-offset', miniCartWidth + 'px');
+          } else {
+            drawer.style.removeProperty('--ww-free-gift-offset');
+          }
+        } else {
+          drawer.style.removeProperty('--ww-free-gift-offset');
+        }
+
         drawer.classList.add('is-open');
         drawer.setAttribute('aria-hidden', 'false');
       }
