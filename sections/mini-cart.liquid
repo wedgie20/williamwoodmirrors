@@ -1162,15 +1162,18 @@ display: none;}
 
 @media (min-width: 741px) {
   /*
-    --ww-free-gift-offset is set inline (in px) by the open handler below, measured
-    from #mini-cart's actual rendered width at click time. That avoids relying on
-    #mini-cart's own `transform` (present whether open or closed) possibly changing
-    the containing block for this fixed-position drawer in ways that are hard to
-    predict across browsers - measuring the real box is deterministic either way.
-    The 500px fallback matches .drawer--large's max-width if the variable isn't set.
+    `right` stays 0 here on purpose - the closed state's translateX(100%) shifts the
+    drawer off-screen relative to wherever `right` puts it, so changing `right` itself
+    would also move the CLOSED position and could land it back on top of the mini-cart
+    (that's what happened before this comment existed). Instead, only the OPEN state
+    is shifted further left, by the mini-cart's real measured width, so the closed/
+    hidden position is untouched and this drawer stays off-screen until opened.
+    --ww-free-gift-offset is set inline (px) by the open handler below, measured from
+    #mini-cart's actual rendered width at click time; 500px is the fallback, matching
+    .drawer--large's max-width.
   */
-  .ww-free-gift-drawer {
-    right: var(--ww-free-gift-offset, 500px);
+  .ww-free-gift-drawer.is-open {
+    transform: translateX(calc(-1 * var(--ww-free-gift-offset, 500px)));
     box-shadow: -12px 0 32px rgba(0, 0, 0, 0.14), 12px 0 32px rgba(0, 0, 0, 0.08);
   }
 }
