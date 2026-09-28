@@ -659,7 +659,7 @@
         </div>
       {%- endform -%}
 
-      <div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ current_variant.price }}">
+      {% comment %} <div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ current_variant.price }}">
         <p>Pay in <span data-ww-paypal-count>3</span> interest-free payments of <span data-ww-paypal-amount>{{ payment_amount | money }}</span> with <strong class="ww-pdp__paypal">PayPal</strong> <a href="/pages/payment">Learn More</a></p>
         <p>
           Pay in
@@ -672,7 +672,261 @@
           </select>
           interest-free payments of <span data-ww-klarna-amount>{{ payment_amount | money }}</span> with <strong>Klarna.</strong> <a href="/pages/payment">Learn More</a>
         </p>
-      </div>
+      </div> {% endcomment %}
+
+      {%- assign effective_price = current_variant.price -%}
+
+
+<div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ effective_price }}">
+
+  <style>
+    .ww-pdp__payments .klarna-logo, .ww-pdp__payments .clear-pay{
+      position: relative;
+      height: 20px !important;
+      display: inline;
+      top: -3px;
+      margin: 0 auto;
+
+    }
+
+    .ww-pdp__payments .DB-logo {
+      position: relative;
+      {% comment %} top: 2.5px; {% endcomment %}
+      height: 20px !important;
+    }
+    .ww-pdp__payments .disclaimer {
+      color: grey;
+      font-size: 0.8em;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .ww-pdp__payments .clear-pay {
+      position: relative;
+      height: 20px !important;
+      margin-top: 1px;
+      
+    }
+
+    .ww-pdp__payments .clear-pay img {
+    }
+
+    .guarantee-items {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    justify-content: space-evenly;
+  }
+  </style>
+
+  {%- if cart.currency.iso_code == 'GBP' -%}
+    <p>
+      Or in
+      <select id="ww-installments-select" aria-label="Choose installment count">
+        <option value="3" selected>3</option>
+        <option value="4">4</option>
+        <option value="6">6</option>
+        <option value="9">9</option>
+        <option value="12">12</option>
+      </select>
+      instalments of <span id="ww-installment-amount"></span>
+    </p>
+    <div id="ww-installment-disclaimer"></div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const wrapper = document.querySelector('[data-ww-installments]');
+        const price = parseInt(wrapper.getAttribute('data-price-cents'), 10);
+        const select = document.getElementById('ww-installments-select');
+        const amountDisplay = document.getElementById('ww-installment-amount');
+        const disclaimerDisplay = document.getElementById('ww-installment-disclaimer');
+
+        function updateInstallment() {
+          const selectedValue = select.value;
+          const installment = (price / selectedValue) / 100;
+          let logoUrl = '';
+          let logoClass = 'logo';
+          let disclaimerText = '';
+
+          switch (selectedValue) {
+            case '3':
+              logoUrl = 'https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Marketing_Badge_With_Clear_Space.png?v=1747229079';
+              logoClass += ' klarna-logo';
+              disclaimerText = 'Interest free monthly instalments';
+              break;
+            case '4':
+              logoUrl = 'https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/CP_logo_badge_6328x2204_blackmint_png.png?v=1725884864';
+               logoClass += ' clear-pay';
+              disclaimerText = 'Interest free fortnightly instalments';
+              break;
+            case '6':
+              logoUrl = 'https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/dividebuy-logo-full-colour-rgb-scaled-Picsart-BackgroundRemover.png?v=1787395468';
+              logoClass += ' DB-logo';
+              disclaimerText = 'Only available on orders £300 or more';
+              break;
+            case '9':
+              logoUrl = 'https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/dividebuy-logo-full-colour-rgb-scaled-Picsart-BackgroundRemover.png?v=1787395468';
+              logoClass += ' DB-logo';
+              disclaimerText = 'Only available on orders £450 or more';
+              break;
+            case '12':
+              logoUrl = 'https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/dividebuy-logo-full-colour-rgb-scaled-Picsart-BackgroundRemover.png?v=1787395468';
+              logoClass += ' DB-logo';
+              disclaimerText = 'Only available on orders £600 or more';
+              break;
+          }
+
+          amountDisplay.innerHTML = `<strong>£${installment.toFixed(2)} GBP</strong> with <img src="${logoUrl}" alt="${selectedValue} installments logo" class="${logoClass}" loading="lazy">`;
+          disclaimerDisplay.innerHTML = `<span class="disclaimer">${disclaimerText}</span>`;
+        }
+
+        select.addEventListener('change', updateInstallment);
+        updateInstallment();
+      });
+    </script>
+
+  {%- else -%}
+    <p>
+      Or in 3 instalments of <span id="ww-installment-amount-eur"></span> with
+      <img src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Marketing_Badge_With_Clear_Space_1.png?v=1725885242" class="klarna-logo" alt="Klarna">
+    </p>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const wrapper = document.querySelector('[data-ww-installments]');
+        const price = parseInt(wrapper.getAttribute('data-price-cents'), 10);
+        const installment = (price / 3) / 100;
+        document.getElementById('ww-installment-amount-eur').innerHTML = `<strong>${installment.toFixed(2)}</strong>`;
+      });
+    </script>
+  {%- endif -%}
+</div>{%- assign effective_price = current_variant.price -%}
+
+
+<div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ effective_price }}">
+
+  <style>
+    .ww-pdp__payments .klarna-logo, .ww-pdp__payments .clear-pay{
+      position: relative;
+      height: 20px !important;
+      display: inline;
+      top: -3px;
+      margin: 0 auto;
+
+    }
+
+    .ww-pdp__payments .DB-logo {
+      position: relative;
+      {% comment %} top: 2.5px; {% endcomment %}
+      height: 20px !important;
+    }
+    .ww-pdp__payments .disclaimer {
+      color: grey;
+      font-size: 0.8em;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .ww-pdp__payments .clear-pay {
+      position: relative;
+      height: 20px !important;
+      margin-top: 1px;
+      
+    }
+
+    .ww-pdp__payments .clear-pay img {
+    }
+
+    .guarantee-items {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    justify-content: space-evenly;
+  }
+  </style>
+
+  {%- if cart.currency.iso_code == 'GBP' -%}
+    <p>
+      Or in
+      <select id="ww-installments-select" aria-label="Choose installment count">
+        <option value="3" selected>3</option>
+        <option value="4">4</option>
+        <option value="6">6</option>
+        <option value="9">9</option>
+        <option value="12">12</option>
+      </select>
+      instalments of <span id="ww-installment-amount"></span>
+    </p>
+    <div id="ww-installment-disclaimer"></div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const wrapper = document.querySelector('[data-ww-installments]');
+        const price = parseInt(wrapper.getAttribute('data-price-cents'), 10);
+        const select = document.getElementById('ww-installments-select');
+        const amountDisplay = document.getElementById('ww-installment-amount');
+        const disclaimerDisplay = document.getElementById('ww-installment-disclaimer');
+
+        function updateInstallment() {
+          const selectedValue = select.value;
+          const installment = (price / selectedValue) / 100;
+          let logoUrl = '';
+          let logoClass = 'logo';
+          let disclaimerText = '';
+
+          switch (selectedValue) {
+            case '3':
+              logoUrl = 'https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Marketing_Badge_With_Clear_Space.png?v=1747229079';
+              logoClass += ' klarna-logo';
+              disclaimerText = 'Interest free monthly instalments';
+              break;
+            case '4':
+              logoUrl = 'https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/CP_logo_badge_6328x2204_blackmint_png.png?v=1725884864';
+               logoClass += ' clear-pay';
+              disclaimerText = 'Interest free fortnightly instalments';
+              break;
+            case '6':
+              logoUrl = 'https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/dividebuy-logo-full-colour-rgb-scaled-Picsart-BackgroundRemover.png?v=1787395468';
+              logoClass += ' DB-logo';
+              disclaimerText = 'Only available on orders £300 or more';
+              break;
+            case '9':
+              logoUrl = 'https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/dividebuy-logo-full-colour-rgb-scaled-Picsart-BackgroundRemover.png?v=1787395468';
+              logoClass += ' DB-logo';
+              disclaimerText = 'Only available on orders £450 or more';
+              break;
+            case '12':
+              logoUrl = 'https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/dividebuy-logo-full-colour-rgb-scaled-Picsart-BackgroundRemover.png?v=1787395468';
+              logoClass += ' DB-logo';
+              disclaimerText = 'Only available on orders £600 or more';
+              break;
+          }
+
+          amountDisplay.innerHTML = `<strong>£${installment.toFixed(2)} GBP</strong> with <img src="${logoUrl}" alt="${selectedValue} installments logo" class="${logoClass}" loading="lazy">`;
+          disclaimerDisplay.innerHTML = `<span class="disclaimer">${disclaimerText}</span>`;
+        }
+
+        select.addEventListener('change', updateInstallment);
+        updateInstallment();
+      });
+    </script>
+
+  {%- else -%}
+    <p>
+      Or in 3 instalments of <span id="ww-installment-amount-eur"></span> with
+      <img src="https://scdn.speedsize.com/19bba31a-6c36-4510-aa4c-90e87768362d/cdn.shopify.com/s/files/1/0780/3843/files/Marketing_Badge_With_Clear_Space_1.png?v=1725885242" class="klarna-logo" alt="Klarna">
+    </p>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const wrapper = document.querySelector('[data-ww-installments]');
+        const price = parseInt(wrapper.getAttribute('data-price-cents'), 10);
+        const installment = (price / 3) / 100;
+        document.getElementById('ww-installment-amount-eur').innerHTML = `<strong>${installment.toFixed(2)}</strong>`;
+      });
+    </script>
+  {%- endif -%}
+</div>
 
       <div class="ww-pdp__ctl">
         {%- render 'ww-ctl-inline', full_titles: true -%}
