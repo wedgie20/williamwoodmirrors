@@ -5315,10 +5315,10 @@ var SafeSticky = class extends HTMLElement {
       } else {
         productPrices.innerHTML = "";
         if (variant["compare_at_price"] > variant["price"]) {
-          productPrices.innerHTML += `<span class="price price--highlight ${this.priceClass}"><span class="visually-hidden">${window.themeVariables.strings.productSalePrice}</span>${formatMoney(variant["price"], currencyFormat)}</span>`;
-          productPrices.innerHTML += `<span class="price price--compare"><span class="visually-hidden">${window.themeVariables.strings.productRegularPrice}</span>${formatMoney(variant["compare_at_price"], currencyFormat)}</span>`;
+          productPrices.innerHTML += `<span class="price price--highlight ${this.priceClass}" data-ww-sale-price data-current-price-cents="${variant["price"]}" data-compare-at-price-cents="${variant["compare_at_price"]}"><span class="visually-hidden">${window.themeVariables.strings.productSalePrice}</span>${formatMoney(variant["price"], currencyFormat)}</span>`;
+          productPrices.innerHTML += `<span class="price price--compare" data-ww-compare-price data-compare-at-price-cents="${variant["compare_at_price"]}"><span class="visually-hidden">${window.themeVariables.strings.productRegularPrice}</span>${formatMoney(variant["compare_at_price"], currencyFormat)}</span>`;
         } else {
-          productPrices.innerHTML += `<span class="price ${this.priceClass}"><span class="visually-hidden">${window.themeVariables.strings.productSalePrice}</span>${formatMoney(variant["price"], currencyFormat)}</span>`;
+          productPrices.innerHTML += `<span class="price ${this.priceClass}" data-ww-regular-price data-current-price-cents="${variant["price"]}" data-compare-at-price-cents="0"><span class="visually-hidden">${window.themeVariables.strings.productSalePrice}</span>${formatMoney(variant["price"], currencyFormat)}</span>`;
         }
         if (variant["unit_price_measurement"]) {
           let referenceValue = "";
@@ -5869,10 +5869,14 @@ var SafeSticky = class extends HTMLElement {
       this.nextReplacementDelay = 0;
       const countRoot = document.getElementById('py-flip-countdown');
       if(countRoot) {
-       initializeCountdown();
+       if (typeof initializeCountdown === 'function') {
+         initializeCountdown();
+       }
       }
         setTimeout(function(){
-  initializeCountdown();
+  if (typeof initializeCountdown === 'function') {
+    initializeCountdown();
+  }
   }, 3000);
 
     }

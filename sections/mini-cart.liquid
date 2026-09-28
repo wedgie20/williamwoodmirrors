@@ -639,12 +639,12 @@
 
   <p class="order_info" data-ww-promo-suppressible>
     <span style="color: black;">{{ savings_label }}</span>
-    <span style="text-align: right; color: #008000;">-{% render 'format-money', amount: total_saving %} ({{ savings_percentage }}%)</span>
+    <span style="text-align: right; color: #780606;">-{% render 'format-money', amount: total_saving %} ({{ savings_percentage }}%)</span>
   </p>
 {% endif %}
 
      {%- if cart.currency.iso_code == 'GBP' -%}
-       <p class="order_info"><span style="color: black;">Mainland UK Delivery:</span> <span style="text-align: right; color: #008000;">Free or Express Delivery Available at Checkout </span></p>
+       <p class="order_info"><span style="color: black;">Mainland UK Delivery:</span> <span style="text-align: right; color: #008000;">Free, Fast & 100% Insured</span></p>
        {% else %}
             <p class="order_info"><span style="color: black;">Delivery:</span> <span style="text-align: right; color: #008000;">Delivery Fee / Calculated at Checkout</span></p>
 {% endif %}

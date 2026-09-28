@@ -1,0 +1,399 @@
+{%- liquid
+  assign step_blocks = section.blocks | where: 'type', 'step'
+-%}
+
+<section
+  id="trade-account-apply"
+  class="ww-trade-apply-account"
+  style="--ww-trade-apply-bg: {{ section.settings.background_color }}; --ww-trade-apply-text: {{ section.settings.text_color }};"
+>
+  <div class="ww-trade-apply-account__inner">
+    <div class="ww-trade-apply-account__media">
+      {%- if section.settings.image != blank -%}
+        <img
+          src="{{ section.settings.image | image_url: width: 1500 }}"
+          alt="{{ section.settings.image_alt | default: section.settings.heading | escape }}"
+          loading="lazy"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}">
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'ww-trade-apply-account__placeholder' }}
+      {%- endif -%}
+    </div>
+
+    <div class="ww-trade-apply-account__content">
+      {%- if section.settings.heading != blank -%}
+        <h2>{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.body != blank -%}
+        <div class="ww-trade-apply-account__body">{{ section.settings.body }}</div>
+      {%- endif -%}
+
+      {%- if step_blocks.size > 0 -%}
+        <ol class="ww-trade-apply-account__steps">
+          {%- for block in step_blocks -%}
+            <li class="ww-trade-apply-account__step" {{ block.shopify_attributes }}>
+              <span class="ww-trade-apply-account__step-number">{{ forloop.index }}.</span>
+              <div class="ww-trade-apply-account__step-copy">
+                {%- if block.settings.title != blank -%}
+                  <h3>{{ block.settings.title }}</h3>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <div class="ww-trade-apply-account__step-text">{{ block.settings.text }}</div>
+                {%- endif -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ol>
+      {%- endif -%}
+
+      {%- if section.settings.primary_button_text != blank or section.settings.secondary_button_text != blank -%}
+        <div class="ww-trade-apply-account__actions">
+          {%- if section.settings.primary_button_text != blank -%}
+            <a class="ww-trade-apply-account__button ww-trade-apply-account__button--primary" href="{{ section.settings.primary_button_link | default: '/pages/trade-application' }}">
+              {{ section.settings.primary_button_text }}
+            </a>
+          {%- endif -%}
+          {%- if section.settings.secondary_button_text != blank -%}
+            <a class="ww-trade-apply-account__button ww-trade-apply-account__button--text" href="{{ section.settings.secondary_button_link | default: routes.account_login_url }}">
+              {{ section.settings.secondary_button_text }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} .ww-trade-apply-account {
+    --ww-trade-text-font: "Gotham Book", var(--text-font-family, Arial, sans-serif);
+    --ww-trade-heading-font: "Gotham Book", var(--text-font-family, Arial, sans-serif);
+    --ww-trade-heading-weight: var(--heading-font-weight, 700);
+    --ww-trade-bold-weight: var(--text-font-bold-weight, 700);
+    --ww-trade-body-size: var(--base-font-size, 14px);
+    --ww-trade-page-gutter: max(var(--container-gutter), calc((100vw - var(--container-max-width)) / 2 + var(--container-gutter)));
+    padding: 30px var(--ww-trade-page-gutter);
+    background: var(--ww-trade-apply-bg);
+    color: var(--ww-trade-apply-text);
+    font-family: var(--ww-trade-text-font);
+    font-size: var(--ww-trade-body-size);
+    line-height: 1.7333333333;
+    overflow-x: clip;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account *,
+  #shopify-section-{{ section.id }} .ww-trade-apply-account *::before,
+  #shopify-section-{{ section.id }} .ww-trade-apply-account *::after {
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(360px, .95fr);
+    gap: clamp(42px, 5vw, 86px);
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__media {
+    min-height: 540px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, .1);
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__media img,
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__placeholder {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__placeholder {
+    fill: rgba(255, 255, 255, .24);
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__content {
+    max-width: 780px;
+    padding: 46px 30px 46px 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account h2 {
+    margin: 0;
+    color: inherit;
+    font-family: var(--ww-trade-heading-font);
+    font-size: var(--heading-h2-font-size, 54px);
+    font-weight: var(--ww-trade-heading-weight);
+    line-height: 1.1333333333;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__body {
+    margin-top: 20px;
+    color: inherit;
+    font-size: var(--ww-trade-body-size);
+    line-height: 1.7333333333;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__body p,
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__step-text p {
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__body p + p,
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__step-text p + p {
+    margin-top: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__steps {
+    display: grid;
+    gap: 28px;
+    margin: 28px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__step {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__step-number {
+    color: inherit;
+    font-family: var(--ww-trade-heading-font);
+    font-size: var(--heading-h3-font-size, 24px);
+    font-weight: var(--ww-trade-heading-weight);
+    line-height: 1.3;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account h3 {
+    margin: 0 0 10px;
+    color: inherit;
+    font-family: var(--ww-trade-heading-font);
+    font-size: var(--heading-h3-font-size, 24px);
+    font-weight: var(--ww-trade-heading-weight);
+    line-height: 1.3;
+    letter-spacing: 0;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__step-text {
+    color: inherit;
+    font-size: 14px;
+    line-height: 1.7333333333;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
+    margin-top: 38px;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding: 14px 30px;
+    border-radius: 999px;
+    font-family: var(--ww-trade-text-font);
+    font-size: calc(var(--ww-trade-body-size) - 1px);
+    font-weight: var(--ww-trade-bold-weight);
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__button--primary {
+    background: var(--ww-trade-apply-text);
+    color: var(--ww-trade-apply-bg);
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-apply-account__button--text {
+    padding-right: 0;
+    padding-left: 0;
+    color: inherit;
+  }
+
+  @media screen and (max-width: 989px) {
+    #shopify-section-{{ section.id }} .ww-trade-apply-account {
+      padding: 28px var(--ww-trade-page-gutter);
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-apply-account__inner {
+      grid-template-columns: 1fr;
+      gap: 34px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-apply-account__media {
+      min-height: 460px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-apply-account__content {
+      max-width: none;
+      padding: 0 0 24px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .ww-trade-apply-account,
+    #shopify-section-{{ section.id }} .ww-trade-apply-account p,
+    #shopify-section-{{ section.id }} .ww-trade-apply-account span,
+    #shopify-section-{{ section.id }} .ww-trade-apply-account a,
+    #shopify-section-{{ section.id }} .ww-trade-apply-account button {
+      font-family: var(--ww-trade-text-font);
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-apply-account h1,
+    #shopify-section-{{ section.id }} .ww-trade-apply-account h2,
+    #shopify-section-{{ section.id }} .ww-trade-apply-account h3 {
+      font-family: var(--ww-trade-heading-font);
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-apply-account {
+      padding: 20px var(--container-gutter);
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-apply-account__media {
+      min-height: 340px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-apply-account h2 {
+      font-size: var(--heading-h2-font-size, 32px);
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-apply-account__step-number,
+    #shopify-section-{{ section.id }} .ww-trade-apply-account h3 {
+      font-size: var(--heading-h3-font-size, 22px);
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-apply-account__body,
+    #shopify-section-{{ section.id }} .ww-trade-apply-account__step-text {
+      font-size: calc(var(--ww-trade-body-size) - 1px);
+      line-height: 1.7142857143;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-apply-account__actions {
+      align-items: stretch;
+      gap: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-apply-account__button--primary {
+      width: 100%;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Applying for account",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#633126"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Applying for an account"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Intro text"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "Primary button text",
+      "default": "Join now"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Secondary button text",
+      "default": "Already a member? Sign in"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Submit an application"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Complete the trade application form and our team will review your details.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Applying for account",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Submit an application",
+            "text": "<p>Complete the application form with your business and project information.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Await confirmation",
+            "text": "<p>Our trade team will review your application and be in touch.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Begin shopping",
+            "text": "<p>Approved trade account members can use their trade benefits online or by contacting our team.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
