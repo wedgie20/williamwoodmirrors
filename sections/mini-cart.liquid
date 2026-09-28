@@ -1162,14 +1162,15 @@ display: none;}
 
 @media (min-width: 741px) {
   /*
-    #mini-cart carries `transform` at all times (open or closed), which makes it the
-    containing block for any `position: fixed` descendant, including this drawer.
-    So `right` here is relative to the mini-cart's own box, not the viewport:
-    `right: 100%` lands this drawer flush against the mini-cart's left edge instead
-    of on top of it, opening it alongside the mini-cart on desktop only.
+    --ww-free-gift-offset is set inline (in px) by the open handler below, measured
+    from #mini-cart's actual rendered width at click time. That avoids relying on
+    #mini-cart's own `transform` (present whether open or closed) possibly changing
+    the containing block for this fixed-position drawer in ways that are hard to
+    predict across browsers - measuring the real box is deterministic either way.
+    The 500px fallback matches .drawer--large's max-width if the variable isn't set.
   */
   .ww-free-gift-drawer {
-    right: 100%;
+    right: var(--ww-free-gift-offset, 500px);
     box-shadow: -12px 0 32px rgba(0, 0, 0, 0.14), 12px 0 32px rgba(0, 0, 0, 0.08);
   }
 }
@@ -1330,6 +1331,20 @@ if (!window.__wwFreeGiftDrawerInit) {
 
       if (drawer) {
         event.preventDefault();
+
+        if (window.innerWidth >= 741) {
+          const miniCart = document.getElementById('mini-cart');
+          const miniCartWidth = miniCart ? miniCart.getBoundingClientRect().width : 0;
+
+          if (miniCartWidth > 0) {
+            drawer.style.setProperty('--ww-free-gift-offset', miniCartWidth + 'px');
+          } else {
+            drawer.style.removeProperty('--ww-free-gift-offset');
+          }
+        } else {
+          drawer.style.removeProperty('--ww-free-gift-offset');
+        }
+
         drawer.classList.add('is-open');
         drawer.setAttribute('aria-hidden', 'false');
       }
