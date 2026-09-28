@@ -11,7 +11,7 @@
     <div class="ww-trade-apply-account__media">
       {%- if section.settings.image != blank -%}
         <img
-          src="{{ section.settings.image | image_url: width: 1500 }}"
+          src="{{ settings.speedsize_url_pfx_https -}}{{ section.settings.image | image_url: width: 1500 }}"
           alt="{{ section.settings.image_alt | default: section.settings.heading | escape }}"
           loading="lazy"
           width="{{ section.settings.image.width }}"
