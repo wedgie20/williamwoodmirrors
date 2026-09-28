@@ -104,9 +104,18 @@
         assign free_gift_collection = collections['free-gift']
         assign free_gift_products_count = free_gift_collection.products.size
         assign free_gift_progress = cart.items_subtotal_price | times: 1.0 | divided_by: threshold_in_cents | at_most: 1
+
+        assign ww_trade_is_customer = false
+        if customer
+          assign ww_trade_tags = customer.tags | join: ',' | downcase
+          if customer.metafields.trade.is_trade_customer.value == true or customer.metafields.trade.discount_percentage.value > 0 or ww_trade_tags contains 'trade'
+            assign ww_trade_is_customer = true
+          endif
+        endif
       -%}
 
-      {% comment %} <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large ww-free-gift-bar" style="--progress: {{ free_gift_progress }}">
+      {%- unless ww_trade_is_customer -%}
+      <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large ww-free-gift-bar" style="--progress: {{ free_gift_progress }}">
         {%- if free_gift_claimed -%}
           <div class="shipping-bar__text"><span style="color: green;">Free Gift successfully claimed</span>, courtesy of William Wood.</div>
         {%- elsif cart.items_subtotal_price >= threshold_in_cents -%}
@@ -122,7 +131,7 @@
 
         <span class="shipping-bar__progress imhere"></span>
         <div class="shipping_threshold">{{ threshold_in_cents | money }}</div>
-      </free-shipping-bar> {% endcomment %}
+      </free-shipping-bar>
 
       <aside class="ww-free-gift-drawer" data-free-gift-drawer data-ww-promo-suppressible aria-hidden="true">
         <div class="ww-free-gift-drawer__header">
@@ -159,6 +168,7 @@
           {%- endfor -%}
         </div>
       </aside>
+      {%- endunless -%}
 
       <form id="mini-cart-form" action="{{ routes.cart_url }}" novalidate method="post">
         <input type="hidden" name="checkout">
