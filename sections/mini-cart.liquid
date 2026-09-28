@@ -96,9 +96,14 @@
 
       {%- liquid
         assign free_gift_claimed = false
+        assign has_slow_delivery_item = false
         for item in cart.items
           if item.final_price == 0 or item.product.tags contains 'freegift'
             assign free_gift_claimed = true
+          endif
+          assign item_tags_downcase = item.product.tags | join: ',' | downcase
+          if item_tags_downcase contains 'slowdel'
+            assign has_slow_delivery_item = true
           endif
         endfor
 
@@ -122,7 +127,7 @@
           <div class="shipping-bar__text"><span style="color: green;">Free Gift successfully claimed</span>, courtesy of William Wood.</div>
         {%- elsif cart.items_subtotal_price >= threshold_in_cents -%}
           <div class="shipping-bar__text"><span style="color: green;">Free Gift Unlocked.</span> Please select your Free Gift of choice <a href="{{ free_gift_collection.url | default: '/collections/free-gift' }}?utm_source=mc" data-free-gift-trigger><u>here</u></a></div>
-        {%- elsif calculated_total_price < free_delivery_threshold_in_cents -%}
+        {%- elsif has_slow_delivery_item == false and calculated_total_price < free_delivery_threshold_in_cents -%}
           {%- assign free_delivery_remaining_amount = free_delivery_threshold_in_cents | minus: calculated_total_price | money -%}
           <div class="shipping-bar__text">You are <b>{{ free_delivery_remaining_amount }}</b> away from free delivery</div>
         {%- else -%}
@@ -131,9 +136,11 @@
         {%- endif -%}
 
         <div class="ww-cart-milestones">
-          <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--delivery">
-            <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'icon' with 'picto-delivery-truck', width: 13, height: 13 %}</span><p>FREE</p>
-          </div>
+          {%- unless has_slow_delivery_item -%}
+            <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--delivery">
+              <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'icon' with 'picto-delivery-truck', width: 13, height: 13 %}</span><p>FREE</p>
+            </div>
+          {%- endunless -%}
           <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--gift">
             <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'free-gift' %}</span><p>FREE</p>
           </div>
@@ -141,7 +148,9 @@
 
         <span class="shipping-bar__progress imhere"></span>
         <div class="ww-cart-thresholds">
-          <span class="shipping_threshold shipping_threshold--delivery">{{ free_delivery_threshold_in_cents | money }}</span>
+          {%- unless has_slow_delivery_item -%}
+            <span class="shipping_threshold shipping_threshold--delivery">{{ free_delivery_threshold_in_cents | money }}</span>
+          {%- endunless -%}
           <span class="shipping_threshold shipping_threshold--gift">{{ threshold_in_cents | money }}</span>
         </div>
       </free-shipping-bar>
