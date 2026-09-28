@@ -132,42 +132,6 @@
         <span class="shipping-bar__progress imhere"></span>
         <div class="shipping_threshold">{{ threshold_in_cents | money }}</div>
       </free-shipping-bar>
-
-      <aside class="ww-free-gift-drawer" data-free-gift-drawer data-ww-promo-suppressible aria-hidden="true">
-        <div class="ww-free-gift-drawer__header">
-          <p>SELECT YOUR FREE GIFT ({{ free_gift_products_count }})</p>
-          <button type="button" class="ww-free-gift-drawer__close" data-free-gift-close aria-label="Close free gift selector">
-            {%- render 'icon' with 'close' -%}
-          </button>
-        </div>
-
-        <div class="ww-free-gift-drawer__grid">
-          {%- for gift_product in free_gift_collection.products -%}
-            {%- assign gift_variant = gift_product.selected_or_first_available_variant -%}
-            <article class="ww-free-gift-card">
-              <a class="ww-free-gift-card__image" href="{{ gift_product.url }}">
-                {%- if gift_product.featured_media -%}
-                  <img loading="lazy" {% render 'image-attributes', image: gift_product.featured_media.preview_image, sizes: '240,320,480,640' %}>
-                {%- endif -%}
-              </a>
-              <div class="ww-free-gift-card__body">
-                <a class="ww-free-gift-card__title" href="{{ gift_product.url }}">{{ gift_product.title }}</a>
-                <p class="ww-free-gift-card__price">{% render 'format-money', amount: gift_product.price %}</p>
-                {%- if gift_variant and gift_variant.available -%}
-                  <form action="{{ routes.cart_add_url }}" method="post" class="ww-free-gift-card__form" data-free-gift-form>
-                    <input type="hidden" name="id" value="{{ gift_variant.id }}">
-                    <input type="hidden" name="quantity" value="1">
-                    <button type="submit">ADD TO CART</button>
-                  </form>
-                {%- else -%}
-                  <button type="button" class="ww-free-gift-card__sold-out" disabled>SOLD OUT</button>
-                {%- endif -%}
-                <a class="ww-free-gift-card__details" href="{{ gift_product.url }}">View details →</a>
-              </div>
-            </article>
-          {%- endfor -%}
-        </div>
-      </aside>
       {%- endunless -%}
 
       <form id="mini-cart-form" action="{{ routes.cart_url }}" novalidate method="post">
@@ -512,6 +476,50 @@
 
       {%- render 'ww-ctl-cart' -%}
     </div>
+
+    {%- comment -%}
+      This lives outside .drawer__content (overflow-x: hidden) on purpose: #mini-cart carries
+      `transform` at all times, which makes it the containing block for `position: fixed`
+      descendants. If this stayed inside .drawer__content, its overflow-x: hidden would clip
+      the drawer the moment it's positioned alongside (to the left of) the mini-cart on desktop.
+    {%- endcomment -%}
+    {%- unless ww_trade_is_customer -%}
+      <aside class="ww-free-gift-drawer" data-free-gift-drawer data-ww-promo-suppressible aria-hidden="true">
+        <div class="ww-free-gift-drawer__header">
+          <p>SELECT YOUR FREE GIFT ({{ free_gift_products_count }})</p>
+          <button type="button" class="ww-free-gift-drawer__close" data-free-gift-close aria-label="Close free gift selector">
+            {%- render 'icon' with 'close' -%}
+          </button>
+        </div>
+
+        <div class="ww-free-gift-drawer__grid">
+          {%- for gift_product in free_gift_collection.products -%}
+            {%- assign gift_variant = gift_product.selected_or_first_available_variant -%}
+            <article class="ww-free-gift-card">
+              <a class="ww-free-gift-card__image" href="{{ gift_product.url }}">
+                {%- if gift_product.featured_media -%}
+                  <img loading="lazy" {% render 'image-attributes', image: gift_product.featured_media.preview_image, sizes: '240,320,480,640' %}>
+                {%- endif -%}
+              </a>
+              <div class="ww-free-gift-card__body">
+                <a class="ww-free-gift-card__title" href="{{ gift_product.url }}">{{ gift_product.title }}</a>
+                <p class="ww-free-gift-card__price">{% render 'format-money', amount: gift_product.price %}</p>
+                {%- if gift_variant and gift_variant.available -%}
+                  <form action="{{ routes.cart_add_url }}" method="post" class="ww-free-gift-card__form" data-free-gift-form>
+                    <input type="hidden" name="id" value="{{ gift_variant.id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit">ADD TO CART</button>
+                  </form>
+                {%- else -%}
+                  <button type="button" class="ww-free-gift-card__sold-out" disabled>SOLD OUT</button>
+                {%- endif -%}
+                <a class="ww-free-gift-card__details" href="{{ gift_product.url }}">View details →</a>
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+      </aside>
+    {%- endunless -%}
 
     <footer class="mini-cart__drawer-footer drawer__footer drawer__footer--tight drawer__footer--bordered">
       {%- capture shipping_tax_note -%}{{ 'cart.general.shipping_tax_note' | t }}{%- endcapture -%}
@@ -1150,6 +1158,20 @@ display: none;}
 
 .ww-free-gift-drawer.is-open {
   transform: translateX(0);
+}
+
+@media (min-width: 741px) {
+  /*
+    #mini-cart carries `transform` at all times (open or closed), which makes it the
+    containing block for any `position: fixed` descendant, including this drawer.
+    So `right` here is relative to the mini-cart's own box, not the viewport:
+    `right: 100%` lands this drawer flush against the mini-cart's left edge instead
+    of on top of it, opening it alongside the mini-cart on desktop only.
+  */
+  .ww-free-gift-drawer {
+    right: 100%;
+    box-shadow: -12px 0 32px rgba(0, 0, 0, 0.14), 12px 0 32px rgba(0, 0, 0, 0.08);
+  }
 }
 
 .ww-free-gift-drawer__header {
