@@ -8,6 +8,7 @@
 {%- endif -%}
 
 {%- assign threshold_in_cents = free_shipping_calculated_threshold -%}
+{%- assign free_delivery_threshold_in_cents = 24900 -%}
 {%- assign calculated_total_price = cart.total_price -%}
 
 {%- for line_item in cart.items -%}
@@ -95,15 +96,21 @@
 
       {%- liquid
         assign free_gift_claimed = false
+        assign has_slow_delivery_item = false
         for item in cart.items
           if item.final_price == 0 or item.product.tags contains 'freegift'
             assign free_gift_claimed = true
+          endif
+          assign item_tags_downcase = item.product.tags | join: ',' | downcase
+          if item_tags_downcase contains 'slowdel'
+            assign has_slow_delivery_item = true
           endif
         endfor
 
         assign free_gift_collection = collections['free-gift']
         assign free_gift_products_count = free_gift_collection.products.size
         assign free_gift_progress = cart.items_subtotal_price | times: 1.0 | divided_by: threshold_in_cents | at_most: 1
+        assign free_delivery_milestone = free_delivery_threshold_in_cents | times: 100.0 | divided_by: threshold_in_cents
 
         assign ww_trade_is_customer = false
         if customer
@@ -115,22 +122,37 @@
       -%}
 
       {%- unless ww_trade_is_customer -%}
-      <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large ww-free-gift-bar" style="--progress: {{ free_gift_progress }}">
+      <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large ww-free-gift-bar" style="--progress: {{ free_gift_progress }}; --ww-delivery-milestone: {{ free_delivery_milestone }}%;">
         {%- if free_gift_claimed -%}
           <div class="shipping-bar__text"><span style="color: green;">Free Gift successfully claimed</span>, courtesy of William Wood.</div>
         {%- elsif cart.items_subtotal_price >= threshold_in_cents -%}
           <div class="shipping-bar__text"><span style="color: green;">Free Gift Unlocked.</span> Please select your Free Gift of choice <a href="{{ free_gift_collection.url | default: '/collections/free-gift' }}?utm_source=mc" data-free-gift-trigger><u>here</u></a></div>
+        {%- elsif has_slow_delivery_item == false and calculated_total_price < free_delivery_threshold_in_cents -%}
+          {%- assign free_delivery_remaining_amount = free_delivery_threshold_in_cents | minus: calculated_total_price | money -%}
+          <div class="shipping-bar__text">You are <b>{{ free_delivery_remaining_amount }}</b> away from <b>Free Express Delivery</b>.</div>
         {%- else -%}
           {%- assign remaining_amount = threshold_in_cents | minus: cart.items_subtotal_price | money -%}
           <div class="shipping-bar__text">You are <b>{{ remaining_amount }}</b> away from receiving a Free Gift with your purchase worth up to <b>{%- if cart.currency.iso_code == 'GBP' -%}£99 GBP{% else %}€149,95{% endif %}</b></div>
         {%- endif -%}
 
-        <div class="cart-milestones-bar_Cart">
-          <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'free-gift' %}</span><p>FREE</p>
+        <div class="ww-cart-milestones">
+          {%- unless has_slow_delivery_item -%}
+            <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--delivery">
+              <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'icon' with 'picto-delivery-truck', width: 13, height: 13 %}</span><p>FREE</p>
+            </div>
+          {%- endunless -%}
+          <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--gift">
+            <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'free-gift' %}</span><p>FREE</p>
+          </div>
         </div>
 
         <span class="shipping-bar__progress imhere"></span>
-        <div class="shipping_threshold">{{ threshold_in_cents | money }}</div>
+        <div class="ww-cart-thresholds">
+          {%- unless has_slow_delivery_item -%}
+            <span class="shipping_threshold shipping_threshold--delivery">{{ free_delivery_threshold_in_cents | money }}</span>
+          {%- endunless -%}
+          <span class="shipping_threshold shipping_threshold--gift">{{ threshold_in_cents | money }}</span>
+        </div>
       </free-shipping-bar>
       {%- endunless -%}
 
@@ -1106,6 +1128,9 @@ font-size: 10px;
 .cart-milestones-bar_Cart svg path{
 fill: black;
     font-size: 10px;}
+.ww-cart-milestones .cart-milestones-bar_Cart--delivery svg path {
+  fill: none;
+}
 .cart-milestones-bar_Cart:after{
 position: absolute;
     bottom: -.25rem;
@@ -1134,12 +1159,63 @@ position: absolute;
     font-weight: bold;
     margin-top: 3px;
 }
+.ww-cart-thresholds {
+  position: relative;
+  height: 16px;
+  margin-top: 3px;
+}
+
+.ww-cart-thresholds .shipping_threshold {
+  position: absolute;
+  top: 0;
+  margin-top: 0;
+  white-space: nowrap;
+}
+
+.shipping_threshold--delivery {
+  left: var(--ww-delivery-milestone, 40%);
+  transform: translateX(-50%);
+}
+
+.shipping_threshold--gift {
+  right: 0;
+}
 .shipping-bar__text img{
 display: none;}
 
 .ww-free-gift-bar {
   display: block;
   padding: 10px 26px 12px;
+}
+
+.ww-cart-milestones {
+  position: relative;
+  height: 34px;
+  max-width: 392px;
+  margin: 2px auto -4px;
+}
+
+.ww-cart-milestones .cart-milestones-bar_Cart {
+  position: absolute;
+  top: 0;
+  right: auto;
+  margin: 0;
+}
+
+.ww-cart-milestones .cart-milestones-bar_Cart:after {
+  right: auto;
+  left: 50%;
+  transform: translate(-50%, 0) rotate(180deg) skewX(0) skewY(0) scaleX(1) scaleY(1);
+}
+
+.ww-cart-milestones .cart-milestones-bar_Cart--delivery {
+  left: var(--ww-delivery-milestone, 40%);
+  transform: translateX(-50%);
+}
+
+.ww-cart-milestones .cart-milestones-bar_Cart--gift {
+  left: 100%;
+  transform: translateX(-100%);
 }
 
 .ww-free-gift-drawer {
