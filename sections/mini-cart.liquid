@@ -108,7 +108,7 @@
             endif
           endfor
           if item_is_free_gift
-            assign free_gift_eligible_total = free_gift_eligible_total | minus: item.original_line_price
+            assign free_gift_eligible_total = free_gift_eligible_total | minus: item.final_line_price
             if item.final_line_price > 0
               assign free_gift_pending_discount_total = free_gift_pending_discount_total | plus: item.final_line_price
             endif
@@ -153,14 +153,14 @@
 
         <div class="ww-cart-milestones">
           {%- unless has_slow_delivery_item -%}
-            <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--delivery-start">
+            <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--delivery-start is-reached">
               <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'icon' with 'picto-delivery-truck', width: 13, height: 13 %}</span><p>Free Delivery</p>
             </div>
-            <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--delivery">
+            <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--delivery{% if free_gift_eligible_total >= free_delivery_threshold_in_cents %} is-reached{% endif %}">
               <span class="icon_milestone" style="width: 16px; height: 13px;">{% render 'icon' with 'picto-fast-delivery', width: 16, height: 13 %}</span><p>Free Express Delivery</p>
             </div>
           {%- endunless -%}
-          <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--gift">
+          <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--gift{% if free_gift_eligible_total >= threshold_in_cents %} is-reached{% endif %}">
             <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'free-gift' %}</span><p>Free Gift</p>
           </div>
         </div>
@@ -1179,8 +1179,12 @@ flex-shrink: 0;
 width: 34px !important;
 height: 24px !important;
 border-radius: 9999px;
-background-color: rgb(199 241 197/var(--tw-bg-opacity,1));
+background-color: #ececed;
 position: relative;
+}
+
+.cart-milestones-bar_Cart.is-reached .icon_milestone {
+background-color: rgb(199 241 197/var(--tw-bg-opacity,1));
 }
 .cart-milestones-bar_Cart svg {
 display: block;
@@ -1280,12 +1284,16 @@ display: none;}
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-top: 0 solid transparent;
-  border-bottom: 4px solid rgb(199 241 197 / var(--tw-border-opacity, 1));
+  border-bottom: 4px solid #ececed;
   --tw-border-opacity: 1;
   content: " ";
   right: auto;
   left: 50%;
   transform: translate(-50%, 0) rotate(180deg) skewX(0) skewY(0) scaleX(1) scaleY(1);
+}
+
+.ww-cart-milestones .cart-milestones-bar_Cart.is-reached .icon_milestone:after {
+  border-bottom-color: rgb(199 241 197 / var(--tw-border-opacity, 1));
 }
 
 .ww-cart-milestones .cart-milestones-bar_Cart--delivery {
