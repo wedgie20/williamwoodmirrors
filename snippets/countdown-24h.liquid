@@ -141,7 +141,10 @@
   if (!root || root.__bound) return;
   root.__bound = true;
 
-  if (document.querySelector('.mini-cart').getAttribute('data-cart-count') > 0) {
+  const miniCart = document.querySelector('.mini-cart');
+  const cartCount = miniCart ? parseInt(miniCart.getAttribute('data-cart-count') || '0', 10) : 0;
+
+  if (cartCount > 0) {
     const STORAGE_KEY = 'py-24h-countdown-end1';
     const CHANNEL = 'py24hCountdown';
     let bc = null; try { bc = new BroadcastChannel(CHANNEL); } catch(e){}

@@ -1308,10 +1308,14 @@
     attributeChangedCallback(name, oldValue, newValue) {
       switch (name) {
         case "aria-expanded":
+          const controlledElement = this.controlledElement;
+          if (!controlledElement) {
+            return;
+          }
           if (oldValue === "false" && newValue === "true") {
-            this.controlledElement.open = true;
+            controlledElement.open = true;
           } else if (oldValue === "true" && newValue === "false") {
-            this.controlledElement.open = false;
+            controlledElement.open = false;
           }
           break;
         case "aria-busy":
@@ -1369,10 +1373,14 @@
     attributeChangedCallback(name, oldValue, newValue) {
       switch (name) {
         case "aria-expanded":
+          const controlledElement = this.controlledElement;
+          if (!controlledElement) {
+            return;
+          }
           if (oldValue === "false" && newValue === "true") {
-            this.controlledElement.open = true;
+            controlledElement.open = true;
           } else if (oldValue === "true" && newValue === "false") {
-            this.controlledElement.open = false;
+            controlledElement.open = false;
           }
       }
     }
