@@ -1519,6 +1519,40 @@ if (!window.__wwFreeGiftDrawerInit) {
     });
   }
 
+  function wwFindPaidFreeGiftItem(cart) {
+    if (!cart || !Array.isArray(cart.items)) return null;
+
+    return cart.items.find(function (item) {
+      return item &&
+        item.properties &&
+        item.properties._ww_free_gift === 'true' &&
+        item.final_line_price > 0;
+    }) || null;
+  }
+
+  async function wwRemoveCartLine(lineKey) {
+    if (!lineKey) return null;
+
+    const changeUrl = window.themeVariables && window.themeVariables.routes && window.themeVariables.routes.cartChangeUrl;
+    if (!changeUrl) return null;
+
+    const response = await fetch(changeUrl + '.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      body: JSON.stringify({
+        id: lineKey,
+        quantity: 0
+      })
+    });
+
+    if (!response.ok) throw new Error('Unable to remove paid free gift');
+
+    return response.json();
+  }
+
   document.addEventListener('click', function (event) {
     const trigger = event.target.closest(
       '[data-free-gift-trigger], #mini-cart .shipping-bar__text a[href*="/collections/free-gift"], #mini-cart .shipping-bar__text a[href*="/pages/free-gift"]'
@@ -1616,7 +1650,15 @@ if (!window.__wwFreeGiftDrawerInit) {
       }
 
       const cartResponse = await fetch(window.themeVariables.routes.cartUrl + '.js');
-      const cartContent = await cartResponse.json();
+      let cartContent = await cartResponse.json();
+      const paidFreeGiftItem = wwFindPaidFreeGiftItem(cartContent);
+
+      if (paidFreeGiftItem) {
+        await wwRemoveCartLine(paidFreeGiftItem.key);
+        const refreshedCartResponse = await fetch(window.themeVariables.routes.cartUrl + '.js');
+        cartContent = await refreshedCartResponse.json();
+      }
+
       cartContent.sections = responseJson.sections;
 
       document.documentElement.dispatchEvent(new CustomEvent('cart:updated', {
