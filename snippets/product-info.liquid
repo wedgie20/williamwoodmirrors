@@ -1383,6 +1383,9 @@ p.saved-price, .price-saved-discount {
     margin: unset;
     font-size: 15px;
 }
+.product__info #price-divider-container:has(#installment:empty) {
+    display: none !important;
+}
 .mobile_review_lines{
 display: none;
 }
@@ -1407,20 +1410,35 @@ display: none;
     }
 
     function hideDuplicatePdpInstallments() {
-      var installmentBlocks = productInfo.querySelectorAll('#price-divider-container');
+      var installmentBlocks = document.querySelectorAll('#price-divider-container');
+      var populatedBlockFound = false;
 
-      installmentBlocks.forEach(function (block, index) {
-        if (index > 0) {
+      installmentBlocks.forEach(function (block) {
+        var amount = block.querySelector('#installment');
+        var hasAmount = amount && amount.textContent.trim() !== '';
+
+        if (hasAmount && !populatedBlockFound) {
+          populatedBlockFound = true;
+          block.style.removeProperty('display');
+          block.removeAttribute('aria-hidden');
+          return;
+        }
+
+        if (!hasAmount || populatedBlockFound) {
           block.style.display = 'none';
           block.setAttribute('aria-hidden', 'true');
         }
       });
     }
 
-    hideDuplicatePdpInstallments();
+    window.setTimeout(hideDuplicatePdpInstallments, 50);
+    window.setTimeout(hideDuplicatePdpInstallments, 300);
+    window.setTimeout(hideDuplicatePdpInstallments, 1000);
 
     if ('MutationObserver' in window) {
-      new MutationObserver(hideDuplicatePdpInstallments).observe(productInfo, {
+      new MutationObserver(function () {
+        window.setTimeout(hideDuplicatePdpInstallments, 50);
+      }).observe(document.body, {
         childList: true,
         subtree: true
       });
