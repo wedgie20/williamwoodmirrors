@@ -1451,7 +1451,7 @@ display: none;}
 </style>
 
 
-<script>
+{% comment %} <script>
 if (!window.__wwFreeGiftDrawerInit) {
   window.__wwFreeGiftDrawerInit = true;
 
@@ -1574,9 +1574,9 @@ if (!window.__wwFreeGiftDrawerInit) {
 }
 
 
-</script>
+</script> {% endcomment %}
 
-{% comment %} <script>
+<script>
 if (!window.__wwFreeGiftDrawerInit) {
   window.__wwFreeGiftDrawerInit = true;
 
@@ -1743,8 +1743,7 @@ if (!window.__wwFreeGiftDrawerInit) {
     }
   });
 }
-</script> {% endcomment %}
-
+</script> 
 
 
 {% schema %}
