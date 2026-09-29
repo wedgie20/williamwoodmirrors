@@ -800,7 +800,7 @@
       });
     </script>
   {%- endif -%}
-</div>{%- assign effective_price = current_variant.price -%}
+{% comment %} </div>{%- assign effective_price = current_variant.price -%}
 
 
 <div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ effective_price }}">
@@ -926,7 +926,7 @@
       });
     </script>
   {%- endif -%}
-</div>
+</div> {% endcomment %}
 
       <div class="ww-pdp__ctl">
         {%- render 'ww-ctl-inline', full_titles: true -%}
