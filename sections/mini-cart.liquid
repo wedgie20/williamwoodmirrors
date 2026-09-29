@@ -129,7 +129,7 @@
           <div class="shipping-bar__text"><span style="color: green;">Free Gift Unlocked.</span> Please select your Free Gift of choice <a href="{{ free_gift_collection.url | default: '/collections/free-gift' }}?utm_source=mc" data-free-gift-trigger><u>here</u></a></div>
         {%- elsif has_slow_delivery_item == false and calculated_total_price < free_delivery_threshold_in_cents -%}
           {%- assign free_delivery_remaining_amount = free_delivery_threshold_in_cents | minus: calculated_total_price | money -%}
-          <div class="shipping-bar__text">You are <b>{{ free_delivery_remaining_amount }}</b> away from free delivery</div>
+          <div class="shipping-bar__text">You are <b>{{ free_delivery_remaining_amount }}</b> away from <b>free express delivery</b></div>
         {%- else -%}
           {%- assign remaining_amount = threshold_in_cents | minus: cart.items_subtotal_price | money -%}
           <div class="shipping-bar__text">You are <b>{{ remaining_amount }}</b> away from receiving a Free Gift with your purchase worth up to <b>{%- if cart.currency.iso_code == 'GBP' -%}£99 GBP{% else %}€149,95{% endif %}</b></div>
@@ -684,7 +684,7 @@
 {% endif %}
 
      {%- if cart.currency.iso_code == 'GBP' -%}
-       <p class="order_info"><span style="color: black;">Mainland UK Delivery:</span> <span style="text-align: right; color: #008000;">Free, Fast & 100% Insured</span></p>
+       <p class="order_info"><span style="color: black;">Mainland UK Delivery:</span> <span style="text-align: right; color: #008000;">Free or Express Delivery Available at Checkout</span></p>
        {% else %}
             <p class="order_info"><span style="color: black;">Delivery:</span> <span style="text-align: right; color: #008000;">Delivery Fee / Calculated at Checkout</span></p>
 {% endif %}
