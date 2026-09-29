@@ -1450,8 +1450,93 @@ display: none;}
 }
 </style>
 
-
 <script>
+if (!window.__wwFreeGiftDrawerInit) {
+  window.__wwFreeGiftDrawerInit = true;
+
+  /**
+   * Refresh the mini-cart section from Shopify.
+   * This forces Liquid to recalculate:
+   * - free_gift_claimed
+   * - cart.items_subtotal_price
+   * - free_delivery_remaining_amount
+   * - remaining_amount
+   */
+  async function wwRefreshMiniCart() {
+    try {
+      const response = await fetch(
+        `${window.themeVariables.routes.cartUrl}?sections=mini-cart`,
+        {
+          method: 'GET',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Unable to refresh mini-cart');
+      }
+
+      const sections = await response.json();
+      const miniCartHtml = sections['mini-cart'];
+
+      if (!miniCartHtml) return;
+
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(miniCartHtml, 'text/html');
+
+      const currentMiniCart = document.getElementById('mini-cart');
+      const newMiniCart = doc.getElementById('mini-cart');
+
+      if (currentMiniCart && newMiniCart) {
+        currentMiniCart.replaceWith(newMiniCart);
+      }
+    } catch (error) {
+      console.error('WW: Unable to refresh mini-cart:', error);
+    }
+  }
+
+
+  /**
+   * Free gift drawer / checkout interactions
+   */
+  document.addEventListener('click', function (event) {
+
+    /*
+     * Open free gift drawer
+     */
+    const trigger = event.target.closest(
+      '[data-free-gift-trigger], #mini-cart .shipping-bar__text a[href*="/collections/free-gift"], #mini-cart .shipping-bar__text a[href*="/pages/free-gift"]'
+    );
+
+    if (trigger) {
+      const drawer = document.querySelector(
+        '#mini-cart [data-free-gift-drawer]'
+      );
+
+      if (drawer) {
+        event.preventDefault();
+
+        if (window.innerWidth >= 741) {
+          const miniCart = document.getElementById('mini-cart');
+          const miniCartWidth = miniCart
+            ? miniCart.getBoundingClientRect().width
+            : 0;
+
+          if (miniCartWidth > 0) {
+            drawer.style.setProperty(
+              '--ww-free-gift-offset',
+              miniCartWidth + 'px'
+            );
+          } else {
+            drawer.style.removeProperty('--ww-free-gift-offset');
+          }
+</script>
+
+
+
+{% comment %} <script>
 if (!window.__wwFreeGiftDrawerInit) {
   window.__wwFreeGiftDrawerInit = true;
 
@@ -1574,7 +1659,7 @@ if (!window.__wwFreeGiftDrawerInit) {
 }
 
 
-</script>
+</script> {% endcomment %}
 
 
 
