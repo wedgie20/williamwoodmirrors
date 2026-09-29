@@ -137,12 +137,15 @@
 
         <div class="ww-cart-milestones">
           {%- unless has_slow_delivery_item -%}
+            <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--delivery-start">
+              <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'icon' with 'picto-delivery-truck', width: 13, height: 13 %}</span><p>Free Delivery</p>
+            </div>
             <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--delivery">
-              <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'icon' with 'picto-delivery-truck', width: 13, height: 13 %}</span><p>FREE</p>
+              <span class="icon_milestone" style="width: 16px; height: 13px;">{% render 'icon' with 'picto-fast-delivery', width: 16, height: 13 %}</span><p>Free Express Delivery</p>
             </div>
           {%- endunless -%}
           <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--gift">
-            <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'free-gift' %}</span><p>FREE</p>
+            <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'free-gift' %}</span><p>Free Gift</p>
           </div>
         </div>
 
@@ -1106,8 +1109,9 @@ text-transform: capitalize;
     width: max-content;
     align-items: center;
     justify-content: center;
-    gap: .25rem;
-    border-radius: 9999px;
+    flex-direction: column;
+    gap: 2px;
+    border-radius: 0;
     --tw-bg-opacity: 1;
     padding: .25rem .5rem;
     font-size: .625rem;
@@ -1116,19 +1120,40 @@ text-transform: capitalize;
     --tw-text-opacity: 1;
     color: black;
     margin-left: auto;
-    background-color: rgb(199 241 197/var(--tw-bg-opacity,1));
+    background-color: transparent;
         right: -7px;
             margin-top: 10px;
-            padding: 5px 8px;
+            padding: 0;
+            min-height: 42px;
+            text-align: center;
 }
 .cart-milestones-bar_Cart p{
 margin: unset;
-font-size: 10px;
+font-size: 8px;
+line-height: 1.05;
+display: block;
+text-align: center;
+white-space: nowrap;
+}
+.cart-milestones-bar_Cart .icon_milestone {
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+width: 34px !important;
+height: 24px !important;
+border-radius: 9999px;
+background-color: rgb(199 241 197/var(--tw-bg-opacity,1));
+position: relative;
+}
+.cart-milestones-bar_Cart svg {
+display: block;
 }
 .cart-milestones-bar_Cart svg path{
 fill: black;
     font-size: 10px;}
-.ww-cart-milestones .cart-milestones-bar_Cart--delivery svg path {
+.ww-cart-milestones .cart-milestones-bar_Cart--delivery svg path,
+.ww-cart-milestones .cart-milestones-bar_Cart--delivery-start svg path {
   fill: none;
 }
 .cart-milestones-bar_Cart:after{
@@ -1190,7 +1215,7 @@ display: none;}
 
 .ww-cart-milestones {
   position: relative;
-  height: 34px;
+  height: 55px;
   max-width: 392px;
   margin: 2px auto -4px;
 }
@@ -1203,6 +1228,21 @@ display: none;}
 }
 
 .ww-cart-milestones .cart-milestones-bar_Cart:after {
+  display: none;
+}
+
+.ww-cart-milestones .cart-milestones-bar_Cart .icon_milestone:after {
+  position: absolute;
+  bottom: -.25rem;
+  z-index: -1;
+  height: 0;
+  width: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 0 solid transparent;
+  border-bottom: 4px solid rgb(199 241 197 / var(--tw-border-opacity, 1));
+  --tw-border-opacity: 1;
+  content: " ";
   right: auto;
   left: 50%;
   transform: translate(-50%, 0) rotate(180deg) skewX(0) skewY(0) scaleX(1) scaleY(1);
@@ -1211,11 +1251,19 @@ display: none;}
 .ww-cart-milestones .cart-milestones-bar_Cart--delivery {
   left: var(--ww-delivery-milestone, 40%);
   transform: translateX(-50%);
+  width: 88px;
+}
+
+.ww-cart-milestones .cart-milestones-bar_Cart--delivery-start {
+  left: 0;
+  transform: translateX(0);
+  width: 74px;
 }
 
 .ww-cart-milestones .cart-milestones-bar_Cart--gift {
   left: 100%;
   transform: translateX(-100%);
+  width: 58px;
 }
 
 .ww-free-gift-drawer {
