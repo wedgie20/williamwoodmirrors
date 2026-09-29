@@ -1455,40 +1455,55 @@ display: none;}
 if (!window.__wwFreeGiftDrawerInit) {
   window.__wwFreeGiftDrawerInit = true;
 
-  let wwRefreshingMiniCart = false;
-  let wwIgnoreCartEvents = false;
+  function wwCopyOpenState(fromEl, toEl) {
+    if (!fromEl || !toEl) return;
 
-  async function wwRefreshMiniCart() {
-    if (wwRefreshingMiniCart) return;
-    wwRefreshingMiniCart = true;
+    ['is-open', 'is-visible', 'is-active', 'active', 'open'].forEach(function (cls) {
+      if (fromEl.classList.contains(cls)) toEl.classList.add(cls);
+    });
 
-    try {
-      const cartUrl = window.themeVariables && window.themeVariables.routes && window.themeVariables.routes.cartUrl;
-      if (!cartUrl) return;
-
-      const response = await fetch(cartUrl + '?sections=mini-cart', {
-        method: 'GET',
-        headers: { 'X-Requested-With': 'XMLHttpRequest' }
-      });
-
-      if (!response.ok) throw new Error('Unable to refresh mini-cart');
-
-      const sections = await response.json();
-      const miniCartHtml = sections['mini-cart'];
-      if (!miniCartHtml) return;
-
-      const doc = new DOMParser().parseFromString(miniCartHtml, 'text/html');
-      const currentMiniCart = document.getElementById('mini-cart');
-      const newMiniCart = doc.getElementById('mini-cart');
-
-      if (currentMiniCart && newMiniCart) {
-        currentMiniCart.replaceWith(newMiniCart);
+    ['aria-hidden', 'aria-expanded', 'open', 'hidden'].forEach(function (attr) {
+      if (fromEl.hasAttribute(attr)) {
+        toEl.setAttribute(attr, fromEl.getAttribute(attr));
       }
-    } catch (error) {
-      console.error('WW: Unable to refresh mini-cart:', error);
-    } finally {
-      wwRefreshingMiniCart = false;
-    }
+    });
+  }
+
+  function wwReplaceInner(currentRoot, newRoot, selector) {
+    const current = currentRoot.querySelector(selector);
+    const next = newRoot.querySelector(selector);
+    if (current && next) current.replaceWith(next);
+  }
+
+  async function wwRefreshMiniCartContent() {
+    const cartUrl = window.themeVariables && window.themeVariables.routes && window.themeVariables.routes.cartUrl;
+    const currentMiniCart = document.getElementById('mini-cart');
+    if (!cartUrl || !currentMiniCart) return;
+
+    const response = await fetch(cartUrl + '?sections=mini-cart', {
+      method: 'GET',
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    });
+
+    if (!response.ok) throw new Error('Unable to refresh mini-cart');
+
+    const sections = await response.json();
+    const miniCartHtml = sections['mini-cart'];
+    if (!miniCartHtml) return;
+
+    const doc = new DOMParser().parseFromString(miniCartHtml, 'text/html');
+    const newMiniCart = doc.getElementById('mini-cart');
+    if (!newMiniCart) return;
+
+    // Update Liquid-driven bits only. Do not replace #mini-cart itself.
+    [
+      '.shipping-bar',
+      '.shipping-bar__text',
+      '[data-free-gift-drawer]',
+      '[data-free-gift-trigger]'
+    ].forEach(function (selector) {
+      wwReplaceInner(currentMiniCart, newMiniCart, selector);
+    });
   }
 
   document.addEventListener('click', function (event) {
@@ -1579,9 +1594,6 @@ if (!window.__wwFreeGiftDrawerInit) {
       const cartContent = await cartResponse.json();
       cartContent.sections = responseJson.sections;
 
-      // Theme events first (same as the working script)
-      wwIgnoreCartEvents = true;
-
       document.documentElement.dispatchEvent(new CustomEvent('cart:updated', {
         bubbles: true,
         detail: { cart: cartContent }
@@ -1595,13 +1607,9 @@ if (!window.__wwFreeGiftDrawerInit) {
         }
       }));
 
-      wwIgnoreCartEvents = false;
-
-      // Then recalculate Liquid shipping-bar / free-gift state once
-      await wwRefreshMiniCart();
+      await wwRefreshMiniCartContent();
     } catch (error) {
       console.error('WW: Unable to add free gift:', error);
-      wwIgnoreCartEvents = false;
     } finally {
       if (submitButton) {
         submitButton.disabled = false;
@@ -1609,17 +1617,8 @@ if (!window.__wwFreeGiftDrawerInit) {
       }
     }
   });
-
-  function wwOnThemeCartChange() {
-    if (wwIgnoreCartEvents) return;
-    wwRefreshMiniCart();
-  }
-
-  document.documentElement.addEventListener('cart:updated', wwOnThemeCartChange);
-  document.documentElement.addEventListener('cart:refresh', wwOnThemeCartChange);
 }
 </script>
-
 {% comment %} <script>
 if (!window.__wwFreeGiftDrawerInit) {
   window.__wwFreeGiftDrawerInit = true;
