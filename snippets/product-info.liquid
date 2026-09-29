@@ -1383,7 +1383,6 @@ p.saved-price, .price-saved-discount {
     margin: unset;
     font-size: 15px;
 }
-
 .mobile_review_lines{
 display: none;
 }
@@ -1399,6 +1398,35 @@ display: none;
 
   
 </style> 
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var productInfo = document.querySelector('.product__info');
+    if (!productInfo) {
+      return;
+    }
+
+    function hideDuplicatePdpInstallments() {
+      var installmentBlocks = productInfo.querySelectorAll('#price-divider-container');
+
+      installmentBlocks.forEach(function (block, index) {
+        if (index > 0) {
+          block.style.display = 'none';
+          block.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+
+    hideDuplicatePdpInstallments();
+
+    if ('MutationObserver' in window) {
+      new MutationObserver(hideDuplicatePdpInstallments).observe(productInfo, {
+        childList: true,
+        subtree: true
+      });
+    }
+  });
+</script>
 
  {% comment %} <div class="mobile_review_lines" style="padding: 16px 0; margin: 5px 0; padding-top: 0; margin-top: -15px;">
   {% comment %} <p style="font-style: italic; margin-bottom: 12px; font-weight: bold">The verdict from our valued customers</p> {% endcomment %}
