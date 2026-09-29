@@ -105,9 +105,9 @@
               assign item_is_free_gift = true
             endif
           endfor
-          if item_tags_downcase contains 'freegift' and item.final_line_price == 0
-            assign item_is_free_gift = true
-          endif
+          unless item_is_free_gift and item.final_line_price == 0
+            assign item_is_free_gift = false
+          endunless
           if item_is_free_gift
             assign free_gift_claimed = true
           endif
@@ -543,7 +543,7 @@
                 <a class="ww-free-gift-card__title" href="{{ gift_product.url }}">{{ gift_product.title }}</a>
                 <p class="ww-free-gift-card__price">{% render 'format-money', amount: gift_product.price %}</p>
                 {%- if gift_variant and gift_variant.available -%}
-                  <form action="{{ routes.cart_add_url }}" method="post" class="ww-free-gift-card__form" data-free-gift-form>
+                  <form action="{{ routes.cart_add_url }}" method="post" class="ww-free-gift-card__form" data-free-gift-form data-free-gift-discount-code="FREEGIFT">
                     <input type="hidden" name="id" value="{{ gift_variant.id }}">
                     <input type="hidden" name="quantity" value="1">
                     <input type="hidden" name="properties[_ww_free_gift]" value="true">
@@ -1601,6 +1601,18 @@ if (!window.__wwFreeGiftDrawerInit) {
 
       if (!response.ok) {
         throw new Error(responseJson.description || 'Unable to add free gift');
+      }
+
+      const discountCode = form.dataset.freeGiftDiscountCode;
+      if (discountCode) {
+        const discountForm = new FormData();
+        discountForm.append('discount', discountCode);
+
+        await fetch((window.themeVariables.routes.rootUrlWithoutSlash || '') + '/cart/update.js', {
+          method: 'POST',
+          body: discountForm,
+          headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        });
       }
 
       const cartResponse = await fetch(window.themeVariables.routes.cartUrl + '.js');
