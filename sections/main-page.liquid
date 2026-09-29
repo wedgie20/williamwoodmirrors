@@ -24,7 +24,13 @@
       </div>
     </div>
 
-    {%- unless template.suffix contains 'contact' or template.suffix contains 'faq' -%}
+    {%- if page.handle == 'swym-wishlist' -%}
+      <div class="page-content page-content--{{ section.settings.page_width }} rte">
+        <div id="swym-wishlist-render-container"></div>
+      </div>
+    {%- endif -%}
+
+    {%- unless template.suffix contains 'contact' or template.suffix contains 'faq' or page.handle == 'swym-wishlist' -%}
       <div class="page-content page-content--{{ section.settings.page_width }} rte">
         {{- page.content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
       </div>
