@@ -1562,29 +1562,6 @@ if (!window.__wwFreeGiftDrawerInit) {
     return cartContent;
   }
 
-  async function wwRemoveCartLine(lineKey) {
-    if (!lineKey) return null;
-
-    const changeUrl = window.themeVariables && window.themeVariables.routes && window.themeVariables.routes.cartChangeUrl;
-    if (!changeUrl) return null;
-
-    const response = await fetch(changeUrl + '.js', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest'
-      },
-      body: JSON.stringify({
-        id: lineKey,
-        quantity: 0
-      })
-    });
-
-    if (!response.ok) throw new Error('Unable to remove paid free gift');
-
-    return response.json();
-  }
-
   document.addEventListener('click', function (event) {
     const trigger = event.target.closest(
       '[data-free-gift-trigger], #mini-cart .shipping-bar__text a[href*="/collections/free-gift"], #mini-cart .shipping-bar__text a[href*="/pages/free-gift"]'
@@ -1670,12 +1647,6 @@ if (!window.__wwFreeGiftDrawerInit) {
       }
 
       let cartContent = await wwWaitForFreeGiftDiscount();
-      const paidFreeGiftItem = wwFindPaidFreeGiftItem(cartContent);
-
-      if (paidFreeGiftItem) {
-        await wwRemoveCartLine(paidFreeGiftItem.key);
-        cartContent = await wwFetchCart();
-      }
 
       const freshSections = await wwRefreshMiniCartContent();
       cartContent.sections = freshSections || responseJson.sections;
