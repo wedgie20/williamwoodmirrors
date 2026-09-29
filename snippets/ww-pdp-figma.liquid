@@ -542,11 +542,13 @@
         {%- unless is_preorder -%}
           <span class="ww-pdp__pill ww-pdp__pill--stock{% if current_variant_low_stock %} ww-pdp__pill--low-stock{% endif %}{% unless current_variant.available %} ww-pdp__pill--sold-out{% endunless %}"><span></span>{% if current_variant.available %}{% if current_variant_low_stock %}Low in Stock{% else %}In Stock{% endif %}{% else %}Sold Out{% endif %}</span>
         {%- endunless -%}
-        {% if product.tags contains 'SLOWDEL' %}
-        <span class="ww-pdp__pill">Delivery Up To 15 Days</span>
-      {% else %}
-        <span class="ww-pdp__pill">Delivery Up To 7 Days</span>
-      {% endif %}
+        {% unless product.tags contains 'pre-order' %}
+  {% if product.tags contains 'SLOWDEL' %}
+    <span class="ww-pdp__pill">Delivery Up To 15 Days</span>
+  {% else %}
+    <span class="ww-pdp__pill">Delivery Up To 7 Days</span>
+  {% endif %}
+{% endunless %}
         {% if product.collections contains collections['sasso-collection'] %}
           <span class="ww-pdp__pill pill_latest">Latest Arrivals</span>
         {% endif %}
