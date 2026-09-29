@@ -1491,7 +1491,7 @@ if (!window.__wwFreeGiftDrawerInit) {
   async function wwRefreshMiniCartContent() {
     const cartUrl = window.themeVariables && window.themeVariables.routes && window.themeVariables.routes.cartUrl;
     const currentMiniCart = document.getElementById('mini-cart');
-    if (!cartUrl || !currentMiniCart) return;
+    if (!cartUrl || !currentMiniCart) return null;
 
     const response = await fetch(cartUrl + '?sections=mini-cart', {
       method: 'GET',
@@ -1502,21 +1502,26 @@ if (!window.__wwFreeGiftDrawerInit) {
 
     const sections = await response.json();
     const miniCartHtml = sections['mini-cart'];
-    if (!miniCartHtml) return;
+    if (!miniCartHtml) return sections;
 
     const doc = new DOMParser().parseFromString(miniCartHtml, 'text/html');
     const newMiniCart = doc.getElementById('mini-cart');
-    if (!newMiniCart) return;
+    if (!newMiniCart) return sections;
 
-    // Update Liquid-driven bits only. Do not replace #mini-cart itself.
+    // Keep the drawer element alive, but replace every cart-dependent area after discounts settle.
     [
       '.shipping-bar',
-      '.shipping-bar__text',
+      '#mini-cart-form',
       '[data-free-gift-drawer]',
-      '[data-free-gift-trigger]'
+      '.mini-cart__recommendations',
+      '.drawer__footer'
     ].forEach(function (selector) {
       wwReplaceInner(currentMiniCart, newMiniCart, selector);
     });
+
+    currentMiniCart.setAttribute('data-cart-count', newMiniCart.getAttribute('data-cart-count') || '');
+
+    return sections;
   }
 
   function wwFindPaidFreeGiftItem(cart) {
@@ -1525,7 +1530,7 @@ if (!window.__wwFreeGiftDrawerInit) {
     return cart.items.find(function (item) {
       return item &&
         item.properties &&
-        item.properties._ww_free_gift === 'true' &&
+        (item.properties._ww_free_gift === 'true' || item.properties._ww_free_gift === true) &&
         item.final_line_price > 0;
     }) || null;
   }
@@ -1551,6 +1556,26 @@ if (!window.__wwFreeGiftDrawerInit) {
     if (!response.ok) throw new Error('Unable to remove paid free gift');
 
     return response.json();
+  }
+
+  async function wwApplyDiscountCode(discountCode) {
+    if (!discountCode) return;
+
+    const routes = window.themeVariables && window.themeVariables.routes;
+    const rootUrl = (routes && routes.rootUrlWithoutSlash) || '';
+    const discountForm = new FormData();
+    discountForm.append('discount', discountCode);
+
+    await fetch(rootUrl + '/cart/update.js', {
+      method: 'POST',
+      body: discountForm,
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    });
+
+    await fetch(rootUrl + '/discount/' + encodeURIComponent(discountCode) + '?redirect=/cart', {
+      method: 'GET',
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    });
   }
 
   document.addEventListener('click', function (event) {
@@ -1639,14 +1664,7 @@ if (!window.__wwFreeGiftDrawerInit) {
 
       const discountCode = form.dataset.freeGiftDiscountCode;
       if (discountCode) {
-        const discountForm = new FormData();
-        discountForm.append('discount', discountCode);
-
-        await fetch((window.themeVariables.routes.rootUrlWithoutSlash || '') + '/cart/update.js', {
-          method: 'POST',
-          body: discountForm,
-          headers: { 'X-Requested-With': 'XMLHttpRequest' }
-        });
+        await wwApplyDiscountCode(discountCode);
       }
 
       const cartResponse = await fetch(window.themeVariables.routes.cartUrl + '.js');
@@ -1659,7 +1677,8 @@ if (!window.__wwFreeGiftDrawerInit) {
         cartContent = await refreshedCartResponse.json();
       }
 
-      cartContent.sections = responseJson.sections;
+      const freshSections = await wwRefreshMiniCartContent();
+      cartContent.sections = freshSections || responseJson.sections;
 
       document.documentElement.dispatchEvent(new CustomEvent('cart:updated', {
         bubbles: true,
@@ -1674,7 +1693,6 @@ if (!window.__wwFreeGiftDrawerInit) {
         }
       }));
 
-      await wwRefreshMiniCartContent();
     } catch (error) {
       console.error('WW: Unable to add free gift:', error);
     } finally {
