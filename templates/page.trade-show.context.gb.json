@@ -12,5 +12,17 @@
     "market": "gb"
   },
   "parent": "page.trade-show.json",
-  "sections": {}
+  "sections": {
+    "trade_hero": {
+      "custom_css": [
+        ".ww-trade-hero__button {font-size: 12px; font-weight: 700;}"
+      ],
+      "settings": {
+        "hero_image": "shopify://shop_images/Mirella_Desktop_Homepage_2.jpg",
+        "hero_eyebrow": "",
+        "hero_title": "William Wood Trade"
+      },
+      "blocks": {}
+    }
+  }
 }
