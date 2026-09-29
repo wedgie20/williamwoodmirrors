@@ -1452,265 +1452,165 @@ display: none;}
 
 
 <script>
+if (!window.__wwFreeGiftDrawerInit) {
+  window.__wwFreeGiftDrawerInit = true;
 
- if (!window.__wwFreeGiftDrawerInit) {
-    window.__wwFreeGiftDrawerInit = true;
+  let wwRefreshingMiniCart = false;
+  let wwIgnoreCartEvents = false;
 
-    /**
-     * Refresh the mini-cart section from Shopify.
-     * This forces Liquid to recalculate:
-     * - free_gift_claimed
-     * - cart.items_subtotal_price
-     * - free_delivery_remaining_amount
-     * - remaining_amount
-     */
-    async function wwRefreshMiniCart() {
-        try {
-            const response = await fetch(
-                `${window.themeVariables.routes.cartUrl}?sections=mini-cart`, {
-                    method: 'GET',
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                }
-            );
+  async function wwRefreshMiniCart() {
+    if (wwRefreshingMiniCart) return;
+    wwRefreshingMiniCart = true;
 
-            if (!response.ok) {
-                throw new Error('Unable to refresh mini-cart');
-            }
+    try {
+      const cartUrl = window.themeVariables?.routes?.cartUrl;
+      if (!cartUrl) return;
 
-            const sections = await response.json();
-            const miniCartHtml = sections['mini-cart'];
+      const response = await fetch(`${cartUrl}?sections=mini-cart`, {
+        method: 'GET',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      });
 
-            if (!miniCartHtml) return;
+      if (!response.ok) throw new Error('Unable to refresh mini-cart');
 
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(miniCartHtml, 'text/html');
+      const sections = await response.json();
+      const miniCartHtml = sections['mini-cart'];
+      if (!miniCartHtml) return;
 
-            const currentMiniCart = document.getElementById('mini-cart');
-            const newMiniCart = doc.getElementById('mini-cart');
+      const doc = new DOMParser().parseFromString(miniCartHtml, 'text/html');
+      const currentMiniCart = document.getElementById('mini-cart');
+      const newMiniCart = doc.getElementById('mini-cart');
 
-            if (currentMiniCart && newMiniCart) {
-                currentMiniCart.replaceWith(newMiniCart);
-            }
-        } catch (error) {
-            console.error('WW: Unable to refresh mini-cart:', error);
+      if (currentMiniCart && newMiniCart) {
+        currentMiniCart.replaceWith(newMiniCart);
+      }
+    } catch (error) {
+      console.error('WW: Unable to refresh mini-cart:', error);
+    } finally {
+      wwRefreshingMiniCart = false;
+    }
+  }
+
+  document.addEventListener('click', function (event) {
+    const trigger = event.target.closest(
+      '[data-free-gift-trigger], #mini-cart .shipping-bar__text a[href*="/collections/free-gift"], #mini-cart .shipping-bar__text a[href*="/pages/free-gift"]'
+    );
+
+    if (trigger) {
+      const drawer = document.querySelector('#mini-cart [data-free-gift-drawer]');
+      if (!drawer) return;
+
+      event.preventDefault();
+
+      if (window.innerWidth >= 741) {
+        const miniCart = document.getElementById('mini-cart');
+        const miniCartWidth = miniCart ? miniCart.getBoundingClientRect().width : 0;
+
+        if (miniCartWidth > 0) {
+          drawer.style.setProperty('--ww-free-gift-offset', miniCartWidth + 'px');
+        } else {
+          drawer.style.removeProperty('--ww-free-gift-offset');
         }
+      } else {
+        drawer.style.removeProperty('--ww-free-gift-offset');
+      }
+
+      drawer.classList.add('is-open');
+      drawer.setAttribute('aria-hidden', 'false');
+      return;
     }
 
+    const close = event.target.closest('[data-free-gift-close]');
+    if (close) {
+      const drawer = close.closest('[data-free-gift-drawer]');
+      if (drawer) {
+        drawer.classList.remove('is-open');
+        drawer.setAttribute('aria-hidden', 'true');
+      }
+      return;
+    }
 
-    /**
-     * Free gift drawer / checkout interactions
-     */
-    document.addEventListener('click', function(event) {
+    const button = event.target.closest('#mini-cart .checkout-action-button');
+    if (!button) return;
+    if (button.classList.contains('button--clicked')) return;
 
-        /*
-         * Open free gift drawer
-         */
-        const trigger = event.target.closest(
-            '[data-free-gift-trigger], #mini-cart .shipping-bar__text a[href*="/collections/free-gift"], #mini-cart .shipping-bar__text a[href*="/pages/free-gift"]'
-        );
+    event.preventDefault();
+    button.classList.add('button--clicked');
+    setTimeout(function () {
+      window.location.href = '/checkout';
+    }, 300);
+  });
 
-        if (trigger) {
-            const drawer = document.querySelector(
-                '#mini-cart [data-free-gift-drawer]'
-            );
+  document.addEventListener('submit', async function (event) {
+    const form = event.target.closest('[data-free-gift-form]');
+    if (!form) return;
 
-            if (drawer) {
-                event.preventDefault();
+    event.preventDefault();
 
-                if (window.innerWidth >= 741) {
-                    const miniCart = document.getElementById('mini-cart');
-                    const miniCartWidth = miniCart ?
-                        miniCart.getBoundingClientRect().width :
-                        0;
+    const submitButton = form.querySelector('button[type="submit"]');
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.setAttribute('aria-busy', 'true');
+    }
 
-                    if (miniCartWidth > 0) {
-                        drawer.style.setProperty(
-                            '--ww-free-gift-offset',
-                            miniCartWidth + 'px'
-                        );
-                    } else {
-                        drawer.style.removeProperty('--ww-free-gift-offset');
-                    }
-                } else {
-                    drawer.style.removeProperty('--ww-free-gift-offset');
-                }
+    try {
+      const productForm = new FormData(form);
+      productForm.append('sections', 'mini-cart');
 
-                drawer.classList.add('is-open');
-                drawer.setAttribute('aria-hidden', 'false');
-            }
+      const addUrl = window.themeVariables?.routes?.cartAddUrl;
+      if (!addUrl) throw new Error('Missing cartAddUrl');
 
-            return;
-        }
+      const response = await fetch(`${addUrl}.js`, {
+        method: 'POST',
+        body: productForm,
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      });
 
+      const responseJson = await response.json();
+      if (!response.ok) {
+        throw new Error(responseJson.description || 'Unable to add free gift');
+      }
 
-        /*
-         * Close free gift drawer
-         */
-        const close = event.target.closest('[data-free-gift-close]');
+      const cartResponse = await fetch(`${window.themeVariables.routes.cartUrl}.js`);
+      const cartContent = await cartResponse.json();
+      cartContent.sections = responseJson.sections || {};
 
-        if (close) {
-            const drawer = close.closest('[data-free-gift-drawer]');
+      wwIgnoreCartEvents = true;
 
-            if (drawer) {
-                drawer.classList.remove('is-open');
-                drawer.setAttribute('aria-hidden', 'true');
-            }
+      document.documentElement.dispatchEvent(
+        new CustomEvent('cart:updated', {
+          bubbles: true,
+          detail: { cart: cartContent }
+        })
+      );
 
-            return;
-        }
+      await wwRefreshMiniCart();
 
+      document.documentElement.dispatchEvent(
+        new CustomEvent('cart:refresh', {
+          bubbles: true,
+          detail: { cart: cartContent, openMiniCart: true }
+        })
+      );
+    } catch (error) {
+      console.error('WW: Unable to add free gift:', error);
+    } finally {
+      wwIgnoreCartEvents = false;
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.removeAttribute('aria-busy');
+      }
+    }
+  });
 
-        /*
-         * Checkout button
-         */
-        const button = event.target.closest('.checkout-action-button');
+  function wwOnThemeCartChange() {
+    if (wwIgnoreCartEvents) return;
+    wwRefreshMiniCart();
+  }
 
-        if (!button) return;
-
-        event.preventDefault();
-
-        // Prevent double execution
-        if (button.classList.contains('button--clicked')) return;
-
-        button.classList.add('button--clicked');
-
-        // Redirect to checkout after short delay
-        setTimeout(() => {
-            window.location.href = '/checkout';
-        }, 300);
-    });
-
-
-    /**
-     * Add free gift
-     */
-    document.addEventListener('submit', async function(event) {
-        const form = event.target.closest('[data-free-gift-form]');
-
-        if (!form) return;
-
-        event.preventDefault();
-
-        const submitButton = form.querySelector('button[type="submit"]');
-
-        if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.setAttribute('aria-busy', 'true');
-        }
-
-        try {
-            const productForm = new FormData(form);
-
-            // Ask Shopify to return the mini-cart section
-            productForm.append('sections', 'mini-cart');
-
-            const response = await fetch(
-                `${window.themeVariables.routes.cartAddUrl}.js`, {
-                    method: 'POST',
-                    body: productForm,
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                }
-            );
-
-            const responseJson = await response.json();
-
-            if (!response.ok) {
-                throw new Error(
-                    responseJson.description || 'Unable to add free gift'
-                );
-            }
-
-            /*
-             * Get the latest cart data
-             */
-            const cartResponse = await fetch(
-                `${window.themeVariables.routes.cartUrl}.js`
-            );
-
-            const cartContent = await cartResponse.json();
-
-            /*
-             * Attach the updated mini-cart section
-             */
-            cartContent.sections = responseJson.sections;
-
-            /*
-             * Tell the theme the cart has changed
-             */
-            document.documentElement.dispatchEvent(
-                new CustomEvent('cart:updated', {
-                    bubbles: true,
-                    detail: {
-                        cart: cartContent
-                    }
-                })
-            );
-
-            /*
-             * Refresh the mini-cart.
-             *
-             * This is important because the Liquid shipping-bar
-             * conditions need to be executed again.
-             */
-            await wwRefreshMiniCart();
-
-            /*
-             * Tell the theme to refresh/open the mini-cart
-             */
-            document.documentElement.dispatchEvent(
-                new CustomEvent('cart:refresh', {
-                    bubbles: true,
-                    detail: {
-                        cart: cartContent,
-                        openMiniCart: true
-                    }
-                })
-            );
-
-        } catch (error) {
-            console.error('WW: Unable to add free gift:', error);
-        } finally {
-            if (submitButton) {
-                submitButton.disabled = false;
-                submitButton.removeAttribute('aria-busy');
-            }
-        }
-    });
-
-
-    /**
-     * Cart updated listener
-     *
-     * If another part of the theme changes the cart — for example,
-     * removing the free gift — refresh the mini-cart so that the
-     * Liquid messaging is recalculated.
-     */
-    document.documentElement.addEventListener(
-        'cart:updated',
-        function() {
-            wwRefreshMiniCart();
-        }
-    );
-
-
-    /**
-     * Cart refresh listener
-     *
-     * Some theme components use cart:refresh rather than cart:updated.
-     * Refresh the mini-cart in that case too.
-     */
-    document.documentElement.addEventListener(
-        'cart:refresh',
-        function() {
-            wwRefreshMiniCart();
-        }
-    );
+  document.documentElement.addEventListener('cart:updated', wwOnThemeCartChange);
+  document.documentElement.addEventListener('cart:refresh', wwOnThemeCartChange);
 }
-
 </script>
 
 
