@@ -108,7 +108,7 @@
             endif
           endfor
           if item_is_free_gift
-            assign free_gift_eligible_total = free_gift_eligible_total | minus: item.original_line_price
+            assign free_gift_eligible_total = free_gift_eligible_total | minus: item.final_line_price
             if item.final_line_price > 0
               assign free_gift_pending_discount_total = free_gift_pending_discount_total | plus: item.final_line_price
             endif
