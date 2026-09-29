@@ -23,6 +23,40 @@
         "hero_title": "William Wood Trade"
       },
       "blocks": {}
+    },
+    "why_join": {
+      "custom_css": [
+        ".ww-trade-hero__button {font-size: 12px; font-weight: 700;}",
+        ".ww-trade-why__item h3 {letter-spacing: 1.5px !important;}",
+        ".ww-trade-why__grid {grid-template-columns: repeat(3, minmax(0, 1fr));}"
+      ],
+      "settings": {},
+      "blocks": {
+        "benefit_1": {
+          "disabled": true,
+          "settings": {
+            "title": "Tailored service with direct access to sales support & advice"
+          }
+        },
+        "benefit_2": {
+          "settings": {
+            "title": "Personalised service with dedicated sales support and expert advice",
+            "image": "shopify://shop_images/Image_Aug_3_2026_02_22_09_PM.png"
+          }
+        },
+        "benefit_3": {
+          "settings": {
+            "title": "Exclusive tiered trade discounts",
+            "image": "shopify://shop_images/image_8.png"
+          }
+        },
+        "benefit_4": {
+          "settings": {
+            "title": "Bespoke sizing available on selected lines",
+            "image": "shopify://shop_images/image_7.png"
+          }
+        }
+      }
     }
   }
 }
