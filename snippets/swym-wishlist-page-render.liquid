@@ -1,0 +1,30 @@
+<div id="swym-wishlist-render-container"></div>
+
+<script>
+  window.SwymCallbacks = window.SwymCallbacks || [];
+
+  function wwRenderSwymWishlistPage(swat) {
+    var wishlistContainer = document.querySelector('#swym-wishlist-render-container');
+
+    if (!wishlistContainer || wishlistContainer.dataset.swymRendered === 'true') {
+      return;
+    }
+
+    if (!swat || !swat.ui || typeof swat.ui.renderWishlistInContainer !== 'function') {
+      return;
+    }
+
+    wishlistContainer.dataset.swymRendered = 'true';
+    var queryParams = swat.utils && typeof swat.utils.getEncodedAsObject === 'function'
+      ? swat.utils.getEncodedAsObject(window.location.search)
+      : {};
+
+    swat.ui.renderWishlistInContainer(wishlistContainer, queryParams);
+  }
+
+  window.SwymCallbacks.push(wwRenderSwymWishlistPage);
+
+  if (window._swat) {
+    wwRenderSwymWishlistPage(window._swat);
+  }
+</script>

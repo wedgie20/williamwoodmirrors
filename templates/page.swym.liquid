@@ -1,7 +1,7 @@
 {%- if page.handle == 'swym-wishlist' -%}
   <div class="container">
     <div class="page-content page-content--medium rte">
-      <div id="swym-wishlist-render-container"></div>
+      {%- render 'swym-wishlist-page-render' -%}
     </div>
   </div>
 {%- else -%}

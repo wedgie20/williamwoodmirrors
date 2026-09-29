@@ -26,7 +26,7 @@
 
     {%- if page.handle == 'swym-wishlist' -%}
       <div class="page-content page-content--{{ section.settings.page_width }} rte">
-        <div id="swym-wishlist-render-container"></div>
+        {%- render 'swym-wishlist-page-render' -%}
       </div>
     {%- endif -%}
 
