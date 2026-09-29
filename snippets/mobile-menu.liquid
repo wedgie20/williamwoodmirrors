@@ -46,6 +46,10 @@
           {%- continue -%}
         {%- endif -%}
         {%- assign ww_mobile_menu_link_title = link.title -%}
+        {%- assign ww_mobile_menu_link_url = link.url -%}
+        {%- if link_title_downcase == 'trade' -%}
+          {%- assign ww_mobile_menu_link_url = '/pages/trade-show' -%}
+        {%- endif -%}
         {%- if ww_mobile_menu_trade_is_customer -%}
           {%- if link_title_downcase contains 'summer sale' or link_title_downcase contains 'spring sale' -%}
             {%- assign ww_mobile_menu_link_title = 'Last Chance' -%}
@@ -169,7 +173,7 @@
               {%- assign highlight_now = 'now' | date: "%s" -%}
 
               <a
-              href="{{ link.url  }}"
+              href="{{ ww_mobile_menu_link_url }}"
               class="makeit_highlighted mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
             
             >
@@ -195,7 +199,7 @@
               {%- assign second_highlight_now = 'now' | date: "%s" -%}
 
               <a
-              href="{{ link.url  }}"
+              href="{{ ww_mobile_menu_link_url }}"
               class="makeit_highlighted mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
             
             >
@@ -218,7 +222,7 @@
             {% else %}
             {%- assign link_title_handle = ww_mobile_menu_link_title | strip | handle -%}
             <a
-              href="{{ link.url  }}"
+              href="{{ ww_mobile_menu_link_url }}"
               class="{% if ww_mobile_menu_link_title contains ' - ' %}have-two-parts{% endif %} mobile-nav__link{% if link_title_handle == 'lamps' %} mobile-nav__link--regular{% endif %} heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
             >
             {% if localization.country.iso_code != 'GB' %}
