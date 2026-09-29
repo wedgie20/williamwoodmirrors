@@ -129,7 +129,7 @@
           <div class="shipping-bar__text"><span style="color: green;">Free Gift Unlocked.</span> Please select your Free Gift of choice <a href="{{ free_gift_collection.url | default: '/collections/free-gift' }}?utm_source=mc" data-free-gift-trigger><u>here</u></a></div>
         {%- elsif has_slow_delivery_item == false and calculated_total_price < free_delivery_threshold_in_cents -%}
           {%- assign free_delivery_remaining_amount = free_delivery_threshold_in_cents | minus: calculated_total_price | money -%}
-          <div class="shipping-bar__text">Free Delivery unlocked! You are <b>{{ free_delivery_remaining_amount }}</b> away from <b>Free Express Delivery</b>.</div>
+          <div class="shipping-bar__text">You are <b>{{ free_delivery_remaining_amount }}</b> away from <b>Free Express Delivery</b>.</div>
         {%- else -%}
           {%- assign remaining_amount = threshold_in_cents | minus: cart.items_subtotal_price | money -%}
           <div class="shipping-bar__text">You are <b>{{ remaining_amount }}</b> away from receiving a Free Gift with your purchase worth up to <b>{%- if cart.currency.iso_code == 'GBP' -%}£99 GBP{% else %}€149,95{% endif %}</b></div>
@@ -138,10 +138,10 @@
         <div class="ww-cart-milestones">
           {%- unless has_slow_delivery_item -%}
             <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--delivery-start">
-              <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'icon' with 'picto-delivery-truck', width: 13, height: 13 %}</span>
+              <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'icon' with 'picto-delivery-truck', width: 13, height: 13 %}</span><p>FREE</p>
             </div>
             <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--delivery">
-              <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'icon' with 'picto-fast-delivery', width: 13, height: 13 %}</span><p>FREE</p>
+              <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'icon' with 'picto-fast-delivery', width: 13, height: 13 %}</span>
             </div>
           {%- endunless -%}
           <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--gift">
