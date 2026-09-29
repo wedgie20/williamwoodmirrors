@@ -100,14 +100,14 @@
         for item in cart.items
           assign item_is_free_gift = false
           assign item_tags_downcase = item.product.tags | join: ',' | downcase
-          if item_tags_downcase contains 'freegift'
-            assign item_is_free_gift = true
-          endif
-          for item_collection in item.product.collections
-            if item_collection.handle == 'free-gift'
+          for property in item.properties
+            if property.first == '_ww_free_gift' and property.last == 'true'
               assign item_is_free_gift = true
             endif
           endfor
+          if item_tags_downcase contains 'freegift' and item.final_line_price == 0
+            assign item_is_free_gift = true
+          endif
           if item_is_free_gift
             assign free_gift_claimed = true
           endif
@@ -546,6 +546,7 @@
                   <form action="{{ routes.cart_add_url }}" method="post" class="ww-free-gift-card__form" data-free-gift-form>
                     <input type="hidden" name="id" value="{{ gift_variant.id }}">
                     <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="properties[_ww_free_gift]" value="true">
                     <button type="submit">ADD TO CART</button>
                   </form>
                 {%- else -%}
