@@ -543,7 +543,7 @@
                 <a class="ww-free-gift-card__title" href="{{ gift_product.url }}">{{ gift_product.title }}</a>
                 <p class="ww-free-gift-card__price">{% render 'format-money', amount: gift_product.price %}</p>
                 {%- if gift_variant and gift_variant.available -%}
-                  <form action="{{ routes.cart_add_url }}" method="post" class="ww-free-gift-card__form" data-free-gift-form data-free-gift-discount-code="FREEGIFT">
+                  <form action="{{ routes.cart_add_url }}" method="post" class="ww-free-gift-card__form" data-free-gift-form>
                     <input type="hidden" name="id" value="{{ gift_variant.id }}">
                     <input type="hidden" name="quantity" value="1">
                     <input type="hidden" name="properties[_ww_free_gift]" value="true">
@@ -1535,6 +1535,33 @@ if (!window.__wwFreeGiftDrawerInit) {
     }) || null;
   }
 
+  function wwSleep(delay) {
+    return new Promise(function (resolve) {
+      setTimeout(resolve, delay);
+    });
+  }
+
+  async function wwFetchCart() {
+    const response = await fetch(window.themeVariables.routes.cartUrl + '.js', {
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    });
+
+    if (!response.ok) throw new Error('Unable to fetch cart');
+
+    return response.json();
+  }
+
+  async function wwWaitForFreeGiftDiscount() {
+    let cartContent = await wwFetchCart();
+
+    for (let attempt = 0; attempt < 6 && wwFindPaidFreeGiftItem(cartContent); attempt += 1) {
+      await wwSleep(500);
+      cartContent = await wwFetchCart();
+    }
+
+    return cartContent;
+  }
+
   async function wwRemoveCartLine(lineKey) {
     if (!lineKey) return null;
 
@@ -1556,26 +1583,6 @@ if (!window.__wwFreeGiftDrawerInit) {
     if (!response.ok) throw new Error('Unable to remove paid free gift');
 
     return response.json();
-  }
-
-  async function wwApplyDiscountCode(discountCode) {
-    if (!discountCode) return;
-
-    const routes = window.themeVariables && window.themeVariables.routes;
-    const rootUrl = (routes && routes.rootUrlWithoutSlash) || '';
-    const discountForm = new FormData();
-    discountForm.append('discount', discountCode);
-
-    await fetch(rootUrl + '/cart/update.js', {
-      method: 'POST',
-      body: discountForm,
-      headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    });
-
-    await fetch(rootUrl + '/discount/' + encodeURIComponent(discountCode) + '?redirect=/cart', {
-      method: 'GET',
-      headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    });
   }
 
   document.addEventListener('click', function (event) {
@@ -1662,19 +1669,12 @@ if (!window.__wwFreeGiftDrawerInit) {
         throw new Error(responseJson.description || 'Unable to add free gift');
       }
 
-      const discountCode = form.dataset.freeGiftDiscountCode;
-      if (discountCode) {
-        await wwApplyDiscountCode(discountCode);
-      }
-
-      const cartResponse = await fetch(window.themeVariables.routes.cartUrl + '.js');
-      let cartContent = await cartResponse.json();
+      let cartContent = await wwWaitForFreeGiftDiscount();
       const paidFreeGiftItem = wwFindPaidFreeGiftItem(cartContent);
 
       if (paidFreeGiftItem) {
         await wwRemoveCartLine(paidFreeGiftItem.key);
-        const refreshedCartResponse = await fetch(window.themeVariables.routes.cartUrl + '.js');
-        cartContent = await refreshedCartResponse.json();
+        cartContent = await wwFetchCart();
       }
 
       const freshSections = await wwRefreshMiniCartContent();
