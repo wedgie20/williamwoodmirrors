@@ -1823,9 +1823,9 @@
 
   .ww-pdp__wishlist {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: center;
-    gap: 4px;
+    gap: 0;
     margin: 10px 0 14px;
     min-height: 34px;
   }
@@ -1849,11 +1849,11 @@
 
   .ww-pdp__wishlist .swym-add-to-wishlist.swym-iconbtnlink {
     display: flex !important;
-    align-items: center;
+    align-items: baseline;
     justify-content: center;
     padding: 0 !important;
-    width: 22px !important;
-    min-width: 22px !important;
+    width: 18px !important;
+    min-width: 18px !important;
     height: 28px !important;
   }
 
@@ -1861,13 +1861,13 @@
     display: none !important;
   }
 
-  .ww-pdp__wishlist .swym-button {
+  .ww-pdp__wishlist .swym-button:after {
     color: #000 !important;
     font-size: 17px !important;
     line-height: 28px !important;
-    width: 22px !important;
+    width: 18px !important;
     display: flex !important;
-    align-items: center;
+    align-items: baseline;
     justify-content: center;
   }
 
@@ -1877,10 +1877,10 @@
 
   .ww-pdp__wishlist-count {
     color: #000;
-    font-size: 15px;
+    {% comment %} font-size: 15px; {% endcomment %}
     line-height: 28px;
     padding: 0;
-    font-family: "Gotham Book", sans-serif;
+    {% comment %} font-family: "Gotham Book", sans-serif; {% endcomment %}
     font-weight: 500;
   }
 
