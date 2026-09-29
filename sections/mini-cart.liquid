@@ -137,6 +137,9 @@
 
         <div class="ww-cart-milestones">
           {%- unless has_slow_delivery_item -%}
+            <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--delivery-start">
+              <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'icon' with 'picto-delivery-truck', width: 13, height: 13 %}</span>
+            </div>
             <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--delivery">
               <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'icon' with 'picto-delivery-truck', width: 13, height: 13 %}</span><p>FREE</p>
             </div>
@@ -1128,7 +1131,8 @@ font-size: 10px;
 .cart-milestones-bar_Cart svg path{
 fill: black;
     font-size: 10px;}
-.ww-cart-milestones .cart-milestones-bar_Cart--delivery svg path {
+.ww-cart-milestones .cart-milestones-bar_Cart--delivery svg path,
+.ww-cart-milestones .cart-milestones-bar_Cart--delivery-start svg path {
   fill: none;
 }
 .cart-milestones-bar_Cart:after{
@@ -1211,6 +1215,12 @@ display: none;}
 .ww-cart-milestones .cart-milestones-bar_Cart--delivery {
   left: var(--ww-delivery-milestone, 40%);
   transform: translateX(-50%);
+}
+
+.ww-cart-milestones .cart-milestones-bar_Cart--delivery-start {
+  left: 0;
+  transform: translateX(0);
+  padding-inline: 6px;
 }
 
 .ww-cart-milestones .cart-milestones-bar_Cart--gift {
