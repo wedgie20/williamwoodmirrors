@@ -801,10 +801,10 @@
     </script>
   {%- endif -%}
 </div>
-{%- assign effective_price = current_variant.price -%}
 
 
-<div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ effective_price }}">
+{%- if false -%}
+<div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ effective_price }}" hidden aria-hidden="true" style="display: none !important;">
 
   <style>
     .ww-pdp__payments .klarna-logo, .ww-pdp__payments .clear-pay{
@@ -928,6 +928,7 @@
     </script>
   {%- endif -%}
 </div>
+{%- endif -%}
 
       <div class="ww-pdp__ctl">
         {%- render 'ww-ctl-inline', full_titles: true -%}

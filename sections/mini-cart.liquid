@@ -152,6 +152,7 @@
         <span class="shipping-bar__progress imhere"></span>
         <div class="ww-cart-thresholds">
           {%- unless has_slow_delivery_item -%}
+            <span class="shipping_threshold shipping_threshold--delivery-start">{{ 0 | money }}</span>
             <span class="shipping_threshold shipping_threshold--delivery">{{ free_delivery_threshold_in_cents | money }}</span>
           {%- endunless -%}
           <span class="shipping_threshold shipping_threshold--gift">{{ threshold_in_cents | money }}</span>
@@ -1200,6 +1201,10 @@ position: absolute;
 .shipping_threshold--delivery {
   left: var(--ww-delivery-milestone, 40%);
   transform: translateX(-50%);
+}
+
+.shipping_threshold--delivery-start {
+  left: 0;
 }
 
 .shipping_threshold--gift {
