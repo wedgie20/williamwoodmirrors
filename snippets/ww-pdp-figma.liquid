@@ -661,7 +661,122 @@
 
       <div class="ww-pdp__wishlist">
         <div class="swym-wishlist-button-bar"></div>
+        <span class="ww-pdp__wishlist-count" data-ww-pdp-wishlist-count hidden>(0)</span>
       </div>
+
+      <script>
+        (function () {
+          var countSelector = '[data-ww-pdp-wishlist-count]';
+
+          function setCount(count) {
+            var countElement = document.querySelector(countSelector);
+            var normalizedCount = Math.max(0, parseInt(count, 10) || 0);
+
+            if (!countElement) {
+              return;
+            }
+
+            countElement.textContent = '(' + normalizedCount + ')';
+            countElement.dataset.count = String(normalizedCount);
+            countElement.hidden = normalizedCount === 0;
+          }
+
+          function getCurrentCount() {
+            var countElement = document.querySelector(countSelector);
+
+            if (!countElement) {
+              return 0;
+            }
+
+            return parseInt(countElement.dataset.count || countElement.textContent.replace(/\D/g, ''), 10) || 0;
+          }
+
+          function getListCount(lists) {
+            if (!Array.isArray(lists)) {
+              return 0;
+            }
+
+            return lists.reduce(function (total, list) {
+              if (!list) {
+                return total;
+              }
+
+              if (typeof list.cnt === 'number') {
+                return total + list.cnt;
+              }
+
+              return total + (Array.isArray(list.listcontents) ? list.listcontents.length : 0);
+            }, 0);
+          }
+
+          function fetchFallbackCount(swat) {
+            if (!swat || typeof swat.fetch !== 'function') {
+              return;
+            }
+
+            swat.fetch(function (products) {
+              setCount(Array.isArray(products) ? products.length : 0);
+            });
+          }
+
+          function fetchWishlistCount(swat) {
+            if (!swat) {
+              return;
+            }
+
+            if (typeof swat.fetchLists !== 'function') {
+              fetchFallbackCount(swat);
+              return;
+            }
+
+            swat.fetchLists({
+              callbackFn: function (lists) {
+                setCount(getListCount(lists));
+              },
+              errorFn: function () {
+                fetchFallbackCount(swat);
+              }
+            });
+          }
+
+          function bindCountEvents(swat, eventNames, delta) {
+            eventNames = eventNames.filter(Boolean).filter(function (eventName, index, names) {
+              return names.indexOf(eventName) === index;
+            });
+
+            eventNames.forEach(function (eventName) {
+              swat.evtLayer.addEventListener(eventName, function () {
+                setCount(getCurrentCount() + delta);
+              });
+            });
+          }
+
+          function initWishlistCount(swat) {
+            fetchWishlistCount(swat);
+
+            if (!swat || !swat.evtLayer || swat.__wwPdpWishlistCountBound) {
+              return;
+            }
+
+            swat.__wwPdpWishlistCountBound = true;
+
+            bindCountEvents(swat, [
+              swat.JSEvents && swat.JSEvents.addedToWishlist ? swat.JSEvents.addedToWishlist : 'sw:addedtowishlist'
+            ], 1);
+
+            bindCountEvents(swat, [
+              swat.JSEvents && swat.JSEvents.removedFromWishlist ? swat.JSEvents.removedFromWishlist : 'sw:removedfromwishlist'
+            ], -1);
+          }
+
+          window.SwymCallbacks = window.SwymCallbacks || [];
+          window.SwymCallbacks.push(initWishlistCount);
+
+          if (window._swat) {
+            initWishlistCount(window._swat);
+          }
+        })();
+      </script>
 
       {% comment %} <div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ current_variant.price }}">
         <p>Pay in <span data-ww-paypal-count>3</span> interest-free payments of <span data-ww-paypal-amount>{{ payment_amount | money }}</span> with <strong class="ww-pdp__paypal">PayPal</strong> <a href="/pages/payment">Learn More</a></p>
@@ -1740,10 +1855,14 @@
   }
 
   .ww-pdp__wishlist .swym-fave-count {
-    color: #000 !important;
-    font-size: 14px !important;
-    line-height: 24px !important;
-    padding: 0 !important;
+    display: none !important;
+  }
+
+  .ww-pdp__wishlist-count {
+    color: #000;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 0;
   }
 
   .ww-pdp__promo {
