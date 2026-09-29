@@ -101,6 +101,10 @@
 
 
   assign payment_amount = current_variant.price | divided_by: 3
+  assign current_variant_low_stock = false
+  if current_variant.available and current_variant.inventory_quantity < 16
+    assign current_variant_low_stock = true
+  endif
 
   assign detail_height = product.metafields.custom.height.value | default: product.metafields.custom.height
   assign detail_width = product.metafields.custom.width.value | default: product.metafields.custom.width
@@ -536,10 +540,9 @@
           {%- endif -%}
         </span>
         {%- unless is_preorder -%}
-          <span class="ww-pdp__pill ww-pdp__pill--stock{% unless current_variant.available %} ww-pdp__pill--sold-out{% endunless %}"><span></span>{% if current_variant.available %}In stock{% else %}Sold out{% endif %}</span>
+          <span class="ww-pdp__pill ww-pdp__pill--stock{% if current_variant_low_stock %} ww-pdp__pill--low-stock{% endif %}{% unless current_variant.available %} ww-pdp__pill--sold-out{% endunless %}"><span></span>{% if current_variant.available %}{% if current_variant_low_stock %}Low in stock{% else %}In stock{% endif %}{% else %}Sold out{% endif %}</span>
         {%- endunless -%}
         <span class="ww-pdp__pill">Free Mainland UK Delivery</span>
-        <span class="ww-pdp__pill">Crafted in limited quantities</span>
         {% if product.collections contains collections['sasso-collection'] %}
           <span class="ww-pdp__pill pill_latest">Latest Arrivals</span>
         {% endif %}
@@ -617,7 +620,7 @@
             <label for="{{ product_form_id }}-id">Choose option</label>
             <select id="{{ product_form_id }}-id" name="id">
               {%- for variant in product.variants -%}
-                <option value="{{ variant.id }}" data-price="{{ variant.price }}" data-compare-at="{{ variant.compare_at_price | default: 0 }}" data-available="{{ variant.available }}" {% if variant.id == current_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
+                <option value="{{ variant.id }}" data-price="{{ variant.price }}" data-compare-at="{{ variant.compare_at_price | default: 0 }}" data-available="{{ variant.available }}" data-inventory-quantity="{{ variant.inventory_quantity }}" {% if variant.id == current_variant.id %}selected{% endif %} {% unless variant.available %}disabled{% endunless %}>
                   {{ variant.title }}{% unless variant.available %} - Sold out{% endunless %}
                 </option>
               {%- endfor -%}
@@ -1682,16 +1685,58 @@
   }
 
   .ww-pdp__pill--stock span {
+    position: relative;
+    display: inline-block;
+    flex: 0 0 auto;
     width: 10px;
     height: 10px;
     margin-right: 9px;
     border-radius: 50%;
+    color: inherit;
+  }
+
+  .ww-pdp__pill--stock span::before,
+  .ww-pdp__pill--stock span::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
     background: currentColor;
+  }
+
+  .ww-pdp__pill--stock span::before {
+    animation: ww-pdp-stock-pulse 1.8s ease-out infinite;
+    opacity: .35;
+  }
+
+  .ww-pdp__pill--stock span::after {
+    transform: scale(.72);
+  }
+
+  .ww-pdp__pill--stock.ww-pdp__pill--low-stock {
+    border-color: #b7791f;
+    color: #b7791f;
   }
 
   .ww-pdp__pill--stock.ww-pdp__pill--sold-out {
     border-color: #111;
     color: #111;
+  }
+
+  .ww-pdp__pill--stock.ww-pdp__pill--sold-out span {
+    display: none;
+  }
+
+  @keyframes ww-pdp-stock-pulse {
+    0% {
+      opacity: .45;
+      transform: scale(1);
+    }
+
+    100% {
+      opacity: 0;
+      transform: scale(2.45);
+    }
   }
 
   .ww-pdp__reviews {
@@ -4147,6 +4192,8 @@
       var price = parseInt(option.dataset.price || '0', 10);
       var compareAt = parseInt(option.dataset.compareAt || '0', 10);
       var available = option.dataset.available === 'true';
+      var inventoryQuantity = parseInt(option.dataset.inventoryQuantity || '0', 10);
+      var lowStock = available && inventoryQuantity < 16;
       var priceText = price ? formatInstallmentMoney(price) : '';
       var compareText = compareAt > price ? formatInstallmentMoney(compareAt) : '';
 
@@ -4172,7 +4219,8 @@
 
       if (stockPill) {
         stockPill.classList.toggle('ww-pdp__pill--sold-out', !available);
-        stockPill.innerHTML = '<span></span>' + (available ? 'In stock' : 'Sold out');
+        stockPill.classList.toggle('ww-pdp__pill--low-stock', lowStock);
+        stockPill.innerHTML = '<span></span>' + (available ? (lowStock ? 'Low in stock' : 'In stock') : 'Sold out');
       }
 
       if (addButton) {
