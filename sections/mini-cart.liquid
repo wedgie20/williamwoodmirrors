@@ -138,14 +138,14 @@
         <div class="ww-cart-milestones">
           {%- unless has_slow_delivery_item -%}
             <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--delivery-start">
-              <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'icon' with 'picto-delivery-truck', width: 13, height: 13 %}</span><p>FREE</p>
+              <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'icon' with 'picto-delivery-truck', width: 13, height: 13 %}</span><p>FREE Delivery</p>
             </div>
             <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--delivery">
-              <span class="icon_milestone" style="width: 16px; height: 13px;">{% render 'icon' with 'picto-fast-delivery', width: 16, height: 13 %}</span>
+              <span class="icon_milestone" style="width: 16px; height: 13px;">{% render 'icon' with 'picto-fast-delivery', width: 16, height: 13 %}</span><p>FREE Express Delivery</p>
             </div>
           {%- endunless -%}
           <div class="cart-milestones-bar_Cart cart-milestones-bar_Cart--gift">
-            <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'free-gift' %}</span><p>FREE</p>
+            <span class="icon_milestone" style="width: 13px; height: 13px;">{% render 'free-gift' %}</span><p>FREE Gift</p>
           </div>
         </div>
 
