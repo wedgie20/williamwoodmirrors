@@ -97,6 +97,8 @@
       {%- liquid
         assign free_gift_claimed = false
         assign has_slow_delivery_item = false
+        assign free_gift_eligible_total = cart.items_subtotal_price
+        assign free_gift_pending_discount_total = 0
         for item in cart.items
           assign item_is_free_gift = false
           assign item_tags_downcase = item.product.tags | join: ',' | downcase
@@ -105,10 +107,11 @@
               assign item_is_free_gift = true
             endif
           endfor
-          unless item_is_free_gift and item.final_line_price == 0
-            assign item_is_free_gift = false
-          endunless
           if item_is_free_gift
+            assign free_gift_eligible_total = free_gift_eligible_total | minus: item.original_line_price
+            if item.final_line_price > 0
+              assign free_gift_pending_discount_total = free_gift_pending_discount_total | plus: item.final_line_price
+            endif
             assign free_gift_claimed = true
           endif
           if item_tags_downcase contains 'slowdel'
@@ -118,10 +121,11 @@
 
         assign free_gift_collection = collections['free-gift']
         assign free_gift_products_count = free_gift_collection.products.size
-        assign free_gift_progress = cart.items_subtotal_price | times: 1.0 | divided_by: threshold_in_cents | at_most: 1
+        assign free_gift_progress = free_gift_eligible_total | times: 1.0 | divided_by: threshold_in_cents | at_most: 1
         assign free_delivery_milestone = free_delivery_threshold_in_cents | times: 100.0 | divided_by: threshold_in_cents
-        if cart.items_subtotal_price < threshold_in_cents
+        if free_gift_eligible_total < threshold_in_cents
           assign free_gift_claimed = false
+          assign free_gift_pending_discount_total = 0
         endif
 
         assign ww_trade_is_customer = false
@@ -137,13 +141,13 @@
       <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large ww-free-gift-bar" style="--progress: {{ free_gift_progress }}; --ww-delivery-milestone: {{ free_delivery_milestone }}%;">
         {%- if free_gift_claimed -%}
           <div class="shipping-bar__text"><span style="color: green;">Free Gift successfully claimed</span>, courtesy of William Wood.</div>
-        {%- elsif cart.items_subtotal_price >= threshold_in_cents -%}
+        {%- elsif free_gift_eligible_total >= threshold_in_cents -%}
           <div class="shipping-bar__text"><span style="color: green;">Free Gift Unlocked.</span> Please select your Free Gift of choice <a href="{{ free_gift_collection.url | default: '/collections/free-gift' }}?utm_source=mc" data-free-gift-trigger><u>here</u></a></div>
         {%- elsif has_slow_delivery_item == false and calculated_total_price < free_delivery_threshold_in_cents -%}
           {%- assign free_delivery_remaining_amount = free_delivery_threshold_in_cents | minus: calculated_total_price | money -%}
           <div class="shipping-bar__text">You are <b>{{ free_delivery_remaining_amount }}</b> away from <b>Free Express Delivery</b>.</div>
         {%- else -%}
-          {%- assign remaining_amount = threshold_in_cents | minus: cart.items_subtotal_price | money -%}
+          {%- assign remaining_amount = threshold_in_cents | minus: free_gift_eligible_total | money -%}
           <div class="shipping-bar__text">You are <b>{{ remaining_amount }}</b> away from receiving a Free Gift with your purchase worth up to <b>{%- if cart.currency.iso_code == 'GBP' -%}£99 GBP{% else %}€149,95{% endif %}</b></div>
         {%- endif -%}
 
@@ -176,6 +180,12 @@
         <input type="hidden" name="checkout">
 
         {%- for line_item in cart.items -%}
+          {%- assign ww_line_is_free_gift = false -%}
+          {%- for property in line_item.properties -%}
+            {%- if property.first == '_ww_free_gift' and property.last == 'true' and free_gift_eligible_total >= threshold_in_cents -%}
+              {%- assign ww_line_is_free_gift = true -%}
+            {%- endif -%}
+          {%- endfor -%}
           {%- assign ww_line_compare_at_price = line_item.variant.compare_at_price | default: 0 -%}
           {%- assign ww_line_is_sale = false -%}
           {%- if ww_line_compare_at_price > line_item.variant.price -%}
@@ -232,10 +242,10 @@
                   to a line item though, the "real" discount takes precedence over the compare at price
                 {%- endcomment -%}
 
-                <span class="price {% if line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price %}price--highlight{% endif %}">
+                <span class="price {% if ww_line_is_free_gift or line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price %}price--highlight{% endif %}">
                   <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
 
-                  {%- if line_item.final_line_price == 0 -%}
+                  {%- if ww_line_is_free_gift or line_item.final_line_price == 0 -%}
                     {{- 'cart.general.free' | t -}}
                   {%- else -%}
                    {% render 'format-money', amount: line_item.final_line_price %}
@@ -243,11 +253,13 @@
                   {%- endif -%}
                 </span>
 
-                {%- if line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
+                {%- if ww_line_is_free_gift or line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
                   <span class="price price--compare">
                 <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
 
-                {% if line_item.original_line_price > line_item.final_line_price %}
+                {% if ww_line_is_free_gift %}
+                  {% render 'format-money', amount: line_item.original_line_price %}
+                {% elsif line_item.original_line_price > line_item.final_line_price %}
                   {% render 'format-money', amount: line_item.original_line_price %}
                 {% elsif line_item.variant.compare_at_price > line_item.variant.price %}
                   {% assign compare_price_total = line_item.variant.compare_at_price | times: line_item.quantity %}
@@ -542,7 +554,9 @@
               <div class="ww-free-gift-card__body">
                 <a class="ww-free-gift-card__title" href="{{ gift_product.url }}">{{ gift_product.title }}</a>
                 <p class="ww-free-gift-card__price">{% render 'format-money', amount: gift_product.price %}</p>
-                {%- if gift_variant and gift_variant.available -%}
+                {%- if free_gift_claimed -%}
+                  <button type="button" class="ww-free-gift-card__sold-out" disabled>GIFT CLAIMED</button>
+                {%- elsif gift_variant and gift_variant.available -%}
                   <form action="{{ routes.cart_add_url }}" method="post" class="ww-free-gift-card__form" data-free-gift-form>
                     <input type="hidden" name="id" value="{{ gift_variant.id }}">
                     <input type="hidden" name="quantity" value="1">
@@ -682,6 +696,12 @@
   {% assign total_saving = total_saving | plus: item_total_saving %}
 {% endfor %}
 
+{% if free_gift_pending_discount_total > 0 %}
+  {% assign has_code_savings = true %}
+  {% assign savings_basis = savings_basis | plus: free_gift_pending_discount_total %}
+  {% assign total_saving = total_saving | plus: free_gift_pending_discount_total %}
+{% endif %}
+
 
 {% if total_saving > 0 %}
   {% assign savings_label = 'Product Savings:' %}
@@ -769,7 +789,9 @@
         {%- assign ww_suppressed_cart_total = ww_suppressed_cart_total | plus: ww_line_total -%}
       {%- endfor -%}
 
-      <p class="order_info" style="font-weight: bold;"><span style="color: black;">Final Order Total:</span> <span style="text-align: right;"><span data-ww-cart-total-current>{% render 'format-money', amount: cart.total_price %}</span><span data-ww-cart-total-suppressed>{% render 'format-money', amount: ww_suppressed_cart_total %}</span></span></p>
+      {%- assign ww_display_cart_total = cart.total_price | minus: free_gift_pending_discount_total -%}
+      {%- assign ww_suppressed_cart_total = ww_suppressed_cart_total | minus: free_gift_pending_discount_total -%}
+      <p class="order_info" style="font-weight: bold;"><span style="color: black;">Final Order Total:</span> <span style="text-align: right;"><span data-ww-cart-total-current>{% render 'format-money', amount: ww_display_cart_total %}</span><span data-ww-cart-total-suppressed>{% render 'format-money', amount: ww_suppressed_cart_total %}</span></span></p>
 
       {% assign eu_countries = "AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE" | split: "," %}
       {% if localization.country.iso_code != "GB" and eu_countries contains localization.country.iso_code %}
@@ -1524,23 +1546,6 @@ if (!window.__wwFreeGiftDrawerInit) {
     return sections;
   }
 
-  function wwFindPaidFreeGiftItem(cart) {
-    if (!cart || !Array.isArray(cart.items)) return null;
-
-    return cart.items.find(function (item) {
-      return item &&
-        item.properties &&
-        (item.properties._ww_free_gift === 'true' || item.properties._ww_free_gift === true) &&
-        item.final_line_price > 0;
-    }) || null;
-  }
-
-  function wwSleep(delay) {
-    return new Promise(function (resolve) {
-      setTimeout(resolve, delay);
-    });
-  }
-
   async function wwFetchCart() {
     const response = await fetch(window.themeVariables.routes.cartUrl + '.js', {
       headers: { 'X-Requested-With': 'XMLHttpRequest' }
@@ -1549,17 +1554,6 @@ if (!window.__wwFreeGiftDrawerInit) {
     if (!response.ok) throw new Error('Unable to fetch cart');
 
     return response.json();
-  }
-
-  async function wwWaitForFreeGiftDiscount() {
-    let cartContent = await wwFetchCart();
-
-    for (let attempt = 0; attempt < 6 && wwFindPaidFreeGiftItem(cartContent); attempt += 1) {
-      await wwSleep(500);
-      cartContent = await wwFetchCart();
-    }
-
-    return cartContent;
   }
 
   document.addEventListener('click', function (event) {
@@ -1646,7 +1640,7 @@ if (!window.__wwFreeGiftDrawerInit) {
         throw new Error(responseJson.description || 'Unable to add free gift');
       }
 
-      let cartContent = await wwWaitForFreeGiftDiscount();
+      let cartContent = await wwFetchCart();
 
       const freshSections = await wwRefreshMiniCartContent();
       cartContent.sections = freshSections || responseJson.sections;
