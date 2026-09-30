@@ -117,6 +117,11 @@
   assign detail_assembly = product.metafields.custom.assembly.value | default: product.metafields.custom.assembly
   assign detail_care = product.metafields.custom.product_care_information.value | default: product.metafields.custom.product_care_information | default: product.metafields.custom.care.value | default: product.metafields.custom.care
   assign detail_assembly_time = product.metafields.custom.assembly_time.value | default: product.metafields.custom.assembly_time
+  assign has_dimension_details = false
+
+  if detail_height != blank or detail_width != blank or detail_depth != blank
+    assign has_dimension_details = true
+  endif
 
   assign display_product_heading = product_heading
   assign display_product_title = product.title
@@ -516,9 +521,6 @@
       </div>
       <h1 class="ww-pdp__title">
         <span class="ww-pdp__title-text">{{ display_product_heading }}</span>
-        {%- if display_title_measurement != blank -%}
-          <span class="ww-pdp__title-measurement">{{ display_title_measurement }}</span>
-        {%- endif -%}
       </h1>
 
       <div class="ww-pdp__price-row">
@@ -564,10 +566,14 @@
       </div> 
 
       {%- if review_count_number > 0 -%}
-        <a class="ww-pdp__reviews" href="#judgeme_product_reviews">
+        <a class="ww-pdp__reviews{% if display_title_measurement != blank %} ww-pdp__reviews--has-measurement{% endif %}" href="#judgeme_product_reviews">
           <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
           <span>{{ review_count }} reviews</span>
         </a>
+      {%- endif -%}
+
+      {%- if display_title_measurement != blank -%}
+        <div class="ww-pdp__review-measurement">{{ display_title_measurement }}</div>
       {%- endif -%}
 
       {%- if promo_text != blank -%}
@@ -1625,13 +1631,8 @@
     font-weight: 700;
   }
 
-  .ww-pdp__title-text,
-  .ww-pdp__title-measurement {
+  .ww-pdp__title-text {
     display: block;
-  }
-
-  .ww-pdp__title-measurement {
-    margin-top: 10px;
   }
 
   .ww-pdp__title-dims {
@@ -1779,6 +1780,18 @@
     text-decoration: underline;
     text-underline-offset: 3px;
     font-weight: 500;
+  }
+
+  .ww-pdp__reviews--has-measurement {
+    margin-bottom: 8px;
+  }
+
+  .ww-pdp__review-measurement {
+    margin: 0 0 25px;
+    color: #111;
+    font-size: 24px;
+    line-height: 1.1;
+    font-weight: 700;
   }
 
   .ww-pdp__excerpt {
@@ -3389,10 +3402,20 @@
       font-size: 20px;
     }
 
+    .ww-pdp__reviews--has-measurement {
+      margin-bottom: 8px;
+    }
+
     .ww-pdp__reviews span:last-child {
       font-size: 12px;
       font-weight: 700;
       text-underline-offset: 2px;
+    }
+
+    .ww-pdp__review-measurement {
+      margin-bottom: 28px;
+      font-size: 20px;
+      line-height: 1.15;
     }
 
     .ww-pdp__excerpt {
