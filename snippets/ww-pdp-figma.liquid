@@ -542,6 +542,7 @@
         {%- unless is_preorder -%}
           <span class="ww-pdp__pill ww-pdp__pill--stock{% if current_variant_low_stock %} ww-pdp__pill--low-stock{% endif %}{% unless current_variant.available %} ww-pdp__pill--sold-out{% endunless %}"><span></span>{% if current_variant.available %}{% if current_variant_low_stock %}Low in Stock{% else %}In Stock{% endif %}{% else %}Sold Out{% endif %}</span>
         {%- endunless -%}
+         <span class="ww-pdp__pill">Free UK Mainland Delivery</span>
          {% if product.tags contains 'pre-order' %}
             <span class="ww-pdp__pill">Pre-Order</span>
           {% elsif product.tags contains 'SLOWDEL' %}
