@@ -142,7 +142,15 @@
       -%}
 
       {%- unless ww_trade_is_customer -%}
-      <free-shipping-bar threshold="{{ threshold_in_cents }}" class="shipping-bar shipping-bar--large ww-free-gift-bar" style="--progress: {{ free_gift_progress }}; --ww-delivery-milestone: {{ free_delivery_milestone }}%;">
+      <free-shipping-bar
+        threshold="{{ threshold_in_cents }}"
+        class="shipping-bar shipping-bar--large ww-free-gift-bar"
+        data-free-delivery-threshold="{{ free_delivery_threshold_in_cents }}"
+        data-gift-collection-url="{{ free_gift_collection.url | default: '/collections/free-gift' }}"
+        data-gift-value-label="{%- if cart.currency.iso_code == 'GBP' -%}£99 GBP{%- else -%}€149,95{%- endif -%}"
+        data-has-slow-delivery="{{ has_slow_delivery_item }}"
+        style="--progress: {{ free_gift_progress }}; --ww-delivery-milestone: {{ free_delivery_milestone }}%;"
+      >
         {%- if free_gift_claimed -%}
           <div class="shipping-bar__text"><span style="color: green;">Free Gift successfully claimed</span>, courtesy of William Wood.</div>
         {%- elsif free_gift_eligible_total >= threshold_in_cents -%}
@@ -1237,10 +1245,10 @@ position: absolute;
     border-bottom-color: rgb(236 236 237 / var(--tw-border-opacity, 1));
     --tw-content: "";
     content: " ";
-        --tw-border-opacity: 1;
-    border-bottom-color: black;
-        right: 7px;
-            --tw-border-opacity: 1;
+    right: 7px;
+}
+
+.cart-milestones-bar_Cart.is-reached:after {
     border-bottom-color: rgb(199 241 197 / var(--tw-border-opacity, 1));
 }
 .shipping_threshold {

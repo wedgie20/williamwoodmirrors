@@ -6010,8 +6010,137 @@ var SafeSticky = class extends HTMLElement {
     get threshold() {
       return parseFloat(this.getAttribute("threshold"));
     }
+    get freeDeliveryThreshold() {
+      return parseFloat(this.getAttribute("data-free-delivery-threshold") || 0);
+    }
     _onCartUpdated(event) {
+      const cart = event.detail && event.detail["cart"];
+      if (this.classList.contains("ww-free-gift-bar") && cart) {
+        this._updateFreeGiftBar(cart);
+        return;
+      }
       this.style.setProperty("--progress", Math.min(parseFloat(event.detail["cart"]["total_price"]) / this.threshold, 1));
+    }
+    _updateFreeGiftBar(cart) {
+      const threshold = this.threshold || 0;
+      const freeDeliveryThreshold = this.freeDeliveryThreshold || 0;
+      const eligibility = this._getFreeGiftEligibility(cart);
+      const thresholdReached = threshold > 0 && eligibility.total >= threshold;
+      const freeGiftClaimed = thresholdReached && eligibility.claimed;
+      const progress = threshold > 0 ? Math.min(eligibility.total / threshold, 1) : 0;
+      const textElement = this.querySelector(".shipping-bar__text");
+      const deliveryMilestone = this.querySelector(".cart-milestones-bar_Cart--delivery");
+      const giftMilestone = this.querySelector(".cart-milestones-bar_Cart--gift");
+
+      this.style.setProperty("--progress", progress);
+
+      if (deliveryMilestone) {
+        deliveryMilestone.classList.toggle("is-reached", eligibility.total >= freeDeliveryThreshold);
+      }
+
+      if (giftMilestone) {
+        giftMilestone.classList.toggle("is-reached", thresholdReached);
+      }
+
+      if (!textElement) {
+        return;
+      }
+
+      if (freeGiftClaimed) {
+        textElement.innerHTML = '<span style="color: green;">Free Gift successfully claimed</span>, courtesy of William Wood.';
+      } else if (thresholdReached) {
+        const giftUrl = this.getAttribute("data-gift-collection-url") || "/collections/free-gift";
+        textElement.innerHTML = '<span style="color: green;">Free Gift Unlocked.</span> Please select your Free Gift of choice <a href="' + giftUrl + '?utm_source=mc" data-free-gift-trigger><u>here</u></a>';
+      } else if (this.getAttribute("data-has-slow-delivery") !== "true" && freeDeliveryThreshold > 0 && cart.total_price < freeDeliveryThreshold) {
+        const remaining = freeDeliveryThreshold - cart.total_price;
+        textElement.innerHTML = "You are <b>" + this._formatCartMoney(remaining) + "</b> away from <b>Free Express Delivery</b>.";
+      } else {
+        const remaining = threshold - eligibility.total;
+        const giftValueLabel = this.getAttribute("data-gift-value-label") || "99 GBP";
+        textElement.innerHTML = "You are <b>" + this._formatCartMoney(remaining) + "</b> away from receiving a Free Gift worth up to <b>" + giftValueLabel + "</b>";
+      }
+    }
+    _getFreeGiftEligibility(cart) {
+      const items = Array.isArray(cart.items) ? cart.items : [];
+      let eligibleTotal = typeof cart.items_subtotal_price === "number" ? cart.items_subtotal_price : 0;
+      let claimed = false;
+
+      if (eligibleTotal === 0) {
+        eligibleTotal = items.reduce((total, item) => total + this._getOriginalLinePrice(item), 0);
+      }
+
+      items.forEach((item) => {
+        if (!this._isFreeGiftItem(item)) {
+          return;
+        }
+
+        eligibleTotal -= this._getOriginalLinePrice(item);
+
+        if (this._getFinalLinePrice(item) === 0 || this._hasFreeGiftDiscount(item)) {
+          claimed = true;
+        }
+      });
+
+      return {
+        total: Math.max(eligibleTotal, 0),
+        claimed
+      };
+    }
+    _isFreeGiftItem(item) {
+      const properties = item && item.properties;
+
+      if (!properties) {
+        return false;
+      }
+
+      if (Array.isArray(properties)) {
+        return properties.some((property) => property && property.name === "_ww_free_gift" && (property.value === "true" || property.value === true));
+      }
+
+      return properties["_ww_free_gift"] === "true" || properties["_ww_free_gift"] === true;
+    }
+    _hasFreeGiftDiscount(item) {
+      const discounts = []
+        .concat(Array.isArray(item.discounts) ? item.discounts : [])
+        .concat(Array.isArray(item.line_level_discount_allocations) ? item.line_level_discount_allocations : []);
+
+      return discounts.some((discount) => {
+        const application = discount.discount_application || {};
+        const title = (discount.title || application.title || "").toLowerCase();
+        return title.includes("free gift");
+      });
+    }
+    _getOriginalLinePrice(item) {
+      if (typeof item.original_line_price === "number") {
+        return item.original_line_price;
+      }
+
+      if (typeof item.original_price === "number" && typeof item.quantity === "number") {
+        return item.original_price * item.quantity;
+      }
+
+      return this._getFinalLinePrice(item);
+    }
+    _getFinalLinePrice(item) {
+      if (typeof item.final_line_price === "number") {
+        return item.final_line_price;
+      }
+
+      if (typeof item.line_price === "number") {
+        return item.line_price;
+      }
+
+      if (typeof item.final_price === "number" && typeof item.quantity === "number") {
+        return item.final_price * item.quantity;
+      }
+
+      return 0;
+    }
+    _formatCartMoney(cents) {
+      const settings = window.themeVariables && window.themeVariables.settings ? window.themeVariables.settings : {};
+      const format = settings.currencyCodeEnabled ? settings.moneyWithCurrencyFormat : settings.moneyFormat;
+
+      return formatMoney(Math.max(cents, 0), format);
     }
   };
   window.customElements.define("free-shipping-bar", FreeShippingBar);
