@@ -99,6 +99,7 @@
         assign has_slow_delivery_item = false
         assign free_gift_eligible_total = cart.items_subtotal_price
         assign free_gift_pending_discount_total = 0
+        assign free_gift_selected = false
         for item in cart.items
           assign item_is_free_gift = false
           assign item_tags_downcase = item.product.tags | join: ',' | downcase
@@ -108,11 +109,11 @@
             endif
           endfor
           if item_is_free_gift
+            assign free_gift_selected = true
             assign free_gift_eligible_total = free_gift_eligible_total | minus: item.final_line_price
             if item.final_line_price > 0
               assign free_gift_pending_discount_total = free_gift_pending_discount_total | plus: item.final_line_price
             endif
-            assign free_gift_claimed = true
           endif
           if item_tags_downcase contains 'slowdel'
             assign has_slow_delivery_item = true
@@ -126,6 +127,8 @@
         if free_gift_eligible_total < threshold_in_cents
           assign free_gift_claimed = false
           assign free_gift_pending_discount_total = 0
+        elsif free_gift_selected
+          assign free_gift_claimed = true
         endif
 
         assign ww_trade_is_customer = false
@@ -1568,6 +1571,34 @@ if (!window.__wwFreeGiftDrawerInit) {
     return response.json();
   }
 
+  function wwHasPendingFreeGiftDiscount(cart) {
+    if (!cart || !Array.isArray(cart.items)) return false;
+
+    return cart.items.some(function (item) {
+      return item &&
+        item.properties &&
+        (item.properties._ww_free_gift === 'true' || item.properties._ww_free_gift === true) &&
+        item.final_line_price > 0;
+    });
+  }
+
+  function wwSleep(delay) {
+    return new Promise(function (resolve) {
+      setTimeout(resolve, delay);
+    });
+  }
+
+  async function wwWaitForFreeGiftDiscount() {
+    let cartContent = await wwFetchCart();
+
+    for (let attempt = 0; attempt < 6 && wwHasPendingFreeGiftDiscount(cartContent); attempt += 1) {
+      await wwSleep(500);
+      cartContent = await wwFetchCart();
+    }
+
+    return cartContent;
+  }
+
   document.addEventListener('click', function (event) {
     const trigger = event.target.closest(
       '[data-free-gift-trigger], #mini-cart .shipping-bar__text a[href*="/collections/free-gift"], #mini-cart .shipping-bar__text a[href*="/pages/free-gift"]'
@@ -1652,7 +1683,7 @@ if (!window.__wwFreeGiftDrawerInit) {
         throw new Error(responseJson.description || 'Unable to add free gift');
       }
 
-      let cartContent = await wwFetchCart();
+      let cartContent = await wwWaitForFreeGiftDiscount();
 
       const freshSections = await wwRefreshMiniCartContent();
       cartContent.sections = freshSections || responseJson.sections;
