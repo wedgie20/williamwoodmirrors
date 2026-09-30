@@ -117,6 +117,11 @@
   assign detail_assembly = product.metafields.custom.assembly.value | default: product.metafields.custom.assembly
   assign detail_care = product.metafields.custom.product_care_information.value | default: product.metafields.custom.product_care_information | default: product.metafields.custom.care.value | default: product.metafields.custom.care
   assign detail_assembly_time = product.metafields.custom.assembly_time.value | default: product.metafields.custom.assembly_time
+  assign has_dimension_details = false
+
+  if detail_height != blank or detail_width != blank or detail_depth != blank
+    assign has_dimension_details = true
+  endif
 
   assign display_product_heading = product_heading
   assign display_product_title = product.title
@@ -516,9 +521,6 @@
       </div>
       <h1 class="ww-pdp__title">
         <span class="ww-pdp__title-text">{{ display_product_heading }}</span>
-        {%- if display_title_measurement != blank -%}
-          <span class="ww-pdp__title-measurement">{{ display_title_measurement }}</span>
-        {%- endif -%}
       </h1>
 
       <div class="ww-pdp__price-row">
@@ -564,38 +566,40 @@
       </div> 
 
       {%- if review_count_number > 0 -%}
-        <a class="ww-pdp__reviews" href="#judgeme_product_reviews">
+        <a class="ww-pdp__reviews{% if has_dimension_details %} ww-pdp__reviews--has-measurement{% endif %}" href="#judgeme_product_reviews">
           <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
           <span>{{ review_count }} reviews</span>
         </a>
       {%- endif -%}
 
-      {%- if product.description != blank -%}
-        {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
-        <div class="product_description_dropdown">
-          <button type="button" class="product-description-toggle" aria-expanded="false">
-            <span>Product Description</span>
-            <span class="toggle-icon" aria-hidden="true">+</span>
-          </button>
-          <div class="product-description-content">
-            <div class="ww-pdp__accordion-inner">
-              {{ desc_clean }}
+      {%- if has_dimension_details -%}
+        <div class="ww-pdp__dimension-row" aria-label="Product dimensions">
+          {%- if detail_height != blank -%}
+            <div class="ww-pdp__dimension-item">
+              <span class="ww-pdp__dimension-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false"><path d="M12 4 8.8 7.2l1 1L11.3 6.7v10.6l-1.5-1.5-1 1L12 20l3.2-3.2-1-1-1.5 1.5V6.7l1.5 1.5 1-1L12 4Z"/></svg>
+              </span>
+              <span>Height: {{ detail_height }}</span>
             </div>
-          </div>
-        </div>
-      {%- endif -%}
+          {%- endif -%}
 
-      {%- if description_key_details_items != blank -%}
-        <div class="key_details_dropdown">
-          <button type="button" class="key-details-toggle" aria-expanded="false">
-            <span>Key Details</span>
-            <span class="toggle-icon" aria-hidden="true">+</span>
-          </button>
-          <div class="key-details-content">
-            <div class="ww-pdp__accordion-inner">
-              {{ description_key_details_items | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+          {%- if detail_width != blank -%}
+            <div class="ww-pdp__dimension-item">
+              <span class="ww-pdp__dimension-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false"><path d="m4 12 3.2-3.2 1 1-1.5 1.5h10.6l-1.5-1.5 1-1L20 12l-3.2 3.2-1-1 1.5-1.5H6.7l1.5 1.5-1 1L4 12Z"/></svg>
+              </span>
+              <span>Width: {{ detail_width }}</span>
             </div>
-          </div>
+          {%- endif -%}
+
+          {%- if detail_depth != blank -%}
+            <div class="ww-pdp__dimension-item">
+              <span class="ww-pdp__dimension-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false"><path d="M15 5h4v4h-1.6V7.7l-8.8 8.8H10v1.6H6v-4h1.6v1.3l8.8-8.8H15V5Z"/></svg>
+              </span>
+              <span>Depth: {{ detail_depth }}</span>
+            </div>
+          {%- endif -%}
         </div>
       {%- endif -%}
 
@@ -939,6 +943,37 @@
   {%- endif -%}
 </div>
 
+      <div class="ww-pdp__post-atc-details">
+        {%- if product.description != blank -%}
+          {%- assign desc_clean = product.description | strip_html | strip | split: 'Key Details' | first | strip | remove_first: 'Product Description' | strip -%}
+          <div class="product_description_dropdown">
+            <button type="button" class="product-description-toggle" aria-expanded="false">
+              <span>Product Description</span>
+              <span class="toggle-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="product-description-content">
+              <div class="ww-pdp__accordion-inner">
+                {{ desc_clean }}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if description_key_details_items != blank -%}
+          <div class="key_details_dropdown">
+            <button type="button" class="key-details-toggle" aria-expanded="false">
+              <span>Details and Dimensions</span>
+              <span class="toggle-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="key-details-content">
+              <div class="ww-pdp__accordion-inner">
+                {{ description_key_details_items | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx }}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
 
 {%- if false -%}
 <div class="ww-pdp__payments" data-ww-installments data-price-cents="{{ effective_price }}" hidden aria-hidden="true" style="display: none !important;">
@@ -1097,7 +1132,7 @@
     </div>
 
     <div class="ww-pdp__detail-copy">
-      <h2>Key Details</h2>
+      <h2>Details and Dimensions</h2>
       {{ description_key_details_items }}
     </div>
   </div>
@@ -1623,13 +1658,8 @@
     font-weight: 700;
   }
 
-  .ww-pdp__title-text,
-  .ww-pdp__title-measurement {
+  .ww-pdp__title-text {
     display: block;
-  }
-
-  .ww-pdp__title-measurement {
-    margin-top: 10px;
   }
 
   .ww-pdp__title-dims {
@@ -1777,6 +1807,46 @@
     text-decoration: underline;
     text-underline-offset: 3px;
     font-weight: 500;
+  }
+
+  .ww-pdp__reviews--has-measurement {
+    margin-bottom: 8px;
+  }
+
+  .ww-pdp__dimension-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin: 10px 0 25px;
+  }
+
+  .ww-pdp__dimension-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #3e3e3e;
+    font-size: 16px;
+    line-height: 1.2;
+    font-weight: 400;
+  }
+
+  .ww-pdp__dimension-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #f4f4f4;
+    color: #111;
+    flex: 0 0 44px;
+  }
+
+  .ww-pdp__dimension-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
   }
 
   .ww-pdp__excerpt {
@@ -1948,6 +2018,10 @@
     padding: 0;
     {% comment %} font-family: "Gotham Book", sans-serif; {% endcomment %}
     font-weight: 500;
+  }
+
+  .ww-pdp__post-atc-details {
+    margin: 25px 0;
   }
 
   .ww-pdp__promo {
@@ -2164,7 +2238,7 @@
 
   .ww-pdp__payments {
     padding: 16px 12px 16px 12px;
-    margin-bottom: 54px;
+    margin-bottom: 30px;
     text-align: center;
     font-size: 12px;
     border: 1px solid #E8E8E8;
@@ -2370,7 +2444,7 @@
     display: none !important;
     grid-template-columns: minmax(0, 59%) minmax(0, 41%);
     {% comment %} gap: 50px; {% endcomment %}
-    padding: 112px 52px 52px;
+    padding: 112px 52px 90px;
   }
 
   .ww-pdp__detail-image {
@@ -3383,10 +3457,36 @@
       font-size: 20px;
     }
 
+    .ww-pdp__reviews--has-measurement {
+      margin-bottom: 8px;
+    }
+
     .ww-pdp__reviews span:last-child {
       font-size: 12px;
       font-weight: 700;
       text-underline-offset: 2px;
+    }
+
+    .ww-pdp__dimension-row {
+      gap: 12px 16px;
+      margin-bottom: 28px;
+      margin-top: 10px;
+    }
+
+    .ww-pdp__dimension-item {
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .ww-pdp__dimension-icon {
+      width: 38px;
+      height: 38px;
+      flex-basis: 38px;
+    }
+
+    .ww-pdp__dimension-icon svg {
+      width: 19px;
+      height: 19px;
     }
 
     .ww-pdp__excerpt {
