@@ -6005,7 +6005,22 @@ var SafeSticky = class extends HTMLElement {
   // js/custom-element/section/cart/free-shipping-bar.js
   var FreeShippingBar = class extends HTMLElement {
     connectedCallback() {
-      document.documentElement.addEventListener("cart:updated", this._onCartUpdated.bind(this));
+      this._boundOnCartUpdated = this._boundOnCartUpdated || this._onCartUpdated.bind(this);
+      this._boundOnCartDrawerUpdated = this._boundOnCartDrawerUpdated || this._onCartDrawerUpdated.bind(this);
+      document.documentElement.addEventListener("cart:updated", this._boundOnCartUpdated);
+      document.documentElement.addEventListener("cart:drawer:updated", this._boundOnCartDrawerUpdated);
+
+      if (this.classList.contains("ww-free-gift-bar")) {
+        if (window.__wwLatestCartContent) {
+          this._updateFreeGiftBar(window.__wwLatestCartContent);
+        } else {
+          this._refreshCartState();
+        }
+      }
+    }
+    disconnectedCallback() {
+      document.documentElement.removeEventListener("cart:updated", this._boundOnCartUpdated);
+      document.documentElement.removeEventListener("cart:drawer:updated", this._boundOnCartDrawerUpdated);
     }
     get threshold() {
       return parseFloat(this.getAttribute("threshold"));
@@ -6015,11 +6030,50 @@ var SafeSticky = class extends HTMLElement {
     }
     _onCartUpdated(event) {
       const cart = event.detail && event.detail["cart"];
+      if (cart) {
+        window.__wwLatestCartContent = cart;
+      }
       if (this.classList.contains("ww-free-gift-bar") && cart) {
         this._updateFreeGiftBar(cart);
         return;
       }
       this.style.setProperty("--progress", Math.min(parseFloat(event.detail["cart"]["total_price"]) / this.threshold, 1));
+    }
+    _onCartDrawerUpdated(event) {
+      const cart = event.detail && event.detail["cart"] || window.__wwLatestCartContent;
+
+      if (!this.classList.contains("ww-free-gift-bar") || !cart) {
+        return;
+      }
+
+      window.__wwLatestCartContent = cart;
+      this._updateFreeGiftBar(cart);
+    }
+    async _refreshCartState() {
+      const routes = window.themeVariables && window.themeVariables.routes;
+
+      if (!routes || !routes.cartUrl) {
+        return;
+      }
+
+      try {
+        if (!window.__wwLatestCartRequest) {
+          window.__wwLatestCartRequest = fetch(routes.cartUrl + ".js", {
+            headers: { "X-Requested-With": "XMLHttpRequest" }
+          }).then((response) => response.ok ? response.json() : null).finally(() => {
+            window.__wwLatestCartRequest = null;
+          });
+        }
+
+        const cart = await window.__wwLatestCartRequest;
+
+        if (cart) {
+          window.__wwLatestCartContent = cart;
+          this._updateFreeGiftBar(cart);
+        }
+      } catch (error) {
+        console.warn("WW: Unable to refresh free gift bar state", error);
+      }
     }
     _updateFreeGiftBar(cart) {
       const threshold = this.threshold || 0;
@@ -6076,7 +6130,7 @@ var SafeSticky = class extends HTMLElement {
 
         eligibleTotal -= this._getOriginalLinePrice(item);
 
-        if (this._getFinalLinePrice(item) === 0 || this._hasFreeGiftDiscount(item)) {
+        if (this._getFinalLinePrice(item) === 0) {
           claimed = true;
         }
       });
@@ -6098,17 +6152,6 @@ var SafeSticky = class extends HTMLElement {
       }
 
       return properties["_ww_free_gift"] === "true" || properties["_ww_free_gift"] === true;
-    }
-    _hasFreeGiftDiscount(item) {
-      const discounts = []
-        .concat(Array.isArray(item.discounts) ? item.discounts : [])
-        .concat(Array.isArray(item.line_level_discount_allocations) ? item.line_level_discount_allocations : []);
-
-      return discounts.some((discount) => {
-        const application = discount.discount_application || {};
-        const title = (discount.title || application.title || "").toLowerCase();
-        return title.includes("free gift");
-      });
     }
     _getOriginalLinePrice(item) {
       if (typeof item.original_line_price === "number") {

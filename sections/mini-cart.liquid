@@ -100,22 +100,15 @@
         assign free_gift_eligible_total = cart.items_subtotal_price
         for item in cart.items
           assign item_is_free_gift = false
-          assign item_has_free_gift_discount = false
           assign item_tags_downcase = item.product.tags | join: ',' | downcase
           for property in item.properties
             if property.first == '_ww_free_gift' and property.last == 'true'
               assign item_is_free_gift = true
             endif
           endfor
-          for discount_allocation in item.line_level_discount_allocations
-            assign item_discount_title = discount_allocation.discount_application.title | default: discount_allocation.title | downcase
-            if item_discount_title contains 'free gift'
-              assign item_has_free_gift_discount = true
-            endif
-          endfor
           if item_is_free_gift
             assign free_gift_eligible_total = free_gift_eligible_total | minus: item.original_line_price
-            if item.final_line_price == 0 or item_has_free_gift_discount
+            if item.final_line_price == 0
               assign free_gift_claimed = true
             endif
           endif
@@ -216,7 +209,7 @@
             {%- endif -%}
           {%- endfor -%}
           {%- if ww_line_is_marked_free_gift and free_gift_eligible_total >= threshold_in_cents -%}
-            {%- if line_item.final_line_price == 0 or ww_line_has_free_gift_discount -%}
+            {%- if line_item.final_line_price == 0 -%}
               {%- assign ww_line_is_free_gift = true -%}
             {%- endif -%}
           {%- endif -%}
