@@ -97,7 +97,7 @@
       {%- liquid
         assign free_gift_claimed = false
         assign has_slow_delivery_item = false
-        assign free_gift_eligible_total = cart.items_subtotal_price
+        assign free_gift_eligible_total = calculated_total_price
         assign free_gift_pending_discount_total = 0
         assign free_gift_selected = false
         for item in cart.items
@@ -183,10 +183,14 @@
         <input type="hidden" name="checkout">
 
         {%- for line_item in cart.items -%}
+          {%- assign ww_line_is_marked_free_gift = false -%}
           {%- assign ww_line_is_free_gift = false -%}
           {%- for property in line_item.properties -%}
-            {%- if property.first == '_ww_free_gift' and property.last == 'true' and free_gift_eligible_total >= threshold_in_cents -%}
-              {%- assign ww_line_is_free_gift = true -%}
+            {%- if property.first == '_ww_free_gift' and property.last == 'true' -%}
+              {%- assign ww_line_is_marked_free_gift = true -%}
+              {%- if free_gift_eligible_total >= threshold_in_cents -%}
+                {%- assign ww_line_is_free_gift = true -%}
+              {%- endif -%}
             {%- endif -%}
           {%- endfor -%}
           {%- assign ww_line_compare_at_price = line_item.variant.compare_at_price | default: 0 -%}
@@ -201,6 +205,18 @@
               {%- assign ww_line_has_trade_discount = true -%}
             {%- endif -%}
           {%- endfor -%}
+          {%- assign ww_line_is_zero_price_non_gift = false -%}
+          {%- if line_item.final_line_price == 0 and ww_line_is_marked_free_gift == false -%}
+            {%- assign ww_line_is_zero_price_non_gift = true -%}
+          {%- endif -%}
+          {%- assign ww_line_has_real_discount = false -%}
+          {%- if line_item.original_line_price > line_item.final_line_price and ww_line_is_marked_free_gift == false -%}
+            {%- assign ww_line_has_real_discount = true -%}
+          {%- endif -%}
+          {%- assign ww_line_should_highlight_price = false -%}
+          {%- if ww_line_is_free_gift or ww_line_has_real_discount or ww_line_is_zero_price_non_gift or line_item.variant.compare_at_price > line_item.variant.price -%}
+            {%- assign ww_line_should_highlight_price = true -%}
+          {%- endif -%}
 
           <line-item
             class="line-item"
@@ -245,24 +261,26 @@
                   to a line item though, the "real" discount takes precedence over the compare at price
                 {%- endcomment -%}
 
-                <span class="price {% if ww_line_is_free_gift or line_item.original_line_price > line_item.final_line_price or line_item.final_line_price == 0 or line_item.variant.compare_at_price > line_item.variant.price %}price--highlight{% endif %}">
+                <span class="price {% if ww_line_should_highlight_price %}price--highlight{% endif %}">
                   <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
 
-                  {%- if ww_line_is_free_gift or line_item.final_line_price == 0 -%}
+                  {%- if ww_line_is_free_gift or ww_line_is_zero_price_non_gift -%}
                     {{- 'cart.general.free' | t -}}
+                  {%- elsif ww_line_is_marked_free_gift and free_gift_eligible_total < threshold_in_cents and line_item.final_line_price == 0 -%}
+                    {% render 'format-money', amount: line_item.original_line_price %}
                   {%- else -%}
                    {% render 'format-money', amount: line_item.final_line_price %}
 
                   {%- endif -%}
                 </span>
 
-                {%- if ww_line_is_free_gift or line_item.original_line_price > line_item.final_line_price or line_item.variant.compare_at_price > line_item.variant.price -%}
+                {%- if ww_line_is_free_gift or ww_line_has_real_discount or line_item.variant.compare_at_price > line_item.variant.price -%}
                   <span class="price price--compare">
                 <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
 
                 {% if ww_line_is_free_gift %}
                   {% render 'format-money', amount: line_item.original_line_price %}
-                {% elsif line_item.original_line_price > line_item.final_line_price %}
+                {% elsif ww_line_has_real_discount %}
                   {% render 'format-money', amount: line_item.original_line_price %}
                 {% elsif line_item.variant.compare_at_price > line_item.variant.price %}
                   {% assign compare_price_total = line_item.variant.compare_at_price | times: line_item.quantity %}
@@ -367,6 +385,9 @@
                     {%- for discount_allocation in line_item.line_level_discount_allocations -%}
                       {%- assign discount_title = discount_allocation.discount_application.title -%}
                       {%- assign discount_title_downcase = discount_title | downcase -%}
+                      {%- if ww_line_is_marked_free_gift and free_gift_eligible_total < threshold_in_cents and discount_title_downcase contains 'free gift' -%}
+                        {%- continue -%}
+                      {%- endif -%}
                       {%- assign is_trade_discount = false -%}
                       {%- if discount_title_downcase contains 'trade discount' -%}
                         {%- assign is_trade_discount = true -%}
@@ -1174,7 +1195,8 @@ display: block;
 text-align: center;
 white-space: nowrap;
 }
-.cart-milestones-bar_Cart .icon_milestone {
+.cart-milestones-bar_Cart .icon_milestone,
+.ww-cart-milestones .cart-milestones-bar_Cart .icon_milestone {
 display: flex;
 align-items: center;
 justify-content: center;
@@ -1186,8 +1208,9 @@ background-color: #ececed;
 position: relative;
 }
 
-.cart-milestones-bar_Cart.is-reached .icon_milestone {
-background-color: rgb(199 241 197/var(--tw-bg-opacity,1));
+.cart-milestones-bar_Cart.is-reached .icon_milestone,
+.ww-cart-milestones .cart-milestones-bar_Cart.is-reached .icon_milestone {
+background-color: #c7f1c5;
 }
 .cart-milestones-bar_Cart svg {
 display: block;
@@ -1300,7 +1323,7 @@ display: none;}
 }
 
 .ww-cart-milestones .cart-milestones-bar_Cart.is-reached .icon_milestone:after {
-  border-bottom-color: rgb(199 241 197 / var(--tw-border-opacity, 1));
+  border-bottom-color: #c7f1c5;
 }
 
 .ww-cart-milestones .cart-milestones-bar_Cart--delivery {
@@ -1864,7 +1887,7 @@ if (!window.__wwFreeGiftDrawerInit) {
   async function wwRefreshMiniCartContent() {
     const cartUrl = window.themeVariables && window.themeVariables.routes && window.themeVariables.routes.cartUrl;
     const currentMiniCart = document.getElementById('mini-cart');
-    if (!cartUrl || !currentMiniCart) return;
+    if (!cartUrl || !currentMiniCart) return null;
 
     const response = await fetch(cartUrl + '?sections=mini-cart', {
       method: 'GET',
@@ -1875,21 +1898,64 @@ if (!window.__wwFreeGiftDrawerInit) {
 
     const sections = await response.json();
     const miniCartHtml = sections['mini-cart'];
-    if (!miniCartHtml) return;
+    if (!miniCartHtml) return sections;
 
     const doc = new DOMParser().parseFromString(miniCartHtml, 'text/html');
     const newMiniCart = doc.getElementById('mini-cart');
-    if (!newMiniCart) return;
+    if (!newMiniCart) return sections;
 
-    // Update Liquid-driven bits only. Do not replace #mini-cart itself.
+    // Keep the drawer element alive, but replace every cart-dependent area after discounts settle.
     [
       '.shipping-bar',
-      '.shipping-bar__text',
+      '#mini-cart-form',
       '[data-free-gift-drawer]',
-      '[data-free-gift-trigger]'
+      '.mini-cart__recommendations',
+      '.drawer__footer'
     ].forEach(function (selector) {
       wwReplaceInner(currentMiniCart, newMiniCart, selector);
     });
+
+    currentMiniCart.setAttribute('data-cart-count', newMiniCart.getAttribute('data-cart-count') || '');
+
+    return sections;
+  }
+
+  async function wwFetchCart() {
+    const response = await fetch(window.themeVariables.routes.cartUrl + '.js', {
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    });
+
+    if (!response.ok) throw new Error('Unable to fetch cart');
+
+    return response.json();
+  }
+
+  function wwHasPendingFreeGiftDiscount(cart) {
+    if (!cart || !Array.isArray(cart.items)) return false;
+
+    return cart.items.some(function (item) {
+      return item &&
+        item.properties &&
+        (item.properties._ww_free_gift === 'true' || item.properties._ww_free_gift === true) &&
+        item.final_line_price > 0;
+    });
+  }
+
+  function wwSleep(delay) {
+    return new Promise(function (resolve) {
+      setTimeout(resolve, delay);
+    });
+  }
+
+  async function wwWaitForFreeGiftDiscount() {
+    let cartContent = await wwFetchCart();
+
+    for (let attempt = 0; attempt < 6 && wwHasPendingFreeGiftDiscount(cartContent); attempt += 1) {
+      await wwSleep(500);
+      cartContent = await wwFetchCart();
+    }
+
+    return cartContent;
   }
 
   document.addEventListener('click', function (event) {
@@ -1976,9 +2042,9 @@ if (!window.__wwFreeGiftDrawerInit) {
         throw new Error(responseJson.description || 'Unable to add free gift');
       }
 
-      const cartResponse = await fetch(window.themeVariables.routes.cartUrl + '.js');
-      const cartContent = await cartResponse.json();
-      cartContent.sections = responseJson.sections;
+      const cartContent = await wwWaitForFreeGiftDiscount();
+      const freshSections = await wwRefreshMiniCartContent();
+      cartContent.sections = freshSections || responseJson.sections;
 
       document.documentElement.dispatchEvent(new CustomEvent('cart:updated', {
         bubbles: true,
@@ -1993,7 +2059,6 @@ if (!window.__wwFreeGiftDrawerInit) {
         }
       }));
 
-      await wwRefreshMiniCartContent();
     } catch (error) {
       console.error('WW: Unable to add free gift:', error);
     } finally {
