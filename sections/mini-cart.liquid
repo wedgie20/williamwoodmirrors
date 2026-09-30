@@ -148,7 +148,7 @@
           <div class="shipping-bar__text">You are <b>{{ free_delivery_remaining_amount }}</b> away from <b>Free Express Delivery</b>.</div>
         {%- else -%}
           {%- assign remaining_amount = threshold_in_cents | minus: free_gift_eligible_total | money -%}
-          <div class="shipping-bar__text">You are <b>{{ remaining_amount }}</b> away from receiving a Free Gift with your purchase worth up to <b>{%- if cart.currency.iso_code == 'GBP' -%}£99 GBP{% else %}€149,95{% endif %}</b></div>
+          <div class="shipping-bar__text">You are <b>{{ remaining_amount }}</b> away from receiving a Free Gift worth up to <b>{%- if cart.currency.iso_code == 'GBP' -%}£99 GBP{% else %}€149,95{% endif %}</b></div>
         {%- endif -%}
 
         <div class="ww-cart-milestones">
