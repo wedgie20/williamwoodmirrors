@@ -545,6 +545,7 @@
         {% if current_variant.available %}
           <span class="ww-pdp__pill">Free UK Mainland Delivery</span>
         {% endif %}
+        {% if current_variant.available %}
          {% if product.tags contains 'pre-order' %}
             <span class="ww-pdp__pill">Pre-Order</span>
           {% elsif product.tags contains 'SLOWDEL' %}
@@ -555,6 +556,7 @@
             <span class="ww-pdp__pill">Delivery Within 7 Days Available</span>
           {% else %}
             <span class="ww-pdp__pill">Delivery Within 7 Days Available</span>
+          {% endif %}
         {% endif %}
         {% if product.collections contains collections['sasso-collection'] %}
           <span class="ww-pdp__pill pill_latest">Latest Arrivals</span>
