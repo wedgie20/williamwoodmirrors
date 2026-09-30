@@ -566,14 +566,41 @@
       </div> 
 
       {%- if review_count_number > 0 -%}
-        <a class="ww-pdp__reviews{% if display_title_measurement != blank %} ww-pdp__reviews--has-measurement{% endif %}" href="#judgeme_product_reviews">
+        <a class="ww-pdp__reviews{% if has_dimension_details %} ww-pdp__reviews--has-measurement{% endif %}" href="#judgeme_product_reviews">
           <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
           <span>{{ review_count }} reviews</span>
         </a>
       {%- endif -%}
 
-      {%- if display_title_measurement != blank -%}
-        <div class="ww-pdp__review-measurement">{{ display_title_measurement }}</div>
+      {%- if has_dimension_details -%}
+        <div class="ww-pdp__dimension-row" aria-label="Product dimensions">
+          {%- if detail_height != blank -%}
+            <div class="ww-pdp__dimension-item">
+              <span class="ww-pdp__dimension-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3 7.5 7.5l1.1 1.1 2.6-2.6v12l-2.6-2.6-1.1 1.1L12 21l4.5-4.5-1.1-1.1-2.6 2.6V6l2.6 2.6 1.1-1.1L12 3Z"/></svg>
+              </span>
+              <span>Height: {{ detail_height }}</span>
+            </div>
+          {%- endif -%}
+
+          {%- if detail_width != blank -%}
+            <div class="ww-pdp__dimension-item">
+              <span class="ww-pdp__dimension-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false"><path d="m3 12 4.5-4.5 1.1 1.1L6 11.2h12l-2.6-2.6 1.1-1.1L21 12l-4.5 4.5-1.1-1.1 2.6-2.6H6l2.6 2.6-1.1 1.1L3 12Z"/></svg>
+              </span>
+              <span>Width: {{ detail_width }}</span>
+            </div>
+          {%- endif -%}
+
+          {%- if detail_depth != blank -%}
+            <div class="ww-pdp__dimension-item">
+              <span class="ww-pdp__dimension-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false"><path d="M7 5h12v12h-1.6V7.7L6.6 18.5 5.5 17.4 16.3 6.6H7V5Z"/></svg>
+              </span>
+              <span>Depth: {{ detail_depth }}</span>
+            </div>
+          {%- endif -%}
+        </div>
       {%- endif -%}
 
       {%- if promo_text != blank -%}
@@ -1786,12 +1813,40 @@
     margin-bottom: 8px;
   }
 
-  .ww-pdp__review-measurement {
+  .ww-pdp__dimension-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
     margin: 0 0 25px;
+  }
+
+  .ww-pdp__dimension-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #3e3e3e;
+    font-size: 16px;
+    line-height: 1.2;
+    font-weight: 400;
+  }
+
+  .ww-pdp__dimension-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #f4f4f4;
     color: #111;
-    font-size: 24px;
-    line-height: 1.1;
-    font-weight: 700;
+    flex: 0 0 44px;
+  }
+
+  .ww-pdp__dimension-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
   }
 
   .ww-pdp__excerpt {
@@ -3412,10 +3467,25 @@
       text-underline-offset: 2px;
     }
 
-    .ww-pdp__review-measurement {
+    .ww-pdp__dimension-row {
+      gap: 12px 16px;
       margin-bottom: 28px;
-      font-size: 20px;
-      line-height: 1.15;
+    }
+
+    .ww-pdp__dimension-item {
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .ww-pdp__dimension-icon {
+      width: 38px;
+      height: 38px;
+      flex-basis: 38px;
+    }
+
+    .ww-pdp__dimension-icon svg {
+      width: 19px;
+      height: 19px;
     }
 
     .ww-pdp__excerpt {
