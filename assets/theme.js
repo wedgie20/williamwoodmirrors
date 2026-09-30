@@ -6105,8 +6105,8 @@ var SafeSticky = class extends HTMLElement {
       } else if (thresholdReached) {
         const giftUrl = this.getAttribute("data-gift-collection-url") || "/collections/free-gift";
         textElement.innerHTML = '<span style="color: green;">Free Gift Unlocked.</span> Please select your Free Gift of choice <a href="' + giftUrl + '?utm_source=mc" data-free-gift-trigger><u>here</u></a>';
-      } else if (this.getAttribute("data-has-slow-delivery") !== "true" && freeDeliveryThreshold > 0 && cart.total_price < freeDeliveryThreshold) {
-        const remaining = freeDeliveryThreshold - cart.total_price;
+      } else if (this.getAttribute("data-has-slow-delivery") !== "true" && freeDeliveryThreshold > 0 && eligibility.total < freeDeliveryThreshold) {
+        const remaining = freeDeliveryThreshold - eligibility.total;
         textElement.innerHTML = "You are <b>" + this._formatCartMoney(remaining) + "</b> away from <b>Free Express Delivery</b>.";
       } else {
         const remaining = threshold - eligibility.total;
@@ -6116,19 +6116,15 @@ var SafeSticky = class extends HTMLElement {
     }
     _getFreeGiftEligibility(cart) {
       const items = Array.isArray(cart.items) ? cart.items : [];
-      let eligibleTotal = typeof cart.items_subtotal_price === "number" ? cart.items_subtotal_price : 0;
+      let eligibleTotal = this._getCartTotalPrice(cart);
       let claimed = false;
-
-      if (eligibleTotal === 0) {
-        eligibleTotal = items.reduce((total, item) => total + this._getOriginalLinePrice(item), 0);
-      }
 
       items.forEach((item) => {
         if (!this._isFreeGiftItem(item)) {
           return;
         }
 
-        eligibleTotal -= this._getOriginalLinePrice(item);
+        eligibleTotal -= this._getFinalLinePrice(item);
 
         if (this._getFinalLinePrice(item) === 0) {
           claimed = true;
@@ -6153,16 +6149,16 @@ var SafeSticky = class extends HTMLElement {
 
       return properties["_ww_free_gift"] === "true" || properties["_ww_free_gift"] === true;
     }
-    _getOriginalLinePrice(item) {
-      if (typeof item.original_line_price === "number") {
-        return item.original_line_price;
+    _getCartTotalPrice(cart) {
+      if (typeof cart.total_price === "number") {
+        return cart.total_price;
       }
 
-      if (typeof item.original_price === "number" && typeof item.quantity === "number") {
-        return item.original_price * item.quantity;
+      if (typeof cart.items_subtotal_price === "number") {
+        return cart.items_subtotal_price;
       }
 
-      return this._getFinalLinePrice(item);
+      return 0;
     }
     _getFinalLinePrice(item) {
       if (typeof item.final_line_price === "number") {
