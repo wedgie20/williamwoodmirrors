@@ -140,8 +140,13 @@
     {%- endif -%}
 
     {%- if section.settings.header_layout == 'drawer' -%}
+      #shopify-section-{{ section.id }} .header {
+        overflow: visible;
+      }
+
       #shopify-section-{{ section.id }} .header__bottom-navigation--drawer {
         position: relative;
+        z-index: 20;
         margin-left: calc(50% - 50vw);
         margin-right: calc(50% - 50vw);
         padding-top: 0;
@@ -215,7 +220,7 @@
         position: absolute;
         top: calc(100% + 1px);
         left: 50%;
-        z-index: 5;
+        z-index: 1200;
         width: 100vw;
         min-height: 260px;
         padding: 40px 48px 48px;
