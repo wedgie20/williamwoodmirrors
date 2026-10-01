@@ -255,6 +255,10 @@
 
   {%- assign menu = section.settings.navigation_menu -%}
 
+  {%- if section.settings.header_layout == 'drawer' and section.settings.sidebar_navigation_menu != blank -%}
+    {%- assign menu = section.settings.sidebar_navigation_menu -%}
+  {%- endif -%}
+
   <div class="container">
     <div class="header__wrapper">
       <!-- LEFT PART -->
@@ -264,11 +268,19 @@
             role="navigation"
           {% endunless %}
         >
-          {%- if menu.links.size > 0
-            and section.settings.header_layout == 'logo_left_navigation_inline'
-            or section.settings.header_layout == 'logo_left_navigation_center'
-            or section.settings.header_layout == 'logo_center_navigation_inline'
-          -%}
+          {%- assign show_desktop_menu = false -%}
+
+          {%- if menu.links.size > 0 -%}
+            {%- if section.settings.header_layout == 'drawer'
+              or section.settings.header_layout == 'logo_left_navigation_inline'
+              or section.settings.header_layout == 'logo_left_navigation_center'
+              or section.settings.header_layout == 'logo_center_navigation_inline'
+            -%}
+              {%- assign show_desktop_menu = true -%}
+            {%- endif -%}
+          {%- endif -%}
+
+          {%- if show_desktop_menu -%}
             {%- render 'desktop-menu', menu: menu -%}
           {%- endif -%}
 
@@ -276,7 +288,7 @@
             {%- if menu.links.size > 0 -%}
               <button
                 is="toggle-button"
-                class="header__icon-wrapper tap-area {% unless section.settings.header_layout == 'drawer' %}hidden-desk{% endunless %}"
+                class="header__icon-wrapper tap-area hidden-desk"
                 aria-controls="mobile-menu-drawer"
                 aria-expanded="false"
               >
