@@ -170,3 +170,43 @@
     {%- endif -%}
   </ul>
 </desktop-navigation>
+
+<script>
+  (() => {
+    if (window.__wwDesktopDrawerMenuReady) {
+      return;
+    }
+
+    window.__wwDesktopDrawerMenuReady = true;
+
+    const openClass = 'ww-desktop-drawer-menu__item--is-open';
+    let suppressHoverUntil = 0;
+
+    const closeMenus = () => {
+      document.querySelectorAll(`.${openClass}`).forEach((item) => {
+        item.classList.remove(openClass);
+      });
+    };
+
+    window.addEventListener('scroll', () => {
+      suppressHoverUntil = Date.now() + 220;
+      closeMenus();
+    }, { passive: true });
+
+    document.addEventListener('pointermove', (event) => {
+      if (event.pointerType && event.pointerType !== 'mouse') {
+        return;
+      }
+
+      if (Date.now() < suppressHoverUntil) {
+        return;
+      }
+
+      const activeItem = event.target.closest('.ww-desktop-drawer-menu__item--has-panel');
+
+      document.querySelectorAll('.ww-desktop-drawer-menu__item--has-panel').forEach((item) => {
+        item.classList.toggle(openClass, item === activeItem);
+      });
+    }, { passive: true });
+  })();
+</script>
