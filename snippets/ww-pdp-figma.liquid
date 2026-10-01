@@ -4173,8 +4173,17 @@
     });
 
     [
+      {% comment %} { toggle: '.product-description-toggle', content: '.product-description-content', wrapper: '.product_description_dropdown' },
+      { toggle: '.key-details-toggle', content: '.key-details-content', wrapper: '.key_details_dropdown' } {% endcomment %}
       { toggle: '.product-description-toggle', content: '.product-description-content', wrapper: '.product_description_dropdown' },
-      { toggle: '.key-details-toggle', content: '.key-details-content', wrapper: '.key_details_dropdown' }
+
+{ toggle: '.key-details-toggle', content: '.key-details-content', wrapper: '.key_details_dropdown' },
+
+{ toggle: '.delivery-toggle', content: '.delivery-content', wrapper: '.delivery_dropdown' },
+
+{ toggle: '.hanging-assembly-toggle', content: '.hanging-assembly-content', wrapper: '.hanging_assembly_dropdown' },
+
+{ toggle: '.will-it-fit-toggle', content: '.will-it-fit-content', wrapper: '.will_it_fit_dropdown' }
     ].forEach(function (dropdown) {
       var toggle = root.querySelector(dropdown.toggle);
       var content = root.querySelector(dropdown.content);
