@@ -972,6 +972,70 @@
             </div>
           </div>
         {%- endif -%}
+
+        <div class="delivery_dropdown">
+            <button type="button" class="delivery-toggle" aria-expanded="false">
+                <span>Delivery</span>
+                <span class="toggle-icon" aria-hidden="true">+</span>
+            </button>
+
+            <div class="delivery-content">
+                <div class="ww-pdp__accordion-inner">
+                  <p>All orders are delivered by our in-house William Wood large and fragile item delivery team.</p>
+
+                  <p>Free Mainland UK or Express Delivery options are available at checkout:</p>
+
+                  <ul>
+                    <li><strong>Small items:</strong> Free hand delivery, or tracked UPS express delivery in 1-3 business days for &pound;10.</li>
+                    <li><strong>Mirrors and large items:</strong> Free hand delivery service, with a premium express option available in most areas for a fee of &pound;10.</li>
+                    <li><strong>Furniture:</strong> Free delivery by our two-person team, within 15 business days.</li>
+                    <li><strong>Northern Ireland:</strong> Delivery within 21 business days for a fee of &pound;20.</li>
+                    <li><strong>Weekend delivery:</strong> Available in London for a fee of &pound;10.</li>
+                  </ul>
+
+                  <p>If you need to make any changes to your delivery details, please contact us at <a href="mailto:hello@williamwoodmirrors.co.uk">hello@williamwoodmirrors.co.uk</a>.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="hanging_assembly_dropdown">
+            <button type="button" class="hanging-assembly-toggle" aria-expanded="false">
+                <span>Hanging &amp; Assembly</span>
+                <span class="toggle-icon" aria-hidden="true">+</span>
+            </button>
+
+            <div class="hanging-assembly-content">
+                <div class="ww-pdp__accordion-inner">
+                  <p>All mirrors and accessories will arrive fully pre-assembled.</p>
+
+                  <p>Some tables and chairs will require minimal assembly. Any products requiring assembly are provided with instructions, so please read them carefully before you start.</p>
+
+                  <p>Before arranging or making any alterations to your home (drilling, fixing, etc.), please make sure you're completely happy with your product.</p>
+
+                  <p>To wall mount your mirror, use fixings suited to your wall. Please <strong>DO NOT</strong> use string or hanging wire under any circumstances. If you're unsure, ask a professional.</p>
+
+                  <p>Larger or heavier pieces should always be lifted and positioned by two people. Our customer care team are also on hand to help whenever you need guidance.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="will_it_fit_dropdown">
+            <button type="button" class="will-it-fit-toggle" aria-expanded="false">
+                <span>Will it Fit?</span>
+                <span class="toggle-icon" aria-hidden="true">+</span>
+            </button>
+
+            <div class="will-it-fit-content">
+                <div class="ww-pdp__accordion-inner">
+                  <p><strong>Measure your space</strong> - Check the available space where you plan to place the product, including height, width and depth.</p>
+
+                  <p><strong>Check access</strong> - Make sure the product can comfortably pass through doorways, hallways, stairs and other access points.</p>
+
+                  <p><strong>Allow for clearance</strong> - Leave a little extra room around the product for easy delivery, positioning and everyday use.</p>
+
+                </div>
+            </div>
+        </div>
       </div>
 
 
@@ -1895,13 +1959,19 @@
   }
 
   .product_description_dropdown,
-  .key_details_dropdown {
+  .key_details_dropdown,
+  .delivery_dropdown,
+  .hanging_assembly_dropdown,
+  .will_it_fit_dropdown {
     border-top: 1px solid #e5e5e5;
     margin-bottom: 10px;
   }
 
   .product-description-toggle,
-  .key-details-toggle {
+  .key-details-toggle,
+  .delivery-toggle,
+  .hanging-assembly-toggle,
+  .will-it-fit-toggle {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -1922,7 +1992,10 @@
   }
 
   .product-description-content,
-  .key-details-content {
+  .key-details-content,
+  .delivery-content,
+  .hanging-assembly-content,
+  .will-it-fit-content {
     height: 0;
     overflow: hidden;
     transition: height .34s cubic-bezier(.25, .46, .45, .94);
@@ -1932,7 +2005,11 @@
     padding-bottom: 15px;
   }
 
-  .product-description-content .ww-pdp__accordion-inner {
+  .product-description-content .ww-pdp__accordion-inner,
+  .key-details-content .ww-pdp__accordion-inner,
+  .delivery-content .ww-pdp__accordion-inner,
+  .hanging-assembly-content .ww-pdp__accordion-inner,
+  .will-it-fit-content .ww-pdp__accordion-inner {
     font-size: 14px;
     line-height: 1.65;
     font-family: "Gotham Book";
@@ -4092,7 +4169,10 @@
 
     [
       { toggle: '.product-description-toggle', content: '.product-description-content', wrapper: '.product_description_dropdown' },
-      { toggle: '.key-details-toggle', content: '.key-details-content', wrapper: '.key_details_dropdown' }
+      { toggle: '.key-details-toggle', content: '.key-details-content', wrapper: '.key_details_dropdown' },
+      { toggle: '.delivery-toggle', content: '.delivery-content', wrapper: '.delivery_dropdown' },
+      { toggle: '.hanging-assembly-toggle', content: '.hanging-assembly-content', wrapper: '.hanging_assembly_dropdown' },
+      { toggle: '.will-it-fit-toggle', content: '.will-it-fit-content', wrapper: '.will_it_fit_dropdown' }
     ].forEach(function (dropdown) {
       var toggle = root.querySelector(dropdown.toggle);
       var content = root.querySelector(dropdown.content);
