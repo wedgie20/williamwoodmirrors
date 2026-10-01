@@ -181,6 +181,8 @@
 
     const openClass = 'ww-desktop-drawer-menu__item--is-open';
     let suppressHoverUntil = 0;
+    let lastPointerX = null;
+    let lastPointerY = null;
 
     const closeMenus = () => {
       document.querySelectorAll(`.${openClass}`).forEach((item) => {
@@ -189,20 +191,41 @@
     };
 
     window.addEventListener('scroll', () => {
-      suppressHoverUntil = Date.now() + 220;
+      suppressHoverUntil = Date.now() + 700;
       closeMenus();
     }, { passive: true });
+
+    document.addEventListener('pointerleave', closeMenus);
 
     document.addEventListener('pointermove', (event) => {
       if (event.pointerType && event.pointerType !== 'mouse') {
         return;
       }
 
+      const previousX = lastPointerX;
+      const previousY = lastPointerY;
+      lastPointerX = event.clientX;
+      lastPointerY = event.clientY;
+
       if (Date.now() < suppressHoverUntil) {
         return;
       }
 
-      const activeItem = event.target.closest('.ww-desktop-drawer-menu__item--has-panel');
+      if (previousX !== null && previousY !== null) {
+        const movedDistance = Math.abs(event.clientX - previousX) + Math.abs(event.clientY - previousY);
+
+        if (movedDistance < 8) {
+          return;
+        }
+      }
+
+      const activeTrigger = event.target.closest('.ww-desktop-drawer-menu__item--has-panel > .ww-desktop-drawer-menu__link');
+      const activePanel = event.target.closest('.ww-desktop-drawer-menu__panel');
+      const activeItem = activeTrigger
+        ? activeTrigger.closest('.ww-desktop-drawer-menu__item--has-panel')
+        : activePanel
+          ? activePanel.closest('.ww-desktop-drawer-menu__item--has-panel')
+          : null;
 
       document.querySelectorAll('.ww-desktop-drawer-menu__item--has-panel').forEach((item) => {
         item.classList.toggle(openClass, item === activeItem);
