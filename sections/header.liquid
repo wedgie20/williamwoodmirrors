@@ -138,6 +138,42 @@
         margin-inline: 48px;
       }
     {%- endif -%}
+
+    {%- if section.settings.header_layout == 'drawer' -%}
+      #shopify-section-{{ section.id }} .header__bottom-navigation--drawer {
+        background: rgb({{ settings.header_background.red }}, {{ settings.header_background.green }}, {{ settings.header_background.blue }});
+        color: rgb({{ settings.header_text_color.red }}, {{ settings.header_text_color.green }}, {{ settings.header_text_color.blue }});
+        border-top: 1px solid rgba({{ settings.header_text_color.red }}, {{ settings.header_text_color.green }}, {{ settings.header_text_color.blue }}, 0.12);
+        border-bottom: 1px solid rgba({{ settings.header_text_color.red }}, {{ settings.header_text_color.green }}, {{ settings.header_text_color.blue }}, 0.12);
+        overflow-x: auto;
+        overflow-y: visible;
+        scrollbar-width: none;
+      }
+
+      #shopify-section-{{ section.id }} .header__bottom-navigation--drawer::-webkit-scrollbar {
+        display: none;
+      }
+
+      #shopify-section-{{ section.id }} .header__bottom-navigation--drawer .header__linklist {
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: clamp(18px, 2vw, 32px);
+        min-width: max-content;
+      }
+
+      #shopify-section-{{ section.id }} .header__bottom-navigation--drawer .header__linklist-item {
+        margin-right: 0;
+        margin-left: 0;
+      }
+
+      #shopify-section-{{ section.id }} .header__bottom-navigation--drawer .header__linklist-link {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+    {%- endif -%}
   }
 
   {%- if request.page_type == '404' -%}
@@ -271,8 +307,7 @@
           {%- assign show_desktop_menu = false -%}
 
           {%- if menu.links.size > 0 -%}
-            {%- if section.settings.header_layout == 'drawer'
-              or section.settings.header_layout == 'logo_left_navigation_inline'
+            {%- if section.settings.header_layout == 'logo_left_navigation_inline'
               or section.settings.header_layout == 'logo_left_navigation_center'
               or section.settings.header_layout == 'logo_center_navigation_inline'
             -%}
@@ -692,8 +727,16 @@
       </div>
     </div>
 
-    {%- if menu.links.size > 0 and section.settings.header_layout == 'logo_center_search_open' -%}
-      <nav class="header__bottom-navigation hidden-pocket hidden-lap" role="navigation">
+    {%- assign show_bottom_desktop_menu = false -%}
+
+    {%- if menu.links.size > 0 -%}
+      {%- if section.settings.header_layout == 'logo_center_search_open' or section.settings.header_layout == 'drawer' -%}
+        {%- assign show_bottom_desktop_menu = true -%}
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if show_bottom_desktop_menu -%}
+      <nav class="header__bottom-navigation {% if section.settings.header_layout == 'drawer' %}header__bottom-navigation--drawer{% endif %} hidden-pocket hidden-lap" role="navigation">
         {% render 'desktop-menu', menu: menu, bottom_navigation: true %}
       </nav>
     {%- endif -%}
