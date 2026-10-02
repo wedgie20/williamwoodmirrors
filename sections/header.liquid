@@ -547,10 +547,6 @@
 
   {%- assign menu = section.settings.navigation_menu -%}
 
-  {%- if section.settings.header_layout == 'drawer' and section.settings.sidebar_navigation_menu != blank -%}
-    {%- assign menu = section.settings.sidebar_navigation_menu -%}
-  {%- endif -%}
-
   <div class="container">
     <div class="header__wrapper">
       <!-- LEFT PART -->

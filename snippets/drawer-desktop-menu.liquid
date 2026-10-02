@@ -6,6 +6,16 @@
   {%- endif -%}
 {%- endif -%}
 
+{%- assign drawer_menu_uses_group_markers = false -%}
+{%- for link in menu.links -%}
+  {%- assign link_title_downcase = link.title | strip | downcase -%}
+
+  {%- if link_title_downcase == 'shop' or link_title_downcase == 'explore' -%}
+    {%- assign drawer_menu_uses_group_markers = true -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
 {%- capture primary_links -%}
   {%- assign drawer_menu_group = 'primary' -%}
   {%- for link in menu.links -%}
@@ -241,36 +251,110 @@
 
 <desktop-navigation class="ww-desktop-drawer-menu">
   <ul class="ww-desktop-drawer-menu__list list--unstyled" role="list">
-    {{- primary_links -}}
+    {%- if drawer_menu_uses_group_markers -%}
+      {{- primary_links -}}
 
-    {%- if shop_menu != blank -%}
-      <li class="ww-desktop-drawer-menu__item ww-desktop-drawer-menu__item--has-panel">
-        <button class="ww-desktop-drawer-menu__link" type="button">Shop</button>
-        <div class="ww-desktop-drawer-menu__panel ww-desktop-drawer-menu__panel--shop">
-          <div class="ww-desktop-drawer-menu__panel-inner ww-desktop-drawer-menu__panel-inner--shop">
-            <div class="ww-desktop-drawer-menu__shop-layout">
-              <ul class="ww-desktop-drawer-menu__shop-categories list--unstyled" role="list">
-                {{- shop_menu -}}
-              </ul>
+      {%- if shop_menu != blank -%}
+        <li class="ww-desktop-drawer-menu__item ww-desktop-drawer-menu__item--has-panel">
+          <button class="ww-desktop-drawer-menu__link" type="button">Shop</button>
+          <div class="ww-desktop-drawer-menu__panel ww-desktop-drawer-menu__panel--shop">
+            <div class="ww-desktop-drawer-menu__panel-inner ww-desktop-drawer-menu__panel-inner--shop">
+              <div class="ww-desktop-drawer-menu__shop-layout">
+                <ul class="ww-desktop-drawer-menu__shop-categories list--unstyled" role="list">
+                  {{- shop_menu -}}
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      </li>
-    {%- endif -%}
+        </li>
+      {%- endif -%}
 
-    {%- if explore_menu != blank -%}
-      <li class="ww-desktop-drawer-menu__item ww-desktop-drawer-menu__item--has-panel">
-        <button class="ww-desktop-drawer-menu__link" type="button">Explore</button>
-        <div class="ww-desktop-drawer-menu__panel ww-desktop-drawer-menu__panel--shop">
-          <div class="ww-desktop-drawer-menu__panel-inner ww-desktop-drawer-menu__panel-inner--shop">
-            <div class="ww-desktop-drawer-menu__shop-layout">
-              <ul class="ww-desktop-drawer-menu__shop-categories list--unstyled" role="list">
-                {{- explore_menu -}}
-              </ul>
+      {%- if explore_menu != blank -%}
+        <li class="ww-desktop-drawer-menu__item ww-desktop-drawer-menu__item--has-panel">
+          <button class="ww-desktop-drawer-menu__link" type="button">Explore</button>
+          <div class="ww-desktop-drawer-menu__panel ww-desktop-drawer-menu__panel--shop">
+            <div class="ww-desktop-drawer-menu__panel-inner ww-desktop-drawer-menu__panel-inner--shop">
+              <div class="ww-desktop-drawer-menu__shop-layout">
+                <ul class="ww-desktop-drawer-menu__shop-categories list--unstyled" role="list">
+                  {{- explore_menu -}}
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      </li>
+        </li>
+      {%- endif -%}
+    {%- else -%}
+      {%- for link in menu.links -%}
+        {%- assign link_title_downcase = link.title | strip | downcase -%}
+
+        {%- if ww_desktop_drawer_trade_is_customer and link_title_downcase contains 'end of season sale' -%}
+          {%- continue -%}
+        {%- endif -%}
+
+        {%- assign drawer_link_title = link.title -%}
+        {%- if ww_desktop_drawer_trade_is_customer -%}
+          {%- if link_title_downcase contains 'summer sale' or link_title_downcase contains 'spring sale' -%}
+            {%- assign drawer_link_title = 'Last Chance' -%}
+          {%- endif -%}
+        {%- endif -%}
+
+        <li class="ww-desktop-drawer-menu__item{% if link.links.size > 0 %} ww-desktop-drawer-menu__item--has-panel{% endif %}">
+          <a href="{{ link.url }}" class="ww-desktop-drawer-menu__link{% if drawer_link_title contains ' - ' %} ww-desktop-drawer-menu__link--split{% endif %}">
+            {%- if drawer_link_title contains ' - ' -%}
+              {%- assign title_parts = drawer_link_title | split: ' - ' -%}
+              <span>{{ title_parts[0] }}</span>
+              <span class="ww-desktop-drawer-menu__accent">- {{ title_parts[1] }}</span>
+            {%- else -%}
+              {{- drawer_link_title -}}
+            {%- endif -%}
+          </a>
+
+          {%- if link.links.size > 0 -%}
+            <div class="ww-desktop-drawer-menu__panel ww-desktop-drawer-menu__panel--shop">
+              <div class="ww-desktop-drawer-menu__panel-inner ww-desktop-drawer-menu__panel-inner--shop">
+                <div class="ww-desktop-drawer-menu__shop-layout">
+                  <ul class="ww-desktop-drawer-menu__shop-categories list--unstyled" role="list">
+                    {%- for sub_link in link.links -%}
+                      <li class="ww-desktop-drawer-menu__shop-category{% if forloop.first %} ww-desktop-drawer-menu__shop-category--default ww-desktop-drawer-menu__shop-category--is-active{% endif %}">
+                        <a href="{{ sub_link.url }}" class="ww-desktop-drawer-menu__shop-category-link">{{ sub_link.title }}</a>
+
+                        <div class="ww-desktop-drawer-menu__shop-detail{% if drawer_menu_promo != blank %} ww-desktop-drawer-menu__shop-detail--has-promo{% endif %}">
+                          <div class="ww-desktop-drawer-menu__shop-detail-grid">
+                            {%- if sub_link.links.size > 0 -%}
+                              {%- for sub_sub_link in sub_link.links -%}
+                                <div class="ww-desktop-drawer-menu__shop-detail-group">
+                                  {%- if sub_sub_link.links.size > 0 -%}
+                                    <a href="{{ sub_sub_link.url }}" class="ww-desktop-drawer-menu__shop-detail-heading">{{ sub_sub_link.title }}</a>
+                                    <ul class="ww-desktop-drawer-menu__panel-list list--unstyled" role="list">
+                                      {%- for sub_sub_sub_link in sub_sub_link.links -%}
+                                        <li>
+                                          <a href="{{ sub_sub_sub_link.url }}" class="ww-desktop-drawer-menu__panel-link">{{ sub_sub_sub_link.title }}</a>
+                                        </li>
+                                      {%- endfor -%}
+                                    </ul>
+                                  {%- else -%}
+                                    <a href="{{ sub_sub_link.url }}" class="ww-desktop-drawer-menu__shop-detail-link">{{ sub_sub_link.title }}</a>
+                                  {%- endif -%}
+                                </div>
+                              {%- endfor -%}
+                            {%- else -%}
+                              <div class="ww-desktop-drawer-menu__shop-detail-group">
+                                <a href="{{ sub_link.url }}" class="ww-desktop-drawer-menu__shop-detail-link">{{ sub_link.title }}</a>
+                              </div>
+                            {%- endif -%}
+                          </div>
+
+                          {{- drawer_menu_promo -}}
+                        </div>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
     {%- endif -%}
   </ul>
 </desktop-navigation>
