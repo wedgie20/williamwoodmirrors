@@ -112,11 +112,19 @@
           {%- if link.links.size > 0 or mega_menu_images != blank -%}
             <button
               is="toggle-button"
-              class="mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
+              class="{% if ww_mobile_menu_link_title contains ' - ' %}have-two-parts {% endif %}mobile-nav__link heading {% if settings.heading_text_transform == 'uppercase' %}p{% else %}p{% endif %}"
               aria-controls="mobile-menu-{{ forloop.index }}"
               aria-expanded="false"
             >
-              {{- ww_mobile_menu_link_title -}}
+              {%- if ww_mobile_menu_link_title contains ' - ' -%}
+                {%- assign title_parts = ww_mobile_menu_link_title | split: ' - ' -%}
+                <span class="mobile-nav__link-label">
+                  <span class="title-part-1">{{ title_parts[0] }} - </span>
+                  <span class="title-part-2">{{ title_parts[1] }}</span>
+                </span>
+              {%- else -%}
+                <span class="mobile-nav__link-label">{{- ww_mobile_menu_link_title -}}</span>
+              {%- endif -%}
               <span class="animated-plus"></span>
             </button>
 
@@ -462,12 +470,36 @@
 }
 
   .mobile-nav__link.have-two-parts {
-    place-content: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.mobile-nav__link-label {
+    display: inline-flex;
+    align-items: center;
+    min-width: 0;
     gap: 5px;
+    flex-wrap: wrap;
+    text-align: left;
 }
 
 .mobile-nav__link.have-two-parts .title-part-2 {
     color: #780606;
+}
+
+.mobile-nav__link.have-two-parts .animated-plus {
+    flex: 0 0 auto;
+    margin-left: auto;
+}
+
+.mobile-nav__link:focus:not(:focus-visible) {
+    outline: 0;
+    box-shadow: none;
+}
+
+.mobile-nav__link:focus-visible {
+    outline: 1px solid currentColor;
+    outline-offset: 2px;
 }
 
   
