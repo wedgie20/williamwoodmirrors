@@ -483,19 +483,28 @@
     }
 
     {%- comment -%}
-      Hulk's actual field set has no Business Type/Portfolio/Password/marketing-checkbox
-      fields, so a literal 4-section match isn't possible from theme code - this groups
-      what Hulk DOES have into "Company" and "Address" headings (on top of the static
-      "Your details" heading already above the embed). Fields are matched by their
-      placeholder text, read directly off the live render, rather than guessed class
-      names - so this doesn't depend on Hulk's DOM structure, only its visible copy.
-      If Hulk's placeholder wording changes, update the strings in placeholderGroups below.
+      Hulk's field set originally had no Business Type/Portfolio/Password/marketing-checkbox
+      fields - those were added afterwards inside the Hulk app. This groups the resulting
+      fields into "Company"/"Address"/"Account" headings (on top of the static "Your details"
+      heading already above the embed). The first two are matched by placeholder text, read
+      directly off the live render. "Account" is matched by input[type="password"] instead,
+      since Password/Confirm Password render with no placeholder text at all in Hulk's admin
+      preview - type="password" is a guaranteed HTML attribute, not a guessed string.
+      If Hulk's placeholder wording changes, update the strings in headingGroups below.
     {%- endcomment -%}
     var headingsInserted = false;
-    var placeholderGroups = [
-      { match: 'company name', heading: 'Company' },
-      { match: 'first line of your address', heading: 'Address' }
+    var headingGroups = [
+      { find: function() { return findByPlaceholder('company name'); }, heading: 'Company' },
+      { find: function() { return findByPlaceholder('first line of your address'); }, heading: 'Address' },
+      { find: function() { return root.querySelector('input[type="password"]'); }, heading: 'Account' }
     ];
+
+    function findByPlaceholder(match) {
+      var controls = root.querySelectorAll('input[placeholder], textarea[placeholder]');
+      return Array.prototype.find.call(controls, function(candidate) {
+        return candidate.placeholder && candidate.placeholder.toLowerCase().indexOf(match) !== -1;
+      });
+    }
 
     function findRowElement(control) {
       var node = control;
@@ -513,20 +522,12 @@
         return;
       }
 
-      var controls = root.querySelectorAll('input[placeholder], textarea[placeholder]');
-      if (!controls.length) {
-        return;
-      }
-
-      placeholderGroups.forEach(function(group) {
+      headingGroups.forEach(function(group) {
         if (group.done) {
           return;
         }
 
-        var control = Array.prototype.find.call(controls, function(candidate) {
-          return candidate.placeholder && candidate.placeholder.toLowerCase().indexOf(group.match) !== -1;
-        });
-
+        var control = group.find();
         if (!control) {
           return;
         }
@@ -543,9 +544,40 @@
         group.done = true;
       });
 
-      headingsInserted = placeholderGroups.every(function(group) {
+      headingsInserted = headingGroups.every(function(group) {
         return group.done;
       });
+    }
+
+    {%- comment -%}
+      Password/Confirm Password have no placeholder text (confirmed in Hulk's admin
+      preview), so the blanket "hide every label" CSS rule would leave them blank with
+      nothing identifying the field. Re-showing just their labels via an inline !important
+      style is the one override guaranteed to beat that stylesheet rule regardless of
+      specificity, without having to special-case the CSS selector itself.
+    {%- endcomment -%}
+    var passwordLabelsRevealed = false;
+
+    function revealPasswordLabels() {
+      if (passwordLabelsRevealed) {
+        return;
+      }
+
+      var passwordFields = root.querySelectorAll('input[type="password"]');
+      if (!passwordFields.length) {
+        return;
+      }
+
+      passwordFields.forEach(function(control) {
+        var row = findRowElement(control);
+        var label = row ? row.querySelector('label') : null;
+
+        if (label) {
+          label.style.setProperty('display', 'block', 'important');
+        }
+      });
+
+      passwordLabelsRevealed = true;
     }
 
     renderHulkForm();
@@ -555,8 +587,9 @@
       attempts += 1;
       renderHulkForm();
       insertSectionHeadings();
+      revealPasswordLabels();
 
-      if (headingsInserted || attempts >= 20) {
+      if ((headingsInserted && passwordLabelsRevealed) || attempts >= 20) {
         clearInterval(renderTimer);
       }
     }, 250);
