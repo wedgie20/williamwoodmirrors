@@ -252,12 +252,22 @@
     display: none !important;
   }
 
+  {%- comment -%}
+    Hulk renders a static <label> above each field rather than placing it inside the pill
+    (confirmed against the live page - a DOM-walking relocation attempt didn't change that).
+    Hiding the label outright and relying on the native placeholder instead matches the
+    target single-line pill look without depending on Hulk's internal structure at all.
+  {%- endcomment -%}
+  #shopify-section-{{ section.id }} .ww-trade-application__hulk label {
+    display: none !important;
+  }
+
   #shopify-section-{{ section.id }} .ww-trade-application__hulk input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]):not([type="file"]),
   #shopify-section-{{ section.id }} .ww-trade-application__hulk select,
   #shopify-section-{{ section.id }} .ww-trade-application__hulk textarea {
     width: 100% !important;
     min-height: 48px !important;
-    padding: 17px 16px 6px !important;
+    padding: 0 20px !important;
     border: 1px solid #bdbdbd !important;
     border-radius: var(--ww-trade-field-radius) !important;
     background: #fff !important;
@@ -270,11 +280,42 @@
     outline: 0 !important;
   }
 
+  #shopify-section-{{ section.id }} .ww-trade-application__hulk input::placeholder,
+  #shopify-section-{{ section.id }} .ww-trade-application__hulk textarea::placeholder {
+    color: #000 !important;
+    opacity: 1 !important;
+    font-family: var(--ww-trade-text-font) !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+  }
+
   #shopify-section-{{ section.id }} .ww-trade-application__hulk textarea {
     min-height: 86px !important;
-    padding-top: 22px !important;
-    padding-bottom: 10px !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
     resize: vertical;
+  }
+
+  {%- comment -%}
+    Hulk's field rows render as a responsive grid that goes two-up at this panel's width
+    (760px) even though the target design is single column. Selectors are a defensive guess
+    at common row/grid wrapper naming (confirm against the live render and adjust the class
+    patterns if a row still sits side-by-side).
+  {%- endcomment -%}
+  #shopify-section-{{ section.id }} .ww-trade-application__hulk [class*="row" i],
+  #shopify-section-{{ section.id }} .ww-trade-application__hulk [class*="grid" i],
+  #shopify-section-{{ section.id }} .ww-trade-application__hulk [class*="column" i],
+  #shopify-section-{{ section.id }} .ww-trade-application__hulk [class*="fields-wrapper" i] {
+    display: block !important;
+    grid-template-columns: none !important;
+    width: 100% !important;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__hulk [class*="field" i],
+  #shopify-section-{{ section.id }} .ww-trade-application__hulk [class*="field" i] > * {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1 1 100% !important;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__hulk button[type="submit"],
@@ -376,14 +417,19 @@
     #shopify-section-{{ section.id }} .ww-trade-application__hulk select,
     #shopify-section-{{ section.id }} .ww-trade-application__hulk textarea {
       min-height: 46px !important;
-      padding: 16px 14px 6px !important;
+      padding: 0 14px !important;
+      font-size: 12px !important;
+    }
+
+    #shopify-section-{{ section.id }} .ww-trade-application__hulk input::placeholder,
+    #shopify-section-{{ section.id }} .ww-trade-application__hulk textarea::placeholder {
       font-size: 12px !important;
     }
 
     #shopify-section-{{ section.id }} .ww-trade-application__hulk textarea {
       min-height: 78px !important;
-      padding-top: 21px !important;
-      padding-bottom: 10px !important;
+      padding-top: 18px !important;
+      padding-bottom: 18px !important;
     }
 
     #shopify-section-{{ section.id }} .ww-trade-application__hulk button[type="submit"],
@@ -393,6 +439,14 @@
   }
 </style>
 
+{%- comment -%}
+  Deliberately not walking Hulk's DOM to relocate labels onto the inputs (that was tried
+  and didn't match Hulk's real markup - labels still rendered as static text above the
+  field instead of floating inside it). Styling below hides native labels outright and
+  restyles the native placeholder text instead, which works regardless of Hulk's actual
+  DOM structure since it only relies on the HTML placeholder attribute, not guessed class
+  names - far more robust than DOM-walking against an unknown third-party widget.
+{%- endcomment -%}
 <script>
   (function() {
     var root = document.querySelector('#shopify-section-{{ section.id }} [data-ww-trade-application-hulk]');
@@ -413,77 +467,7 @@
       }
     }
 
-    function findLabel(control, field) {
-      if (control.id && window.CSS && CSS.escape) {
-        var labelById = root.querySelector('label[for="' + CSS.escape(control.id) + '"]');
-        if (labelById) {
-          return labelById;
-        }
-      }
-
-      return field.querySelector('label');
-    }
-
-    function setupField(control) {
-      if (control.dataset.wwFloatingReady === 'true') {
-        return;
-      }
-
-      var field = control.closest('.hulk-form-field, .form-field, .form-group, .field, [class*="field"]') || control.parentElement;
-      if (field === control) {
-        field = control.parentElement;
-      }
-
-      if (!field || field === root) {
-        return;
-      }
-
-      var label = findLabel(control, field);
-      if (!label) {
-        return;
-      }
-
-      if (!field.contains(label) && label.parentElement && label.parentElement.contains(control)) {
-        field = label.parentElement;
-      }
-
-      field.classList.add('ww-trade-application__field');
-
-      if (label.parentElement !== field || label.nextElementSibling !== control) {
-        field.insertBefore(label, control);
-      }
-
-      control.dataset.wwFloatingReady = 'true';
-
-      function syncState() {
-        field.classList.toggle('ww-field-filled', Boolean(control.value));
-      }
-
-      control.addEventListener('focus', function() {
-        field.classList.add('ww-field-focused');
-      });
-
-      control.addEventListener('blur', function() {
-        field.classList.remove('ww-field-focused');
-        syncState();
-      });
-
-      control.addEventListener('input', syncState);
-      control.addEventListener('change', syncState);
-      syncState();
-    }
-
-    function setupFields() {
-      root.querySelectorAll('input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]), textarea, select').forEach(setupField);
-    }
-
-    setupFields();
     renderHulkForm();
-
-    new MutationObserver(setupFields).observe(root, {
-      childList: true,
-      subtree: true
-    });
 
     var attempts = 0;
     var renderTimer = setInterval(function() {
