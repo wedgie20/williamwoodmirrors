@@ -48,6 +48,82 @@
   {%- endfor -%}
 {%- endcapture -%}
 
+{%- assign drawer_menu_promo_block = '' -%}
+{%- assign drawer_menu_promo_image_index = 0 -%}
+
+{%- for block in section.blocks -%}
+  {%- assign block_menu_item_downcase = block.settings.menu_item | strip | downcase -%}
+
+  {%- if block.type == 'mega_menu' and block_menu_item_downcase == 'shop' -%}
+    {%- for i in (1..6) -%}
+      {%- capture image_setting -%}image_{{ i }}{%- endcapture -%}
+
+      {%- if block.settings[image_setting] != blank -%}
+        {%- assign drawer_menu_promo_block = block -%}
+        {%- assign drawer_menu_promo_image_index = i -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+
+  {%- if drawer_menu_promo_block != '' -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if drawer_menu_promo_block == '' -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'mega_menu' -%}
+      {%- for i in (1..6) -%}
+        {%- capture image_setting -%}image_{{ i }}{%- endcapture -%}
+
+        {%- if block.settings[image_setting] != blank -%}
+          {%- assign drawer_menu_promo_block = block -%}
+          {%- assign drawer_menu_promo_image_index = i -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- if drawer_menu_promo_block != '' -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- capture drawer_menu_promo -%}
+  {%- if drawer_menu_promo_block != '' and drawer_menu_promo_image_index > 0 -%}
+    {%- capture promo_image_setting -%}image_{{ drawer_menu_promo_image_index }}{%- endcapture -%}
+    {%- capture promo_heading_setting -%}image_{{ drawer_menu_promo_image_index }}_heading{%- endcapture -%}
+    {%- capture promo_text_setting -%}image_{{ drawer_menu_promo_image_index }}_text{%- endcapture -%}
+    {%- capture promo_link_setting -%}image_{{ drawer_menu_promo_image_index }}_link{%- endcapture -%}
+
+    {%- capture drawer_menu_promo_content -%}
+      <div class="ww-desktop-drawer-menu__promo-image-wrapper">
+        <img class="ww-desktop-drawer-menu__promo-image" loading="lazy" sizes="360px" {% render 'image-attributes', image: drawer_menu_promo_block.settings[promo_image_setting], sizes: '280,360,520,720' %}>
+      </div>
+
+      {%- if drawer_menu_promo_block.settings[promo_heading_setting] != blank -%}
+        <p class="ww-desktop-drawer-menu__promo-heading">{{ drawer_menu_promo_block.settings[promo_heading_setting] }}</p>
+      {%- endif -%}
+
+      {%- if drawer_menu_promo_block.settings[promo_text_setting] != blank -%}
+        <span class="ww-desktop-drawer-menu__promo-text">{{ drawer_menu_promo_block.settings[promo_text_setting] }}</span>
+      {%- endif -%}
+    {%- endcapture -%}
+
+    {%- if drawer_menu_promo_block.settings[promo_link_setting] != blank -%}
+      <a href="{{ drawer_menu_promo_block.settings[promo_link_setting] }}" class="ww-desktop-drawer-menu__promo">
+        {{- drawer_menu_promo_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
+      </a>
+    {%- else -%}
+      <div class="ww-desktop-drawer-menu__promo">
+        {{- drawer_menu_promo_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+{%- endcapture -%}
+
 {%- capture shop_menu -%}
   {%- assign drawer_menu_group = 'primary' -%}
   {%- assign shop_category_index = 0 -%}
@@ -71,7 +147,7 @@
     <li class="ww-desktop-drawer-menu__shop-category{% if shop_category_index == 1 %} ww-desktop-drawer-menu__shop-category--default ww-desktop-drawer-menu__shop-category--is-active{% endif %}">
       <a href="{{ link.url }}" class="ww-desktop-drawer-menu__shop-category-link">{{ link.title }}</a>
 
-      <div class="ww-desktop-drawer-menu__shop-detail">
+      <div class="ww-desktop-drawer-menu__shop-detail{% if drawer_menu_promo != blank %} ww-desktop-drawer-menu__shop-detail--has-promo{% endif %}">
         <div class="ww-desktop-drawer-menu__shop-detail-grid">
           {%- if link.links.size > 0 -%}
             {%- for sub_link in link.links -%}
@@ -96,6 +172,8 @@
             </div>
           {%- endif -%}
         </div>
+
+        {{- drawer_menu_promo -}}
       </div>
     </li>
   {%- endfor -%}
