@@ -799,6 +799,15 @@
 
   .hero-slide-content-{{ section.id }}.is-active {
     opacity: 1;
+    pointer-events: none;
+  }
+
+  .hero-slide-content-{{ section.id }}.is-active a,
+  .hero-slide-content-{{ section.id }}.is-active button,
+  .hero-slide-content-{{ section.id }}.is-active input,
+  .hero-slide-content-{{ section.id }}.is-active select,
+  .hero-slide-content-{{ section.id }}.is-active textarea,
+  .hero-slide-content-{{ section.id }}.is-active [role="button"] {
     pointer-events: auto;
   }
 
