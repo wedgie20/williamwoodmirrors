@@ -15,6 +15,10 @@
     </header>
 
     <div class="ww-trade-application__panel">
+      {%- if section.settings.details_heading != blank -%}
+        <h2>{{ section.settings.details_heading }}</h2>
+      {%- endif -%}
+
       <p class="ww-trade-application__signin">
         {{ section.settings.sign_in_text }}
         <a href="{{ routes.account_login_url }}">{{ section.settings.sign_in_link_text }}</a>
@@ -508,6 +512,12 @@
       "id": "body",
       "label": "Intro text",
       "default": "<p>Complete the form below and our trade team will review your application before coming back to you.</p>"
+    },
+    {
+      "type": "text",
+      "id": "details_heading",
+      "label": "Details heading",
+      "default": "Your details"
     },
     {
       "type": "text",
