@@ -68,7 +68,7 @@
 
     {%- assign shop_category_index = shop_category_index | plus: 1 -%}
 
-    <li class="ww-desktop-drawer-menu__shop-category{% if shop_category_index == 1 %} ww-desktop-drawer-menu__shop-category--default{% endif %}">
+    <li class="ww-desktop-drawer-menu__shop-category{% if shop_category_index == 1 %} ww-desktop-drawer-menu__shop-category--default ww-desktop-drawer-menu__shop-category--is-active{% endif %}">
       <a href="{{ link.url }}" class="ww-desktop-drawer-menu__shop-category-link">{{ link.title }}</a>
 
       <div class="ww-desktop-drawer-menu__shop-detail">
@@ -180,56 +180,81 @@
     window.__wwDesktopDrawerMenuReady = true;
 
     const openClass = 'ww-desktop-drawer-menu__item--is-open';
-    let suppressHoverUntil = 0;
-    let lastPointerX = null;
-    let lastPointerY = null;
+    const activeCategoryClass = 'ww-desktop-drawer-menu__shop-category--is-active';
+    const menus = document.querySelectorAll('.ww-desktop-drawer-menu');
+    let suppressOpenUntil = 0;
+    let openTimer = null;
 
     const closeMenus = () => {
+      window.clearTimeout(openTimer);
+      openTimer = null;
+
       document.querySelectorAll(`.${openClass}`).forEach((item) => {
         item.classList.remove(openClass);
+      });
+
+      document.querySelectorAll('.ww-desktop-drawer-menu__shop-categories').forEach((categoryList) => {
+        const defaultCategory = categoryList.querySelector('.ww-desktop-drawer-menu__shop-category--default');
+        categoryList.querySelectorAll(`.${activeCategoryClass}`).forEach((category) => {
+          category.classList.remove(activeCategoryClass);
+        });
+
+        if (defaultCategory) {
+          defaultCategory.classList.add(activeCategoryClass);
+        }
       });
     };
 
     window.addEventListener('scroll', () => {
-      suppressHoverUntil = Date.now() + 700;
+      suppressOpenUntil = Date.now() + 900;
       closeMenus();
     }, { passive: true });
 
-    document.addEventListener('pointerleave', closeMenus);
+    menus.forEach((menu) => {
+      menu.addEventListener('pointerleave', closeMenus);
+    });
 
-    document.addEventListener('pointermove', (event) => {
-      if (event.pointerType && event.pointerType !== 'mouse') {
-        return;
-      }
-
-      const previousX = lastPointerX;
-      const previousY = lastPointerY;
-      lastPointerX = event.clientX;
-      lastPointerY = event.clientY;
-
-      if (Date.now() < suppressHoverUntil) {
-        return;
-      }
-
-      if (previousX !== null && previousY !== null) {
-        const movedDistance = Math.abs(event.clientX - previousX) + Math.abs(event.clientY - previousY);
-
-        if (movedDistance < 8) {
+    menus.forEach((menu) => {
+      menu.addEventListener('pointermove', (event) => {
+        if (event.pointerType !== 'mouse') {
           return;
         }
+        if (Math.abs(event.movementX) + Math.abs(event.movementY) < 2) {
+          return;
+        }
+        if (Date.now() < suppressOpenUntil) {
+          return;
+        }
+        const activeTrigger = event.target.closest('.ww-desktop-drawer-menu__item--has-panel > .ww-desktop-drawer-menu__link');
+        if (!activeTrigger) {
+          return;
+        }
+        const activeItem = activeTrigger.closest('.ww-desktop-drawer-menu__item--has-panel');
+        window.clearTimeout(openTimer);
+        openTimer = window.setTimeout(() => {
+          document.querySelectorAll('.ww-desktop-drawer-menu__item--has-panel').forEach((item) => {
+            item.classList.toggle(openClass, item === activeItem);
+          });
+        }, 120);
+      }, { passive: true });
+    });
+    menus.forEach((menu) => {
+      menu.addEventListener('pointerover', (event) => {
+        const activeCategory = event.target.closest('.ww-desktop-drawer-menu__shop-category');
+        if (!activeCategory) {
+          return;
+        }
+        const categoryList = activeCategory.closest('.ww-desktop-drawer-menu__shop-categories');
+        categoryList.querySelectorAll(`.${activeCategoryClass}`).forEach((category) => {
+          category.classList.remove(activeCategoryClass);
+        });
+        activeCategory.classList.add(activeCategoryClass);
+      }, { passive: true });
+    });
+    document.addEventListener('pointermove', (event) => {
+      if (!event.target.closest('.ww-desktop-drawer-menu')) {
+        closeMenus();
       }
-
-      const activeTrigger = event.target.closest('.ww-desktop-drawer-menu__item--has-panel > .ww-desktop-drawer-menu__link');
-      const activePanel = event.target.closest('.ww-desktop-drawer-menu__panel');
-      const activeItem = activeTrigger
-        ? activeTrigger.closest('.ww-desktop-drawer-menu__item--has-panel')
-        : activePanel
-          ? activePanel.closest('.ww-desktop-drawer-menu__item--has-panel')
-          : null;
-
-      document.querySelectorAll('.ww-desktop-drawer-menu__item--has-panel').forEach((item) => {
-        item.classList.toggle(openClass, item === activeItem);
-      });
     }, { passive: true });
   })();
 </script>
