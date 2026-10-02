@@ -444,6 +444,14 @@
       width: 100% !important;
     }
   }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__hulk-heading {
+    margin-top: 54px !important;
+  }
+
+  #shopify-section-{{ section.id }} .ww-trade-application__hulk-heading:first-child {
+    margin-top: 0 !important;
+  }
 </style>
 
 {%- comment -%}
@@ -474,14 +482,81 @@
       }
     }
 
+    {%- comment -%}
+      Hulk's actual field set has no Business Type/Portfolio/Password/marketing-checkbox
+      fields, so a literal 4-section match isn't possible from theme code - this groups
+      what Hulk DOES have into "Company" and "Address" headings (on top of the static
+      "Your details" heading already above the embed). Fields are matched by their
+      placeholder text, read directly off the live render, rather than guessed class
+      names - so this doesn't depend on Hulk's DOM structure, only its visible copy.
+      If Hulk's placeholder wording changes, update the strings in placeholderGroups below.
+    {%- endcomment -%}
+    var headingsInserted = false;
+    var placeholderGroups = [
+      { match: 'company name', heading: 'Company' },
+      { match: 'first line of your address', heading: 'Address' }
+    ];
+
+    function findRowElement(control) {
+      var node = control;
+      for (var i = 0; i < 6 && node && node.parentElement; i++) {
+        if (node.parentElement.children.length >= 4) {
+          return node;
+        }
+        node = node.parentElement;
+      }
+      return node;
+    }
+
+    function insertSectionHeadings() {
+      if (headingsInserted) {
+        return;
+      }
+
+      var controls = root.querySelectorAll('input[placeholder], textarea[placeholder]');
+      if (!controls.length) {
+        return;
+      }
+
+      placeholderGroups.forEach(function(group) {
+        if (group.done) {
+          return;
+        }
+
+        var control = Array.prototype.find.call(controls, function(candidate) {
+          return candidate.placeholder && candidate.placeholder.toLowerCase().indexOf(group.match) !== -1;
+        });
+
+        if (!control) {
+          return;
+        }
+
+        var row = findRowElement(control);
+        if (!row || !row.parentElement) {
+          return;
+        }
+
+        var heading = document.createElement('h2');
+        heading.className = 'ww-trade-application__hulk-heading';
+        heading.textContent = group.heading;
+        row.parentElement.insertBefore(heading, row);
+        group.done = true;
+      });
+
+      headingsInserted = placeholderGroups.every(function(group) {
+        return group.done;
+      });
+    }
+
     renderHulkForm();
 
     var attempts = 0;
     var renderTimer = setInterval(function() {
       attempts += 1;
       renderHulkForm();
+      insertSectionHeadings();
 
-      if (root.querySelector('form, iframe') || attempts >= 20) {
+      if (headingsInserted || attempts >= 20) {
         clearInterval(renderTimer);
       }
     }, 250);
