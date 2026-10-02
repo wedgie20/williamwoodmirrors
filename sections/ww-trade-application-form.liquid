@@ -284,8 +284,16 @@
     outline: 0 !important;
   }
 
+  {%- comment -%}
+    Placeholder text was still rendering in Hulk's own tint instead of black - likely a
+    higher-specificity rule scoped to Hulk's own widget id (#Az-QKwOpUDJom6HimmxUTQ).
+    Chaining that id here raises this rule's specificity to beat it without needing to
+    know Hulk's actual selector.
+  {%- endcomment -%}
   #shopify-section-{{ section.id }} .ww-trade-application__hulk input::placeholder,
-  #shopify-section-{{ section.id }} .ww-trade-application__hulk textarea::placeholder {
+  #shopify-section-{{ section.id }} .ww-trade-application__hulk textarea::placeholder,
+  #shopify-section-{{ section.id }} #Az-QKwOpUDJom6HimmxUTQ input::placeholder,
+  #shopify-section-{{ section.id }} #Az-QKwOpUDJom6HimmxUTQ textarea::placeholder {
     color: #000 !important;
     opacity: 1 !important;
     font-family: var(--ww-trade-text-font) !important;
@@ -301,25 +309,20 @@
   }
 
   {%- comment -%}
-    Hulk's field rows render as a responsive grid that goes two-up at this panel's width
-    (760px) even though the target design is single column. Selectors are a defensive guess
-    at common row/grid wrapper naming (confirm against the live render and adjust the class
-    patterns if a row still sits side-by-side).
+    Guessing Hulk's row/grid wrapper class names (previous attempt: [class*="row"] etc.)
+    only caught SOME rows - one pair (email/phone) still sat side by side, because its
+    wrapper's class didn't match any guessed substring. Targeting by tag instead of guessed
+    class names is structural, not a guess, so it catches every wrapper regardless of what
+    Hulk names it: every div inside the embed is forced to stack as a full-width block,
+    and every direct child of the embed's own first wrapper too. Inputs/selects/textarea/
+    buttons are unaffected (they're separately styled below) since this only touches <div>.
   {%- endcomment -%}
-  #shopify-section-{{ section.id }} .ww-trade-application__hulk [class*="row" i],
-  #shopify-section-{{ section.id }} .ww-trade-application__hulk [class*="grid" i],
-  #shopify-section-{{ section.id }} .ww-trade-application__hulk [class*="column" i],
-  #shopify-section-{{ section.id }} .ww-trade-application__hulk [class*="fields-wrapper" i] {
+  #shopify-section-{{ section.id }} .ww-trade-application__hulk div {
     display: block !important;
     grid-template-columns: none !important;
-    width: 100% !important;
-  }
-
-  #shopify-section-{{ section.id }} .ww-trade-application__hulk [class*="field" i],
-  #shopify-section-{{ section.id }} .ww-trade-application__hulk [class*="field" i] > * {
+    flex-direction: column !important;
     width: 100% !important;
     max-width: 100% !important;
-    flex: 1 1 100% !important;
   }
 
   #shopify-section-{{ section.id }} .ww-trade-application__hulk button[type="submit"],
