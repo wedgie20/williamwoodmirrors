@@ -35,6 +35,22 @@
       {%- endif -%}
     }
   }
+
+  @media screen and (max-width: 740px) {
+    #shopify-section-{{ section.id }} .announcement-bar__message,
+    #shopify-section-{{ section.id }} .announcement-bar__message p,
+    #shopify-section-{{ section.id }} .announcement-bar__message a,
+    #shopify-section-{{ section.id }} .announcement-bar__message button {
+      white-space: nowrap;
+    }
+
+    #shopify-section-{{ section.id }} .announcement-bar__message {
+      width: 100%;
+      font-size: clamp(10px, 2.9vw, 13px);
+      line-height: 1.25;
+      text-align: center;
+    }
+  }
 </style>
 
 {%- if section.blocks.size > 0 -%}
