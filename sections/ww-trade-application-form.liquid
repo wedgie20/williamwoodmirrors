@@ -550,34 +550,42 @@
     }
 
     {%- comment -%}
-      Password/Confirm Password have no placeholder text (confirmed in Hulk's admin
-      preview), so the blanket "hide every label" CSS rule would leave them blank with
-      nothing identifying the field. Re-showing just their labels via an inline !important
-      style is the one override guaranteed to beat that stylesheet rule regardless of
-      specificity, without having to special-case the CSS selector itself.
+      Switched label-hiding from a CSS rule to direct JS here: the CSS version
+      (`.ww-trade-application__hulk label { display: none !important }`) did not take
+      effect on the live page even though it's correctly scoped - the likely cause is
+      Hulk setting its own inline style="..." on these elements, which always wins over
+      an external stylesheet rule regardless of specificity or !important, since inline
+      author styles sit above external author styles in the cascade. Overwriting the same
+      inline style property via element.style from JS uses that exact mechanism back, so
+      it wins the same way Hulk's own styling does. Password/Confirm Password labels are
+      skipped (left visible) since those fields have no placeholder text to fall back on.
     {%- endcomment -%}
-    var passwordLabelsRevealed = false;
+    var labelsHidden = false;
 
-    function revealPasswordLabels() {
-      if (passwordLabelsRevealed) {
+    function applyLabelVisibility() {
+      var labels = root.querySelectorAll('label');
+      if (!labels.length) {
         return;
       }
 
-      var passwordFields = root.querySelectorAll('input[type="password"]');
-      if (!passwordFields.length) {
-        return;
-      }
-
-      passwordFields.forEach(function(control) {
+      var passwordLabels = [];
+      root.querySelectorAll('input[type="password"]').forEach(function(control) {
         var row = findRowElement(control);
         var label = row ? row.querySelector('label') : null;
-
         if (label) {
-          label.style.setProperty('display', 'block', 'important');
+          passwordLabels.push(label);
         }
       });
 
-      passwordLabelsRevealed = true;
+      labels.forEach(function(label) {
+        if (passwordLabels.indexOf(label) !== -1) {
+          label.style.setProperty('display', 'block', 'important');
+        } else {
+          label.style.setProperty('display', 'none', 'important');
+        }
+      });
+
+      labelsHidden = true;
     }
 
     renderHulkForm();
@@ -587,9 +595,9 @@
       attempts += 1;
       renderHulkForm();
       insertSectionHeadings();
-      revealPasswordLabels();
+      applyLabelVisibility();
 
-      if ((headingsInserted && passwordLabelsRevealed) || attempts >= 20) {
+      if ((headingsInserted && labelsHidden) || attempts >= 20) {
         clearInterval(renderTimer);
       }
     }, 250);
