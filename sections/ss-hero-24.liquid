@@ -3178,6 +3178,12 @@
         });
       }
 
+      document.addEventListener('click', (event) => {
+        if (event.target.closest && event.target.closest('.cloud-search-mobile-open')) {
+          searchWrap.style.display = 'none';
+        }
+      });
+
       const quickSearchContent = document.querySelector('#quick-search-content');
 
       if (quickSearchContent) {
