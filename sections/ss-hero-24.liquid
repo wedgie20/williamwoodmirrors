@@ -3154,6 +3154,10 @@
         return;
       }
 
+      const showHeroSearch = () => {
+        searchWrap.style.display = '';
+      };
+
       const openHeaderSearch = () => {
         const headerSearchTrigger = document.querySelector('.cloud-search-mobile-open');
 
@@ -3173,6 +3177,20 @@
           openHeaderSearch();
         });
       }
+
+      const quickSearchContent = document.querySelector('#quick-search-content');
+
+      if (quickSearchContent) {
+        const searchObserver = new MutationObserver(() => {
+          if (!quickSearchContent.classList.contains('show')) {
+            showHeroSearch();
+          }
+        });
+
+        searchObserver.observe(quickSearchContent, { attributes: true, attributeFilter: ['class'] });
+      }
+
+      window.addEventListener('pageshow', showHeroSearch);
     })();
   </script>
 
