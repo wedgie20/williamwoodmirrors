@@ -688,6 +688,7 @@
 
     <div class="mobile-searchbar">
       <form action="{{ routes.search_url }}" method="get" role="search">
+          <input type="hidden" name="type" value="product">
           <input
             class="search-input"
             type="search"
@@ -709,6 +710,7 @@
     {%- if section.settings.header_layout != 'logo_center_search_open' -%}
       <predictive-search class="mobile-search">
         <form action="{{ routes.search_url }}" method="get" role="search">
+          <input type="hidden" name="type" value="product">
           <input
             class="search-input"
             type="search"
@@ -1245,10 +1247,31 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-  var searchInput = document.querySelector('.mobile-searchbar input');
+  var searchInput = document.querySelector('.mobile-searchbar input[type="search"]');
+  var searchForm = document.querySelector('.mobile-searchbar form');
+  var mobilePredictiveSearch = document.querySelector('predictive-search.mobile-search');
+  var mobilePredictiveInput = mobilePredictiveSearch ? mobilePredictiveSearch.querySelector('input[type="search"]') : null;
   var inlineSearchInput = document.querySelector('.header-inline-search__input');
   var cloudSearchBtn = document.querySelector('.cloud-search-mobile-open');
-  var openSearch = function () {
+  var openMobileSearch = function () {
+    if (mobilePredictiveSearch && mobilePredictiveInput && typeof mobilePredictiveSearch.onClick === 'function' && typeof mobilePredictiveSearch.onShow === 'function') {
+      if (!document.querySelector('#quick-search-content.show')) {
+        mobilePredictiveInput.value = searchInput && searchInput.value ? searchInput.value : mobilePredictiveInput.value;
+        mobilePredictiveSearch.onClick();
+        mobilePredictiveSearch.onShow();
+
+        if (mobilePredictiveInput.value.trim().length) {
+          mobilePredictiveInput.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      }
+
+      return;
+    }
+
+    openInlineSearch();
+  };
+
+  var openInlineSearch = function () {
     if (!cloudSearchBtn || document.querySelector('#quick-search-content.show')) {
       return;
     }
@@ -1262,12 +1285,20 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
   };
 
   if (searchInput) {
-    searchInput.addEventListener('click', openSearch);
+    searchInput.addEventListener('focus', openMobileSearch);
+    searchInput.addEventListener('click', openMobileSearch);
+  }
+
+  if (searchForm) {
+    searchForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      openMobileSearch();
+    });
   }
 
   if (inlineSearchInput) {
-    inlineSearchInput.addEventListener('focus', openSearch);
-    inlineSearchInput.addEventListener('click', openSearch);
+    inlineSearchInput.addEventListener('focus', openInlineSearch);
+    inlineSearchInput.addEventListener('click', openInlineSearch);
   }
 });
   </script>
