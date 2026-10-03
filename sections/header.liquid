@@ -1246,81 +1246,85 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
   </style>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-  var searchInput = document.querySelector('.mobile-searchbar input[type="search"]');
-  var searchForm = document.querySelector('.mobile-searchbar form');
-  var inlineSearchInput = document.querySelector('.header-inline-search__input');
-  var cloudSearchBtn = document.querySelector('.cloud-search-mobile-open');
-  var getMobilePredictiveSearch = function () {
-    var mobilePredictiveSearch = document.querySelector('predictive-search.mobile-search');
-    var mobilePredictiveInput = mobilePredictiveSearch ? mobilePredictiveSearch.querySelector('input[type="search"]') : null;
-
-    return {
-      search: mobilePredictiveSearch,
-      input: mobilePredictiveInput
-    };
-  };
-  var syncMobileSearchTerm = function () {
-    var mobileSearch = getMobilePredictiveSearch();
-    var mobilePredictiveInput = mobileSearch.input;
-    var visibleSearchTerm = searchInput && searchInput.value ? searchInput.value : '';
-    var targetInput = mobilePredictiveInput || inlineSearchInput;
-
-    if (mobilePredictiveInput && mobilePredictiveInput.value !== visibleSearchTerm) {
-      mobilePredictiveInput.value = visibleSearchTerm;
-    }
-
-    if (inlineSearchInput && inlineSearchInput.value !== visibleSearchTerm) {
-      inlineSearchInput.value = visibleSearchTerm;
-    }
-
-    if (targetInput && visibleSearchTerm.trim().length) {
-      targetInput.dispatchEvent(new Event('input', { bubbles: true }));
-    }
-  };
-  var openMobileSearch = function () {
-    if (!document.querySelector('#quick-search-content.show')) {
-      if (cloudSearchBtn) {
-        cloudSearchBtn.click();
-      } else {
-        openInlineSearch();
+    (() => {
+      if (window.__wwMobileSearchInputReady) {
+        return;
       }
-    }
 
-    window.requestAnimationFrame(syncMobileSearchTerm);
-  };
+      window.__wwMobileSearchInputReady = true;
 
-  var openInlineSearch = function () {
-    if (!cloudSearchBtn || document.querySelector('#quick-search-content.show')) {
-      return;
-    }
+      const getMobileSearchInput = (target) => {
+        if (!target || !target.closest) {
+          return null;
+        }
 
-    var mobileSearchbar = document.querySelector('.mobile-searchbar');
-    if (mobileSearchbar) {
-      mobileSearchbar.style.display = 'none';
-    }
+        const mobileSearchbar = target.closest('.mobile-searchbar');
 
-      cloudSearchBtn.click();
-  };
+        return mobileSearchbar ? mobileSearchbar.querySelector('input[type="search"]') : null;
+      };
 
-  if (searchInput) {
-    searchInput.addEventListener('focus', openMobileSearch);
-    searchInput.addEventListener('click', openMobileSearch);
-    searchInput.addEventListener('input', openMobileSearch);
-  }
+      const syncSearchTerm = (searchInput) => {
+        const searchTerm = searchInput ? searchInput.value : '';
+        const drawerInput = document.querySelector('.header-inline-search__input');
+        const mobileDrawerInput = document.querySelector('predictive-search.mobile-search input[type="search"]');
+        const activeInput = drawerInput || mobileDrawerInput;
 
-  if (searchForm) {
-    searchForm.addEventListener('submit', function (event) {
-      event.preventDefault();
-      openMobileSearch();
-    });
-  }
+        if (drawerInput && drawerInput.value !== searchTerm) {
+          drawerInput.value = searchTerm;
+        }
 
-  if (inlineSearchInput) {
-    inlineSearchInput.addEventListener('focus', openInlineSearch);
-    inlineSearchInput.addEventListener('click', openInlineSearch);
-  }
-});
+        if (mobileDrawerInput && mobileDrawerInput.value !== searchTerm) {
+          mobileDrawerInput.value = searchTerm;
+        }
+
+        if (activeInput && searchTerm.trim().length) {
+          activeInput.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      };
+
+      const openSearchFromMobileInput = (searchInput) => {
+        const searchTrigger = document.querySelector('.cloud-search-mobile-open');
+
+        if (!document.querySelector('#quick-search-content.show') && searchTrigger) {
+          searchTrigger.click();
+        }
+
+        window.requestAnimationFrame(() => syncSearchTerm(searchInput));
+      };
+
+      document.addEventListener('focusin', (event) => {
+        const searchInput = getMobileSearchInput(event.target);
+
+        if (searchInput) {
+          openSearchFromMobileInput(searchInput);
+        }
+      });
+
+      document.addEventListener('click', (event) => {
+        const searchInput = getMobileSearchInput(event.target);
+
+        if (searchInput) {
+          openSearchFromMobileInput(searchInput);
+        }
+      });
+
+      document.addEventListener('input', (event) => {
+        const searchInput = getMobileSearchInput(event.target);
+
+        if (searchInput) {
+          openSearchFromMobileInput(searchInput);
+        }
+      });
+
+      document.addEventListener('submit', (event) => {
+        const searchInput = getMobileSearchInput(event.target);
+
+        if (searchInput) {
+          event.preventDefault();
+          openSearchFromMobileInput(searchInput);
+        }
+      });
+    })();
   </script>
 
 {% schema %}
