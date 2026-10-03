@@ -1249,11 +1249,22 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
     document.addEventListener('DOMContentLoaded', function () {
   var searchInput = document.querySelector('.mobile-searchbar input[type="search"]');
   var searchForm = document.querySelector('.mobile-searchbar form');
-  var mobilePredictiveSearch = document.querySelector('predictive-search.mobile-search');
-  var mobilePredictiveInput = mobilePredictiveSearch ? mobilePredictiveSearch.querySelector('input[type="search"]') : null;
   var inlineSearchInput = document.querySelector('.header-inline-search__input');
   var cloudSearchBtn = document.querySelector('.cloud-search-mobile-open');
+  var getMobilePredictiveSearch = function () {
+    var mobilePredictiveSearch = document.querySelector('predictive-search.mobile-search');
+    var mobilePredictiveInput = mobilePredictiveSearch ? mobilePredictiveSearch.querySelector('input[type="search"]') : null;
+
+    return {
+      search: mobilePredictiveSearch,
+      input: mobilePredictiveInput
+    };
+  };
   var openMobileSearch = function () {
+    var mobileSearch = getMobilePredictiveSearch();
+    var mobilePredictiveSearch = mobileSearch.search;
+    var mobilePredictiveInput = mobileSearch.input;
+
     if (mobilePredictiveSearch && mobilePredictiveInput && typeof mobilePredictiveSearch.onClick === 'function' && typeof mobilePredictiveSearch.onShow === 'function') {
       var visibleSearchTerm = searchInput && searchInput.value ? searchInput.value : '';
 
@@ -1289,9 +1300,17 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
   };
 
   if (searchInput) {
-    searchInput.addEventListener('focus', openMobileSearch);
-    searchInput.addEventListener('click', openMobileSearch);
-    searchInput.addEventListener('input', openMobileSearch);
+    var bindMobileSearch = function () {
+      searchInput.addEventListener('focus', openMobileSearch);
+      searchInput.addEventListener('click', openMobileSearch);
+      searchInput.addEventListener('input', openMobileSearch);
+    };
+
+    if (window.customElements && window.customElements.whenDefined) {
+      window.customElements.whenDefined('predictive-search').then(bindMobileSearch);
+    } else {
+      bindMobileSearch();
+    }
   }
 
   if (searchForm) {
