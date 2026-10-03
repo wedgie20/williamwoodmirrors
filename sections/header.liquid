@@ -1246,8 +1246,28 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
   <script>
     document.addEventListener('DOMContentLoaded', function () {
   var searchInput = document.querySelector('.mobile-searchbar input');
+  var searchForm = document.querySelector('.mobile-searchbar form');
   var inlineSearchInput = document.querySelector('.header-inline-search__input');
   var cloudSearchBtn = document.querySelector('.cloud-search-mobile-open');
+  var openMobileInputSearch = function () {
+    var predictiveSearch = document.querySelector('predictive-search.header-inline-search');
+    var predictiveSearchInput = predictiveSearch ? predictiveSearch.querySelector('input[type="search"]') : null;
+
+    if (!predictiveSearch || !predictiveSearchInput || typeof predictiveSearch.onClick !== 'function' || typeof predictiveSearch.onShow !== 'function') {
+      return;
+    }
+
+    if (!document.querySelector('#quick-search-content.show')) {
+      predictiveSearch.onClick();
+      predictiveSearch.onShow();
+    }
+
+    predictiveSearchInput.value = searchInput.value || '';
+
+    if (predictiveSearchInput.value.trim().length) {
+      predictiveSearchInput.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+  };
   var openSearch = function () {
     if (!cloudSearchBtn || document.querySelector('#quick-search-content.show')) {
       return;
@@ -1262,7 +1282,16 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
   };
 
   if (searchInput) {
-    searchInput.addEventListener('click', openSearch);
+    searchInput.addEventListener('focus', openMobileInputSearch);
+    searchInput.addEventListener('click', openMobileInputSearch);
+    searchInput.addEventListener('input', openMobileInputSearch);
+  }
+
+  if (searchForm) {
+    searchForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      openMobileInputSearch();
+    });
   }
 
   if (inlineSearchInput) {
