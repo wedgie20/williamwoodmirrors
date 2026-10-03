@@ -1276,23 +1276,16 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
         searchTrigger.click();
       };
 
-      var openSearchFromMobileInput = function (searchInput) {
-        var predictiveSearch = document.querySelector('predictive-search.mobile-search');
-        var predictiveSearchInput = predictiveSearch ? predictiveSearch.querySelector('input[type="search"]') : null;
+      var openSearchFromMobileInput = function () {
+        var searchTrigger = document.querySelector('.cloud-search-mobile-open');
+        var mobileSearchbar = document.querySelector('.mobile-searchbar');
 
-        if (!predictiveSearch || !predictiveSearchInput || typeof predictiveSearch.onClick !== 'function' || typeof predictiveSearch.onShow !== 'function') {
-          return;
+        if (mobileSearchbar) {
+          mobileSearchbar.style.display = 'none';
         }
 
-        if (!document.querySelector('#quick-search-content.show')) {
-          predictiveSearch.onClick();
-          predictiveSearch.onShow();
-        }
-
-        predictiveSearchInput.value = searchInput.value || '';
-
-        if (predictiveSearchInput.value.trim().length) {
-          predictiveSearchInput.dispatchEvent(new Event('input', { bubbles: true }));
+        if (searchTrigger && !document.querySelector('#quick-search-content.show')) {
+          searchTrigger.click();
         }
       };
 
@@ -1304,7 +1297,7 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
         var searchInput = getMobileSearchbarInput(event.target);
 
         if (searchInput) {
-          openSearchFromMobileInput(searchInput);
+          openSearchFromMobileInput();
         }
       });
 
@@ -1316,7 +1309,7 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
         var searchInput = getMobileSearchbarInput(event.target);
 
         if (searchInput) {
-          openSearchFromMobileInput(searchInput);
+          openSearchFromMobileInput();
         }
       });
 
@@ -1324,7 +1317,7 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
         var searchInput = getMobileSearchbarInput(event.target);
 
         if (searchInput) {
-          openSearchFromMobileInput(searchInput);
+          openSearchFromMobileInput();
         }
       });
 
@@ -1333,7 +1326,7 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
 
         if (searchInput) {
           event.preventDefault();
-          openSearchFromMobileInput(searchInput);
+          openSearchFromMobileInput();
         }
       });
     })();
