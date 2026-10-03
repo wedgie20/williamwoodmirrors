@@ -688,7 +688,6 @@
 
     <div class="mobile-searchbar">
       <form action="{{ routes.search_url }}" method="get" role="search">
-          <input type="hidden" name="type" value="product">
           <input
             class="search-input"
             type="search"
@@ -710,7 +709,6 @@
     {%- if section.settings.header_layout != 'logo_center_search_open' -%}
       <predictive-search class="mobile-search">
         <form action="{{ routes.search_url }}" method="get" role="search">
-          <input type="hidden" name="type" value="product">
           <input
             class="search-input"
             type="search"
@@ -1246,85 +1244,32 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
   </style>
 
   <script>
-    (() => {
-      if (window.__wwMobileSearchInputReady) {
-        return;
-      }
+    document.addEventListener('DOMContentLoaded', function () {
+  var searchInput = document.querySelector('.mobile-searchbar input');
+  var inlineSearchInput = document.querySelector('.header-inline-search__input');
+  var cloudSearchBtn = document.querySelector('.cloud-search-mobile-open');
+  var openSearch = function () {
+    if (!cloudSearchBtn || document.querySelector('#quick-search-content.show')) {
+      return;
+    }
 
-      window.__wwMobileSearchInputReady = true;
+    var mobileSearchbar = document.querySelector('.mobile-searchbar');
+    if (mobileSearchbar) {
+      mobileSearchbar.style.display = 'none';
+    }
 
-      const getMobileSearchInput = (target) => {
-        if (!target || !target.closest) {
-          return null;
-        }
+      cloudSearchBtn.click();
+  };
 
-        const mobileSearchbar = target.closest('.mobile-searchbar');
+  if (searchInput) {
+    searchInput.addEventListener('click', openSearch);
+  }
 
-        return mobileSearchbar ? mobileSearchbar.querySelector('input[type="search"]') : null;
-      };
-
-      const syncSearchTerm = (searchInput) => {
-        const searchTerm = searchInput ? searchInput.value : '';
-        const drawerInput = document.querySelector('.header-inline-search__input');
-        const mobileDrawerInput = document.querySelector('predictive-search.mobile-search input[type="search"]');
-        const activeInput = drawerInput || mobileDrawerInput;
-
-        if (drawerInput && drawerInput.value !== searchTerm) {
-          drawerInput.value = searchTerm;
-        }
-
-        if (mobileDrawerInput && mobileDrawerInput.value !== searchTerm) {
-          mobileDrawerInput.value = searchTerm;
-        }
-
-        if (activeInput && searchTerm.trim().length) {
-          activeInput.dispatchEvent(new Event('input', { bubbles: true }));
-        }
-      };
-
-      const openSearchFromMobileInput = (searchInput) => {
-        const searchTrigger = document.querySelector('.cloud-search-mobile-open');
-
-        if (!document.querySelector('#quick-search-content.show') && searchTrigger) {
-          searchTrigger.click();
-        }
-
-        window.requestAnimationFrame(() => syncSearchTerm(searchInput));
-      };
-
-      document.addEventListener('focusin', (event) => {
-        const searchInput = getMobileSearchInput(event.target);
-
-        if (searchInput) {
-          openSearchFromMobileInput(searchInput);
-        }
-      });
-
-      document.addEventListener('click', (event) => {
-        const searchInput = getMobileSearchInput(event.target);
-
-        if (searchInput) {
-          openSearchFromMobileInput(searchInput);
-        }
-      });
-
-      document.addEventListener('input', (event) => {
-        const searchInput = getMobileSearchInput(event.target);
-
-        if (searchInput) {
-          openSearchFromMobileInput(searchInput);
-        }
-      });
-
-      document.addEventListener('submit', (event) => {
-        const searchInput = getMobileSearchInput(event.target);
-
-        if (searchInput) {
-          event.preventDefault();
-          openSearchFromMobileInput(searchInput);
-        }
-      });
-    })();
+  if (inlineSearchInput) {
+    inlineSearchInput.addEventListener('focus', openSearch);
+    inlineSearchInput.addEventListener('click', openSearch);
+  }
+});
   </script>
 
 {% schema %}
