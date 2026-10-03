@@ -3144,6 +3144,38 @@
     </form>
   </div>
 
+  <script>
+    (() => {
+      const searchWrap = document.querySelector('.hero-mobile-search-wrap-{{ section.id }}');
+      const searchForm = document.querySelector('.hero-mobile-search-form-{{ section.id }}');
+      const searchInput = document.querySelector('.hero-mobile-search-input-{{ section.id }}');
+
+      if (!searchWrap || !searchInput) {
+        return;
+      }
+
+      const openHeaderSearch = () => {
+        const headerSearchTrigger = document.querySelector('.cloud-search-mobile-open');
+
+        searchWrap.style.display = 'none';
+
+        if (headerSearchTrigger && !document.querySelector('#quick-search-content.show')) {
+          headerSearchTrigger.click();
+        }
+      };
+
+      searchInput.addEventListener('focus', openHeaderSearch);
+      searchInput.addEventListener('click', openHeaderSearch);
+
+      if (searchForm) {
+        searchForm.addEventListener('submit', (event) => {
+          event.preventDefault();
+          openHeaderSearch();
+        });
+      }
+    })();
+  </script>
+
   {%- if section.settings.shop_scene_enable -%}
     {%- assign shop_scene_label = section.settings.shop_scene_button_label | default: 'Shop scene' -%}
     {%- assign shop_scene_thumb_count = section.settings.shop_scene_thumb_count | default: 3 -%}

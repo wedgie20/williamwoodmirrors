@@ -1244,92 +1244,32 @@ body.search-overlay-open #shopify-section-{{ section.id }} .header .header-inlin
   </style>
 
   <script>
-    (() => {
-      if (window.__wwMobileSearchbarInputReady) {
-        return;
-      }
+    document.addEventListener('DOMContentLoaded', function () {
+  var searchInput = document.querySelector('.mobile-searchbar input');
+  var inlineSearchInput = document.querySelector('.header-inline-search__input');
+  var cloudSearchBtn = document.querySelector('.cloud-search-mobile-open');
+  var openSearch = function () {
+    if (!cloudSearchBtn || document.querySelector('#quick-search-content.show')) {
+      return;
+    }
 
-      window.__wwMobileSearchbarInputReady = true;
+    var mobileSearchbar = document.querySelector('.mobile-searchbar');
+    if (mobileSearchbar) {
+      mobileSearchbar.style.display = 'none';
+    }
 
-      var getMobileSearchbarInput = function (target) {
-        if (!target || !target.closest) {
-          return null;
-        }
+      cloudSearchBtn.click();
+  };
 
-        var mobileSearchbar = target.closest('.mobile-searchbar');
+  if (searchInput) {
+    searchInput.addEventListener('click', openSearch);
+  }
 
-        return mobileSearchbar ? mobileSearchbar.querySelector('input[type="search"]') : null;
-      };
-
-      var openHeaderInlineSearch = function () {
-        var searchTrigger = document.querySelector('.cloud-search-mobile-open');
-
-        if (!searchTrigger || document.querySelector('#quick-search-content.show')) {
-          return;
-        }
-
-        var mobileSearchbar = document.querySelector('.mobile-searchbar');
-        if (mobileSearchbar) {
-          mobileSearchbar.style.display = 'none';
-        }
-
-        searchTrigger.click();
-      };
-
-      var openSearchFromMobileInput = function () {
-        var searchTrigger = document.querySelector('.cloud-search-mobile-open');
-        var mobileSearchbar = document.querySelector('.mobile-searchbar');
-
-        if (mobileSearchbar) {
-          mobileSearchbar.style.display = 'none';
-        }
-
-        if (searchTrigger && !document.querySelector('#quick-search-content.show')) {
-          searchTrigger.click();
-        }
-      };
-
-      document.addEventListener('focusin', function (event) {
-        if (event.target.closest && event.target.closest('.header-inline-search__input')) {
-          openHeaderInlineSearch();
-        }
-
-        var searchInput = getMobileSearchbarInput(event.target);
-
-        if (searchInput) {
-          openSearchFromMobileInput();
-        }
-      });
-
-      document.addEventListener('click', function (event) {
-        if (event.target.closest && event.target.closest('.header-inline-search__input')) {
-          openHeaderInlineSearch();
-        }
-
-        var searchInput = getMobileSearchbarInput(event.target);
-
-        if (searchInput) {
-          openSearchFromMobileInput();
-        }
-      });
-
-      document.addEventListener('input', function (event) {
-        var searchInput = getMobileSearchbarInput(event.target);
-
-        if (searchInput) {
-          openSearchFromMobileInput();
-        }
-      });
-
-      document.addEventListener('submit', function (event) {
-        var searchInput = getMobileSearchbarInput(event.target);
-
-        if (searchInput) {
-          event.preventDefault();
-          openSearchFromMobileInput();
-        }
-      });
-    })();
+  if (inlineSearchInput) {
+    inlineSearchInput.addEventListener('focus', openSearch);
+    inlineSearchInput.addEventListener('click', openSearch);
+  }
+});
   </script>
 
 {% schema %}
