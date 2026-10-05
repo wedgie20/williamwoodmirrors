@@ -1,0 +1,101 @@
+{%- liquid
+  assign promo_block = ''
+  assign promo_image_index = 0
+  assign target_menu_item = menu_item_title | default: '' | strip | downcase
+  assign fallback_menu_item = fallback_menu_item_title | default: '' | strip | downcase
+-%}
+
+{%- if target_menu_item != blank -%}
+  {%- for block in section.blocks -%}
+    {%- assign block_menu_item = block.settings.menu_item | strip | downcase -%}
+
+    {%- if block.type == 'mega_menu' and block_menu_item == target_menu_item -%}
+      {%- for i in (1..6) -%}
+        {%- capture image_setting -%}image_{{ i }}{%- endcapture -%}
+
+        {%- if block.settings[image_setting] != blank -%}
+          {%- assign promo_block = block -%}
+          {%- assign promo_image_index = i -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- if promo_block != '' -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- if promo_block == '' and fallback_menu_item != blank -%}
+  {%- for block in section.blocks -%}
+    {%- assign block_menu_item = block.settings.menu_item | strip | downcase -%}
+
+    {%- if block.type == 'mega_menu' and block_menu_item == fallback_menu_item -%}
+      {%- for i in (1..6) -%}
+        {%- capture image_setting -%}image_{{ i }}{%- endcapture -%}
+
+        {%- if block.settings[image_setting] != blank -%}
+          {%- assign promo_block = block -%}
+          {%- assign promo_image_index = i -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- if promo_block != '' -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- if promo_block == '' -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'mega_menu' -%}
+      {%- for i in (1..6) -%}
+        {%- capture image_setting -%}image_{{ i }}{%- endcapture -%}
+
+        {%- if block.settings[image_setting] != blank -%}
+          {%- assign promo_block = block -%}
+          {%- assign promo_image_index = i -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+
+    {%- if promo_block != '' -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- if promo_block != '' and promo_image_index > 0 -%}
+  {%- capture promo_image_setting -%}image_{{ promo_image_index }}{%- endcapture -%}
+  {%- capture promo_heading_setting -%}image_{{ promo_image_index }}_heading{%- endcapture -%}
+  {%- capture promo_text_setting -%}image_{{ promo_image_index }}_text{%- endcapture -%}
+  {%- capture promo_link_setting -%}image_{{ promo_image_index }}_link{%- endcapture -%}
+
+  {%- capture drawer_menu_promo_content -%}
+    <div class="ww-desktop-drawer-menu__promo-image-wrapper">
+      <img class="ww-desktop-drawer-menu__promo-image" loading="lazy" sizes="360px" {% render 'image-attributes', image: promo_block.settings[promo_image_setting], sizes: '280,360,520,720' %}>
+    </div>
+
+    {%- if promo_block.settings[promo_heading_setting] != blank -%}
+      <p class="ww-desktop-drawer-menu__promo-heading">{{ promo_block.settings[promo_heading_setting] }}</p>
+    {%- endif -%}
+
+    {%- if promo_block.settings[promo_text_setting] != blank -%}
+      <span class="ww-desktop-drawer-menu__promo-text">{{ promo_block.settings[promo_text_setting] }}</span>
+    {%- endif -%}
+  {%- endcapture -%}
+
+  {%- if promo_block.settings[promo_link_setting] != blank -%}
+    <a href="{{ promo_block.settings[promo_link_setting] }}" class="ww-desktop-drawer-menu__promo">
+      {{- drawer_menu_promo_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
+    </a>
+  {%- else -%}
+    <div class="ww-desktop-drawer-menu__promo">
+      {{- drawer_menu_promo_content | replace: settings.speedsize_shopify_cdn_url, settings.speedsize_url_pfx_shopify_cdn | replace: settings.speedsize_shop_domain_cdn, settings.speedsize_url_pfx_shop_domain_cdn | replace: settings.speedsize_duplicated_https_search, settings.speedsize_duplicated_https_replacement | replace: settings.speedsize_url_pfx_duplicated, settings.speedsize_url_pfx -}}
+    </div>
+  {%- endif -%}
+{%- endif -%}
